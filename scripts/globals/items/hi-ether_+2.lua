@@ -5,21 +5,15 @@
 -----------------------------------------
 
 require("scripts/globals/settings");
+require("scripts/globals/status");
+require("scripts/globals/jsr_item");
 
 -----------------------------------------
 -- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
-local value = 0;
-local mMP = target:getMaxMP();
-local cMP = target:getMP();
-
-if (mMP == cMP) then
-	value = 56; -- Does not let player use item if their hp is full
-end
-	
-return value;
+	return checkEther(target);
 end;
 
 -----------------------------------------
@@ -27,5 +21,5 @@ end;
 -----------------------------------------
 
 function onItemUse(target)
-	target:messageBasic(25,0,target:addMP(60*ITEM_POWER));
+	useEther(target, 80);
 end;

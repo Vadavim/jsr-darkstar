@@ -10,6 +10,7 @@ cmdprops =
 };
 
 function onTrigger(player, cp)
+    player:PrintToPlayer("hi");
     if (cp == nil or tonumber(cp) == 0) then
         player:PrintToPlayer("You must enter an amount.");
         return;

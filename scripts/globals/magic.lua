@@ -1308,34 +1308,34 @@ end;
 ---------------------------------------------------------------------
 
 function getElementalDebuffDOT(INT)
-	local DOT = 0;
-    if (INT<= 39) then
-        DOT = 1;
-    elseif (INT <= 69) then
-        DOT = 2;
-    elseif (INT <= 99) then
-        DOT = 3;
-    elseif (INT <= 149) then
-        DOT = 4;
-    else
-        DOT = 5;
-    end
+	local DOT = 4 + math.floor(INT / 4);
+    --if (INT<= 39) then
+    --    DOT = 1;
+    --elseif (INT <= 69) then
+    --    DOT = 2;
+    --elseif (INT <= 99) then
+    --    DOT = 3;
+    --elseif (INT <= 149) then
+    --    DOT = 4;
+    --else
+    --    DOT = 5;
+    --end
     return DOT;
 end;
 
 function getElementalDebuffStatDownFromDOT(dot)
-	local stat_down = 0;
-    if (dot == 1) then
-        stat_down = 5;
-    elseif (dot == 2) then
-        stat_down = 7;
-    elseif (dot == 3) then
-        stat_down = 9;
-    elseif (dot == 4) then
-        stat_down = 11;
-    else
-        stat_down = 13;
-    end
+	local stat_down = 5 + math.floor(dot / 2);
+    --if (dot == 1) then
+    --    stat_down = 5;
+    --elseif (dot == 2) then
+    --    stat_down = 7;
+    --elseif (dot == 3) then
+    --    stat_down = 9;
+    --elseif (dot == 4) then
+    --    stat_down = 11;
+    --else
+    --    stat_down = 13;
+    --end
     return stat_down;
 end;
 

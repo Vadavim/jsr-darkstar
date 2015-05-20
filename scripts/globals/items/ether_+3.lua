@@ -5,13 +5,15 @@
 -----------------------------------------
 
 require("scripts/globals/settings");
+require("scripts/globals/jsr_item");
+require("scripts/globals/status");
 
 -----------------------------------------
 -- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
-        return 0;
+	return checkEther(target);
 end;
 
 -----------------------------------------
@@ -19,6 +21,5 @@ end;
 -----------------------------------------
 
 function onItemUse(target)
-        target:addMP(40*ITEM_POWER);
-	target:messageBasic(25,0,40);
+	useEther(target, 40);
 end;

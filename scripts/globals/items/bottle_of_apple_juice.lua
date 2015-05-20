@@ -20,7 +20,7 @@ end;
 
 function onItemUse(target)
 	if(target:hasStatusEffect(EFFECT_REFRESH) == false) then
-		target:addStatusEffect(EFFECT_REFRESH,1,3,135);
+		target:addStatusEffect(EFFECT_REFRESH,2,3,60);
 	else
 		target:messageBasic(423);
 	end

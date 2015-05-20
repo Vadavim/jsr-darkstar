@@ -16,6 +16,6 @@ end;
 
 function onSpellCast(caster,target,spell)
 	--doElementalNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus)
-	local dmg = doElementalNuke(35,1,caster,spell,target,false,1.0);
+    local dmg = doElementalNuke(35,1,caster,spell,target,false,1.0);
 	return dmg;
 end;

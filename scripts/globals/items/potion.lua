@@ -5,19 +5,20 @@
 -----------------------------------------
 
 require("scripts/globals/settings");
+require("scripts/globals/status");
+require("scripts/globals/jsr_item");
 
 -----------------------------------------
 -- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
-    return 0;
+    return checkPotion(target);
 end;
-
 -----------------------------------------
 -- OnItemUse
 -----------------------------------------
 
 function onItemUse(target)
-	target:messageBasic(24,0,target:addHP(50*ITEM_POWER));
+    usePotion(target, 50);
 end;

@@ -21,6 +21,12 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
+    local pet = player:getPet();
+    local tp = pet:getTP();
+    local level = player:getMainLvl();
+    local recovery = ( tp / 10 ) * ( 0.2 + (level / 30));
+    print(tostring(recovery));
+    player:addMP(recovery);
     target:despawnPet();
     target:delStatusEffect(EFFECT_AVATAR);
 end;

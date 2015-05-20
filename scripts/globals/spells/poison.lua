@@ -16,7 +16,7 @@ end;
 function onSpellCast(caster,target,spell)
 	local effect = EFFECT_POISON;
 
-	local duration = 30;
+	local duration = 60;
 	
 	    if (caster:hasStatusEffect(EFFECT_SABOTEUR)) then
         duration = duration * 2;
@@ -26,9 +26,9 @@ function onSpellCast(caster,target,spell)
 	local mINT = target:getStat(MOD_INT);
 
 	local dINT = (pINT - mINT);
-	local power = caster:getSkillLevel(ENFEEBLING_MAGIC_SKILL) / 25 + 1;
-	if power > 4 then
-		power = 4;
+	local power = caster:getSkillLevel(ENFEEBLING_MAGIC_SKILL) / 25 + 2;
+	if power > 8 then
+		power = 8;
 	end
 	
 	    if (caster:hasStatusEffect(EFFECT_SABOTEUR)) then

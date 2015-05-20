@@ -48,7 +48,7 @@ function onSpellCast(caster,target,spell)
 	local dia = target:getStatusEffect(EFFECT_DIA);
 
 	-- Calculate DoT (rough, though fairly accurate)
-	local dotdmg = 2 + math.floor(caster:getSkillLevel(DARK_MAGIC_SKILL) / 60);
+	local dotdmg = 2 + math.floor(caster:getSkillLevel(DARK_MAGIC_SKILL) / 30);
 
 	-- Do it!
 	if(BIO_OVERWRITE == 0 or (BIO_OVERWRITE == 1 and dia == nil)) then

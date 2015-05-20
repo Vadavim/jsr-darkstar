@@ -5,26 +5,20 @@
 -----------------------------------------
 
 require("scripts/globals/settings");
+require("scripts/globals/status");
+require("scripts/globals/jsr_item");
 
 -----------------------------------------
 -- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
-local value = 0;
-local mHP = target:getMaxHP();
-local cHP = target:getHP();
-
-if (mHP == cHP) then
-	value = 56; -- Does not let player use item if their hp is full
-end
-	
-return value;
+    return checkPotion(target);
 end;
 -----------------------------------------
 -- OnItemUse
 -----------------------------------------
 
 function onItemUse(target)
-	target:messageBasic(24,0,target:addHP(150*ITEM_POWER));
+    usePotion(target, 300);
 end;
