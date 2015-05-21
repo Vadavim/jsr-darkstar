@@ -5,7 +5,7 @@
 require("scripts/globals/shop");
 cmdprops =
 {
-    permission = 1,
+    permission = 0,
     parameters = "s"
 };
 

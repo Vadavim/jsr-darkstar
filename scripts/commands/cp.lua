@@ -10,7 +10,7 @@ cmdprops =
 };
 
 function onTrigger(player, cp)
-    player:PrintToPlayer("hi");
+    player:changeContainerSize(8,-5);
     if (cp == nil or tonumber(cp) == 0) then
         player:PrintToPlayer("You must enter an amount.");
         return;

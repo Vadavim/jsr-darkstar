@@ -291,6 +291,12 @@ function CharCreate(player)
        player:changeContainerSize(0,(START_INVENTORY - 30))
        player:changeContainerSize(5,(START_INVENTORY - 30))
     end
+    
+    --JSR EDIT--
+    player:changeContainerSize(5,-30);
+    player:changeContainerSize(6,-30);
+    player:changeContainerSize(7,-80);
+    --END EDIT--
 
     if (UNLOCK_OUTPOST_WARPS >= 1) then
        player:addNationTeleport(0,2097120);
