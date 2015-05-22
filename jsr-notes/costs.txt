@@ -1,0 +1,618 @@
+﻿Swords			CODE	ID	Cost		Notes	
+Bronze Sword		4097	16535	200
+Wax Sword +1		40E2	16610	600
+Xiphos			4092	16530	400
+Sapara +1		41A1	16801	900
+Spatha			40B5	16565	800		->Bee Spatha +1
+Bilbo			4080	16512	1200		→ Spark Bilbo +1
+Iron Sword		4098	16536	1800		→ Flame Sword	
+Gladius			4094	16532	2500	      	→ Strider Sword
+Centurion's Sword	41A6	16806	6000		→ Republic Sword
+Steel Kilij 		454B	17739	3200		→ Tulwar +1
+Mithril Sword		4099	16537	4200
+Spirit Sword		40E5	16613	8000
+Combat Cstr Scimitar	41A7	16807	10,000		→ Cmbt Cstr +2
+Junior Msk. Tuck	3C38	15416	5000		→ Tck +2
+Shotel			4525	17701	5000		→ Falchion +1
+Flame Blade		40B4	16564	6500
+Crimson Blade		41B6	16822	4500
+Tmpl Knt Army		40bb	16571	7000		→ +3 version
+
+
+Shields			CODE	ID	Cost		Notes
+Maple Shield		3002	12290	300		→ Nymph Shield +1
+Aspis +1		3025	12325	900
+Elm Shield		3003	12291	500		→ Strong Shield
+Mahogany Shield		3004	12292	6750
+Decurion's Shield	3031	12337	900		→ Republic Targe
+Turtle's Shield +1	307D	12413	1200
+Kite Shield +1		3026	12326	1600
+Targe +1		302F	12335	2000
+Heater Shield +1	3028	12328	2500
+Hard Shield		305A	12378	3200		→ Divine Shield +1
+
+	
+ADD_TO_NMS/QUESTS: Flat Shield, Strike Shield, Balance Buckler, 
+Viking Shield, Spellcaster's Ecu
+
+
+
+ARROWS
+Wooden Arrow		17318		1
+Bone Arrow		17319		1
+Iron Arrow		17320		1
+Fang Arrow		17332		2
+Beetle Arrow		18154		3
+Poison Arrow		18157		3
+Silver Arrow		17321		3
+Horn Arrow		18156		4
+Sleep Arrow		18158		4
+Gold Arrow		17317		4
+Scorpion Arrow		18155		5
+Fire Arrow		17322		5
+Ice Arrow		17323		5
+Lightning Arrow		17324		5
+Platinum Arrow		17334		6
+Bodkin Arrow		18178		9
+
+
+BOLTS
+Bronze Bolt		17339		1
+Blind Bolt		18150		1
+Acid Bolt		18148		2
+Sleep Bolt		18149		2
+Dogbolt +1		18190		1
+Bloody Bolt		18151		4
+Venom Bolt		18152		3
+Dogbolt +2		18191		1
+Holy Bolt		18153		3
+Dogbolt +3		18192		2
+Mythril Bolt		17337		4
+Dogbolt +4		18193		2
+Black Bolt		19200		5
+
+BOOMERANG
+Boomerange +1		17280		200
+Flame Boomerange	17291		500
+Platoon Disc		18171		650
+Platoon Edge		18170		800
+Wingedge +1		17288		1000
+Chakram +1		17289		1300
+Long Boom		17292		1750
+Cmbt Boom		18133		2100
+Jnr Mskt		18135		2100
+Yag Freezer		17293		2600
+
+
+BULLETS
+Bronze Bulet		17343		2
+Tin Bullet		19229		3
+Copper Bullet		18713		3
+Bullet			17340		6
+Spartan Bullet		18160		6
+Paktong Bullet		19228		8
+Antq Bul +1		17276		8
+Plat Bullet		17300		10
+Iron Bullet		17312		10
+Silver Bullet		17341		15
+
+THROW
+Dart			17307		1
+Hawkeye			17308		1
+Shuriken		17301		2
+Grenade			17313		2
+Pinwheel		17309		2
+Juji Shuriken		17302		6
+Quake Grenade		17314		3
+Tathlum			17298		2
+Hyo			17310		2
+Riot Grenade		17315		4
+Manji Shuriken		17303		9
+Astragalos		17299		4
+
+BOW
+Longbow			17160		100
+Self Bow +1		17176		250
+Hunter's Longbow	17183		400
+Power Bow +1		17178		700
+Wrapped Bow +1		17172		1000
+Great Bow +1		17180		1600
+Battle Bow +1		17181		2500
+War Bow +1		17173		4000
+
+CROSSBOW
+Light Crossbow +1	17228		150
+Crossbow		17217		300
+Almogavar Bow		17211		600
+Power Crossbow		17230		1000
+Zamburak +1		17229		1600
+Rikondo			17247		2000
+Tracker's Bow +1	19241		3200
+Arbalest +1		17226		4500
+
+GUNS
+Musketoon +1		19225		300 > Serpentine Gun
+Bandit's Gun +1		17258		750
+Arquebus +1		17254		1100
+Pirate's Gun +1		17260		1900
+Military Gun		17272		2500
+Mar's Hexgun +1		18716		2500
+Dark Hexgun +1		18705		3200
+Negorishikj +1		17269		4500
+Deluxe Carbine		17274		5500
+Musketeer Gun		17253		6500
+Seadog Gun +1		18710		6500
+
+
+DAGGERS
+Bronze Knife +1		16491		100	>Kris +1
+Blind Knife +1		16490		250
+Silence Dagger +1	16508		350
+Knife +1		16614		500 	> Poison Knife +1
+Poison Dagger +1	16741		700
+Kukri +1		16748		900 	> Poison Kukri +1
+Corrosive Dagger	17606		1200	> Corrosive Knife
+Ranging Knife+1		19127		1600
+Parrying Knife		16754		1900
+Sleep Dagger		16497		2600
+Hawker's Knife +1	17631		3000
+Thug Jambiya +1		19106		3200
+Kingdom Dagger		17973		3800
+Corrosive Baselard	17607		4450
+Bone Knife +1		17661		5000
+Corsair's Knife		16757		6000
+
+
+CLUBS
+Maple Wand +1		17087		150
+Willow Wand +1		17138		250
+Brass Hammer +1		17149		350
+Federation Club		17445		500
+Decurion's Hammer	17048		680
+Yew Wand +1		17140		850
+Warhammer +1		17115		1200
+Earth Wand		17076		1450
+Pixie Mace		17414		1900
+Eremite's Wand+1	17442		2200
+Kingdom Mace		17449		2450
+Warp Cudgel		17040		9000
+Holy Mace +1		17411		3000
+Rose Wand +1		17143		3400
+Lilith's Wand		17072		4000
+Time Hammer		17083		4000
+
+
+
+STAVES
+Ash Staff +1		17123		100	>Chanter's Staff
+Ash Pole +1		17122		200
+Holly Staff +1		17125		350	>Misery Staff
+Holly Pole +1		17124		480	>Pastoral Staff
+Elm Staff +1		17126		750	>Himmel Stock
+Spiked Club +1		17425		1100
+Dolphin Staff		17134		1300	>Whale Staff +1
+Elm Pole +1		17119		1650
+Oak Pole +1		17120		2000
+Footman's Staff		17524		2450
+Walrus Staff		17135		3200
+
+AXES
+Bronze Axe +1		16646		100
+Brass Axe +1		16661		225	>Tabar+1
+Bone Axe +1		16666		480
+Battleaxe +1		16663		850
+War Pick +1		16664		1200
+Warrior's Axe		16673		1600
+Mythril Axe +1		16665		2100
+Storm Axe		16675		2800
+Viking Axe		16676		5200
+Mythril Pick +1		16670		3400
+
+KATANAS
+Kunai +1		16914		150
+Wakazashi +1		16918		250
+Shinobi-gatana +1	16920		400
+Suzume			16917		700
+Hibari +1		17777		1000
+Busuto +1		16927		1300
+Kodachi +1		16921		1700
+Midare +1		19281		2300
+Bokuto +1		16926		3000
+Yoto +1			17768		3800
+Sai +1			17796		4400
+Buboso			18411		5000
+Kagboshi		16897		5000
+
+H2H
+Cesti +1		16690		150 >Cougar Bag
+Bronze Knuckles +1	16640		250 > Snic Knuckles
+Brass Bag +1		16441		380
+Burning Cesti		16398		525
+Strike Baghnakhs	16701		800
+Metal Knuckles +1	16437		1000
+Poison Cesti +1		16700		1350
+Impact Knuckles		16703		1900
+Poison Claws +1		16439		2300
+Corrosive Claws		17487		2800
+Patas +1		16696		3400
+Cross Counters		17472		4200
+
+POLEARMS
+Harpoon +1		16862		150
+Bronze Spear +1		16859		250	> Wind Spear
+Brass Spear +1		16864		380
+Cruel Spear		16863		700
+Spear +1		16865		1000
+Military Spear		18090		1350
+Lizard Piercer		16853		1700
+Lance +1		16876		2100
+Obelisk Lance +1	16891		2500
+Orc Piercer		16867		2900
+Trident			16837		3400
+Mythril Lance +1	16877		4200
+	
+
+SCYTHES
+Bronze Zaghnal +1	16778		100
+Brass Zaghnal +1	16772		250
+Republic Scythe		18039		400
+Cruel Scythe		16773		800
+Frostreaper		16784		1000
+Federation Scythe	18037		1300
+Harvester		16785		1600
+Mythril Scythe +1	16782		2000
+Mythril Zaghnal +1	16797		2400
+Antlion Sickle		18051		2900
+Falcastra		16771		3400
+Barbarian's Scythe	16786		4000
+
+GREATSWORDS
+Rusty Greatsword	16606		100
+Claymore +1		16638		250
+Burning Claymore	16929		400
+Estramacon		19160		650
+Braveheart		16934		800
+Two-handed Sword +1	16931		1000
+Hellfire Sword		16928		1250
+Demonic Sword		16936		1650
+Fine Claymore		16639		1950
+Ice Brand		16937		2350
+Gust Sword +1		18369		3150
+Cobra Unit Claymore	19150		4250
+
+GREAT KATANA
+Tachi +1		16981		300
+Uchigatana +1		16978		550
+Nodachi +1		16983		850
+Okanehira		16987		1100
+Kotetsu			16988		1400
+Homura +1		16986		1900
+Hosodachi +1		17800		2450
+Mikazuki +1		16989		2900
+Odenta			16991		3200
+Koryukagemitsu		16965		4300
+
+GREAT AXES
+Butterfly Axe +1	16716		200
+Hellfire Axe		16713		400
+Greataxe +1		16717		650
+Neckchopper		16714		980
+Military Axe		18212		1200
+Voulge +1		18215		1650 > Horror Voulge
+Heavy Axe +1		16718		2000
+Huge Moth Axe		16721		2300
+Raifu			18210		2650
+Tewhatewha +1		18509		3300
+Gigant Axe		16710		3750
+Leucous Voulge +1	18219		4800
+
+MISC
+Brass Grip +1		19010		2500
+Lizad Leather Srap +1	19012		650
+Tiny Tathlum		19186		1200
+Morion Tathlum		18136		2000
+Brio Dart		19243		2000
+Holy Ampulla		18137		500
+
+
+JUGS
+Carrot			17860		20
+Herbal			17864		20
+Fish			17876		20
+Fish Oil		17877		55
+Alchemist's		17822		35
+Wormy			17905		35
+Humus			17868		50
+Meat			17870		80
+Grass			17885		65
+Bug			17862		90
+Carrion			17866		110
+Seedbed			17880		110
+Mole			17887		125
+Tree			17872		145
+Antica			17891		155
+
+JUGS2
+Famous Carrot		17861		170
+Singing Herbal		17865		170
+Blood			17889		190
+Rich Humus		17869		240
+Warm Meat		17871		240
+Quadav			17863		270
+Cold Carrion		17867		270
+Noisy Grass		17886		270
+Lively Mole		17888		270
+Scarlet Sap		17873		350
+Clear Blood		17890		350
+Fragrant Antica		17892		350
+Sun Water		17884		450
+
+
+
+TREATS
+Pet Food Alpha		17016		5
+Pet Food Beta		17017		10
+Pet Food Gamma		17018		20
+Pet Food Delta		17019		30
+Pet Food Epsilon	17020		40
+Pet Food Zeta		17021		60
+
+
+WHITE
+Cure			4609		100
+Cure II			4610		750
+Cure III		4611		2000
+Cure IV			4612		6000
+Cure V			4613		12000
+Curaga			4615		1500
+Curaga II		4616		4000
+Curaga III		4617		7000
+Curaga IV		4618		15000
+Raise			4620		1500
+Raise II		4621		6000
+Poisona			4622		100
+Paralyna		4623		250
+Blindna			4624		450
+Silena			4625		700
+Stona			4626		1200
+Viruna			4627		2000
+Cursna			4628		2000
+Holy			4629		7500
+Dia			4631		150
+Dia II			4632		2000
+Banish			4636		150
+Banish II		4637		1200
+Banish III		4638		6000
+Diaga			4641		500
+Banishga		4646		900
+Banishga II		4647		4500
+Protect			4651		150
+Protect II		4652		1200
+Protect III		4653		3200
+Protect IV		4654		8000
+Shell			4656		1000
+Shell II		4657		3200
+Shell III		4658		8000
+Shell IV		4659		12000
+Blink			4661		3000
+Stoneskin		4662		6500
+Aquaveil		4663		500
+Slow			4664		1500
+Haste			4665		8000
+Paralyze		4666		350
+Silence			4667		900
+Barfire			4668		1200
+Barblizzard		4669		1800
+Baraero			4670		700
+Barstone		4671		300
+Barthunder		4672		2400
+Barwater		4673		500
+Barfira			4674		2300
+Barblizzara		4675		2800
+Baraera			4676		1400
+Barstonra		4677		400
+Barthundra		4678		3300
+Barwatera		4679		900
+Barsleep		4680		300
+Barpoison		4681		500
+Barparalyze		4682		800
+Barblind		4683		1300
+Barsilence		4684		2000
+Barpetrify		4685		4000
+Barvirus		4686		3500
+
+
+
+
+
+
+
+
+
+
+Head
+
+Hat			CODE	ID	Cost		Notes
+Leather Bandana		2FD0	12240	150		>Kingdom Bandana
+Faceguard		3090	12432	250		>augment		
+Brass Hairpin		30D1	12497	250		>augment
+Sage's Circlet		30F2	12530	900
+Cotton Headband		30D2	12498	400		>Blink Band
+Noble's Ribbon		3609	13833	400		>Rival Ribbon
+Lizard Helm +1		30C0	12480	650
+Baron's Chap		3B68	15208	1200		>Penance Hat
+Beetle Mask +1		3603	13827	900
+Precision Bandana	25E5	9701	5500
+Seer's Crown +1		3B3E	15166	4200
+Strong Bandana		3600	13824	1200		
+Silver Mask +1		30F5	12533	2200
+Blink Band		3B42	15170	8000
+Sallet +1		3607	13831	3200
+Raven Beret		
+
+ADD TO NMS/QUESTS: Valkyrie's Mask, Walkure Mas, Garrison Salet, 
+Blissful Chapeau, Shade Tiara +1
+
+
+NECK			CODE	ID	COST		NOTES
+Leather Gorget		3319	13081	100
+Scale Gorget		330f	13071	150
+Focus Collar		3fad	16301	1200
+Spike Necklace		3305	13061	2100
+Hemp Gorget +1		330c	13068	900
+Wolf Gorget +1		330e	13070	1200
+Agile Gorget		336c	13164	2800
+Jagd Gorget		336d	13165	4200
+Mohbwa Scarf +1		3f86	16262	4200
+Wing Gorget		3358	13144	5000
+Beak Necklace +1	3f88	16264	5000
+
+BODY
+Leather Vest		3118	12568	300
+Tunic +1		3148	12616	500
+Mana Tunic		389a	14490	2500 -> Mana Cloak>High Mana Cloak
+Solid Mail		3175	12661	1000
+Doublet +1		312f	12591	1000
+Healing Harness		389f	14495	1500		>High Heal Harness
+Fine Jerkin		3581	13697	1800
+Baron's Saio		386f	14447	2500
+Beetle Harness		3595	13717	3200
+Steam Scale Mail	3117	12567	4000
+Faerie Tunic		35a3	13731	4000
+Strong Vest		358b	13707	5200
+Channeling Robe		2c4b	11339	6300
+Strong Harness		3177	12663	7000
+Cuir Bouilli +1		358d	13709	8000		>Brigandine Armor +1
+Breastplate +1		359c	13724	9000
+Salutary Robe +1	2c54	11348	10000
+Carapace Harness +1	3592	13714	11000
+Dino Jerkin		359f	13727	12500
+Mithril Breastplate+1	35a9	13737	15000
+White Cloak +1		316b	12651	17000
+
+INTERESTING: Divine Breastplate(WHM), Jujitsu Gi, Penance, Raven Jupon
+
+
+BACK
+Cape			350f	13583	120
+Rabbit Mantle		351a	13594	80
+Lizard Mantle +1	3528	13608	225
+Cotton Cape		3510	13584	225
+Breath Mantle		3c7e	15486	350
+Wolf Mantle +1		3529	13609	600
+Black Cape +1		352a	13610	1500
+White Cape +1		3511	13585	1500
+High Breath Mantle	3c7f	15487	1500
+Cavalier's Mantle +1	3544	13636	1500
+Red Cape +1		352b	13611	2200
+Bat Cape		351e	13598	3000
+Heavy Mante		356c	13676	3000
+
+
+HANDS			CODE	ID	COST
+Leather Gloves		12696		100
+Mitts			12736		100		>Seer's Mitts +1
+Linen Cuffs +1		12778		250		>Concealing Cuffs
+Fine Gloves		12785		350
+Beetle Mittens +1	12789		550		>Combat Mitts +1
+Kampfhentzes		14863		800
+Gigas Bracelets		12726		1500
+Mage's Cuffs		12793		2000
+Gauntlets +		12791		2250
+Luisant Moufles		14052		2750
+Dino Gloves		12795		3100
+Mythril Gauntlets +1	13958		4000
+Mage's Mitts		12794		4000
+
+
+NOTEWORTHY: Ochiudo's Kote, Horomusha Kote, Thunder Mittens, Aero Mufflers, Blizzard Gloves, Fire Bracers, Water Mitts
+
+
+WAIST			CODE	ID	COST
+Leather Belt		13192		75	>Warrior's Belt +1
+Blood Stone +1		13226		300	>Augment +5 HP
+Augmentig Belt		15889		500
+Heko Obi +1		13190		500	>Gold Obi +1
+Lizard Belt +1		13181		350
+Mohbwa Sash +1		15906		900	>Qiqirn Sash +1
+Chain Belt +1		13213		900
+Corsette +1		13272		1200
+Haste Belt		15290		2000
+Tilt Belt		15286		2000	>Life Belt
+Vanguard Belt		15434		3000
+Royl Kgt Belt		13220		3000	
+Volant Belt		15945		4000
+NOTE: Reverend Sash, Purple/Brown Belt
+
+LEGS			CODE	ID	COST
+Leather Trousers	12824		125	>Cuir Trousers +1
+Slacks +1		12898		200	>Mage's Slacks
+Bone Subligar +1	12912		650
+Baron's Slops		15405		900
+Chain Hose +1		12808		1200
+Seer's Slacks +1	14328		2250
+Kampfdiechlings		14332		2250
+Strong Trousers		12910		2500	>Magic Cuisses
+Iron Subligar +1	12891		3200
+Mage's Slops		12918		3800
+Dino Trousers		12919		4800
+ythril Cuisses +1	14211		6400
+White Slacks +1		12926		7000
+
+
+NOTE: Martial Slacks
+
+FEET			CODE	ID	COST
+Leather Highboots	12952		70
+Brass Leggins +1	13027		250
+Holly Clogs +1		12991		250
+Light Soleas		13052		900	>Air Solea +1
+Bone Leggings +1	13042		500	>Mettle Leggings +1
+Mage's Sandles		13048		800	>Seer's Pumps +1
+Winged Boots +1		14133		1200
+Kampfschuhs		15321		1600
+Cuir Highboots +1	13041		2400
+Ebony Sabots +1		13023		2400
+Carapace Legs +1	13715		3200
+Mythril Legs +1		14086		3800
+Mocassins +1		13050		4000
+
+
+NOTE: Mountain Gaiters
+
+
+
+EARRINGS
+Energy Ear +1		14694		1500	>Astral Earring
+Hope Ear +1		14695		1500	>Bloodbead Ear
+Silver Ear +1		13370		800
+Bone Ear +1		13362		1800
+Beetle Ear +1		13326		2500
+Myhril Ear +1		13371		1400
+Cunning Ear		14760		3000	>Morion Ear +1
+Wing Earring		13322		4500
+Buckler Ear		14769		3000
+Geist Ear		14766		3000
+Allure Ear +1		14711		7000
+Mana Ear +1		14710		7000
+NOTES: Drone Earring
+
+
+RINGS
+Saintly Ring		13282		1500	>Sol Ring+1
+Eremite Ring		13284		1500	>Wis Ring+1
+Safeguard Ring		14670		400	>Aegis Ring
+Courage Ring		13522		2500	>Puis Ring+1
+Balance Ring		13524		2500	>Deft Ring+1
+Stamina Ring +1		14597		1200	>Verve Ring+1
+Hope Ring +1		14599		1200	>Loyal Ring+1
+Beetle Ring +1		13501		2000	>Marksman's Ring
+Smilodon Ring +1	15837		3800
+Aura Ring+1		14606		4000
+Ether Ring		13549		5500
+Crossbow Ring		13550		550
+Feral Ring		15802		3800
+Assailant's Ring	14676		6000
+Ecphoria Ring		15817		8000
+
+Note: Woodsman
