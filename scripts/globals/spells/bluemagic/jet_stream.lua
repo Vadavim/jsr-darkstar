@@ -37,9 +37,9 @@ function onSpellCast(caster,target,spell)
         params.dmgtype = DMGTYPE_BLUNT;
         params.scattr = SC_IMPACTION;
         params.numhits = 3;
-        params.multiplier = 1.125;
-        params.tp150 = 1.2;
-        params.tp300 = 1.4;
+        params.multiplier = 1,125;
+        params.tp150 = 1.7;
+        params.tp300 = 1.9;
         params.azuretp = 1.5;
         params.duppercap = 39; --guesstimated acc % bonuses  
         params.str_wsc = 0.0;

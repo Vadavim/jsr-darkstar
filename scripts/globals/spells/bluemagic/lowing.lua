@@ -31,7 +31,7 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    local duration = 60;    
+    local duration = 120;    
     local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
     local resist = applyResistance(caster,spell,target,dINT,37);
     
@@ -39,6 +39,12 @@ function onSpellCast(caster,target,spell)
     -- resisted!
         spell:setMsg(85);
         return 0;
+    end
+
+	if(target:hasStatusEffect(EFFECT_INT_DOWN) == true) then
+        -- no effect
+    else
+        target:addStatusEffect(EFFECT_CHA_DOWN,30,0,duration);
     end
 
         target:addStatusEffect(EFFECT_PLAGUE,5,0,duration);

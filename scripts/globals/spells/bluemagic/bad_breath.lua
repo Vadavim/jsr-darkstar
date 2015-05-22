@@ -33,24 +33,24 @@ function onSpellCast(caster,target,spell)
 
     local params = {};
     -- This data should match information on http://wiki.ffxiclopedia.org/wiki/Calculating_Blue_Magic_Damage
-    local multi = 2.08;
+    local multi = 2.9;
     if(caster:hasStatusEffect(EFFECT_AZURE_LORE)) then
         multi = multi + 0.50;
     end
         params.multiplier = multi;
-        params.tMultiplier = 1.5;
-        params.duppercap = 69;
+        params.tMultiplier = 1.75;
+        params.duppercap = 75;
         params.str_wsc = 0.0;
         params.dex_wsc = 0.0;
-        params.vit_wsc = 0.0;
+        params.vit_wsc = 1.0;
         params.agi_wsc = 0.0;
         params.int_wsc = 0.0;
-        params.mnd_wsc = 0.3;
+        params.mnd_wsc = 0.0;
         params.chr_wsc = 0.0;
-    damage = BlueMagicalSpell(caster, target, spell, params, MND_BASED);
+    damage = BlueMagicalSpell(caster, target, spell, params, VIT_BASED);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
 
-    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT) - target:getStat(MOD_INT),BLUE_SKILL,1.0);
+    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT) - target:getStat(MOD_VIT),BLUE_SKILL,1.0);
 
     if(damage > 0 and resist > 0.3) then
         local typeEffect = EFFECT_PARALYSIS;
@@ -67,13 +67,13 @@ function onSpellCast(caster,target,spell)
     if(damage > 0 and resist > 0.3) then
     local typeEffect = EFFECT_POISON;
         target:delStatusEffect(typeEffect); 
-        target:addStatusEffect(typeEffect,4,0,getBlueEffectDuration(caster,resist,typeEffect));
+        target:addStatusEffect(typeEffect,10,0,getBlueEffectDuration(caster,resist,typeEffect));
     end
     
     if(damage > 0 and resist > 0.3) then
     local typeEffect = EFFECT_SLOW;
         target:delStatusEffect(typeEffect);
-        target:addStatusEffect(typeEffect,25,0,getBlueEffectDuration(caster,resist,typeEffect));
+        target:addStatusEffect(typeEffect,250,0,getBlueEffectDuration(caster,resist,typeEffect));
     end
     
     if(damage > 0 and resist > 0.3) then

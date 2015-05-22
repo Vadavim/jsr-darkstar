@@ -31,7 +31,7 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    local duration = 60;
+    local duration = 120;
     local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
     local resist = applyResistance(caster,spell,target,dINT,37);
     
