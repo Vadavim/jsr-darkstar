@@ -42,7 +42,7 @@ function onSpellCast(caster,target,spell)
         caster:delStatusEffect(EFFECT_DIFFUSION);
     end
     
-    if(target:addStatusEffect(EFFECT_HASTE,102,0,duration) == false) then
+    if(target:addStatusEffect(EFFECT_HASTE,150,0,duration) == false) then
         spell:setMsg(75);
     end
 

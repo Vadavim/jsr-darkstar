@@ -37,7 +37,7 @@ function onSpellCast(caster,target,spell)
         params.dmgtype = DMGTYPE_BLUNT;
         params.scattr = SC_FRAGMENTATION;
         params.numhits = 1;
-        params.multiplier = 1.95;
+        params.multiplier = 2.3;
         params.tp150 = 1.25;
         params.tp300 = 1.25;
         params.azuretp = 1.25;
@@ -57,7 +57,7 @@ function onSpellCast(caster,target,spell)
     if(damage > 0 and chance > 10) then
         local typeEffect = EFFECT_PARALYSIS;
         target:delStatusEffect(typeEffect);
-        target:addStatusEffect(typeEffect,1,0,getBlueEffectDuration(caster,resist,typeEffect));
+        target:addStatusEffect(typeEffect,25,0,getBlueEffectDuration(caster,resist,typeEffect));
     end
     
     return damage;

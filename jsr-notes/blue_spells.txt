@@ -1,0 +1,322 @@
+PHYSICAL SPELLS
+
+[Queesy Shroom]
+ - Poison damage is 1 + (level/4), to a max of 12.
+
+[Feather Storm]
+ - Poison damage is 2 + (level/6), to a max of 8.
+
+[Helldive]
+ - fTP: 1.45(1.25), 2.25(2.00), 3 (2.375)
+ - D: 21 (19)
+
+[Bludgeon]
+ - fTP: 0.8(1.0)
+
+[Screwdriver]
+ - fTP: 1.6 (1.375)
+
+[Grand Slam]
+ - WSC: 50% Vit, 50% Str
+ - Dupper is 80
+
+[Terror Touch]
+ - WSC: 20% Dex, 60(20)% Int
+ - D cap: 43 (41)
+ - Duration: 90 (60) seconds
+
+[Mandibular Bite]
+ - D cap: 50 (45)
+
+[Sickle Slash]
+ - WSC: 100(50)% Dex
+ - D cap: 60 (49)
+
+[Spinal Cleave]
+ - WSC: 40(30)% Str
+
+[Cannon Ball
+ - WSC 50% Str, 100(50)% Vit
+
+[Hydro Shot]
+ - WSC: 30% Agi, 30(0)% Int
+ - Instead inflicts Drown.
+
+[Ram Charge]
+ - WSC: 30% Str, 50% Mnd, 50(0)% Vit
+ - fTP: 1.0(1.0), 3.0(1.75), 6.0(1.875)
+
+MAGICAL SPELLS
+
+[Blastbomb]
+ - Multiplier: 1.5 (1.375)
+ - WSC: 40(20)% Int
+ - D cap 32 (30)
+
+[Cursed Sphere]
+ - Multiplier: 2 (1.5)
+ - WSC: 50(30)% Int
+ - D cap: 35 (30)
+
+[Bomb Toss]
+ - Multiplier: 2.8 (1.625)
+ - D cap: 45 (40)
+ - WSC: 50(20)% Int
+
+[Death Ray]
+ - Multiplier: 3.2 (1.625)
+ - D cap: 61 (51)
+ - WSC: 40(20)% Int, 20(10)% Mnd
+
+[Blitztrahl]
+ - Multiplier: 3.0 (1.5625)
+ - D cap: 66 (61)
+ - WSC: 60(30)% Int, 20(10)% Mnd
+
+[Ice Break]
+ - Multiplier: 3.8 (2.25)
+ - T multiplier: 1.5
+ - WSC: 60(30)% Int
+
+[Maelstrom]
+ - Multiplier: 4.0 (2.375)
+ - T multiplier: 1.75
+ - WSC: 60(30)% Int, 20(10)% Mnd
+
+[Firespit]
+ - Multiplier: 4.5 (3.0)
+ - T multiplier: 2.5
+ - WSC: 40(20)% Int, 40(20)% Mnd
+
+[Mysterious Light]
+ - Multiplier: 3.4 (2.00)
+ - WSC: 100(20)% Chr
+
+[Eyes on Me]
+ - Multiplier: 4.0 ( 2.625)
+ - T Multiplier: 2.0
+ - WSC: 100(20)% Chr
+
+DRAIN SPELLS
+
+[Blood Drain]
+ - Drains: 1 + (0.66 * BLUE SKILL)
+ - Casting time: 2(4) seconds
+
+[Digest]
+ - Drains: 10 + (0.9 * BLUE SKILL)
+ - Casting time 2(4) seconds
+
+[Blood Saber]
+ - Drains: 10 + (0.9 * BLUE SKILL)
+ - Casting time 2(4) seconds
+
+[MP Drainkiss]
+ - Casting time: 2(4) seconds
+ - MP Cost: 1(20)
+
+BREATH SPELLS
+Breath spells are now Vit-based magical damage spells.
+The true damage of breath spells is multiplied by the caster's
+current HP percentage. So at 50%, a breath spell will
+only deal 50% of its normal damage.
+
+[Poison Breath]
+ - Multiplier: 1.5
+ - T Multiplier: 1.0
+ - WSC: 100% Vit
+ - D Cap: 40
+ - Poison: (1 + level / 4)/tic, max of 10.
+
+[Magnetite Cloud]
+ - Multiplier: 3.4
+ - T Multiplier: 1.25
+ - WSC: 100% Vit
+ - D Cap: 55
+
+[Hecatomb Wave]
+ - Multiplier: 3.8
+ - T Multiplier: 1.5
+ - WSC: 100% Vit
+ - D Cap: 65
+ - Blind is -25 ACC
+
+[Radiant Breath]
+ - Multiplier: 3.6
+ - T Multiplier: 1.5
+ - WSC: 100% Vit
+ - D Cap: 65
+
+[Flying Hip Press]
+ - Multiplier: 3.9
+ - T Multiplier: 1.75
+ - WSC: 100% Vit
+ - D Cap: 70
+
+[Bad Breath]
+ - Multiplier: 2.9
+ - T Multiplier: 1.75
+ - WSC: 100% Vit
+ - D Cap: 75
+ - Poison: 10/tic
+ - Paralyze: 25% chance of losing action
+ - Slow: comperable to Slow spell
+ - Blind: -25 ACC
+
+[Frost Breath]
+ - Multiplier: 4.4
+ - T Multiplier: 2
+ - WSC: 100% Vit
+ - D Cap: 75
+ - Paralyze: 25% chance of losing action
+
+[Heat Breath]
+ - Multiplier: 5.0
+ - T Multiplier: 2.5
+ - WSC: 100% Vit
+ - D Cap: 75
+
+
+
+--------
+ENHANCING SPELLS
+
+
+[Refueling]
+ - Haste is 15(10)%
+
+[Feather Barrier]
+ - Duration: 5(1.3)min
+ - +20 EVA
+
+[Momento Mori]
+ - Casting Time: 0.5(6) seconds
+ - +35(20) MATK
+
+[Voracious Trunky]
+ - Casting Time: 2 (10) seconds
+
+[Diamondhide]
+ - Prevents damage equal to BLUE SKILL
+
+[Warmup]
+ - Duration: 600 (300) seconds
+
+[Amplification]
+ - Duration: 600 (90) seconds
+
+[Saline Coat]
+ - Duration: 300 (60) seconds
+ - +25 MDEF
+
+
+-------
+EFEEBLING SPELLS
+
+[Sound Blast]
+ - Casting Time: 1 (4) second
+ - INT penalty: -20
+ - Duration: 60 seconds
+ - Set Bonus: +2 INT
+
+[Chaotic Eye]
+ - Casting Time: 1 (3) second
+ - Blue Points: 1 (2)
+ - +1 AGI, +1 CHR, +1 MND
+
+[Blank Gaze]
+ - Casting Time: 1 second
+ - Blue Points: 1 (2)
+ - Set Bonus: +2 CHR
+
+[Venom Shell]
+ - Casting Time: 2 (3) seconds
+ - Blue Points: 2 (3)
+ - Set Bonus: +2 MND, +10 MP
+ - Poison: (12 + Level / 3)/tic.
+ - Duration: 60 seconds
+
+[Stinking Gas]
+ - Casting Time: 2 (4) seconds
+ - VIT penalty: -20 
+ - Duration: 90 seconds
+
+[Awful Eye]
+ - Casting Time: 1 (2.5) seconds
+ - STR Penalty: -20
+ - Duration: 60 Seconds
+ - Blue Points: 1 (2)
+ - Set Bonus: +1 MND, +2 CHR
+
+[Jettatura]
+ - Blue Points: 2 (4)
+ - Set Bonus: +15 MP, +2 AGI
+
+[Filamented Hold]
+ - Blue Points: 2 (3)
+ - Set Bonus: +2 VIT, +10 HP
+
+[Light of Penance]
+ - TP Damage: Reduces target's TP by 80.
+ - Blind: -20 ACC
+ - Blue Points: 2 (5)
+ - Set Bonus: +2 CHR, +30 HP
+
+[Feather Tickle]
+ - TP Drain: Drains 30 TP and adds to self.
+ - Blue Points: 2 (3)
+ - Casting Time: 1 (4) second
+ - Set Bonus: +2 AGI, +2 DEX
+
+[Infrasonics]
+ - Casting Time: 1 (5) second
+ - Blue Points: 2 (3)
+ - Set Bonus: Int +3
+ - Duration: 120 (60) seconds
+
+[Sandspray]
+ - Casting Time: 1 (3) seconds
+ - Blue Points: 1 (3)
+ - Set Bonus: VIT +2, HP +10
+ - Blind: -25 ACC
+ - Duration: 360 (60) seconds
+
+[Ennervation]
+ - Casting Time: 2 (6) seconds
+ - Stat Bonus: +1 Int, +1 Cha, +15 MP
+ - Blue Points: 3 (5)
+ - DEF/MDEF Down: -12%
+
+[Lowing]
+ - Casting Time: 2 (7) seconds
+ - Stat Bonus: VIT +2, HP +20
+ - Also lowers target's CHA by -30
+ - Duration: 120 seconds
+
+
+
+-------
+OTHER
+
+[1000 Needles]
+ - Always deals 1000 damage
+
+[Exhuviation]
+ - Heals for 400 HP
+
+[Self Destruct]
+ - Sacrifices half of HP to deal damage to target.
+ - Does not cause weakness.
+ - Recast: 60 (21) seconds.
+ - Set Bonus: STR +2, HP +20
+
+
+
+
+
+
+
+
+
+
+

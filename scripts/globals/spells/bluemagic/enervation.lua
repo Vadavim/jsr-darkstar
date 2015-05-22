@@ -36,13 +36,13 @@ function onSpellCast(caster,target,spell)
     if(damage > 0 and resist > 0) then
         local typeEffect = EFFECT_DEFENSE_DOWN;
         target:delStatusEffect(typeEffect);
-        target:addStatusEffect(typeEffect,10,0,getBlueEffectDuration(caster,resist,typeEffect));
+        target:addStatusEffect(typeEffect,12,0,getBlueEffectDuration(caster,resist,typeEffect));
     end
     
     if(damage > 0 and resist > 0) then    
         local typeEffect = EFFECT_MAGIC_DEF_DOWN;
         target:delStatusEffect(typeEffect);
-        target:addStatusEffect(typeEffect,8,0,getBlueEffectDuration(caster,resist,typeEffect));
+        target:addStatusEffect(typeEffect,12,0,getBlueEffectDuration(caster,resist,typeEffect));
     end
 
     return EFFECT_DEFENSE_DOWN;

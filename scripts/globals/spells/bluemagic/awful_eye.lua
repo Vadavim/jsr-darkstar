@@ -31,18 +31,23 @@ end;
 
 function onSpellCast(caster,target,spell)
     
-    if(target:hasStatusEffect(EFFECT_STR_DOWN)) then
-        spell:setMsg(75); 
-    else        
-        local dINT = caster:getStat(MOD_INT) - target:getStat(MOD_INT);
-        local resist = applyResistance(caster,spell,target,dINT,37,0);
-        if(resist <= 0) then
-            spell:setMsg(85);
-        else
-            spell:setMsg(329);
-            target:addStatusEffect(EFFECT_STR_DOWN,ABSORB_SPELL_AMOUNT*resist, ABSORB_SPELL_TICK, ABSORB_SPELL_AMOUNT*ABSORB_SPELL_TICK,FLAG_ERASBLE); -- target loses STR
-        end
-    end
+    local duration = 90;
+    local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
+    local resist = applyResistance(caster,spell,target,dINT,37);
     
-    return EFFECT_STR_DOWN;
+    if(resist > (0.0652)) then
+        -- resisted!
+        spell:setMsg(85);
+        return 0;
+    end
+
+    if(target:hasStatusEffect(EFFECT_STR_DOWN) == true) then
+        -- no effect
+        spell:setMsg(75);
+    else
+        target:addStatusEffect(EFFECT_STR_DOWN,20,0,duration);
+        spell:setMsg(236);
+    end
+
+    return EFFECT_INT_DOWN;
 end;

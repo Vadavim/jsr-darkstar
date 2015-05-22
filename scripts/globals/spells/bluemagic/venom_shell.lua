@@ -31,7 +31,7 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    local duration = 30;
+    local duration = 60;
     local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
     local resist = applyResistance(caster,spell,target,dINT,37);
     if(resist > (0.0652)) then
@@ -44,7 +44,8 @@ function onSpellCast(caster,target,spell)
         -- no effect
         spell:setMsg(75);
     else
-        target:addStatusEffect(EFFECT_POISON,6,0,duration);
+	local power = 12 + caster:getMainLvl()/3;
+        target:addStatusEffect(EFFECT_POISON,power,0,duration);
         spell:setMsg(236);
     end
 

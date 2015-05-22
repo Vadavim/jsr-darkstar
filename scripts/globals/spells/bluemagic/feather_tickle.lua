@@ -31,12 +31,13 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    local tp = 15;
+    local tp = 30;
     
     if(target:getTP() == 0) then
         spell:setMsg(75); 
     else
         target:delTP(tp);
+	caster:addTP(tp);
         spell:setMsg(431);
     end
     

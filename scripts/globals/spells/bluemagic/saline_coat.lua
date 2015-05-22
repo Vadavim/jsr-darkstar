@@ -47,7 +47,7 @@ function onSpellCast(caster,target,spell)
     if(caster:hasStatusEffect(EFFECT_MAGIC_DEF_BOOST) == true) then
         spell:setMsg(75);
     else
-        caster:addStatusEffect(EFFECT_MAGIC_DEF_BOOST,40,0,duration);
+        caster:addStatusEffect(EFFECT_MAGIC_DEF_BOOST,25,0,duration);
     end
 
     return EFFECT_MAGIC_DEF_BOOST;

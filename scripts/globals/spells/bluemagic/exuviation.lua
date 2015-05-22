@@ -31,7 +31,7 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    local minCure = 60;
+    local minCure = 400;
     local effect = target:eraseStatusEffect();
     local divisor = 0.6666;
     local constant = -45;

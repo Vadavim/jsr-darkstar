@@ -38,10 +38,10 @@ function onSpellCast(caster,target,spell)
         params.scattr = SC_INDURATION;
         params.numhits = 1;
         params.multiplier = 2.0;
-        params.tp150 = 1.2;
-        params.tp300 = 1.4;
+        params.tp150 = 1.4;
+        params.tp300 = 1.8;
         params.azuretp = 1.5;
-        params.duppercap = 45; --guesstimated attack % bonuses  
+        params.duppercap = 50; --guesstimated attack % bonuses  
         params.str_wsc = 0.2;
         params.dex_wsc = 0.0;
         params.vit_wsc = 0.0;

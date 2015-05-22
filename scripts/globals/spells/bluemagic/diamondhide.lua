@@ -33,11 +33,8 @@ end;
 function onSpellCast(caster,target,spell)
 
     local blueskill = caster:getSkillLevel(BLUE_SKILL);
-    local power = (blueskill) + (caster:getMainLvl()) + 10;
+    local power = blueskill;
 
-    if(power > 150) then
-        power = 400;
-    end
 
     if(target:addStatusEffect(EFFECT_STONESKIN,power,0,300)) then
         spell:setMsg(230);
