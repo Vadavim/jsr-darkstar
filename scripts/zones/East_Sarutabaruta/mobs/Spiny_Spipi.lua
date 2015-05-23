@@ -10,7 +10,7 @@
 function onMobDeath(mob,killer)	
 
     -- Set Spiny_Spipi's Window Open Time
-    wait = math.random((2700),(7200))
+    wait = math.random((10),(100))
     SetServerVariable("[POP]Spiny_Spipi", os.time(t) + wait); -- 45 - 120 minutes
     DeterMob(mob:getID(), true);
     

@@ -211,6 +211,11 @@ bool CMobEntity::CanRoamHome()
     return getMobMod(MOBMOD_NO_DESPAWN);
 }
 
+bool CMobEntity::IsNM()
+{
+    return ((m_Type & MOBTYPE_NOTORIOUS) == MOBTYPE_NOTORIOUS);
+}
+
 bool CMobEntity::CanRoam()
 {
     return !(m_roamFlags & ROAMFLAG_EVENT) && PMaster == nullptr && (speed > 0 || (m_roamFlags & ROAMFLAG_WORM));

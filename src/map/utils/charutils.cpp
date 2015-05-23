@@ -3042,6 +3042,7 @@ namespace charutils
         uint8 minlevel = 0, maxlevel = PChar->GetMLevel();
         uint32 baseexp = 0, exp = 0, dedication = 0;
         float permonstercap, monsterbonus = 1.0f;
+        permonstercap = 6.0f;
         bool chainactive = false;
         if (PChar->PParty != nullptr)
         {
@@ -3073,6 +3074,10 @@ namespace charutils
             }
             if (PMob->m_HiPCLvl > maxlevel) maxlevel = PMob->m_HiPCLvl;
             baseexp = GetRealExp(maxlevel, PMob->GetMLevel());
+            if (PMob->IsNM())
+            {
+                baseexp = baseexp * 5;
+            }
             if (baseexp != 0)
             {
                 for (uint8 i = 0; i < PChar->PParty->members.size(); ++i)
@@ -3128,7 +3133,7 @@ namespace charutils
                             exp *= monsterbonus;
                         }
 
-                        permonstercap = ((PMember->PParty != nullptr && pcinzone > 1) ? 1.35f : 1.15f);
+                        permonstercap = ((PMember->PParty != nullptr && pcinzone > 1) ? 6.35f : 6.15f);
 
                         if (PMember->GetMLevel() <= 50)
                         {
@@ -3159,18 +3164,18 @@ namespace charutils
                         }
                         else
                         {
-                            if (PMember->GetMLevel() <= 10) PMember->expChain.chainTime = gettick() + 50000;
-                            else if (PMember->GetMLevel() <= 20) PMember->expChain.chainTime = gettick() + 100000;
-                            else if (PMember->GetMLevel() <= 30) PMember->expChain.chainTime = gettick() + 150000;
-                            else if (PMember->GetMLevel() <= 40) PMember->expChain.chainTime = gettick() + 200000;
-                            else if (PMember->GetMLevel() <= 50) PMember->expChain.chainTime = gettick() + 250000;
-                            else if (PMember->GetMLevel() <= 60) PMember->expChain.chainTime = gettick() + 300000;
-                            else PMember->expChain.chainTime = gettick() + 360000;
+                            if (PMember->GetMLevel() <= 5) PMember->expChain.chainTime = gettick() + 50000;
+                            else if (PMember->GetMLevel() <= 10) PMember->expChain.chainTime = gettick() + 100000;
+                            else if (PMember->GetMLevel() <= 15) PMember->expChain.chainTime = gettick() + 150000;
+                            else if (PMember->GetMLevel() <= 20) PMember->expChain.chainTime = gettick() + 200000;
+                            else if (PMember->GetMLevel() <= 25) PMember->expChain.chainTime = gettick() + 250000;
+                            else if (PMember->GetMLevel() <= 30) PMember->expChain.chainTime = gettick() + 300000;
+                            else PMember->expChain.chainTime = gettick() + 460000;
                             chainactive = false;
                             PMember->expChain.chainNumber = 1;
                         }
 
-                        if (chainactive && PMember->GetMLevel() <= 10)
+                        if (chainactive && PMember->GetMLevel() <= 5)
                         {
                             switch (PMember->expChain.chainNumber)
                             {
@@ -3183,7 +3188,7 @@ namespace charutils
                             default: PMember->expChain.chainTime = gettick() + 2000; break;
                             }
                         }
-                        else if (chainactive && PMember->GetMLevel() <= 20)
+                        else if (chainactive && PMember->GetMLevel() <= 10)
                         {
                             switch (PMember->expChain.chainNumber)
                             {
@@ -3196,7 +3201,7 @@ namespace charutils
                             default: PMember->expChain.chainTime = gettick() + 4000; break;
                             }
                         }
-                        else if (chainactive && PMember->GetMLevel() <= 30)
+                        else if (chainactive && PMember->GetMLevel() <= 15)
                         {
                             switch (PMember->expChain.chainNumber)
                             {
@@ -3209,7 +3214,7 @@ namespace charutils
                             default: PMember->expChain.chainTime = gettick() + 5000; break;
                             }
                         }
-                        else if (chainactive && PMember->GetMLevel() <= 40)
+                        else if (chainactive && PMember->GetMLevel() <= 20)
                         {
                             switch (PMember->expChain.chainNumber)
                             {
@@ -3222,7 +3227,7 @@ namespace charutils
                             default: PMember->expChain.chainTime = gettick() + 30000; break;
                             }
                         }
-                        else if (chainactive && PMember->GetMLevel() <= 50)
+                        else if (chainactive && PMember->GetMLevel() <= 25)
                         {
                             switch (PMember->expChain.chainNumber)
                             {
@@ -3235,7 +3240,7 @@ namespace charutils
                             default: PMember->expChain.chainTime = gettick() + 50000; break;
                             }
                         }
-                        else if (chainactive && PMember->GetMLevel() <= 60)
+                        else if (chainactive && PMember->GetMLevel() <= 30)
                         {
                             switch (PMember->expChain.chainNumber)
                             {
@@ -3252,10 +3257,10 @@ namespace charutils
                         {
                             switch (PMember->expChain.chainNumber)
                             {
-                            case 0: PMember->expChain.chainTime = gettick() + 360000; break;
-                            case 1:	PMember->expChain.chainTime = gettick() + 300000; break;
-                            case 2: PMember->expChain.chainTime = gettick() + 240000; break;
-                            case 3: PMember->expChain.chainTime = gettick() + 165000; break;
+                            case 0: PMember->expChain.chainTime = gettick() + 560000; break;
+                            case 1:	PMember->expChain.chainTime = gettick() + 400000; break;
+                            case 2: PMember->expChain.chainTime = gettick() + 340000; break;
+                            case 3: PMember->expChain.chainTime = gettick() + 265000; break;
                             case 4: PMember->expChain.chainTime = gettick() + 105000; break;
                             case 5: PMember->expChain.chainTime = gettick() + 60000; break;
                             default: PMember->expChain.chainTime = gettick() + 60000; break;
@@ -3293,8 +3298,12 @@ namespace charutils
         {
             if (PChar->PPet != nullptr && PChar->PPet->GetMLevel() > maxlevel) maxlevel = PChar->PPet->GetMLevel();
             baseexp = GetRealExp(maxlevel, PMob->GetMLevel());
+            if (PMob->IsNM())
+            {
+                baseexp = baseexp * 5;
+            }
             exp = baseexp;
-            permonstercap = 1.15f;
+            permonstercap = 6.15f;
 
             if (PMob->getMobMod(MOBMOD_EXP_BONUS))
             {
@@ -3331,18 +3340,18 @@ namespace charutils
             }
             else
             {
-                if (PChar->GetMLevel() <= 10) PChar->expChain.chainTime = gettick() + 50000;
-                else if (PChar->GetMLevel() <= 20) PChar->expChain.chainTime = gettick() + 100000;
-                else if (PChar->GetMLevel() <= 30) PChar->expChain.chainTime = gettick() + 150000;
-                else if (PChar->GetMLevel() <= 40) PChar->expChain.chainTime = gettick() + 200000;
-                else if (PChar->GetMLevel() <= 50) PChar->expChain.chainTime = gettick() + 250000;
-                else if (PChar->GetMLevel() <= 60) PChar->expChain.chainTime = gettick() + 300000;
-                else PChar->expChain.chainTime = gettick() + 360000;
+                if (PChar->GetMLevel() <= 5) PChar->expChain.chainTime = gettick() + 50000;
+                else if (PChar->GetMLevel() <= 10) PChar->expChain.chainTime = gettick() + 100000;
+                else if (PChar->GetMLevel() <= 15) PChar->expChain.chainTime = gettick() + 150000;
+                else if (PChar->GetMLevel() <= 20) PChar->expChain.chainTime = gettick() + 200000;
+                else if (PChar->GetMLevel() <= 25) PChar->expChain.chainTime = gettick() + 250000;
+                else if (PChar->GetMLevel() <= 30) PChar->expChain.chainTime = gettick() + 300000;
+                else PChar->expChain.chainTime = gettick() + 460000;
                 chainactive = false;
                 PChar->expChain.chainNumber = 1;
             }
 
-            if (chainactive && PChar->GetMLevel() <= 10)
+            if (chainactive && PChar->GetMLevel() <= 5)
             {
                 switch (PChar->expChain.chainNumber)
                 {
@@ -3355,7 +3364,7 @@ namespace charutils
                 default: PChar->expChain.chainTime = gettick() + 2000; break;
                 }
             }
-            else if (chainactive && PChar->GetMLevel() <= 20)
+            else if (chainactive && PChar->GetMLevel() <= 10)
             {
                 switch (PChar->expChain.chainNumber)
                 {
@@ -3368,7 +3377,7 @@ namespace charutils
                 default: PChar->expChain.chainTime = gettick() + 4000; break;
                 }
             }
-            else if (chainactive && PChar->GetMLevel() <= 30)
+            else if (chainactive && PChar->GetMLevel() <= 15)
             {
                 switch (PChar->expChain.chainNumber)
                 {
@@ -3381,7 +3390,7 @@ namespace charutils
                 default: PChar->expChain.chainTime = gettick() + 5000; break;
                 }
             }
-            else if (chainactive && PChar->GetMLevel() <= 40)
+            else if (chainactive && PChar->GetMLevel() <= 20)
             {
                 switch (PChar->expChain.chainNumber)
                 {
@@ -3394,7 +3403,7 @@ namespace charutils
                 default: PChar->expChain.chainTime = gettick() + 30000; break;
                 }
             }
-            else if (chainactive && PChar->GetMLevel() <= 50)
+            else if (chainactive && PChar->GetMLevel() <= 25)
             {
                 switch (PChar->expChain.chainNumber)
                 {
@@ -3407,7 +3416,7 @@ namespace charutils
                 default: PChar->expChain.chainTime = gettick() + 50000; break;
                 }
             }
-            else if (chainactive && PChar->GetMLevel() <= 60)
+            else if (chainactive && PChar->GetMLevel() <= 30)
             {
                 switch (PChar->expChain.chainNumber)
                 {
@@ -3424,10 +3433,10 @@ namespace charutils
             {
                 switch (PChar->expChain.chainNumber)
                 {
-                case 0: PChar->expChain.chainTime = gettick() + 360000; break;
-                case 1:	PChar->expChain.chainTime = gettick() + 300000; break;
-                case 2: PChar->expChain.chainTime = gettick() + 240000; break;
-                case 3: PChar->expChain.chainTime = gettick() + 165000; break;
+                case 0: PChar->expChain.chainTime = gettick() + 560000; break;
+                case 1:	PChar->expChain.chainTime = gettick() + 400000; break;
+                case 2: PChar->expChain.chainTime = gettick() + 340000; break;
+                case 3: PChar->expChain.chainTime = gettick() + 265000; break;
                 case 4: PChar->expChain.chainTime = gettick() + 105000; break;
                 case 5: PChar->expChain.chainTime = gettick() + 60000; break;
                 default: PChar->expChain.chainTime = gettick() + 60000; break;
@@ -3547,11 +3556,11 @@ namespace charutils
         bool onLimitMode = false;
 
         // Incase player de-levels to 74 on the field
-        if (PChar->MeritMode == true && PChar->jobs.job[PChar->GetMJob()] > 74 && expFromRaise == false)
+        if (PChar->MeritMode == true && PChar->jobs.job[PChar->GetMJob()] > 49 && expFromRaise == false)
             onLimitMode = true;
 
         //we check if the player is level capped and max exp..
-        if (PChar->jobs.job[PChar->GetMJob()] > 74 && PChar->jobs.job[PChar->GetMJob()] >= PChar->jobs.genkai && PChar->jobs.exp[PChar->GetMJob()] == GetExpNEXTLevel(PChar->jobs.job[PChar->GetMJob()]) - 1)
+        if (PChar->jobs.job[PChar->GetMJob()] > 49 && PChar->jobs.job[PChar->GetMJob()] >= PChar->jobs.genkai && PChar->jobs.exp[PChar->GetMJob()] == GetExpNEXTLevel(PChar->jobs.job[PChar->GetMJob()]) - 1)
             onLimitMode = true;
 
         // exp added from raise shouldn't display a message. Don't need a message for zero exp either

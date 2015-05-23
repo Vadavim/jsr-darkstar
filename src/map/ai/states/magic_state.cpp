@@ -178,6 +178,13 @@ uint32 CMagicState::CalculateCastTime(CSpell* PSpell)
 
     if (PSpell->getSpellGroup() == SPELLGROUP_BLACK)
     {
+        uint16 eleBonus = m_PEntity->getMod(MOD_ELEMENTAL_CELERITY);
+        if (eleBonus > 50)
+        {
+            eleBonus = 50;
+        }
+        cast -= base * (eleBonus / 100.0f);
+        
         if (m_PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_ALACRITY))
         {
             uint16 bonus = 0;

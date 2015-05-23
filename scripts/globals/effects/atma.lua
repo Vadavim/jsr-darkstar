@@ -35,6 +35,8 @@ function onEffectGain(target,effect)
     target:addMod(MOD_STORETP, 33);
     target:addMod(MOD_SNAP_SHOT, 33);
     target:addMod(MOD_EXP_BONUS, 30);
+    target:addMod(0x2BC, 99);
+    target:PrintToPlayer(target:getMod(0x2BC));
     
 end;
 
@@ -79,4 +81,5 @@ function onEffectLose(target,effect)
     target:delMod(MOD_MACC,30);
     target:delMod(MOD_MEVA,30);
     target:delMod(MOD_RACC,30);
+    target:delMod(0x2BC, 99);
 end;

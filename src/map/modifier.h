@@ -566,6 +566,9 @@ enum MODIFIER
     // MOD_SPARE = 0x13A, // (modId = 314)
     // MOD_SPARE = 0x13B, // (modId = 315)
     // MOD_SPARE = 0x206, // (modId = 518)
+    
+    MOD_ELEMENTAL_CELERITY        = 0x2BC,  // Improves black-magic casting time (modId = 700)
+    MOD_OCCULT_ACUMEN             = 0x2BD,  // Gives TP when casting elemental nukes based on MP cost.(modId = 701)
 
 };
 

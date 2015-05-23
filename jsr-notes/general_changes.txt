@@ -2,3 +2,14 @@ SKILL CHAIN / MAGIC BURST
 
 Magic burst damage increased (starts at +60% damage, scales up to +100%).
 The magic burst damage modifier is multiplicative (was additive) with this damage bonus.
+
+EXPERIENCE POINTS
+
+ - The permonster XP cap has been raised significantly.
+ - Harder monsters give even higher amounts of XP.
+ - XP chains are easier to start at lower levels. 
+ - Notorius Monsters give +500% XP.
+ - XP Chain 1, 2, 3 times are longer than normal at levels 31+
+ - Some monster families now give bonus XP:
+	
+	Dhalmels	+8%

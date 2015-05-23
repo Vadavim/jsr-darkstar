@@ -1233,6 +1233,9 @@ MOD_ABSORB_DMG_TO_MP          = 0x204 -- Unlike PLD gear mod, works on all damag
 
 MOD_EGGHELM                   = 0x205 -- Egg Helm (Chocobo Digging)
 
+MOD_ELEMENTAL_CELERITY        = 0x2BC -- Improves black-magic casting time (modId = 700)
+MOD_OCCULT_ACUMEN              = 0x2BD  -- Gives TP when casting elemental nukes based on MP cost.(modId = 701)
+
 -- MOD_SPARE = 0x138 -- (modId = 312)
 -- MOD_SPARE = 0x139 -- (modId = 313)
 -- MOD_SPARE = 0x13A -- (modId = 314)

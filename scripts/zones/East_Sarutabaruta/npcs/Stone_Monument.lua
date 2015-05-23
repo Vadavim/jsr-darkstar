@@ -27,6 +27,12 @@ function onTrade(player,npc,trade)
 		player:addItem(570);
 		player:messageSpecial(ITEM_OBTAINED,570);
 		player:setVar("anExplorer-CurrentTablet",0x00800);
+    elseif (GetMobAction(16785722) == 0 and trade:getItemCount() == 1 and trade:hasItemQty(1126,1)) then
+        player:tradeComplete();
+        mob = SpawnMob(17252657);
+        mob:setPos( player:getXPos(), player:getYPos(), player:getZPos(), player:getRotPos(), player:getZoneID() );
+        mob:updateClaim(player);
+        
 	end
 end;
 

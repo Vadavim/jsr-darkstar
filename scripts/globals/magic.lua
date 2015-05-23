@@ -1429,6 +1429,13 @@ function canOverwrite(target, effect, power, mod)
 end
 
 function doElementalNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus)
+    occult = caster:getMod(MOD_OCCULT_ACUMEN);
+    if (occult > 0) then
+        mpCost = spell:getMPCost();
+        caster:addTP(math.floor((mpCost * occult) / 100));
+    end
+    
+    
 	return doNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus,ELEMENTAL_MAGIC_SKILL,MOD_INT);
 end
 

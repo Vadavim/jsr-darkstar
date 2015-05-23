@@ -231,6 +231,7 @@ public:
 
   void      HideModel(bool hide);                    // hide / show model
   bool      IsModelHidden();
+  bool      IsNM();
   void      CallForHelp(bool call);
   bool      CalledForHelp();
   void      HideHP(bool hide);

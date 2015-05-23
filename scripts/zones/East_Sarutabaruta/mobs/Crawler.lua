@@ -20,7 +20,7 @@ function onMobDeath(mob,killer)
 
         ToD = GetServerVariable("[POP]Spiny_Spipi");
         if (ToD <= os.time(t) and GetMobAction(Spiny_Spipi) == 0) then
-            if (math.random((1),(15)) == 5) then
+            if (math.random((1),(15)) >= 1) then
                 UpdateNMSpawnPoint(Spiny_Spipi);
                 GetMobByID(Spiny_Spipi):setRespawnTime(GetMobRespawnTime(mob));
                 SetServerVariable("[PH]Spiny_Spipi", mob);
