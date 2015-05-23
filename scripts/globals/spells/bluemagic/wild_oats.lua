@@ -55,7 +55,7 @@ function onSpellCast(caster,target,spell)
     if(target:hasStatusEffect(EFFECT_VIT_DOWN)) then
         spell:setMsg(75); -- no effect
     else    
-        target:addStatusEffect(EFFECT_VIT_DOWN,15,0,20);
+        target:addStatusEffect(EFFECT_VIT_DOWN,10,0,20);
     end
     
     return damage;

@@ -236,6 +236,10 @@ EFEEBLING SPELLS
  - Poison: (12 + Level / 3)/tic.
  - Duration: 60 seconds
 
+[Cold Wave]
+ - Cast Time: 1 (4) second
+ - Set Bonus: +2 Int
+
 [Stinking Gas]
  - Casting Time: 2 (4) seconds
  - VIT penalty: -20 

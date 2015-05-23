@@ -1058,15 +1058,15 @@ function calculateMagicBurst(caster, spell, target)
 
     if(skillchainTier > 0) then
 		if(skillchainCount == 1) then
-			burst = 1.3;
+			burst = 1.6;
 		elseif(skillchainCount == 2) then
-			burst = 1.35;
+			burst = 1.7;
 		elseif(skillchainCount == 3) then
-			 burst = 1.40;
+			 burst = 1.8;
 		elseif(skillchainCount == 4) then
-			burst = 1.45;
+			burst = 1.9;
 		elseif(skillchainCount == 5) then
-			burst = 1.50;
+			burst = 2.0;
 		else
 			-- Something strange is going on if this occurs.
 			burst = 1.0;
@@ -1095,7 +1095,7 @@ function calculateMagicBurst(caster, spell, target)
 
     -- Add in Magic Burst Bonus Modifier
     if (burst > 1) then
-        burst = burst + (caster:getMod(MOD_MAG_BURST_BONUS) / 100);
+        burst = burst * ( 1 + (caster:getMod(MOD_MAG_BURST_BONUS) / 100) );
     end
     
     return burst;
@@ -1446,6 +1446,7 @@ function doNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus,s
 	--get resist multiplier (1x if no resist)
 	local resist = applyResistance(caster,spell,target,caster:getStat(modStat)-target:getStat(modStat),skill,resistBonus);
 	--get the resisted damage
+    dmg = dmg + caster:getMod(MOD_MAGIC_DAMAGE);
 	dmg = dmg*resist;
 	if(skill == NINJUTSU_SKILL) then
 		-- boost ninjitsu damage

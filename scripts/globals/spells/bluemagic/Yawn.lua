@@ -39,7 +39,7 @@ function onSpellCast(caster,target,spell)
     local dINT = (pINT - mINT);
     local resm = applyResistance(caster,spell,target,dINT,BLUE_SKILL,0);
     
-    if(resm < 0.5) then
+    if(resm < 0.0625) then
         spell:setMsg(85);--resist message
         return typeEffect;
     end

@@ -907,7 +907,7 @@ void CMagicState::SpendCost(CSpell* PSpell)
 
 int16 CMagicState::ConserveMP(int16 cost)
 {
-    return cost * (WELL512::GetRandomNumber(8.f,16.f) / 16.0f);
+    return cost * 0.5f;
 }
 
 void CMagicState::SetRecast(CSpell* PSpell)

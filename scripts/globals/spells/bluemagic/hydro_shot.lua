@@ -37,7 +37,7 @@ function onSpellCast(caster,target,spell)
         params.dmgtype = DMGTYPE_H2H;
         params.scattr = SC_REVERBERATION;
         params.numhits = 1;
-        params.multiplier = 1.25;
+        params.multiplier = 1.5;
         params.tp150 = 1.25;
         params.tp300 = 1.25;
         params.azuretp = 1.25;
@@ -54,8 +54,8 @@ function onSpellCast(caster,target,spell)
     
    -- Changed to Drown
 local chance = math.random();
-    if (chance < 0.95 and target:getStatusEffect(EFFECT_DROWN) ~= nil) 	  then
-        local power = (caster:getMainLvl()/8) + 1;
+    if (chance < 0.95 and target:getStatusEffect(EFFECT_DROWN) == nil) then
+        local DOT = (caster:getMainLvl()/5) + 6;
         target:addStatusEffect(EFFECT_DROWN,DOT, 3, 60,FLAG_ERASBLE);
     end
    

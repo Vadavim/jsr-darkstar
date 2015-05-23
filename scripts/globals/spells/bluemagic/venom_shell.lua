@@ -34,7 +34,8 @@ function onSpellCast(caster,target,spell)
     local duration = 60;
     local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
     local resist = applyResistance(caster,spell,target,dINT,37);
-    if(resist > (0.0652)) then
+    caster:PrintToPlayer(tostring(resist));
+    if(resist < 0.0625) then
         -- resisted!
         spell:setMsg(85);
         return 0;
