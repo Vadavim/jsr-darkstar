@@ -1,3 +1,9 @@
+ADDED / FIXED TRAITS
+ - Added back Elemental Celerity (works on all black magic, however)
+ - Added back Occult Acumen
+
+
+
 SKILL CHAIN / MAGIC BURST
 
 Magic burst damage increased (starts at +60% damage, scales up to +100%).

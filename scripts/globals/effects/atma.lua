@@ -36,7 +36,6 @@ function onEffectGain(target,effect)
     target:addMod(MOD_SNAP_SHOT, 33);
     target:addMod(MOD_EXP_BONUS, 30);
     target:addMod(0x2BC, 99);
-    target:PrintToPlayer(target:getMod(0x2BC));
     
 end;
 
@@ -48,6 +47,7 @@ function onEffectTick(target,effect)
     local pet = target:getPet();
     if (pet ~= nil) then
         pet:addStatusEffect(EFFECT_ATMA,effect:getPower(),0,6);
+        pet:addStatusEffect(EFFECT_REGAIN,50,3,6);
     end
 end;
 
