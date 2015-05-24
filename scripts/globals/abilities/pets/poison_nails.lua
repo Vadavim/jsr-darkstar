@@ -26,7 +26,15 @@ function onPetAbility(target, pet, skill)
 	target:updateEnmityFromDamage(pet,totaldamage);
 
 	if(AvatarPhysicalHit(skill, totalDamage) and target:hasStatusEffect(EFFECT_POISON) == false) then
-		target:addStatusEffect(EFFECT_POISON,1,3,60);
+        local tp = skill:getTP();
+        local owner = pet:getMaster();
+        local dur_mod = (owner:getMod(MOD_CHR) / 2) + owner:getMod(MOD_SUMMONING);
+        local dur_bonus = dur_mod * 2;
+        if (dur_bonus) > 60 then
+            dur_bonus = 60;
+        end
+        local power = (1 + owner:getMainLvl() / 5) * (1.0 + tp / 100)
+		target:addStatusEffect(EFFECT_POISON,power,3,60 + dur_bonus);
 	end
 
 	return totaldamage;

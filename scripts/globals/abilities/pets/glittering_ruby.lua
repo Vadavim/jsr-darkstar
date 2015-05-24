@@ -33,7 +33,18 @@ function onPetAbility(target, pet, skill)
 	end
 
 	target:delStatusEffect(effectid);
-	target:addStatusEffect(effectid,12,0,90);
+    
+    local tp = skill:getTP();
+    local power = 12 * (1 + tp / 100 );
+    local owner = pet:getMaster();
+    
+    local dur_mod = (owner:getMod(MOD_CHR) / 2) + owner:getMod(MOD_SUMMONING);
+    local dur_bonus = dur_mod * 3;
+    if (dur_bonus) > 150 then
+            dur_bonus = 150;
+        end
+    
+	target:addStatusEffect(effectid,power,0,300 + dur_bonus);
 	skill:setMsg(MSG_BUFF);
 	return effectid;
 end

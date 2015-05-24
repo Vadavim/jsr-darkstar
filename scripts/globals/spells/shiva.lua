@@ -21,6 +21,10 @@ end;
 
 function onSpellCast(caster,target,spell)
 	caster:spawnPet(PET_SHIVA);
+    local pet = caster:getPet();
+    if (pet ~= nill) then
+        pet:addStatusEffect(EFFECT_SHIVA_S_FAVOR, 1, 15, 300);
+    end
 
 	return 0;
 end;

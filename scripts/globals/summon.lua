@@ -23,6 +23,10 @@ function AvatarPhysicalMove(avatar,target,skill,numberofhits,accmod,dmgmod1,dmgm
 	eva = target:getEVA();
 
 	local base = avatar:getWeaponDmg() + fstr;
+    local owner = avatar:getMaster();
+    base = base + math.floor((owner:getMod(MOD_CHR) / 4) + owner:getMod(MOD_SUMMONING) / 2);
+    acc = acc + math.floor((owner:getMod(MOD_CHR) / 4) + owner:getMod(MOD_SUMMONING) / 2);
+    
 	local ratio = avatar:getStat(MOD_ATT)/target:getStat(MOD_DEF);
 
 	lvldiff = lvluser - lvltarget;
