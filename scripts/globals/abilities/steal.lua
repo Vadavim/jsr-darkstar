@@ -59,12 +59,22 @@ function onUseAbility(player,target,ability)
 
     stolen = target:getStealItem();
     --player:addTempItem( 4116, 1 );
-    if(target:isMob() and math.random(100) < stealChance and stolen ~= 0) then
+    if(target:isMob() and math.random(100) < stealChance) then
         if (checkThfAfQuest(player, target) == true) then
-            stolen = 4569;
+            stolen = 4569;     
         end
-
-        player:addItem(stolen);
+        
+        
+        
+        if (stolen ~=4569) then
+            local item = stealTempItem(target:getMainLvl());
+            if (item ~= 0) then
+                player:addTempItem(item); 
+                stolen = item;
+            end
+        else
+            player:addItem(stolen);
+        end
         
         target:itemStolen();
         ability:setMsg(125); -- Item stolen successfully
@@ -87,5 +97,55 @@ function checkThfAfQuest(player, target)
             end
         end
     return false
+    end
+end;
+
+
+function stealTempItem(level)
+    if (level < 5) then
+        return selectItem(4112, 4113, 4114); --Pot/Pot+1/Pot+2
+    elseif (level < 10) then
+        return selectItem(4113, 4114, 4115); --Pot+1/Pot+2/Pot+3
+    elseif (level < 15) then
+        return selectItem(4114, 4115, 4116); --Pot+2/Pot+3/HiPot
+    elseif (level < 20) then
+        return selectItem(4115, 4116, 4117); --Pot+3/HiPot/HiPot+1
+    elseif (level < 25) then
+        return selectItem(4116, 4117, 4118); --HiPot/HiPot+1/HiPot+2
+    elseif (level < 30) then
+        return selectItem(4117, 4118, 4119); --HiPot+1/HiPot+2/HiPot+3
+    elseif (level < 35) then
+        return selectItem(4118, 4119, 4120); --HiPot+2/HiPot+3/XPot
+    elseif (level < 40) then
+        return selectItem(4119, 4120, 4121); --HiPot+3/XPot/XPot+1
+    elseif (level < 45) then
+        return selectItem(4120, 4121, 4122); --XPot/XPot+1/XPot+2
+    elseif (level < 50) then
+        return selectItem(4121, 4122, 4123); --XPot+1/XPot+2/XPot+3
+    elseif (level < 55) then
+        return selectItem(4122, 4123, 4124); --XPot+2/XPot+3/MaxPot
+    elseif (level < 60) then
+        return selectItem(4123, 4124, 4125); --XPot+3/MaxPot/MaxPot+1
+    elseif (level < 65) then
+        return selectItem(4124, 4125, 4126); --MaxPot/MaxPot+1/MaxPot+2
+    else
+        return selectItem(4124, 4125, 4126); --MaxPot+1/MaxPot+2/MaxPot+3
+    end
+end;
+
+function selectItem(item1, item2, item3)
+    local rand = math.random(100);
+    if (rand < 40) then
+        return item1;
+    elseif (rand < 60) then
+        return item2;
+    elseif (rand < 70) then
+        return item3;
+    elseif (rand < 78) then
+        return 4115; --Remedy
+    elseif (rand < 94) then
+        return 5440; --Dusty Wing
+    else
+        return 4146; --Revitalizer
     end
 end;

@@ -1,5 +1,7 @@
 
-[Warding Circle
+ABILITY CHANGES
+
+[Warding Circle]
  - Grants the following for the duration:
 	- +10 Magic Evade
 	- +10% bonus to skillchain damage

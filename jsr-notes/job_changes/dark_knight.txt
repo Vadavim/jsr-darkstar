@@ -1,3 +1,24 @@
+
+SKILL CHANGES
+ - B+ Elemental Skill
+ - A+ Dark Magic Skill
+ - B Enfeebling Skill
+ - B Greataxe
+ - B Sword
+ - B- Axe
+ - C+ Marksmanship
+
+
+TRAIT CHANGES
+ - Auto-Refresh at level 35
+ - Occult Acumen: Starts at 12% at Level 15, and increases by +2% every 15 levels.
+Magic Attack Bonus (+20 / +24) at level 30 / 60 
+ - Starting at level 20, the Dark Knight adds bonus damage to his magical spells based upon
+   his INT and current level. This starts at INT/2 bonus damage and scales up to INT*1.875    bonus damage at level 75.
+ - Has Magic BUrst Bonus (+15% at Level 20, +20% at Level 40, and +25% at level 60)
+
+ABILITY CHANGES
+
 [Weapon Bash]
  - Adds STR to damage
  - Adds Chainbound effect for 10 seconds (next weaponskill triggers a skillchain).
@@ -9,3 +30,7 @@
 	- -Reduces Dark damage received by 25%.
 	- +10 Magic Attack
 	- +20 Dark Magic Accuracy
+
+[Last Resort]
+ - While active, bestows 30% fastcast with black magic. 
+ - In addition, the base damage of elemental nukes are doubled, but so is the MP cost.

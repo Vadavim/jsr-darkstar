@@ -1430,8 +1430,15 @@ end
 
 function doElementalNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus)
     occult = caster:getMod(MOD_OCCULT_ACUMEN);
+    mpCost = spell:getMPCost();
+    if (caster:getStatusEffect(EFFECT_LAST_RESORT) ~= nil) then
+        caster:delMP(mpCost);
+        mpCost = math.floor(mpCost * 2);
+        V = V * 2;
+        M = M + 1.0;
+        print("trigger");
+    end
     if (occult > 0) then
-        mpCost = spell:getMPCost();
         caster:addTP(math.floor((mpCost * occult) / 100));
     end
     
@@ -1454,6 +1461,18 @@ function doNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus,s
 	local resist = applyResistance(caster,spell,target,caster:getStat(modStat)-target:getStat(modStat),skill,resistBonus);
 	--get the resisted damage
     dmg = dmg + caster:getMod(MOD_MAGIC_DAMAGE);
+    if( (caster:getMainJob() == JOB_DRK and caster:getMainLvl() >= 30)) then
+        local darkBonus = ((caster:getMainLvl() / 40) * caster:getStat(MOD_INT));
+        
+        if (caster:getMainLvl() < 45) then
+            darkBonus = caster:getStat(MOD_INT) / 2;
+        elseif (caster:getMainLvl() < 60) then
+            darkBonus = caster:getStat(MOD_INT);
+        elseif (caster:getMainLvl() < 75) then
+            darkBonus = caster:getStat(MOD_INT);
+        end
+        dmg = dmg + (caster:getStat(MOD_INT) / 2) * M;
+    end
 	dmg = dmg*resist;
 	if(skill == NINJUTSU_SKILL) then
 		-- boost ninjitsu damage

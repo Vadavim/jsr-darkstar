@@ -1,0 +1,14 @@
+SKILL CHANGES
+ - B+ Scythe
+ - B Evasion
+ - B Shield
+ - B- Parrying
+
+TRAIT CHANGES
+
+
+
+ABILITY CHANGES
+
+[Sic]
+ - Recast time reduced to 90 seconds.

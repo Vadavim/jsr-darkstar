@@ -1,0 +1,15 @@
+SKILL CHANGES
+ - B+ Dagger
+ - B+ Axe
+ - A+ Archery
+ - A- Throwing
+ - B+ Evasion
+
+TRAIT CHANGES
+ - Recycle chance increased to 25%.
+
+
+ABILITY CHANGES
+
+[Scavange]
+ - Now scavanges a random temporary item based on level.

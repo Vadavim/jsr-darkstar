@@ -26,5 +26,8 @@ function onUseAbility(player,target,ability)
     if (sFeet == 14094) or (sFeet == 15357) then
         buff = buff + 15;
     end
+    if (player:getMainJob() == JOB_THF) then
+        buff = buff * 2;
+    end
     player:addStatusEffect(EFFECT_FLEE,100,0,buff);
 end;

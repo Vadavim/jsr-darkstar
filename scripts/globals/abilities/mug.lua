@@ -32,7 +32,7 @@ function onUseAbility(player,target,ability)
 
     local mugChance = 90 + thfLevel - target:getMainLvl();
 
-    if(target:isMob() and math.random(100) < mugChance and target:getMobMod(MOBMOD_MUG_GIL) > 0) then
+    if(target:isMob() and math.random(100) < mugChance) then
         local purse = target:getMobMod(MOBMOD_MUG_GIL);
         local fatpurse = target:getGil();
         gil = fatpurse / (8 + math.random(0,8));
@@ -45,9 +45,18 @@ function onUseAbility(player,target,ability)
         if(gil > purse) then
             gil = purse;
         end
+        
+        local tpGain = target:getTP()
+        if (tpGain > 100) then
+            tpGain = 100;
+        end
+        target:delTP(100);
+        player:addTP(tpGain);
+        
 
         if(gil <= 0) then
-            ability:setMsg(244);
+            --ability:setMsg(244);
+            ability:setMsg(129);
         else
             if(player:getEquipID(SLOT_HEAD) == 15077) then
                 gil = gil * 2;
