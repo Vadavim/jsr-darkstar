@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `char_look` (
 -- Dumping data for table dspdb.char_look: 3 rows
 /*!40000 ALTER TABLE `char_look` DISABLE KEYS */;
 REPLACE INTO `char_look` (`charid`, `face`, `race`, `size`, `head`, `body`, `hands`, `legs`, `feet`, `main`, `sub`, `ranged`) VALUES
-	(21828, 6, 1, 1, 0, 0, 0, 0, 0, 157, 0, 0),
+	(21828, 6, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0),
 	(21829, 0, 1, 0, 0, 8, 8, 8, 8, 21, 0, 0),
 	(21830, 0, 1, 0, 0, 8, 8, 8, 8, 21, 0, 0);
 /*!40000 ALTER TABLE `char_look` ENABLE KEYS */;

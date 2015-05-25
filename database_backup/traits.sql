@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `traits` (
   `required_expansion` varchar(7) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.traits: 466 rows
+-- Dumping data for table dspdb.traits: 468 rows
 /*!40000 ALTER TABLE `traits` DISABLE KEYS */;
 REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `value`, `required_expansion`) VALUES
 	(1, 'accuracy bonus', 11, 10, 1, 25, 10, NULL),
@@ -400,7 +400,7 @@ REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `v
 	(106, 'skillchain bonus', 19, 71, 3, 174, 16, 'ABYSSEA'),
 	(106, 'skillchain bonus', 19, 84, 4, 174, 20, 'ABYSSEA'),
 	(106, 'skillchain bonus', 19, 97, 4, 174, 23, 'ABYSSEA'),
-	(110, 'mag. burst bonus', 4, 45, 1, 487, 5, 'ABYSSEA'),
+	(110, 'mag. burst bonus', 8, 20, 1, 487, 15, 'ABYSSEA'),
 	(110, 'mag. burst bonus', 4, 58, 2, 487, 7, 'ABYSSEA'),
 	(110, 'mag. burst bonus', 4, 71, 3, 487, 9, 'ABYSSEA'),
 	(110, 'mag. burst bonus', 4, 84, 4, 487, 11, 'ABYSSEA'),
@@ -468,8 +468,7 @@ REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `v
 	(24, 'clear mind', 21, 60, 3, 295, 1, 'SOA'),
 	(8, 'max mp boost', 21, 30, 1, 5, 10, 'SOA'),
 	(8, 'max mp boost', 21, 60, 2, 5, 20, 'SOA'),
-	(5, 'magic atk.', 8, 30, 1, 28, 20, NULL),
-	(5, 'magic atk.', 8, 60, 1, 28, 24, NULL),
+	(110, 'mag. burst bonus', 4, 45, 1, 487, 5, 'ABYSSEA'),
 	(10, 'auto', 8, 35, 1, 369, 1, NULL),
 	(1, 'accuracy', 6, 30, 1, 25, 10, NULL),
 	(1, 'accuracy', 6, 30, 1, 26, 10, NULL),
@@ -491,8 +490,14 @@ REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `v
 	(118, 'auto regain', 19, 45, 3, 368, 10, 'ABYSSEA'),
 	(118, 'auto regain', 19, 60, 4, 368, 12, 'ABYSSEA'),
 	(118, 'auto regain', 19, 75, 5, 368, 14, 'ABYSSEA'),
-	(112, 'elemental celerity', 4, 30, 1, 700, 80, NULL),
-	(109, 'occult acumen', 8, 20, 1, 701, 15, NULL);
+	(112, 'elemental celerity', 4, 30, 1, 700, 10, NULL),
+	(109, 'occult acumen', 8, 15, 1, 701, 14, NULL),
+	(109, 'occult acumen', 8, 30, 2, 701, 16, NULL),
+	(109, 'occult acumen', 8, 45, 3, 701, 18, NULL),
+	(109, 'occult acumen', 8, 60, 4, 701, 20, NULL),
+	(109, 'occult acumen', 8, 70, 5, 701, 22, NULL),
+	(110, 'mag. burst bonus', 8, 40, 2, 487, 20, 'ABYSSEA'),
+	(110, 'mag. burst bonus', 8, 60, 3, 487, 25, 'ABYSSEA');
 /*!40000 ALTER TABLE `traits` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

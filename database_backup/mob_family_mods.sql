@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `mob_family_mods` (
   PRIMARY KEY (`familyid`,`modid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=13 PACK_KEYS=1;
 
--- Dumping data for table dspdb.mob_family_mods: 71 rows
+-- Dumping data for table dspdb.mob_family_mods: 72 rows
 /*!40000 ALTER TABLE `mob_family_mods` DISABLE KEYS */;
 REPLACE INTO `mob_family_mods` (`familyid`, `modid`, `value`, `type`) VALUES
 	(175, 29, 50, 0),

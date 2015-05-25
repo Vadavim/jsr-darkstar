@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `char_jobs` (
 -- Dumping data for table dspdb.char_jobs: 3 rows
 /*!40000 ALTER TABLE `char_jobs` DISABLE KEYS */;
 REPLACE INTO `char_jobs` (`charid`, `unlocked`, `genkai`, `war`, `mnk`, `whm`, `blm`, `rdm`, `thf`, `pld`, `drk`, `bst`, `brd`, `rng`, `sam`, `nin`, `drg`, `smn`, `blu`, `cor`, `pup`, `dnc`, `sch`, `geo`, `run`) VALUES
-	(21828, 889214, 50, 37, 50, 75, 50, 1, 75, 0, 75, 0, 0, 0, 75, 0, 0, 75, 75, 0, 75, 75, 0, 0, 0),
+	(21828, 891390, 50, 37, 50, 75, 50, 39, 75, 75, 75, 0, 0, 37, 75, 0, 0, 75, 75, 0, 75, 75, 0, 0, 0),
 	(21829, 8388607, 50, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 	(21830, 8388607, 50, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 /*!40000 ALTER TABLE `char_jobs` ENABLE KEYS */;

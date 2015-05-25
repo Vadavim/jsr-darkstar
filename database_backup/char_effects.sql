@@ -24,13 +24,14 @@ CREATE TABLE IF NOT EXISTS `char_effects` (
   KEY `charid` (`charid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.char_effects: 8 rows
+-- Dumping data for table dspdb.char_effects: 16 rows
 /*!40000 ALTER TABLE `char_effects` DISABLE KEYS */;
 REPLACE INTO `char_effects` (`charid`, `effectid`, `icon`, `power`, `tick`, `duration`, `subid`, `subpower`, `tier`) VALUES
 	(21829, 794, 0, 0, 1000, 0, 0, 0, 0),
 	(21829, 795, 0, 7, 500, 0, 0, 0, 0),
 	(21830, 794, 0, 0, 100, 0, 0, 0, 0),
-	(21830, 795, 0, 7, 50, 0, 0, 0, 0);
+	(21830, 795, 0, 7, 50, 0, 0, 0, 0),
+	(21828, 64, 64, 0, 0, 105, 0, 0, 0);
 /*!40000 ALTER TABLE `char_effects` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
