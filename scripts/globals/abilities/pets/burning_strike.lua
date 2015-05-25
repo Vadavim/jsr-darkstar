@@ -18,6 +18,7 @@ function onPetAbility(target, pet, skill)
 	local numhits = 1;
 	local accmod = 1;
 	local dmgmod = 6;
+    skill:setSkillchain(225); -- Arching Arrow = Fusion
 
 	local totaldamage = 0;
 	local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,0,TP_NO_EFFECT,1,2,3);
@@ -30,6 +31,9 @@ function onPetAbility(target, pet, skill)
 	totaldamage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_SLASH,numhits);
 	target:delHP(totaldamage);
 	target:updateEnmityFromDamage(pet,totaldamage);
+    
+    local DOT = (pet:getMainLvl()/4) + 2;
+    target:addStatusEffect(EFFECT_BURN,DOT, 3, 30 + math.floor(skill:getTP() / 5),FLAG_ERASBLE);
 
 	return totaldamage;
 end

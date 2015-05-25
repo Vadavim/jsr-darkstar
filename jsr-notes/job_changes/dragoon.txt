@@ -1,0 +1,4 @@
+
+Ancient Circle
+ - Grants the following for the duration:
+	- +40 Ice, Thunder, and Fire Resistance

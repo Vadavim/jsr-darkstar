@@ -29,6 +29,7 @@ function onUseAbility(player, target, ability)
 
     local shieldSize = player:getShieldSize();
     local damage = 0;
+    damage = damage + player:getStat(MOD_STR);
 
     local chance = 90;
     damage = player:getMod(MOD_SHIELD_BASH);
@@ -51,6 +52,7 @@ function onUseAbility(player, target, ability)
     end
 
     chance = chance + (player:getMainLvl() - target:getMainLvl())*5;
+    target:addStatusEffect(EFFECT_CHAINBOUND,1,0,10);
 
     if(math.random()*100 < chance) then
         target:addStatusEffect(EFFECT_STUN,1,0,6);

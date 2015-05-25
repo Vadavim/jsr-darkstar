@@ -1,0 +1,17 @@
+[Shield Bash]
+ - Adds STR to damage
+ - Adds Chainbound effect for 10 seconds (next weaponskill triggers a skillchain).
+
+
+[Holy Circle
+ - Grants the following for the duration:
+	- +40 Light Resistance
+	- Reduces Light damage received by 25%.
+	- Reduces physical damage received by 10%.
+	- +20 Light Magic Accuracy
+	- +10% Cure Potency
+
+
+[Cover]
+ - Changed to:
+	- Target gets 50% physical damage reduction and reduced enmity.

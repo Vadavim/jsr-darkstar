@@ -1,0 +1,11 @@
+[Weapon Bash]
+ - Adds STR to damage
+ - Adds Chainbound effect for 10 seconds (next weaponskill triggers a skillchain).
+
+[Arcane Circle]
+ - Grants the following for the duration:
+	- +40 Dark Resistance
+	- +40 Curse Resistance
+	- -Reduces Dark damage received by 25%.
+	- +10 Magic Attack
+	- +20 Dark Magic Accuracy

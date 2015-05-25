@@ -1,0 +1,5 @@
+[Drain]
+Increased drain to: Dark Magic Skill * 1.3
+
+[Drain II]
+Increase drain to: Dark Magic Skill * 1.6

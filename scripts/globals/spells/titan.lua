@@ -21,6 +21,10 @@ end;
 
 function onSpellCast(caster,target,spell)
 	caster:spawnPet(PET_TITAN);
-
+    local power = math.floor(10 + caster:getMainLvl() / 2);
+    local pet = caster:getPet();
+    if (pet ~= nill) then
+        pet:addStatusEffect(EFFECT_TITAN_S_FAVOR, power, 15, 3000);
+    end
 	return 0;
 end;

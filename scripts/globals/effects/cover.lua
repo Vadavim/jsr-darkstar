@@ -9,6 +9,8 @@
 -----------------------------------
 
 function onEffectGain(target,effect)
+    target:addMod(MOD_UDMGPHYS, -50);
+    target:addMod(MOD_ENMITY, -50);
 end;
 
 -----------------------------------
@@ -23,4 +25,6 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
+    target:delMod(MOD_UDMGPHYS, -50);
+    target:delMod(MOD_ENMITY, -50);
 end;

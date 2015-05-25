@@ -41,8 +41,9 @@ function onUseAbility(player,target,ability)
     end
     
     -- Calculating and applying Weapon Bash damage
-    local damage = math.floor(((darkKnightLvl + 11) / 4) + player:getMod(MOD_WEAPON_BASH));
+    local damage = math.floor(((darkKnightLvl + 11) / 4) + player:getMod(MOD_WEAPON_BASH) + player:getStat(MOD_STR));
     target:delHP(damage);
     target:updateEnmityFromDamage(player,damage);
+    target:addStatusEffect(EFFECT_CHAINBOUND,1,0,10);
     return damage;
 end;

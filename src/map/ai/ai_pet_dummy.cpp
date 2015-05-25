@@ -515,7 +515,37 @@ void CAIPetDummy::ActionAbilityFinish(){
 
         // If we dealt damage.. we should wake up our target..
         if (m_PMobSkill->isDamageMsg() && Action.param > 0 && PTarget->StatusEffectContainer != nullptr)
+        {
             PTarget->StatusEffectContainer->WakeUp();
+            
+            
+            if (it == m_PTargetFind->m_targets.begin() && (m_PMobSkill->getSkillchain() != 0))
+            {
+                CWeaponSkill* PWeaponSkill = battleutils::GetWeaponSkill(m_PMobSkill->getSkillchain());
+                if (PWeaponSkill)
+                {
+                    SUBEFFECT effect = battleutils::GetSkillChainEffect(m_PBattleSubTarget, PWeaponSkill);
+                    if (effect != SUBEFFECT_NONE)
+                    {
+                        int32 skillChainDamage = battleutils::TakeSkillchainDamage(m_PPet, PTarget, Action.param);
+                        if (skillChainDamage < 0)
+                        {
+                            Action.addEffectParam = -skillChainDamage;
+                            Action.addEffectMessage = 384 + effect;
+                        }
+                        else
+                        {
+                            Action.addEffectParam = skillChainDamage;
+                            Action.addEffectMessage = 287 + effect;
+                        }
+                        Action.additionalEffect = effect;
+                    }
+                }
+            }
+            
+            
+            
+        }
 
         m_PPet->m_ActionList.push_back(Action);
     }

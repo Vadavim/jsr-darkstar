@@ -24,7 +24,7 @@ function onUseAbility(player,target,ability)
     local pet = player:getPet();
     local tp = pet:getTP();
     local level = player:getMainLvl();
-    local recovery = ( tp / 10 ) * ( 0.2 + (level / 30));
+    local recovery = ( tp / 4 ) * ( 0.2 + (level / 30));
     print(tostring(recovery));
     player:addMP(recovery);
     target:despawnPet();
