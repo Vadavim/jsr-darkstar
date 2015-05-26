@@ -5,3 +5,11 @@ ABILITY CHANGES
  - Grants the following for the duration:
 	- +10 Magic Evade
 	- +10% bonus to skillchain damage
+
+[Hagakure]
+ - Gained at level 50
+
+[Hamanoha]
+ - Gained at level 60
+ - Instead reduces target's TP to 0 and silences target for 30 seconds.
+ - Recast increaed to 10 minutes.

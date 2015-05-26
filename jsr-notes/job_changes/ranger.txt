@@ -13,3 +13,23 @@ ABILITY CHANGES
 
 [Scavange]
  - Now scavanges a random temporary item based on level.
+
+[Sharpshot]
+ - Also grants +30 ACC bonus.
+
+[Camouflage]
+ - Enmity reduction also works for subjobs.
+ - Also grants 2 Shadows (1 if subjob).
+
+[Decoy Shot]
+ - Instead inflicts -40 ACC, MACC, EVA, and MEVA for 30 seconds.
+ - Gained at level 15.
+
+[Bounty Shot]
+ - Gain at level 35
+ - Instead deals damage and heals HP based on damage dealt.
+
+[Double Shot]
+ - Gained at level 65
+
+

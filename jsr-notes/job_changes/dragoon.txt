@@ -1,4 +1,26 @@
 
-Ancient Circle
+[Ancient Circle]
  - Grants the following for the duration:
 	- +40 Ice, Thunder, and Fire Resistance
+
+[Spirit Link]
+ - Also grants HP regeneration to wyvern (1 + level / 4)/tic for one minute.
+
+[Dragon Breaker]
+ - Gained at level 60.
+ - Instead makes target vulnerable to critical hits (+10% chance) for 30 seconds.
+
+[Fly High]
+ - Gained at level 70.
+ - Recast reduced to 10 minutes.
+ - Instead resets all Jump abilities.
+
+
+[Smiting Breath]
+ - Gained at level 20
+
+[Healing Breath]
+ - Gained at level 40
+
+[Steady Wing]
+ - Gained at level 60

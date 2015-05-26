@@ -15,3 +15,21 @@
 [Cover]
  - Changed to:
 	- Target gets 50% physical damage reduction and reduced enmity.
+
+[Fealty]
+ - Recast time reduced to 3 minutes.
+
+[Chivalry]
+ - Recast reduced to 5 minutes.
+
+[Divine Emblem]
+ - Gained at level 25.
+ - Also grants +50 Light Magic Attack.
+
+[Palisade]
+ - Gained at level 45
+
+[Intervene]
+ - Gained at level 25
+ - Recast reduced to 10 minutes.
+ - Inflicts -40 ACC, -25% Attack, -40 EVA, and -40MEVA for 30 seconds.

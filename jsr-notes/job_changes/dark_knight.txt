@@ -34,3 +34,13 @@ ABILITY CHANGES
 [Last Resort]
  - While active, bestows 30% fastcast with black magic. 
  - In addition, the base damage of elemental nukes are doubled, but so is the MP cost.
+ - As a subjob, base damage is only increased by 30%.
+
+[Nether Void]
+ - Gained at level 10.
+
+[Scarlet Delirium]
+ - Gained at level 35
+ - Duration reduced to 1 minute.
+ - Also grants Endark.
+ - Instead convert damage taken into MP.

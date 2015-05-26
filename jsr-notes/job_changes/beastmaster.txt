@@ -1,14 +1,33 @@
 SKILL CHANGES
- - B+ Scythe
- - B Evasion
- - B Shield
- - B- Parrying
 
 TRAIT CHANGES
 
+[Killer Traits]
+ - All killer traits are gained at level 10. They start with an activation rate of 10%.
+ - At levels 20, 30, 40, 50, 60, and 70, activation rate increased by 2%.
 
+[Max HP Boost]
+ - Gains a Max HP boost at levels 15, 30, 50, and 70
 
 ABILITY CHANGES
 
-[Sic]
- - Recast time reduced to 90 seconds.
+
+[Run Wild]
+ - Gained at level 50
+ - Also instantly heals pet (based on level and Charisma).
+
+[Spur]
+ - Gained at level 40.
+ - Has an increased effect when using jug pets.
+
+[Tame]
+ - Against any mob, this also acts as a powerful stun for 10 seconds.
+
+[Snarl]
+ - Works with charmed pets too.
+
+[Unleash
+ - Gained at level 65.
+ - Recast reduced to 10 minutes.
+ - Instead instantly grants 300 TP and causes pet to use special move.
+

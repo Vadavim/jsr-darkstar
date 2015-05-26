@@ -23,3 +23,15 @@ ABILITY CHANGES
 
 [Flee]
  - Duration is doubled when main job is Thief.
+
+[Hide]
+ - Gained at level 10 instead of 45.
+
+[Despoil]
+ - Gained at level 45 instead of 77.
+
+[Bully]
+ - Gained at level 55 instead of 93.
+
+[Conspirator]
+ - Gained at level 70 instead of 87.
