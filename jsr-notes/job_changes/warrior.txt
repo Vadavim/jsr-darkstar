@@ -1,0 +1,20 @@
+SKILL CHANGES
+
+TRAIT CHANGES
+
+ABILITY CHANGES
+
+[Defender]
+ - Also reduces enmity lost by receiving damage.
+
+[Warcry]
+ - Also grants a +50 TP Bonus to weaponskills for the duration.
+
+[Restraint]
+ - Gained at level 55
+ - Changed to -25% Attack, -5% crit chance, and +50 Store TP.
+
+[Blood Rage]
+ - Gained at level 70
+
+

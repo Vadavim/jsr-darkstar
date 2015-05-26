@@ -1,0 +1,22 @@
+SKILL CHANGES
+
+TRAIT CHANGES
+
+ABILITY CHANGES
+
+[Mana Wall]
+ - Gained at level 50 (instead of 76)
+ - Now grants 50% physical damage reduction.
+ - Drains (level / 2) MP a tic while active.
+ - Recast time reduced to 1 minutes.
+
+
+[Subtle Sorcery]
+ - Gained at level 40 (instead of 96)
+ - When active, gives a -50 penalty to Fastcast.
+ - Increases MATK by +30, Conserve MP by 35, Enmity -20, and MACC by 20.
+
+[Manawell]
+ - Gained at level 65 (instead of 95)
+
+

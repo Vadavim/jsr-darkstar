@@ -1,0 +1,43 @@
+SKILL CHANGES
+
+TRAIT CHANGES
+
+ABILITY CHANGES
+
+[Marcato]
+ - Gained at level 40
+ - Recast increased to 3 minutes.
+ - Duration of listed effects is 3 minute unless otherwise noted.
+ - Consumes songs on you to generate powerful buffs for yourself.
+	- Carols: Grants Enspell and -50% elemental damage reduction matching element.
+	- Paeon: Heals HP depending upon level of spell and Chr.
+	- Etude: Grants a large bonus to associated stat.
+	- Madrigal: Grants a large ACC bonus to self
+	- Mambo: Grants 2/4 shadows (for Sheep / Dragonfoe Mambo)
+	- March: Grants +20 / +30 Double Attack (for Advancing / Victory March)
+	- Ballad: Heals MP depending upon level of spell and Chr.
+	- Minne: Grants physical damage reduction depending upon of spell (10% to 20%)
+	- Minuet: Grants a large Attack bonus to self.
+	- Status Resistance Songs: Grants high resistance to all status effect.
+	- Increases RACC by +40 and RATK by 40%.
+
+[Tenuto]
+ - Gained at level 60
+
+
+BARD SONG CHANGES
+ - Most buff songs now last for 10 minutes and have a recast of 5 minutes.
+ - The potency of Madrigal/March/Minuet has been reduced.
+
+
+[Requiem]
+ - The damage per tic has been greatly increased.
+ - (2 * Requiem Level) + CHR / 3.
+
+
+[Elegy]
+ - The amount of slow from elegies has been halved.
+
+
+
+

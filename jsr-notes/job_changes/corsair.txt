@@ -1,0 +1,20 @@
+SKILL CHANGES
+
+TRAIT CHANGES
+
+ABILITY CHANGES
+
+[Double-Up]
+ - Recast time reduced to 4 seconds
+
+[Rolls]
+ - Rolls now last 10 minutes, but also have a recast of 10 minutes.
+
+[Quick Draw]
+ - At level 55, gain a third charge and reduces recharge time to 50 seconds.
+ - At level 70, gain a fourth charge and reduces recharge time to 40 seconds.
+ - Each elemental shot will imbue the target with the corresponding skillchain attribute (Detonation for Wind, Induration for Ice, etc.).
+
+
+[Triple Shot]
+ - Gained at level 35

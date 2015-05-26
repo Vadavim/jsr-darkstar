@@ -1,0 +1,151 @@
+SKILL CHANGES
+ - A+ Enhancing Skill
+ - B+ Divine Magic Skill
+ - A+ Sword
+ - B+ Great Axe
+ - B+ Axe
+
+
+TRAIT CHANGES
+
+ - Gains Auto-Regen at level 10, and the amount increases every 10 levels thereafter.
+ - Gains Tactical Parry at levels 15 / 30 / 45 / 60 / 75
+	- Restores 2/4/6/8/10% TP per parry.
+ - Inquartata: Grants +5 Parrying skill at level 15 / 30 / 45 / 60 / 75
+ - Gains Accuracy Bonus at levels 20, 40, and 60
+
+
+ABILITY CHANGES
+
+[Rune Enchaintment]
+ - Each rune also grants +10 MACC and +10 MATK with the element it is associated with.
+
+
+[Elemental Sforzo]
+
+ - Instead grants the following effects if you have at least one rune of the following.
+	- Unda: Restores 100% Maximum HP. 
+	- Ignis: +25% Double Attack for 2 minutes.
+	- Tellus: -25% physical damage received for 2 minutes.
+	- Flabra: 4 Shadows
+	- Sulpor: +25% Critical Hit Chance for 2 minutes.
+	- Gelus: -50% magical damage received for 2 minutes.
+	- Lux: Regains 5% TP per 3 seconds for 2 minutes.
+	- Tenebrae: Restores 100% Maximum MP.
+
+[Vivacious Pulse]
+ - Base healing is 15% Maximum HP.
+ - Unless otherwise noted, additional effects last one minute.
+ - Unda runes give regeneration (scales with level and number of runes)
+ - Ignis runes give +12/15/18% Attack bonus
+ - Tellus runes give +20/25/30% Defense bonus
+ - Flabra runes give +20/25/30 Evasion
+ - Sulppor runes give a +6/+7/+8% critical hit chance increase
+ - Gelus runes give a +20/25/30 Mdef bonus.
+ - Lux runes give 15/20/25 TP regen per 3 seconds.
+ - Tenebrae runes restore MP (scales with level and number of runes)
+
+[Swordplay]
+ - Instead lasts until HP reaches 50% or lower.
+ - Duration increase to 3 minutes.
+
+[Batuta]
+ - Gained at level 30.
+ - Flabra runes gives +10 Parrying per rune
+ - Sulpor / Unda / Lux runes give +7 Parrying per rune
+ - The other runes give +5 Parrying per rune.
+
+[Rayke]
+ - Gained at 35
+ - Recast reduced to 180 seconds.
+ - Deals elemental damage based on runes.
+ - Has a chance to inflict status effects based on runes. Chance increased by additional runes of same element.
+	
+	- Ignis: Attack -10% for one minute.
+	- Unda: (5 + level / 2)/tic Poison for one minute.
+	- Tellus: Defense -10% for one minute.
+	- Flabra: Evasion -20 for one minute.
+	- Sulpor: Accuracy -20 for one minute.
+	- Gelus: MACC and MATK -10% for one minute.
+	- Lux: -100 TP
+	- Tenebrae: Dispels one effect
+
+
+[Embolden]
+ - Reduced recast to 3 minutes.
+
+
+WARD CHANGES
+
+[Vallation / Valiance] 
+ - Grants -30% / -35% / -40% elemental damage reduction based on number of runes of associated element.
+
+[Pflug]
+ - Duration increased to 6 minutes.
+ - Grants +80 / +100 / +120 resistance to associated status effects. 
+
+[Liement]
+ - Gained at level 65
+ - Instead grants 3 runes of an element matching the rune you last used.
+
+EFFUSIONS
+
+[Swipe]
+ - Greatly increased the damage done. Based on STR and INT.
+
+[Lunge]
+ - Greatly increases the damage one. Based on STR and INT.
+ 
+
+
+SPELL ENHANCEMENTS
+ - Harboring at least one rune of the associated element grants the enhanced effect.
+
+
+[Aquaveil]
+ - With an Unda rune, increases spell interruption reduction to -80% and reduces fire damage by 25%.
+
+[Protect Spells]
+ - With a Tellus rune, increases Defense bonus for self by 50%.
+
+[Shell Spells]
+ - With a Gelus rune, increases M.Defense bonus for self by 50%.
+
+[Regen / Regen II]
+ - With a Lux rune, increases regeneration by 50%.
+ - With an Unda rune, increases duration by 50%.
+ - With a Tenebrae rune, reduces duration by 50%.
+
+[Blink]
+ - With a Flabra rune, grants 2 additional shadows.
+
+[Blaze Spikes]
+ - With an Ignis rune, greatly increases fire damage.
+ - With a Tenebrae rune, doubles duration.
+
+[Ice Spikes]
+ - With a Gelus rune, moderately increses ice damage.
+ - With a Tenebrae rune, doubles duration.
+
+[Flash]
+ - With a Lux rune, increases duration by 2 seconds.
+ - With a Sulpor rune, increases duration by 2 seconds.
+ - With an Ignis rune, increased enmity generation.
+ - With a Tenebrae rune, enmity is instead reduced considerably.
+
+[Refresh]
+ - With a Lux rune, increases duration by 30 seconds.
+ - With a Tenebrae rune, increases Refresh by 1.
+
+[Phalanx]
+ - With a Lux rune, increases duration by 50%.
+ - With a Tellus rune, increases damage reduction by 50%.
+
+[Stoneskin]
+ - With a Tellus rune, increases amount absorbed by 50%.
+
+[Foil]
+ - With a Flabra rune, grants self 10% Haste (stacks with normal haste).
+ - With a Sulpor rune, grants self 5% Double Attack.
+
+ 

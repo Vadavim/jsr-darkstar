@@ -1,0 +1,17 @@
+SKILL CHANGES
+
+TRAIT CHANGES
+
+ - Gains Magic Burst Bonus (+15%) at level 20. Increases by 5% at levels 40 and 60.
+ - Gains Skillchain Bonus (+15%) at level 30. Increases by 5% at levels 50 and 70.
+ - Gains Tactical Parry at level 15, 30, 45, 60, and 75 (+2 TP per parry).
+
+ABILITY CHANGES
+
+[Futae]
+ - Gained at level 30.
+
+[Issekigan]
+ - Instead gained at level 55.
+
+

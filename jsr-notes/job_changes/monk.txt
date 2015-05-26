@@ -1,0 +1,27 @@
+SKILL CHANGES
+
+TRAIT CHANGES
+
+ABILITY CHANGES
+
+[Dodge]
+ - Also boosts Guard by 20 for the duration.
+ - Grants one shadow when used.
+
+[Focus]
+ - Also increases MACC and MATK by 20 for the duration.
+
+[Chakra]
+ - Also restores MP equal to VIT * 2.
+ - HP healed increased to VIT * 2 + 30% of your Maximum HP.
+
+[Chi Blast]
+ - Recast reduced to 1 minute
+
+[Perfect Counter]
+ - Gained at level 53 instead of 79
+
+[Impetus]
+ - Gained at level 70 instead of 88
+ - Recast reduced to 10 minutes.
+
