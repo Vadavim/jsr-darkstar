@@ -2291,6 +2291,19 @@ namespace charutils
                 break;
             }
         }
+        
+        if (PChar->GetMJob() == 21 || PChar->GetSJob() == 21)
+        {
+            addAbility(PChar, 341);
+            addAbility(PChar, 342);
+            addAbility(PChar, 343);
+            addAbility(PChar, 344);
+            addAbility(PChar, 345);
+            addAbility(PChar, 346);
+            addAbility(PChar, 347);
+            addAbility(PChar, 348);
+            addAbility(PChar, 349);
+        }
     }
 
     /************************************************************************
