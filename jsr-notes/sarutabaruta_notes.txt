@@ -1,0 +1,71 @@
+EAST SARUTABARUTA
+
+[NMs]
+
+==Spiny Spipi==
+SPAWN: 20 minutes [lottery]
+ 	- Can forced by trading 5 Silk Thread to Stone Monument [K-6]
+SPARKS: 100
+DROP CHANGES: Mist Cape [40%]
+
+==Sharp-Eared Ropipi==
+SPAWN: 8% chance [true lottery]
+SPARKS: 100
+DROP CHANGES: also drops 500 gil
+
+TODO: [Duke Decapod]
+
+==Bolster==
+SPAWN: trade 250 gil to Field Parchment (H-5)
+DROPS: 1 EX augmented item: Willow Wand [+1 Int, +20 MP], Kenpogi +1 [+1 DEF, +10 Dark Res], Self Bow [+4 AGI, +5 Evasion], Hachimaki +1 [+1 DEF, +2 ATK], Eremite's Ring [+5 MP, +15 Ice Res, +15 Dark Res], Green Scarf [-20 MP, +20 HP, +1 DEF], Scale Mail [+40 Water Res, +1 Def, +4 MND], Spatha [+2 Int, +1 ATK, +2 Dex], Shell Shield [+20 Water Res, +20 Fire Res, +20 MP]
+
+
+WEST SARUTABARUTA
+
+[NMS]
+
+==Tom Tit Tat==
+SPAWN: 20 minutes [lottery]
+SPARKS: 100
+DROP CHANGES: Fruit Punches [50%], Three-Leaf Mandragora Bud [100%]
+
+==Nunyenunc==
+SPAWN: 35 minutes [lottery]
+SPARKS: 150
+DROP CHANGES: Fire Cluster [100%]
+
+==Numbing Norman==
+SPARKS: 150
+DROP CHANGES: Pike (70%), Wind Cluster [100%]
+
+==Bakru==
+SPAWN: Trade 250 gil to Field Parchment [J-6]
+DROP CHANGES: One augmented item: (Ash Pole: DMG +2), Bronze Knuckles (DMG +2), Luan Shield (DEF +2, Earth Res +10), Onion Dagger (DMG +1), Onion Sword( DMG+1, VIT +3), Rabbit Mantle (AGI +1, Earth Res +10), Rusty Greatsword ( DMG +2, Earth Res +10), Cuffs [+1 Int, +1 Mnd], Leather Bandana [+15 Wind Res, +2 Str], Brass Hairpin [+20 Fire Res, +20 Lightning Res, +2 Def]
+
+[HARVESTING]
+ - Earth or Wind Crystal [40%]
+ - Earth or Wind cluster [10%]
+ - Green Rock [10%]
+ - Sarui-ran Toolbag [10%]
+ - Wooden Arrow Quiver [10%]
+ - Gysahl Greens x4 [5%]
+ - Ebony Log [5%]
+ - Herb Seeds x3 [5%]
+ - Tree Cuttings [7%]
+
+[Special Drops]
+Firefly
+
+GIDDEUS
+
+[NMS]
+
+==Hoo Mjuu the Torrent==
+SPAWN: 30 minutes [lottery]
+SPARKS: 200
+DROP CHANGES: Monster Signa [35%], Beastman's Seal [30%] (up to two)
+
+
+
+
+
