@@ -49,12 +49,14 @@ public:
 
 	uint16	m_MasterCommand; //used for avatars/wyverns atm
     bool  m_queueSic;
+    
 
 protected:
 	virtual void TransitionBack(bool skipWait = false);
 
 	CPetEntity* m_PPet;
     int16 m_skillTP;
+    uint32 m_Cooldown;
 
 	void preparePetAbility(CBattleEntity* PTarg);
 	void ActionRoaming();
@@ -77,6 +79,11 @@ protected:
 	void ActionMagicInterrupt();
 
     void SendTooFarInterruptMessage(CBattleEntity* PTarg);
+    
+    bool LightRoam();
+    bool LightAttack();
+    CBattleEntity* getWounded(uint8 threshold);
+    
 
 
 private:

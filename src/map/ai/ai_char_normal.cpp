@@ -3161,6 +3161,7 @@ void CAICharNormal::DoAttack()
         //if zanshin procs, the attack is repeated
         if (attack.IsFirstSwing() && attackRound.GetAttackSwingCount() == 1)
         {
+                     
             uint16 zanshinChance = m_PChar->getMod(MOD_ZANSHIN) + m_PChar->PMeritPoints->GetMeritValue(MERIT_ZASHIN_ATTACK_RATE, m_PChar);
             zanshinChance = dsp_cap(zanshinChance, 0, 100);
             //zanshin may only proc on a missed/guarded/countered swing or as SAM main with hasso up (at 25% of the base zanshin rate)

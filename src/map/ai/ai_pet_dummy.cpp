@@ -47,6 +47,8 @@ This file is part of DarkStar-server source code.
 
 #include "../alliance.h"
 #include "ai_pet_dummy.h"
+#include <stdio.h>
+#include <string>     // std::string, std::stoi
 
 /************************************************************************
 *																		*
@@ -62,6 +64,7 @@ CAIPetDummy::CAIPetDummy(CPetEntity* PPet)
     m_PPathFind = new CPathFind(PPet);
 
     m_PMagicState = new CMagicState(PPet, m_PTargetFind);
+    m_Cooldown = 5000;
 }
 
 /************************************************************************
@@ -632,19 +635,15 @@ void CAIPetDummy::ActionRoaming()
 
     float currentDistance = distance(m_PPet->loc.p, m_PPet->PMaster->loc.p);
 
-
     // this is broken until pet / mob relationship gets fixed
     // pets need to extend mob or be a mob because pet has no spell list!
-    if (m_PPet->getPetType() == PETTYPE_AVATAR && m_PPet->m_Family == 104 && m_Tick >= m_LastActionTime + 30000 && currentDistance < PET_ROAM_DISTANCE * 2)
+    if (m_PPet->getPetType() == PETTYPE_AVATAR && m_PPet->m_Family == 104 && m_Tick >= m_LastActionTime + m_Cooldown && currentDistance < PET_ROAM_DISTANCE * 2)
     {
-        int16 spellID = 108;
-        // define this so action picks it up
-        SetCurrentSpell(spellID);
-        m_PBattleSubTarget = m_PPet->PMaster;
-
-        m_ActionType = ACTION_MAGIC_START;
-        ActionMagicStart();
-        return;
+        if (LightRoam())
+        {
+            return;
+        }
+        
     }
 
     if (currentDistance > PET_ROAM_DISTANCE)
@@ -766,10 +765,21 @@ void CAIPetDummy::ActionAttack()
         ActionAbilityStart();
         return;
     }
+    
 
     m_PPathFind->LookAt(m_PBattleTarget->loc.p);
 
     float currentDistance = distance(m_PPet->loc.p, m_PBattleTarget->loc.p);
+    
+    if (m_Tick >= m_LastActionTime + m_Cooldown)
+    {
+        if (m_PPet->getPetType() == PETTYPE_AVATAR && m_PPet->m_Family == 104 && LightAttack())
+        {
+            return;
+        } 
+    }
+    
+    
 
     //go to target if its too far away
     if (currentDistance > m_PBattleTarget->m_ModelSize && m_PPet->speed != 0)
@@ -969,6 +979,7 @@ void CAIPetDummy::ActionMagicStart()
     m_LastActionTime = m_Tick;
     m_LastMagicTime = m_Tick;
 
+
     STATESTATUS status = m_PMagicState->CastSpell(GetCurrentSpell(), m_PBattleSubTarget);
 
     if (status == STATESTATUS_START)
@@ -1085,4 +1096,199 @@ void CAIPetDummy::TransitionBack(bool skipWait)
             ActionRoaming();
         }
     }
+}
+
+
+
+//LIGHT ELEMENTAL
+bool CAIPetDummy::LightRoam()
+{
+    uint8 level = m_PPet->GetMLevel();
+    int16 spellID = -1;
+    CBattleEntity* master = m_PPet->PMaster;
+    
+    CStatusEffectContainer* status = master->StatusEffectContainer;
+    if (status->HasStatusEffect(EFFECT_PROTECT) == false)
+    {
+        m_PBattleSubTarget = m_PPet;
+        if (level < 27)
+        {
+            spellID = 125;
+        }
+        else if (level < 47)
+        {
+            spellID = 126;
+        }
+        else if (level < 63)
+        {
+            spellID = 127;
+        }
+        else
+        {
+            spellID = 128;
+        }
+        m_Cooldown = 5000;
+    }
+    else if (status->HasStatusEffect(EFFECT_SHELL) == false)
+    {
+        m_PBattleSubTarget = m_PPet;
+        if (level < 27)
+        {
+            spellID = 130;
+        }
+        else if (level < 47)
+        {
+            spellID = 131;
+        }
+        else if (level < 63)
+        {
+            spellID = 132;
+        }
+        else
+        {
+            spellID = 133;
+        }
+        m_Cooldown = 5000;
+    }
+    else if (status->HasStatusEffect(EFFECT_REGEN) == false && level > 20)
+    {
+        m_PBattleSubTarget = master;
+        if (level < 44)
+        {
+            spellID = 108;
+        }
+        else if (level < 66)
+        {
+            spellID = 110;
+        }
+        else
+        {
+            spellID = 111;
+        }
+        m_Cooldown = 5000;
+    }
+    //uint8 masterHPP = 
+    //int16 spellID = 108;
+    
+    
+    if (spellID != -1)
+    {
+        SetCurrentSpell(spellID);
+        m_ActionType = ACTION_MAGIC_START;
+        ActionMagicStart();
+        return true;
+    }
+
+    
+    return false;
+}
+
+bool CAIPetDummy::LightAttack()
+{
+    uint8 level = m_PPet->GetMLevel();
+    int16 spellID = -1;
+    CBattleEntity* master = m_PPet->PMaster;  
+    CBattleEntity* mostWounded = getWounded(50);
+    //CBattleEntity* mostWounded = m_PPet;
+    
+    if (mostWounded != nullptr)
+    {
+        m_PBattleSubTarget = mostWounded;
+        if (level < 11)
+        {
+            spellID = 1;
+        }
+        else if (level < 21)
+        {
+            spellID = 2;
+        }
+        else if (level < 41)
+        {
+            spellID = 3;
+        }
+        else if (level < 61)
+        {
+            spellID = 4;
+        }
+        else
+        {
+            spellID = 5;
+        }
+        m_Cooldown = 20000;
+    }
+    
+    
+    
+    
+    if (spellID != -1)
+    {
+        SetCurrentSpell(spellID);
+        m_ActionType = ACTION_MAGIC_START;
+        ActionMagicStart();
+        return true;
+    }
+
+    
+    return false;
+}
+
+CBattleEntity* CAIPetDummy::getWounded(uint8 threshold)
+{
+    uint8 lowest = 100;
+    CBattleEntity* mostHurt = nullptr;
+     std::vector<CBattleEntity*> members = std::vector<CBattleEntity*>();
+    try
+    {
+        members = m_PPet->PMaster->PParty->members;
+    }
+    catch (int e)
+    {
+        perror("Can't access PParty.");
+        return nullptr;
+        
+    }
+    for (uint32 i = 0; i < members.size(); ++i)
+    {
+        CBattleEntity* ally = nullptr;
+        try
+        {
+            ally = members.at(i);
+        }
+        catch (int e)
+        {
+            perror("No members.at");
+            return false;
+        }
+        if (ally == nullptr)
+        {
+            continue;
+        }
+        
+        try
+        {
+            uint8 hpp = ally->GetHPP();
+            if (hpp < lowest && hpp < threshold)
+            {
+                lowest = hpp;
+                mostHurt = ally;
+            }   
+        }
+        catch (int e)
+        {
+            perror("Math stuff.");
+            return nullptr;
+        }
+    }
+
+    
+    /*if (m_PPet->PMaster->GetHPP() <= threshold)
+    {
+        mostHurt = m_PPet->PMaster;
+    }
+    else if (m_PPet->GetHPP() <= threshold)
+    {
+        mostHurt = m_PPet;
+    }*/
+    
+    return mostHurt;
 }

@@ -601,6 +601,12 @@ namespace spell
                     JobSLVL = 0;
                 }
             }
+            
+            if(PCaster->objtype == TYPE_PET){
+                // Mobs can cast any non-given char spell
+                    JobMLVL = 0;
+                    JobSLVL = 0;
+            }
 
 		    if(PCaster->GetMLevel() >= JobMLVL)
             {

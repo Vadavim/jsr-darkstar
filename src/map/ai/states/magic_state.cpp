@@ -31,6 +31,7 @@
 #include "../../packets/char_update.h"
 
 #include "../../spell.h"
+#include <stdio.h>
 
 CMagicState::CMagicState(CBattleEntity* PEntity, CTargetFind* PTargetFind, float maxStartDistance, float maxFinishDistance)
 : CState(PEntity, PTargetFind)
@@ -47,7 +48,6 @@ STATESTATUS CMagicState::CastSpell(CSpell* PSpell, CBattleEntity* PTarget, uint8
 	{
 		return STATESTATUS_ERROR;
 	}
-
 	Clear();
 
 	m_PSpell = PSpell;
@@ -79,7 +79,7 @@ bool CMagicState::CanCastSpell(CSpell* PSpell, CBattleEntity* PTarget, uint8 fla
 
 	if(!ValidCast(PSpell, PTarget))
 	{
-		return false;
+        return false;
 	}
 
     if(m_PEntity->objtype == TYPE_PC)
@@ -490,7 +490,6 @@ bool CMagicState::ValidCast(CSpell* PSpell, CBattleEntity* PTarget)
         PushError(MSGBASIC_CANNOT_ON_THAT_TARG, 0);
         return false;
     }
-
 	if(!m_enableCasting ||
 		m_PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_SILENCE) ||
 		m_PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_MUTE))
@@ -498,7 +497,7 @@ bool CMagicState::ValidCast(CSpell* PSpell, CBattleEntity* PTarget)
         PushError(MSGBASIC_UNABLE_TO_CAST_SPELLS, PSpell->getID());
 		return false;
 	}
-
+    
     if (PSpell->getSpellGroup() == SPELLGROUP_NINJUTSU)
     {
         if(m_PEntity->objtype == TYPE_PC && !(m_flags & MAGICFLAGS_IGNORE_TOOLS) && !battleutils::HasNinjaTool(m_PEntity, PSpell, false))
@@ -507,6 +506,12 @@ bool CMagicState::ValidCast(CSpell* PSpell, CBattleEntity* PTarget)
             return false;
         }
     }
+    
+    if (m_PEntity->objtype == TYPE_PET)
+    {
+        return true;
+    }
+    
     // check has mp available
     else if(!m_PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_MANAFONT) && !(m_flags & MAGICFLAGS_IGNORE_MP) && CalculateMPCost(PSpell) > m_PEntity->health.mp)
     {
@@ -517,7 +522,7 @@ bool CMagicState::ValidCast(CSpell* PSpell, CBattleEntity* PTarget)
         PushError(MSGBASIC_NOT_ENOUGH_MP, PSpell->getID());
         return false;
     }
-
+    
     if (!spell::CanUseSpell(m_PEntity, PSpell->getID()))
     {
         PushError(MSGBASIC_CANNOT_CAST_SPELL, PSpell->getID());
