@@ -260,7 +260,7 @@ namespace battlefieldutils{
 			//	if(((tick - battlefield->getDeadTime())/1000) % 20 == 0){
 			//		battlefield->pushMessageToAllInBcnm(200,180 - (tick - battlefield->getDeadTime())/1000);
 			//	}
-				if(tick - battlefield->getDeadTime() > 180000){
+				if(tick - battlefield->getDeadTime() > 10000){
 					ShowDebug("All players from the battlefield %i inst:%i have fallen for 3mins. Removing.\n",
 						battlefield->getID(),battlefield->getBattlefieldNumber());
 					return true;

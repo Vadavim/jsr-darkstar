@@ -46,6 +46,7 @@ This file is part of DarkStar-server source code.
 #include "states/magic_state.h"
 
 #include "../alliance.h"
+#include "../vana_time.h"
 #include "ai_pet_dummy.h"
 #include <stdio.h>
 #include <string>     // std::string, std::stoi
@@ -637,13 +638,19 @@ void CAIPetDummy::ActionRoaming()
 
     // this is broken until pet / mob relationship gets fixed
     // pets need to extend mob or be a mob because pet has no spell list!
-    if (m_PPet->getPetType() == PETTYPE_AVATAR && m_PPet->m_Family == 104 && m_Tick >= m_LastActionTime + m_Cooldown && currentDistance < PET_ROAM_DISTANCE * 2)
+	int16 spellID = -1;
+    if (m_PPet->getPetType() == PETTYPE_AVATAR && m_PPet->m_Family == 104 && m_Tick >= m_LastMagicTime + m_Cooldown && currentDistance < PET_ROAM_DISTANCE * 2)
     {
-        if (LightRoam())
-        {
-            return;
-        }
-        
+        spellID = LightRoam();      
+    }
+	
+	if (spellID != -1)
+    {
+        m_PPet->addMP(1000);
+		SetCurrentSpell(spellID);
+        m_ActionType = ACTION_MAGIC_START;
+        ActionMagicStart();
+        return;
     }
 
     if (currentDistance > PET_ROAM_DISTANCE)
@@ -732,7 +739,6 @@ void CAIPetDummy::ActionAttack()
         return;
     }
 
-
     //if 2 bsts are in party, make sure their pets cannot fight eachother
     if (m_PBattleTarget != nullptr && m_PBattleTarget->objtype == TYPE_MOB && m_PBattleTarget->PMaster != nullptr && m_PBattleTarget->PMaster->objtype == TYPE_PC)
     {
@@ -740,7 +746,6 @@ void CAIPetDummy::ActionAttack()
         ActionDisengage();
         return;
     }
-
 
     //wyvern behaviour
     if (m_PPet->getPetType() == PETTYPE_WYVERN && m_PPet->PMaster->PBattleAI->GetBattleTarget() == nullptr){
@@ -767,17 +772,32 @@ void CAIPetDummy::ActionAttack()
     }
     
 
-    m_PPathFind->LookAt(m_PBattleTarget->loc.p);
-
-    float currentDistance = distance(m_PPet->loc.p, m_PBattleTarget->loc.p);
-    
+	float currentDistance = distance(m_PPet->loc.p, m_PBattleTarget->loc.p);
+	int16 spellID = -1;
     if (m_Tick >= m_LastActionTime + m_Cooldown)
     {
-        if (m_PPet->getPetType() == PETTYPE_AVATAR && m_PPet->m_Family == 104 && LightAttack())
-        {
-            return;
-        } 
+        uint16 family = m_PPet->m_Family;
+		if (m_PPet->getPetType() == PETTYPE_AVATAR)
+		{	
+			if (family == 104)
+				spellID = LightAttack();
+			else if (family == 100)
+				spellID = DarkAttack();
+		}
     }
+	
+	if (spellID != -1)
+    {
+        m_PPet->addMP(1000);
+		SetCurrentSpell(spellID);
+        m_ActionType = ACTION_MAGIC_START;
+        ActionMagicStart();
+        return;
+    }
+	
+    m_PPathFind->LookAt(m_PBattleTarget->loc.p);
+
+    
     
     
 
@@ -1101,7 +1121,7 @@ void CAIPetDummy::TransitionBack(bool skipWait)
 
 
 //LIGHT ELEMENTAL
-bool CAIPetDummy::LightRoam()
+int16 CAIPetDummy::LightRoam()
 {
     uint8 level = m_PPet->GetMLevel();
     int16 spellID = -1;
@@ -1112,80 +1132,47 @@ bool CAIPetDummy::LightRoam()
     {
         m_PBattleSubTarget = m_PPet;
         if (level < 27)
-        {
             spellID = 125;
-        }
         else if (level < 47)
-        {
             spellID = 126;
-        }
         else if (level < 63)
-        {
             spellID = 127;
-        }
         else
-        {
             spellID = 128;
-        }
         m_Cooldown = 5000;
     }
     else if (status->HasStatusEffect(EFFECT_SHELL) == false)
     {
         m_PBattleSubTarget = m_PPet;
         if (level < 27)
-        {
             spellID = 130;
-        }
         else if (level < 47)
-        {
             spellID = 131;
-        }
         else if (level < 63)
-        {
             spellID = 132;
-        }
         else
-        {
             spellID = 133;
-        }
         m_Cooldown = 5000;
     }
     else if (status->HasStatusEffect(EFFECT_REGEN) == false && level > 20)
     {
         m_PBattleSubTarget = master;
         if (level < 44)
-        {
             spellID = 108;
-        }
         else if (level < 66)
-        {
             spellID = 110;
-        }
         else
-        {
             spellID = 111;
-        }
         m_Cooldown = 5000;
     }
     //uint8 masterHPP = 
     //int16 spellID = 108;
-    
-    
-    if (spellID != -1)
-    {
-        SetCurrentSpell(spellID);
-        m_ActionType = ACTION_MAGIC_START;
-        ActionMagicStart();
-        return true;
-    }
-
-    
-    return false;
+    return spellID;
 }
 
-bool CAIPetDummy::LightAttack()
+int16 CAIPetDummy::LightAttack()
 {
-    uint8 level = m_PPet->GetMLevel();
+	uint8 level = m_PPet->GetMLevel();
     int16 spellID = -1;
     CBattleEntity* master = m_PPet->PMaster;  
     CBattleEntity* mostWounded = getWounded(50);
@@ -1195,48 +1182,108 @@ bool CAIPetDummy::LightAttack()
     {
         m_PBattleSubTarget = mostWounded;
         if (level < 11)
-        {
             spellID = 1;
-        }
         else if (level < 21)
-        {
             spellID = 2;
-        }
         else if (level < 41)
-        {
             spellID = 3;
-        }
         else if (level < 61)
-        {
             spellID = 4;
-        }
         else
-        {
             spellID = 5;
-        }
         m_Cooldown = 20000;
     }
-    
-    
-    
-    
-    if (spellID != -1)
-    {
-        SetCurrentSpell(spellID);
-        m_ActionType = ACTION_MAGIC_START;
-        ActionMagicStart();
-        return true;
-    }
-
-    
-    return false;
+	else if (m_PBattleTarget != nullptr && m_PBattleTarget->StatusEffectContainer->HasStatusEffect(EFFECT_DIA) == false)
+	{
+		m_PBattleSubTarget = m_PBattleTarget;
+		m_Cooldown = 5000;
+        if (level < 36)
+            spellID = 23;
+        else
+            spellID = 24;
+        
+	}
+	else
+	{
+		m_Cooldown = 5000;
+		m_PBattleSubTarget = m_PBattleTarget;
+		if (level < 30)
+			spellID = 28;
+		else if (level < 65)
+			spellID = 29;
+		else
+			spellID = 30;
+	}
+	return spellID;
 }
+
+
+int16 CAIPetDummy::DarkAttack()
+{
+	uint8 level = m_PPet->GetMLevel();
+    int16 spellID = -1;
+    CBattleEntity* master = m_PPet->PMaster;  
+    //CBattleEntity* mostWounded = m_PPet;
+    m_PBattleSubTarget = m_PBattleTarget;
+
+	if (m_PBattleTarget->StatusEffectContainer->HasStatusEffect(EFFECT_DIA) == false
+			&& m_PBattleTarget->StatusEffectContainer->HasStatusEffect(EFFECT_BIO) == false)
+	{
+		m_Cooldown = getSpiritCooldown(5000, DARKSDAY);
+        if (level < 36)
+            spellID = 230;
+        else
+            spellID = 231;
+        
+	}
+	else if (m_PBattleTarget->StatusEffectContainer->HasStatusEffect(EFFECT_BLINDNESS) == false
+		&& WELL512::GetRandomNumber(100) < 70)
+		{
+		m_Cooldown = getSpiritCooldown(6500, DARKSDAY);
+		if (level < 70)
+			spellID = 254;
+		else
+			spellID = 276;
+		}
+	else if (level < 61 && WELL512::GetRandomNumber(100) < 45)
+	{
+		spellID = 242;
+        m_Cooldown = getSpiritCooldown(8000, DARKSDAY);
+	}
+	else if (WELL512::GetRandomNumber(100) < 20 && level > 44)
+	{
+		m_Cooldown = getSpiritCooldown(6500, DARKSDAY);
+		spellID = 252;
+	}
+	else
+	{
+		m_Cooldown = getSpiritCooldown(12000, DARKSDAY);
+		if (level < 50)
+			spellID = 245;
+		else
+			spellID = 246;
+	}
+	
+	
+	return spellID;
+}
+
 
 CBattleEntity* CAIPetDummy::getWounded(uint8 threshold)
 {
     uint8 lowest = 100;
     CBattleEntity* mostHurt = nullptr;
      std::vector<CBattleEntity*> members = std::vector<CBattleEntity*>();
+	 if (m_PPet->PMaster->PParty == nullptr)
+	 {
+		 if (m_PPet->PMaster->GetHPP() <= threshold)
+			 return m_PPet->PMaster;
+		 else if (m_PPet->GetHPP() <= threshold)
+			 return m_PPet;
+		 else
+			 return nullptr;
+	 }
+	
     try
     {
         members = m_PPet->PMaster->PParty->members;
@@ -1247,7 +1294,7 @@ CBattleEntity* CAIPetDummy::getWounded(uint8 threshold)
         return nullptr;
         
     }
-    for (uint32 i = 0; i < members.size(); ++i)
+    /*for (uint32 i = 0; i < members.size(); ++i)
     {
         CBattleEntity* ally = nullptr;
         try
@@ -1277,8 +1324,9 @@ CBattleEntity* CAIPetDummy::getWounded(uint8 threshold)
         {
             perror("Math stuff.");
             return nullptr;
-        }
-    }
+        }*/
+	
+    
 
     
     /*if (m_PPet->PMaster->GetHPP() <= threshold)
@@ -1291,4 +1339,62 @@ CBattleEntity* CAIPetDummy::getWounded(uint8 threshold)
     }*/
     
     return mostHurt;
+}
+
+uint32 CAIPetDummy::getSpiritCooldown(uint32 cooldown, uint8 sDay)
+{
+	CBattleEntity* master = m_PPet->PMaster;
+	double mSummoning = (double)master->getMod(MOD_SUMMONING);
+    if (mSummoning > 30)
+        mSummoning = 30;
+	double mChr = (double)master->getMod(MOD_CHR);
+    if (mChr > 60)
+        mChr = 60;
+	double mBloodpact = (double)master->getMod(MOD_BP_DELAY);
+    if (mBloodpact > 15)
+        mBloodpact = 15;
+	uint8 day = (uint8)CVanaTime::getInstance()->getWeekday();
+	WEATHER weather = battleutils::GetWeather(m_PPet, true);
+    double fCooldown = cooldown;
+    fCooldown = fCooldown * (1.0 - mSummoning / 100.0);
+    fCooldown = fCooldown * (1.0 - mChr / 200.0);
+    fCooldown = fCooldown * (1.0 - mBloodpact / 50.0);
+    
+    if (sDay == day)
+        fCooldown = fCooldown * 0.8;
+    if (weather == WEATHER_HOT_SPELL && day == FIRESDAY)
+        fCooldown = fCooldown * 0.8;
+    else if (weather == WEATHER_HEAT_WAVE && day == FIRESDAY)
+        fCooldown = fCooldown * 0.6;
+    else if (weather == WEATHER_RAIN && day == WATERSDAY)
+        fCooldown = fCooldown * 0.8;
+    else if (weather == WEATHER_SQUALL && day == WATERSDAY)
+        fCooldown = fCooldown * 0.6;
+    else if (weather == WEATHER_DUST_STORM && day == EARTHSDAY)
+        fCooldown = fCooldown * 0.8;
+    else if (weather == WEATHER_SAND_STORM && day == EARTHSDAY)
+        fCooldown = fCooldown * 0.6;
+    else if (weather == WEATHER_WIND && day == WINDSDAY)
+        fCooldown = fCooldown * 0.8;
+    else if (weather == WEATHER_GALES && day == WINDSDAY)
+        fCooldown = fCooldown * 0.6;
+    else if (weather == WEATHER_SNOW && day == ICEDAY)
+        fCooldown = fCooldown * 0.8;
+    else if (weather == WEATHER_BLIZZARDS && day == ICEDAY)
+        fCooldown = fCooldown * 0.6;
+    else if (weather == WEATHER_THUNDER && day == LIGHTNINGDAY)
+        fCooldown = fCooldown * 0.8;
+    else if (weather == WEATHER_THUNDERSTORMS && day == LIGHTNINGDAY)
+        fCooldown = fCooldown * 0.6;
+    else if (weather == WEATHER_AURORAS && day == LIGHTSDAY)
+        fCooldown = fCooldown * 0.8;
+    else if (weather == WEATHER_STELLAR_GLARE && day == LIGHTSDAY)
+        fCooldown = fCooldown * 0.6;
+    else if (weather == WEATHER_GLOOM && day == DARKSDAY)
+        fCooldown = fCooldown * 0.8;
+    else if (weather == WEATHER_DARKNESS && day == DARKSDAY)
+        fCooldown = fCooldown * 0.6;
+    
+    
+	return (uint32)fCooldown;
 }

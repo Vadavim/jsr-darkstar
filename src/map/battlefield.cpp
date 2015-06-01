@@ -31,14 +31,19 @@
 #include "packets/entity_update.h"
 #include "packets/position.h"
 #include "packets/message_basic.h"
+#include "packets/message_special.h"
 #include "lua/luautils.h"
 #include "utils/zoneutils.h"
+#include "utils/charutils.h"
+#include "utils/itemutils.h"
 
 
 CBattlefield::CBattlefield(CBattlefieldHandler* hand, uint16 id, BATTLEFIELDTYPE type){
 	m_Type = type;
 	m_BcnmID = id;
 	m_Handler = hand;
+    m_Initiator = nullptr;
+    m_tradeID = 0;
 	locked = false;
 	m_FastestTime = 3600;
 	m_DynaUniqueID = 0;
@@ -422,16 +427,25 @@ bool CBattlefield::winBcnm(){
 }
 
 bool CBattlefield::spawnTreasureChest(){
+    this->rewardAugmentedItem();
 	battlefieldutils::spawnTreasureForBcnm(this);
 	return true;
 }
 
 void CBattlefield::OpenChestinBcnm(){
+    
 	battlefieldutils::getChestItems(this);
 }
 
 bool CBattlefield::loseBcnm(){
-	beforeCleanup();
+    if (m_tradeID != 0)
+    {
+        CItem* item = itemutils::GetItem(m_tradeID);
+        item->setQuantity(1);
+        charutils::AddItem(m_Initiator, LOC_INVENTORY, item);
+    }
+    beforeCleanup();
+    
 	for(int i=0; i<m_PlayerList.size(); i++){
 		luautils::OnBcnmLeave(m_PlayerList.at(i),this,LEAVE_LOSE);
 		if(this->delPlayerFromBcnm(m_PlayerList.at(i))){i--;}
@@ -589,4 +603,135 @@ void CBattlefield::lose()
 void CBattlefield::win()
 {
 	m_won = true;
+}
+
+void CBattlefield::rewardAugmentedItem()
+{
+   uint8 rand = WELL512::GetRandomNumber(100);
+   uint16 rewardID = 0;
+   CItemArmor* reward = nullptr;
+
+   //Charming Trio
+    if (m_BcnmID == 105){
+        if (rand < 12){
+            //Platoon Disc: +15 RATK, WRES +10, HP+5
+            rewardID = 18171;
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 29, 14); //+15 RATK
+            reward->setAugment(1, 770, 9); //+10 Wind Res
+            reward->setAugment(2, 1, 4); //+5 HP
+        }
+        else if (rand < 24){
+            rewardID = 17692; //Platoon Spatha
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 23, 3); //+4 ACC
+            reward->setAugment(1, 44, 4); //+5 Store TP and Subtle Blow
+            reward->setAugment(2, 1, 19); //+20 HP
+        }
+        else if (rand < 36){
+            rewardID = 17571; //Platoon Pole
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 33, 5); //+6 DEF
+            reward->setAugment(1, 25, 3); //+4 ATK
+            reward->setAugment(2, 1, 19); //+20 HP
+        }
+        else if (rand < 48){
+            rewardID = 18209; //Platoon Cutter
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 41, 14); //+15% Crit
+            reward->setAugment(1, 50, 7); //-8% Haste
+            reward->setAugment(2, 1, 19); //+20 HP
+        }
+        else if (rand < 60){
+            rewardID = 17271; //Platoon Gun
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 28, 9); //-10 RACC
+            reward->setAugment(1, 29, 14); //+15 RATK
+            reward->setAugment(2, 1, 4); //+5 HP
+        }
+        else if (rand < 72){
+            rewardID = 17202; //Platoon Bow
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 512, 1); //+2 STR
+            reward->setAugment(1, 29, 4); //+5 RATK
+            reward->setAugment(2, 34, 5); //-6 DEF
+        }
+        else if (rand < 84){
+            rewardID = 17820; //Gunromaru
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 37, 14); //+15 MEVA
+            reward->setAugment(1, 134, 14); //+15 MDEF
+            reward->setAugment(2, 133, 19); //+20 MATK
+        } 
+        else{
+            rewardID = 16687; //Platoon Axe
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 25, 5); //+6 ATK
+            reward->setAugment(1, 34, 3); //-4 DEF
+            reward->setAugment(2, 1, 19); //+20 HP
+        } 
+    }
+    //Wings of Fury
+    else if (m_BcnmID == 34){
+        if (rand < 13){
+            rewardID = 17462; //Platoon Mace
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 45, 2); //+3 DAM
+            reward->setAugment(1, 1, 19); //+20 HP
+        }
+        else if (rand < 26){
+            rewardID = 17692; //Platoon Dagger
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 31, 1); //+2 EVA
+            reward->setAugment(1, 40, 4); //-5 Enmity
+            reward->setAugment(2, 1, 19); //+20 HP
+        }
+        else if (rand < 39){
+            rewardID = 17786; //Ganko
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 33, 1); //+2 DEF
+            reward->setAugment(1, 553, 2); //+2 Dex and Agi
+            reward->setAugment(2, 1, 19); //+20 HP
+        }
+        else if (rand < 52){
+            rewardID = 16959; //Platoon Sword
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 33, 1); //+2 DEF
+            reward->setAugment(1, 145, 2); //+3 Counter
+            reward->setAugment(2, 1, 19); //+20 HP
+        }
+        else if (rand < 65){
+            rewardID = 17519; //Platoon Cesti
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 144, 1); //+2% Triple Attack
+            reward->setAugment(1, 1, 19); //+20 HP
+        }
+        else if (rand < 78){
+            rewardID = 18045; //Platoon Zaghnal
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 133, 14); //+15 MATK
+            reward->setAugment(1, 52, 6); //+6 HMP
+            reward->setAugment(2, 1, 19); //+20 HP
+        }
+        else if (rand < 90){
+            rewardID = 18085; //Platoon Lance
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 41, 3); //+3% Crit
+            reward->setAugment(1, 1, 19); //+20 HP
+        }
+        else{
+            rewardID = 16687; //Platoon Axe
+            reward = (CItemArmor*)itemutils::GetItem(rewardID);
+            reward->setAugment(0, 25, 5); //+6 ATK
+            reward->setAugment(1, 34, 3); //-4 DEF
+            reward->setAugment(2, 1, 19); //+20 HP
+        } 
+    }       
+
+   if (reward != nullptr)
+   {   
+        reward->setQuantity(1);
+        charutils::AddItem(m_Initiator, LOC_INVENTORY, reward);  
+        m_Initiator->pushPacket(new CMessageSpecialPacket(m_Initiator,6382,rewardID,0,0,0));
+   }
 }

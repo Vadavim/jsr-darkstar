@@ -67,6 +67,7 @@
 #include "../packets/entity_visual.h"
 #include "../items/item_puppet.h"
 #include "../entities/automatonentity.h"
+#include "../utils/charutils.h"
 
 namespace luautils
 {
@@ -3862,7 +3863,10 @@ int32 OnBcnmLeave(CCharEntity* PChar, CBattlefield* PBattlefield, uint8 LeaveCod
 int32 OnBcnmRegister(CCharEntity* PChar, CBattlefield* PBattlefield){
 
     CZone* PZone = PChar->loc.zone == nullptr ? zoneutils::GetZone(PChar->loc.destination) : PChar->loc.zone;
-
+    PBattlefield->m_Initiator = PChar;
+    //PBattlefield->m_tradeID = 
+    int32 tradeID = charutils::GetVar(PChar, "trade_itemid");
+    PBattlefield->m_tradeID = tradeID;
     lua_prepscript("scripts/zones/%s/bcnms/%s.lua", PZone->GetName(), PBattlefield->getBcnmName());
 
     if (prepFile(File, "onBcnmRegister"))

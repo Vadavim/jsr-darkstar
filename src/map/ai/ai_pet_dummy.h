@@ -80,9 +80,12 @@ protected:
 
     void SendTooFarInterruptMessage(CBattleEntity* PTarg);
     
-    bool LightRoam();
-    bool LightAttack();
+    int16 LightRoam();
+    int16 LightAttack();
+	int16 DarkRoam();
+	int16 DarkAttack();
     CBattleEntity* getWounded(uint8 threshold);
+	uint32 getSpiritCooldown(uint32 cooldown, uint8 sDay);
     
 
 

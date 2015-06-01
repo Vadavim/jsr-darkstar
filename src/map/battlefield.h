@@ -147,6 +147,9 @@ public:
 	uint32		m_FastestTime;
 	uint32		lastTick;
 	uint32      fightTick;
+    CCharEntity* m_Initiator;
+    void rewardAugmentedItem();
+    int32 m_tradeID;
 
 	bool		lost();
 	bool		won();

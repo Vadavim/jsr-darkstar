@@ -167,6 +167,8 @@ void CBattlefieldHandler::handleBattlefields(uint32 tick){
 						{
 						ShowDebug("BCNM %i battlefield %i : Winning conditions met. Spawning chest.\n",PBattlefield->getID(),PBattlefield->getBattlefieldNumber());
 						PBattlefield->spawnTreasureChest();
+                        //CCharEntity* initiator = PBattlefield->m_PlayerList.at(0);
+                        //initiator->createWornItem(charutils::GetVar(initiator, "trade_itemid"));
 						//PBattlefield->getHighestTHforBcnm(); apparently not used in bcnm
 						PBattlefield->treasureChestSpawned = true;
 						}
