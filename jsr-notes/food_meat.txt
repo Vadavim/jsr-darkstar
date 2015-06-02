@@ -1,0 +1,28 @@
+﻿ATTACK              ID      CODE    COST    NOTES
+Grilled Hare        4371            50
+Rarab Meatball      4507            120
+Roast Mutton        4437            250
+Blackened Frog      4536            200
+Meat Mithkabob      4381            140
+Dhalmel Steak       4438            400
+Dhalmel Stew        4433            550
+Boiled Cockatrice   4547            700
+Coeurl Sautee       4548            950 
+Hedgehog Pie        5146            1150
+Marbled Steak       5157            1500
+Porcupine Pie       5156            1500
+
+ATTACK2
+Herb Crawler Eggs   4552            350     HP +5%, MP +10%, Evasion +8, Attack +12% (Caps at 70)
+
+
+
+DEFENSE
+Boiled Crayfih      4535            35
+Boiled Crab         4456            60
+Nebimonite Bake     4459            95
+Fish Mithkabob      4398            140
+Shallops Tropicale  4554            400
+Seafood Stew        4561            600
+Tavnazian Salad     4279            850     
+Black Curry         4297            850

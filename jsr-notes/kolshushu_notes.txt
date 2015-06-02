@@ -1,0 +1,105 @@
+
+TAHRONGI CANYON
+
+==Yara Ma Yha Who==
+SPAWN: Trade Treant Bulb (x6) to ??? at J-10 every 45 minutes
+FIRST: 1000 / 50
+SCYLDS: 10
+DROP CHANGES: Fasting Ring [AUG: +3 HMP][50%]
+
+
+==Habrok==
+SPAWN: Earth/Wind Weather
+FIRST: 2500 / 100
+SCYLDS: 15
+POP: Trade 24 Bird Feathers to ??? at J-10 every 45 minutes
+
+==Serpopard Ishtar==
+SPAWN: True Lottery [10%]
+FIRST: 2500 / 100
+SCYLDS: 20
+DROP CHANGES: Cerulean Pendant [AUG: MDEF +5, MND +2] [60%]
+
+==Herbage Hunter==
+SPAWN: Lottery [20-40 minutes]
+FIRST: 1500 / 50
+SCYLDS: 15
+DROP CHANGES: Precision Bandana [35%]
+POP: Trade 8 Silk thead to ??? at J-10 every 45 minutes
+
+==Allocamelus==
+SPAWN: Trade 500 Gil and
+FIRST: 2500 / 100
+DROPS:
+
+
+BUBURIMU PENINSULA
+
+==Backoo==
+SPAWN: Times [20-45 Minutes]
+FIRST: 2500 / 100
+SCYLDS: 20
+DROP Changes: Salutary Robe [AUG: +5 Fast Cast, +2 INT][45%]
+
+==Buburimboo==
+SPAWN: True Lottery [8%]
+FIRST: 2500 / 100
+SCYLDS: 20
+DROP CHANGES: Buburimu Gorget [AUG: DEF +6] [65%]
+POP: Trade 
+
+==Helldiver==
+SPAWN: True Lottery [12%]
+FIRST: 2500 / 100
+SCYLDS: 22
+DROP CHANGES: Wing Edge [Aug: +4 Agi, +15 RATK] [65%]
+
+==Wake Wader Wanda==
+SPAWN: Times [30 - 60 Minutes]
+FIRST: 2500 / 100
+SCYLDS: 25
+DROP CHANGES: Melampus Staff [AUG: Water ACC +8, Water ATK +8], [70%]
+
+
+==Ketos==
+SPAWN: Trade 1000 gil to
+FIRST: 2500 / 100
+DROPS:
+
+==GOBLIN TINKERER==
+DROPS: Pestle [7%]
+
+
+MAZE OF SHAKRAMI
+
+==Leech King==
+SPAWN: True Lottery (from Poison Leeches) [5%]
+FIRST: 3000 / 125
+SCYLDS: 25
+DROP CHANES: Bloodbead Earring [45%], Fiend Blood (x4) [100%], Carbuncle'sRuby [100%]
+
+==ARGUS==
+SPAWN: Times [40 - 60 Minutes]
+FIRST: 3000 / 125
+SCYLDS: 25
+POP: Trade x12 Hecteyes to
+
+==Lesath==
+SPAWN: Timed Spawn [40 - 60 Minutes]
+FIRST: 3000 / 125
+SCYLDS: 25
+DROP CHANGES: Esse Earring [AUG: Counter +3][50%]
+POP: Trade x4 Scorpion Stingers to
+
+==GLOOMBOUND Lurker==
+SPAWM: Times [30 - 50 minutes]
+FIRST: 3500 / 125
+SCYLDS: 25
+DROP CHANGES: Veldt Axe +1 [50%]
+
+==Trembler Tabitha==
+SPAWN: True Lottery [10%]
+FIRST: 2500 / 100
+SCYLDS: 20
+DROP Changes: Tyro Katars [AUG: CRIT +2%, ACC +4, Earth Res +40][50%]
+
