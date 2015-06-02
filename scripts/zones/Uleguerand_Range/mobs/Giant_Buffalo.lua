@@ -27,7 +27,8 @@ end;
 function onMobFight(mob,target)
 
     if (mob:getBattleTime() % 15 == 0) then
-        mob:useMobAbility(239);
+        mob:useMobAbility(397);
+        print(tostring(mob:getTP()));
         
         
     end

@@ -22,6 +22,8 @@ FAMILY CHANGES
  - Rabid Dance:
 	When afflicted by Weight: 50% chance of failure.
 	When afflicted by Bind: 100% chance of failure. 
+ - Snort:
+	When afflicted by Choke or Drown: 25% chance of failure.
 
 [Coeurl]
  - +25% XP

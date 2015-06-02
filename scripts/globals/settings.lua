@@ -17,13 +17,13 @@ require("scripts/globals/common");
 
 -- Enable Extension (1= yes 0= no)
 ENABLE_COP     = 1;
-ENABLE_TOAU    = 1;
-ENABLE_WOTG    = 1;
+ENABLE_TOAU    = 0;
+ENABLE_WOTG    = 0;
 ENABLE_ACP     = 1;
 ENABLE_AMK     = 1;
 ENABLE_ASA     = 1;
-ENABLE_ABYSSEA = 1;
-ENABLE_SOA     = 1;
+ENABLE_ABYSSEA = 0;
+ENABLE_SOA     = 0;
 
 -- Setting to lock content more accurately to the expansions you have defined above
 -- This generally results in a more accurate presentation of your selected expansions
@@ -33,7 +33,7 @@ RESTRICT_BY_EXPANSION = 0;
 
 -- CHARACTER CONFIG
 INITIAL_LEVEL_CAP = 50; -- The initial level cap for new players.  There seems to be a hardcap of 255.
-MAX_LEVEL = 75; -- Level max of the server, lowers the attainable cap by disabling Limit Break quests.
+MAX_LEVEL = 50; -- Level max of the server, lowers the attainable cap by disabling Limit Break quests.
 NORMAL_MOB_MAX_LEVEL_RANGE_MIN = 81; -- Lower Bound of Max Level Range for Normal Mobs (0 = Uncapped)
 NORMAL_MOB_MAX_LEVEL_RANGE_MAX = 84; -- Upper Bound of Max Level Range for Normal Mobs (0 = Uncapped)
 START_GIL = 1000; --Amount of gil given to newly created characters.
@@ -42,17 +42,17 @@ OPENING_CUTSCENE_ENABLE = 0; --Set to 1 to enable opening cutscenes, 0 to disabl
 SUBJOB_QUEST_LEVEL = 0; -- Minimum level to accept either subjob quest.  Set to 0 to start the game with subjobs unlocked.
 ADVANCED_JOB_LEVEL = 0; -- Minimum level to accept advanced job quests.  Set to 0 to start the game with advanced jobs.
 ALL_MAPS = 0; -- Set to 1 to give starting characters all the maps.
-UNLOCK_OUTPOST_WARPS = 2; -- Set to 1 to give starting characters all outpost warps.  2 to add Tu'Lia and Tavnazia.
+UNLOCK_OUTPOST_WARPS = 0; -- Set to 1 to give starting characters all outpost warps.  2 to add Tu'Lia and Tavnazia.
 
 SHOP_PRICE = 1.000; -- Multiplies prices in NPC shops.
 GIL_RATE   = 1.000; -- Multiplies gil earned from quests.  Won't always display in game.
 EXP_RATE   = 1.000; -- Multiplies exp earned from fov.
 TABS_RATE  = 0.500; -- Multiplies tabs earned from fov.
-SAN_FAME   = 8.000; -- Multiplies fame earned from San d'Oria quests.
-BAS_FAME   = 8.000; -- Multiplies fame earned from Bastok quests.
-WIN_FAME   = 8.000; -- Multiplies fame earned from Windurst quests.
-NORG_FAME  = 8.000; -- Multiplies fame earned from Norg and Tenshodo quests.
-JEUNO_FAME = 8.000; -- Multiplies fame earned from Jeuno quests.
+SAN_FAME   = 2.500; -- Multiplies fame earned from San d'Oria quests.
+BAS_FAME   = 2.500; -- Multiplies fame earned from Bastok quests.
+WIN_FAME   = 2.500; -- Multiplies fame earned from Windurst quests.
+NORG_FAME  = 2.500; -- Multiplies fame earned from Norg and Tenshodo quests.
+JEUNO_FAME = 2.500; -- Multiplies fame earned from Jeuno quests.
 
 FISHING_GUILD_POINTS      = 1.000; -- Multiplies guild points earned from fishermans' guild trades.
 WOODWORKING_GUILD_POINTS  = 1.000; -- Multiplies guild points earned from carpenters' guild trades.
@@ -78,10 +78,10 @@ HARVESTING_BREAK_CHANCE = 0.33; -- % chance for the sickle to break during harve
 EXCAVATION_BREAK_CHANCE = 0.33; -- % chance for the pickaxe to break during excavation.  Set between 0 and 1.
 LOGGING_BREAK_CHANCE    = 0.33; -- % chance for the hatchet to break during logging.  Set between 0 and 1.
 MINING_BREAK_CHANCE     = 0.33; -- % chance for the pickaxe to break during mining.  Set between 0 and 1.
-HARVESTING_RATE         = 0.50; -- % chance to recieve an item from haresting.  Set between 0 and 1.
-EXCAVATION_RATE         = 0.50; -- % chance to recieve an item from excavation.  Set between 0 and 1.
-LOGGING_RATE            = 0.50; -- % chance to recieve an item from logging.  Set between 0 and 1.
-MINING_RATE             = 0.50; -- % chance to recieve an item from mining.  Set between 0 and 1.
+HARVESTING_RATE         = 0.75; -- % chance to recieve an item from haresting.  Set between 0 and 1.
+EXCAVATION_RATE         = 0.75; -- % chance to recieve an item from excavation.  Set between 0 and 1.
+LOGGING_RATE            = 0.75; -- % chance to recieve an item from logging.  Set between 0 and 1.
+MINING_RATE             = 0.75; -- % chance to recieve an item from mining.  Set between 0 and 1.
 
 -- SE implemented coffer/chest illusion time in order to prevent coffer farming. No-one in the same area can open a chest or coffer for loot (gil, gems & items)
 -- till a random time between MIN_ILLSION_TIME and MAX_ILLUSION_TIME. During this time players can loot keyitem and item related to quests (AF, maps... etc.)
@@ -175,7 +175,7 @@ RIVERNE_PORTERS = 120; -- Time in seconds that Unstable Displacements in Cape Ri
 LANTERNS_STAY_LIT = 1200; -- time in seconds that lanterns in the Den of Rancor stay lit.
 ENABLE_COP_ZONE_CAP=1; -- enable or disable lvl cap
 TIMEZONE_OFFSET = 9.0; -- Offset from UTC used to determine when "JP Midnight" is for the server.  Default is JST (+9.0).
-ALLOW_MULTIPLE_EXP_RINGS = 0; -- Set to 1 to remove ownership restrictions on the Chariot/Empress/Emperor Band trio.
+ALLOW_MULTIPLE_EXP_RINGS = 1; -- Set to 1 to remove ownership restrictions on the Chariot/Empress/Emperor Band trio.
 BYPASS_EXP_RING_ONE_PER_WEEK = 1; -- -- Set to 1 to bypass the limit of one ring per Conquest Tally Week.
 NUMBER_OF_DM_EARRINGS = 1; -- Number of earrings players can simultaneously own from Divine Might before scripts start blocking them (Default: 1)
 HOMEPOINT_TELEPORT = 1; -- Enables the homepoint teleport system

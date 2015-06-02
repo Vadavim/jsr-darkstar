@@ -3558,6 +3558,17 @@ namespace charutils
     *  Добавляем очки опытка указанному персонажу                           *
     *                                                                       *
     ************************************************************************/
+    
+    void AddLimitPoints(CCharEntity* PChar, CBaseEntity* PMob, uint32 exp)
+    {
+        if (PChar->PMeritPoints->AddLimitPoints(exp))
+            {
+                PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CMessageDebugPacket(PChar, PMob, PChar->PMeritPoints->GetMeritPoints(), 0, 368));
+            }
+        PChar->pushPacket(new CMessageDebugPacket(PChar, PChar, exp, 0, 371));
+        PChar->pushPacket(new CMenuMeritPacket(PChar));
+    }
+    
 
     void AddExperiencePoints(bool expFromRaise, CCharEntity* PChar, CBaseEntity* PMob, uint32 exp, uint32 baseexp, bool isexpchain)
     {

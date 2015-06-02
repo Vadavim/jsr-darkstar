@@ -44,6 +44,7 @@ namespace charutils
     void	SendQuestMissionLog(CCharEntity* PChar);
     void	SendKeyItems(CCharEntity* PChar);
     void	SendInventory(CCharEntity* PChar);
+    void AddLimitPoints(CCharEntity* PChar, CBaseEntity* PMob, uint32 exp);
 
     void	CalculateStats(CCharEntity* PChar);
     void    UpdateSubJob(CCharEntity* PChar);
