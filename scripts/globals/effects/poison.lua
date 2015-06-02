@@ -11,6 +11,11 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onEffectGain(target,effect)
+    
+    if (target:getSystem() == SYSTEM_BEASTMEN) then
+        effect:setPower(math.floor(effect:getPower() * 1.5));
+    end;
+
 	target:addMod(MOD_REGEN_DOWN, effect:getPower());
 end;
 

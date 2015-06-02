@@ -5,8 +5,7 @@ TRAIT CHANGES
 ABILITY CHANGES
 
 [Dodge]
- - Also boosts Guard by 20 for the duration.
- - Grants one shadow when used.
+ - Grants one shadow when used. At level 45, grants two shadows.
 
 [Focus]
  - Also increases MACC and MATK by 20 for the duration.

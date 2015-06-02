@@ -1,8 +1,27 @@
+SYSTEM CHANGES
+
+[Lizards]
+ - Receives a 10% Slow when affected by Frost. Stacks with other slow effects.
+
+[Plantoids]
+ - The potency of Burn is increased by 50%.
+
+[Aquans]
+ - The potency of Shock is increased by 50%.
+
+[BEASTMEN]
+ - The potency of Poison is increased by 50%.
+ - The DoT of Bio is increased by 50%, and the beastman's attack is lowered by an additional 5%.
 
 
+FAMILY CHANGES
 
-[Buffalo]
-  - +30% XP
+
+[Beasts: Buffalo]
+ - +30% XP
+ - Rabid Dance:
+	When afflicted by Weight: 50% chance of failure.
+	When afflicted by Bind: 100% chance of failure. 
 
 [Coeurl]
  - +25% XP
@@ -275,7 +294,8 @@
  - +35% XP
 
 
-
+[Worms]
+ - Choke is 50% more potent against worms and slows casting speed by 25%.
 
 
 

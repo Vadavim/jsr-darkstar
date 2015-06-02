@@ -26,6 +26,7 @@ ABILITY CHANGES
 
 [Hide]
  - Gained at level 10 instead of 45.
+ - Grants 1 shadow when used. At level 45, grants 2 shadows.
 
 [Despoil]
  - Gained at level 45 instead of 77.

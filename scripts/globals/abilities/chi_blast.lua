@@ -24,12 +24,13 @@ end;
 function onUseAbility(player,target,ability)
     local boost = player:getStatusEffect(EFFECT_BOOST);
     local multiplier = 1.0;
+    local tp = player:getTP();
     if(boost ~= nil) then
         multiplier = (boost:getPower()/100) * 4; --power is the raw % atk boost
     end
     
     local dmg = math.floor(player:getStat(MOD_MND)*(0.5+(math.random()/2))) * multiplier;
-
+    dmg = dmg + math.floor(tp * (player:getMainLvl() / 75));
     dmg = utils.stoneskin(target, dmg);
     
     target:delHP(dmg);

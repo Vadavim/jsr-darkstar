@@ -19,7 +19,7 @@ ABILITY CHANGES
 
 [Camouflage]
  - Enmity reduction also works for subjobs.
- - Also grants 2 Shadows (1 if subjob).
+ - Also grants 1 shadow when used. At level 45, grants 2 shadows.
 
 [Decoy Shot]
  - Instead inflicts -40 ACC, MACC, EVA, and MEVA for 30 seconds.

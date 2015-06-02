@@ -11,6 +11,10 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onEffectGain(target,effect)
+    if (target:getSystem() == SYSTEM_BEASTMEN) then
+            effect:setPower(math.floor(effect:getPower() * 1.5));
+            effect:setSubPower(effect:getPower());
+        end;
 	local power = effect:getPower();
 	local subpower = effect:getSubPower();
 	target:addMod(MOD_ATTP,-subpower);

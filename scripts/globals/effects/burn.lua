@@ -12,6 +12,12 @@ require("scripts/globals/magic");
 -----------------------------------
 
 function onEffectGain(target,effect)
+    if (target:getSystem() == SYSTEM_PLANTOID) then
+        effect:setPower(math.floor(effect:getPower() * 1.5));
+    end;
+	target:addMod(MOD_REGEN_DOWN, effect:getPower());
+	target:addMod(MOD_MND, -getElementalDebuffStatDownFromDOT(effect:getPower()));
+
 	target:addMod(MOD_REGEN_DOWN, effect:getPower());
 	target:addMod(MOD_INT, -getElementalDebuffStatDownFromDOT(effect:getPower()));
 end;
