@@ -1437,7 +1437,7 @@ float GetRangedPDIF(CBattleEntity* PAttacker, CBattleEntity* PDefender)
 
 		if (PItem != nullptr && PItem->isType(ITEM_WEAPON))
 		{
-			rAttack = PChar->RATT(PItem->getSkillType());
+			rAttack = PChar->RATT(PItem->getSkillType(), PItem->getILvlSkill());
 		}
 		else
 		{
@@ -1448,7 +1448,7 @@ float GetRangedPDIF(CBattleEntity* PAttacker, CBattleEntity* PDefender)
 			}
 			else
 			{
-				rAttack = PChar->RATT(PItem->getSkillType());
+				rAttack = PChar->RATT(PItem->getSkillType(), PItem->getILvlSkill());
 			}
 		}
 	}
@@ -1674,7 +1674,7 @@ uint8 GetParryRate(CBattleEntity* PAttacker, CBattleEntity* PDefender)
         	// http://wiki.ffxiclopedia.org/wiki/Talk:Parrying_Skill
         	// {(Parry Skill x .125) + ([Player Agi - Enemy Dex] x .125)} x Diff
 
-            float skill = PDefender->GetSkill(SKILL_PAR) + PDefender->getMod(MOD_PARRY);
+            float skill = PDefender->GetSkill(SKILL_PAR) + PDefender->getMod(MOD_PARRY) + PWeapon->getILvlParry();
 
         	float diff = 1.0f + (((float)PDefender->GetMLevel() - PAttacker->GetMLevel()) / 15.0f);
 
@@ -1721,6 +1721,9 @@ uint8 GetGuardRate(CBattleEntity* PAttacker, CBattleEntity* PDefender)
     {
     	// assuming this is like parry
         float skill = PDefender->GetSkill(SKILL_GRD) + PDefender->getMod(MOD_GUARD);
+
+        if (PWeapon)
+            skill += PWeapon->getILvlParry(); //no weapon will ever have ilvl guard and parry
 
     	float diff = 1.0f + (((float)PDefender->GetMLevel() - PAttacker->GetMLevel()) / 15.0f);
 
@@ -2073,26 +2076,34 @@ uint8 GetHitRateEx(CBattleEntity* PAttacker, CBattleEntity* PDefender, uint8 att
 {
     int32 hitrate = 75;
 
-	if (PAttacker->objtype == TYPE_PC && ((PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK) && (abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) < 23 || PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_HIDE))) ||
-		(charutils::hasTrait((CCharEntity*)PAttacker, TRAIT_ASSASSIN) && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK) && battleutils::getAvailableTrickAttackChar(PAttacker, PDefender))))
+    if (PAttacker->objtype == TYPE_PC && ((PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK) && (abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) < 23 || PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_HIDE))) ||
+        (charutils::hasTrait((CCharEntity*)PAttacker, TRAIT_ASSASSIN) && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK) && battleutils::getAvailableTrickAttackChar(PAttacker, PDefender))))
     {
-		hitrate = 100; //attack with SA active or TA/Assassin cannot miss
-	}
+        hitrate = 100; //attack with SA active or TA/Assassin cannot miss
+    }
     else
 	{
-		//Check For Ambush Merit - Melee
-		if (PAttacker->objtype == TYPE_PC && (charutils::hasTrait((CCharEntity*)PAttacker, TRAIT_AMBUSH)) && ((abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) < 23))) {
-			offsetAccuracy += ((CCharEntity*)PAttacker)->PMeritPoints->GetMeritValue(MERIT_AMBUSH, (CCharEntity*)PAttacker);
-		}
+        //Check For Ambush Merit - Melee
+        if (PAttacker->objtype == TYPE_PC && (charutils::hasTrait((CCharEntity*)PAttacker, TRAIT_AMBUSH)) && ((abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) < 23))) {
+	        offsetAccuracy += ((CCharEntity*)PAttacker)->PMeritPoints->GetMeritValue(MERIT_AMBUSH, (CCharEntity*)PAttacker);
+        }
+        // Check for Closed Position merit on attacker and that attacker and defender are facing each other (within ~20 degrees from straight on)
+        if (PAttacker->objtype == TYPE_PC && (charutils::hasTrait((CCharEntity*)PAttacker, TRAIT_CLOSED_POSITION)) && ((abs(abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation)-128) < 15))) {
+            offsetAccuracy += ((CCharEntity*)PAttacker)->PMeritPoints->GetMeritValue(MERIT_CLOSED_POSITION, (CCharEntity*)PAttacker);
+        }
+        // Check for Closed Position merit on defender that attacker and defender are facing each other (within ~20 degrees from straight on)
+        if (PDefender->objtype == TYPE_PC && (charutils::hasTrait((CCharEntity*)PDefender, TRAIT_CLOSED_POSITION)) && ((abs(abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) - 128) < 15))) {
+            offsetAccuracy -= ((CCharEntity*)PDefender)->PMeritPoints->GetMeritValue(MERIT_CLOSED_POSITION, (CCharEntity*)PDefender);
+        }
 
-		hitrate = hitrate + (PAttacker->ACC(attackNumber, offsetAccuracy) - PDefender->EVA()) / 2 + (PAttacker->GetMLevel() - PDefender->GetMLevel()) * 2;
+        hitrate = hitrate + (PAttacker->ACC(attackNumber, offsetAccuracy) - PDefender->EVA()) / 2 + (PAttacker->GetMLevel() - PDefender->GetMLevel()) * 2;
 
         if (PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_ENLIGHT))
             hitrate += PAttacker->getMod(MOD_ENSPELL_DMG);
 
-		hitrate = dsp_cap(hitrate, 20, 95);
-	}
-	return (uint8)hitrate;
+        hitrate = dsp_cap(hitrate, 20, 95);
+    }
+    return (uint8)hitrate;
 }
 uint8 GetHitRate(CBattleEntity* PAttacker, CBattleEntity* PDefender)
 {

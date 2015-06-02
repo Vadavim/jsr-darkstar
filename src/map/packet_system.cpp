@@ -1174,10 +1174,10 @@ void SmallPacket0x034(map_session_data_t* session, CCharEntity* PChar, CBasicPac
         CItem* PItem = PChar->getStorage(LOC_INVENTORY)->GetItem(invSlotID);
 
         // We used to disable Rare/Ex items being added to the container, but that is handled properly else where now
-        if (PItem != nullptr && PItem->getID() == itemID)
+        if (PItem != nullptr && PItem->getID() == itemID && quantity + PItem->getReserve() <= PItem->getQuantity())
         {
-            // If item count is zero.. remove from container..
             PItem->setReserve(quantity);
+            // If item count is zero.. remove from container..
             PChar->UContainer->SetItem(tradeSlotID, quantity > 0 ? PItem : nullptr);
 
             PChar->pushPacket(new CTradeItemPacket(PItem, tradeSlotID));
@@ -2449,12 +2449,11 @@ void SmallPacket0x053(map_session_data_t* session, CCharEntity* PChar, CBasicPac
             uint8 locationId = RBUFB(data, i + 0x02);
             uint16 itemId = RBUFW(data, i + 0x04);
 
-            if (itemId > 0) {
-                CItemArmor* PItem = (CItemArmor*)PChar->getStorage(locationId)->GetItem(slotId);
-                if (PItem != nullptr && !(PItem->getEquipSlotId() & (1 << equipSlotId))) {
-                    return;
-                }
-            }
+            auto PItem = itemutils::GetItem(itemId);
+            if (PItem == nullptr || !(PItem->isType(ITEM_WEAPON) || PItem->isType(ITEM_ARMOR)))
+                itemId = 0;
+            else if (!((CItemArmor*)PItem)->getEquipSlotId() & (1 << equipSlotId))
+                itemId = 0;
 
             PChar->styleItems[equipSlotId] = itemId;
 
@@ -2548,15 +2547,23 @@ void SmallPacket0x05B(map_session_data_t* session, CCharEntity* PChar, CBasicPac
     uint16 EventID = RBUFW(data, (0x12));
     uint32 Result = RBUFL(data, (0x08));
 
-    if (PChar->m_event.EventID != EventID) return;
-    if (PChar->m_event.Option != 0) Result = PChar->m_event.Option;
+    if (PChar->m_event.EventID == EventID)
+    {
+        if (PChar->m_event.Option != 0) Result = PChar->m_event.Option;
 
-    if (RBUFB(data, (0x0E)) != 0){
-        luautils::OnEventUpdate(PChar, EventID, Result);
-    }
-    else{
-        luautils::OnEventFinish(PChar, EventID, Result);
-        PChar->m_event.reset();
+        if (RBUFB(data, (0x0E)) != 0) {
+            luautils::OnEventUpdate(PChar, EventID, Result);
+        }
+        else
+        {
+            luautils::OnEventFinish(PChar, EventID, Result);
+            //reset if this event did not initiate another event
+            if (PChar->m_event.EventID == EventID)
+            {
+                PChar->m_event.reset();
+            }
+
+        }
     }
 
     PChar->pushPacket(new CReleasePacket(PChar, RELEASE_EVENT));
@@ -4154,6 +4161,7 @@ void SmallPacket0x0DD(map_session_data_t* session, CCharEntity* PChar, CBasicPac
     uint16 targid = RBUFW(data, (0x08));
     uint8 type = RBUFB(data, (0x0C));
 
+    //checkparam
     if (type == 0x02)
     {
         if (PChar->id == id)
@@ -4172,12 +4180,14 @@ void SmallPacket0x0DD(map_session_data_t* session, CCharEntity* PChar, CBasicPac
             if (PChar->getEquip(SLOT_RANGED) && PChar->getEquip(SLOT_RANGED)->isType(ITEM_WEAPON))
             {
                 int skill = ((CItemWeapon*)PChar->getEquip(SLOT_RANGED))->getSkillType();
-                PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, PChar->RACC(skill), PChar->RATT(skill), MSGBASIC_CHECKPARAM_RANGE));
+                int bonusSkill = ((CItemWeapon*)PChar->getEquip(SLOT_RANGED))->getILvlSkill();
+                PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, PChar->RACC(skill, bonusSkill), PChar->RATT(skill, bonusSkill), MSGBASIC_CHECKPARAM_RANGE));
             }
             else if (PChar->getEquip(SLOT_AMMO) && PChar->getEquip(SLOT_AMMO)->isType(ITEM_WEAPON))
             {
                 int skill = ((CItemWeapon*)PChar->getEquip(SLOT_AMMO))->getSkillType();
-                PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, PChar->RACC(skill), PChar->RATT(skill), MSGBASIC_CHECKPARAM_RANGE));
+                int bonusSkill = ((CItemWeapon*)PChar->getEquip(SLOT_AMMO))->getILvlSkill();
+                PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, PChar->RACC(skill, bonusSkill), PChar->RATT(skill, bonusSkill), MSGBASIC_CHECKPARAM_RANGE));
             }
             else
             {
@@ -4796,13 +4806,13 @@ void SmallPacket0x0FA(map_session_data_t* session, CCharEntity* PChar, CBasicPac
         return;
 
     uint8  slotID = RBUFB(data, (0x06));
-    //uint8  containerID = RBUFB(data, (0x07)); //not used
+    uint8  containerID = RBUFB(data, (0x07));
     uint8  col = RBUFB(data, (0x09));
     uint8  level = RBUFB(data, (0x0A));
     uint8  row = RBUFB(data, (0x0B));
     uint8  rotation = RBUFB(data, (0x0C));
 
-    CItemFurnishing* PItem = (CItemFurnishing*)PChar->getStorage(LOC_MOGSAFE)->GetItem(slotID);
+    CItemFurnishing* PItem = (CItemFurnishing*)PChar->getStorage(containerID)->GetItem(slotID);
 
     if (PItem != nullptr &&
         PItem->getID() == ItemID &&
@@ -4836,7 +4846,7 @@ void SmallPacket0x0FA(map_session_data_t* session, CCharEntity* PChar, CBasicPac
 
             PChar->pushPacket(new CInventorySizePacket(PChar));
         }
-        PChar->pushPacket(new CInventoryItemPacket(PItem, LOC_MOGSAFE, slotID));
+        PChar->pushPacket(new CInventoryItemPacket(PItem, containerID, slotID));
         PChar->pushPacket(new CInventoryFinishPacket());
     }
     return;
@@ -4858,8 +4868,9 @@ void SmallPacket0x0FB(map_session_data_t* session, CCharEntity* PChar, CBasicPac
     }
 
     uint8  slotID = RBUFB(data, (0x06));
+    uint8 containerID = RBUFB(data, (0x07));
 
-    CItemContainer* PItemContainer = PChar->getStorage(LOC_MOGSAFE);
+    CItemContainer* PItemContainer = PChar->getStorage(containerID);
 
     CItemFurnishing* PItem = (CItemFurnishing*)PItemContainer->GetItem(slotID);
 
@@ -4904,7 +4915,7 @@ void SmallPacket0x0FB(map_session_data_t* session, CCharEntity* PChar, CBasicPac
 
                 PChar->pushPacket(new CInventorySizePacket(PChar));
             }
-            PChar->pushPacket(new CInventoryItemPacket(PItem, LOC_MOGSAFE, PItem->getSlotID()));
+            PChar->pushPacket(new CInventoryItemPacket(PItem, containerID, PItem->getSlotID()));
             PChar->pushPacket(new CInventoryFinishPacket());
         }
         else
