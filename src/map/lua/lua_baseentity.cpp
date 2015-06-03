@@ -8677,6 +8677,18 @@ inline int32 CLuaBaseEntity::PrintToPlayer(lua_State* L)
 
     return 0;
 }
+
+inline int32 CLuaBaseEntity::SayToPlayer(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L,1) || !lua_isstring(L, 1));
+
+    ((CCharEntity*)m_PBaseEntity)->pushPacket(new CChatMessagePacket((CCharEntity*)m_PBaseEntity,MESSAGE_UNKNOWN,(char*)lua_tostring(L,1)));
+
+    return 0;
+}
 /*
 Walk through the given points. NPC only.
 
@@ -9664,6 +9676,39 @@ inline int32 CLuaBaseEntity::getActiveManeuvers(lua_State* L)
     return 1;
 }
 
+inline int32 CLuaBaseEntity::getEffectsCount(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+    
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+    
+    lua_pushinteger(L, PEntity->StatusEffectContainer->GetEffectsCount((EFFECT)lua_tointeger(L, 1)));
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::getActiveRunes(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    lua_pushinteger(L, PEntity->StatusEffectContainer->GetActiveRunes());
+
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::getNewestRune(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    lua_pushinteger(L, PEntity->StatusEffectContainer->GetNewestRune());
+
+    return 1;
+}
+
 inline int32 CLuaBaseEntity::removeOldestManeuver(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
@@ -9671,6 +9716,19 @@ inline int32 CLuaBaseEntity::removeOldestManeuver(lua_State* L)
     CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
 
     PEntity->StatusEffectContainer->RemoveOldestManeuver();
+
+    return 0;
+}
+
+
+
+inline int32 CLuaBaseEntity::removeOldestRune(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    PEntity->StatusEffectContainer->RemoveOldestRune();
 
     return 0;
 }
@@ -9700,6 +9758,17 @@ inline int32 CLuaBaseEntity::removeAllManeuvers(lua_State* L)
     CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
 
     PEntity->StatusEffectContainer->RemoveAllManeuvers();
+
+    return 0;
+}
+
+inline int32 CLuaBaseEntity::removeAllRunes(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    PEntity->StatusEffectContainer->RemoveAllRunes();
 
     return 0;
 }
@@ -10309,6 +10378,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getCurrentAction),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getAllegiance),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,stun),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,SayToPlayer),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,weaknessTrigger),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getBehaviour),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setBehaviour),
@@ -10321,6 +10391,11 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getActiveManeuvers),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeOldestManeuver),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllManeuvers),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeOldestRune),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllRunes),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getActiveRunes),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getEffectsCount),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNewestRune),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addBurden),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setElevator),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,storeWithPorterMoogle),

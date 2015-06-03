@@ -1,0 +1,9 @@
+[Acquiring Orbs]
+ - You can sometimes get orbs through quests and other means.
+ - Orbs are no longer Rare (although they will appear as such in-game).
+ - If you lose a battlefield, your orb will be refunded to you.
+
+[Battlefield Rewards]
+ - You are also rewarded experience points upon completing a battlefield.
+ - When you win a battlefield, and you were the one who traded the orb, you are rewarded one
+   augmented item from a pool of items depending upon the battlefield.

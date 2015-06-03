@@ -15,14 +15,13 @@ enspellType = 1;
 
 function onEffectGain(target,effect)
     --
-    target:addMod(MOD_FIREDEF,5);
+    
     target:addMod(MOD_FIREATT,10);
     target:addMod(MOD_FIREACC,10);
-    target:addMod(MOD_FIRERES,effect:getPower() / 2 + 20);
+    target:addMod(MOD_ICEDEF,8);
+    target:addMod(MOD_ICERES,effect:getPower() / 2 + 20);
     
     local counter = target:getVar(varName);
-    target:setVar("lastRune", 1);
-    target:setVar(varName, counter + 1);
     
 end;
 
@@ -51,10 +50,8 @@ end;
 function onEffectLose(target,effect)
     target:setMod(MOD_ENSPELL_DMG,0);
 	target:setMod(MOD_ENSPELL,0);
-    target:delMod(MOD_FIREDEF,5);
+    target:delMod(MOD_ICEDEF,5);
     target:delMod(MOD_FIREATT,10);
     target:delMod(MOD_FIREACC,10);
-    target:delMod(MOD_FIRERES,effect:getPower() / 2 + 20);
-    local counter = target:getVar(varName);
-    target:setVar(varName, counter - 1);
+    target:delMod(MOD_ICERES,effect:getPower() / 2 + 20);
 end;

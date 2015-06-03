@@ -3,7 +3,7 @@
 -----------------------------------
 
 require("scripts/globals/status");
-require("scripts/globals/jsr_utils");
+--require("scripts/globals/jsr_utils");
 
 -----------------------------------
 -- onAbilityCheck
