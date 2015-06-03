@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `char_exp` (
 -- Dumping data for table dspdb.char_exp: 3 rows
 /*!40000 ALTER TABLE `char_exp` DISABLE KEYS */;
 INSERT INTO `char_exp` (`charid`, `mode`, `war`, `mnk`, `whm`, `blm`, `rdm`, `thf`, `pld`, `drk`, `bst`, `brd`, `rng`, `sam`, `nin`, `drg`, `smn`, `blu`, `cor`, `pup`, `dnc`, `sch`, `geo`, `run`, `merits`, `limits`) VALUES
-	(21828, 1, 43999, 7799, 43999, 55999, 6699, 43999, 43999, 43999, 0, 0, 43999, 43999, 43999, 0, 27839, 43999, 0, 43999, 43999, 43999, 43999, 42799, 3, 8649),
+	(21828, 1, 43999, 7799, 43999, 43999, 43999, 43999, 43999, 43999, 0, 0, 43999, 43999, 43999, 0, 4599, 43999, 0, 43999, 43999, 43999, 43999, 43999, 4, 4282),
 	(21829, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(21830, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `char_exp` ENABLE KEYS */;

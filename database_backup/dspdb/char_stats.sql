@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `char_stats` (
 -- Dumping data for table dspdb.char_stats: 3 rows
 /*!40000 ALTER TABLE `char_stats` DISABLE KEYS */;
 INSERT INTO `char_stats` (`charid`, `hp`, `mp`, `nameflags`, `mhflag`, `mjob`, `sjob`, `death`, `2h`, `title`, `bazaar_message`, `zoning`, `mlvl`, `slvl`, `pet_id`, `pet_type`, `pet_hp`, `pet_mp`) VALUES
-	(21828, 406, 880, 0, 0, 15, 4, 19, 0, 206, NULL, 0, 67, 33, 0, 0, 0, 0),
+	(21828, 9999, 7084, 0, 0, 22, 3, 1429, 0, 206, NULL, 0, 75, 37, 0, 0, 0, 0),
 	(21829, 40, 0, 262144, 0, 1, 0, 0, 0, 206, NULL, 0, 1, 0, 0, 0, 0, 0),
 	(21830, 40, 0, 0, 0, 1, 0, 0, 0, 206, NULL, 0, 1, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `char_stats` ENABLE KEYS */;
