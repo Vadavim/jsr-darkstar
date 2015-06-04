@@ -6,16 +6,14 @@
 require("scripts/globals/status");
 require("scripts/globals/jsr_utils");
 
-runeType = EFFECT_GELUS;
-enspellType = 5;
-strongATT = MOD_ICEATT;
-strongACC = MOD_ICEACC;
-strongDEF = MOD_WINDDEF;
-strongRES = MOD_WINDRES;
-weakATT = MOD_FIREATT;
-weakACC = MOD_FIREACC;
-weakDEF = MOD_FIREDEF;
-weakRES = MOD_FIRERES;
+runeType = EFFECT_LUX;
+enspellType = 7;
+strongATT = MOD_LIGHTATT;
+strongACC = MOD_LIGHTACC;
+strongDEF = MOD_DARKDEF;
+strongRES = MOD_DARKRES;
+weakATT = MOD_DARKATT;
+weakACC = MOD_DARKACC;
 
 -----------------------------------
 -- onEffectGain Action
@@ -29,8 +27,6 @@ function onEffectGain(target,effect)
     effect:addMod(strongRES,effect:getPower() / 2 + 20);
     effect:addMod(weakATT,-5);
     effect:addMod(weakACC,-5);
-    effect:addMod(weakRES,-20);
-    effect:addMod(weakDEF,-40);
     
 end;
 

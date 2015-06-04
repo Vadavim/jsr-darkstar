@@ -1,8 +1,9 @@
 -----------------------------------
--- Ability: Ignis
+-- Ability: Gelus
 -----------------------------------
 
 require("scripts/globals/status");
+require("scripts/globals/jsr_utils")
 
 -----------------------------------
 -- onAbilityCheck
@@ -17,6 +18,6 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    local power = player:getMainLvl() * 3;
-   player:addStatusEffect(EFFECT_GELUS,power,0,300);
+    addRune(player, EFFECT_GELUS);
 end;
+

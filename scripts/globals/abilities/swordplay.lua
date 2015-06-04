@@ -1,9 +1,8 @@
 -----------------------------------
--- Ability: Flabra
+-- Ability: Swoordplay
 -----------------------------------
 
 require("scripts/globals/status");
-require("scripts/globals/jsr_utils")
 
 -----------------------------------
 -- onAbilityCheck
@@ -18,6 +17,6 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    addRune(player, EFFECT_FLABRA);
+    player:addStatusEffect(EFFECT_SWORDPLAY,3,3,120);
 end;
 

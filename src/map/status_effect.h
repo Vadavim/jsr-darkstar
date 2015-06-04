@@ -735,7 +735,7 @@ public:
 	void	SetStartTime(uint32 StartTime);
 
 	void	addMod(uint16 modType, int16 amount);
-
+    int16   getMod(uint16 modType);
 	void	SetName(string_t name);
 	void	SetName(const int8* name);
 

@@ -18,7 +18,20 @@ TRAIT CHANGES
 ABILITY CHANGES
 
 [Rune Enchaintment]
- - Each rune also grants +10 MACC and +10 MATK with the element it is associated with.
+ - Each rune grants the following (stacking) benefits depending upon its [rune element].
+	+10% [rune element] damage bonus.
+	+10 [rune element] MACC
+	Enspell damage associated with [rune element]. Increases by 15% per additioal rune of same element.
+
+ - Let [weak element] be the element that is weak against the [rune element]. Then each rune gives:
+	+[weak element] resistance
+	+8% [weak element] damage reduction
+
+ - Let [strong element] be the element that is strong against the [rune element]. Then each rune gives:	
+	-20 [strong element] resistance
+	-4% [strong element] damage vulnerability
+	-5 [strong element] MACC
+	-5% [strong element] damage penalty
 
 
 [Elemental Sforzo]
@@ -47,7 +60,15 @@ ABILITY CHANGES
 
 [Swordplay]
  - Instead lasts until HP reaches 50% or lower.
- - Duration increase to 3 minutes.
+ - The bonus to ACC and EVA increases at a slower rate and has a lower maximum (+1 per tick, max of +30).
+ - With an active Tellus rune: HP threshold is instead 25% and DEF increases by 2% per tick (max of +20%).
+ - With an active Flabra rune: Increases Parrying by +2 per tick (max of +20).
+ - With an active Tenebrae rune: +5 Subtle Blow per tick (max of +50).
+ - With an active Lux rune: Increases healing received by 3% per tic (max of +30%).
+ - With an active Ignis rune: Increases ATK by 1% per tick (max of +10%).
+ - With an active Gelus rune: Increases MATK by 2% per tick (max of +20%).
+ - With an active Sulpor rune: Increases Critical Hit rate by 1% per tick (max of +10%).
+ - With an active Unda rune: Increases MDEF by +3 per tick (max of +30).
 
 [Batuta]
  - Gained at level 30.

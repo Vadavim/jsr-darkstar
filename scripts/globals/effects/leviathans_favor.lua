@@ -10,7 +10,7 @@
 function onEffectGain(target,effect)
     target:addMod(MOD_WATERACC,10);
     target:addMod(MOD_WATERATT,10);
-    target:addMod(MOD_WATERDEF,25);
+    target:addMod(MOD_WATERDEF,250);
     target:addMod(MOD_WATERRES,40);
     target:addMod(MOD_MACC, 20);
 end;

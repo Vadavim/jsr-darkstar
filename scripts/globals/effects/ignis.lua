@@ -4,24 +4,33 @@
 -----------------------------------
 
 require("scripts/globals/status");
-require("scripts/globals/jsr_effect");
+require("scripts/globals/jsr_utils");
 
-varName = "ignis";
+runeType = EFFECT_IGNIS;
 enspellType = 1;
+strongATT = MOD_FIREATT;
+strongACC = MOD_FIREACC;
+strongDEF = MOD_ICEDEF;
+strongRES = MOD_ICERES;
+weakATT = MOD_WATERATT;
+weakACC = MOD_WATERACC;
+weakDEF = MOD_WATERDEF;
+weakRES = MOD_WATERRES;
 
 -----------------------------------
 -- onEffectGain Action
 -----------------------------------
 
 function onEffectGain(target,effect)
-    --
     
-    target:addMod(MOD_FIREATT,10);
-    target:addMod(MOD_FIREACC,10);
-    target:addMod(MOD_ICEDEF,8);
-    target:addMod(MOD_ICERES,effect:getPower() / 2 + 20);
-    
-    local counter = target:getVar(varName);
+    effect:addMod(strongATT,10);
+    effect:addMod(strongACC,10);
+    effect:addMod(strongDEF,80);
+    effect:addMod(strongRES,effect:getPower() / 2 + 20);
+    effect:addMod(weakATT,-5);
+    effect:addMod(weakACC,-5);
+    effect:addMod(weakRES,-20);
+    effect:addMod(weakDEF,-40);
     
 end;
 
@@ -30,8 +39,9 @@ end;
 -----------------------------------
 
 function onEffectTick(target,effect)
-    local counter = target:getVar(varName);
-    if (counter == 1 and target:getVar("lastRune") == 1 and noDominantRune(target)) then
+    local counter = target:getEffectsCount(runeType);
+    local lastRune = target:getNewestRune();
+    if (counter == 1 and lastRune and noDominantRune(target)) then
        target:setMod(MOD_ENSPELL,enspellType); 
        target:setMod(MOD_ENSPELL_DMG,effect:getPower());
     elseif (counter == 2) then
@@ -50,8 +60,4 @@ end;
 function onEffectLose(target,effect)
     target:setMod(MOD_ENSPELL_DMG,0);
 	target:setMod(MOD_ENSPELL,0);
-    target:delMod(MOD_ICEDEF,5);
-    target:delMod(MOD_FIREATT,10);
-    target:delMod(MOD_FIREACC,10);
-    target:delMod(MOD_ICERES,effect:getPower() / 2 + 20);
 end;

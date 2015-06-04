@@ -1,23 +1,30 @@
 -----------------------------------
--- Ability: Flabra
+-- Ability: Swipe
 -----------------------------------
 
+require("scripts/globals/settings");
 require("scripts/globals/status");
-require("scripts/globals/jsr_utils")
 
 -----------------------------------
 -- onAbilityCheck
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
-	return 0,0;
+    return 0,0;
 end;
 
 -----------------------------------
 -- onUseAbility
 -----------------------------------
 
-function onUseAbility(player,target,ability)
-    addRune(player, EFFECT_FLABRA);
-end;
+function onUseAbility(player, target, ability)
 
+    local damage = 100;
+
+    target:delHP(damage);
+    target:updateEnmityFromDamage(player,damage);
+
+    ability:setMsg(110);
+
+    return damage;
+end;

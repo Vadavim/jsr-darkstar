@@ -1,5 +1,5 @@
 -----------------------------------
--- Ability: Flabra
+-- Ability: Lux
 -----------------------------------
 
 require("scripts/globals/status");
@@ -18,6 +18,6 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    addRune(player, EFFECT_FLABRA);
+    addRune(player, EFFECT_LUX);
 end;
 

@@ -207,3 +207,15 @@ void CStatusEffect::addMod(uint16 modType, int16 amount)
 	}
 	modList.push_back(new CModifier(modType, amount));
 }
+
+int16 CStatusEffect::getMod(uint16 modType)
+{
+	for (uint32 i = 0; i < modList.size(); ++i)
+	{
+		if (modList.at(i)->getModID() == modType)
+		{
+			return modList.at(i)->getModAmount();
+		}
+	}
+	return 0;
+}

@@ -1,9 +1,9 @@
 -----------------------------------
--- Ability: Flabra
+-- Ability: Valiance
 -----------------------------------
 
 require("scripts/globals/status");
-require("scripts/globals/jsr_utils")
+require("scripts/globals/jsr_utils");
 
 -----------------------------------
 -- onAbilityCheck
@@ -18,6 +18,10 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    addRune(player, EFFECT_FLABRA);
+    if (target:hasStatusEffect(EFFECT_VALLATION)) then
+        return;
+    end
+    local power = createValiationMask(player);
+    target:addStatusEffect(EFFECT_VALIANCE,power,0,120);
 end;
 

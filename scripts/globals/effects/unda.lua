@@ -6,16 +6,16 @@
 require("scripts/globals/status");
 require("scripts/globals/jsr_utils");
 
-runeType = EFFECT_GELUS;
-enspellType = 5;
-strongATT = MOD_ICEATT;
-strongACC = MOD_ICEACC;
-strongDEF = MOD_WINDDEF;
-strongRES = MOD_WINDRES;
-weakATT = MOD_FIREATT;
-weakACC = MOD_FIREACC;
-weakDEF = MOD_FIREDEF;
-weakRES = MOD_FIRERES;
+runeType = EFFECT_UNDA;
+enspellType = 3;
+strongATT = MOD_WATERATT;
+strongACC = MOD_WATERACC;
+strongDEF = MOD_FIREDEF;
+strongRES = MOD_FIRERES;
+weakATT = MOD_THUNDERATT;
+weakACC = MOD_THUNDERACC;
+weakDEF = MOD_THUNDERDEF;
+weakRES = MOD_THUNDERRES;
 
 -----------------------------------
 -- onEffectGain Action
