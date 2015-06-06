@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `mob_spawn_mods` (
 
 -- Dumping data for table dspdb.mob_spawn_mods: 165 rows
 /*!40000 ALTER TABLE `mob_spawn_mods` DISABLE KEYS */;
-INSERT INTO `mob_spawn_mods` (`mobid`, `modid`, `value`, `type`) VALUES
+REPLACE INTO `mob_spawn_mods` (`mobid`, `modid`, `value`, `type`) VALUES
 	(16806117, 288, 40, 0),
 	(17240232, 23, 50, 0),
 	(17240232, 288, 40, 0),

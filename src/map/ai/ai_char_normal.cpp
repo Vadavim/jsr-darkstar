@@ -203,7 +203,7 @@ bool CAICharNormal::GetValidTarget(CBattleEntity** PBattleTarget, uint8 ValidTar
         return false;
     }
 
-    if (PTarget->objtype == TYPE_PC)
+    if (PTarget->objtype == TYPE_PC || PTarget->objtype == TYPE_PET)
     {
         if ((ValidTarget & TARGET_SELF) &&
             PTarget->targid == m_PChar->targid)
@@ -311,7 +311,16 @@ void CAICharNormal::ActionEngage()
                     {
                         m_PChar->StatusEffectContainer->DelStatusEffect(EFFECT_HEALING);
                     }
-
+                    
+                    //Order Allies to attack
+                    if (m_PChar->PAlly.size() != 0)
+                    {
+                        for ( auto ally : m_PChar->PAlly)
+                        {
+                            ally->PBattleAI->SetBattleTarget(m_PBattleTarget);
+                        }        
+                    }
+                    
                     m_ActionType = ACTION_ATTACK;
                     m_LastMeleeTime = m_Tick - m_PChar->m_Weapons[SLOT_MAIN]->getDelay() + 1500;
 

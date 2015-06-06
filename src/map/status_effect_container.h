@@ -87,6 +87,7 @@ public:
 
     uint8 GetActiveManeuvers();
     uint8 GetActiveRunes();
+    void GetRuneTypes(EFFECT &type1, EFFECT &type2, EFFECT &type3);
     void RemoveOldestManeuver();
     void RemoveAllManeuvers();
     void RemoveOldestRune();

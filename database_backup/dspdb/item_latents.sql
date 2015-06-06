@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `item_latents` (
 
 -- Dumping data for table dspdb.item_latents: 944 rows
 /*!40000 ALTER TABLE `item_latents` DISABLE KEYS */;
-INSERT INTO `item_latents` (`itemId`, `modId`, `value`, `latentId`, `latentParam`) VALUES
+REPLACE INTO `item_latents` (`itemId`, `modId`, `value`, `latentId`, `latentParam`) VALUES
 	(10293, 25, 50, 50, 31),
 	(10293, 26, 50, 50, 31),
 	(10293, 30, 50, 50, 31),

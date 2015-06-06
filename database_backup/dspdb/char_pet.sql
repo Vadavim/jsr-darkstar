@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `char_pet` (
 
 -- Dumping data for table dspdb.char_pet: 3 rows
 /*!40000 ALTER TABLE `char_pet` DISABLE KEYS */;
-INSERT INTO `char_pet` (`charid`, `wyvernid`, `automatonid`, `unlocked_attachments`, `equipped_attachments`, `adventuringfellowid`, `chocoboid`) VALUES
+REPLACE INTO `char_pet` (`charid`, `wyvernid`, `automatonid`, `unlocked_attachments`, `equipped_attachments`, `adventuringfellowid`, `chocoboid`) VALUES
 	(21828, 0, 0, NULL, NULL, 0, 0),
 	(21829, 0, 0, NULL, NULL, 0, 0),
 	(21830, 0, 0, NULL, NULL, 0, 0);

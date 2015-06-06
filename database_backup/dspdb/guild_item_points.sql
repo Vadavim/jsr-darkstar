@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `guild_item_points` (
 
 -- Dumping data for table dspdb.guild_item_points: 1,275 rows
 /*!40000 ALTER TABLE `guild_item_points` DISABLE KEYS */;
-INSERT INTO `guild_item_points` (`guildid`, `itemid`, `rank`, `points`, `max_points`, `pattern`) VALUES
+REPLACE INTO `guild_item_points` (`guildid`, `itemid`, `rank`, `points`, `max_points`, `pattern`) VALUES
 	(0, 2850, 9, 2850, 6240, 3),
 	(0, 4288, 6, 1200, 5040, 2),
 	(0, 4288, 6, 1200, 5040, 3),

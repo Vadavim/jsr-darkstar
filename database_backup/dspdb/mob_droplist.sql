@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `mob_droplist` (
 
 -- Dumping data for table dspdb.mob_droplist: 32,328 rows
 /*!40000 ALTER TABLE `mob_droplist` DISABLE KEYS */;
-INSERT INTO `mob_droplist` (`dropId`, `type`, `itemId`, `rate`) VALUES
+REPLACE INTO `mob_droplist` (`dropId`, `type`, `itemId`, `rate`) VALUES
 	(1, 2, 1455, 0),
 	(1, 0, 1455, 90),
 	(1, 0, 1456, 10),

@@ -19,21 +19,19 @@ CREATE TABLE IF NOT EXISTS `char_recast` (
   PRIMARY KEY (`charid`,`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Dumping data for table dspdb.char_recast: 12 rows
+-- Dumping data for table dspdb.char_recast: 10 rows
 /*!40000 ALTER TABLE `char_recast` DISABLE KEYS */;
-INSERT INTO `char_recast` (`charid`, `id`, `time`, `recast`) VALUES
-	(21828, 26, 1433301934, 0),
-	(21828, 400, 1433302057, 10),
-	(21828, 407, 1433301934, 0),
-	(21828, 406, 1433301934, 0),
-	(21828, 405, 1433301934, 0),
+REPLACE INTO `char_recast` (`charid`, `id`, `time`, `recast`) VALUES
 	(21829, 0, 1432170493, 0),
 	(21830, 0, 1432171506, 0),
-	(21828, 404, 1433301934, 0),
-	(21828, 403, 1433301934, 0),
-	(21828, 402, 1433301934, 0),
-	(21828, 0, 1433301934, 0),
-	(21828, 401, 1433301934, 0);
+	(21828, 26, 1433629935, 0),
+	(21828, 8, 1433629935, 0),
+	(21828, 4, 1433629935, 0),
+	(21828, 2, 1433629935, 0),
+	(21828, 3, 1433629935, 0),
+	(21828, 0, 1433629935, 0),
+	(21828, 1, 1433629935, 0),
+	(21828, 5, 1433629935, 0);
 /*!40000 ALTER TABLE `char_recast` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

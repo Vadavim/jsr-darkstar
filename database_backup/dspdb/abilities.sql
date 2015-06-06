@@ -32,9 +32,9 @@ CREATE TABLE IF NOT EXISTS `abilities` (
   PRIMARY KEY (`abilityId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=56;
 
--- Dumping data for table dspdb.abilities: 321 rows
+-- Dumping data for table dspdb.abilities: 330 rows
 /*!40000 ALTER TABLE `abilities` DISABLE KEYS */;
-INSERT INTO `abilities` (`abilityId`, `name`, `job`, `level`, `validTarget`, `recastTime`, `recastId`, `message1`, `message2`, `animation`, `range`, `isAOE`, `CE`, `VE`, `meritModID`, `addType`, `required_expansion`) VALUES
+REPLACE INTO `abilities` (`abilityId`, `name`, `job`, `level`, `validTarget`, `recastTime`, `recastId`, `message1`, `message2`, `animation`, `range`, `isAOE`, `CE`, `VE`, `meritModID`, `addType`, `required_expansion`) VALUES
 	(0, 'mighty_strikes', 1, 0, 1, 3600, 0, 0, 0, 33, 20.0, 0, 1, 300, 0, 0, NULL),
 	(1, 'hundred_fists', 2, 0, 1, 3600, 0, 0, 0, 34, 20.0, 0, 1, 300, 0, 0, NULL),
 	(2, 'benediction', 3, 0, 1, 3600, 0, 102, 0, 35, 20.0, 1, 0, 0, 0, 0, NULL),
@@ -206,8 +206,8 @@ INSERT INTO `abilities` (`abilityId`, `name`, `job`, `level`, `validTarget`, `re
 	(175, 'curing_waltz_ii', 19, 30, 27, 8, 217, 306, 0, 7, 20.0, 0, 3, 3, 0, 0, 'WOTG'),
 	(176, 'curing_waltz_iii', 19, 45, 27, 10, 217, 306, 0, 8, 20.0, 0, 3, 3, 0, 0, 'WOTG'),
 	(177, 'curing_waltz_iv', 19, 70, 27, 17, 217, 306, 0, 9, 20.0, 0, 3, 3, 0, 0, 'WOTG'),
-	(178, 'healing_waltz', 19, 35, 27, 15, 217, 0, 0, 10, 20.0, 0, 1, 300, 0, 0, 'WOTG'),
-	(179, 'divine_waltz', 19, 25, 27, 13, 217, 306, 0, 11, 20.0, 1, 3, 3, 0, 0, 'WOTG'),
+	(178, 'healing_waltz', 19, 35, 27, 15, 219, 0, 0, 10, 20.0, 0, 1, 300, 0, 0, 'WOTG'),
+	(179, 'divine_waltz', 19, 25, 27, 13, 480, 306, 0, 11, 20.0, 1, 3, 3, 0, 0, 'WOTG'),
 	(180, 'spectral_jig', 19, 25, 1, 30, 218, 0, 0, 12, 20.0, 0, 1, 300, 0, 0, 'WOTG'),
 	(181, 'chocobo_jig', 19, 55, 1, 60, 218, 126, 0, 13, 20.0, 0, 1, 300, 0, 0, 'WOTG'),
 	(182, 'jigs', 19, 25, 1, 0, 0, 0, 0, 0, 20.0, 0, 0, 0, 0, 0, 'WOTG'),
@@ -273,19 +273,19 @@ INSERT INTO `abilities` (`abilityId`, `name`, `job`, `level`, `validTarget`, `re
 	(327, 'bolster', 21, 0, 1, 3600, 0, 0, 0, 33, 20.0, 0, 1, 300, 0, 0, NULL),
 	(340, 'elemental_sforzo', 22, 0, 1, 3600, 0, 0, 0, 302, 20.0, 0, 0, 0, 0, 0, 'SOA'),
 	(341, 'Rune_enchantment', 22, 5, 1, 0, 0, 0, 0, 0, 0.0, 0, 0, 0, 0, 0, 'SOA'),
-	(350, 'Vallation', 22, 20, 1, 300, 0, 0, 0, 301, 20.0, 0, 1, 300, 0, 0, 'SOA'),
-	(343, 'Gelus', 22, 5, 1, 10, 401, 0, 0, 292, 20.0, 0, 1, 300, 0, 0, 'SOA'),
-	(344, 'Flabra', 22, 5, 1, 10, 402, 0, 0, 293, 20.0, 0, 1, 300, 0, 0, 'SOA'),
-	(345, 'Tellus', 22, 5, 1, 10, 403, 0, 0, 294, 20.0, 0, 1, 300, 0, 0, 'SOA'),
-	(346, 'Sulpor', 22, 5, 1, 10, 404, 0, 0, 295, 20.0, 0, 1, 300, 0, 0, 'SOA'),
-	(347, 'Unda', 22, 5, 1, 10, 405, 0, 0, 296, 20.0, 0, 1, 300, 0, 0, 'SOA'),
-	(348, 'Lux', 22, 5, 1, 10, 406, 0, 0, 297, 20.0, 0, 1, 300, 0, 0, 'SOA'),
-	(349, 'Tenebrae', 22, 5, 1, 10, 407, 0, 0, 298, 20.0, 0, 1, 300, 0, 0, 'SOA'),
-	(351, 'Swordplay', 22, 20, 1, 300, 0, 0, 0, 299, 20.0, 0, 1, 300, 0, 0, 'SOA'),
-	(358, 'One_for_all', 22, 95, 1, 300, 0, 0, 0, 301, 20.0, 1, 1, 300, 0, 0, 'SOA'),
+	(350, 'Vallation', 22, 10, 1, 180, 401, 0, 0, 301, 20.0, 0, 450, 900, 0, 0, 'SOA'),
+	(343, 'Gelus', 22, 5, 1, 10, 401, 0, 0, 292, 20.0, 0, 1, 0, 0, 0, 'SOA'),
+	(344, 'Flabra', 22, 5, 1, 10, 402, 0, 0, 293, 20.0, 0, 1, 0, 0, 0, 'SOA'),
+	(345, 'Tellus', 22, 5, 1, 10, 403, 0, 0, 294, 20.0, 0, 1, 0, 0, 0, 'SOA'),
+	(346, 'Sulpor', 22, 5, 1, 10, 404, 0, 0, 295, 20.0, 0, 1, 0, 0, 0, 'SOA'),
+	(347, 'Unda', 22, 5, 1, 10, 405, 0, 0, 296, 20.0, 0, 1, 0, 0, 0, 'SOA'),
+	(348, 'Lux', 22, 5, 1, 10, 406, 0, 0, 297, 20.0, 0, 1, 0, 0, 0, 'SOA'),
+	(349, 'Tenebrae', 22, 5, 1, 10, 407, 0, 0, 298, 20.0, 0, 1, 0, 0, 0, 'SOA'),
+	(351, 'Swordplay', 22, 20, 1, 300, 428, 0, 0, 299, 20.0, 0, 160, 320, 0, 0, 'SOA'),
+	(358, 'One_for_all', 22, 70, 1, 180, 435, 0, 0, 301, 20.0, 0, 160, 320, 0, 0, 'SOA'),
 	(363, 'Ward', 22, 1, 1, 0, 0, 0, 0, 0, 20.0, 0, 1, 300, 0, 0, NULL),
 	(364, 'Effusion', 22, 1, 1, 0, 0, 0, 0, 0, 20.0, 0, 1, 300, 0, 0, NULL),
-	(367, 'Vivacious_pulse', 22, 1, 1, 300, 0, 0, 0, 327, 20.0, 0, 1, 300, 0, 0, NULL),
+	(367, 'Vivacious_pulse', 22, 1, 1, 120, 438, 0, 0, 327, 20.0, 0, 150, 300, 0, 0, NULL),
 	(496, 'healing_ruby', 15, 1, 3, 60, 174, 0, 0, 6, 18.0, 0, 1, 60, 0, 0, NULL),
 	(497, 'poison_nails', 15, 5, 4, 60, 173, 0, 0, 11, 18.0, 0, 1, 60, 0, 0, NULL),
 	(498, 'shining_ruby', 15, 24, 1, 60, 174, 0, 0, 44, 18.0, 0, 1, 60, 0, 0, NULL),
@@ -355,7 +355,16 @@ INSERT INTO `abilities` (`abilityId`, `name`, `job`, `level`, `validTarget`, `re
 	(614, 'chaotic_strike', 15, 70, 4, 60, 173, 0, 0, 164, 18.0, 0, 1, 60, 0, 0, NULL),
 	(615, 'thunderstorm', 15, 75, 4, 60, 173, 0, 0, 182, 18.0, 0, 1, 60, 2952, 1, 'TOAU'),
 	(616, 'judgment_bolt', 15, 1, 4, 60, 173, 0, 0, 0, 18.0, 0, 1, 60, 0, 2, NULL),
-	(342, 'Ignis', 22, 5, 1, 10, 400, 0, 0, 291, 20.0, 0, 1, 300, 0, 0, 'SOA');
+	(342, 'Ignis', 22, 5, 1, 10, 400, 0, 0, 291, 20.0, 0, 1, 0, 0, 0, 'SOA'),
+	(355, 'Valiance', 22, 50, 1, 300, 432, 0, 0, 301, 20.0, 1, 450, 900, 0, 0, 'SOA'),
+	(352, 'Lunge', 22, 25, 4, 300, 429, 0, 0, 304, 4.4, 0, 1, 0, 0, 0, 'SOA'),
+	(328, 'Swipe', 22, 15, 4, 90, 0, 0, 0, 304, 20.0, 0, 1, 0, 0, 0, 'SOA'),
+	(356, 'Gambit', 22, 45, 4, 300, 433, 0, 0, 304, 4.4, 0, 600, 1280, 0, 0, 'SOA'),
+	(353, 'Pflug', 22, 40, 1, 180, 430, 0, 0, 301, 20.0, 0, 450, 900, 0, 0, 'SOA'),
+	(360, 'Battuta', 22, 30, 1, 300, 437, 0, 0, 301, 20.0, 0, 450, 900, 0, 0, 'SOA'),
+	(359, 'Rayke', 22, 60, 4, 300, 436, 0, 0, 301, 4.4, 0, 640, 1260, 0, 0, 'SOA'),
+	(357, 'Liement', 22, 55, 1, 180, 434, 0, 0, 301, 20.0, 0, 450, 900, 0, 0, 'SOA'),
+	(354, 'Embolden', 22, 35, 1, 600, 431, 0, 0, 300, 20.0, 0, 160, 320, 0, 0, 'SOA');
 /*!40000 ALTER TABLE `abilities` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `skill_ranks` (
 
 -- Dumping data for table dspdb.skill_ranks: 32 rows
 /*!40000 ALTER TABLE `skill_ranks` DISABLE KEYS */;
-INSERT INTO `skill_ranks` (`skillid`, `name`, `war`, `mnk`, `whm`, `blm`, `rdm`, `thf`, `pld`, `drk`, `bst`, `brd`, `rng`, `sam`, `nin`, `drg`, `smn`, `blu`, `cor`, `pup`, `dnc`, `sch`, `geo`, `run`) VALUES
+REPLACE INTO `skill_ranks` (`skillid`, `name`, `war`, `mnk`, `whm`, `blm`, `rdm`, `thf`, `pld`, `drk`, `bst`, `brd`, `rng`, `sam`, `nin`, `drg`, `smn`, `blu`, `cor`, `pup`, `dnc`, `sch`, `geo`, `run`) VALUES
 	(1, 'hand2hand', 9, 1, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 1, 2, 0, 0, 0),
 	(2, 'dagger', 5, 0, 0, 6, 2, 1, 8, 7, 6, 3, 3, 10, 4, 10, 10, 0, 2, 8, 1, 9, 8, 0),
 	(3, 'sword', 4, 0, 0, 0, 2, 4, 1, 4, 10, 4, 9, 6, 7, 3, 0, 1, 2, 0, 9, 0, 0, 2),
@@ -61,9 +61,9 @@ INSERT INTO `skill_ranks` (`skillid`, `name`, `war`, `mnk`, `whm`, `blm`, `rdm`,
 	(29, 'evasion', 5, 3, 6, 10, 6, 1, 7, 7, 4, 4, 3, 3, 2, 4, 10, 8, 4, 3, 3, 10, 9, 3),
 	(30, 'shield', 4, 0, 3, 0, 5, 11, 1, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(31, 'parrying', 5, 5, 0, 0, 4, 1, 3, 10, 5, 6, 0, 2, 2, 5, 0, 9, 2, 9, 3, 10, 10, 1),
-	(32, 'divine', 0, 0, 2, 0, 10, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 4),
+	(32, 'divine', 0, 0, 2, 0, 10, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 2),
 	(33, 'healing', 0, 0, 1, 0, 4, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0),
-	(34, 'enhancing', 0, 0, 5, 10, 3, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 5),
+	(34, 'enhancing', 0, 0, 5, 10, 3, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 1),
 	(35, 'enfeebling', 0, 0, 5, 5, 1, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 6, 0),
 	(36, 'elemental', 0, 0, 0, 1, 4, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 3, 0),
 	(37, 'dark', 0, 0, 0, 2, 10, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 7, 0),

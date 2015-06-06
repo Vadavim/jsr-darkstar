@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `guild_shops` (
 
 -- Dumping data for table dspdb.guild_shops: 1,055 rows
 /*!40000 ALTER TABLE `guild_shops` DISABLE KEYS */;
-INSERT INTO `guild_shops` (`guildid`, `itemid`, `min_price`, `max_price`, `max_quantity`, `daily_increase`, `initial_quantity`) VALUES
+REPLACE INTO `guild_shops` (`guildid`, `itemid`, `min_price`, `max_price`, `max_quantity`, `daily_increase`, `initial_quantity`) VALUES
 	(513, 688, 15, 30, 255, 48, 100),
 	(513, 689, 27, 59, 255, 48, 100),
 	(513, 690, 1723, 10295, 255, 48, 100),

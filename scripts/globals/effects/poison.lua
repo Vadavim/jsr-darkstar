@@ -12,7 +12,7 @@ require("scripts/globals/status");
 
 function onEffectGain(target,effect)
     
-    if (target:getSystem() == SYSTEM_BEASTMEN) then
+    if (target:isMob() and target:getSystem() == SYSTEM_BEASTMEN) then
         effect:setPower(math.floor(effect:getPower() * 1.5));
     end;
 

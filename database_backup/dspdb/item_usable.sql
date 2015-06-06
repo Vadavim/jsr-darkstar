@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `item_usable` (
 
 -- Dumping data for table dspdb.item_usable: 2,011 rows
 /*!40000 ALTER TABLE `item_usable` DISABLE KEYS */;
-INSERT INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `animation`, `animationTime`, `maxCharges`, `useDelay`, `reuseDelay`, `aoe`) VALUES
+REPLACE INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `animation`, `animationTime`, `maxCharges`, `useDelay`, `reuseDelay`, `aoe`) VALUES
 	(4096, 'fire_crystal', 1, 0, 0, 0, 0, 0, 0, 0),
 	(4097, 'ice_crystal', 1, 0, 0, 0, 0, 0, 0, 0),
 	(4098, 'wind_crystal', 1, 0, 0, 0, 0, 0, 0, 0),

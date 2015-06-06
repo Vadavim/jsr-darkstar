@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `weapon_skills` (
 
 -- Dumping data for table dspdb.weapon_skills: 205 rows
 /*!40000 ALTER TABLE `weapon_skills` DISABLE KEYS */;
-INSERT INTO `weapon_skills` (`weaponskillid`, `name`, `jobs`, `type`, `skilllevel`, `element`, `animation`, `range`, `aoe`, `primary_sc`, `secondary_sc`, `tertiary_sc`, `main_only`) VALUES
+REPLACE INTO `weapon_skills` (`weaponskillid`, `name`, `jobs`, `type`, `skilllevel`, `element`, `animation`, `range`, `aoe`, `primary_sc`, `secondary_sc`, `tertiary_sc`, `main_only`) VALUES
 	(1, 'combo', _binary 0x02020000000200000000000002000000000202000000, 1, 5, 0, 16, 5, 1, 8, 0, 0, 0),
 	(2, 'shoulder_tackle', _binary 0x02020000000200000000000002000000000202000000, 1, 40, 0, 17, 5, 1, 5, 8, 0, 0),
 	(3, 'one_inch_punch', _binary 0x00020000000000000000000000000000000200000000, 1, 75, 0, 18, 5, 1, 2, 0, 0, 0),

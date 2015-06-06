@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `skillchain_damage_modifiers` (
 
 -- Dumping data for table dspdb.skillchain_damage_modifiers: 20 rows
 /*!40000 ALTER TABLE `skillchain_damage_modifiers` DISABLE KEYS */;
-INSERT INTO `skillchain_damage_modifiers` (`chain_level`, `chain_count`, `initial_modifier`, `magic_burst_modifier`) VALUES
+REPLACE INTO `skillchain_damage_modifiers` (`chain_level`, `chain_count`, `initial_modifier`, `magic_burst_modifier`) VALUES
 	('1', '1', 500, 1300),
 	('1', '2', 600, 1350),
 	('1', '3', 700, 1400),

@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `mob_groups` (
 
 -- Dumping data for table dspdb.mob_groups: 11,736 rows
 /*!40000 ALTER TABLE `mob_groups` DISABLE KEYS */;
-INSERT INTO `mob_groups` (`groupid`, `poolid`, `zoneid`, `respawntime`, `spawntype`, `dropid`, `HP`, `MP`, `minLevel`, `maxLevel`, `allegiance`, `roam_distance`) VALUES
+REPLACE INTO `mob_groups` (`groupid`, `poolid`, `zoneid`, `respawntime`, `spawntype`, `dropid`, `HP`, `MP`, `minLevel`, `maxLevel`, `allegiance`, `roam_distance`) VALUES
 	(1, 69, 1, 0, 128, 40, 0, 0, 34, 36, 0, 0.000),
 	(2, 417, 1, 0, 128, 299, 0, 0, 20, 24, 0, 0.000),
 	(3, 1347, 1, 0, 128, 961, 0, 0, 25, 27, 0, 0.000),

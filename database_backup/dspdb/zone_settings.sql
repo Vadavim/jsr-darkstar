@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `zone_settings` (
 
 -- Dumping data for table dspdb.zone_settings: 286 rows
 /*!40000 ALTER TABLE `zone_settings` DISABLE KEYS */;
-INSERT INTO `zone_settings` (`zoneid`, `zonetype`, `zoneip`, `zoneport`, `name`, `music_day`, `music_night`, `battlesolo`, `battlemulti`, `restriction`, `tax`, `misc`, `navmesh`) VALUES
+REPLACE INTO `zone_settings` (`zoneid`, `zonetype`, `zoneip`, `zoneport`, `name`, `music_day`, `music_night`, `battlesolo`, `battlemulti`, `restriction`, `tax`, `misc`, `navmesh`) VALUES
 	(0, 1, '127.0.0.1', 54230, 'Residential_Area', 0, 0, 0, 0, 0, 0.00, 32, 0),
 	(1, 2, '127.0.0.1', 54230, 'Phanauet_Channel', 229, 229, 101, 219, 0, 0.00, 152, 0),
 	(2, 2, '127.0.0.1', 54230, 'Carpenters_Landing', 0, 0, 101, 219, 0, 0.00, 156, 0),

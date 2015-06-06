@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `mob_pets` (
 
 -- Dumping data for table dspdb.mob_pets: 907 rows
 /*!40000 ALTER TABLE `mob_pets` DISABLE KEYS */;
-INSERT INTO `mob_pets` (`mob_mobid`, `pet_offset`, `job`) VALUES
+REPLACE INTO `mob_pets` (`mob_mobid`, `pet_offset`, `job`) VALUES
 	(16793746, 1, 9),
 	(16793751, 1, 9),
 	(16793777, 1, 9),

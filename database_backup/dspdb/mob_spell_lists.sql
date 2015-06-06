@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `mob_spell_lists` (
 
 -- Dumping data for table dspdb.mob_spell_lists: 1,360 rows
 /*!40000 ALTER TABLE `mob_spell_lists` DISABLE KEYS */;
-INSERT INTO `mob_spell_lists` (`spell_list_name`, `spell_list_id`, `spell_id`, `min_level`, `max_level`) VALUES
+REPLACE INTO `mob_spell_lists` (`spell_list_name`, `spell_list_id`, `spell_id`, `min_level`, `max_level`) VALUES
 	('Beastmen_WHM', 1, 1, 1, 10),
 	('Beastmen_WHM', 1, 2, 11, 20),
 	('Beastmen_WHM', 1, 3, 21, 40),

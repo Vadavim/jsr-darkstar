@@ -3111,12 +3111,14 @@ inline int32 CLuaBaseEntity::setPetName(lua_State *L)
     {
         if (petType == PETTYPE_CHOCOBO)
         {
+            return 0;/*
             uint32 chocoboname1 = lua_tointeger(L, 2) & 0x0000FFFF;
             uint32 chocoboname2 = lua_tointeger(L, 3) << 16;
 
             uint32 value = chocoboname1 + chocoboname2;
 
             Sql_Query(SqlHandle, "INSERT INTO char_pet SET charid = %u, chocoboid = %u ON DUPLICATE KEY UPDATE chocoboid = %u;", m_PBaseEntity->id, value, value);
+            */
         }
     }
     return 0;
@@ -5888,6 +5890,29 @@ inline int32 CLuaBaseEntity::spawnPet(lua_State *L)
     return 0;
 }
 
+
+inline int32 CLuaBaseEntity::spawnAlly(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+
+    if ( m_PBaseEntity->objtype == TYPE_PC )
+    {
+        if( !lua_isnil(L,1) && lua_isstring(L,1) )
+        {
+            uint8 petId = lua_tointeger(L,1);
+
+            petutils::SpawnAlly((CBattleEntity*)m_PBaseEntity, lua_tointeger(L,1), false);
+        }
+        else
+        {
+            ShowError(CL_RED"CLuaBaseEntity::spawnPet : PetID is NULL\n" CL_RESET);
+        }
+    }
+    return 0;
+}
+
+
 //==========================================================//
 
 inline int32 CLuaBaseEntity::petAttack(lua_State *L)
@@ -7337,6 +7362,7 @@ inline int32 CLuaBaseEntity::injectActionPacket(lua_State* L) {
         case 4: actiontype = ACTION_MAGIC_FINISH; break;
         case 5: actiontype = ACTION_ITEM_FINISH; break;
         case 6: actiontype = ACTION_JOBABILITY_FINISH; break;
+        case 7: actiontype = ACTION_JOBABILITY_START; break;
         case 11: actiontype = ACTION_MOBABILITY_FINISH; break;
         case 13: actiontype = ACTION_RAISE_MENU_SELECTION; break;
         case 14: actiontype = ACTION_DANCE; break;
@@ -8685,7 +8711,7 @@ inline int32 CLuaBaseEntity::SayToPlayer(lua_State* L)
 
     DSP_DEBUG_BREAK_IF(lua_isnil(L,1) || !lua_isstring(L, 1));
 
-    ((CCharEntity*)m_PBaseEntity)->pushPacket(new CChatMessagePacket((CCharEntity*)m_PBaseEntity,MESSAGE_UNKNOWN,(char*)lua_tostring(L,1)));
+    ((CCharEntity*)m_PBaseEntity)->pushPacket(new CChatMessagePacket((CCharEntity*)m_PBaseEntity,MESSAGE_SYSTEM_2,(char*)lua_tostring(L,1)));
 
     return 0;
 }
@@ -9676,6 +9702,16 @@ inline int32 CLuaBaseEntity::getActiveManeuvers(lua_State* L)
     return 1;
 }
 
+inline int32 CLuaBaseEntity::jsrCustom(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+
+    PChar->pushPacket(new CCharRecastPacket(PChar, lua_tointeger(L, 1)));
+    return 0;
+}
+
 inline int32 CLuaBaseEntity::getEffectsCount(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
@@ -9707,6 +9743,22 @@ inline int32 CLuaBaseEntity::getNewestRune(lua_State* L)
     lua_pushinteger(L, PEntity->StatusEffectContainer->GetNewestRune());
 
     return 1;
+}
+
+inline int32 CLuaBaseEntity::getRuneTypes(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+    EFFECT type1 = (EFFECT)0;
+    EFFECT type2 = (EFFECT)0;
+    EFFECT type3 = (EFFECT)0;
+    PEntity->StatusEffectContainer->GetRuneTypes(type1, type2, type3);
+    lua_pushinteger(L, type1);
+    lua_pushinteger(L, type2);
+    lua_pushinteger(L, type3);
+
+    return 3;
 }
 
 inline int32 CLuaBaseEntity::removeOldestManeuver(lua_State* L)
@@ -10391,12 +10443,15 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getActiveManeuvers),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeOldestManeuver),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllManeuvers),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,spawnAlly),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeOldestRune),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllRunes),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getActiveRunes),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getEffectsCount),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNewestRune),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRuneTypes),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addBurden),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,jsrCustom),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setElevator),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,storeWithPorterMoogle),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRetrievableItemsForSlip),

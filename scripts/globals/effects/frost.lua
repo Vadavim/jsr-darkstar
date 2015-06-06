@@ -12,9 +12,9 @@ require("scripts/globals/magic");
 -----------------------------------
 
 function onEffectGain(target,effect)
-    if (target:getSystem() == SYSTEM_LIZARD) then
+    if (target:isMob() and target:getSystem() == SYSTEM_LIZARD) then
         target:addMod(MOD_HASTE_MAGIC, -150);
-    elseif (target:getSystem() == SYSTEM_AMORPH) then
+    elseif (target:isMob() and target:getSystem() == SYSTEM_AMORPH) then
         target:addMod(MOD_ENEMYCRITRATE, 5);
         target:addMod(MOD_DEFP, -5);
     end
@@ -37,10 +37,13 @@ function onEffectLose(target,effect)
 	target:delMod(MOD_REGEN_DOWN, effect:getPower());
 	target:delMod(MOD_MND, -getElementalDebuffStatDownFromDOT(effect:getPower()));
     
-    if (target:getSystem() == SYSTEM_LIZARD) then
-        target:delMod(MOD_HASTE_MAGIC, -150);
-    elseif (target:getSystem() == SYSTEM_AMORPH) then
-        target:delMod(MOD_ENEMYCRITRATE, 5);
-        target:delMod(MOD_DEFP, -5);
-    end
+    if (target:isMob())
+    {
+        if (target:getSystem() == SYSTEM_LIZARD) then
+            target:delMod(MOD_HASTE_MAGIC, -150);
+        elseif (target:getSystem() == SYSTEM_AMORPH) then
+            target:delMod(MOD_ENEMYCRITRATE, 5);
+            target:delMod(MOD_DEFP, -5);
+        end
+   }
 end;

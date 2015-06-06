@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `guilds` (
 
 -- Dumping data for table dspdb.guilds: 9 rows
 /*!40000 ALTER TABLE `guilds` DISABLE KEYS */;
-INSERT INTO `guilds` (`id`, `points_name`) VALUES
+REPLACE INTO `guilds` (`id`, `points_name`) VALUES
 	(0, 'guild_fishing'),
 	(1, 'guild_woodworking'),
 	(2, 'guild_smithing'),

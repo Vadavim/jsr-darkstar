@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `npc_list` (
 
 -- Dumping data for table dspdb.npc_list: 26,723 rows
 /*!40000 ALTER TABLE `npc_list` DISABLE KEYS */;
-INSERT INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`, `flag`, `speed`, `speedsub`, `animation`, `animationsub`, `namevis`, `status`, `flags`, `look`, `name_prefix`, `required_expansion`) VALUES
+REPLACE INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`, `flag`, `speed`, `speedsub`, `animation`, `animationsub`, `namevis`, `status`, `flags`, `look`, `name_prefix`, `required_expansion`) VALUES
 	(16781331, 'Achieve_Master', 'Achieve Master', 0, 0.000, 0.000, 0.000, 0, 50, 50, 0, 0, 0, 2, 3, _binary 0x0000320000000000000000000000000000000000, 0, 'SOA'),
 	(16781332, 'UnityMaster', 'Unity Master', 0, 0.000, 0.000, 0.000, 0, 50, 50, 0, 0, 96, 2, 2051, _binary 0x0000340000000000000000000000000000000000, 0, 'SOA'),
 	(16781339, 'Laiteconce', 'Laiteconce', 136, 4.066, -3.500, -10.450, 1, 40, 40, 0, 1, 0, 2, 27, _binary 0x0100010414101720003067400350006000700000, 32, 'COP'),
@@ -6072,7 +6072,7 @@ INSERT INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `p
 	(17113897, '_2a3', 'Wooden Gate', 0, 32.034, -1.163, 164.443, 1, 40, 40, 9, 0, 0, 0, 4099, _binary 0x0200000000000000000000000000000000000000, 32, 'WOTG'),
 	(17113898, 'qm5', '???', 0, -311.726, -5.614, 82.238, 1, 40, 40, 0, 0, 0, 0, 3, _binary 0x0000340000000000000000000000000000000000, 32, 'WOTG'),
 	(17113899, 'Ramblix', 'Ramblix', 139, -243.642, 0.000, 396.980, 0, 40, 40, 0, 0, 0, 6, 27, _binary 0x0000550000000000000000000000000000000000, 32, 'WOTG');
-INSERT INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`, `flag`, `speed`, `speedsub`, `animation`, `animationsub`, `namevis`, `status`, `flags`, `look`, `name_prefix`, `required_expansion`) VALUES
+REPLACE INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`, `flag`, `speed`, `speedsub`, `animation`, `animationsub`, `namevis`, `status`, `flags`, `look`, `name_prefix`, `required_expansion`) VALUES
 	(17113900, 'Goblin_Footprint', 'Goblin Footprint', 139, -243.642, 0.000, 396.980, 1, 40, 40, 0, 0, 0, 0, 3, _binary 0x0000340000000000000000000000000000000000, 32, 'WOTG'),
 	(17113901, 'Logging_Point', 'Logging Point', 128, -306.495, -1.426, -294.459, 32774, 40, 40, 0, 0, 0, 0, 3, _binary 0x0000770900000000000000000000000000000000, 32, 'WOTG'),
 	(17113902, 'Logging_Point', 'Logging Point', 128, 280.660, -8.300, -481.961, 32774, 40, 40, 0, 0, 0, 2, 3, _binary 0x0000770900000000000000000000000000000000, 32, 'WOTG'),
@@ -12088,7 +12088,7 @@ INSERT INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `p
 	(17310041, 'Pincerstone', 'Pincerstone', 0, -148.685, -41.979, 333.461, 32769, 40, 40, 0, 0, 0, 0, 3, _binary 0x0000340000000000000000000000000000000000, 0, NULL),
 	(17310042, '_3m2', '', 0, -270.153, -40.200, 245.628, 1, 40, 40, 9, 0, 0, 0, 6147, _binary 0x0200000000000000000000000000000000000000, 0, NULL),
 	(17310043, 'Pincerstone', 'Pincerstone', 0, -270.998, -41.968, 244.690, 32769, 40, 40, 0, 0, 0, 0, 3, _binary 0x0000340000000000000000000000000000000000, 0, NULL);
-INSERT INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`, `flag`, `speed`, `speedsub`, `animation`, `animationsub`, `namevis`, `status`, `flags`, `look`, `name_prefix`, `required_expansion`) VALUES
+REPLACE INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`, `flag`, `speed`, `speedsub`, `animation`, `animationsub`, `namevis`, `status`, `flags`, `look`, `name_prefix`, `required_expansion`) VALUES
 	(17310044, '_3m2', '', 0, -362.961, -40.200, -39.631, 1, 40, 40, 9, 0, 0, 0, 6147, _binary 0x0200000000000000000000000000000000000000, 0, NULL),
 	(17310045, 'Pincerstone', 'Pincerstone', 0, -363.109, -41.994, -38.385, 32769, 40, 40, 0, 0, 0, 0, 3, _binary 0x0000340000000000000000000000000000000000, 0, NULL),
 	(17310046, '_3m2', '', 0, -316.946, -40.200, -181.266, 1, 40, 40, 9, 0, 0, 0, 6147, _binary 0x0200000000000000000000000000000000000000, 0, NULL),
@@ -18094,7 +18094,7 @@ INSERT INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `p
 	(17670611, 'qm', '???', 0, -221.000, 0.950, -320.000, 1, 40, 40, 0, 0, 0, 0, 3, _binary 0x0000340000000000000000000000000000000000, 0, 'ABYSSEA'),
 	(17670612, 'qm', '???', 0, 80.000, 0.250, -129.000, 1, 40, 40, 0, 0, 0, 0, 3, _binary 0x0000340000000000000000000000000000000000, 0, 'ABYSSEA'),
 	(17670613, 'AchieveMaster', 'Achieve Master', 0, 0.000, 0.000, 0.000, 0, 50, 50, 0, 0, 0, 2, 3, _binary 0x0000320000000000000000000000000000000000, 0, 'SOA');
-INSERT INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`, `flag`, `speed`, `speedsub`, `animation`, `animationsub`, `namevis`, `status`, `flags`, `look`, `name_prefix`, `required_expansion`) VALUES
+REPLACE INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`, `flag`, `speed`, `speedsub`, `animation`, `animationsub`, `namevis`, `status`, `flags`, `look`, `name_prefix`, `required_expansion`) VALUES
 	(17670614, 'UnityMaster', 'Unity Master', 0, 0.000, 0.000, 0.000, 0, 50, 50, 0, 0, 96, 2, 2051, _binary 0x0000340000000000000000000000000000000000, 0, 'SOA'),
 	(17670619, 'Conflux_Surveyor', 'Conflux Surveyor', 61, 410.617, -1.731, 331.097, 7, 40, 40, 0, 0, 0, 0, 515, _binary 0x01000407FC100221C930B9408950006000700000, 0, 'ABYSSEA'),
 	(17670620, 'Cruor_Prospector', 'Cruor Prospector', 42, 408.685, -2.036, 331.857, 7, 40, 40, 0, 0, 0, 0, 3, _binary 0x01000205FC100221C930B9408950006000700000, 0, 'ABYSSEA'),
@@ -24099,7 +24099,7 @@ INSERT INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `p
 	(17825801, 'NPC[9]', '', 0, 0.000, 0.000, 0.000, 0, 40, 40, 0, 0, 0, 2, 3, _binary 0x0000320000000000000000000000000000000000, 0, 'SOA'),
 	(17825802, 'NPC[a]', '', 0, 0.000, 0.000, 0.000, 0, 40, 40, 0, 0, 0, 2, 3, _binary 0x0000320000000000000000000000000000000000, 0, 'SOA'),
 	(17825803, 'NPC[b]', '', 0, 0.000, 0.000, 0.000, 0, 40, 40, 0, 0, 0, 2, 3, _binary 0x0000320000000000000000000000000000000000, 0, 'SOA');
-INSERT INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`, `flag`, `speed`, `speedsub`, `animation`, `animationsub`, `namevis`, `status`, `flags`, `look`, `name_prefix`, `required_expansion`) VALUES
+REPLACE INTO `npc_list` (`npcid`, `name`, `polutils_name`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`, `flag`, `speed`, `speedsub`, `animation`, `animationsub`, `namevis`, `status`, `flags`, `look`, `name_prefix`, `required_expansion`) VALUES
 	(17825804, 'NPC[c]', '', 0, 0.000, 0.000, 0.000, 0, 40, 40, 0, 0, 0, 2, 3, _binary 0x0000320000000000000000000000000000000000, 0, 'SOA'),
 	(17825805, 'NPC[d]', '', 0, 0.000, 0.000, 0.000, 0, 40, 40, 0, 0, 0, 2, 3, _binary 0x0000320000000000000000000000000000000000, 0, 'SOA'),
 	(17825806, 'NPC[e]', '', 0, 0.000, 0.000, 0.000, 0, 40, 40, 0, 0, 0, 2, 3, _binary 0x0000320000000000000000000000000000000000, 0, 'SOA'),

@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `mob_skill` (
 
 -- Dumping data for table dspdb.mob_skill: 1,904 rows
 /*!40000 ALTER TABLE `mob_skill` DISABLE KEYS */;
-INSERT INTO `mob_skill` (`mob_skill_id`, `family_id`, `mob_anim_id`, `mob_skill_name`, `mob_skill_aoe`, `mob_skill_distance`, `mob_anim_time`, `mob_prepare_time`, `mob_valid_targets`, `mob_skill_flag`, `mob_skill_param`, `knockback`) VALUES
+REPLACE INTO `mob_skill` (`mob_skill_id`, `family_id`, `mob_anim_id`, `mob_skill_name`, `mob_skill_aoe`, `mob_skill_distance`, `mob_anim_time`, `mob_prepare_time`, `mob_valid_targets`, `mob_skill_flag`, `mob_skill_param`, `knockback`) VALUES
 	(16, 0, 16, 'Ranged_Attack', 0, 25.0, 2000, 0, 4, 0, 0, 0),
 	(402, 0, 402, 'Catapult', 0, 25.0, 2000, 0, 4, 0, 0, 0),
 	(808, 0, 351, 'Jump', 0, 9.5, 2000, 0, 4, 0, 0, 0),

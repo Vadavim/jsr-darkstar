@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `blue_spell_mods` (
 
 -- Dumping data for table dspdb.blue_spell_mods: 293 rows
 /*!40000 ALTER TABLE `blue_spell_mods` DISABLE KEYS */;
-INSERT INTO `blue_spell_mods` (`spellId`, `modid`, `value`) VALUES
+REPLACE INTO `blue_spell_mods` (`spellId`, `modid`, `value`) VALUES
 	(513, 13, 2),
 	(515, 13, 2),
 	(517, 0, 0),

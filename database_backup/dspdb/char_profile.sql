@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `char_profile` (
 
 -- Dumping data for table dspdb.char_profile: 3 rows
 /*!40000 ALTER TABLE `char_profile` DISABLE KEYS */;
-INSERT INTO `char_profile` (`charid`, `rank_points`, `rank_sandoria`, `rank_bastok`, `rank_windurst`, `fame_sandoria`, `fame_bastok`, `fame_windurst`, `fame_norg`, `fame_jeuno`) VALUES
+REPLACE INTO `char_profile` (`charid`, `rank_points`, `rank_sandoria`, `rank_bastok`, `rank_windurst`, `fame_sandoria`, `fame_bastok`, `fame_windurst`, `fame_norg`, `fame_jeuno`) VALUES
 	(21828, 0, 1, 1, 1, 0, 0, 0, 0, 0),
 	(21829, 0, 1, 1, 1, 0, 0, 0, 0, 0),
 	(21830, 0, 1, 1, 1, 0, 0, 0, 0, 0);

@@ -27,7 +27,7 @@ function onEffectTick(target,effect)
     local owner = target:getMaster();
     --owner:addStatusEffect(EFFECT_SHIVA_S_FAVOR, 1, 0, 300);
     local party = owner:getParty();
-    if (party ~= null) then
+    if (party ~= nil) then
         for i,member in ipairs(party) do
             member:addStatusEffect(EFFECT_SHIVA_S_FAVOR, 1, 0, 16);
         end

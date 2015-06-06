@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `bcnm_battlefield` (
 
 -- Dumping data for table dspdb.bcnm_battlefield: 2,569 rows
 /*!40000 ALTER TABLE `bcnm_battlefield` DISABLE KEYS */;
-INSERT INTO `bcnm_battlefield` (`bcnmId`, `battlefieldNumber`, `monsterId`, `conditions`) VALUES
+REPLACE INTO `bcnm_battlefield` (`bcnmId`, `battlefieldNumber`, `monsterId`, `conditions`) VALUES
 	(0, 1, 17346561, 3),
 	(0, 1, 17346562, 3),
 	(0, 2, 17346563, 3),

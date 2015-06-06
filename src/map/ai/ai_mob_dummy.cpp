@@ -1994,6 +1994,14 @@ void CAIMobDummy::TryLink()
             m_PBattleTarget->PPet->PBattleAI->SetBattleTarget(m_PMob);
         }
     }
+    
+    if (m_PBattleTarget->PAlly.size() != 0)
+    {
+        for ( auto ally : m_PBattleTarget->PAlly)
+        {
+            ally->PBattleAI->SetBattleTarget(m_PMob);
+        }        
+    }
 
     // my pet should help as well
     if (m_PMob->PPet != nullptr && m_PMob->PPet->PBattleAI->GetCurrentAction() == ACTION_ROAMING)

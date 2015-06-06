@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `instance_entities` (
 
 -- Dumping data for table dspdb.instance_entities: ~96 rows (approximately)
 /*!40000 ALTER TABLE `instance_entities` DISABLE KEYS */;
-INSERT INTO `instance_entities` (`instanceid`, `id`) VALUES
+REPLACE INTO `instance_entities` (`instanceid`, `id`) VALUES
 	(1, 17059841),
 	(1, 17059842),
 	(1, 17059843),

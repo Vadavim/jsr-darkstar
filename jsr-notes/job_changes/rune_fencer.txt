@@ -47,16 +47,17 @@ ABILITY CHANGES
 	- Tenebrae: Restores 100% Maximum MP.
 
 [Vivacious Pulse]
- - Base healing is 15% Maximum HP.
+ - Base healing is (Divine Skill) * 2.
+ - Recast increased to 2 minutes.
  - Unless otherwise noted, additional effects last one minute.
- - Unda runes give regeneration (scales with level and number of runes)
- - Ignis runes give +12/15/18% Attack bonus
- - Tellus runes give +20/25/30% Defense bonus
- - Flabra runes give +20/25/30 Evasion
- - Sulppor runes give a +6/+7/+8% critical hit chance increase
- - Gelus runes give a +20/25/30 Mdef bonus.
- - Lux runes give 15/20/25 TP regen per 3 seconds.
- - Tenebrae runes restore MP (scales with level and number of runes)
+ - Gelus runes give a +10 mdef per rune.
+ - Ignis runes give +5% Attack per rune.
+ - Tellus runes give +10% Defense per rune.
+ - Flabra runes gives +10 evasion per rune.
+ - Sulppor runes give a +4% critical hit rate per rune.
+ - Gelus runes give a +5 MATT per rune.
+ - Lux runes increase healing by +20% per rune.
+ - Tenebrae runes restores (Divine Skill / 4) MP per rune.
 
 [Swordplay]
  - Instead lasts until HP reaches 50% or lower.
@@ -72,9 +73,7 @@ ABILITY CHANGES
 
 [Batuta]
  - Gained at level 30.
- - Flabra runes gives +10 Parrying per rune
- - Sulpor / Unda / Lux runes give +7 Parrying per rune
- - The other runes give +5 Parrying per rune.
+ - Instead grants a flat +30 Counter rate for the duration.
 
 [Rayke]
  - Gained at 35
@@ -102,8 +101,8 @@ WARD CHANGES
  - Grants -30% / -35% / -40% elemental damage reduction based on number of runes of associated element.
 
 [Pflug]
- - Duration increased to 6 minutes.
- - Grants +80 / +100 / +120 resistance to associated status effects. 
+ - Recast increased to 5 minutes.
+ - Affects all party members. 
 
 [Liement]
  - Gained at level 65

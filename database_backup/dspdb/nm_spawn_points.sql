@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `nm_spawn_points` (
 
 -- Dumping data for table dspdb.nm_spawn_points: 6,277 rows
 /*!40000 ALTER TABLE `nm_spawn_points` DISABLE KEYS */;
-INSERT INTO `nm_spawn_points` (`mobid`, `pos`, `pos_x`, `pos_y`, `pos_z`) VALUES
+REPLACE INTO `nm_spawn_points` (`mobid`, `pos`, `pos_x`, `pos_y`, `pos_z`) VALUES
 	(17215888, 0, -364.189, 30.000, -442.720),
 	(17215888, 1, -292.232, 21.428, -413.230),
 	(17215888, 2, -270.019, 20.612, -389.970),

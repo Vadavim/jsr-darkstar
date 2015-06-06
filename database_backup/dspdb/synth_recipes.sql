@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `synth_recipes` (
 
 -- Dumping data for table dspdb.synth_recipes: 3,542 rows
 /*!40000 ALTER TABLE `synth_recipes` DISABLE KEYS */;
-INSERT INTO `synth_recipes` (`ID`, `Type`, `KeyItem`, `Alchemy`, `Bone`, `Cloth`, `Cook`, `Gold`, `Leather`, `Smith`, `Wood`, `Crystal`, `HQCrystal`, `Ingredient1`, `Ingredient2`, `Ingredient3`, `Ingredient4`, `Ingredient5`, `Ingredient6`, `Ingredient7`, `Ingredient8`, `Result`, `ResultHQ1`, `ResultHQ2`, `ResultHQ3`, `ResultQty`, `ResultHQ1Qty`, `ResultHQ2Qty`, `ResultHQ3Qty`) VALUES
+REPLACE INTO `synth_recipes` (`ID`, `Type`, `KeyItem`, `Alchemy`, `Bone`, `Cloth`, `Cook`, `Gold`, `Leather`, `Smith`, `Wood`, `Crystal`, `HQCrystal`, `Ingredient1`, `Ingredient2`, `Ingredient3`, `Ingredient4`, `Ingredient5`, `Ingredient6`, `Ingredient7`, `Ingredient8`, `Result`, `ResultHQ1`, `ResultHQ2`, `ResultHQ3`, `ResultQty`, `ResultHQ1Qty`, `ResultHQ2Qty`, `ResultHQ3Qty`) VALUES
 	(1, 1, 0, 0, 0, 4, 0, 0, 0, 0, 20, 4099, 4241, 706, 706, 714, 714, 817, 824, 824, 824, 2, 2, 2, 2, 1, 1, 1, 1),
 	(2, 1, 0, 0, 0, 53, 0, 0, 0, 0, 49, 4099, 4241, 716, 716, 716, 716, 819, 826, 826, 826, 3, 3, 3, 3, 1, 1, 1, 1),
 	(3, 1, 0, 0, 0, 53, 0, 0, 0, 0, 60, 4099, 4241, 717, 717, 717, 717, 820, 827, 827, 827, 4, 4, 4, 4, 1, 1, 1, 1),

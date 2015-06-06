@@ -327,6 +327,9 @@ CActionPacket::CActionPacket(CBattleEntity * PEntity)
 			case 134:	// Tomahawk
 			case 152:	// Blade Bash
 			case 154:	// Angon
+            case 352:   // Lunge
+            case 356:   // Gambit
+            case 328:   // Swipe
 				ActionTypeNumber -= 3;
 				break;
 

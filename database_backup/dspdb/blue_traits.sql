@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `blue_traits` (
 
 -- Dumping data for table dspdb.blue_traits: 41 rows
 /*!40000 ALTER TABLE `blue_traits` DISABLE KEYS */;
-INSERT INTO `blue_traits` (`trait_category`, `trait_points_needed`, `traitid`, `modifier`, `value`) VALUES
+REPLACE INTO `blue_traits` (`trait_category`, `trait_points_needed`, `traitid`, `modifier`, `value`) VALUES
 	(1, 2, 32, 230, 8),
 	(2, 2, 9, 370, 1),
 	(3, 2, 35, 227, 8),

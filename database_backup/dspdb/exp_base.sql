@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `exp_base` (
 
 -- Dumping data for table dspdb.exp_base: 100 rows
 /*!40000 ALTER TABLE `exp_base` DISABLE KEYS */;
-INSERT INTO `exp_base` (`level`, `exp`) VALUES
+REPLACE INTO `exp_base` (`level`, `exp`) VALUES
 	(1, 0),
 	(2, 500),
 	(3, 750),

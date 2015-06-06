@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `char_style` (
 
 -- Dumping data for table dspdb.char_style: 3 rows
 /*!40000 ALTER TABLE `char_style` DISABLE KEYS */;
-INSERT INTO `char_style` (`charid`, `head`, `body`, `hands`, `legs`, `feet`, `main`, `sub`, `ranged`) VALUES
+REPLACE INTO `char_style` (`charid`, `head`, `body`, `hands`, `legs`, `feet`, `main`, `sub`, `ranged`) VALUES
 	(21828, 0, 0, 0, 0, 0, 0, 0, 0),
 	(21829, 52685, 52685, 52685, 52685, 52685, 52685, 52685, 52685),
 	(21830, 52685, 52685, 52685, 52685, 52685, 52685, 52685, 52685);

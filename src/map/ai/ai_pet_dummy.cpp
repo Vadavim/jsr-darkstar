@@ -130,10 +130,11 @@ void CAIPetDummy::ActionAbilityStart()
 
     if (m_PPet->objtype == TYPE_MOB && m_PPet->PMaster->objtype == TYPE_PC)
     {
-        if (m_MasterCommand == MASTERCOMMAND_SIC && m_PPet->health.tp >= 1000 && m_PBattleTarget != nullptr)
+        if ((m_MasterCommand == MASTERCOMMAND_SIC) && m_PPet->health.tp >= 1000 && m_PBattleTarget != nullptr)
         {
             m_MasterCommand = MASTERCOMMAND_NONE;
             CMobEntity* PMob = (CMobEntity*)m_PPet->PMaster->PPet;
+
             std::vector<CMobSkill*> MobSkills = battleutils::GetMobSkillsByFamily(PMob->m_Family);
 
             if (MobSkills.size() > 0)
@@ -169,6 +170,19 @@ void CAIPetDummy::ActionAbilityStart()
             }
         }
     }
+    
+    if (m_PPet->getPetType() == PETTYPE_ALLY && m_PPet->health.tp >= 1000 && m_PBattleTarget != nullptr)
+    {
+        
+        m_MasterCommand = MASTERCOMMAND_NONE;
+        if (m_PPet->PetSkills.size() > 0)
+        {
+            SetCurrentMobSkill(m_PPet->PetSkills.at(WELL512::GetRandomNumber(m_PPet->PetSkills.size())));
+            preparePetAbility(m_PBattleTarget);
+            return;
+        }
+    }
+    
     else if (m_PPet->getPetType() == PETTYPE_AVATAR){
         for (int i = 0; i < m_PPet->PetSkills.size(); i++){
             if (m_PPet->PetSkills[i]->getAnimationTime() == m_MasterCommand){
@@ -491,10 +505,9 @@ void CAIPetDummy::ActionAbilityFinish(){
     {
 
         CBattleEntity* PTarget = *it;
-
         Action.ActionTarget = PTarget;
 
-        if (m_PPet->isBstPet()){
+        if (m_PPet->isBstPet() || m_PPet->getPetType() == PETTYPE_ALLY){
             Action.param = luautils::OnMobWeaponSkill(PTarget, m_PPet, GetCurrentMobSkill());
         }
         else {
@@ -777,6 +790,13 @@ void CAIPetDummy::ActionAttack()
         return;
     }
     
+    if (m_PPet->getPetType() == PETTYPE_ALLY && m_PPet->health.tp >= 1000)
+    {
+        m_ActionType = ACTION_MOBABILITY_START;
+        ActionAbilityStart();
+        return;
+    }
+    
 
 	float currentDistance = distance(m_PPet->loc.p, m_PBattleTarget->loc.p);
 	int16 spellID = -1;
@@ -969,6 +989,13 @@ void CAIPetDummy::ActionFall()
     // remove master from pet
     if (m_PPet->PMaster != nullptr && m_PPet->PMaster->PPet == m_PPet){
         petutils::DetachPet(m_PPet->PMaster);
+    }
+    
+    if (m_PPet->PMaster != nullptr){
+        for (auto ally : m_PPet->PAlly)
+        {
+            petutils::DetachPet(m_PPet->PMaster);
+        }
     }
 
     // detach pet just deleted this

@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `char_storage` (
 
 -- Dumping data for table dspdb.char_storage: 3 rows
 /*!40000 ALTER TABLE `char_storage` DISABLE KEYS */;
-INSERT INTO `char_storage` (`charid`, `inventory`, `safe`, `locker`, `satchel`, `sack`, `case`) VALUES
+REPLACE INTO `char_storage` (`charid`, `inventory`, `safe`, `locker`, `satchel`, `sack`, `case`) VALUES
 	(21828, 30, 50, 0, 30, 20, 75),
 	(21829, 30, 50, 0, 30, 30, 80),
 	(21830, 30, 50, 0, 0, 0, 0);

@@ -980,6 +980,27 @@ uint8 CStatusEffectContainer::GetActiveRunes()
     return count;
 }
 
+void CStatusEffectContainer::GetRuneTypes(EFFECT &type1, EFFECT &type2, EFFECT &type3)
+{
+    uint8 count = 0;
+    for (auto PStatusEffect : m_StatusEffectList)
+    {
+        
+        if (PStatusEffect->GetStatusID() >= EFFECT_IGNIS &&
+            PStatusEffect->GetStatusID() <= EFFECT_TENEBRAE)
+        {           
+            count++;
+            if (count == 1)
+                type1 = PStatusEffect->GetStatusID();
+            else if (count == 2)
+                type2 = PStatusEffect->GetStatusID();
+            else if (count == 3)
+                type3 = PStatusEffect->GetStatusID();
+            
+        }
+    }
+}
+
 
 
 void CStatusEffectContainer::RemoveOldestRune()

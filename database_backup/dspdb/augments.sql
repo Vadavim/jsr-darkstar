@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `augments` (
 
 -- Dumping data for table dspdb.augments: 2,284 rows
 /*!40000 ALTER TABLE `augments` DISABLE KEYS */;
-INSERT INTO `augments` (`augmentId`, `multiplier`, `modId`, `value`, `type`) VALUES
+REPLACE INTO `augments` (`augmentId`, `multiplier`, `modId`, `value`, `type`) VALUES
 	(1, 0, 2, 1, 0),
 	(2, 0, 2, 33, 0),
 	(3, 0, 2, 65, 0),

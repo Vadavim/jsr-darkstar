@@ -24,21 +24,14 @@ CREATE TABLE IF NOT EXISTS `char_effects` (
   KEY `charid` (`charid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.char_effects: 12 rows
+-- Dumping data for table dspdb.char_effects: 5 rows
 /*!40000 ALTER TABLE `char_effects` DISABLE KEYS */;
-INSERT INTO `char_effects` (`charid`, `effectid`, `icon`, `power`, `tick`, `duration`, `subid`, `subpower`, `tier`) VALUES
+REPLACE INTO `char_effects` (`charid`, `effectid`, `icon`, `power`, `tick`, `duration`, `subid`, `subpower`, `tier`) VALUES
 	(21829, 794, 0, 0, 1000, 0, 0, 0, 0),
 	(21829, 795, 0, 7, 500, 0, 0, 0, 0),
 	(21830, 794, 0, 0, 100, 0, 0, 0, 0),
 	(21830, 795, 0, 7, 50, 0, 0, 0, 0),
-	(21828, 42, 42, 99, 0, 0, 0, 0, 0),
-	(21828, 43, 43, 99, 0, 0, 0, 0, 0),
-	(21828, 170, 170, 150, 10, 0, 0, 0, 0),
-	(21828, 47, 47, 1, 0, 0, 0, 0, 0),
-	(21828, 48, 48, 1, 0, 0, 0, 0, 0),
-	(21828, 46, 46, 1, 0, 0, 0, 0, 0),
-	(21828, 89, 89, 1000, 0, 0, 0, 0, 0),
-	(21828, 88, 88, 1000, 0, 0, 0, 0, 0);
+	(21828, 253, 253, 0, 0, 9728, 0, 0, 0);
 /*!40000 ALTER TABLE `char_effects` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

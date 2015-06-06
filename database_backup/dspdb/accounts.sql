@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 
 -- Dumping data for table dspdb.accounts: 1 rows
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` (`id`, `login`, `password`, `email`, `email2`, `timecreate`, `timelastmodify`, `content_ids`, `status`, `priv`) VALUES
-	(1000, 'Destin', '*64404869DECC9F7FB730133B3C58AD4EA50CB5A3', '', '', '2015-05-17 13:08:08', '2015-06-02 23:25:11', 16, 1, 1);
+REPLACE INTO `accounts` (`id`, `login`, `password`, `email`, `email2`, `timecreate`, `timelastmodify`, `content_ids`, `status`, `priv`) VALUES
+	(1000, 'Destin', '*64404869DECC9F7FB730133B3C58AD4EA50CB5A3', '', '', '2015-05-17 13:08:08', '2015-06-06 17:22:47', 16, 1, 1);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

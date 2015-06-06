@@ -14,4 +14,5 @@ function onTrigger(player, shop)
     package.loaded["scripts/globals/magic"] = nil;
     package.loaded["scripts/globals/summon"] = nil;
     package.loaded["scripts/globals/jsr_utils"] = nil;
+    package.loaded["scripts/globals/monstertpmoves"] = nil;
 end

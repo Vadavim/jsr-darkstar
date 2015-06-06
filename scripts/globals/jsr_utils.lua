@@ -34,7 +34,7 @@ function addRune(player, rune)
         player:removeOldestRune();
     end
     local power = math.floor(1 + runLevel * 0.777);
-    player:addStatusEffect(rune,power,3,60);
+    player:addStatusEffect(rune,power,3,300);
 end;
 
 function vallationDefense(count)
@@ -49,7 +49,19 @@ function vallationDefense(count)
     end
 end;
 
-function createValianceMask(target)
+function pflugRes(count)
+    if (count == 1) then
+        return 40;
+    elseif (count == 2) then
+        return 60;
+    elseif (count == 3) then
+        return 80;
+    else
+        return 0;
+    end
+end;
+
+function createRuneMask(target)
     local ignis = target:getEffectsCount(EFFECT_IGNIS);
     local gelus = target:getEffectsCount(EFFECT_GELUS);
     local flabra = target:getEffectsCount(EFFECT_FLABRA);
@@ -96,7 +108,46 @@ function applyValianceMask(effect)
     effect:addMod(MOD_THUNDERDEF, vallationDefense(sulpor));
     effect:addMod(MOD_WINDDEF, vallationDefense(flabra));
     effect:addMod(MOD_LIGHTDEF, vallationDefense(lux));
-    effect:addMod(MOD_DARKDEF, vallationDefense(tenebrae));
+    effect:addMod(MOD_DARKDEF, vallationDefense(tenebrae));      
+end;
+
+function applyPflugMask(effect)
+    local bit = require("bit")
+    local lshift = bit.lshift;
+    local rshift = bit.rshift;
+    local band = bit.band;
+    local mask = effect:getPower();
     
+    local ignis = band(mask, 3);
+    local gelus = rshift(band(mask, lshift(3, 2)), 2);
+    local flabra = rshift(band(mask, lshift(3, 4)), 4);
+    local tellus = rshift(band(mask, lshift(3, 6)), 6);
+    local sulpor = rshift(band(mask, lshift(3, 8)), 8);
+    local unda = rshift(band(mask, lshift(3, 10)), 10);
+    local lux = rshift(band(mask, lshift(3, 12)), 12);
+    local tenebrae = rshift(band(mask, lshift(3, 14)), 14);
     
+    effect:addMod(MOD_FIRERES, pflugRes(ignis));
+    effect:addMod(MOD_VIRUSRES, pflugRes(ignis));
+    effect:addMod(MOD_AMNESIARES, pflugRes(ignis));
+    effect:addMod(MOD_ICERES, pflugRes(gelus));
+    effect:addMod(MOD_PARALYZERES, pflugRes(gelus));
+    effect:addMod(MOD_BINDRES, pflugRes(gelus));
+    effect:addMod(MOD_WATERRES, pflugRes(unda));
+    effect:addMod(MOD_POISONRES, pflugRes(unda));
+    effect:addMod(MOD_EARTHRES, pflugRes(tellus));
+    effect:addMod(MOD_SLOWRES, pflugRes(tellus));
+    effect:addMod(MOD_GRAVITYRES, pflugRes(tellus));
+    effect:addMod(MOD_PETRIFYRES, pflugRes(tellus));
+    effect:addMod(MOD_THUNDERRES, pflugRes(sulpor));
+    effect:addMod(MOD_STUNRES, pflugRes(sulpor));
+    effect:addMod(MOD_WINDRES, pflugRes(flabra));
+    effect:addMod(MOD_SILENCERES, pflugRes(flabra));
+    effect:addMod(MOD_LIGHTRES, pflugRes(lux));
+    effect:addMod(MOD_CHARMRES, pflugRes(lux));
+    effect:addMod(MOD_DARKRES, pflugRes(tenebrae));      
+    effect:addMod(MOD_SLEEPRES, pflugRes(tenebrae));    
+    effect:addMod(MOD_BLINDRES, pflugRes(tenebrae));    
+    effect:addMod(MOD_CURSERES, pflugRes(tenebrae));      
+    effect:addMod(MOD_DEATHRES, pflugRes(tenebrae));      
 end;

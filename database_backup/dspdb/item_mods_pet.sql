@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `item_mods_pet` (
 
 -- Dumping data for table dspdb.item_mods_pet: 14 rows
 /*!40000 ALTER TABLE `item_mods_pet` DISABLE KEYS */;
-INSERT INTO `item_mods_pet` (`itemId`, `modId`, `value`) VALUES
+REPLACE INTO `item_mods_pet` (`itemId`, `modId`, `value`) VALUES
 	(11338, 25, 3),
 	(11338, 289, 3),
 	(11497, 384, 51),

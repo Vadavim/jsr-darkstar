@@ -390,6 +390,7 @@ public:
     int32 charm(lua_State*);                 // applies charm on target
     int32 uncharm(lua_State*);               // removes charm on target
     int32 spawnPet(lua_State*);              // Calls Pet
+    int32 spawnAlly(lua_State*);              // Calls Ally
     int32 despawnPet(lua_State*);            // Despawns Pet
     int32 petAttack(lua_State*);             // Despawns Pet
     int32 petRetreat(lua_State*);
@@ -582,6 +583,7 @@ public:
 
     int32 getActiveManeuvers(lua_State*);
     int32 getActiveRunes(lua_State*);
+    int32 getRuneTypes(lua_State*);
     int32 getEffectsCount(lua_State* L);
     int32 removeOldestManeuver(lua_State*);
     int32 getNewestRune(lua_State*);
@@ -589,6 +591,7 @@ public:
     int32 removeOldestRune(lua_State*);
     int32 removeAllRunes(lua_State*);
     int32 addBurden(lua_State* L);
+    int32 jsrCustom(lua_State* L);
 
     int32 setElevator(lua_State* L);
 

@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `item_basic` (
 
 -- Dumping data for table dspdb.item_basic: 16,187 rows
 /*!40000 ALTER TABLE `item_basic` DISABLE KEYS */;
-INSERT INTO `item_basic` (`itemid`, `subid`, `name`, `sortname`, `stackSize`, `flags`, `aH`, `NoSale`, `BaseSell`) VALUES
+REPLACE INTO `item_basic` (`itemid`, `subid`, `name`, `sortname`, `stackSize`, `flags`, `aH`, `NoSale`, `BaseSell`) VALUES
 	(1, 0, 'pile_of_chocobo_bedding', 'chocobo_bedding', 1, 24640, 0, 0, 1),
 	(2, 0, 'simple_bed', 'simple_bed', 1, 32, 34, 0, 1),
 	(3, 0, 'oak_bed', 'oak_bed', 1, 32, 34, 0, 1),
@@ -13628,7 +13628,7 @@ INSERT INTO `item_basic` (`itemid`, `subid`, `name`, `sortname`, `stackSize`, `f
 	(18260, 0, 'relic_knuckles', 'relic_knuckles', 1, 63552, 0, 1, 0),
 	(18261, 0, 'militant_knuckles', 'militant_knuckles', 1, 63552, 0, 1, 0),
 	(18262, 0, 'dynamis_knuckles', 'dynamis_knuckles', 1, 63552, 0, 1, 0);
-INSERT INTO `item_basic` (`itemid`, `subid`, `name`, `sortname`, `stackSize`, `flags`, `aH`, `NoSale`, `BaseSell`) VALUES
+REPLACE INTO `item_basic` (`itemid`, `subid`, `name`, `sortname`, `stackSize`, `flags`, `aH`, `NoSale`, `BaseSell`) VALUES
 	(18263, 0, 'caestus', 'caestus', 1, 63552, 0, 1, 0),
 	(18264, 0, 'spharai', 'spharai', 1, 63552, 0, 1, 0),
 	(18265, 0, 'spharai', 'spharai', 1, 63552, 0, 1, 0),

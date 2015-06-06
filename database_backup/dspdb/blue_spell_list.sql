@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `blue_spell_list` (
 
 -- Dumping data for table dspdb.blue_spell_list: 161 rows
 /*!40000 ALTER TABLE `blue_spell_list` DISABLE KEYS */;
-INSERT INTO `blue_spell_list` (`spellid`, `mob_skill_id`, `set_points`, `trait_category`, `trait_category_weight`, `primary_sc`, `secondary_sc`) VALUES
+REPLACE INTO `blue_spell_list` (`spellid`, `mob_skill_id`, `set_points`, `trait_category`, `trait_category_weight`, `primary_sc`, `secondary_sc`) VALUES
 	(513, 1316, 3, 4, 1, 0, 0),
 	(515, 206, 5, 4, 1, 0, 0),
 	(517, 192, 1, 10, 1, 0, 0),

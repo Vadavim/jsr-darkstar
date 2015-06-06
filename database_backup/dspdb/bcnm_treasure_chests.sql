@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `bcnm_treasure_chests` (
 
 -- Dumping data for table dspdb.bcnm_treasure_chests: 49 rows
 /*!40000 ALTER TABLE `bcnm_treasure_chests` DISABLE KEYS */;
-INSERT INTO `bcnm_treasure_chests` (`bcnmId`, `battlefieldNumber`, `npcId`) VALUES
+REPLACE INTO `bcnm_treasure_chests` (`bcnmId`, `battlefieldNumber`, `npcId`) VALUES
 	(4, 1, 17346675),
 	(4, 2, 17346679),
 	(4, 3, 17346683),

@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `mob_family_mods` (
 
 -- Dumping data for table dspdb.mob_family_mods: 72 rows
 /*!40000 ALTER TABLE `mob_family_mods` DISABLE KEYS */;
-INSERT INTO `mob_family_mods` (`familyid`, `modid`, `value`, `type`) VALUES
+REPLACE INTO `mob_family_mods` (`familyid`, `modid`, `value`, `type`) VALUES
 	(175, 29, 50, 0),
 	(4, 29, 25, 0),
 	(4, 7, 60, 1),

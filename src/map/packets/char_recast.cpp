@@ -58,3 +58,31 @@ CCharRecastPacket::CCharRecastPacket(CCharEntity* PChar)
         }
     }
 }
+
+CCharRecastPacket::CCharRecastPacket(CCharEntity* PChar, uint16 id)
+{
+    this->type = 0x19;
+    this->size = 0x7F;
+
+    uint8 count = 0;
+
+    RecastList_t* RecastList = PChar->PRecastContainer->GetRecastList(RECAST_ABILITY);
+
+    for (uint16 i = 0; i < RecastList->size(); ++i)
+    {
+        Recast_t* recast = RecastList->at(i);
+
+        uint32 recasttime = (recast->RecastTime == 0 ? 0 : ((recast->RecastTime - (time(nullptr) - recast->TimeStamp))));
+
+        if (recast->ID != 0)
+        {
+            WBUFL(data, (0x0C + count * 8) ) = recasttime;
+            WBUFB(data, (0x0F + count * 8) ) = id;
+            count++;
+        }
+        else
+        {
+            WBUFL(data, (0x04) ) = recasttime;  // 2h ability (recast id is 0)
+        }
+    }
+}

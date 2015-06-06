@@ -545,6 +545,7 @@ public:
 
     CParty*			PParty;					    // описание группы, в которой состоит сущность
 	CBattleEntity*	PPet;					    // питомец сущности
+	std::vector<CBattleEntity*>	PAlly;					    // питомец сущности
 	CBattleEntity*	PMaster;				    // владелец/хозяин сущности (распространяется на все боевые сущности)
 
 	CStatusEffectContainer* StatusEffectContainer;

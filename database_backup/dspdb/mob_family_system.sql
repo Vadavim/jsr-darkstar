@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `mob_family_system` (
 
 -- Dumping data for table dspdb.mob_family_system: 465 rows
 /*!40000 ALTER TABLE `mob_family_system` DISABLE KEYS */;
-INSERT INTO `mob_family_system` (`familyid`, `family`, `systemid`, `system`, `mobsize`, `speed`, `HP`, `MP`, `STR`, `DEX`, `VIT`, `AGI`, `INT`, `MND`, `CHR`, `ATT`, `DEF`, `ACC`, `EVA`, `Slash`, `Pierce`, `H2H`, `Impact`, `Fire`, `Ice`, `Wind`, `Earth`, `Lightning`, `Water`, `Light`, `Dark`, `Element`) VALUES
+REPLACE INTO `mob_family_system` (`familyid`, `family`, `systemid`, `system`, `mobsize`, `speed`, `HP`, `MP`, `STR`, `DEX`, `VIT`, `AGI`, `INT`, `MND`, `CHR`, `ATT`, `DEF`, `ACC`, `EVA`, `Slash`, `Pierce`, `H2H`, `Impact`, `Fire`, `Ice`, `Wind`, `Earth`, `Lightning`, `Water`, `Light`, `Dark`, `Element`) VALUES
 	(1, 'Acrolith', 3, 'Arcana', 1, 40, 90, 90, 1, 3, 4, 3, 6, 6, 5, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0),
 	(2, 'Adamantoise', 14, 'Lizard', 3, 30, 120, 90, 2, 5, 1, 6, 6, 4, 3, 3, 3, 3, 4, 1, 1, 1, 1, 1, 1.25, 1, 0.875, 1.125, 0.875, 1, 1, 4),
 	(3, 'Aernh2h', 15, 'Luminian', 0, 40, 120, 140, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 1, 0),

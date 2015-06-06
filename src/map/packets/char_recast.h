@@ -41,6 +41,7 @@ class CCharRecastPacket : public CBasicPacket
 public:
 
     CCharRecastPacket(CCharEntity* PChar);
+    CCharRecastPacket(CCharEntity* PChar, uint16 id);
 };
 
 #endif

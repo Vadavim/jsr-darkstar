@@ -13,7 +13,7 @@ require("scripts/globals/magic");
 
 function onEffectGain(target,effect)
     --Worms
-    if (target:getFamily() == 258) then
+    if (target:isMob() and target:getFamily() == 258) then
         effect:setPower(math.floor(effect:getPower() * 1.5));
         target:addMod(MOD_FASTCAST, -25);
     end
@@ -37,7 +37,7 @@ function onEffectLose(target,effect)
 	target:delMod(MOD_REGEN_DOWN, effect:getPower());
     
     --Worms
-    if (target:getFamily() == 258) then
+    if (target:isMob() and target:getFamily() == 258) then
         target:delMod(MOD_FASTCAST, -25);
     end
 end;

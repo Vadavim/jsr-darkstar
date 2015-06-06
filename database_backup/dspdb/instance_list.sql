@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `instance_list` (
 
 -- Dumping data for table dspdb.instance_list: ~0 rows (approximately)
 /*!40000 ALTER TABLE `instance_list` DISABLE KEYS */;
-INSERT INTO `instance_list` (`instanceid`, `instance_name`, `entrance_zone`, `time_limit`, `start_x`, `start_y`, `start_z`, `start_rot`) VALUES
+REPLACE INTO `instance_list` (`instanceid`, `instance_name`, `entrance_zone`, `time_limit`, `start_x`, `start_y`, `start_z`, `start_rot`) VALUES
 	(0, 'TEST', 0, 0, 0.000, 0.000, 0.000, 0);
 /*!40000 ALTER TABLE `instance_list` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `char_skills` (
 
 -- Dumping data for table dspdb.char_skills: 44 rows
 /*!40000 ALTER TABLE `char_skills` DISABLE KEYS */;
-INSERT INTO `char_skills` (`charid`, `skillid`, `value`, `rank`) VALUES
+REPLACE INTO `char_skills` (`charid`, `skillid`, `value`, `rank`) VALUES
 	(21828, 1, 5000, 0),
 	(21828, 29, 5000, 0),
 	(21828, 28, 5000, 0),

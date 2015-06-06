@@ -3112,6 +3112,7 @@ namespace charutils
                     if (PBattle->GetMLevel() > maxlevel) maxlevel = PBattle->GetMLevel();
                     else if (PBattle->GetMLevel() < minlevel) minlevel = PBattle->GetMLevel();
                     pcinzone++;
+                    pcinzone = pcinzone + PBattle->PAlly.size();
                 }
             }
             if (PMob->m_HiPCLvl > maxlevel) maxlevel = PMob->m_HiPCLvl;
@@ -3487,7 +3488,7 @@ namespace charutils
             exp = charutils::AddExpBonus(PChar, exp);
 
             // pet or companion exp penalty needs to be added here
-
+            exp = (exp * 5) / (PChar->PAlly.size() + 5);
             if (distance(PChar->loc.p, PMob->loc.p) > 100)
             {
                 PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, 0, 37));

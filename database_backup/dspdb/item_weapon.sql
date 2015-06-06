@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `item_weapon` (
 
 -- Dumping data for table dspdb.item_weapon: 3,778 rows
 /*!40000 ALTER TABLE `item_weapon` DISABLE KEYS */;
-INSERT INTO `item_weapon` (`itemId`, `name`, `skill`, `subskill`, `ilvl_skill`, `ilvl_parry`, `ilvl_macc`, `dmgType`, `hit`, `delay`, `dmg`, `unlock_points`) VALUES
+REPLACE INTO `item_weapon` (`itemId`, `name`, `skill`, `subskill`, `ilvl_skill`, `ilvl_parry`, `ilvl_macc`, `dmgType`, `hit`, `delay`, `dmg`, `unlock_points`) VALUES
 	(16385, 'cesti', 1, 0, 0, 0, 0, 4, 1, 528, 4, 0),
 	(16386, 'lizard_cesti', 1, 0, 0, 0, 0, 4, 1, 528, 5, 0),
 	(16387, 'poison_cesti', 1, 0, 0, 0, 0, 4, 1, 528, 6, 0),

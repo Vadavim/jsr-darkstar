@@ -85,8 +85,9 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
 
     // no not include pets if this AoE is a buff spell
     // this is a buff because i'm targetting my self
+ 
     bool withPet = PETS_CAN_AOE_BUFF || (m_findFlags & FINDFLAGS_PET) || (m_PMasterTarget->objtype != m_PBattleEntity->objtype);
-
+    withPet = true;
     // always add original target first
     addEntity(PTarget, false); // pet will be added later
 
@@ -463,7 +464,7 @@ CBattleEntity* CTargetFind::getValidTarget(uint16 actionTargetID, uint8 validTar
         return nullptr;
     }
 
-    if (PTarget->objtype == TYPE_PC)
+    if (PTarget->objtype == TYPE_PC || PTarget->objtype == TYPE_PET)
     {
         if ((validTargetFlags & TARGET_SELF) && PTarget->targid == m_PBattleEntity->targid)
         {

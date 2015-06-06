@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `mob_pool_mods` (
 
 -- Dumping data for table dspdb.mob_pool_mods: 158 rows
 /*!40000 ALTER TABLE `mob_pool_mods` DISABLE KEYS */;
-INSERT INTO `mob_pool_mods` (`poolid`, `modid`, `value`, `type`) VALUES
+REPLACE INTO `mob_pool_mods` (`poolid`, `modid`, `value`, `type`) VALUES
 	(519, 160, -50, 0),
 	(532, 160, -50, 0),
 	(676, 160, -50, 0),

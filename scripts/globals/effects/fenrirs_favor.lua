@@ -27,7 +27,7 @@ function onEffectTick(target,effect)
     local owner = target:getMaster();
 
     local party = owner:getParty();
-    if (party ~= null) then
+    if (party ~= nil) then
         for i,member in ipairs(party) do
             member:addStatusEffect(EFFECT_FENRIR_S_FAVOR, effect:getPower(), 0, 16);
         end

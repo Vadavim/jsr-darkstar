@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `pet_name` (
 
 -- Dumping data for table dspdb.pet_name: 1,127 rows
 /*!40000 ALTER TABLE `pet_name` DISABLE KEYS */;
-INSERT INTO `pet_name` (`id`, `name`) VALUES
+REPLACE INTO `pet_name` (`id`, `name`) VALUES
 	(0, ''),
 	(1, 'Azure'),
 	(2, 'Cerulean'),

@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `merits` (
 
 -- Dumping data for table dspdb.merits: 255 rows
 /*!40000 ALTER TABLE `merits` DISABLE KEYS */;
-INSERT INTO `merits` (`meritid`, `name`, `upgrade`, `value`, `jobs`, `upgradeid`, `catagoryid`) VALUES
+REPLACE INTO `merits` (`meritid`, `name`, `upgrade`, `value`, `jobs`, `upgradeid`, `catagoryid`) VALUES
 	(64, 'max_hp', 8, 10, 1048575, 0, 0),
 	(66, 'max_mp', 8, 10, 1048575, 0, 0),
 	(128, 'str', 5, 1, 1048575, 1, 1),

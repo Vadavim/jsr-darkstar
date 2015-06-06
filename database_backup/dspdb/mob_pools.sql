@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `mob_pools` (
 
 -- Dumping data for table dspdb.mob_pools: 5,448 rows
 /*!40000 ALTER TABLE `mob_pools` DISABLE KEYS */;
-INSERT INTO `mob_pools` (`poolid`, `name`, `familyid`, `modelid`, `mJob`, `sJob`, `cmbSkill`, `cmbDelay`, `cmbDmgMult`, `behavior`, `aggro`, `links`, `mobType`, `immunity`, `name_prefix`, `flag`, `flags`, `animationsub`, `hasSpellScript`, `spellList`, `namevis`, `roamflag`) VALUES
+REPLACE INTO `mob_pools` (`poolid`, `name`, `familyid`, `modelid`, `mJob`, `sJob`, `cmbSkill`, `cmbDelay`, `cmbDmgMult`, `behavior`, `aggro`, `links`, `mobType`, `immunity`, `name_prefix`, `flag`, `flags`, `animationsub`, `hasSpellScript`, `spellList`, `namevis`, `roamflag`) VALUES
 	(1, '1st_Gold_Musketeer', 149, _binary 0x01000D02DE104820483048404850B76000703B80, 5, 11, 3, 240, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0),
 	(2, '1st_Iron_Musketeer', 149, _binary 0x010005019510A220A230A240A250BC60B7703A80, 5, 5, 3, 240, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0),
 	(3, '1st_Legionnaire', 146, _binary 0x01000508061006200630064006500A6122703480, 11, 11, 3, 240, 100, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1, 0),

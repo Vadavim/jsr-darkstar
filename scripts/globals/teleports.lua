@@ -53,6 +53,9 @@ function toFeiYin(player)
 	player:setPos(280, 20, 543, 192, 0x6F);
 end;
 
+function toChocoboCircuit(player)
+    player:setPos(-60, -14, -125, 191, 0x46);
+end
 function toQuHauSpring(player)
 	player:setPos(0,-30,60,192,0x7A);
 end;

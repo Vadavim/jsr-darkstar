@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS `traits` (
   `required_expansion` varchar(7) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.traits: 473 rows
+-- Dumping data for table dspdb.traits: 486 rows
 /*!40000 ALTER TABLE `traits` DISABLE KEYS */;
-INSERT INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `value`, `required_expansion`) VALUES
+REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `value`, `required_expansion`) VALUES
 	(1, 'accuracy bonus', 11, 10, 1, 25, 10, NULL),
 	(1, 'accuracy bonus', 11, 10, 1, 26, 10, NULL),
 	(1, 'accuracy bonus', 11, 30, 2, 25, 22, NULL),
@@ -385,9 +385,9 @@ INSERT INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `va
 	(100, 'tactical parry', 19, 84, 20, 486, 3, 'ABYSSEA'),
 	(100, 'tactical parry', 19, 91, 30, 486, 4, 'ABYSSEA'),
 	(100, 'tactical parry', 19, 97, 40, 486, 5, 'ABYSSEA'),
-	(100, 'tactical parry', 22, 40, 10, 486, 2, NULL),
-	(100, 'tactical parry', 22, 60, 20, 486, 3, NULL),
-	(100, 'tactical parry', 22, 97, 30, 486, 4, NULL),
+	(100, 'tactical parry', 22, 15, 10, 486, 2, NULL),
+	(100, 'tactical parry', 22, 30, 20, 486, 4, NULL),
+	(100, 'tactical parry', 22, 60, 40, 486, 8, NULL),
 	(106, 'skillchain bonus', 2, 85, 1, 174, 8, 'ABYSSEA'),
 	(106, 'skillchain bonus', 2, 95, 2, 174, 12, 'ABYSSEA'),
 	(106, 'skillchain bonus', 12, 78, 1, 174, 8, 'ABYSSEA'),
@@ -455,8 +455,8 @@ INSERT INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `va
 	(6, 'magic def. bonus', 22, 30, 2, 29, 12, 'SOA'),
 	(6, 'magic def. bonus', 22, 50, 3, 29, 14, 'SOA'),
 	(6, 'magic def. bonus', 22, 70, 4, 29, 16, 'SOA'),
-	(9, 'auto regen', 22, 35, 1, 370, 1, 'SOA'),
-	(9, 'auto regen', 22, 65, 2, 370, 2, 'SOA'),
+	(9, 'auto regen', 22, 10, 1, 370, 1, 'SOA'),
+	(9, 'auto regen', 22, 20, 2, 370, 2, 'SOA'),
 	(13, 'conserve mp', 21, 10, 1, 296, 25, 'SOA'),
 	(13, 'conserve mp', 21, 25, 2, 296, 28, 'SOA'),
 	(13, 'conserve mp', 21, 40, 3, 296, 31, 'SOA'),
@@ -497,7 +497,20 @@ INSERT INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `va
 	(109, 'occult acumen', 8, 60, 4, 701, 20, NULL),
 	(109, 'occult acumen', 8, 70, 5, 701, 22, NULL),
 	(110, 'mag. burst bonus', 8, 40, 2, 487, 20, 'ABYSSEA'),
-	(110, 'mag. burst bonus', 8, 60, 3, 487, 25, 'ABYSSEA');
+	(110, 'mag. burst bonus', 8, 60, 3, 487, 25, 'ABYSSEA'),
+	(9, 'auto regen', 22, 30, 3, 370, 3, 'SOA'),
+	(9, 'auto regen', 22, 40, 4, 370, 4, 'SOA'),
+	(9, 'auto regen', 22, 50, 5, 370, 5, 'SOA'),
+	(9, 'auto regen', 22, 60, 6, 370, 6, 'SOA'),
+	(9, 'auto regen', 22, 70, 7, 370, 7, 'SOA'),
+	(100, 'tactical parry', 22, 75, 50, 486, 10, NULL),
+	(100, 'tactical parry', 22, 45, 30, 486, 6, NULL),
+	(1, 'accuracy bonus', 22, 20, 1, 26, 10, 'ABYSSEA'),
+	(1, 'accuracy bonus', 22, 20, 1, 25, 10, 'ABYSSEA'),
+	(1, 'accuracy bonus', 22, 40, 2, 26, 22, 'ABYSSEA'),
+	(1, 'accuracy bonus', 22, 40, 2, 25, 22, 'ABYSSEA'),
+	(1, 'accuracy bonus', 22, 60, 3, 25, 35, 'ABYSSEA'),
+	(1, 'accuracy bonus', 22, 60, 3, 26, 35, 'ABYSSEA');
 /*!40000 ALTER TABLE `traits` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

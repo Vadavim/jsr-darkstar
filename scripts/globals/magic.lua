@@ -48,6 +48,7 @@ require("scripts/globals/utils")
 	elementalObi = {15435, 15438, 15440, 15437, 15436, 15439, 15441, 15442};
 	elementalObiWeak = {15440, 15437, 15439, 15436, 15435, 15438, 15442, 15441};
 	spellAcc = {MOD_FIREACC, MOD_EARTHACC, MOD_WATERACC, MOD_WINDACC, MOD_ICEACC, MOD_THUNDERACC, MOD_LIGHTACC, MOD_DARKACC};
+	spellAtt = {MOD_FIREATT, MOD_EARTHATT, MOD_WATERATT, MOD_WINDATT, MOD_ICEATT, MOD_THUNDERATT, MOD_LIGHTATT, MOD_DARKATT};
 	strongAffinity = {MOD_FIRE_AFFINITY, MOD_EARTH_AFFINITY, MOD_WATER_AFFINITY, MOD_WIND_AFFINITY, MOD_ICE_AFFINITY, MOD_THUNDER_AFFINITY, MOD_LIGHT_AFFINITY, MOD_DARK_AFFINITY};
 	weakAffinity = {MOD_WATER_AFFINITY, MOD_WIND_AFFINITY, MOD_THUNDER_AFFINITY, MOD_ICE_AFFINITY, MOD_FIRE_AFFINITY, MOD_EARTH_AFFINITY, MOD_DARK_AFFINITY, MOD_LIGHT_AFFINITY};
 	resistMod = {MOD_FIRERES, MOD_EARTHRES, MOD_WATERRES, MOD_WINDRES, MOD_ICERES, MOD_THUNDERRES, MOD_LIGHTRES, MOD_DARKRES};
@@ -95,7 +96,6 @@ function calculateMagicDamage(V,M,player,spell,target,skilltype,atttype,hasMulti
     end
 
     -- printf("dmg: %d dint: %d\n", dmg, dint);
-
     return dmg;
 
 end;
@@ -322,6 +322,11 @@ function applyResistance(player,spell,target,diff,skill,bonus)
     local resist = 1.0;
     local magicaccbonus = 0;
     local element = spell:getElement();
+    
+    if (element > ELE_NONE) then
+        local elemAcc = player:getMod(spellAcc[element]);
+        magicaccbonus = magicaccbonus + elemAcc;
+    end
 
     if(bonus ~= nil) then
         magicaccbonus = magicaccbonus + bonus;
@@ -374,7 +379,7 @@ function applyResistance(player,spell,target,diff,skill,bonus)
     local skillchainTier, skillchainCount = FormMagicBurst(element, target);
     --add acc for skillchains
     if(skillchainTier > 0) then
-		magicaccbonus = magicaccbonus + 25;
+		magicaccbonus = magicaccbonus + 30;
     end
 
 	--base magic evasion (base magic evasion plus resistances(players), plus elemental defense(mobs)
@@ -471,6 +476,11 @@ function applyResistanceEffect(player,spell,target,diff,skill,bonus,effect)
     local resist = 1.0;
     local magicaccbonus = 0;
     local element = spell:getElement();
+    
+    if (element > ELE_NONE) then
+        local elemAcc = player:getMod(spellAcc[element]);
+        magicaccbonus = magicaccbonus + elemAcc;
+    end
 
     if(bonus ~= nil) then
         magicaccbonus = magicaccbonus + bonus;
@@ -523,7 +533,7 @@ function applyResistanceEffect(player,spell,target,diff,skill,bonus,effect)
     local skillchainTier, skillchainCount = FormMagicBurst(element, target);
     --add acc for skillchains
     if(skillchainTier > 0) then
-		magicaccbonus = magicaccbonus + 25;
+		magicaccbonus = magicaccbonus + 30;
     end
 
 	--base magic evasion (base magic evasion plus resistances(players), plus elemental defense(mobs)
@@ -667,6 +677,15 @@ function applyResistanceAbility(player,target,element,skill,bonus)
         --add acc for staves
         local affinityBonus = AffinityBonus(player, element);
         magicaccbonus = magicaccbonus + (affinityBonus-1) * 200;
+        
+        local elemAcc = player:getMod(spellAcc[element]);
+        magicaccbonus = magicaccbonus + elemAcc;
+        
+        local skillchainTier, skillchainCount = FormMagicBurst(element, target);
+        --add acc for skillchains
+        if(skillchainTier > 0) then
+            magicaccbonus = magicaccbonus + 30;
+        end
     end
 
 	--base magic evasion (base magic evasion plus resistances(players), plus elemental defense(mobs)
@@ -762,7 +781,10 @@ function applyResistanceAddEffect(player,target,element,bonus)
 	--add acc for staves
 	local affinityBonus = AffinityBonus(player, element);
 	magicaccbonus = magicaccbonus + (affinityBonus-1) * 200;
-
+    if (element > ELE_NONE) then
+        local elemAcc = caster:getMod(spellAcc[element]);
+        magicaccbonus = magicaccbonus + elemAcc;
+    end
 	--base magic evasion (base magic evasion plus resistances(players), plus elemental defense(mobs)
 	local magiceva = target:getMod(resistMod[element]);
     
@@ -1101,11 +1123,67 @@ function calculateMagicBurst(caster, spell, target)
     return burst;
 end;
 
+
+function calculateAbilityMagicBurst(caster, element, target)
+
+    local burst = 1.0;
+
+    local skillchainTier, skillchainCount = FormMagicBurst(element, target);
+
+    if(skillchainTier > 0) then
+		if(skillchainCount == 1) then
+			burst = 1.6;
+		elseif(skillchainCount == 2) then
+			burst = 1.7;
+		elseif(skillchainCount == 3) then
+			 burst = 1.8;
+		elseif(skillchainCount == 4) then
+			burst = 1.9;
+		elseif(skillchainCount == 5) then
+			burst = 2.0;
+		else
+			-- Something strange is going on if this occurs.
+			burst = 1.0;
+		end
+
+
+        -- TODO: This should be getting the spell ID, and checking
+        --       if it is an Ancient Magic II spell.  Add 0.03
+        --       to burstBonus for each merit the caster has for
+        --       the given spell.
+
+        -- AM 2 get magic burst bonuses
+        --id = spell:getID();
+        --if(id == 207 or id == 209 or id == 211 or id == 213 or id == 215 or id == 205) then
+        --    if(AM2 Merit 1) then
+        --        burstBonus = burstBonus + 0.03;
+        --    elseif(AM2 Merit 2) then
+        --        burstBonus += 0.06;
+        --    elseif(AM2 Merit 3) then
+        --        burstBonus += 0.09;
+        --    elseif(AM2 Merit 4) then
+        --        burstBonus += 0.12;
+        --    end
+        --end -- if AM2+
+    end
+
+    -- Add in Magic Burst Bonus Modifier
+    if (burst > 1) then
+        burst = burst * ( 1 + (caster:getMod(MOD_MAG_BURST_BONUS) / 100) );
+    end
+    
+    return burst;
+end;
+
 function addBonuses(caster, spell, target, dmg, bonusmab)
 	local ele = spell:getElement();
 
 	local affinityBonus = AffinityBonus(caster, spell:getElement());
 	dmg = math.floor(dmg * affinityBonus);
+    local elemAtt = caster:getMod(spellAtt[spell:getElement()]);
+    local attBonus = (1 + elemAtt / 100);
+    dmg = math.floor(dmg * attBonus);
+        
 
 	local speciesReduction = target:getMod(defenseMod[ele]);
 	speciesReduction = 1.00 - (speciesReduction/1000);
@@ -1218,7 +1296,14 @@ function addBonusesAbility(caster, ele, target, dmg, params)
 
 	local affinityBonus = AffinityBonus(caster, ele);
 	dmg = math.floor(dmg * affinityBonus);
-
+    
+    if (ele > ELE_NONE) then
+        local elemAtt = caster:getMod(spellAtt[ele]);
+        local attBonus = (1 + elemAtt / 100);
+        dmg = math.floor(dmg * attBonus);
+        burst = calculateAbilityMagicBurst(caster, ele, target);
+        dmg = math.floor(dmg * burst);
+    end
 	local speciesReduction = target:getMod(defenseMod[ele]);
 	speciesReduction = 1.00 - (speciesReduction/1000);
 	dmg = math.floor(dmg * speciesReduction);

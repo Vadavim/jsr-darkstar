@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `item_armor` (
 
 -- Dumping data for table dspdb.item_armor: 10,042 rows
 /*!40000 ALTER TABLE `item_armor` DISABLE KEYS */;
-INSERT INTO `item_armor` (`itemId`, `name`, `level`, `ilevel`, `jobs`, `MId`, `shieldSize`, `scriptType`, `slot`, `rslot`) VALUES
+REPLACE INTO `item_armor` (`itemId`, `name`, `level`, `ilevel`, `jobs`, `MId`, `shieldSize`, `scriptType`, `slot`, `rslot`) VALUES
 	(10240, 'hexed_haubert', 99, 0, 8641, 0, 0, 0, 32, 0),
 	(10241, 'hexed_domaru', 99, 0, 137218, 0, 0, 0, 32, 0),
 	(10242, 'hexed_jacket', 99, 0, 2462754, 0, 0, 0, 32, 0),

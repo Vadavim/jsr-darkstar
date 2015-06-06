@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `item_puppet` (
 
 -- Dumping data for table dspdb.item_puppet: 88 rows
 /*!40000 ALTER TABLE `item_puppet` DISABLE KEYS */;
-INSERT INTO `item_puppet` (`itemid`, `name`, `slot`, `element`) VALUES
+REPLACE INTO `item_puppet` (`itemid`, `name`, `slot`, `element`) VALUES
 	(8193, 'harlequin_head', 1, 2236962),
 	(8194, 'valoredge_x-900_head', 1, 33698307),
 	(8195, 'sharpshot_z-500_head', 1, 35783427),

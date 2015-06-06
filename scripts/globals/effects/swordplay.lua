@@ -25,7 +25,7 @@ function onEffectTick(target,effect)
         threshold = 25;
     end
     if (target:getHPP() <= threshold) then
-        target:removeStatusEffect(EFFECT_SWORDPLAY);
+        target:delStatusEffect(EFFECT_SWORDPLAY);
         return;
     end
     

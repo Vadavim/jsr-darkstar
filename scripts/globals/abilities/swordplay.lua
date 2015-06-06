@@ -17,6 +17,6 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    player:addStatusEffect(EFFECT_SWORDPLAY,3,3,120);
+    player:addStatusEffect(EFFECT_SWORDPLAY,1,3,120);
 end;
 
