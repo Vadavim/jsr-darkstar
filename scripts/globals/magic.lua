@@ -1118,6 +1118,8 @@ function calculateMagicBurst(caster, spell, target)
     -- Add in Magic Burst Bonus Modifier
     if (burst > 1) then
         burst = burst * ( 1 + (caster:getMod(MOD_MAG_BURST_BONUS) / 100) );
+        local burstMP = math.floor(burst * spell:getMPCost());
+        caster:doMagicBurstMP(burstMP);
     end
     
     return burst;

@@ -439,6 +439,11 @@ void CParty::AddMember(CBattleEntity* PEntity)
 
 	PEntity->PParty = this;
 	members.push_back(PEntity);
+    
+    for (auto PMember : members)
+    {
+        PMember->clearAllies();
+    }
 
     if (m_PartyType == PARTY_PCS)
     {

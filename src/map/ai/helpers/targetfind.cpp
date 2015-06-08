@@ -89,7 +89,7 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
     bool withPet = PETS_CAN_AOE_BUFF || (m_findFlags & FINDFLAGS_PET) || (m_PMasterTarget->objtype != m_PBattleEntity->objtype);
     withPet = true;
     // always add original target first
-    addEntity(PTarget, false); // pet will be added later
+    addEntity(PTarget, true); // pet will be added later
 
     m_PTarget = PTarget;
     isPlayer = checkIsPlayer(m_PBattleEntity);
@@ -128,8 +128,9 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
             addAllInMobList(m_PMasterTarget, false);
         }
 
-    }
-    else {
+    } 
+    else
+    {
         // handle this as a mob
 
         if (m_PMasterTarget->objtype == TYPE_PC || m_PBattleEntity->allegiance == ALLEGIANCE_PLAYER){
@@ -277,6 +278,19 @@ void CTargetFind::addEntity(CBattleEntity* PTarget, bool withPet)
     if (withPet && PTarget->PPet != nullptr && validEntity(PTarget->PPet))
     {
         m_targets.push_back(PTarget->PPet);
+    }
+    
+    //Add allies
+    if (withPet && PTarget->PAlly.size() > 0)
+    {
+        for (uint8 i = 0; i < PTarget->PAlly.size(); i++)
+            {
+                CBattleEntity* ally = PTarget->PAlly[i];
+                if (validEntity(ally))
+                {
+                    m_targets.push_back(ally);
+                }                    
+            }
     }
 
 }

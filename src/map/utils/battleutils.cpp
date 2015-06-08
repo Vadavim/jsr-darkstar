@@ -3191,6 +3191,33 @@ int32 TakeSkillchainDamage(CBattleEntity* PAttacker, CBattleEntity* PDefender, i
     return damage;
 }
 
+void DoSkillchainTP(CBattleEntity* PAttacker)
+{
+    CBattleEntity* POrigin = (PAttacker->PMaster != nullptr) ? PAttacker->PMaster : PAttacker;
+    int16 regain = floor((double)(100)
+                          * (100 + PAttacker->getMod(MOD_SKILLCHAINBONUS)) / 100
+                          * (100 + PAttacker->getMod(MOD_SKILLCHAINDMG)) / 100);
+    if (POrigin->PParty != nullptr)
+    {
+        for (auto member : POrigin->PParty->members)
+        {
+            member->addTP(regain);
+        }
+    }
+    else
+    {
+        POrigin->addTP(regain);
+    }
+    
+    if (POrigin->PAlly.size() > 0)
+    {
+        for (auto ally : POrigin->PAlly)
+        {
+            ally->addTP(regain);
+        }
+    }
+}
+
 CItemArmor* GetEntityArmor(CBattleEntity* PEntity, SLOTTYPE Slot)
 {
     DSP_DEBUG_BREAK_IF(Slot < SLOT_HEAD || Slot > SLOT_LINK2);

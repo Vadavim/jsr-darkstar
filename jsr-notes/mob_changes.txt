@@ -18,7 +18,7 @@ FAMILY CHANGES
 
 
 [Beasts: Buffalo]
- - +30% XP
+ - +15% XP
  - Rabid Dance:
 	When afflicted by Weight: 50% chance of failure.
 	When afflicted by Bind: 100% chance of failure. 
@@ -32,28 +32,28 @@ FAMILY CHANGES
  - +15% XP
 
 [Gnole]
- - +30% XP
+ - +15% XP
 
 [Manticore]
- - +25% XP
+ - +30% XP
 
 [Opo-opo]
  - +10% XP
 
 [Sheep]
- - +25% XP
+ - +10% XP
 
 [Ram]
  - +35% XP
 
 [Tiger]
- - +30% XP
+ - +20% XP
 
 [Bugard]
  - +20% XP
 
-[Geist]
- - +10% XP
+[Efts]
+ - +20% XP
 
 [Raptor]
  - +10% XP
@@ -69,7 +69,7 @@ FAMILY CHANGES
  - +15% XP
 
 [Scorpion]
- - +20% XP
+ - +25% XP
  - Very weak to water/ice
 
 [Spider]
@@ -97,7 +97,7 @@ FAMILY CHANGES
  - Very weak to Ice
 
 [Treant]
- - +25% XP
+ - +30% XP
  - Very weak to Fire
 
 [Fly]
@@ -148,14 +148,14 @@ FAMILY CHANGES
  - Weak to Light / Blunt
 
 [Fomor]
- - +20% XP
+ - +15% XP
  - Very weak to Light
 
 [Doomed]
  - +40% XP
 
 [Ghost]
- - +35% XP
+ - +40% XP
  - Very weak to Light / Fire
 
 [Hound]
@@ -184,14 +184,15 @@ FAMILY CHANGES
  - Very weak to opposing element.
 
 [Evil Weapon]
- - +15% XP
+ - +20% XP
  - Vulnerable to Earth / Light
 
 [Golem]
- - +25% xP
+ - +30% xP
  - Vulnerable to Blunt / Wind
 
 [Magic Pot]
+ - +20% XP
  - Vulnerable to Silence
  - Very vulnerable to random element.
 
@@ -202,7 +203,7 @@ FAMILY CHANGES
 [Ahriman]
  - +30% XP
 
-[Demon]
+[Dark Kindred]
  - +30% XP
 
 [Imp]
@@ -212,16 +213,16 @@ FAMILY CHANGES
  - +40% XP
 
 [Taurus]
- - +50% XP
+ - +40% XP
 
 [Wyvern]
- - +35% XP
+ - +30% XP
 
 [Aern]
  - +20% XP
 
 [Euvhi]
- - +35% XP
+ - +30% XP
 
 [Hpmemde]
  - +30% XP

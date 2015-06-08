@@ -380,6 +380,17 @@ void CAICharNormal::ActionChangeBattleTarget()
                     m_PBattleTarget = PBattleTarget;
 
                     m_PChar->pushPacket(new CLockOnPacket(m_PChar, m_PBattleTarget));
+                    
+                    //Order Allies to attack
+                    if (m_PChar->PAlly.size() != 0)
+                    {
+                        for ( auto ally : m_PChar->PAlly)
+                        {
+                            ally->PBattleAI->SetBattleTarget(m_PBattleTarget);
+                        }        
+                    }
+                    
+                    
                 }
                 else
                 {

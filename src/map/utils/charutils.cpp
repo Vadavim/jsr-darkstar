@@ -3117,10 +3117,7 @@ namespace charutils
             }
             if (PMob->m_HiPCLvl > maxlevel) maxlevel = PMob->m_HiPCLvl;
             baseexp = GetRealExp(maxlevel, PMob->GetMLevel());
-            if (PMob->IsNM())
-            {
-                baseexp = baseexp * 5;
-            }
+            
             if (baseexp != 0)
             {
                 for (uint8 i = 0; i < PChar->PParty->members.size(); ++i)
@@ -3143,6 +3140,37 @@ namespace charutils
                             }
                         }
                         else exp = baseexp;
+                        
+                                        
+                        if (PMob->IsNM())
+                        {
+                            exp *= 5;
+                        }
+                        if (PMob->m_EcoSystem == SYSTEM_BEASTMEN)
+                        {
+                            switch (PMob->GetMJob())
+                            {
+                                case JOB_WHM:
+                                case JOB_BLM:
+                                case JOB_DRK:
+                                case JOB_RDM:
+                                case JOB_SCH:
+                                case JOB_BLU:
+                                                exp *= 1.1f;
+                                                break;
+                            }
+                        }
+                        else if (PMob->m_EcoSystem == SYSTEM_ELEMENTAL)
+                        {
+                            exp *= 1.3f;
+                        }
+                        if (PMob->GetMLevel() > PMember->GetMLevel() + 6)
+                        {
+                            int8 diffLevel = PMob->GetMLevel() - (PMember->GetMLevel() + 6);
+                            exp *= (1.0f + ((float)diffLevel) * 0.1);
+                        }
+                        
+                        
                         if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) || PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SANCTION))
                         {
                             switch (pcinzone)
@@ -3341,12 +3369,39 @@ namespace charutils
         {
             if (PChar->PPet != nullptr && PChar->PPet->GetMLevel() > maxlevel) maxlevel = PChar->PPet->GetMLevel();
             baseexp = GetRealExp(maxlevel, PMob->GetMLevel());
-            if (PMob->IsNM())
-            {
-                baseexp = baseexp * 5;
-            }
             exp = baseexp;
             permonstercap = 6.15f;
+            
+            
+            if (PMob->IsNM())
+            {
+                exp *= 5;
+            }
+            if (PMob->m_EcoSystem == SYSTEM_BEASTMEN)
+            {
+                switch (PMob->GetMJob())
+                {
+                    case JOB_WHM:
+                    case JOB_BLM:
+                    case JOB_DRK:
+                    case JOB_RDM:
+                    case JOB_SCH:
+                    case JOB_BLU:
+                                    exp *= 1.1f;
+                                    break;
+                }
+            }
+            else if (PMob->m_EcoSystem == SYSTEM_ELEMENTAL)
+            {
+                exp *= 1.3f;
+            }
+            
+            if (PMob->GetMLevel() > PChar->GetMLevel() + 6)
+                        {
+                            int8 diffLevel = PMob->GetMLevel() - (PChar->GetMLevel() + 6);
+                            exp *= (1.0f + ((float)diffLevel) * 0.1);
+                        }
+            
 
             if (PMob->getMobMod(MOBMOD_EXP_BONUS))
             {

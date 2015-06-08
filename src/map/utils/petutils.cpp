@@ -732,16 +732,7 @@ namespace petutils
         LoadPet(PMaster, PetID, spawningFromZone);
 
         CPetEntity* PPet = (CPetEntity*)PMaster->PPet;
-        if (PMaster->PAlly.size() == 0)
-            LoadPet(PMaster, 73, spawningFromZone);
-        else
-            LoadPet(PMaster, 75, spawningFromZone);
-        CPetEntity* PPet2 = (CPetEntity*)PMaster->PPet;
-        PPet2->setPetType(PETTYPE_ALLY);
-        PPet2->addModifier(MOD_REGAIN, 500);
-
         PPet->allegiance = PMaster->allegiance;
-        PPet2->allegiance = PMaster->allegiance;
         PMaster->StatusEffectContainer->CopyConfrontationEffect(PPet);
 
         if (PetID == PETID_ALEXANDER || PetID == PETID_ODIN)
@@ -756,18 +747,18 @@ namespace petutils
         {
             PPet->PBattleAI = new CAIPetDummy(PPet);
         }
-        PPet2->PBattleAI = new CAIPetDummy(PPet2);
+        
         PPet->PBattleAI->SetLastActionTime(gettick());
-        PPet2->PBattleAI->SetLastActionTime(gettick());
+        
         PPet->PBattleAI->SetCurrentAction(ACTION_SPAWN);
-        PPet2->PBattleAI->SetCurrentAction(ACTION_SPAWN);
+        
 
         PMaster->PPet = PPet;
         PPet->PMaster = PMaster;
-        PPet2->PMaster = PMaster;
-        PMaster->PAlly.insert(PMaster->PAlly.begin(), PPet2);
+        
+        
         PMaster->loc.zone->InsertPET(PPet);
-        PMaster->loc.zone->InsertPET(PPet2);
+        
         if (PMaster->objtype == TYPE_PC)
         {
             charutils::BuildingCharPetAbilityTable((CCharEntity*)PMaster, PPet, PetID);
@@ -793,6 +784,7 @@ namespace petutils
     {
         //Check to see if in full party
         uint16 partySize = 1 + PMaster->PAlly.size();
+
         if (PMaster->PParty != nullptr)
         {
             for (uint8 i = 0; i < PMaster->PParty->members.size(); i++)
@@ -1174,6 +1166,23 @@ namespace petutils
         PPet->SetMJob(g_PPetList.at(PetID)->mJob);
         PPet->m_Element = g_PPetList.at(PetID)->m_Element;
         PPet->m_PetID = PetID;
+        
+        for (int i = SKILL_DIV; i <= SKILL_BLU; i++) {
+                uint16 maxSkill = battleutils::GetMaxSkill((SKILLTYPE)i, PPet->GetMJob(), PPet->GetMLevel());
+                if (maxSkill != 0) {
+                    PPet->WorkingSkills.skill[i] = maxSkill;
+                }
+                else //if the mob is WAR/BLM and can cast spell
+                {
+                    // set skill as high as main level, so their spells won't get resisted
+                    uint16 maxSubSkill = battleutils::GetMaxSkill((SKILLTYPE)i, PPet->GetSJob(), PPet->GetMLevel());
+
+                    if (maxSubSkill != 0)
+                    {
+                        PPet->WorkingSkills.skill[i] = maxSubSkill;
+                    }
+                }
+        }
         
         FinalizePetStatistics(PMaster, PPet);
 		PPet->PetSkills = battleutils::GetMobSkillsByFamily(PPet->m_Family);

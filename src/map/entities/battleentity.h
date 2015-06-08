@@ -529,6 +529,9 @@ public:
     void            delPetModifiers(std::vector<CModifier*> *modList);
     void            applyPetModifiers(CPetEntity* PPet);
     void            removePetModifiers(CPetEntity* PPet);
+    void            clearAllies();
+    CBattleEntity*  getRecentAlly();
+    bool            isUniqueAlly(uint32 petID);
 
     void            ForParty(std::function<void(CBattleEntity*)>);
     void            ForAlliance(std::function<void(CBattleEntity*)>);

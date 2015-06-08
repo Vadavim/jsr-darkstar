@@ -422,7 +422,7 @@ int16 CBattleEntity::addTP(int16 tp)
         }
         else if (objtype == TYPE_PET)
         {
-            TPMulti = map_config.mob_tp_multiplier * 3;
+            TPMulti = map_config.mob_tp_multiplier;
         }
 
         tp = tp * TPMulti;
@@ -1102,4 +1102,55 @@ void CBattleEntity::ForAlliance(std::function<void(CBattleEntity*)> func)
     {
         func(this);
     }
+}
+
+
+//Ally methods
+void CBattleEntity::clearAllies()
+{
+    if (PAlly.size() == 0)
+        return;
+    
+    for (auto ally : PAlly)
+    {
+        ally->PBattleAI->SetCurrentAction(ACTION_FALL);
+    }
+    PAlly.clear();
+}
+
+CBattleEntity* CBattleEntity::getRecentAlly()
+{
+    CBattleEntity* ally = nullptr;
+    if (PAlly.size() > 0)
+    {
+        ally = PAlly[PAlly.size() - 1];
+    }
+    return ally;
+}
+
+bool CBattleEntity::isUniqueAlly(uint32 petID)
+{
+    if (PAlly.size() == 0)
+        return true;
+    for (auto ally : PAlly)
+    {
+        if (((CPetEntity*)ally)->m_PetID == petID)
+            return false;
+    }
+    
+    if (PParty != nullptr)
+    {
+        for (auto PMember : PParty->members)
+        {
+            if (PMember->PAlly.size() > 0)
+            {
+                for (auto mAlly : PMember->PAlly)
+                {
+                    if (((CPetEntity*)mAlly)->m_PetID == petID)
+                        return false;
+                }
+            }
+        }
+    }
+    return true;
 }

@@ -26,6 +26,11 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
+    if (target:getLocalVar("ConfrontationSpawned") == 1)
+    {
+        local id = target:getID();
+        DespawnMob(id);
+    }
     if (target:getPet()) then
         target:getPet():delStatusEffect(EFFECT_CONFRONTATION);
     end

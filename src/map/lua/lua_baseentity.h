@@ -587,11 +587,14 @@ public:
     int32 getEffectsCount(lua_State* L);
     int32 removeOldestManeuver(lua_State*);
     int32 getNewestRune(lua_State*);
+    int32 getRecentAlly(lua_State*);
+    int32 isUniqueAlly(lua_State* L);
     int32 removeAllManeuvers(lua_State*);
     int32 removeOldestRune(lua_State*);
     int32 removeAllRunes(lua_State*);
     int32 addBurden(lua_State* L);
     int32 jsrCustom(lua_State* L);
+    int32 doMagicBurstMP(lua_State* L);
 
     int32 setElevator(lua_State* L);
 

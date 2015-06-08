@@ -6137,10 +6137,18 @@ inline int32 CLuaBaseEntity::getSystem(lua_State* L)
 inline int32 CLuaBaseEntity::getFamily(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_MOB);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_MOB && m_PBaseEntity->objtype != TYPE_PET);
 
-    uint16 family = ((CMobEntity*)m_PBaseEntity)->m_Family;
-
+    uint16 family = 0;
+    if (m_PBaseEntity->objtype == TYPE_MOB)
+    {
+        family = ((CMobEntity*)m_PBaseEntity)->m_Family;
+        
+    }
+    else
+    {
+        family = ((CPetEntity*)m_PBaseEntity)->m_Family;
+    }
     lua_pushinteger(L, family);
     return 1;
 }
@@ -9761,6 +9769,17 @@ inline int32 CLuaBaseEntity::getRuneTypes(lua_State* L)
     return 3;
 }
 
+inline int32 CLuaBaseEntity::removeOldestRune(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    PEntity->StatusEffectContainer->RemoveOldestRune();
+
+    return 0;
+}
+
 inline int32 CLuaBaseEntity::removeOldestManeuver(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
@@ -9773,17 +9792,6 @@ inline int32 CLuaBaseEntity::removeOldestManeuver(lua_State* L)
 }
 
 
-
-inline int32 CLuaBaseEntity::removeOldestRune(lua_State* L)
-{
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-
-    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
-
-    PEntity->StatusEffectContainer->RemoveOldestRune();
-
-    return 0;
-}
 
 inline int32 CLuaBaseEntity::addBurden(lua_State* L)
 {
@@ -9824,6 +9832,85 @@ inline int32 CLuaBaseEntity::removeAllRunes(lua_State* L)
 
     return 0;
 }
+
+
+inline int32 CLuaBaseEntity::getRecentAlly(lua_State* L)
+{
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+    uint16 allySize = PEntity->PAlly.size();
+    if(allySize > 0)
+    {
+        //uint32 petid = (uint32);
+
+        CBattleEntity* ally = PEntity->PAlly[allySize - 1];
+
+        lua_getglobal(L,CLuaBaseEntity::className);
+        lua_pushstring(L,"new");
+        lua_gettable(L,-2);
+        lua_insert(L,-2);
+        lua_pushlightuserdata(L,(void*)ally);
+        lua_pcall(L,2,1,0);
+        return 1;
+    }
+    lua_pushnil(L);
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::isUniqueAlly(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L,1) || !lua_isnumber(L,1));
+
+    bool isUnique = false;
+
+    isUnique = ((CBattleEntity*)m_PBaseEntity)->isUniqueAlly((uint16)lua_tointeger(L,1));
+
+    lua_pushboolean(L, isUnique);
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::doMagicBurstMP(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L,1) || !lua_isnumber(L,1));
+    
+    CBattleEntity* PEntity = (CBattleEntity*) m_PBaseEntity;
+    CBattleEntity* POrigin = (PEntity->PMaster != nullptr) ? PEntity->PMaster : PEntity;
+    int32 mp = lua_tointeger(L,1);
+    
+    if (POrigin->PParty != nullptr)
+    {
+        for (auto member : POrigin->PParty->members)
+        {
+            member->addMP(mp);
+            if (member->objtype == TYPE_PC && member->status !=  STATUS_DISAPPEAR)
+                charutils::UpdateHealth((CCharEntity*)member);
+                
+        }
+    }
+    else
+    {
+        POrigin->addMP(mp);
+        if (POrigin->objtype == TYPE_PC && POrigin->status !=  STATUS_DISAPPEAR)
+                charutils::UpdateHealth((CCharEntity*)POrigin);
+    }
+    
+    if (POrigin->PAlly.size() > 0)
+    {
+        for (auto ally : POrigin->PAlly)
+        {
+            ally->addMP(mp);
+        }
+    }
+    
+    return 0;
+}
+
+
 
 inline int32 CLuaBaseEntity::setElevator(lua_State *L)
 {
@@ -10450,6 +10537,9 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getEffectsCount),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNewestRune),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRuneTypes),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRecentAlly),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,doMagicBurstMP),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,isUniqueAlly),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addBurden),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,jsrCustom),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setElevator),

@@ -164,22 +164,56 @@ void CAIPetDummy::ActionAbilityStart()
         if (m_MasterCommand == MASTERCOMMAND_SIC && m_PPet->health.tp >= 1000 && m_PBattleTarget != nullptr){ //choose random tp move
             m_MasterCommand = MASTERCOMMAND_NONE;
             if (m_PPet->PetSkills.size() > 0){
-                SetCurrentMobSkill(m_PPet->PetSkills.at(WELL512::GetRandomNumber(m_PPet->PetSkills.size())));
-                preparePetAbility(m_PBattleTarget);
-                return;
+                std::random_shuffle(m_PPet->PetSkills.begin(), m_PPet->PetSkills.end());
+                for (auto PPetSkill : m_PPet->PetSkills)
+                {
+                    if (PPetSkill->getValidTargets() == TARGET_ENEMY) //enemy
+                        m_PBattleSubTarget = m_PBattleTarget;
+                    else if (PPetSkill->getValidTargets() == TARGET_SELF) //self
+                        m_PBattleSubTarget = m_PPet;
+                    else
+                        continue;
+                    
+                    float currentDistance = distance(m_PPet->loc.p, m_PBattleSubTarget->loc.p);
+                    if (luautils::OnMobSkillCheck(m_PBattleSubTarget, m_PPet, PPetSkill) == 0) //A script says that the move in question is valid
+                    {
+                        if (currentDistance <= PPetSkill->getDistance())
+                        {
+                            SetCurrentMobSkill(PPetSkill);
+                            preparePetAbility(m_PBattleSubTarget);
+                            return;
+                        }
+                    }
+                }
             }
         }
     }
     
     if (m_PPet->getPetType() == PETTYPE_ALLY && m_PPet->health.tp >= 1000 && m_PBattleTarget != nullptr)
-    {
-        
-        m_MasterCommand = MASTERCOMMAND_NONE;
-        if (m_PPet->PetSkills.size() > 0)
-        {
-            SetCurrentMobSkill(m_PPet->PetSkills.at(WELL512::GetRandomNumber(m_PPet->PetSkills.size())));
-            preparePetAbility(m_PBattleTarget);
-            return;
+    {       
+        if (m_PPet->PetSkills.size() > 0){
+            std::random_shuffle(m_PPet->PetSkills.begin(), m_PPet->PetSkills.end());
+            for (auto PPetSkill : m_PPet->PetSkills)
+            {
+                if (PPetSkill->getValidTargets() == TARGET_ENEMY) //enemy
+                    m_PBattleSubTarget = m_PBattleTarget;
+                else if (PPetSkill->getValidTargets() == TARGET_SELF) //self
+                    m_PBattleSubTarget = m_PPet;
+                else
+                    continue;
+                
+                float currentDistance = distance(m_PPet->loc.p, m_PBattleSubTarget->loc.p);
+                if (luautils::OnMobSkillCheck(m_PBattleSubTarget, m_PPet, PPetSkill) == 0) //A script says that the move in question is valid
+                {
+                    if (currentDistance <= PPetSkill->getDistance())
+                    {
+                        SetCurrentMobSkill(PPetSkill);
+                        preparePetAbility(m_PBattleSubTarget);
+                        return;
+                    }
+                }
+            }
+            
         }
     }
     
@@ -641,7 +675,7 @@ void CAIPetDummy::ActionRoaming()
     }
 
     //automaton, wyvern
-    if (m_PPet->getPetType() == PETTYPE_WYVERN || m_PPet->getPetType() == PETTYPE_AUTOMATON){
+    if (m_PPet->getPetType() == PETTYPE_WYVERN || m_PPet->getPetType() == PETTYPE_AUTOMATON || m_PPet->getPetType() == PETTYPE_ALLY){
         if (PetIsHealing()){
             return;
         }
@@ -800,9 +834,11 @@ void CAIPetDummy::ActionAttack()
 
 	float currentDistance = distance(m_PPet->loc.p, m_PBattleTarget->loc.p);
 	int16 spellID = -1;
-    if (m_Tick >= m_LastActionTime + m_Cooldown)
+    if (m_Tick >= m_LastMagicTime + m_Cooldown)
     {
         uint16 family = m_PPet->m_Family;
+        uint16 petID = m_PPet->m_PetID;
+        
 		if (m_PPet->getPetType() == PETTYPE_AVATAR)
 		{	
 			if (family == 104)
@@ -810,6 +846,8 @@ void CAIPetDummy::ActionAttack()
 			else if (family == 100)
 				spellID = DarkAttack();
 		}
+        if (petID == 77) //Ingrid
+            spellID = IngridAttack();
     }
 	
 	if (spellID != -1)
@@ -990,11 +1028,16 @@ void CAIPetDummy::ActionFall()
     if (m_PPet->PMaster != nullptr && m_PPet->PMaster->PPet == m_PPet){
         petutils::DetachPet(m_PPet->PMaster);
     }
-    
-    if (m_PPet->PMaster != nullptr){
-        for (auto ally : m_PPet->PAlly)
+    uint8 counter = 0;
+    if (m_PPet->PMaster != nullptr && m_PPet->PMaster->PAlly.size() != 0){
+        for (auto ally : m_PPet->PMaster->PAlly)
         {
-            petutils::DetachPet(m_PPet->PMaster);
+            if (ally == m_PPet)
+            {
+                m_PPet->PMaster->PAlly.erase(m_PPet->PMaster->PAlly.begin() + counter);
+                break;
+            }
+            counter++;
         }
     }
 
@@ -1250,6 +1293,52 @@ int16 CAIPetDummy::LightAttack()
 	return spellID;
 }
 
+int16 CAIPetDummy::IngridAttack()
+{
+	uint8 level = m_PPet->GetMLevel();
+    int16 spellID = -1;
+    CBattleEntity* master = m_PPet->PMaster;  
+    CBattleEntity* mostWounded = getWounded(50);
+    
+    if (mostWounded != nullptr)
+    {
+        m_PBattleSubTarget = mostWounded;
+        if (level < 11)
+            spellID = 1;
+        else if (level < 21)
+            spellID = 2;
+        else if (level < 41)
+            spellID = 3;
+        else if (level < 61)
+            spellID = 4;
+        else
+            spellID = 5;
+        m_Cooldown = 20000;
+    }
+	else if (m_PBattleTarget != nullptr && m_PBattleTarget->StatusEffectContainer->HasStatusEffect(EFFECT_DIA) == false)
+	{
+		m_PBattleSubTarget = m_PBattleTarget;
+		m_Cooldown = 5000;
+        if (level < 36)
+            spellID = 23;
+        else
+            spellID = 24;
+        
+	}
+	else
+	{
+		m_Cooldown = 5000;
+		m_PBattleSubTarget = m_PBattleTarget;
+		if (level < 30)
+			spellID = 28;
+		else if (level < 65)
+			spellID = 29;
+		else
+			spellID = 30;
+	}
+	return spellID;
+}
+
 
 int16 CAIPetDummy::DarkAttack()
 {
@@ -1305,73 +1394,226 @@ int16 CAIPetDummy::DarkAttack()
 CBattleEntity* CAIPetDummy::getWounded(uint8 threshold)
 {
     uint8 lowest = 100;
-    CBattleEntity* mostHurt = nullptr;
-     std::vector<CBattleEntity*> members = std::vector<CBattleEntity*>();
-	 if (m_PPet->PMaster->PParty == nullptr)
-	 {
-		 if (m_PPet->PMaster->GetHPP() <= threshold)
-			 return m_PPet->PMaster;
-		 else if (m_PPet->GetHPP() <= threshold)
-			 return m_PPet;
-		 else
-			 return nullptr;
-	 }
-	
-    try
-    {
-        members = m_PPet->PMaster->PParty->members;
-    }
-    catch (int e)
-    {
-        perror("Can't access PParty.");
+    CBattleEntity* mostWounded = nullptr;
+    if (m_PPet->PMaster == nullptr)
         return nullptr;
-        
+    if (m_PPet->PMaster->GetHPP() < lowest){
+        lowest = m_PPet->PMaster->GetHPP();
+        mostWounded = m_PPet->PMaster;
     }
-    /*for (uint32 i = 0; i < members.size(); ++i)
+    if (m_PPet->PMaster->PPet != nullptr && m_PPet->PMaster->PPet->GetHPP() < lowest)
     {
-        CBattleEntity* ally = nullptr;
-        try
+        lowest = m_PPet->PMaster->PPet->GetHPP();
+        mostWounded = m_PPet->PMaster->PPet;
+    }
+    if (m_PPet->PMaster->PParty != nullptr)
+    {
+        for (auto member : m_PPet->PMaster->PParty->members)
         {
-            ally = members.at(i);
-        }
-        catch (int e)
-        {
-            perror("No members.at");
-            return false;
-        }
-        if (ally == nullptr)
-        {
-            continue;
-        }
-        
-        try
-        {
-            uint8 hpp = ally->GetHPP();
-            if (hpp < lowest && hpp < threshold)
+            if ( member->GetHPP() < lowest)
             {
-                lowest = hpp;
-                mostHurt = ally;
-            }   
+                lowest = member->GetHPP();
+                mostWounded = member;
+            }
         }
-        catch (int e)
-        {
-            perror("Math stuff.");
-            return nullptr;
-        }*/
-	
-    
-
-    
-    /*if (m_PPet->PMaster->GetHPP() <= threshold)
-    {
-        mostHurt = m_PPet->PMaster;
     }
-    else if (m_PPet->GetHPP() <= threshold)
+    if (m_PPet->PMaster->PAlly.size() > 0)
     {
-        mostHurt = m_PPet;
-    }*/
+        for (auto ally : m_PPet->PMaster->PAlly)
+        {
+            if ( ally->GetHPP() < lowest)
+            {
+                lowest = ally->GetHPP();
+                mostWounded = ally;
+            }
+        }
+    }
     
-    return mostHurt;
+    if (lowest <= threshold)
+    {
+        return mostWounded;
+    }
+    else
+    {
+        return nullptr;
+    }
+
+}
+
+CBattleEntity* CAIPetDummy::getHasteTarget()
+{
+    CBattleEntity* first = nullptr;
+    CBattleEntity* second = nullptr;
+    CBattleEntity* third = nullptr;
+    
+    if (m_PPet->PMaster->PParty != nullptr)
+    {
+        for (auto member : m_PPet->PMaster->PParty->members)
+        {
+            if (member->StatusEffectContainer->HasStatusEffect(EFFECT_HASTE))
+                continue;
+            
+            JOBTYPE job = member->GetMJob();
+            switch (job)
+            {
+                case JOB_WAR:
+                case JOB_SAM:
+                case JOB_DRK:
+                case JOB_DRG:
+                case JOB_NIN:
+                case JOB_MNK:
+                                first = member;
+                                break;
+                case JOB_THF:
+                case JOB_BLU:
+                case JOB_PLD:
+                case JOB_PUP:
+                case JOB_DNC:
+                case JOB_COR:
+                case JOB_RNG:
+                case JOB_BST:
+                case JOB_RUN:
+                               second = member;
+                               break;
+                default:
+                               third = member;
+                               break;
+                
+            }
+
+
+        }
+    }
+    
+    if (m_PPet->PMaster->PAlly.size() > 0)
+    {
+        for (auto ally : m_PPet->PMaster->PAlly)
+        {
+            if (ally->StatusEffectContainer->HasStatusEffect(EFFECT_HASTE))
+                continue;
+            
+            JOBTYPE job = ally->GetMJob();
+            switch (job)
+            {
+                case JOB_WAR:
+                case JOB_SAM:
+                case JOB_DRK:
+                case JOB_DRG:
+                case JOB_NIN:
+                case JOB_MNK:
+                                first = ally;
+                                break;
+                case JOB_THF:
+                case JOB_BLU:
+                case JOB_PLD:
+                case JOB_PUP:
+                case JOB_DNC:
+                case JOB_COR:
+                case JOB_RNG:
+                case JOB_BST:
+                case JOB_RUN:
+                               second = ally;
+                               break;
+                default:
+                               third = ally;
+                               break;      
+            }
+        }
+    }
+    
+    //return highest priority target
+    if (first != nullptr)
+        return first;
+    else if (second != nullptr)
+        return second;
+    else
+        return third;
+}
+
+CBattleEntity* CAIPetDummy::getRefreshTarget()
+{
+    CBattleEntity* first = nullptr;
+    CBattleEntity* second = nullptr;
+    CBattleEntity* third = nullptr;
+    
+    if (m_PPet->PMaster->PParty != nullptr)
+    {
+        for (auto member : m_PPet->PMaster->PParty->members)
+        {
+            if (member->StatusEffectContainer->HasStatusEffect(EFFECT_REFRESH) 
+                    || member->StatusEffectContainer->HasStatusEffect(EFFECT_SUBLIMATION_ACTIVATED) 
+                    || member->GetMaxMP() <= 30
+                    || member->GetMPP() == 100)
+                continue;
+            
+            JOBTYPE job = member->GetMJob();
+            switch (job)
+            {
+                case JOB_WHM:
+                case JOB_BLM:
+                case JOB_SMN:
+                case JOB_GEO:
+                                first = member;
+                                break;
+                case JOB_BLU:
+                case JOB_RDM:
+                case JOB_PLD:
+                case JOB_SCH:
+                case JOB_RUN:
+                case JOB_DRK:
+                               second = member;
+                               break;
+                default:
+                               third = member;
+                               break;
+                
+            }
+
+
+        }
+    }
+    
+    if (m_PPet->PMaster->PAlly.size() > 0)
+    {
+        for (auto ally : m_PPet->PMaster->PAlly)
+        {
+            if (ally->StatusEffectContainer->HasStatusEffect(EFFECT_REFRESH) 
+                    || ally->StatusEffectContainer->HasStatusEffect(EFFECT_SUBLIMATION_ACTIVATED) 
+                    || ally->GetMaxMP() <= 30
+                    || ally->GetMPP() == 100)
+                continue;
+            
+            JOBTYPE job = ally->GetMJob();
+            switch (job)
+            {
+                case JOB_WHM:
+                case JOB_BLM:
+                case JOB_SMN:
+                case JOB_GEO:
+                                first = ally;
+                                break;
+                case JOB_BLU:
+                case JOB_RDM:
+                case JOB_PLD:
+                case JOB_SCH:
+                case JOB_RUN:
+                case JOB_DRK:
+                               second = ally;
+                               break;
+                default:
+                               third = ally;
+                               break;      
+            }
+        }
+    }
+    
+    //return highest priority target
+    if (first != nullptr)
+        return first;
+    else if (second != nullptr)
+        return second;
+    else
+        return third;
 }
 
 uint32 CAIPetDummy::getSpiritCooldown(uint32 cooldown, uint8 sDay)

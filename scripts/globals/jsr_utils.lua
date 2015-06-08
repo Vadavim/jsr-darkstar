@@ -151,3 +151,8 @@ function applyPflugMask(effect)
     effect:addMod(MOD_CURSERES, pflugRes(tenebrae));      
     effect:addMod(MOD_DEATHRES, pflugRes(tenebrae));      
 end;
+
+function startConfrontation(character, duration, mobs)
+{
+    
+}

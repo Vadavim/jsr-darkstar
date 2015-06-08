@@ -27,6 +27,7 @@
 #include "../../common/cbasetypes.h"
 
 #include "ai_general.h"
+#include <map>
 
 /************************************************************************
 *																		*
@@ -34,7 +35,8 @@
 *																		*
 ************************************************************************/
 
-#define PET_ROAM_DISTANCE 2.1f
+//#define PET_ROAM_DISTANCE 2.1f
+#define PET_ROAM_DISTANCE 3.5f
 
 class CPetEntity;
 
@@ -48,6 +50,7 @@ public:
 	CAIPetDummy(CPetEntity* PPet);
 
 	uint16	m_MasterCommand; //used for avatars/wyverns atm
+    std::map<char,int> timers;
     bool  m_queueSic;
     
 
@@ -82,9 +85,12 @@ protected:
     
     int16 LightRoam();
     int16 LightAttack();
+    int16 IngridAttack();
 	int16 DarkRoam();
 	int16 DarkAttack();
     CBattleEntity* getWounded(uint8 threshold);
+    CBattleEntity* getHasteTarget();
+    CBattleEntity* getRefreshTarget();
 	uint32 getSpiritCooldown(uint32 cooldown, uint8 sDay);
     
 

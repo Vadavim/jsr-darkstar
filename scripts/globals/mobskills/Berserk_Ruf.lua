@@ -10,16 +10,19 @@ require("scripts/globals/monstertpmoves");
 -----------------------------------
 
 function OnMobSkillCheck(target,mob,skill)
-	return 0;
+    if (mob:hasStatusEffect(EFFECT_WARCRY)) then
+        return 1;
+    end;
+	return 1;
 end;
 
 function OnMobWeaponSkill(target, mob, skill)
 	local power = 25;
-	local duration = 180;
+	local duration = 120;
 
 	local typeEffect = EFFECT_WARCRY;
     skill:setMsg(MobBuffMove(mob, typeEffect, power, 0, duration));
-
+    --target:addStatusEffect(EFFECT_WARCRY,power,0,60,0,0);
 	return typeEffect;
 end;
 
