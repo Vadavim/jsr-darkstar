@@ -82,6 +82,7 @@ namespace petutils
   void  Familiar(CBattleEntity* PPet);
   void  LoadPet(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone);
   CPetEntity*  LoadAlly(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone);
+  void  ReloadAlly(CPetEntity* PPet);
   void  LoadWyvernStatistics(CBattleEntity* PMaster, CPetEntity* PPet, bool finalize);
   void  FinalizePetStatistics(CBattleEntity* PMaster, CPetEntity* PPet);
 };

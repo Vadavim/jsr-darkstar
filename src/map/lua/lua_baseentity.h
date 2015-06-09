@@ -559,6 +559,8 @@ public:
     int32 entityVisualPacket(lua_State* L);
     int32 entityAnimationPacket(lua_State* L);
     int32 getPartyLeader(lua_State* L);
+    int32 setSpawner(lua_State* L);
+    int32 getSpawner(lua_State*);
     int32 getParty(lua_State* L);
     int32 getAlliance(lua_State* L);
     int32 messageText(lua_State* L);
@@ -595,12 +597,16 @@ public:
     int32 addBurden(lua_State* L);
     int32 jsrCustom(lua_State* L);
     int32 doMagicBurstMP(lua_State* L);
+    int32 applyConfrontationToParty(lua_State* L);
+    int32 removeConfrontationFromParty(lua_State* L);
+    int32 dieWithNoReward(lua_State*);
 
     int32 setElevator(lua_State* L);
 
     int32 storeWithPorterMoogle(lua_State* L);
     int32 getRetrievableItemsForSlip(lua_State *L);
     int32 retrieveItemFromSlip(lua_State *L);
+    
 
     int32 getILvlMacc(lua_State *L);
 };

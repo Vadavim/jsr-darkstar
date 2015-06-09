@@ -152,7 +152,15 @@ function applyPflugMask(effect)
     effect:addMod(MOD_DEATHRES, pflugRes(tenebrae));      
 end;
 
-function startConfrontation(character, duration, mobs)
-{
-    
-}
+function startConfrontation(player, power, duration, mobs)
+    local mob = nil;
+    player:applyConfrontationToParty(power, duration);
+    for k,v in pairs(mobs) do
+        mob = SpawnMob(v);
+        mob:setPos( player:getXPos(), player:getYPos(), player:getZPos(), player:getRotPos(), player:getZoneID() );
+        mob:addStatusEffect(EFFECT_CONFRONTATION, power, 0, duration);
+        --DespawnMob(mob, 25);
+        mob:updateClaim(player);
+        mob:setSpawner(player);
+    end
+end;

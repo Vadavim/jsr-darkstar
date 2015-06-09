@@ -3116,7 +3116,7 @@ int32 TakeSkillchainDamage(CBattleEntity* PAttacker, CBattleEntity* PDefender, i
 {
     DSP_DEBUG_BREAK_IF(PAttacker == nullptr);
     DSP_DEBUG_BREAK_IF(PDefender == nullptr);
-
+    
     CStatusEffect* PEffect = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_SKILLCHAIN, 0);
 
     // Determine the skill chain level and elemental resistance.
@@ -3127,6 +3127,7 @@ int32 TakeSkillchainDamage(CBattleEntity* PAttacker, CBattleEntity* PDefender, i
     int16 resistance = GetSkillchainMinimumResistance(skillchain, PDefender, &appliedEle);
 
     DSP_DEBUG_BREAK_IF(chainLevel <= 0 || chainLevel > 4 || chainCount <= 0 || chainCount > 5);
+    DoSkillchainTP(PAttacker);
 
     // Skill chain damage = (Closing Damage)
     //                      × (Skill chain Level/Number from Table)
@@ -3202,20 +3203,28 @@ void DoSkillchainTP(CBattleEntity* PAttacker)
         for (auto member : POrigin->PParty->members)
         {
             member->addTP(regain);
+            if (member->PAlly.size() > 0)
+            {
+                for (auto ally : member->PAlly)
+                {
+                    ally->addTP(regain);
+                }
+            }
         }
     }
     else
     {
         POrigin->addTP(regain);
-    }
-    
-    if (POrigin->PAlly.size() > 0)
-    {
-        for (auto ally : POrigin->PAlly)
+        if (POrigin->PAlly.size() > 0)
         {
-            ally->addTP(regain);
+            for (auto ally : POrigin->PAlly)
+            {
+                ally->addTP(regain);
+            }
         }
     }
+    
+    
 }
 
 CItemArmor* GetEntityArmor(CBattleEntity* PEntity, SLOTTYPE Slot)

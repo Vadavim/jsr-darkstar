@@ -168,6 +168,7 @@ public:
   uint8     m_Link;                     // link with mobs of it's family
   uint16    m_Behaviour;                // mob behaviour
   SPAWNTYPE m_SpawnType;                // condition for mob to spawn
+  CBattleEntity* m_PSpawner;               // Character who spawned this monster if it was triggered.
 
   int8      m_battlefieldID;            // battlefield belonging to
   uint16    m_bcnmID;                   // belongs to which battlefield

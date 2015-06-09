@@ -2452,7 +2452,7 @@ inline int32 CLuaBaseEntity::levelRestriction(lua_State* L)
                 charutils::UpdateHealth(PChar);
             }
 
-            if (PChar->PPet)
+            if (PChar->PPet != nullptr)
             {
                 CPetEntity* PPet = (CPetEntity*)PChar->PPet;
                 if (PPet->getPetType() == PETTYPE_WYVERN)
@@ -2462,6 +2462,14 @@ inline int32 CLuaBaseEntity::levelRestriction(lua_State* L)
                 else
                 {
                     petutils::DespawnPet(PChar);
+                }
+            }
+            
+            if (PChar->PAlly.size() > 0)
+            {
+                for (auto ally : PChar->PAlly)
+                {
+                    petutils::ReloadAlly((CPetEntity*)ally);
                 }
             }
         }
@@ -9780,6 +9788,21 @@ inline int32 CLuaBaseEntity::removeOldestRune(lua_State* L)
     return 0;
 }
 
+inline int32 CLuaBaseEntity::dieWithNoReward(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CMobEntity* PEntity = (CMobEntity*)m_PBaseEntity;
+
+    PEntity->m_DropID = 0;
+    PEntity->m_giveExp = false;
+    PEntity->CallForHelp(true);
+    PEntity->SetLocalVar("TimedOut", 1);
+    PEntity->health.hp = 0;
+
+    return 0;
+}
+
 inline int32 CLuaBaseEntity::removeOldestManeuver(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
@@ -9887,6 +9910,14 @@ inline int32 CLuaBaseEntity::doMagicBurstMP(lua_State *L)
         for (auto member : POrigin->PParty->members)
         {
             member->addMP(mp);
+            if (member->PAlly.size() > 0)
+            {
+                for (auto ally : member->PAlly)
+                {
+                    ally->addMP(mp);
+                }
+            }
+            
             if (member->objtype == TYPE_PC && member->status !=  STATUS_DISAPPEAR)
                 charutils::UpdateHealth((CCharEntity*)member);
                 
@@ -9895,17 +9926,153 @@ inline int32 CLuaBaseEntity::doMagicBurstMP(lua_State *L)
     else
     {
         POrigin->addMP(mp);
+        if (POrigin->PAlly.size() > 0)
+        {
+            for (auto ally : POrigin->PAlly)
+            {
+                ally->addMP(mp);
+            }
+        }
         if (POrigin->objtype == TYPE_PC && POrigin->status !=  STATUS_DISAPPEAR)
                 charutils::UpdateHealth((CCharEntity*)POrigin);
     }
     
-    if (POrigin->PAlly.size() > 0)
+    
+    
+    return 0;
+}
+
+inline int32 CLuaBaseEntity::setSpawner(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L,1) || !lua_isuserdata(L,1));
+
+    CLuaBaseEntity* PLuaBaseEntity = Lunar<CLuaBaseEntity>::check(L,1);
+    CMobEntity* PMob = (CMobEntity*)m_PBaseEntity;
+    CBattleEntity* PSpawner = (CBattleEntity*)PLuaBaseEntity->GetBaseEntity();
+    PMob->m_PSpawner = PSpawner;
+    
+    return 0;   
+}
+
+inline int32 CLuaBaseEntity::getSpawner(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC)
+
+    if(((CMobEntity*)m_PBaseEntity)->m_PSpawner != nullptr)
     {
-        for (auto ally : POrigin->PAlly)
+        //uint32 petid = (uint32);
+
+        CBaseEntity* PSpawner = ((CMobEntity*)m_PBaseEntity)->m_PSpawner;
+
+        lua_getglobal(L, CLuaBaseEntity::className);
+        lua_pushstring(L,"new");
+        lua_gettable(L,-2);
+        lua_insert(L,-2);
+        lua_pushlightuserdata(L,(void*)PSpawner);
+        lua_pcall(L,2,1,0);
+        return 1;
+    }
+    lua_pushnil(L);
+    return 1;
+}
+
+
+inline int32 CLuaBaseEntity::applyConfrontationToParty(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 2) || !lua_isnumber(L, 2));
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+    int32 power = lua_tointeger(L,1);
+    int32 duration = lua_tointeger(L,2);
+    
+    CStatusEffect * PEffect = nullptr;
+    
+            
+    CStatusEffect * PLevelRestriction = nullptr;
+    
+
+
+    if (PEntity->PParty != nullptr)
+    {
+        for (auto member : PEntity->PParty->members)
         {
-            ally->addMP(mp);
+            PEffect = new CStatusEffect( EFFECT_CONFRONTATION, (uint16)EFFECT_CONFRONTATION,
+                (uint16)power, 0, (uint16)duration, 0, 0, 0);
+            PLevelRestriction = new CStatusEffect(EFFECT_LEVEL_RESTRICTION, (uint16)EFFECT_LEVEL_RESTRICTION,
+                (uint16)power, 0, (uint16)duration, 0, 0, 0);
+            member->StatusEffectContainer->AddStatusEffect(PEffect, true);
+            member->StatusEffectContainer->AddStatusEffect(PLevelRestriction, true);
+            if (member->PAlly.size() > 0)
+            {
+                for (auto ally : member->PAlly)
+                {
+                    PEffect = new CStatusEffect( EFFECT_CONFRONTATION, (uint16)EFFECT_CONFRONTATION,
+                        (uint16)power, 0, (uint16)duration, 0, 0, 0);
+                    ally->StatusEffectContainer->AddStatusEffect(PEffect, true);
+                }
+            }                
         }
     }
+    else
+    {
+        PEffect = new CStatusEffect( EFFECT_CONFRONTATION, (uint16)EFFECT_CONFRONTATION,
+            (uint16)power, 0, (uint16)duration, 0, 0, 0);
+        PLevelRestriction = new CStatusEffect(EFFECT_LEVEL_RESTRICTION, (uint16)EFFECT_LEVEL_RESTRICTION,
+            (uint16)power, 0, (uint16)duration, 0, 0, 0);
+        PEntity->StatusEffectContainer->AddStatusEffect(PEffect, true);
+        PEntity->StatusEffectContainer->AddStatusEffect(PLevelRestriction, true);
+        if (PEntity->PAlly.size() > 0)
+        {
+            for (auto ally : PEntity->PAlly)
+            {
+                PEffect = new CStatusEffect( EFFECT_CONFRONTATION, (uint16)EFFECT_CONFRONTATION,
+                    (uint16)power, 0, (uint16)duration, 0, 0, 0);
+                ally->StatusEffectContainer->AddStatusEffect(PEffect, true);
+            }
+        }
+    }
+    
+    
+    return 0;
+}
+
+inline int32 CLuaBaseEntity::removeConfrontationFromParty(lua_State*)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+
+    if (PEntity->PParty != nullptr)
+    {
+        for (auto member : PEntity->PParty->members)
+        {
+            member->StatusEffectContainer->DelStatusEffect(EFFECT_CONFRONTATION);
+            member->StatusEffectContainer->DelStatusEffect(EFFECT_LEVEL_RESTRICTION);
+            if (member->PAlly.size() > 0)
+            {
+                for (auto ally : member->PAlly)
+                {
+                    ally->StatusEffectContainer->DelStatusEffect(EFFECT_CONFRONTATION);
+                }
+            }                
+        }
+    }
+    else
+    {
+        PEntity->StatusEffectContainer->DelStatusEffect(EFFECT_CONFRONTATION);
+        PEntity->StatusEffectContainer->DelStatusEffect(EFFECT_LEVEL_RESTRICTION);
+        if (PEntity->PAlly.size() > 0)
+        {
+            for (auto ally : PEntity->PAlly)
+            {
+                ally->StatusEffectContainer->DelStatusEffect(EFFECT_CONFRONTATION);
+            }
+        }
+    }
+    
     
     return 0;
 }
@@ -10536,12 +10703,17 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getActiveRunes),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getEffectsCount),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNewestRune),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,dieWithNoReward),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,setSpawner),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getSpawner),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRuneTypes),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRecentAlly),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,doMagicBurstMP),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,isUniqueAlly),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addBurden),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,jsrCustom),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,applyConfrontationToParty),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeConfrontationFromParty),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setElevator),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,storeWithPorterMoogle),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRetrievableItemsForSlip),

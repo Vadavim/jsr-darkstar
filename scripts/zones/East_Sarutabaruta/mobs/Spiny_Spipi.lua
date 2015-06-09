@@ -8,7 +8,16 @@
 -----------------------------------	
 	
 function onMobDeath(mob,killer)	
-
+    if (mob == nil or mob:getLocalVar("TimedOut") == 1) then
+        return;
+    end
+    if (mob:getSpawner() ~= nil) then
+        local player = mob:getSpawner();
+        if (player ~= nil) then
+            player:removeConfrontationFromParty();
+        end
+        return;
+    end
     -- Set Spiny_Spipi's Window Open Time
     wait = math.random((10),(100))
     SetServerVariable("[POP]Spiny_Spipi", os.time(t) + wait); -- 45 - 120 minutes

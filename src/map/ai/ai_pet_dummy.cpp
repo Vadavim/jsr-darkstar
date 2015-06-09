@@ -192,7 +192,8 @@ void CAIPetDummy::ActionAbilityStart()
     if (m_PPet->getPetType() == PETTYPE_ALLY && m_PPet->health.tp >= 1000 && m_PBattleTarget != nullptr)
     {       
         if (m_PPet->PetSkills.size() > 0){
-            std::random_shuffle(m_PPet->PetSkills.begin(), m_PPet->PetSkills.end());
+            if (m_PPet->PetSkills.size() > 1)
+                std::random_shuffle(m_PPet->PetSkills.begin(), m_PPet->PetSkills.end());
             for (auto PPetSkill : m_PPet->PetSkills)
             {
                 if (PPetSkill->getValidTargets() == TARGET_ENEMY) //enemy

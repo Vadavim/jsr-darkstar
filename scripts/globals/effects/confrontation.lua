@@ -10,7 +10,7 @@
 
 function onEffectGain(target,effect)
     if (target:getPet()) then
-        target:getPet():addStatusEffect(effect);
+        target:getPet():addStatusEffect(EFFECT_CONFRONTATION, effect:getPower(), 0, effect:getDuration());
     end
 end;
 
@@ -26,12 +26,18 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
-    if (target:getLocalVar("ConfrontationSpawned") == 1)
-    {
-        local id = target:getID();
-        DespawnMob(id);
-    }
+    if (target == nil or effect == nil) then
+        return;
+    end
+        
     if (target:getPet()) then
         target:getPet():delStatusEffect(EFFECT_CONFRONTATION);
     end
+    if (target:isMob() and target:getSpawner() ~= nil and target:getHPP() ~= 0) then
+        target:setLocalVar("TimedOut", 1);
+        DespawnMob(target:getID());
+    end
+    --    DespawnMob(id, 10);
+    --end
+    
 end;

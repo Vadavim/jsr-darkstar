@@ -81,6 +81,7 @@ CMobEntity::CMobEntity()
 
     m_giveExp = false;
     m_neutral = false;
+    m_PSpawner = nullptr;
 	m_Aggro = AGGRO_NONE;
     m_Link = 0;
 

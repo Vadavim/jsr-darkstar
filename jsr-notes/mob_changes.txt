@@ -234,7 +234,7 @@ FAMILY CHANGES
  - +20% XP
 
 [Yovra]
- - +10% XP
+ - +15% XP
 
 [Ghrah]
  - +35% XP
