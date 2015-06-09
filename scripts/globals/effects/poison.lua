@@ -5,6 +5,7 @@
 -----------------------------------
 
 require("scripts/globals/status");
+require("scripts/globals/jsr_utils");
 
 -----------------------------------
 -- onEffectGain Action
@@ -17,6 +18,7 @@ function onEffectGain(target,effect)
     end;
 
 	target:addMod(MOD_REGEN_DOWN, effect:getPower());
+    applyBarDurationReduction(target, effect, EFFECT_BARPOISON);
 end;
 
 -----------------------------------

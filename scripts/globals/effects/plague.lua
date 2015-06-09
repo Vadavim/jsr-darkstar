@@ -5,7 +5,8 @@
 -- Also, causes Steps to only grant One Finishing Move when Main Job is Dancer.
 -- Normal power is 5.
 -----------------------------------
-
+require("scripts/globals/status");
+require("scripts/globals/jsr_utils");
 -----------------------------------
 -- onEffectGain Action
 -----------------------------------
@@ -13,6 +14,7 @@
 function onEffectGain(target,effect)
 	target:addMod(MOD_REFRESH_DOWN, math.ceil(effect:getPower() / 2));
 	target:addMod(MOD_REGAIN_DOWN, effect:getPower()*10);
+    applyBarDurationReduction(target, effect, EFFECT_BARVIRUS);
 end;
 
 -----------------------------------

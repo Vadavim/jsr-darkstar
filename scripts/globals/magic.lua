@@ -615,13 +615,19 @@ function applyResistanceEffect(player,spell,target,diff,skill,bonus,effect)
 
 		if(effectres > 0) then
 			local resrate = 1+(target:getMod(effectres)/20);
-			if(resrate > 1.5) then
-				resrate = 1.5;
+			if(resrate > 2.0) then
+				resrate = 2.0;
 			end
 
 			-- printf("Resist percentage: %f", resrate);
 			-- increase resistance based on effect
 			half = half * resrate;
+            
+            -- chance to automatically resist status effect (3% per point)
+            local autoResist = target:getMod(effectres)/25;
+            if (math.random() < autoResist) then
+                return 0;
+            end;
 		end
 	end
 

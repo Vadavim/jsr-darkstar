@@ -414,13 +414,19 @@ function applyPlayerResistance(mob,effect,target,diff,bonus,element)
 
 		if(effectres > 0) then
 			local resrate = 1+(target:getMod(effectres)/20);
-			if(resrate > 1.5) then
-				resrate = 1.5;
+			if(resrate > 2.0) then
+				resrate = 2.0;
 			end
 
 			-- printf("Resist percentage: %f", resrate);
 			-- increase resistance based on effect
 			half = half * resrate;
+            
+            local autoResist = target:getMod(effectres)/25;
+            if (math.random() < autoResist) then
+                return 0;
+            end;
+            
 		end
 	end
 
@@ -709,8 +715,13 @@ function MobStatusEffectMove(mob, target, typeEffect, power, tick, duration)
 		local element = mob:getStatusEffectElement(typeEffect);
 
 		local resist = applyPlayerResistance(mob,typeEffect,target,mob:getStat(statmod)-target:getStat(statmod),0,element);
-
-		if(resist >= 0.5) then
+        local threshold = 0.25;
+        if (typeEffect == EFFECT_SLEEP or typeEffect == EFFECT_SLEEP_II or typeEffect == EFFECT_SILENCE 
+            or typeEffect == EFFECT_AMNESIA or typeEffect == EFFECT_LULLABY or typeEffect == EFFECT_CHARM 
+            or typeEffect == EFFECT_STUN or typeEffect == EFFECT_PETRIFICATION) then
+            threshold = 0.5;
+        end
+		if(resist >= 0.25) then
 			target:addStatusEffect(typeEffect,power,tick,duration*resist);
 			return MSG_ENFEEB_IS;
 		end

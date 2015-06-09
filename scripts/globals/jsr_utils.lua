@@ -164,3 +164,14 @@ function startConfrontation(player, power, duration, mobs)
         mob:setSpawner(player);
     end
 end;
+
+function applyBarDurationReduction(target, effect, barType)
+    if (target:hasStatusEffect(barType)) then
+        local duration = effect:getDuration();
+        duration = math.floor(duration * 3 / 2);
+        if (duration == 0) then
+            duration = 1;
+        end
+        effect:setDuration(duration);
+    end
+end;
