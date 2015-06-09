@@ -31,11 +31,15 @@ function onUseWeaponSkill(player, target, wsID)
 
 	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
 		params.ftp100 = 2; params.ftp200 = 3.6; params.ftp300 = 6.5;
-		params.str_wsc = 0.5; params.dex_wsc = 0.5; params.vit_wsc = 0.0;
+		params.str_wsc = 0.5; params.dex_wsc = 0.0; params.vit_wsc = 0.65;
 	end
 
 	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
+    
+    if (target:isMob() and target:getSystem() == SYSTEM_DEMON) then
+        damage = damage * 1.20;
+    end
 	return tpHits, extraHits, criticalHit, damage;
 
 end

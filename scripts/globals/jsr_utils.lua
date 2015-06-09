@@ -51,11 +51,11 @@ end;
 
 function pflugRes(count)
     if (count == 1) then
-        return 40;
-    elseif (count == 2) then
         return 60;
-    elseif (count == 3) then
+    elseif (count == 2) then
         return 80;
+    elseif (count == 3) then
+        return 100;
     else
         return 0;
     end
@@ -128,28 +128,28 @@ function applyPflugMask(effect)
     local tenebrae = rshift(band(mask, lshift(3, 14)), 14);
     
     effect:addMod(MOD_FIRERES, pflugRes(ignis));
-    effect:addMod(MOD_VIRUSRES, pflugRes(ignis));
-    effect:addMod(MOD_AMNESIARES, pflugRes(ignis));
+    effect:addMod(MOD_VIRUSRES, pflugRes(ignis) / 10);
+    effect:addMod(MOD_AMNESIARES, pflugRes(ignis) / 10);
     effect:addMod(MOD_ICERES, pflugRes(gelus));
-    effect:addMod(MOD_PARALYZERES, pflugRes(gelus));
-    effect:addMod(MOD_BINDRES, pflugRes(gelus));
+    effect:addMod(MOD_PARALYZERES, pflugRes(gelus) / 10);
+    effect:addMod(MOD_BINDRES, pflugRes(gelus) / 10);
     effect:addMod(MOD_WATERRES, pflugRes(unda));
-    effect:addMod(MOD_POISONRES, pflugRes(unda));
+    effect:addMod(MOD_POISONRES, pflugRes(unda) / 10);
     effect:addMod(MOD_EARTHRES, pflugRes(tellus));
-    effect:addMod(MOD_SLOWRES, pflugRes(tellus));
-    effect:addMod(MOD_GRAVITYRES, pflugRes(tellus));
-    effect:addMod(MOD_PETRIFYRES, pflugRes(tellus));
+    effect:addMod(MOD_SLOWRES, pflugRes(tellus) / 10);
+    effect:addMod(MOD_GRAVITYRES, pflugRes(tellus) / 10);
+    effect:addMod(MOD_PETRIFYRES, pflugRes(tellus) / 10);
     effect:addMod(MOD_THUNDERRES, pflugRes(sulpor));
-    effect:addMod(MOD_STUNRES, pflugRes(sulpor));
+    effect:addMod(MOD_STUNRES, pflugRes(sulpor) / 10);
     effect:addMod(MOD_WINDRES, pflugRes(flabra));
-    effect:addMod(MOD_SILENCERES, pflugRes(flabra));
+    effect:addMod(MOD_SILENCERES, pflugRes(flabra) / 10);
     effect:addMod(MOD_LIGHTRES, pflugRes(lux));
-    effect:addMod(MOD_CHARMRES, pflugRes(lux));
+    effect:addMod(MOD_CHARMRES, pflugRes(lux) / 10);
     effect:addMod(MOD_DARKRES, pflugRes(tenebrae));      
-    effect:addMod(MOD_SLEEPRES, pflugRes(tenebrae));    
-    effect:addMod(MOD_BLINDRES, pflugRes(tenebrae));    
-    effect:addMod(MOD_CURSERES, pflugRes(tenebrae));      
-    effect:addMod(MOD_DEATHRES, pflugRes(tenebrae));      
+    effect:addMod(MOD_SLEEPRES, pflugRes(tenebrae) / 10);    
+    effect:addMod(MOD_BLINDRES, pflugRes(tenebrae) / 10);    
+    effect:addMod(MOD_CURSERES, pflugRes(tenebrae) / 10);      
+    effect:addMod(MOD_DEATHRES, pflugRes(tenebrae) / 10);      
 end;
 
 function startConfrontation(player, power, duration, mobs)

@@ -246,16 +246,13 @@ FAMILY CHANGES
  - Magic casting beastman give an additional +10% XP
 
 [Antica]
- - +10% XP
+ - +15% XP
 
 [Bugbear]
  - +30% XP
 
 [Gigas]
  - +30% XP
-
-[Goblin]
- - +10% XP
 
 [Lamiae]
  - +40% XP
@@ -267,22 +264,17 @@ FAMILY CHANGES
  - +10% XP
 
 [Orcish Warmachine]
- - +25% XP
+ - +20% XP
 
 [Poroggo]
  - +30% XP
-
-[Qiqirn]
- - +20% XP
 
 [Quadav]
  - +15% XP
 
 [Sahagin]
- - +15% XP
+ - +10% XP
 
-[Siege Turret]
- - +25% XP
 
 [Tonberry]
  - +30% XP

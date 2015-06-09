@@ -1,0 +1,16 @@
+[Burning Arrow]
+ - On a hit, inflicts Burn Duration varies with TP (30 at 1000 to 90 at 3000).
+
+[Piercing Arrow]
+ - Defense ignore changed to -15% at 1000 TP, -30% at 2000 TP, and -60% at 3000 TP.
+
+[Blast Arrow
+ - On a hit, inflicts Rasp. Duration varies with TP (30 at 1000 to 90 at 3000).
+
+[Arching Arrow]
+ - On a hit, lowers target's enmity towards self. Amount depends upon TP (15% at 1000, 30% at 2000, 45% at 3000).
+
+[Refulgent Arrow]
+ - Gained at skill level 260.
+ - fTP decreased to 1.5 at 1000, 2.0 at 2000, and 3.0 at 3000.
+ - On a hit, inflicts Flash (sans enmity gain). Duration varies with TP (6 seconds at 1000 to 12 seconds at 3000).

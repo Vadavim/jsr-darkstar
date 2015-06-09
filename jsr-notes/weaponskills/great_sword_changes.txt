@@ -1,0 +1,15 @@
+[Power Slash]
+ - On a critical hit, gain +15% Attack bonus for 60 seconds.
+
+[Frost Bite]
+ - On a hit, applies Frost. Duration varies with TP (30 at 1000 to 90 at 3000).
+
+[Freezebite]
+ - Applies Paralyze (potency is 25%). Duration varies with TP (30 at 100 to 90 at 3000).
+
+[Crescent Moon]
+ - Damage increased by 25% during Waxing/Waning Crescent moon phase.
+
+[Herculean Slash]
+ - Gained at skill level 260
+ - Instead inflicts Slow (35%). Duration varies with TP (60 at 1000 to 180 at 3000).

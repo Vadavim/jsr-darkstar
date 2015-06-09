@@ -26,19 +26,20 @@ function onUseWeaponSkill(player, target, wsID)
 	params.canCrit = false;
 	params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
 	params.atkmulti = 1;
-	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
-
-	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
+    if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
 		params.vit_wsc = 1.0;
 	end
+	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
 
-	if damage > 0 then
-		local tp = player:getTP();
-		local duration = (tp/50);
-		if(target:hasStatusEffect(EFFECT_STUN) == false) then
-			target:addStatusEffect(EFFECT_STUN, 1, 0, duration);
-		end
+	
+
+	local chance = (player:getTP() - 25) / 2 > math.random()*150;
+	if(damage > 0 and target:hasStatusEffect(EFFECT_STUN) == false and chance) then
+		target:addStatusEffect(EFFECT_STUN, 1, 0, 4);
 	end
+    if (damage > 0 and target:hasStatusEffect(EFFECT_ATTACK_DOWN) == false and chance) then
+        target:addStatusEffect(EFFECT_ATTACK_DOWN, 15, 0, 60);
+    end
 	damage = damage * WEAPON_SKILL_POWER
 	return tpHits, extraHits, criticalHit, damage;
 

@@ -1,0 +1,20 @@
+[Lightning Thrust]
+ - Inflicts Shock. TP varies with duration (30 at 1000 to 90 at 3000).
+
+[Raiden Thrust]
+ - Modifiers changed to: Str (40%) and Dex (60%)
+
+[Leg Sweep]
+ - On a successful stun, also inflicts -20 evasion for 60 seconds.
+
+[Vorpal Thrust]
+ - On a successful hit, also gives self a +10% critical hit chance bonus. Duration varies with TP (30 at 1000 to 90 at 3000).
+
+[Skewer]
+ - On a critical hit, total damage is increased by 25%.
+
+[Impulse Drive]
+ - On a hit, grants +20 ACC and +40 EVA. Duration varies with TP (30 at 1000, to 90 at 3000).
+
+[Sonic Thrust]
+ - Gained at skill 260.

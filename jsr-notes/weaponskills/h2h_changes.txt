@@ -1,0 +1,19 @@
+[Shoulder Tackle]
+ - On a successful stun, also inflicts -15% Attack for 60 seconds.
+
+
+[One-Inch Punch]
+ - Def ignore changed to: (-25% at 1000TP, -50% at 2000TP, -75% at 3000TP)
+
+[Backhand Blow]
+ - On a critical hit, lowers target's VIT 40 and stun resistance by 20 for 60 seconds.
+
+[Howling Fist]
+ - On a hit, increases Attack by 10%. Duration varies with TP (30 seconds at 1000 to 90 seconds at 3000).
+
+[Dragon Kick]
+ - Modifiers changed to Str 50% and Vit 75%.
+ - Deals +20% damage against demons.
+
+[Tornado Kick]
+ - Gained at skill level 260.

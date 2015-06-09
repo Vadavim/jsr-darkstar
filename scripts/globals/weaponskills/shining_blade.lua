@@ -28,7 +28,7 @@ function onUseWeaponSkill(player, target, wsID)
 
 	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
 		params.ftp100 = 1.125; params.ftp200 = 2.222; params.ftp300 = 3.523;
-		params.str_wsc = 0.4; params.mnd_wsc = 0.4;
+		params.str_wsc = 0.4; params.mnd_wsc = 0.7;
 	end
 
 	local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, params);

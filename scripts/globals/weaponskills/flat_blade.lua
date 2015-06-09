@@ -34,10 +34,13 @@ function onUseWeaponSkill(player, target, wsID)
 
 	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
 
-	local chance = player:getTP()-100 > math.random()*150;
+	local chance = (player:getTP() - 25) / 2 > math.random()*150;
 	if(damage > 0 and target:hasStatusEffect(EFFECT_STUN) == false and chance) then
 		target:addStatusEffect(EFFECT_STUN, 1, 0, 4);
 	end
+    if (damage > 0 and target:hasStatusEffect(EFFECT_ADDLE) == false and chance) then
+        target:addStatusEffect(EFFECT_ADDLE, 30, 0, 60, 0, 30);
+    end
 	damage = damage * WEAPON_SKILL_POWER
 	return tpHits, extraHits, criticalHit, damage;
 

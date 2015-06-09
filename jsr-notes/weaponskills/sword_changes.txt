@@ -1,0 +1,24 @@
+[Burning Blade]
+ - Also inflicts Burn. Duration varies with TP (30 at 1000, 90 at 3000).
+
+[Red Lotus Blade]
+ - Int Mod increased to 70% (was 40%).
+
+[Flat Blade]
+ - On a successful stun, also inflicts Addle (-30% casting speed and -30 MACC) for 60 seconds.
+
+[Shining Blade]
+ - Increased Mnd modifier to 70% (was 40%)
+
+[Seraph Blade]
+ - On a successful hit, grants self a potent regen (1 + level / 3). 
+ - Does not overwrite Regen.
+ - Duration varies with TP (60 at 1000, 180 at 3000).
+
+[Circle Blade]
+ - TP also affects damage (ftp 100: 1, ftp 200: 2, ftp 300: 3)
+
+[Sanguine Blade]
+ - Available at skill level 260
+ - 
+

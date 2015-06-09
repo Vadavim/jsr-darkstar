@@ -30,9 +30,17 @@ function onUseWeaponSkill(player, target, wsID)
 		params.ftp100 = 1.125; params.ftp200 = 2.625; params.ftp300 = 4.125;
 		params.str_wsc = 0.4; params.mnd_wsc = 0.4;
 	end
+    
+    
 
 	local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
+    
+    --add Regen
+    if (damage > 0 and player:hasStatusEffect(EFFECT_REGEN) == false) then
+        local duration = 60 * (player:getTP() / 100);
+        player:addStatusEffect(EFFECT_REGEN, 1 + math.floor(player:getMainLvl() / 2), 3, duration);
+    end
 	return tpHits, extraHits, criticalHit, damage;
 
 end

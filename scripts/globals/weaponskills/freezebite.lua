@@ -31,6 +31,12 @@ function onUseWeaponSkill(player, target, wsID)
 
 	local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
+    
+    if (damage > 0) then
+        local duration = 30 * player:getTP() / 100;
+        target:addStatusEffect(EFFECT_PARALYSIS, 20, 0, duration);
+    end
+    
 	return tpHits, extraHits, criticalHit, damage;
 
 end

@@ -22,14 +22,8 @@ require("scripts/globals/weaponskills");
 function OnUseWeaponSkill(player, target, wsID)
     local tp = player:getTP();
     local drain = 0;
+    drain = math.floor(25 + 25 * (tp / 100) );
 
-    if (tp >= 100 and tp <=199) then
-        drain = 50;
-    elseif (tp >= 200 and tp <= 299) then
-        drain = 75;
-    elseif (tp == 300) then
-        drain = 100;
-    end
 
     local params = {};
     params.ftp100 = 2.75; params.ftp200 = 2.75; params.ftp300 = 2.75;

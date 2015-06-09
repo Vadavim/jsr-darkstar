@@ -32,7 +32,16 @@ function onUseWeaponSkill(player, target, wsID)
 		params.str_wsc = 0.8;
 	end
 
+    
+    
+    
 	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
+    
+    local moon = VanadielMoonPhase();
+    if (moon > 10 and moon < 40) then
+        damage = damage * 1.25;
+    end
+    
 	return tpHits, extraHits, criticalHit, damage;
 end

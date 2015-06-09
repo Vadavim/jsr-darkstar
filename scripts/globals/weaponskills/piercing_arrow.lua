@@ -29,9 +29,9 @@ function onUseWeaponSkill(player, target, wsID)
 	params.atkmulti = 1;
 	--Defense ignored is 0%, 35%, 50% as per wiki.bluegartr.com
 	params.ignoresDef = true;
-	params.ignored100 = 0;
-	params.ignored200 = 0.35;
-	params.ignored300 = 0.5;
+	params.ignored100 = 0.15;
+	params.ignored200 = 0.3;
+	params.ignored300 = 0.6;
 
 	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
 		params.str_wsc = 0.2; params.agi_wsc = 0.5;
