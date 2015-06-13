@@ -41,8 +41,8 @@ function onUseWeaponSkill(player, target, wsID)
 		end
 	end
     if (damage > 0 and chance) then
-        if(target:hasStatusEffect(EFFECT_EVASION_DOWN) == false) then
-			target:addStatusEffect(EFFECT_EVASION_DOWN, 20, 0, 60);
+        if(target:hasStatusEffect(EFFECT_WEIGHT == false)) then
+			target:addStatusEffect(EFFECT_WEIGHT, 75, 0, 60);
 		end
     end
 	damage = damage * WEAPON_SKILL_POWER

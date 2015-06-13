@@ -3540,7 +3540,7 @@ void GenerateCureEnmity(CBattleEntity* PSource, CBattleEntity* PTarget, uint16 a
 	DSP_DEBUG_BREAK_IF(PSource == nullptr);
 	DSP_DEBUG_BREAK_IF(PTarget == nullptr);
     DSP_DEBUG_BREAK_IF(amount < 0);
-	DSP_DEBUG_BREAK_IF(PSource->objtype != TYPE_PC);
+	DSP_DEBUG_BREAK_IF(PSource->objtype != TYPE_PC && PSource->objtype != TYPE_PET );
 
 	CCharEntity* PChar = (CCharEntity*)PSource;
 

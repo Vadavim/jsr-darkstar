@@ -111,7 +111,7 @@ void CParty::DisbandParty(bool playerInitiated)
 	    for (uint8 i = 0; i < members.size(); ++i)
 	    {
 		    CCharEntity* PChar = (CCharEntity*)members.at(i);
-
+			PChar->clearAllies();
 		    PChar->PParty = nullptr;
 			PChar->PLatentEffectContainer->CheckLatentsPartyJobs();
 			PChar->PLatentEffectContainer->CheckLatentsPartyMembers(members.size());
@@ -221,7 +221,10 @@ void CParty::RemoveMember(CBattleEntity* PEntity)
 {
 	DSP_DEBUG_BREAK_IF(PEntity == nullptr);
 	DSP_DEBUG_BREAK_IF(PEntity->PParty != this);
-
+	for (auto member : PEntity->PParty->members)
+	{
+		member->clearAllies();
+	}
 	if (m_PLeader == PEntity)
 	{
 		RemovePartyLeader(PEntity);
@@ -300,13 +303,19 @@ void CParty::DelMember(CBattleEntity* PEntity)
 {
 	DSP_DEBUG_BREAK_IF(PEntity == nullptr);
 	DSP_DEBUG_BREAK_IF(PEntity->PParty != this);
-
+	
 	if (m_PLeader == PEntity)
 	{
 		RemovePartyLeader(PEntity);
 	}
 	else
 	{
+		
+		for (auto member : PEntity->PParty->members)
+		{
+			member->clearAllies();
+		}
+
 		for (uint32 i = 0; i < members.size(); ++i)
 		{
 			if (PEntity == members.at(i))
@@ -407,6 +416,10 @@ void CParty::PopMember(CBattleEntity* PEntity)
 void CParty::RemovePartyLeader(CBattleEntity* PEntity)
 {
 	DSP_DEBUG_BREAK_IF(members.empty());
+	for (auto member : PEntity->PParty->members)
+	{
+		member->clearAllies();
+	}
 
     int ret = Sql_Query(SqlHandle, "SELECT charname FROM accounts_sessions JOIN chars ON accounts_sessions.charid = chars.charid \
                                     JOIN accounts_parties ON accounts_parties.charid = chars.charid WHERE partyid = %u AND NOT partyflag & %d \
@@ -438,16 +451,19 @@ void CParty::AddMember(CBattleEntity* PEntity)
 	DSP_DEBUG_BREAK_IF(PEntity->PParty != nullptr);
 
 	PEntity->PParty = this;
+
 	members.push_back(PEntity);
     
-    for (auto PMember : members)
-    {
-        PMember->clearAllies();
-    }
+    
 
     if (m_PartyType == PARTY_PCS)
     {
         DSP_DEBUG_BREAK_IF(PEntity->objtype != TYPE_PC);
+
+		for (auto PMember : members)
+		{
+			PMember->clearAllies();
+		}
 
         CCharEntity* PChar = (CCharEntity*)PEntity;
 
@@ -751,12 +767,20 @@ void CParty::ReloadParty()
 		if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) > 0)
 		{
 			uint8 j = 0;
+			std::vector<CBattleEntity*> allies;
 			while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
 			{
 				CCharEntity* PPartyMember = zoneutils::GetChar(Sql_GetUIntData(SqlHandle, 0));
 				if (PPartyMember)
 				{
 					PChar->pushPacket(new CPartyMemberUpdatePacket(PPartyMember, j, PChar->getZone()));
+					if (PPartyMember->PAlly.size() > 0)
+					{
+						for (auto ally : PPartyMember->PAlly)
+						{
+							allies.push_back(ally);
+						}
+					}
 				}
 				else
                 {
@@ -766,6 +790,17 @@ void CParty::ReloadParty()
                         Sql_GetUIntData(SqlHandle, 2), zoneid));
                 }
 				j++;
+			}
+			if (allies.size() > 0)
+			{
+				//PChar->pushPacket(new CPartyMemberUpdatePacket(PChar, j + 1, PChar->getZone()));
+				for (auto ally : allies)
+				{
+					uint16 zoneid = PChar->getZone();
+					PChar->pushPacket(new CPartyMemberUpdatePacket(ally, j, zoneid));
+					j++;
+
+				}
 			}
 		}
 	}
@@ -802,6 +837,7 @@ void CParty::ReloadPartyMembers(CCharEntity* PChar)
                                     m_PartyID);
     }
 
+	std::vector<CBattleEntity*> allies;
     if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) > 0)
     {
         uint8 j = 0;
@@ -816,6 +852,13 @@ void CParty::ReloadPartyMembers(CCharEntity* PChar)
             if (PPartyMember)
             {
                 PChar->pushPacket(new CPartyMemberUpdatePacket(PPartyMember, j, PChar->getZone()));
+				if (PPartyMember->PAlly.size() > 0)
+					{
+						for (auto ally : PPartyMember->PAlly)
+						{
+							allies.push_back(ally);
+						}
+					}
             }
             else
             {
@@ -826,6 +869,17 @@ void CParty::ReloadPartyMembers(CCharEntity* PChar)
             }
             j++;
         }
+		if (allies.size() > 0)
+			{
+				//PChar->pushPacket(new CPartyMemberUpdatePacket(PChar, j + 1, PChar->getZone()));
+				for (auto ally : allies)
+				{
+					uint16 zoneid = PChar->getZone();
+					PChar->pushPacket(new CPartyMemberUpdatePacket(ally, j, zoneid));
+					j++;
+
+				}
+			}
     }
 }
 

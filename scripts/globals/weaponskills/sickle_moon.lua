@@ -20,8 +20,8 @@ function onUseWeaponSkill(player, target, wsID)
 	--wscs are in % so 0.2=20%
 	params.str_wsc = 0.2; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.2; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
 	--critical mods, again in % (ONLY USE FOR CRITICAL HIT VARIES WITH TP)
-	params.crit100 = 0.0; params.crit200=0.0; params.crit300=0.0;
-	params.canCrit = false;
+	params.crit100 = 0.1; params.crit200=0.25; params.crit300=0.4;
+	params.canCrit = true;
 	--accuracy mods (ONLY USE FOR ACCURACY VARIES WITH TP) , should be the acc at those %s NOT the penalty values. Leave 0 if acc doesnt vary with tp.
 	params.acc100 = 0; params.acc200=0; params.acc300=0;
 	--attack multiplier (only some WSes use this, this varies the actual ratio value, see Tachi: Kasha) 1 is default.
@@ -32,6 +32,10 @@ function onUseWeaponSkill(player, target, wsID)
 	end
 
 	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
-	damage = damage * WEAPON_SKILL_POWER
+	damage = damage * WEAPON_SKILL_POWER;
+    if (target:isMob() and target:getSystem() == SYSTEM_PLANTOID) then
+        damage = damage * 1.2;
+    end
+    
 	return tpHits, extraHits, criticalHit, damage;
 end

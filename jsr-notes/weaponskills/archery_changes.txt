@@ -1,11 +1,20 @@
 [Burning Arrow]
- - On a hit, inflicts Burn Duration varies with TP (30 at 1000 to 90 at 3000).
+ - On a hit, inflicts Burn Duration varies with TP (60 at 1000 to 180 at 3000).
+ - Modifiers changed to Agi 40% and Mnd 80%
+ - fTP changed to 1 (1000), 2.5 (2000), 4 (3000)
 
 [Piercing Arrow]
  - Defense ignore changed to -15% at 1000 TP, -30% at 2000 TP, and -60% at 3000 TP.
+ - Modifiers changed to: Agi 125%
+
+[Dulling Arrow]
+ - Instead inflicts Addle (-30% casting speed and -30 MACC). Duration varies with TP (60 seconds at 100 to 180 seconds at 300).
+ - Modifiers changed to: Agi 50% and Mnd 50%
+ - Base fTP changed to 1.3
 
 [Blast Arrow
- - On a hit, inflicts Rasp. Duration varies with TP (30 at 1000 to 90 at 3000).
+ - On a hit, inflicts Rasp. Duration varies with TP (60 at 1000 to 280 at 3000).
+ - Str modifier increased to 50% (was 20%)
 
 [Arching Arrow]
  - On a hit, lowers target's enmity towards self. Amount depends upon TP (15% at 1000, 30% at 2000, 45% at 3000).
@@ -13,4 +22,5 @@
 [Refulgent Arrow]
  - Gained at skill level 260.
  - fTP decreased to 1.5 at 1000, 2.0 at 2000, and 3.0 at 3000.
- - On a hit, inflicts Flash (sans enmity gain). Duration varies with TP (6 seconds at 1000 to 12 seconds at 3000).
+ - Modifiers changes to Agi 50% and Mnd 50%
+ - On a hit, inflicts Flash (sans enmity gain). Duration varies with TP (8 seconds at 1000 to 24 seconds at 3000).

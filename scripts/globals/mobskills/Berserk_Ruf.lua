@@ -13,7 +13,7 @@ function OnMobSkillCheck(target,mob,skill)
     if (mob:hasStatusEffect(EFFECT_WARCRY)) then
         return 1;
     end;
-	return 1;
+	return 0;
 end;
 
 function OnMobWeaponSkill(target, mob, skill)

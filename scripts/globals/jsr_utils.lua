@@ -33,7 +33,7 @@ function addRune(player, rune)
     if (player:getActiveRunes() >= minRunes) then
         player:removeOldestRune();
     end
-    local power = math.floor(1 + runLevel * 0.777);
+    local power = math.floor(1 + runLevel * 0.45);
     player:addStatusEffect(rune,power,3,300);
 end;
 

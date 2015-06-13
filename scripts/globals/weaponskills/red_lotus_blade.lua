@@ -19,7 +19,7 @@ require("scripts/globals/weaponskills");
 function onUseWeaponSkill(player, target, wsID)
 
 	local params = {};
-	params.ftp100 = 1; params.ftp200 = 2.38; params.ftp300 = 3;
+	params.ftp100 = 1.25; params.ftp200 = 2.38; params.ftp300 = 3;
 	params.str_wsc = 0.3; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.2; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
 	params.ele = ELE_FIRE;
 	params.skill = SKILL_SWD;
@@ -27,11 +27,14 @@ function onUseWeaponSkill(player, target, wsID)
 
 	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
 		params.ftp300 = 3.75;
-		params.str_wsc = 0.4; params.int_wsc = 0.7;
+		params.str_wsc = 0.4; params.int_wsc = 0.8;
 	end
 
 	local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
+	if (target:hasStatusEffect(EFFECT_BURN)) then
+		damage = damage * 1.20;
+	end
 	return tpHits, extraHits, criticalHit, damage;
 
 end

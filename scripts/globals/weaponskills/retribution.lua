@@ -36,6 +36,9 @@ function onUseWeaponSkill(player, target, wsID)
 
 	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
+
+	damage = damage * (1 + ( 100 - player:getHPP() ) / 100 );
+
 	return tpHits, extraHits, criticalHit, damage;
 
 end

@@ -22,6 +22,14 @@ function doPhysicalWeaponskill(attacker, target, params)
     local bonusacc = 0;
     local bonusfTP = 0;
 
+    if (params.accbonus ~= nil) then
+        bonusacc = bonusacc + params.accbonus;
+    end
+
+    if (params.tpbonus ~= nil) then
+        bonusfTP = bonusfTP + params.tpbonus;
+    end
+
     if (attacker:getObjType() == TYPE_PC) then
         local neck = attacker:getEquipID(SLOT_NECK);
         local belt = attacker:getEquipID(SLOT_WAIST);
@@ -146,6 +154,7 @@ function doPhysicalWeaponskill(attacker, target, params)
 		if(params.canCrit or isSneakValid or isAssassinValid) then
 			local critchance = math.random();
 			if(critchance <= critrate or hasMightyStrikes or isSneakValid or isAssassinValid) then --crit hit!
+                criticalHit = true;
 				local cpdif = generatePdif(ccritratio[1], ccritratio[2], true);
 				finaldmg = dmg * cpdif;
 				if(isSneakValid and attacker:getMainJob()==6) then --have to add on DEX bonus if on THF main
@@ -177,7 +186,7 @@ function doPhysicalWeaponskill(attacker, target, params)
 			pdif = generatePdif(cratio[1], cratio[2], true);
 			if(params.canCrit) then
 				critchance = math.random();
-				if(critchance <= nativecrit or hasMightyStrikes) then --crit hit!
+				if(critchance <= critrate or hasMightyStrikes) then --crit hit!
 					criticalHit = true;
 					cpdif = generatePdif(ccritratio[1], ccritratio[2], true);
 					finaldmg = finaldmg + base * cpdif;
@@ -205,7 +214,7 @@ function doPhysicalWeaponskill(attacker, target, params)
 				pdif = generatePdif(cratio[1], cratio[2], true);
 				if(params.canCrit) then
 					critchance = math.random();
-					if(critchance <= nativecrit or hasMightyStrikes) then --crit hit!
+					if(critchance <= critrate or hasMightyStrikes) then --crit hit!
 						criticalHit = true;
 						cpdif = generatePdif(ccritratio[1], ccritratio[2], true);
 						finaldmg = finaldmg + base * cpdif;
@@ -245,9 +254,19 @@ end;
 
 function doMagicWeaponskill(attacker, target, params)
 
-    local bonusacc = 0;
+    local bonusacc = 20;
     local bonusfTP = 0;
 
+    if (params.accbonus ~= nil) then
+        bonusacc = bonusacc + params.accbonus;
+    end
+
+    if (params.tpbonus ~= nil) then
+        bonusfTP = bonusfTP + params.tpbonus;
+    end
+    
+    -- magical weaponskills are even more affected by weather / day
+    params.magicweaponskill = 1;
     if (attacker:getObjType() == TYPE_PC) then
         local neck = attacker:getEquipID(SLOT_NECK);
         local belt = attacker:getEquipID(SLOT_WAIST);
@@ -283,15 +302,18 @@ function doMagicWeaponskill(attacker, target, params)
     
     --Applying fTP multiplier
 	local tp = attacker:getTP();
+    
+    --Bonus accuracy for having high TP
+    bonusacc = bonusacc + math.floor(20 * tp / 100) - 20;
+    
 	if attacker:hasStatusEffect(EFFECT_SEKKANOKI) then
 		tp = 100;
 	end
 	local ftp = fTP(tp,params.ftp100,params.ftp200,params.ftp300) + bonusfTP;
     
     dmg = dmg * ftp;
-    
 	dmg = addBonusesAbility(attacker, params.ele, target, dmg, params);
-	dmg = dmg * applyResistanceAbility(attacker,target,params.ele,params.skill, 0);
+	dmg = dmg * applyResistanceAbility(attacker,target,params.ele,params.skill, bonusacc);
 	dmg = target:magicDmgTaken(dmg);
 	dmg = adjustForTarget(target,dmg,params.ele);
     
@@ -627,6 +649,156 @@ function fSTR(atk_str,def_vit,base_dmg)
 	return fSTR2;
 end;
 
+
+
+--Applies resistance for things that may not be spells - ie. Quick Draw
+function applyResistanceWeaponskill(player,target,element,skill,bonus, effect)
+
+	local resist = 1.0;
+	local magicaccbonus = 0;
+
+	if(bonus ~= nil) then
+		magicaccbonus = magicaccbonus + bonus;
+	end
+
+	--get the base acc (just skill plus magic acc mod)
+
+	local magicacc = player:getSkillLevel(skill) + player:getMod(79 + skill) + player:getMod(MOD_MACC);
+
+	if(element > ELE_NONE) then
+		--add acc for staves
+		local affinityBonus = AffinityBonus(player, element);
+		magicaccbonus = magicaccbonus + (affinityBonus-1) * 200;
+
+		local elemAcc = player:getMod(spellAcc[element]);
+		magicaccbonus = magicaccbonus + elemAcc;
+	end
+
+	--base magic evasion (base magic evasion plus resistances(players), plus elemental defense(mobs)
+	local magiceva = target:getMod(MOD_MEVA);
+	if(element > ELE_NONE) then
+		magiceva = magiceva + target:getMod(resistMod[element]);
+	end
+
+	--get the difference of acc and eva, scale with level (3.33 at 10 to 0.44 at 75)
+	local multiplier = 0;
+	if player:getMainLvl() < 40 then
+		multiplier = 100 / 120;
+	else
+		multiplier = 100 / (player:getMainLvl() * 3);
+	end;
+	local p = (magicacc * multiplier) - (magiceva * 0.45);
+	magicaccbonus = magicaccbonus / 2;
+	--add magicacc bonus
+	p = p + magicaccbonus;
+	-- printf("acc: %f, eva: %f, bonus: %f", magicacc, magiceva, magicaccbonus);
+
+	--double any acc over 50 if it's over 50
+	if(p > 5) then
+		p = 5 + (p - 5) * 2;
+	end
+
+	--add a flat bonus that won't get doubled in the previous step
+	p = p + 45;
+
+	--add a scaling bonus or penalty based on difference of targets level from caster
+	local leveldiff = player:getMainLvl() - target:getMainLvl();
+	if(leveldiff < 0) then
+		p = p - (25 * ( (player:getMainLvl()) / 75 )) + leveldiff;
+	else
+		p = p + (25 * ( (player:getMainLvl()) / 75 )) + leveldiff;
+	end
+	--cap accuracy
+	if(p > 95) then
+		p = 95;
+	elseif(p < 5) then
+		p = 5;
+	end
+
+	p = p / 100;
+
+	-- Resistance thresholds based on p.  A higher p leads to lower resist rates, and a lower p leads to higher resist rates.
+	local half = (1 - p);
+
+	if(effect ~= nil and effect > 0) then
+		local effectres = 0;
+		if(effect == EFFECT_SLEEP_I or effect == EFFECT_SLEEP_II or effect == EFFECT_LULLABY) then
+			effectres = MOD_SLEEPRES;
+		elseif(effect == EFFECT_POISON) then
+			effectres = MOD_POISONRES;
+		elseif(effect == EFFECT_PARALYZE) then
+			effectres = MOD_PARALYZERES;
+		elseif(effect == EFFECT_BLIND) then
+			effectres = MOD_BLINDRES
+		elseif(effect == EFFECT_SILENCE) then
+			effectres = MOD_SILENCERES;
+		elseif(effect == EFFECT_PLAGUE or effect == EFFECT_DISEASE) then
+			effectres = MOD_VIRUSRES;
+		elseif(effect == EFFECT_PETRIFICATION) then
+			effectres = MOD_PETRIFYRES;
+		elseif(effect == EFFECT_BIND) then
+			effectres = MOD_BINDRES;
+		elseif(effect == EFFECT_CURSE_I or effect == EFFECT_CURSE_II or effect == EFFECT_BANE) then
+			effectres = MOD_CURSERES;
+		elseif(effect == EFFECT_WEIGHT) then
+			effectres = MOD_GRAVITYRES;
+		elseif(effect == EFFECT_SLOW) then
+			effectres = MOD_SLOWRES;
+		elseif(effect == EFFECT_STUN) then
+			effectres = MOD_STUNRES;
+		elseif(effect == EFFECT_CHARM) then
+			effectres = MOD_CHARMRES;
+		elseif(effect == EFFECT_AMNESIA) then
+			effectres = MOD_AMNESIARES;
+		end
+
+		if(effectres > 0) then
+			local resrate = 1+(target:getMod(effectres)/20);
+			if(resrate > 2.0) then
+				resrate = 2.0;
+			end
+		end
+
+		half = half * resrate;
+		local autoResist = target:getMod(effectres)/25;
+		if (math.random() < autoResist) then
+			return 0;
+		end
+	end
+
+	local quart = half^2;
+	local eighth = half^3;
+	local sixteenth = half^4;
+	print("HALF:",half);
+	print("QUART:",quart);
+	print("EIGHTH:",eighth);
+	print("SIXTEENTH:",sixteenth);
+
+	local resvar = math.random();
+
+	-- Determine final resist based on which thresholds have been crossed.
+	if(resvar <= sixteenth) then
+		resist = 0.0625;
+		--printf("Spell resisted to 1/16!!!  Threshold = %u",sixteenth);
+	elseif(resvar <= eighth) then
+		resist = 0.125;
+		--printf("Spell resisted to 1/8!  Threshold = %u",eighth);
+	elseif(resvar <= quart) then
+		resist = 0.25;
+		--printf("Spell resisted to 1/4.  Threshold = %u",quart);
+	elseif(resvar <= half) then
+		resist = 0.5;
+		--printf("Spell resisted to 1/2.  Threshold = %u",half);
+	else
+		resist = 1.0;
+		--printf("1.0");
+	end
+
+	return resist;
+
+end;
+
+
 --obtains alpha, used for working out WSC
 function getAlpha(level)
     alpha = 1.00;
@@ -679,6 +851,12 @@ end;
 
     local bonusacc = 0;
     local bonusfTP = 0;
+    if (params.accbonus ~= nil) then
+        bonusacc = bonusacc + params.accbonus;
+    end
+    if (params.tpbonus ~= nil) then
+        bonusfTP = bonusfTP + params.tpbonus;
+    end
 
     if (attacker:getObjType() == TYPE_PC) then
         local neck = attacker:getEquipID(SLOT_NECK);

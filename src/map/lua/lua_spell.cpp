@@ -106,6 +106,15 @@ inline int32 CLuaSpell::setAnimation(lua_State* L)
 	return 0;
 }
 
+inline int32 CLuaSpell::setCastTime(lua_State* L)
+{
+	DSP_DEBUG_BREAK_IF(m_PLuaSpell == nullptr);
+	DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+
+	m_PLuaSpell->setCastTime(lua_tonumber(L, 1));
+	return 0;
+}
+
 inline int32 CLuaSpell::setMPCost(lua_State* L)
 {
 	DSP_DEBUG_BREAK_IF(m_PLuaSpell == nullptr);
@@ -222,5 +231,6 @@ Lunar<CLuaSpell>::Register_t CLuaSpell::methods[] =
 	LUNAR_DECLARE_METHOD(CLuaSpell,getSpellGroup),
 	LUNAR_DECLARE_METHOD(CLuaSpell,getFlag),
     LUNAR_DECLARE_METHOD(CLuaSpell,castTime),
+    LUNAR_DECLARE_METHOD(CLuaSpell,setCastTime),
 	{nullptr,nullptr}
 };

@@ -29,7 +29,7 @@
 #include "../party.h"
 #include "../alliance.h"
 #include "../utils/zoneutils.h"
-
+#include <stdio.h>
 
 CPartyDefinePacket::CPartyDefinePacket(CParty* PParty) 
 {
@@ -51,17 +51,45 @@ CPartyDefinePacket::CPartyDefinePacket(CParty* PParty)
 		if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) > 0)
 		{
 			uint8 i = 0;
+            std::vector<CBattleEntity*> allies;
+
 			while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
 			{
 				uint16 targid = 0;
 				CCharEntity* PChar = zoneutils::GetChar(Sql_GetUIntData(SqlHandle, 0));
+                if (PChar != nullptr)
+                {
+                    if (PChar->PAlly.size() > 0)
+                    {
+                        for (auto ally : PChar->PAlly)
+                        {
+                            allies.push_back(ally);
+                        }
+                    }
+                }
 				if (PChar) targid = PChar->targid;
 				WBUFL(data, 12 * i + (0x08) ) = Sql_GetUIntData(SqlHandle, 0);
 				WBUFW(data, 12 * i + (0x0C) ) = targid;
 				WBUFW(data, 12 * i + (0x0E) ) = Sql_GetUIntData(SqlHandle, 1);
                 WBUFW(data, 12 * i + (0x10) ) = Sql_GetUIntData(SqlHandle, 2) ? Sql_GetUIntData(SqlHandle, 2) : Sql_GetUIntData(SqlHandle, 3);
-				i++;
+
+                printf("%d \n", Sql_GetUIntData(SqlHandle, 0));
+				printf("%d \n", Sql_GetUIntData(SqlHandle, 1));
+                printf("%d \n", Sql_GetUIntData(SqlHandle, 2));
+
+                i++;
 			}
+           if (allies.size() > 0)
+           {
+               for (auto ally : allies)
+               {
+                WBUFL(data, 12 * i + (0x08) ) = ally->id;
+				WBUFW(data, 12 * i + (0x0C) ) = ally->targid;
+				WBUFW(data, 12 * i + (0x0E) ) = ally->getZone();
+                WBUFW(data, 12 * i + (0x10) ) = PParty->GetPartyID();
+				i++;
+               }
+           }
 		}
 	}
 }

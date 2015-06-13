@@ -36,6 +36,9 @@ function onUseWeaponSkill(player, target, wsID)
 
 	local damage, tpHits, extraHits = doRangedWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
+	if (target:hasStatusEffect(EFFECT_BURN)) then
+		damage = damage * 1.2;
+	end
 	return tpHits, extraHits, criticalHit, damage;
 
 end

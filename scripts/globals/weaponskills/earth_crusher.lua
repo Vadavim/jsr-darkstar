@@ -26,10 +26,17 @@ function onUseWeaponSkill(player, target, wsID)
 	params.includemab = true;
 
 	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-		params.str_wsc = 0.4; params.int_wsc = 0.4;
+		params.str_wsc = 0.8; params.int_wsc = 0.6;
 	end
 
 	local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, params);
+	local resist = applyResistanceWeaponskill(player, target, ELE_EARTH, SKILL_STF, EFFECT_WEIGHT);
+	if (damage > 0 and resist >= 0.125) then
+		local duration =  60 * player:getTP() / 100;
+		if (target:addStatusEffect(EFFECT_WEIGHT, 75, 0, duration * resist)) then
+            target:setPendingMessage(277, EFFECT_WEIGHT);
+        end
+	end
 	damage = damage * WEAPON_SKILL_POWER
 	return tpHits, extraHits, criticalHit, damage;
 

@@ -20,7 +20,7 @@ require("scripts/globals/weaponskills");
 function onUseWeaponSkill(player, target, wsID)
 
 	local params = {};
-	params.ftp100 = 3.5; params.ftp200 = 3.5; params.ftp300 = 3.5;
+	params.ftp100 = 2.0; params.ftp200 = 3.5; params.ftp300 = 6.0;
 	params.str_wsc = 0.0; params.dex_wsc = 0.0; params.vit_wsc = 0.6; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
 	params.ele = ELE_ICE;
 	params.skill = SKILL_GSD;
@@ -31,12 +31,12 @@ function onUseWeaponSkill(player, target, wsID)
 	end
 
 	local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, params);
-
-	if damage > 0 then
+	local resist = applyResistanceWeaponskill(player, target, ELE_ICE, SKILL_GSD, EFFECT_SLOW);
+	if (damage > 0 and resist >= 0.125) then
 		local tp = player:getTP();
-		local duration = (tp/100 * 3)
-		if(target:hasStatusEffect(EFFECT_SLOW) == false) then
-			target:addStatusEffect(EFFECT_SLOW, 350, 0, duration);
+		local duration = (tp/100 * 60)
+		if(target:addStatusEffect(EFFECT_SLOW, 350, 0, duration * resist)) then
+			target:setPendingMessage(277, EFFECT_SLOW);
 		end
 	end
 	damage = damage * WEAPON_SKILL_POWER

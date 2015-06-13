@@ -1,15 +1,44 @@
+[Hard Slash]
+ - +20% damage against Arcana
+ - If the target is weak against blunt damage, inflicts an extra +20% damage.
+ - Ignores Defense (10% at 1000 TP, 25% at 2000 TP, 50% at 3000 TP).
+
 [Power Slash]
- - On a critical hit, gain +15% Attack bonus for 60 seconds.
+ - On a critical hit, gain +15% Attack bonus and 30/tp per 3 seconds for 60 seconds.
+ - Crit chance is 40% at 1000 TP, 70% at 2000 TP, and 100% at 3000 TP
 
 [Frost Bite]
- - On a hit, applies Frost. Duration varies with TP (30 at 1000 to 90 at 3000).
+ - On a hit, applies Frost. Duration varies with TP (60 at 1000 to 180 at 3000).
+ - Int modifier increased to 80%.
+
+[Shockwave]
+ - Instead inflicts Stun (3 to 9 seconds) and Weight 60 to 180 seconds).
+ - Multipliers are 50% Mnd and 50% Str
+ - Ftp is: 1.5 (1000), 2.5 (2000), 4.0 (2000)
 
 [Freezebite]
- - Applies Paralyze (potency is 25%). Duration varies with TP (30 at 100 to 90 at 3000).
+ - Applies Paralyze (potency is 25%). Duration varies with TP (60 at 100 to 180 at 3000).
+ - fTP changed to: 1.25 (1000), 2.5 (2000), 4 (3000)
+ - Modifiers changed to Str 40% and Int 80%
+
 
 [Crescent Moon]
  - Damage increased by 25% during Waxing/Waning Crescent moon phase.
+ - +20% damage against beasts.
+ - fTP changed to 1.75 (1000), 2.5 (2000), 4 (3000)
+ - Mods changed to 80% Str and 80% Agi
+
+[Sickle Moon]
+ - +20% damage against plantoids.
+ - Can crit (10% at 1000, 25% at 2000, 40% at 3000)
+
+
+
+[Ground Strike]
+ - Petrifies target (3 seconds at 1000 TP, up to 9 seconds at 3000 TP).
 
 [Herculean Slash]
  - Gained at skill level 260
+ - fTP changed to 2 (1000), 3.5 (2000), 6 (3000)
  - Instead inflicts Slow (35%). Duration varies with TP (60 at 1000 to 180 at 3000).
+ - Resistance against Slow is based off of Ice instead of Earth.

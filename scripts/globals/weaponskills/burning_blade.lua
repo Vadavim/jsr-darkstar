@@ -35,12 +35,16 @@ function onUseWeaponSkill(player, target, wsID)
     
 	local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
-    -- add Burn
-    if (damage > 0 and target:getStatusEffect(EFFECT_BURN) == nil) then
+
+	local resist = applyResistanceWeaponskill(player, target, ELE_FIRE, SKILL_SWD);
+    if (damage > 0 and resist >= 0.125)then
         local DOT = math.floor(player:getMainLvl()/5) + 2;
-        local duration = (30 * (player:getTP() / 100));
-        target:addStatusEffect(EFFECT_BURN, DOT, 3, duration, FLAG_ERASBLE);
+        local duration = (60 * (player:getTP() / 100));
+        target:delStatusEffect(EFFECT_FROST);
+        target:addStatusEffect(EFFECT_BURN, DOT, 3, duration * resist);
+        target:setPendingMessage(277, EFFECT_BURN);
     end
+
     
 	return tpHits, extraHits, criticalHit, damage;
 

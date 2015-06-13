@@ -2,13 +2,15 @@
  - Also inflicts Burn. Duration varies with TP (30 at 1000, 90 at 3000).
 
 [Red Lotus Blade]
- - Int Mod increased to 70% (was 40%).
+ - Int Mod increased to 80% (was 40%).
+ - Base fTP is 1.25 (was 1.0)
+ - +20% damage against targets affected by Burn.
 
 [Flat Blade]
  - On a successful stun, also inflicts Addle (-30% casting speed and -30 MACC) for 60 seconds.
 
 [Shining Blade]
- - Increased Mnd modifier to 70% (was 40%)
+ - Increased Mnd modifier to 100% (was 40%)
 
 [Seraph Blade]
  - On a successful hit, grants self a potent regen (1 + level / 3). 

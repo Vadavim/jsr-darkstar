@@ -28,8 +28,8 @@ function onUseWeaponSkill(player, target, wsID)
 	params.atkmulti = 1;
 
 	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-		params.ftp100 = 1.5; params.ftp200 = 1.75; params.ftp300 = 2.75;
-		params.str_wsc = 0.8;
+		params.ftp100 = 1.75; params.ftp200 = 2.5; params.ftp300 = 4.0;
+		params.str_wsc = 0.8; params.agi_wsc = 0.8;
 	end
 
     
@@ -41,6 +41,9 @@ function onUseWeaponSkill(player, target, wsID)
     local moon = VanadielMoonPhase();
     if (moon > 10 and moon < 40) then
         damage = damage * 1.25;
+    end
+    if (target:isMob() and target:getSystem() == SYSTEM_BEAST) then
+        damage = damage * 1.2;
     end
     
 	return tpHits, extraHits, criticalHit, damage;

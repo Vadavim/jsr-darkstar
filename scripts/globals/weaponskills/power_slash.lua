@@ -20,8 +20,8 @@ function onUseWeaponSkill(player, target, wsID)
 	params.ftp100 = 1; params.ftp200 = 1; params.ftp300 = 1;
 	--wscs are in % so 0.2=20%
 	params.str_wsc = 0.2; params.dex_wsc = 0.0; params.vit_wsc = 0.2; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
-	--critical mods, again in % (ONLY USE FOR CRITICAL HIT VARIES WITH TP)
-	params.crit100 = 0.2; params.crit200=0.4; params.crit300=0.6;
+	--critical mods, aain in % (ONLY USE FOR CRITICAL HIT VARIES WITH TP)
+	params.crit100 = 0.4; params.crit200=0.75; params.crit300=1.0;
 	params.canCrit = true;
 	--accuracy mods (ONLY USE FOR ACCURACY VARIES WITH TP) , should be the acc at those %s NOT the penalty values. Leave 0 if acc doesnt vary with tp.
 	params.acc100 = 0; params.acc200=0; params.acc300=0;
@@ -33,12 +33,15 @@ function onUseWeaponSkill(player, target, wsID)
 	end
 
 	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
-	damage = damage * WEAPON_SKILL_POWER
-    
-    if (damage > 0 and criticalHit and player:hasStatusEffect(EFFECT_ATTACK_BOOST) == false) then
+	damage = damage * WEAPON_SKILL_POWER;
+    print(tostring(criticalHit));
+    if (damage > 0 and criticalHit == true and player:hasStatusEffect(EFFECT_ATTACK_BOOST) == false) then
         player:addStatusEffect(EFFECT_ATTACK_BOOST, 15, 0, 60);
-        end
+    end
     
+    if (damage > 0 and criticalHit == true and player:hasStatusEffect(EFFECT_REGAIN) == false) then
+        player:addStatusEffect(EFFECT_REGAIN, 3, 3, 60);
+    end
     
 	return tpHits, extraHits, criticalHit, damage;
 end

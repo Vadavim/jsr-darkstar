@@ -783,7 +783,7 @@ namespace petutils
     void SpawnAlly(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone)
     {
         //Check to see if in full party
-        uint16 partySize = 1 + PMaster->PAlly.size();
+        uint16 partySize = PMaster->PAlly.size();
 
         if (PMaster->PParty != nullptr)
         {
@@ -792,6 +792,10 @@ namespace petutils
                 CBattleEntity* PPartyMember = PMaster->PParty->members[i];
                 partySize = partySize + 1 + PPartyMember->PAlly.size();             
             }
+        }
+		else
+        {
+			partySize += 1;
         }
         
         if (partySize > 6)
@@ -803,6 +807,9 @@ namespace petutils
             PMaster->PAlly[2]->PBattleAI->SetCurrentAction(ACTION_FALL);
             PMaster->PAlly.pop_back();
         }
+        if (PMaster->PParty == nullptr)
+            PMaster->PParty = new CParty(PMaster);
+
         
         CPetEntity* PAlly = LoadAlly(PMaster, PetID, spawningFromZone);
         PAlly->allegiance = PMaster->allegiance;
@@ -813,6 +820,7 @@ namespace petutils
         PAlly->PMaster = PMaster;
 
         PMaster->loc.zone->InsertPET(PAlly);
+        PMaster->PParty->ReloadParty();
 
     }
 

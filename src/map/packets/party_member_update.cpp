@@ -30,6 +30,7 @@ This file is part of DarkStar-server source code.
 #include "../entities/charentity.h"
 #include "../alliance.h"
 #include "../party.h"
+#include <stdio.h>
 
 CPartyMemberUpdatePacket::CPartyMemberUpdatePacket(CCharEntity* PChar, uint8 MemberNumber, uint16 ZoneID)
 {
@@ -58,6 +59,7 @@ CPartyMemberUpdatePacket::CPartyMemberUpdatePacket(CCharEntity* PChar, uint8 Mem
         WBUFB(data, (0x1A) ) = MemberNumber;
         WBUFB(data, (0x1D) ) = PChar->GetHPP();
         WBUFB(data, (0x1E) ) = PChar->GetMPP();
+        printf("MemberID: %d", MemberNumber);
 
         if (!(PChar->nameflags.flags & FLAG_ANON))
         {
@@ -70,12 +72,43 @@ CPartyMemberUpdatePacket::CPartyMemberUpdatePacket(CCharEntity* PChar, uint8 Mem
 
     memcpy(data + (0x26) , PChar->GetName(), PChar->name.size());
 }
+
+CPartyMemberUpdatePacket::CPartyMemberUpdatePacket(CBattleEntity* PAlly, uint8 MemberNumber, uint16 ZoneID)
+{
+    this->type = 0xDD;
+    this->size = 0x20;
+
+    DSP_DEBUG_BREAK_IF(PAlly == nullptr);
+
+    WBUFL(data, (0x04) ) = PAlly->id;
+    printf("AllyMember: %d \n", MemberNumber);
+    printf("Ally HP: %d \n", PAlly->health.hp);
+
+    printf("Ally targid: %d \n", PAlly->targid);
+    printf("Ally id: %d \n", PAlly->id);
+
+    WBUFL(data, (0x08) ) = PAlly->health.hp;
+    WBUFL(data, (0x0C) ) = PAlly->health.mp;
+    WBUFW(data, (0x10) ) = PAlly->health.tp;
+    WBUFW(data, (0x18) ) = PAlly->targid;
+	WBUFB(data, (0x1A)) = MemberNumber;
+    WBUFB(data, (0x1D) ) = PAlly->GetHPP();
+    WBUFB(data, (0x1E) ) = PAlly->GetMPP();
+    WBUFB(data, (0x22) ) = PAlly->GetMJob();
+    WBUFB(data, (0x23) ) = PAlly->GetMLevel();
+    WBUFB(data, (0x24) ) = PAlly->GetSJob();
+    WBUFB(data, (0x25) ) = PAlly->GetSLevel();
+
+
+	
+	memcpy(data + (0x26) , PAlly->GetName(), PAlly->name.size());
+}
+
 CPartyMemberUpdatePacket::CPartyMemberUpdatePacket(uint32 id, const int8* name, uint16 memberFlags, uint8 ZoneID)
 {
 
 	this->type = 0xDD;
 	this->size = 0x20;
-
 	WBUFL(data, (0x04) ) = id;
 
 	WBUFW(data, (0x14) ) = memberFlags;

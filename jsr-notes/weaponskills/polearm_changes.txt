@@ -2,13 +2,17 @@
  - Inflicts Shock. TP varies with duration (30 at 1000 to 90 at 3000).
 
 [Raiden Thrust]
- - Modifiers changed to: Str (40%) and Dex (60%)
+ - Modifiers changed to: Str (60%) and Dex (60%)
+ - fTP changed to 1.5 (1000), 3.5 (2000), 6.5 (3000)
+ - +20% damage when target is Shocked.
 
 [Leg Sweep]
- - On a successful stun, also inflicts -20 evasion for 60 seconds.
+ - On a successful stun, also inflicts fWeight for 60 seconds.
 
 [Vorpal Thrust]
  - On a successful hit, also gives self a +10% critical hit chance bonus. Duration varies with TP (30 at 1000 to 90 at 3000).
+ - Base fTP is 1.75.
+ - +20% damage against beastmen and humanoids.
 
 [Skewer]
  - On a critical hit, total damage is increased by 25%.

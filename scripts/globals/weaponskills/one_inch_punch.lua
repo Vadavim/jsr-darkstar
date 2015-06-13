@@ -38,6 +38,13 @@ function onUseWeaponSkill(player, target, wsID)
 
 	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
+	local resist = applyResistanceWeaponskill(player, target,ELE_LIGHT, SKILL_H2H);
+    if (damage > 0 and resist > 0.125) then
+        local effect = target:dispelStatusEffect();
+		if effect ~= nil then
+			target:setPendingMessage(168, effect:getType());
+		end
+    end
 	return tpHits, extraHits, criticalHit, damage;
 
 end

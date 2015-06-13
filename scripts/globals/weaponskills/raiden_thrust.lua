@@ -19,18 +19,20 @@ require("scripts/globals/weaponskills");
 function onUseWeaponSkill(player, target, wsID)
 
 	local params = {};
-	params.ftp100 = 1; params.ftp200 = 2; params.ftp300 = 3;
+	params.ftp100 = 1.5; params.ftp200 = 3.5; params.ftp300 = 6.5;
 	params.str_wsc = 0.0; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
 	params.ele = ELE_LIGHTNING;
 	params.skill = SKILL_POL;
 	params.includemab = true;
-
 	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-		params.str_wsc = 0.4; params.dex_wsc = 0.6;
+		params.str_wsc = 0.6; params.dex_wsc = 0.6;
 	end
 
 	local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
+	if (target:hasStatusEffect(EFFECT_SHOCK)) then
+		damage = damage * 1.2;
+	end
 	return tpHits, extraHits, criticalHit, damage;
 
 end

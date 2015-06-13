@@ -3169,7 +3169,15 @@ namespace charutils
                             int8 diffLevel = PMob->GetMLevel() - (PMember->GetMLevel() + 6);
                             exp *= (1.0f + ((float)diffLevel) * 0.1);
                         }
-                        
+
+                        // implement variety bonus +15% XP
+                        if (PMember->GetLocalVar("LastFamily") != 0 && PMember->GetLocalVar("LastFamily") !=
+                                PMob->m_Family) {
+                            exp *= 1.15f;
+                            PMember->SetLocalVar("LastFamily", PMob->m_Family);
+                        }
+                        else
+                            PMember->SetLocalVar("LastFamily", PMob->m_Family);
                         
                         if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) || PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SANCTION))
                         {
@@ -3401,7 +3409,16 @@ namespace charutils
                             int8 diffLevel = PMob->GetMLevel() - (PChar->GetMLevel() + 6);
                             exp *= (1.0f + ((float)diffLevel) * 0.1);
                         }
-            
+
+            // implement variety bonus +15% XP
+			if (PChar->GetLocalVar("LastFamily") != 0 && PChar->GetLocalVar("LastFamily") !=
+                                                           PMob->m_Family) {
+                exp *= 1.15f;
+				PChar->SetLocalVar("LastFamily", PMob->m_Family);
+            }
+            else
+				PChar->SetLocalVar("LastFamily", PMob->m_Family);
+
 
             if (PMob->getMobMod(MOBMOD_EXP_BONUS))
             {

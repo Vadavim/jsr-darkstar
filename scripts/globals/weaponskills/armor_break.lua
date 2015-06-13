@@ -18,6 +18,7 @@
 require("scripts/globals/status");
 require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
+require("scripts/globals/magic");
 -----------------------------------
 
 function onUseWeaponSkill(player, target, wsID)
@@ -35,12 +36,13 @@ function onUseWeaponSkill(player, target, wsID)
 		params.str_wsc = 0.6; params.vit_wsc = 0.6;
 	end
 
-		local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
-	if damage > 0 then
+	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
+	local resist = applyResistanceWeaponskill(player, target, ELE_WIND, SKILL_GAX);
+	if (damage > 0 and resist >= 0.125) then
 		local tp = player:getTP();
 		local duration = (tp/100 * 70) + 60;
-		if(target:hasStatusEffect(EFFECT_DEFENSE_DOWN) == false) then
-			target:addStatusEffect(EFFECT_DEFENSE_DOWN, 25, 0, duration);
+		if(target:addStatusEffect(EFFECT_DEFENSE_DOWN, 25, 0, duration * resist)) then
+			target:setPendingMessage(277, EFFECT_DEFENSE_DOWN);
 		end
 	end
 	damage = damage * WEAPON_SKILL_POWER

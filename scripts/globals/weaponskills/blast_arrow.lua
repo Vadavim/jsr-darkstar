@@ -28,16 +28,19 @@ function onUseWeaponSkill(player, target, wsID)
 	params.atkmulti = 1;
 
 	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-		params.str_wsc = 0.20; params.agi_wsc = 0.50;
+		params.str_wsc = 0.50; params.agi_wsc = 0.50;
 	end
 
 	local damage, tpHits, extraHits = doRangedWeaponskill(player, target, params);
     
     -- add Rasp
-    if (damage > 0 and target:getStatusEffect(EFFECT_RASP) == nil) then
+	local resist = applyResistanceWeaponskill(player, target, ELE_EARTH, SKILL_ARC);
+    if (damage > 0 and resist >= 0.125) then
         local DOT = math.floor(player:getMainLvl()/5) + 2;
-        local duration = (30 * (player:getTP() / 100));
-        target:addStatusEffect(EFFECT_RASP, DOT, 3, duration, FLAG_ERASBLE);
+        local duration = (60 * (player:getTP() / 100));
+        target:delStatusEffect(EFFECT_SHOCK);
+        target:setPendingMessage(277, EFFECT_RASP);
+        target:addStatusEffect(EFFECT_RASP, DOT, 3, duration * resist);
     end
     
 	damage = damage * WEAPON_SKILL_POWER

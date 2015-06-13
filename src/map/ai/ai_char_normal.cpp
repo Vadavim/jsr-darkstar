@@ -2530,6 +2530,7 @@ void CAICharNormal::ActionWeaponSkillFinish()
 
     damage = luautils::OnUseWeaponSkill(m_PChar, m_PBattleSubTarget, &tpHitsLanded, &extraHitsLanded);
 
+
     if (m_PChar->StatusEffectContainer->HasStatusEffect(EFFECT_MEIKYO_SHISUI))
     {
         m_PChar->addTP(-1000 - bonusTp);
@@ -2695,6 +2696,17 @@ void CAICharNormal::ActionWeaponSkillFinish()
     }
 
     m_PChar->m_ActionList.push_back(Action);
+    if (m_PBattleSubTarget->GetLocalVar("PendingEffectID") != 0)
+    {
+		apAction_t addedAction;
+		addedAction.messageID = m_PBattleSubTarget->GetLocalVar("PendingEffectID");
+		addedAction.ActionTarget = m_PBattleSubTarget;
+		addedAction.param = m_PBattleSubTarget->GetLocalVar("PendingEffectParam");
+		m_PChar->m_ActionList.push_back(addedAction);
+		m_PChar->loc.zone->PushPacket(m_PChar, CHAR_INRANGE_SELF, new CActionPacket(m_PChar));
+		m_PBattleSubTarget->SetLocalVar("PendingEffectID", 0);
+		m_PBattleSubTarget->SetLocalVar("PendingEffectParam", 0);
+    }
 
     if (m_PWeaponSkill->isAoE())
     {
@@ -2752,6 +2764,19 @@ void CAICharNormal::ActionWeaponSkillFinish()
 
             m_PChar->health.tp = afterWsTP;
             m_PChar->m_ActionList.push_back(Action);
+
+			if (PTarget->GetLocalVar("PendingEffectID") != 0)
+			{
+				apAction_t addedAction;
+				addedAction.messageID = PTarget->GetLocalVar("PendingEffectID");
+				addedAction.ActionTarget = PTarget;
+				addedAction.param = PTarget->GetLocalVar("PendingEffectParam");
+				m_PChar->m_ActionList.push_back(addedAction);
+				m_PChar->loc.zone->PushPacket(m_PChar, CHAR_INRANGE_SELF, new CActionPacket(m_PChar));
+				PTarget->SetLocalVar("PendingEffectID", 0);
+				PTarget->SetLocalVar("PendingEffectParam", 0);
+			}
+
         }
     }
 

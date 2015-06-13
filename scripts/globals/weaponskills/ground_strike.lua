@@ -28,6 +28,16 @@ function onUseWeaponSkill(player, target, wsID)
 	params.atkmulti = 1.75;
 
 	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
-	damage = damage * WEAPON_SKILL_POWER
+	local resist = applyResistanceWeaponskill(player, target, ELE_EARTH, SKILL_GSD, EFFECT_PETRIFICATION);
+	damage = damage * WEAPON_SKILL_POWER;
+    
+    -- add Petrify
+    if (damage > 0 and resist >= 0.125) then
+        local duration = (3 * (player:getTP() / 100));
+        if (target:addStatusEffect(EFFECT_PETRIFICATION, 1, 0, duration * resist)) then
+			target:setPendingMessage(277, EFFECT_PETRIFICATION);
+        end
+    end
+    
 	return tpHits, extraHits, criticalHit, damage;
 end

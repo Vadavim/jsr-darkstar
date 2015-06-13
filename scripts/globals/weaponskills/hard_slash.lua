@@ -24,6 +24,11 @@ function onUseWeaponSkill(player, target, wsID)
 	params.acc100 = 0; params.acc200=0; params.acc300=0;
 	--attack multiplier (only some WSes use this, this varies the actual ratio value, see Tachi: Kasha) 1 is default.
 	params.atkmulti = 1;
+    
+    params.ignoresDef = true;
+	params.ignored100 = 0.1;
+	params.ignored200 = 0.25;
+	params.ignored300 = 0.5;
 
 	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
 		params.str_wsc = 1.0;
@@ -31,5 +36,11 @@ function onUseWeaponSkill(player, target, wsID)
 
 	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
+    if (target:isMob() and target:getSystem() == SYSTEM_ARCANA) then
+        damage = damage * 1.2;
+    end
+    if (target:isMob() and target:getMod(MOD_IMPACTRES) < 0) then
+        damage = damage * 1.2;
+    end
 	return tpHits, extraHits, criticalHit, damage;
 end

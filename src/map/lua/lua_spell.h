@@ -63,6 +63,7 @@ public:
     int32 getSpellGroup(lua_State*);
 	int32 getFlag(lua_State*);
     int32 castTime(lua_State*);
+    int32 setCastTime(lua_State* L);
 };
 
 #endif

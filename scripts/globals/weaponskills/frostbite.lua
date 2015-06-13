@@ -26,18 +26,21 @@ function onUseWeaponSkill(player, target, wsID)
 	params.includemab = true;
 
 	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-		params.str_wsc = 0.4; params.int_wsc = 0.4;
+		params.str_wsc = 0.4; params.int_wsc = 0.8;
 	end
 
 	local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
     
     -- add Frost
-    if (damage > 0 and target:getStatusEffect(EFFECT_FROST) == nil) then
-        local DOT = math.floor(player:getMainLvl()/5) + 2;
-        local duration = (30 * (player:getTP() / 100));
-        target:addStatusEffect(EFFECT_FROST, DOT, 3, duration, FLAG_ERASBLE);
-    end
+	local resist = applyResistanceWeaponskill(player, target, ELE_ICE, SKILL_GSD);
+	if (damage > 0 and resist >= 0.125)then
+		local DOT = math.floor(player:getMainLvl()/5) + 2;
+		local duration = (60 * (player:getTP() / 100));
+		target:delStatusEffect(EFFECT_CHOKE);
+		target:addStatusEffect(EFFECT_FROST, DOT, 3, duration * resist);
+		target:setPendingMessage(277, EFFECT_FROST);
+	end
     
     
 	return tpHits, extraHits, criticalHit, damage;

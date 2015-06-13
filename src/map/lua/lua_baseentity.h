@@ -600,6 +600,7 @@ public:
     int32 applyConfrontationToParty(lua_State* L);
     int32 removeConfrontationFromParty(lua_State* L);
     int32 dieWithNoReward(lua_State*);
+    int32 setPendingMessage(lua_State* L);
 
     int32 setElevator(lua_State* L);
 

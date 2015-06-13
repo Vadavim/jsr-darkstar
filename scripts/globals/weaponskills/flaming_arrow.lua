@@ -28,19 +28,22 @@ function onUseWeaponSkill(player, target, wsID)
 	params.atkmulti = 1;
 
 	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-		params.ftp100 = 0.5; params.ftp200 = 0.75; params.ftp300 = 1;
-		params.str_wsc = 0.2; params.agi_wsc = 0.5;
+		params.ftp100 = 1.0; params.ftp200 = 2.5; params.ftp300 = 4;
+		params.mnd_wsc = 0.8; params.agi_wsc = 0.4;
 	end
 
 	local damage, tpHits, extraHits = doRangedWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
     
     -- add Burn
-    if (damage > 0 and target:getStatusEffect(EFFECT_BURN) == nil) then
-        local DOT = math.floor(player:getMainLvl()/5) + 2;
-        local duration = (30 * (player:getTP() / 100));
-        target:addStatusEffect(EFFECT_BURN, DOT, 3, duration, FLAG_ERASBLE);
-    end
+	local resist = applyResistanceWeaponskill(player, target, ELE_FIRE, SKILL_ARC);
+	if (damage > 0 and resist >= 0.125)then
+		local DOT = math.floor(player:getMainLvl()/5) + 2;
+		local duration = (60 * (player:getTP() / 100));
+		target:delStatusEffect(EFFECT_FROST);
+		target:addStatusEffect(EFFECT_BURN, DOT, 3, duration * resist);
+		target:setPendingMessage(277, EFFECT_BURN);
+	end
     
 	return tpHits, extraHits, criticalHit, damage;
 

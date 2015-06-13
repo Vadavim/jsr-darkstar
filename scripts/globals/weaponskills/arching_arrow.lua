@@ -33,7 +33,7 @@ function onUseWeaponSkill(player, target, wsID)
 	end
 
 	local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, params);
-	damage = damage * WEAPON_SKILL_POWER
+	damage = damage * WEAPON_SKILL_POWER;
     
     -- lower enmity
     if (damage > 0) then
@@ -42,4 +42,4 @@ function onUseWeaponSkill(player, target, wsID)
     end
 	return tpHits, extraHits, criticalHit, damage;
 
-end
+end;

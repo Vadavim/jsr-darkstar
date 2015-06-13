@@ -1,0 +1,35 @@
+[Rock Crusher]
+ - On a hit, inflicts Rasp. Duration varies with TP (30 at 1000 to 90 at 3000).
+
+[Earth Crusher]
+ - Modifiers increased to 80% Str and 60% Int
+ - Inflicts Weight. Duration varies with TP (60 at 1000 to 180 at 3000).
+
+[Starburst]
+ - Element is either Light or Dark, whichever the target is weak to. Otherwise it's random.
+ - fTP is 1.25 (1000), 2.5 (2000), 3.5 (3000)
+ - Modifiers are 50% Int and 50% Mnd
+ - Dispels one magical deffect.
+
+[Sunburst]
+  - Element is either Light or Dark, whichever the target is weak to. Otherwise it's random.
+  - Modifiers are 50% Int and 50% Mnd.
+  - +20% damage against demons and undead.
+  - Heals HP equal to 50% of the damage dealt.
+
+[Shell Crusher]
+ - +20% damage against Aquans.
+
+[Full Swing]
+ - fTP is 2 (1000), 4 (2000), 7.5 (3000).
+ - Attack is more accurate (+20 accuracy).
+
+[Spirit Taker]
+ - Mods are 80% Int and 80% Mnd
+
+[Retribution]
+ - Damage is increased by 1% per 1% of missing HP.
+
+[Cataclysm]
+ - Gained at skill level 260
+- Mods are Int 60% and Mnd 60%.

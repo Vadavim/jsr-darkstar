@@ -56,6 +56,7 @@ CBattleEntity::CBattleEntity()
     PParty    = nullptr;
 	PMaster   = nullptr;
 
+
 	StatusEffectContainer = new CStatusEffectContainer(this);
 
 	m_modStat[MOD_SLASHRES]  = 1000;
@@ -557,7 +558,7 @@ uint16 CBattleEntity::ATT()
 
 uint16 CBattleEntity::RATT(uint8 skill, uint16 bonusSkill)
 {
-    int32 ATT = 8 + GetSkill(skill) + bonusSkill + m_modStat[MOD_RATT] + battleutils::GetRangedAttackBonuses(this) + STR() / 2;
+    int32 ATT = 8 + GetSkill(skill) + bonusSkill + m_modStat[MOD_RATT] + battleutils::GetRangedAttackBonuses(this) + (STR() * 3) / 2;
 
     if (this->objtype == TYPE_PET && ((CPetEntity*)this)->getPetType() == PETTYPE_AUTOMATON)
     {
@@ -579,7 +580,7 @@ uint16 CBattleEntity::RACC(uint8 skill, uint16 bonusSkill)
     }
     acc += getMod(MOD_RACC);
     acc += battleutils::GetRangedAccuracyBonuses(this);
-    acc += AGI() / 2;
+    acc += (AGI() * 3) / 2;
     if (this->objtype == TYPE_PET && ((CPetEntity*)this)->getPetType() == PETTYPE_AUTOMATON)
     {
         acc += ((CCharEntity*)PMaster)->PMeritPoints->GetMeritValue(MERIT_FINE_TUNING, (CCharEntity*)PMaster);
@@ -1130,14 +1131,14 @@ CBattleEntity* CBattleEntity::getRecentAlly()
 
 bool CBattleEntity::isUniqueAlly(uint32 petID)
 {
-    if (PAlly.size() == 0)
-        return true;
-    for (auto ally : PAlly)
-    {
-        if (((CPetEntity*)ally)->m_PetID == petID)
-            return false;
-    }
-    
+	if (PAlly.size() > 0)
+	{
+		for (auto ally : PAlly)
+		{
+			if (((CPetEntity*)ally)->m_PetID == petID)
+				return false;
+		}
+	}
     if (PParty != nullptr)
     {
         for (auto PMember : PParty->members)

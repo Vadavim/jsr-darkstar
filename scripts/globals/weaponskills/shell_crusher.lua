@@ -34,15 +34,20 @@ function onUseWeaponSkill(player, target, wsID)
 	end
 
 	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
-
-	if damage > 0 then
+	local resist = applyResistanceWeaponskill(player, target, ELE_WIND, SKILL_STF);
+	if (damage > 0 and resist >= 0.125) then
 		local tp = player:getTP();
 		local duration = (tp/100 * 60) + 120;
-		if(target:hasStatusEffect(EFFECT_DEFENSE_DOWN) == false) then
-			target:addStatusEffect(EFFECT_DEFENSE_DOWN, 25, 0, duration);
+		if(target:addStatusEffect(EFFECT_DEFENSE_DOWN, 25, 0, duration * resist)) then
+			target:setPendingMessage(277, EFFECT_DEFENSE_DOWN);
 		end
 	end
 	damage = damage * WEAPON_SKILL_POWER
+
+	if (target:isMob() and target:getSystem() == SYSTEM_AQUAN) then
+		damage = damage * 1.20;
+	end
+
 	return tpHits, extraHits, criticalHit, damage;
 
 end

@@ -21,13 +21,13 @@ require("scripts/globals/weaponskills");
 function onUseWeaponSkill(player, target, wsID)
 
 	local params = {};
-	params.numHits = 2;
+	params.numHits = 1;
 	params.ftp100 = 2.5; params.ftp200 = 2.75; params.ftp300 = 3;
 	params.str_wsc = 0.2; params.dex_wsc = 0.0; params.vit_wsc = 0.5; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
 	params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
 	params.canCrit = false;
 	params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
-	params.atkmulti = 1;
+	params.atkmulti = 1.5;
 
 	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
 		params.ftp200 = 4.75; params.ftp300 = 8;
@@ -36,12 +36,10 @@ function onUseWeaponSkill(player, target, wsID)
 
 	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
-    
-    --add Attack Boost
-    if (damage > 0 and player:hasStatusEffect(EFFECT_ATTACK_BOOST) == false) then
-        local duration = 30 * (player:getTP() / 100);
-        player:addStatusEffect(EFFECT_ATTACK_BOOST, 15, 0, duration);
+    if (target:isMob() and target:getSystem() == SYSTEM_BIRD) then
+        damage = damage * 1.2;
     end
+    
     
 	return tpHits, extraHits, criticalHit, damage;
 

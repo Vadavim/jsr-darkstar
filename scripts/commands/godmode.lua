@@ -16,12 +16,12 @@ function onTrigger(player)
 
         -- Add bonus effects to the player..
         player:addStatusEffect(EFFECT_MAX_HP_BOOST,1000,0,0);
-        player:addStatusEffect(EFFECT_MAX_MP_BOOST,1000,0,0);
-        player:addStatusEffect(EFFECT_HUNDRED_FISTS,1,0,0);
+        --player:addStatusEffect(EFFECT_MAX_MP_BOOST,1000,0,0);
+        --player:addStatusEffect(EFFECT_HUNDRED_FISTS,1,0,0);
         player:addStatusEffect(EFFECT_CHAINSPELL,1,0,0);
         player:addStatusEffect(EFFECT_MANAFONT,1,0,0);
-        player:addStatusEffect(EFFECT_REGAIN,150,1,0);
-        player:addStatusEffect(EFFECT_REFRESH,99,0,0);
+        --player:addStatusEffect(EFFECT_REGAIN,150,1,0);
+        --player:addStatusEffect(EFFECT_REFRESH,99,0,0);
         player:addStatusEffect(EFFECT_REGEN,99,0,0);
 
         -- Add bonus mods to the player..
@@ -44,12 +44,12 @@ function onTrigger(player)
 
         -- Remove bonus effects..
         player:delStatusEffect(EFFECT_MAX_HP_BOOST);
-        player:delStatusEffect(EFFECT_MAX_MP_BOOST);
-        player:delStatusEffect(EFFECT_HUNDRED_FISTS);
+        --player:delStatusEffect(EFFECT_MAX_MP_BOOST);
+        --player:delStatusEffect(EFFECT_HUNDRED_FISTS);
         player:delStatusEffect(EFFECT_CHAINSPELL);
         player:delStatusEffect(EFFECT_MANAFONT);
-        player:delStatusEffect(EFFECT_REGAIN);
-        player:delStatusEffect(EFFECT_REFRESH);
+        --player:delStatusEffect(EFFECT_REGAIN);
+        --player:delStatusEffect(EFFECT_REFRESH);
         player:delStatusEffect(EFFECT_REGEN);
 
         -- Remove bonus mods..

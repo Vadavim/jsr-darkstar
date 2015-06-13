@@ -400,7 +400,7 @@ function applyResistance(player,spell,target,diff,skill,bonus)
 
 
 	--double any acc over 50 if it's over 50
-	if(p > 5) then
+if(p > 5) then
 		p = 5 + (p - 5) * 2;
 	end
 
@@ -666,7 +666,7 @@ function applyResistanceEffect(player,spell,target,diff,skill,bonus,effect)
 end;
 
 --Applies resistance for things that may not be spells - ie. Quick Draw
-function applyResistanceAbility(player,target,element,skill,bonus)
+function applyResistanceAbility(player,target,element,skill,bonus, effect)
 
     local resist = 1.0;
     local magicaccbonus = 0;
@@ -739,13 +739,60 @@ function applyResistanceAbility(player,target,element,skill,bonus)
 
     -- Resistance thresholds based on p.  A higher p leads to lower resist rates, and a lower p leads to higher resist rates.
     local half = (1 - p);
-    local quart = ((1 - p)^2);
-    local eighth = ((1 - p)^3);
-    local sixteenth = ((1 - p)^4);
-    -- print("HALF:",half);
-    -- print("QUART:",quart);
-    -- print("EIGHTH:",eighth);
-    -- print("SIXTEENTH:",sixteenth);
+
+	if(effect ~= nil and effect > 0) then
+		local effectres = 0;
+		if(effect == EFFECT_SLEEP_I or effect == EFFECT_SLEEP_II or effect == EFFECT_LULLABY) then
+			effectres = MOD_SLEEPRES;
+		elseif(effect == EFFECT_POISON) then
+			effectres = MOD_POISONRES;
+		elseif(effect == EFFECT_PARALYZE) then
+			effectres = MOD_PARALYZERES;
+		elseif(effect == EFFECT_BLIND) then
+			effectres = MOD_BLINDRES
+		elseif(effect == EFFECT_SILENCE) then
+			effectres = MOD_SILENCERES;
+		elseif(effect == EFFECT_PLAGUE or effect == EFFECT_DISEASE) then
+			effectres = MOD_VIRUSRES;
+		elseif(effect == EFFECT_PETRIFICATION) then
+			effectres = MOD_PETRIFYRES;
+		elseif(effect == EFFECT_BIND) then
+			effectres = MOD_BINDRES;
+		elseif(effect == EFFECT_CURSE_I or effect == EFFECT_CURSE_II or effect == EFFECT_BANE) then
+			effectres = MOD_CURSERES;
+		elseif(effect == EFFECT_WEIGHT) then
+			effectres = MOD_GRAVITYRES;
+		elseif(effect == EFFECT_SLOW) then
+			effectres = MOD_SLOWRES;
+		elseif(effect == EFFECT_STUN) then
+			effectres = MOD_STUNRES;
+		elseif(effect == EFFECT_CHARM) then
+			effectres = MOD_CHARMRES;
+		elseif(effect == EFFECT_AMNESIA) then
+			effectres = MOD_AMNESIARES;
+		end
+
+		if(effectres > 0) then
+			local resrate = 1+(target:getMod(effectres)/20);
+			if(resrate > 2.0) then
+				resrate = 2.0;
+			end
+        end
+
+        half = half * resrate;
+        local autoResist = target:getMod(effectres)/25;
+        if (math.random() < autoResist) then
+            return 0;
+        end
+	end
+
+	local quart = half^2;
+    local eighth = half^3;
+    local sixteenth = half^4;
+    print("HALF:",half);
+    print("QUART:",quart);
+    print("EIGHTH:",eighth);
+    print("SIXTEENTH:",sixteenth);
 
     local resvar = math.random();
 
@@ -788,7 +835,7 @@ function applyResistanceAddEffect(player,target,element,bonus)
 	local affinityBonus = AffinityBonus(player, element);
 	magicaccbonus = magicaccbonus + (affinityBonus-1) * 200;
     if (element > ELE_NONE) then
-        local elemAcc = caster:getMod(spellAcc[element]);
+        local elemAcc = player:getMod(spellAcc[element]);
         magicaccbonus = magicaccbonus + elemAcc;
     end
 	--base magic evasion (base magic evasion plus resistances(players), plus elemental defense(mobs)
@@ -1314,6 +1361,9 @@ function addBonusesAbility(caster, ele, target, dmg, params)
     end
 	local speciesReduction = target:getMod(defenseMod[ele]);
 	speciesReduction = 1.00 - (speciesReduction/1000);
+    if (params.magicweaponskill ~= nil and speciesReduction > 1.0) then
+        dmg = dmg * 1.1;
+    end
 	dmg = math.floor(dmg * speciesReduction);
 
 	local dayWeatherBonus = 1.00;
@@ -1331,10 +1381,16 @@ function addBonusesAbility(caster, ele, target, dmg, params)
 		if(math.random() < 0.33 or equippedWaist == elementalObi[ele] ) then
 			dayWeatherBonus = dayWeatherBonus + 0.10;
 		end
+        if (params.magicweaponskill ~= nil) then
+            dayWeatherBonus = dayWeatherBonus + 0.10;
+        end
 	elseif(caster:getWeather() == singleWeatherWeak[ele]) then
 		if(math.random() < 0.33 or equippedWaist == elementalObiWeak[ele] ) then
 			dayWeatherBonus = dayWeatherBonus - 0.10;
 		end
+        if (params.magicweaponskill ~= nil) then
+            dayWeatherBonus = dayWeatherBonus - 0.10;
+        end
 	elseif(weather == doubleWeatherStrong[ele]) then
 		-- Iridescence
 		if(equippedMain == 18632 or equippedMain == 18633) then
@@ -1345,14 +1401,23 @@ function addBonusesAbility(caster, ele, target, dmg, params)
 		if(math.random() < 0.33 or equippedWaist == elementalObi[ele] ) then
 			dayWeatherBonus = dayWeatherBonus + 0.25;
 		end
+        if (params.magicweaponskill ~= nil) then
+            dayWeatherBonus = dayWeatherBonus + 0.20;
+        end
 	elseif(weather == doubleWeatherWeak[ele]) then
 		if(math.random() < 0.33 or equippedWaist == elementalObiWeak[ele] ) then
 			dayWeatherBonus = dayWeatherBonus - 0.25;
 		end
+        if (params.magicweaponskill ~= nil) then
+            dayWeatherBonus = dayWeatherBonus - 0.20;
+        end
 	end
 
 	local dayElement = VanadielDayElement();
 	if(dayElement == dayStrong[ele]) then
+        if (params.magicweaponskill ~= nil) then
+            dayWeatherBonus = dayWeatherBonus + 0.10;
+        end
 		local equippedLegs = caster:getEquipID(SLOT_LEGS);
 		if(equippedLegs == 15120 or equippedLegs == 15583) then
 			dayWeatherBonus = dayWeatherBonus + 0.05;
@@ -1362,8 +1427,11 @@ function addBonusesAbility(caster, ele, target, dmg, params)
 		end
 	elseif(dayElement == dayWeak[ele]) then
 		if(math.random() < 0.33 or equippedWaist == elementalObiWeak[ele] ) then
-			dayWeatherBonus = dayWeatherBonus + 0.10;
+			dayWeatherBonus = dayWeatherBonus - 0.10;
 		end
+        if (params.magicweaponskill ~= nil) then
+            dayWeatherBonus = dayWeatherBonus - 0.10;
+        end
 	end
 
 	if dayWeatherBonus > 1.35 then

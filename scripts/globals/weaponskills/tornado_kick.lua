@@ -47,5 +47,10 @@ function onUseWeaponSkill(player, target, wsID)
 
 	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
 	damage = damage * WEAPON_SKILL_POWER
+    
+    if (target:isMob() and target:getSystem() == SYSTEM_BIRD) then
+        damage = damage * 1.2;
+    end
+    
 	return tpHits, extraHits, criticalHit, damage;
 end
