@@ -2930,7 +2930,7 @@ namespace charutils
     void UpdateHealth(CCharEntity* PChar)
     {
         DSP_DEBUG_BREAK_IF(PChar->objtype != TYPE_PC);
-
+        ShowDebug("Update Health fired.");
         PChar->updatemask |= UPDATE_HP;
 
         if (PChar->PParty != nullptr)
@@ -2938,6 +2938,13 @@ namespace charutils
             if (PChar->PParty->m_PAlliance == nullptr)
             {
                 PChar->PParty->PushPacket(PChar->id, PChar->getZone(), new CCharHealthPacket(PChar));
+                if (PChar->PAlly.size() > 0)
+                {
+                    for (auto ally : PChar->PAlly)
+                    {
+                        PChar->PParty->PushPacket(ally->id, ally->getZone(), new CCharHealthPacket(ally));
+                    }
+                }
             }
             else if (PChar->PParty->m_PAlliance != nullptr)
             {
@@ -4726,6 +4733,7 @@ namespace charutils
     {
         int ret = Sql_Query(SqlHandle, "SELECT partyid, allianceid, partyflag & %d FROM accounts_sessions s JOIN accounts_parties p ON "
             "s.charid = p.charid WHERE p.charid = %u;", (PARTY_SECOND | PARTY_THIRD), PChar->id);
+        ShowDebug("Reload Party fired.\n");
         if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
         {
             uint32 partyid = Sql_GetUIntData(SqlHandle, 0);
@@ -4760,9 +4768,11 @@ namespace charutils
                 if (!PParty)
                 {
                     PParty = new CParty(partyid);
+                    ShowDebug("This shouldn't be firing.");
                 }
 
                 PParty->PushMember(PChar);
+                ShowDebug("Pushing member.\n");
             }
 
             CBattleEntity* PSyncTarget = PChar->PParty->GetSyncTarget();
@@ -4834,6 +4844,7 @@ namespace charutils
             if (PChar->PParty)
             {
                 PChar->PParty->DelMember(PChar);
+                ShowDebug("Deleting party?");
             }
             PChar->ReloadPartyDec();
         }

@@ -185,6 +185,13 @@ void CAIPetDummy::ActionAbilityStart()
                         }
                     }
                 }
+                TransitionBack(true);
+                return;
+            }
+            else
+            {
+                TransitionBack(true);
+                return;
             }
         }
     }
@@ -214,7 +221,13 @@ void CAIPetDummy::ActionAbilityStart()
                     }
                 }
             }
-            
+            TransitionBack(true);
+            return;
+        }
+        else
+        {
+            TransitionBack(true);
+            return;
         }
     }
     
@@ -825,7 +838,7 @@ void CAIPetDummy::ActionAttack()
         return;
     }
     
-    if (m_PPet->getPetType() == PETTYPE_ALLY && m_PPet->health.tp >= 1000)
+    if (m_PPet->getPetType() == PETTYPE_ALLY && m_PPet->health.tp >= 1000 && m_PPet->PetSkills.size() > 0)
     {
         m_ActionType = ACTION_MOBABILITY_START;
         ActionAbilityStart();

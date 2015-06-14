@@ -29,7 +29,6 @@
 #include "../party.h"
 #include "../alliance.h"
 #include "../utils/zoneutils.h"
-#include <stdio.h>
 
 CPartyDefinePacket::CPartyDefinePacket(CParty* PParty) 
 {
@@ -73,10 +72,6 @@ CPartyDefinePacket::CPartyDefinePacket(CParty* PParty)
 				WBUFW(data, 12 * i + (0x0E) ) = Sql_GetUIntData(SqlHandle, 1);
                 WBUFW(data, 12 * i + (0x10) ) = Sql_GetUIntData(SqlHandle, 2) ? Sql_GetUIntData(SqlHandle, 2) : Sql_GetUIntData(SqlHandle, 3);
 
-                printf("%d \n", Sql_GetUIntData(SqlHandle, 0));
-				printf("%d \n", Sql_GetUIntData(SqlHandle, 1));
-                printf("%d \n", Sql_GetUIntData(SqlHandle, 2));
-
                 i++;
 			}
            if (allies.size() > 0)
@@ -85,8 +80,8 @@ CPartyDefinePacket::CPartyDefinePacket(CParty* PParty)
                {
                 WBUFL(data, 12 * i + (0x08) ) = ally->id;
 				WBUFW(data, 12 * i + (0x0C) ) = ally->targid;
-				WBUFW(data, 12 * i + (0x0E) ) = ally->getZone();
-                WBUFW(data, 12 * i + (0x10) ) = PParty->GetPartyID();
+				WBUFW(data, 12 * i + (0x0E) ) = 0;
+                WBUFW(data, 12 * i + (0x10) ) = ally->getZone();
 				i++;
                }
            }
