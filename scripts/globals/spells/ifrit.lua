@@ -23,6 +23,13 @@ end;
 
 function onSpellCast(caster,target,spell)
     caster:spawnPet(PET_IFRIT);
+    local enspellPower = 1 + caster:getMainLvl() / 2;
+
+    local pet = caster:getPet();
+    if (pet ~= nill) then
+        pet:addStatusEffect(EFFECT_IFRIT_S_FAVOR, 1, 15, 3000);
+        pet:addStatusEffect(EFFECT_ENFIRE,enspellPower,0,3000);
+    end
 
     return 0;
 end;

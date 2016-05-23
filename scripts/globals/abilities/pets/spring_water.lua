@@ -13,12 +13,10 @@ function onAbilityCheck(player, target, ability)
 end;
 
 function onPetAbility(target, pet, skill)
-    local base = 47 + pet:getMainLvl()*3;
-    local tp = skill:getTP();
-    if tp < 1000 then
-        tp = 1000;
-    end
-    base = base * tp / 1000;
+	local base = 47 + pet:getMainLvl()*3 + skill:getTP() / 5;
+    local owner = pet:getMaster();
+    local bonus = owner:getMod(MOD_CHR) + owner:getMod(MOD_SUMMONING);
+    base = base + bonus;
 
     if (target:getHP()+base > target:getMaxHP()) then
         base = target:getMaxHP() - target:getHP(); --cap it
@@ -30,8 +28,7 @@ function onPetAbility(target, pet, skill)
     target:delStatusEffect(EFFECT_PETRIFICATION);
         target:wakeUp();
     target:delStatusEffect(EFFECT_SILENCE);
-    if math.random() > 0.5 then
-        target:delStatusEffect(EFFECT_SLOW);
+    target:delStatusEffect(EFFECT_SLOW);
     end
     skill:setMsg(MSG_SELF_HEAL);
     target:addHP(base);

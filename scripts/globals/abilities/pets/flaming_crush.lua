@@ -15,10 +15,11 @@ function onAbilityCheck(player, target, ability)
 end;
 
 function onPetAbility(target, pet, skill)
-    local numhits = 3;
-    local accmod = 1;
-    local dmgmod = 10;
-    local dmgmodsubsequent = 1;
+	local numhits = 3;
+	local accmod = 1;
+	local dmgmod = 10;
+	local dmgmodsubsequent = 1;
+    skill:setSkillchain(119); -- Wheeling Thrust = Fusion
 
     local totaldamage = 0;
     local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,dmgmodsubsequent,TP_NO_EFFECT,1,2,3);

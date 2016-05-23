@@ -14,9 +14,10 @@ function onAbilityCheck(player, target, ability)
 end;
 
 function onPetAbility(target, pet, skill)
-    local numhits = 1;
-    local accmod = 1;
-    local dmgmod = 3.5;
+	local numhits = 1;
+	local accmod = 1;
+	local dmgmod = 3.5;
+    skill:setSkillchain(33); -- Burning Blade = Liquifaction
 
     local totaldamage = 0;
     local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,0,TP_NO_EFFECT,1,2,3);

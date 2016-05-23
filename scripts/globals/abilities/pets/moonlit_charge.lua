@@ -13,14 +13,22 @@ function onAbilityCheck(player, target, ability)
 end;
 
 function onPetAbility(target, pet, skill)
-    local numhits = 1;
-    local accmod = 1;
-    local dmgmod = 4;
+	local numhits = 1;
+	local accmod = 1;
+	local dmgmod = 4;
+    skill:setSkillchain(84); -- Keen Edge = Compression
+
+    local owner = pet:getMaster();
+    local durBonus = (owner:getMod(MOD_CHR) / 2 + owner:getMod(MOD_SUMMONING));
+    if (durBonus > 60) then
+        durBonus = 60;
+    end
+    local tp = skill:getTP();
 
     local totaldamage = 0;
     local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,0,TP_NO_EFFECT,1,2,3);
     totaldamage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_BLUNT,numhits);
-    target:addStatusEffect(EFFECT_BLINDNESS, 20, 0, 30);
+    target:addStatusEffect(EFFECT_BLINDNESS, 20 + math.floor(tp / 50), 0, 60 + durBonus);
     target:delHP(totaldamage);
     target:updateEnmityFromDamage(pet,totaldamage);
 

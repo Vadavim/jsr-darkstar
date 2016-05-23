@@ -9,7 +9,7 @@ require("scripts/globals/magic");
 
 ---------------------------------------------------
 
-function onAbilityCheck(player, target, ability)
+function onAbilityCheck(player, target, ability, summoner)
     return 0,0;
 end;
 
@@ -17,8 +17,8 @@ function onPetAbility(target, pet, skill)
     local dINT = math.floor(pet:getStat(MOD_INT) - target:getStat(MOD_INT));
     local tp = skill:getTP()
 
-    local damage = math.floor(45 + 0.025*(tp));
-    damage = damage + (dINT * 1.5);
+    local damage = math.floor(113 + 0.05*(tp));
+    damage = damage + (dINT * 2.0);
     damage = MobMagicalMove(pet,target,skill,damage,ELE_WIND,1,TP_NO_EFFECT,0);
     damage = mobAddBonuses(pet, nil, target, damage.dmg, ELE_WIND);
     damage = AvatarFinalAdjustments(damage,pet,skill,target,MOBSKILL_MAGICAL,MOBPARAM_NONE,1);

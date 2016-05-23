@@ -13,7 +13,12 @@ function onAbilityCheck(player, target, ability)
 end;
 
 function onPetAbility(target, pet, skill)
-    local base = 28 + pet:getMainLvl()*4;
+	local base = 28 + pet:getMainLvl()*4;
+    local owner = pet:getMaster();
+    local tp = skill:getTP();
+    local bonus = owner:getMod(MOD_CHR) * 2 + owner:getMod(MOD_SUMMONING) * 2;
+    base = base + tp / 10 + bonus;
+   
 
     if (target:getHP()+base > target:getMaxHP()) then
         base = target:getMaxHP() - target:getHP(); --cap it

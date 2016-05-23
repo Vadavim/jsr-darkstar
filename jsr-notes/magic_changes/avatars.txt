@@ -1,5 +1,5 @@
 GENERAL
- - WARD buff durations affected by summoning skill mod and 1/2 of CHA mod.
+ - WARD buff durations affected by summoning skill mod and CHA mod.
 
 AVATAR's FAVOR
  - Avatar's favor is automatically given to all party members when avatar is summoned.
@@ -33,7 +33,7 @@ CARBUNCLE
 
 [Glittering Ruby]
  - Increase buff duration to 300 seconds
- - Increase power of buff based on tp (+100% at 100 TP, +150% at 150 TP, etc.)
+ - Increase power of buff based on tp
 
 [Shining Ruby]
  - Duration is increased by 2 seconds per TP.
@@ -58,7 +58,8 @@ IFRIT
  - Damage is 2 + (level / 4)/tic. Lowers target's Intelligence.
 
 [Crimson Howl]
- - Base duration is 90 seconds. Increased by CHR/Summoning mod and also TP.
+ - Base duration is 90 seconds. Increased by CHR/Summoning mod.
+ - +1% attack bonus per 300 TP
 
 TITAN
 
@@ -82,7 +83,7 @@ FENRIR
 [Moonlight Charge]
  - Blind is -20 ACC and lasts for 60 seconds.
  - Duration increased with chr / summoning mod.
- - Blind effect increased to up to -50 ACC at 300% TP.
+ - Blind effect increased to up to -60 ACC at 300% TP.
 
 [Crescent Fang]
  - Paralysis potency ranges from 27.5% to 37.5 (at 300% TP).
@@ -100,6 +101,7 @@ FENRIR
 [Lunar Cry]
  - Also inflicts Magic Accuracy Down and Magic Evasion down.
  - Max penalty is -36.
+ - Duration affected by TP, CHA, and summoning skill
 
 [Eclipse Bite]
  - Now has the Gravitation and Transfixion skillchain attributes.
