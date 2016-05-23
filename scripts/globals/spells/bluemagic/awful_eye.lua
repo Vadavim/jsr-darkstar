@@ -40,7 +40,7 @@ function onSpellCast(caster,target,spell)
             spell:setMsg(85);
         else
             spell:setMsg(329);
-            target:addStatusEffect(EFFECT_STR_DOWN,ABSORB_SPELL_AMOUNT*resist, ABSORB_SPELL_TICK, ABSORB_SPELL_AMOUNT*ABSORB_SPELL_TICK,FLAG_ERASBLE); -- target loses STR
+            target:addStatusEffect(EFFECT_STR_DOWN,20,0,120 * resist);
         end;
     else
         spell:setMsg(75);

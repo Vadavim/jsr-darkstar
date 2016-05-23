@@ -31,7 +31,7 @@ end;
 function onSpellCast(caster,target,spell)
 
     local typeEffect = EFFECT_HASTE;
-    local power = 102;
+    local power = 150;
     local duration = 300;
 
     if (caster:hasStatusEffect(EFFECT_DIFFUSION)) then

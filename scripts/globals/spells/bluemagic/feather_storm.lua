@@ -53,11 +53,15 @@ function onSpellCast(caster,target,spell)
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
    
    local chance = math.random();
-
+--JSR: increased DOT with feather storm
     if (damage > 0 and chance > 70) then
         local typeEffect = EFFECT_POISON;
+	local power = 2 + caster:getMainLvl()/6;
+	if (power > 8) then
+		power = 8;
+	end
         target:delStatusEffect(typeEffect);
-        target:addStatusEffect(typeEffect,3,0,getBlueEffectDuration(caster,resist,typeEffect));
+        target:addStatusEffect(typeEffect,power,0,getBlueEffectDuration(caster,resist,typeEffect));
     end
     
     return damage;

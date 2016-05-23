@@ -37,7 +37,7 @@ function onSpellCast(caster,target,spell)
         params.dmgtype = DMGTYPE_H2H;
         params.scattr = SC_IMPACTION;
         params.numhits = 3;
-        params.multiplier = 1.0;
+        params.multiplier = 0.8;
         params.tp150 = 1.05;
         params.tp300 = 1.1;
         params.azuretp = 1.2;

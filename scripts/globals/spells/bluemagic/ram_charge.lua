@@ -38,13 +38,13 @@ function onSpellCast(caster,target,spell)
         params.scattr = SC_FRAGMENTATION;
         params.numhits = 1;
         params.multiplier = 1.0;
-        params.tp150 = 1.375;
-        params.tp300 = 1.75;
-        params.azuretp = 1.875;
+        params.tp150 = 3;
+        params.tp300 = 6;
+        params.azuretp = 2.8;
         params.duppercap = 75;
         params.str_wsc = 0.3;
         params.dex_wsc = 0.0;
-        params.vit_wsc = 0.0;
+        params.vit_wsc = 0.5;
         params.agi_wsc = 0.0;
         params.int_wsc = 0.0;
         params.mnd_wsc = 0.5;

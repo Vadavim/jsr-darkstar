@@ -34,22 +34,22 @@ function onSpellCast(caster,target,spell)
     local typeEffectOne = EFFECT_DEFENSE_DOWN;
     local typeEffectTwo = EFFECT_MAGIC_DEF_DOWN;
     local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT) - target:getStat(MOD_INT),BLUE_SKILL,1.0);
-    local duration = 30 * resist;
+    local duration = 90 * resist;
     local returnEffect = typeEffectOne;
 
     if (resist >= 0.5) then
         if (target:hasStatusEffect(typeEffectOne) and target:hasStatusEffect(typeEffectTwo)) then -- the def/mag def down does not overwrite the same debuff from any other source
             spell:setMsg(75); -- no effect
         elseif (target:hasStatusEffect(typeEffectOne)) then
-            target:addStatusEffect(typeEffectTwo,8,0,duration);
+            target:addStatusEffect(typeEffectTwo,12,0,duration);
             returnEffect = typeEffectTwo;
             spell:setMsg(236);
         elseif (target:hasStatusEffect(typeEffectTwo)) then
-            target:addStatusEffect(typeEffectOne,10,0,duration);
+            target:addStatusEffect(typeEffectOne,12,0,duration);
             spell:setMsg(236);
         else
-            target:addStatusEffect(typeEffectOne,10,0,duration);
-            target:addStatusEffect(typeEffectTwo,8,0,duration);
+            target:addStatusEffect(typeEffectOne,12,0,duration);
+            target:addStatusEffect(typeEffectTwo,12,0,duration);
             spell:setMsg(236);
         end;
     end;

@@ -35,7 +35,7 @@ function onSpellCast(caster,target,spell)
     local typeEffectOne = EFFECT_ACCURACY_BOOST
     local typeEffectTwo = EFFECT_EVASION_BOOST
     local power = 10;
-    local duration = 180;
+    local duration = 300;
     local returnEffect = typeEffectOne;
 
     if (caster:hasStatusEffect(EFFECT_DIFFUSION)) then

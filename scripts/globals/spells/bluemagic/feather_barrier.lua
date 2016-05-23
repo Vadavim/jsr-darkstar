@@ -33,8 +33,8 @@ end;
 function onSpellCast(caster,target,spell)
 
     local typeEffect = EFFECT_EVASION_BOOST;
-    local power = 10;
-    local duration = 30;
+    local power = 20;
+    local duration = 180;
 
     if (caster:hasStatusEffect(EFFECT_DIFFUSION)) then
         local diffMerit = caster:getMerit(MERIT_DIFFUSION);

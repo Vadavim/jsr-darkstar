@@ -38,11 +38,11 @@ function onSpellCast(caster,target,spell)
         params.scattr = SC_TRANSFIXION;
         params.scattr2 = SC_SCISSION;
         params.numhits = 1;
-        params.multiplier = 1.375;
-        params.tp150 = 1.375;
-        params.tp300 = 1.375;
-        params.azuretp = 1.375;
-        params.duppercap = 27;
+        params.multiplier = 1.6;
+        params.tp150 = 2.0;
+        params.tp300 = 3.0;
+        params.azuretp = 3.0;
+        params.duppercap = 31;
         params.str_wsc = 0.2;
         params.dex_wsc = 0.0;
         params.vit_wsc = 0.0;

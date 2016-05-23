@@ -34,8 +34,8 @@ function onSpellCast(caster,target,spell)
     local typeEffect = EFFECT_BLINDNESS;
     local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
     local resist = applyResistanceEffect(caster,spell,target,dINT,BLUE_SKILL,0,typeEffect);
-    local duration = 120 * resist;
-    local power = 25;
+    local duration = 300 * resist;
+    local power = 30;
     
     if (resist > 0.5) then -- Do it!
         if (target:addStatusEffect(typeEffect,power,0,duration)) then

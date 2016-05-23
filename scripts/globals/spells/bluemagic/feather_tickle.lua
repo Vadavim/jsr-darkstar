@@ -39,6 +39,7 @@ function onSpellCast(caster,target,spell)
         spell:setMsg(75);
     else
         target:delTP(power);
+        caster:addTP(power);
         spell:setMsg(431);
     end
     

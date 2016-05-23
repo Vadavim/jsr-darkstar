@@ -34,7 +34,7 @@ function onSpellCast(caster,target,spell)
     local typeEffect = EFFECT_PLAGUE;
     local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
     local resist = applyResistance(caster,spell,target,dINT,BLUE_SKILL);
-    local duration = 60 * resist;
+    local duration = 120 * resist;
     local power = 5;
     
     if (resist > 0.5) then -- Do it!

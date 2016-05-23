@@ -53,11 +53,15 @@ function onSpellCast(caster,target,spell)
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
    
     local chance = math.random();
-
+--JSR: increased DOT with Queesyshroome
     if (damage > 0 and chance > 10) then
         local typeEffect = EFFECT_POISON;
+	local power = 1 + caster:getMainLvl()/4;
+	if (power > 12) then
+		power = 12;
+	end
         target:delStatusEffect(typeEffect);
-        target:addStatusEffect(typeEffect,3,0,getBlueEffectDuration(caster,resist,typeEffect));
+        target:addStatusEffect(typeEffect,power,0,getBlueEffectDuration(caster,resist,typeEffect));
     end
     
     return damage;

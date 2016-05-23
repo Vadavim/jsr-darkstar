@@ -42,7 +42,7 @@ function onSpellCast(caster,target,spell)
             target:delStatusEffect(EFFECT_CHOKE);
         end;
         local sINT = caster:getStat(MOD_INT);
-        local DOT = getElementalDebuffDOT(sINT);
+        local DOT = getElementalDebuffDOT(sINT) + 5;
         local effect = target:getStatusEffect(typeEffect);
         local noeffect = false;
         if (effect ~= nil) then

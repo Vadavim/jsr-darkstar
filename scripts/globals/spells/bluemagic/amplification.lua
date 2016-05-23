@@ -35,7 +35,7 @@ function onSpellCast(caster,target,spell)
     local typeEffectOne = EFFECT_MAGIC_ATK_BOOST
     local typeEffectTwo = EFFECT_MAGIC_DEF_BOOST
     local power = 10;
-    local duration = 90;
+    local duration = 600;
     local returnEffect = typeEffectOne;
 
     if (caster:hasStatusEffect(EFFECT_DIFFUSION)) then

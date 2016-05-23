@@ -34,10 +34,10 @@ function onSpellCast(caster,target,spell)
     local typeEffect = EFFECT_POISON
     local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
     local resist = applyResistanceEffect(caster,spell,target,dINT,BLUE_SKILL,0,typeEffect);
-    local duration = 180 * resist;
-    local power = 6;
+    local duration = 120 * resist;
+    local power = 12 + caster:getmainLvl()/3;
 
-    if (resist > 0.5) then -- Do it!
+    if (resist > 0.25) then -- Do it!
         if (target:addStatusEffect(typeEffect,power,0,duration)) then
             spell:setMsg(236);
         else
