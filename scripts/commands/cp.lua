@@ -10,6 +10,8 @@ cmdprops =
 };
 
 function onTrigger(player, cp)
+	--JSR: players start with smaller inventory
+    player:changeContainerSize(8,-5);
     if (cp == nil or tonumber(cp) == 0) then
         player:PrintToPlayer("You must enter an amount.");
         return;

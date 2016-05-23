@@ -440,16 +440,17 @@ function calculateMobMagicBurst(caster, ele, target)
     local skillchainTier, skillchainCount = MobFormMagicBurst(ele, target);
 
     if (skillchainTier > 0) then
+        --JSR: mob skillchain bonus for magic bursting
         if (skillchainCount == 1) then
-            burst = 1.3;
+            burst = 1.6;
         elseif (skillchainCount == 2) then
-            burst = 1.35;
+            burst = 1.7;
         elseif (skillchainCount == 3) then
-             burst = 1.40;
+             burst = 1.8;
         elseif (skillchainCount == 4) then
-            burst = 1.45;
+            burst = 1.9;
         elseif (skillchainCount == 5) then
-            burst = 1.50;
+            burst = 2.0;
         else
             -- Something strange is going on if this occurs.
             burst = 1.0;

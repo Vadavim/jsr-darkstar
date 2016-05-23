@@ -530,7 +530,7 @@ function getSpellBonusAcc(caster, target, spell)
 
     --add acc for skillchains
     if (skillchainTier > 0) then
-        magicAccBonus = magicAccBonus + 25;
+        magicAccBonus = magicAccBonus + 40; -- JSR: higher bonus to acc for skillchains
     end
 
     --Add acc for klimaform
@@ -693,18 +693,18 @@ function calculateMagicBurst(caster, spell, target)
     end
 
     local skillchainTier, skillchainCount = FormMagicBurst(spell:getElement(), target);
-
+	--JSR: higher magic burst damage from skillchain
     if (skillchainTier > 0) then
         if (skillchainCount == 1) then
-            burst = 1.3;
+            burst = 1.6;
         elseif (skillchainCount == 2) then
-            burst = 1.35;
+            burst = 1.7;
         elseif (skillchainCount == 3) then
-             burst = 1.40;
+             burst = 1.8;
         elseif (skillchainCount == 4) then
-            burst = 1.45;
+            burst = 1.9;
         elseif (skillchainCount == 5) then
-            burst = 1.50;
+            burst = 2.0;
         else
             -- Something strange is going on if this occurs.
             burst = 1.0;
@@ -722,6 +722,9 @@ function calculateMagicBurst(caster, spell, target)
     -- Add in Magic Burst Bonus Modifier
     if (burst > 1) then
         burst = burst + (caster:getMod(MOD_MAG_BURST_BONUS) / 100);
+        --JSR: casters gain MP based on magic burst
+        local burstMP = math.floor(burst * spell:getMPCost());
+        caster:doMagicBurstMP(burstMP);
     end
 
     return burst;
@@ -944,34 +947,36 @@ end
 ---------------------------------------------------------------------
 
 function getElementalDebuffDOT(INT)
-    local DOT = 0;
-    if (INT<= 39) then
-        DOT = 1;
-    elseif (INT <= 69) then
-        DOT = 2;
-    elseif (INT <= 99) then
-        DOT = 3;
-    elseif (INT <= 149) then
-        DOT = 4;
-    else
-        DOT = 5;
-    end
+    --JSR: elemental DOT is much stronger now
+	local DOT = 4 + math.floor(INT / 4);
+    --if (INT<= 39) then
+    --    DOT = 1;
+    --elseif (INT <= 69) then
+    --    DOT = 2;
+    --elseif (INT <= 99) then
+    --    DOT = 3;
+    --elseif (INT <= 149) then
+    --    DOT = 4;
+    --else
+    --    DOT = 5;
+    --end
     return DOT;
 end;
 
 function getElementalDebuffStatDownFromDOT(dot)
-    local stat_down = 0;
-    if (dot == 1) then
-        stat_down = 5;
-    elseif (dot == 2) then
-        stat_down = 7;
-    elseif (dot == 3) then
-        stat_down = 9;
-    elseif (dot == 4) then
-        stat_down = 11;
-    else
-        stat_down = 13;
-    end
+    --JSR: elemental debuff is much stronger now
+	local stat_down = 5 + math.floor(dot / 2);
+    --if (dot == 1) then
+    --    stat_down = 5;
+    --elseif (dot == 2) then
+    --    stat_down = 7;
+    --elseif (dot == 3) then
+    --    stat_down = 9;
+    --elseif (dot == 4) then
+    --    stat_down = 11;
+    --else
+    --    stat_down = 13;
+    --end
     return stat_down;
 end;
 

@@ -14,19 +14,29 @@ require("scripts/zones/East_Sarutabaruta/TextIDs");
 -----------------------------------
 
 function onTrigger(player,npc)
-    player:startEvent(0x0384);
+	player:startEvent(0x0384);
+    if (player:hasStatusEffect(EFFECT_CONFRONTATION)) then
+        player:delStatusEffect(EFFECT_CONFRONTATION);
+    end;
 end;
 
 -----------------------------------
 -- onTrade
 -----------------------------------
-
+--JSR: special confrontation with Spipi when seal traded
 function onTrade(player,npc,trade)
     if (trade:getItemCount() == 1 and trade:hasItemQty(571,1)) then
         player:tradeComplete();
         player:addItem(570);
         player:messageSpecial(ITEM_OBTAINED,570);
         player:setVar("anExplorer-CurrentTablet",0x00800);
+    elseif (GetMobAction(17252657) == 0 and trade:getItemCount() == 1 and trade:hasItemQty(1126,1)) then
+        player:tradeComplete();
+        local mobs = {17252657};
+        startConfrontation(player, 8, 600, mobs);
+        --mob = SpawnMob(17252657);
+        --mob:setPos( player:getXPos(), player:getYPos(), player:getZPos(), player:getRotPos(), player:getZoneID() );
+        --mob:updateClaim(player);
     end
 end;
 

@@ -235,7 +235,7 @@ function doMagicWeaponskill(attacker, target, wsID, params, tp, primary)
 
     local bonusTP = params.bonusTP or 0
     local bonusfTP, bonusacc = handleWSGorgetBelt(attacker);
-    bonusacc = bonusacc + attacker:getMod(MOD_WSACC);
+    bonusacc = bonusacc + attacker:getMod(MOD_WSACC) + 20; --JSR: magic weaponskills more accurate
 
     local fint = utils.clamp(8 + (attacker:getStat(MOD_INT) - target:getStat(MOD_INT)), -32, 32);
     local dmg = attacker:getMainLvl() + 2 + (attacker:getStat(MOD_STR) * params.str_wsc + attacker:getStat(MOD_DEX) * params.dex_wsc +

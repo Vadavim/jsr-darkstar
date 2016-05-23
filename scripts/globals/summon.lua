@@ -19,9 +19,10 @@ function AvatarPhysicalMove(avatar,target,skill,numberofhits,accmod,dmgmod1,dmgm
 
     lvluser = avatar:getMainLvl();
     lvltarget = target:getMainLvl();
+    --JSR: Charisma affects Avatar accuracy
     local master = avatar:getMaster();
     local bonusacc = utils.clamp(master:getSkillLevel(SKILL_SUM) - master:getMaxSkillLevel(avatar:getMainLvl(), JOBS.SMN, SUMMONING_SKILL), 0, 200);
-    acc = avatar:getACC() + bonusacc;
+    acc = avatar:getACC() + bonusacc + math.floor(master:getMod(MOD_CHR) / 3);
     eva = target:getEVA();
 
     local base = avatar:getWeaponDmg() + fstr;
