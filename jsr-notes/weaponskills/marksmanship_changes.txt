@@ -1,0 +1,26 @@
+[Hot Shot]
+ - fTP increased to 1.0 (1000), 1.5 (2000), 3.0 (3000)
+ - +20% damage against plantoids
+
+[Split Shot]
+ - Base fTP is 1.25
+ - Defense ignore increased to: 20% (1000 TP), 45% (2000 TP), 70% (3000 TP)
+
+[Heavy Shot]
+ - Inflicts Weight. Duration varies with TP. (60 at 1000 to 180 at 3000).
+
+[Sniper Shot]
+ - Base fTP is 1.7
+ - Crit chance is 20% (1000 TP), 50% (2000 TP), 90% (3000 TP)
+ - The attack is more accurate (+30 bonus to accuracy)
+ - Int penalty is -20 for 120 seconds.
+
+[Blast Shot]
+ - Also inflicts Rasp. Duration varies with TP. (30 at 1000 TP to 90 at 3000 TP).
+
+[Detonator]
+ - +20% damage against targets suffering from Burn.
+
+[Numbing Shot]
+ - Available at skill level 260
+ - Paralysis potency is 30% (duration is 60 seconds at 1000 TP to 180 seconds at 3000 TP).

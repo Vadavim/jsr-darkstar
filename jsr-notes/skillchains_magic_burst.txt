@@ -1,0 +1,7 @@
+[Skillchains]
+ - Forming a skillchain reward 100 TP to each party member.
+ - The TP bonus is modified by skillchain damage bonus from traits/equipment.
+
+[Magic Bursts]
+ - Successfully magic bursting with a spell rewards 25% of the spell's base MP cost to each party member.
+ - The MP bonus is modified by magic burst damage bonus from traits/equipment.

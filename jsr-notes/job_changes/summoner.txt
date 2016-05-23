@@ -1,0 +1,28 @@
+SKILL CHANGES
+
+TRAIT CHANGES
+
+ABILITY CHANGES
+
+[Apogee]
+ - Instead resets bloodpact timers.
+ - Does not consume MP.
+
+[Mana Cede]
+ - Gained at level 60
+ - Instead consumed 50 MP to give 100 TP.
+
+[Astral Conduit]
+ - Gained at level 70
+ - Recast reduced to 30 minutes.
+ - Instead restores all MP.
+
+[Avatar's Favor]
+ - The actual avatar favor buffs are granted automatically after 15 seconds of being summoned.
+ - This ability instead buffs the next avatar you cast.
+ - Consumes 100 MP.
+ - Summoned avatar will gain:
+	- +25% Haste
+	- More potent Enspell effect.
+	- +25% Defense
+	- +30 ACC and EVA

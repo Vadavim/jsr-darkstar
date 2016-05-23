@@ -1,0 +1,25 @@
+SKILL CHANGES
+ - A- Sword
+ - A- Club
+ - A- Dagger
+ - B- Archery
+ - C+ Evasion
+ - B Parrying
+ - B Healing
+ - B Elemental
+ - B- Shield
+
+TRAIT CHANGES
+ - Has Shield Mastery I and II at levels 30 / 70
+
+ABILITY CHANGES
+
+[Sabateur]
+ - Gained at level 60 (instead of 83).
+
+[Stymie]
+ - Gained at level 40 (instead of 96)
+ - Completely changed
+
+[Spontaneity]
+ - Gained at level 72 (instead of 95)

@@ -1,0 +1,118 @@
+GENERAL
+ - WARD buff durations affected by summoning skill mod and 1/2 of CHA mod.
+
+AVATAR's FAVOR
+ - Avatar's favor is automatically given to all party members when avatar is summoned.
+ - Gives the following bonuses based on the avatar's element:
+	- -25% ELEMENT damage received
+	- +10% ELEMENT attack and accuracy
+	- +40 ELEMENT resistance
+ - Also gives special bonus depending upon avatar. May be different than retail.
+
+
+CARBUNCLE
+
+[Carbuncle's Favor]
+ - Grants HP Regen: (1 + level / 8)/tic
+ - Grants +10% Cure Potency.
+
+
+[POISON NAILS]
+ - Incresed Poison to (1 + Level / 5)/tic.
+ - TP increases poison damage (+100% at 100 TP, +150% at 150 TP, etc.)
+ - Duration affected by summoning skill / charisma mod
+
+[Healing Ruby]
+ - Reduced casting time to 1 second (down from 3 seconds)
+ - TP has a greater effect on healing.
+ - CHA and Summoning mods increases amount healed.
+
+[Healing Ruby II]
+ - TP has a greater effect on healing.
+ - CHA and Summoning mods increases amount healed.
+
+[Glittering Ruby]
+ - Increase buff duration to 300 seconds
+ - Increase power of buff based on tp (+100% at 100 TP, +150% at 150 TP, etc.)
+
+[Shining Ruby]
+ - Duration is increased by 2 seconds per TP.
+ - Magic damage is reduced by 15% (up from 4%)
+
+[Meteorite]
+ - Increased damage contribution by TP.
+
+
+SHIVA
+
+[Shiva's Favor]
+ - Grants +10 MATT
+
+IFRIT
+
+[Ifrit's Favor]
+ - Grants +10% Double Attack
+
+[Burning Strike]
+ - Inflicts Burn for 30 to 90 seconds (at 300% TP).
+ - Damage is 2 + (level / 4)/tic. Lowers target's Intelligence.
+
+[Crimson Howl]
+ - Base duration is 90 seconds. Increased by CHR/Summoning mod and also TP.
+
+TITAN
+
+[Titan's Favor]
+ - Grants 10 + (Level / 2) DEF
+
+GARUDA
+
+[Garuda's Favor]
+ - Grants +20 EVA and +10% Ranged Attack
+
+[Whispering Wind]
+ - Instead grants a powerful regen. Power scales with TP.
+ - Base duration is 90 seconds. Increased by chr / summoning mod.
+
+FENRIR
+
+[Fenrir's Favor]
+ - Grants +20 MEVA and +30 Subtle Blow
+
+[Moonlight Charge]
+ - Blind is -20 ACC and lasts for 60 seconds.
+ - Duration increased with chr / summoning mod.
+ - Blind effect increased to up to -50 ACC at 300% TP.
+
+[Crescent Fang]
+ - Paralysis potency ranges from 27.5% to 37.5 (at 300% TP).
+
+[Ecliptic Growl]
+ - Increased base duration to 300 seconds.
+ - Max stat buff increased to +18
+ - Duration further increased by TP (in additional to chr/summoning mods).
+
+[Ecliptic Howl]
+ - Increased base duration to 180 seconds.
+ - Max EVA/ACC possible is +36.
+ - Duration further increased by TP (in additional to chr/summoning mods).
+
+[Lunar Cry]
+ - Also inflicts Magic Accuracy Down and Magic Evasion down.
+ - Max penalty is -36.
+
+[Eclipse Bite]
+ - Now has the Gravitation and Transfixion skillchain attributes.
+
+LEVIATHAN
+
+[Leviathan's Favor]
+ - Grants +20 MACC
+
+[Spring Water]
+ - CHR and Summoning mods increases amount healed.
+
+RAMUH
+
+[Ramuh's Favor]
+ - Grants +25% critical damage and +5% critical hit chance

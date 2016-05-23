@@ -1,0 +1,61 @@
+SKILL CHANGES
+
+TRAIT CHANGES
+
+ABILITY CHANGES
+
+[Elemental Runes]
+ - Gains access to the Rune Fencer's elemental runes. 
+ - These runes are on different recast timers.
+ - Has the same limits on how many runes may be harboured based on Geomancer level.
+
+[No more pets!]
+They're gone! Instead, all Geo/Indi spells are centered on you.
+The Geo spells are buffs centered on you.
+The Indi spells are instead debuffs centered on you. They apply the penalty associated with the stat they would normally buff.
+
+[Required Runes]
+To cast Indi/Geo spells, and -ra spells, you need to harbour at least one rune of the associated element.
+For each additional rune you harbour of the associated element, 15% of the mana cost is refunded.
+Because of this, some Geo spells that inflict penalties to creatures have been removed.
+
+The casting time of the Indi/Geo spells has been reduced.
+
+You are not limited by the number of Indi/Geo spells you can maintain. Instead,
+each of these spells has a very long recast time (30 minutes).
+
+When you cast an elemental nuke, there is a chance you will reset indi/geo spells of the associated element.
+The chance depends upon the MP cost of the spell and your level.
+
+[Lasting Emanation]
+ - Instead doubles the duration of your next Indi/Geo spell.
+
+[Full Circle]
+ - Consumes active Geo spells to restore an amount of HP and MP depending upon remaining duration.
+
+[Life Cycle]
+ - Consumes 33% of your Maximum HP to try and reset Indi/Geo spell recasts.
+
+[Dematerialize]
+ - Gained at level 30.
+ - Grants self -50 enmity for 1 minute.
+
+[Collimated Fervor]
+ - Grants 5% TP regen/tic for 1 minute.
+ - Grants additional effects based on harbored runes.
+
+[Ecliptic Attrition]
+ - Instead halves the duration of your next Indi/Geo spell but enhances its effect.
+
+[Blaze of Glory]
+ - Completely refunds MP cost of next Indi/Geo spell, but costs HP instead.
+ - Recast reduced to 5 minutes.
+
+
+
+[Drain Enhancement]
+ - For each Tenebrae rune, increases Drain / Aspir amount by 50%.
+
+
+
+

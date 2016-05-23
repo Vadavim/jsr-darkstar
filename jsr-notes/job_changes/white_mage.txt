@@ -1,0 +1,15 @@
+SKILL CHANGES
+
+TRAIT CHANGES
+
+ABILITY CHANGES
+
+[Benediction]
+ - Also grants the caster +50% cure potency to one minute.
+
+[Divine Caress]
+ - Gained at level 30 instead of 83.
+ - Allows next -na spell to grant a large amount of status resistance for 5 minutes.
+
+[Divine Seal]
+ - Recast reduced to 3 minutes.

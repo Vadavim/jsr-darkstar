@@ -1,0 +1,2 @@
+[Scavenge]
+ - Instead scavanges a random temporary item.

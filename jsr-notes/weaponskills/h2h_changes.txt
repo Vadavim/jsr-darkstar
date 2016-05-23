@@ -1,0 +1,27 @@
+[Shoulder Tackle]
+ - On a successful stun, also inflicts -15% Attack for 60 seconds.
+
+
+[One-Inch Punch]
+ - Def ignore changed to: (-25% at 1000TP, -50% at 2000TP, -75% at 3000TP)
+ - On a successful hit, dispels one magical effect.
+
+[Backhand Blow]
+ - On a critical hit, lowers target's VIT 40 and stun resistance by 20 for 60 seconds.
+ - Base fTP is 1.5
+ - +20% damage against Amorphs
+
+[Spinning Attack]
+ - Grants +30 Evasion and Guard skill. Duration varies with TP (60 at 1000, to 180 at 3000).
+ - fTP changed to: 1.25 (1000), 2 (2000), 3 (3000)
+
+[Howling Fist]
+ - +20% damage against vermin.
+
+[Dragon Kick]
+ - Modifiers changed to Str 50% and Vit 75%.
+ - Deals +20% damage against demons.
+
+[Tornado Kick]
+ - Gained at skill level 260.
+ - +20% damage against  birds
