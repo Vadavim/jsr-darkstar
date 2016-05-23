@@ -10,28 +10,41 @@
 -- 100%TP    200%TP    300%TP
 -- 1.00      1.00      1.00
 -----------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
 -----------------------------------
 
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID)
 
-    local params = {};
-    params.numHits = 1;
-    params.ftp100 = 1; params.ftp200 = 1; params.ftp300 = 1;
-    params.str_wsc = 0.16; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.25; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
-    params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
-    params.canCrit = false;
-    params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
-    params.atkmulti = 1;
+	local params = {};
+	params.numHits = 1;
+	params.ftp100 = 1; params.ftp200 = 1; params.ftp300 = 1;
+	params.str_wsc = 0.16; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.25; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
+	params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
+	params.canCrit = false;
+	params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
+	params.atkmulti = 1;
 
-    if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.ftp100 = 0.5; params.ftp200 = 0.75; params.ftp300 = 1;
-        params.str_wsc = 0.2; params.agi_wsc = 0.5;
-    end
+	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
+		params.ftp100 = 1.0; params.ftp200 = 2.5; params.ftp300 = 4;
+		params.mnd_wsc = 0.8; params.agi_wsc = 0.4;
+	end
 
-    local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
-    return tpHits, extraHits, criticalHit, damage;
+	local damage, tpHits, extraHits = doRangedWeaponskill(player, target, params);
+	damage = damage * WEAPON_SKILL_POWER
+    
+    -- add Burn
+	local resist = applyResistanceWeaponskill(player, target, ELE_FIRE, SKILL_ARC);
+	if (damage > 0 and resist >= 0.125)then
+		local DOT = math.floor(player:getMainLvl()/5) + 2;
+		local duration = (60 * (player:getTP() / 100));
+		target:delStatusEffect(EFFECT_FROST);
+		target:addStatusEffect(EFFECT_BURN, DOT, 3, duration * resist);
+		target:setPendingMessage(277, EFFECT_BURN);
+	end
+    
+	return tpHits, extraHits, criticalHit, damage;
 
 end

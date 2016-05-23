@@ -1,7 +1,7 @@
 -----------------------------------
 --
---     EFFECT_SHOCK
---     
+-- 	EFFECT_SHOCK
+-- 	
 -----------------------------------
 
 require("scripts/globals/status");
@@ -12,8 +12,11 @@ require("scripts/globals/magic");
 -----------------------------------
 
 function onEffectGain(target,effect)
-    target:addMod(MOD_REGEN_DOWN, effect:getPower());
-    target:addMod(MOD_STR, -getElementalDebuffStatDownFromDOT(effect:getPower()));
+    if (target:isMob() and target:getSystem() == SYSTEM_AQUAN) then
+        effect:setPower(math.floor(effect:getPower() * 1.5));
+    end;
+	target:addMod(MOD_REGEN_DOWN, effect:getPower());
+	target:addMod(MOD_STR, -getElementalDebuffStatDownFromDOT(effect:getPower()));
 end;
 
 -----------------------------------
@@ -28,6 +31,6 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
-    target:delMod(MOD_REGEN_DOWN, effect:getPower());
-    target:delMod(MOD_STR, -getElementalDebuffStatDownFromDOT(effect:getPower()));
+	target:delMod(MOD_REGEN_DOWN, effect:getPower());
+	target:delMod(MOD_STR, -getElementalDebuffStatDownFromDOT(effect:getPower()));
 end;

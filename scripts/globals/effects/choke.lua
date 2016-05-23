@@ -1,7 +1,7 @@
 -----------------------------------
 --
---     EFFECT_CHOKE
---     
+-- 	EFFECT_CHOKE
+-- 	
 -----------------------------------
 
 require("scripts/globals/status");
@@ -12,8 +12,13 @@ require("scripts/globals/magic");
 -----------------------------------
 
 function onEffectGain(target,effect)
-    target:addMod(MOD_VIT, -getElementalDebuffStatDownFromDOT(effect:getPower()));
-    target:addMod(MOD_REGEN_DOWN, effect:getPower());
+    --Worms
+    if (target:isMob() and target:getFamily() == 258) then
+        effect:setPower(math.floor(effect:getPower() * 1.5));
+        target:addMod(MOD_FASTCAST, -25);
+    end
+	target:addMod(MOD_VIT, -getElementalDebuffStatDownFromDOT(effect:getPower()));
+	target:addMod(MOD_REGEN_DOWN, effect:getPower());
 end;
 
 -----------------------------------
@@ -28,6 +33,11 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
-    target:delMod(MOD_VIT, -getElementalDebuffStatDownFromDOT(effect:getPower()));
-    target:delMod(MOD_REGEN_DOWN, effect:getPower());
+	target:delMod(MOD_VIT, -getElementalDebuffStatDownFromDOT(effect:getPower()));
+	target:delMod(MOD_REGEN_DOWN, effect:getPower());
+    
+    --Worms
+    if (target:isMob() and target:getFamily() == 258) then
+        target:delMod(MOD_FASTCAST, -25);
+    end
 end;

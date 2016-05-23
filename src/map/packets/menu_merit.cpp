@@ -42,7 +42,7 @@ CMenuMeritPacket::CMenuMeritPacket(CCharEntity* PChar)
 
 	uint8 flag = 0x00;
 
-	if (PChar->jobs.job[PChar->GetMJob()] >= 75 && charutils::hasKeyItem(PChar, 606))			// keyitem Limit Breaker
+	if ( true )			// keyitem Limit Breaker
 	{
 		flag |= 0x20;
 		if (PChar->MeritMode)

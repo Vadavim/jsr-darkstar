@@ -44,14 +44,14 @@ function onSpellCast(caster,target,spell)
         params.duppercap = 75;
         params.str_wsc = 0.5;
         params.dex_wsc = 0.0;
-        params.vit_wsc = 0.5;
+        params.vit_wsc = 1.0;
         params.agi_wsc = 0.0;
         params.int_wsc = 0.0;
         params.mnd_wsc = 0.0;
         params.chr_wsc = 0.0;
-        params.offcratiomod = caster:getStat(MOD_DEF);
     damage = BluePhysicalSpell(caster, target, spell, params);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
+   -- Missing Bonus damage from defense?
    
     return damage;
 end;

@@ -41,7 +41,7 @@ class CStatusEffectContainer
 {
 public:
 
-    uint64	m_Flags {0};											// биты переполнения байтов m_StatusIcons (по два бита на каждый эффект)
+	uint64	m_Flags;											// биты переполнения байтов m_StatusIcons (по два бита на каждый эффект)
     uint8 m_StatusIcons[32];                  // иконки статус-эффектов
 
     bool ApplyBardEffect(CStatusEffect* PStatusEffect, uint8 maxSongs);
@@ -71,8 +71,8 @@ public:
     CStatusEffect* GetStatusEffect(EFFECT StatusID, uint32 SubID);
 
     void UpdateStatusIcons();                                   // пересчитываем иконки эффектов
-    void CheckEffects(time_point tick);
-    void CheckRegen(time_point tick);
+    void CheckEffects(uint32 tick);
+    void CheckRegen(uint32 tick);
 
     void LoadStatusEffects();                                   // загружаем эффекты персонажа
     void SaveStatusEffects(bool logout = false);                // сохраняем эффекты персонажа
@@ -86,8 +86,13 @@ public:
     void Fold(uint32 charid);
 
     uint8 GetActiveManeuvers();
+    uint8 GetActiveRunes();
+    void GetRuneTypes(EFFECT &type1, EFFECT &type2, EFFECT &type3);
     void RemoveOldestManeuver();
     void RemoveAllManeuvers();
+    void RemoveOldestRune();
+    void RemoveAllRunes();
+    EFFECT GetNewestRune(); 
 
     void WakeUp(); // remove sleep effects
     bool IsAsleep();
@@ -95,15 +100,6 @@ public:
 
     uint16 GetConfrontationEffect(); // gets confrontation number (bcnm, confrontation, campaign, reive mark)
     void CopyConfrontationEffect(CBattleEntity* PEntity); // copies confrontation status (pet summoning, etc)
-
-    template<typename F, typename... Args>
-    void ForEachEffect(F func, Args&&... args)
-    {
-        for (auto&& PEffect : m_StatusEffectList)
-        {
-            func(PEffect, std::forward<Args>(args)...);
-        }
-    }
 
 	CStatusEffectContainer(CBattleEntity* PEntity);
 	~CStatusEffectContainer();
@@ -118,8 +114,8 @@ private:
 
     void OverwriteStatusEffect(CStatusEffect* StatusEffect);
 
-	time_point m_EffectCheckTime {server_clock::now()};
-    time_point m_RegenCheckTime {server_clock::now()};
+	uint32 m_EffectCheckTime;
+	uint32 m_RegenCheckTime;
 
 	std::vector<CStatusEffect*>	m_StatusEffectList;
 };

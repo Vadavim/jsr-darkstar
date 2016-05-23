@@ -9,25 +9,26 @@ require("scripts/globals/status");
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
-    return 0;
+	return 0;
 end;
 
 function onSpellCast(caster,target,spell)
+	local enhanceSkill = caster:getSkillLevel(ENHANCING_MAGIC_SKILL);
 
-    local enhanceSkill = caster:getSkillLevel(ENHANCING_MAGIC_SKILL);
-    local power = calculateBarspellPower(caster,enhanceSkill);
-    local mdefBonus = caster:getMerit(MERIT_BAR_SPELL_EFFECT) + caster:getMod(MOD_BARSPELL_MDEF_BONUS);
-    local duration = 150;
+	local power = calculateBarspellPower(caster,enhanceSkill);
 
-    if (enhanceSkill > 180) then
-        duration = 150 + 0.8 * (enhanceSkill - 180);
-    end
+	local duration = 150;
 
-    if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
-        duration = duration * 3;
-    end
+	if(enhanceSkill >180)then
+		duration = 150 + 0.8 * (enhanceSkill - 180);
+	end
 
-    target:addStatusEffect(EFFECT_BARFIRE,power,0,duration,0,mdefBonus);
+	if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
+		duration = duration * 3;
+	end
 
-    return EFFECT_BARFIRE;
+	target:addStatusEffect(EFFECT_BARFIRE,power,0,duration,0,1);
+	spell:setMsg(230);
+
+	return EFFECT_BARFIRE;
 end;

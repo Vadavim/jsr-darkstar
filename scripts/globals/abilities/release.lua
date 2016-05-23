@@ -13,7 +13,7 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
-    return 0,0;
+	return 0,0;
 end;
 
 -----------------------------------
@@ -21,6 +21,12 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
+    local pet = player:getPet();
+    local tp = pet:getTP();
+    local level = player:getMainLvl();
+    local recovery = ( tp / 4 ) * ( 0.2 + (level / 30));
+    print(tostring(recovery));
+    player:addMP(recovery);
     target:despawnPet();
     target:delStatusEffect(EFFECT_AVATAR);
 end;

@@ -29,7 +29,6 @@ This file is part of DarkStar-server source code.
 #include "../entities/charentity.h"
 
 #include "char_recast.h"
-#include "../recast_container.h"
 
 
 CCharRecastPacket::CCharRecastPacket(CCharEntity* PChar)
@@ -41,14 +40,44 @@ CCharRecastPacket::CCharRecastPacket(CCharEntity* PChar)
 
     RecastList_t* RecastList = PChar->PRecastContainer->GetRecastList(RECAST_ABILITY);
 
-    for (auto&& recast : *RecastList)
+    for (uint16 i = 0; i < RecastList->size(); ++i)
     {
-        uint32 recasttime = (recast.RecastTime == 0 ? 0 : ((recast.RecastTime - (time(nullptr) - recast.TimeStamp))));
+        Recast_t* recast = RecastList->at(i);
 
-        if (recast.ID != 0)
+        uint32 recasttime = (recast->RecastTime == 0 ? 0 : ((recast->RecastTime - (time(nullptr) - recast->TimeStamp))));
+
+        if (recast->ID != 0)
         {
             WBUFL(data, (0x0C + count * 8) ) = recasttime;
-            WBUFB(data, (0x0F + count * 8) ) = recast.ID;
+            WBUFB(data, (0x0F + count * 8) ) = recast->ID;
+            count++;
+        }
+        else
+        {
+            WBUFL(data, (0x04) ) = recasttime;  // 2h ability (recast id is 0)
+        }
+    }
+}
+
+CCharRecastPacket::CCharRecastPacket(CCharEntity* PChar, uint16 id)
+{
+    this->type = 0x19;
+    this->size = 0x7F;
+
+    uint8 count = 0;
+
+    RecastList_t* RecastList = PChar->PRecastContainer->GetRecastList(RECAST_ABILITY);
+
+    for (uint16 i = 0; i < RecastList->size(); ++i)
+    {
+        Recast_t* recast = RecastList->at(i);
+
+        uint32 recasttime = (recast->RecastTime == 0 ? 0 : ((recast->RecastTime - (time(nullptr) - recast->TimeStamp))));
+
+        if (recast->ID != 0)
+        {
+            WBUFL(data, (0x0C + count * 8) ) = recasttime;
+            WBUFB(data, (0x0F + count * 8) ) = id;
             count++;
         }
         else

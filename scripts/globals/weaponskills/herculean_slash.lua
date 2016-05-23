@@ -17,27 +17,29 @@ require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
 -----------------------------------
 
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID)
 
-    local params = {};
-    params.ftp100 = 3.5; params.ftp200 = 3.5; params.ftp300 = 3.5;
-    params.str_wsc = 0.0; params.dex_wsc = 0.0; params.vit_wsc = 0.6; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
-    params.ele = ELE_ICE;
-    params.skill = SKILL_GSD;
-    params.includemab = true;
+	local params = {};
+	params.ftp100 = 2.0; params.ftp200 = 3.5; params.ftp300 = 6.0;
+	params.str_wsc = 0.0; params.dex_wsc = 0.0; params.vit_wsc = 0.6; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
+	params.ele = ELE_ICE;
+	params.skill = SKILL_GSD;
+	params.includemab = true;
 
-    if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.vit_wsc = 0.8;
-    end
+	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
+		params.vit_wsc = 0.8;
+	end
 
-    local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, params, tp, primary);
-
-    if (damage > 0) then
-        local duration = (tp/1000 * 60)
-        if (target:hasStatusEffect(EFFECT_PARALYSIS) == false) then
-            target:addStatusEffect(EFFECT_PARALYSIS, 30, 0, duration);
-        end
-    end
-    return tpHits, extraHits, criticalHit, damage;
+	local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, params);
+	local resist = applyResistanceWeaponskill(player, target, ELE_ICE, SKILL_GSD, EFFECT_SLOW);
+	if (damage > 0 and resist >= 0.125) then
+		local tp = player:getTP();
+		local duration = (tp/100 * 60)
+		if(target:addStatusEffect(EFFECT_SLOW, 350, 0, duration * resist)) then
+			target:setPendingMessage(277, EFFECT_SLOW);
+		end
+	end
+	damage = damage * WEAPON_SKILL_POWER
+	return tpHits, extraHits, criticalHit, damage;
 
 end

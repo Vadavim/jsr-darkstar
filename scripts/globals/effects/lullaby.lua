@@ -1,14 +1,19 @@
 -----------------------------------
 --
---     EFFECT_NONE
+-- 	EFFECT_NONE
 --
 -----------------------------------
+
+require("scripts/globals/status");
+require("scripts/globals/jsr_utils");
 
 -----------------------------------
 -- onEffectGain Action
 -----------------------------------
 
 function onEffectGain(target,effect)
+	target:addMod(MOD_PARALYZE,effect:getPower());
+    applyBarDurationReduction(target, effect, EFFECT_BARSLEEP);
 end;
 
 -----------------------------------

@@ -31,13 +31,10 @@ This file is part of DarkStar-server source code.
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
-#include <array>
 
 #include "../lua/luautils.h"
 
-#include "../ai/ai_container.h"
-#include "../ai/states/attack_state.h"
-#include "../ai/states/item_state.h"
+#include "../alliance.h"
 
 #include "../packets/char_abilities.h"
 #include "../packets/char_appearance.h"
@@ -67,7 +64,6 @@ This file is part of DarkStar-server source code.
 #include "../packets/server_ip.h"
 
 #include "../ability.h"
-#include "../alliance.h"
 #include "../grades.h"
 #include "../conquest_system.h"
 #include "../map.h"
@@ -75,19 +71,10 @@ This file is part of DarkStar-server source code.
 #include "../trait.h"
 #include "../vana_time.h"
 #include "../weapon_skill.h"
-#include "../item_container.h"
-#include "../recast_container.h"
-#include "../status_effect_container.h"
-#include "../linkshell.h"
-#include "../universal_container.h"
-#include "../latent_effect_container.h"
-#include "../treasure_pool.h"
-#include "../mob_modifier.h"
 
 #include "../entities/charentity.h"
 #include "../entities/petentity.h"
 #include "../entities/mobentity.h"
-#include "../entities/automatonentity.h"
 
 #include "battleutils.h"
 #include "charutils.h"
@@ -103,8 +90,8 @@ This file is part of DarkStar-server source code.
 *																		*
 ************************************************************************/
 
-std::array<std::array<uint16, 20>, 50> g_ExpTable;
-std::array<uint16, 100> g_ExpPerLevel;
+uint16 g_ExpTable[50][20];
+uint16 g_ExpPerLevel[100];
 
 /************************************************************************
 *																		*
@@ -144,18 +131,17 @@ namespace charutils
         uint8 slvl = PChar->GetSLevel();
         JOBTYPE mjob = PChar->GetMJob();
         JOBTYPE sjob = PChar->GetSJob();
-        MERIT_TYPE statMerit[] = {MERIT_STR, MERIT_DEX, MERIT_VIT, MERIT_AGI, MERIT_INT, MERIT_MND, MERIT_CHR};
 
         uint8 race = 0;					//Human
 
         switch (PChar->look.race)
         {
-            case 3:
-            case 4: race = 1; break;	//Elvaan
-            case 5:
-            case 6: race = 2; break;	//Tarutaru
-            case 7: race = 3; break;	//Mithra
-            case 8: race = 4; break;	//Galka
+        case 3:
+        case 4: race = 1; break;	//Elvaan
+        case 5:
+        case 6: race = 2; break;	//Tarutaru
+        case 7: race = 3; break;	//Mithra
+        case 8: race = 4; break;	//Galka
         }
 
         // Расчет прироста HP от main job
@@ -234,7 +220,7 @@ namespace charutils
                 raceStat = (grade::GetMPScale(grade, 0) + grade::GetMPScale(grade, scaleTo60Column) * (slvl - 1)) / map_config.sj_mp_divisor;	// Вот здесь ошибка
             }
         }
-        else {
+        else{
             //Расчет нормального расового бонуса
             raceStat = grade::GetMPScale(grade, 0) +
                 grade::GetMPScale(grade, scaleTo60Column) * mainLevelUpTo60 +
@@ -300,12 +286,12 @@ namespace charutils
                 grade = grade::GetJobGrade(sjob, StatIndex);
                 sJobStat = (grade::GetStatScale(grade, 0) + grade::GetStatScale(grade, scaleTo60Column) * (slvl - 1)) / 2;
             }
-            else {
+            else{
                 sJobStat = 0;
             }
 
             // get each merit bonus stat, str,dex,vit and so on...
-            MeritBonus = PChar->PMeritPoints->GetMeritValue(statMerit[StatIndex - 2], PChar);
+            MeritBonus = PChar->PMeritPoints->GetMeritValue((Merit_t*)PChar->PMeritPoints->GetMeritByIndex(StatIndex), PChar);
 
             // Вывод значения
             WBUFW(&PChar->stats, counter) = (uint16)(map_config.player_stat_multiplier * (raceStat + jobStat + sJobStat) + MeritBonus);
@@ -345,16 +331,17 @@ namespace charutils
             "nation,"               // 13
             "quests,"               // 14
             "keyitems,"             // 15
-            "abilities,"            // 16
-            "titles,"               // 17
-            "zones,"                // 18
-            "missions,"             // 19
-            "assault,"              // 20
-            "campaign,"             // 21
-            "playtime,"             // 22
-            "isnewplayer,"          // 23
-            "campaign_allegiance,"  // 24
-            "isstylelocked "        // 25
+            "spells,"               // 16
+            "abilities,"            // 17
+            "titles,"               // 18
+            "zones,"                // 19
+            "missions,"             // 20
+            "assault,"              // 21
+            "campaign,"             // 22
+            "playtime,"             // 23
+            "isnewplayer,"          // 24
+            "campaign_allegiance,"  // 25
+            "isstylelocked "        // 26
             "FROM chars "
             "WHERE charid = %u";
 
@@ -394,42 +381,48 @@ namespace charutils
             memcpy(PChar->keys.keysList, keyitems, (length > sizeof(PChar->keys) ? sizeof(PChar->keys) : length));
 
             length = 0;
+            int8* spells = nullptr;
+            Sql_GetData(SqlHandle, 16, &spells, &length);
+            memcpy(PChar->m_SpellList, spells, (length > sizeof(PChar->m_SpellList) ? sizeof(PChar->m_SpellList) : length));
+            memcpy(PChar->m_EnabledSpellList, spells, (length > sizeof(PChar->m_EnabledSpellList) ? sizeof(PChar->m_EnabledSpellList) : length));
+            filterEnabledSpells(PChar);
+
+            length = 0;
             int8* abilities = nullptr;
-            Sql_GetData(SqlHandle, 16, &abilities, &length);
+            Sql_GetData(SqlHandle, 17, &abilities, &length);
             memcpy(PChar->m_LearnedAbilities, abilities, (length > sizeof(PChar->m_LearnedAbilities) ? sizeof(PChar->m_LearnedAbilities) : length));
 
             length = 0;
             int8* titles = nullptr;
-            Sql_GetData(SqlHandle, 17, &titles, &length);
+            Sql_GetData(SqlHandle, 18, &titles, &length);
             memcpy(PChar->m_TitleList, titles, (length > sizeof(PChar->m_TitleList) ? sizeof(PChar->m_TitleList) : length));
 
             length = 0;
             int8* zones = nullptr;
-            Sql_GetData(SqlHandle, 18, &zones, &length);
+            Sql_GetData(SqlHandle, 19, &zones, &length);
             memcpy(PChar->m_ZonesList, zones, (length > sizeof(PChar->m_ZonesList) ? sizeof(PChar->m_ZonesList) : length));
 
             length = 0;
             int8* missions = nullptr;
-            Sql_GetData(SqlHandle, 19, &missions, &length);
+            Sql_GetData(SqlHandle, 20, &missions, &length);
             memcpy(PChar->m_missionLog, missions, (length > sizeof(PChar->m_missionLog) ? sizeof(PChar->m_missionLog) : length));
 
             length = 0;
             int8* assault = nullptr;
-            Sql_GetData(SqlHandle, 20, &assault, &length);
+            Sql_GetData(SqlHandle, 21, &assault, &length);
             memcpy(&PChar->m_assaultLog, assault, (length > sizeof(PChar->m_assaultLog) ? sizeof(PChar->m_assaultLog) : length));
 
             length = 0;
             int8* campaign = nullptr;
-            Sql_GetData(SqlHandle, 21, &campaign, &length);
+            Sql_GetData(SqlHandle, 22, &campaign, &length);
             memcpy(&PChar->m_campaignLog, campaign, (length > sizeof(PChar->m_campaignLog) ? sizeof(PChar->m_campaignLog) : length));
 
-            PChar->SetPlayTime(Sql_GetUIntData(SqlHandle, 22));
-            PChar->m_isNewPlayer = Sql_GetIntData(SqlHandle, 23) == 1 ? true : false;
-            PChar->profile.campaign_allegiance = (uint8)Sql_GetIntData(SqlHandle, 24);
-            PChar->setStyleLocked(Sql_GetIntData(SqlHandle, 25) == 1 ? true : false);
+            PChar->SetPlayTime(Sql_GetUIntData(SqlHandle, 23));
+            PChar->m_isNewPlayer = Sql_GetIntData(SqlHandle, 24) == 1 ? true : false;
+            PChar->profile.campaign_allegiance = (uint8)Sql_GetIntData(SqlHandle, 25);
+            PChar->setStyleLocked(Sql_GetIntData(SqlHandle, 26) == 1 ? true : false);
         }
 
-        LoadSpells(PChar);
 
         fmtQuery =
             "SELECT "
@@ -491,7 +484,6 @@ namespace charutils
             PChar->getStorage(LOC_MOGCASE)->AddBuff((uint8)Sql_GetIntData(SqlHandle, 5));
 
             PChar->getStorage(LOC_WARDROBE)->AddBuff(80); // Always 80..
-            PChar->getStorage(LOC_WARDROBE2)->AddBuff(80); // Always 80..
         }
 
         fmtQuery = "SELECT face, race, size, head, body, hands, legs, feet, main, sub, ranged "
@@ -523,7 +515,7 @@ namespace charutils
         ret = Sql_Query(SqlHandle, fmtQuery, PChar->id);
 
         if (ret != SQL_ERROR
-            && Sql_NumRows(SqlHandle) != 0
+            && Sql_NumRows(SqlHandle) != 0 
             && Sql_NextRow(SqlHandle) == SQL_SUCCESS) {
             PChar->styleItems[SLOT_HEAD] = (uint16)Sql_GetIntData(SqlHandle, 0);
             PChar->styleItems[SLOT_BODY] = (uint16)Sql_GetIntData(SqlHandle, 1);
@@ -614,7 +606,7 @@ namespace charutils
             "FROM char_stats WHERE charid = %u;";
 
         ret = Sql_Query(SqlHandle, fmtQuery, PChar->id);
-        uint8 zoning = 0;
+        bool zoning = false;
 
         if (ret != SQL_ERROR &&
             Sql_NumRows(SqlHandle) != 0 &&
@@ -650,12 +642,10 @@ namespace charutils
             }
         }
 
-
-        Sql_Query(SqlHandle, "UPDATE char_stats SET zoning = 0 WHERE charid = %u", PChar->id);
-
-        if (zoning == 2)
-            ShowDebug("Player <%s> logging in to zone <%u>\n", PChar->name.c_str(), PChar->getZone());
-
+        if (zoning)
+        {
+            Sql_Query(SqlHandle, "UPDATE char_stats SET zoning = 0 WHERE charid = %u", PChar->id);
+        }
 
         PChar->SetMLevel(PChar->jobs.job[PChar->GetMJob()]);
         PChar->SetSLevel(PChar->jobs.job[PChar->GetSJob()]);
@@ -769,53 +759,7 @@ namespace charutils
         PChar->health.hp = PChar->loc.destination == ZONE_RESIDENTIAL_AREA ? PChar->GetMaxHP() : HP;
         PChar->health.mp = PChar->loc.destination == ZONE_RESIDENTIAL_AREA ? PChar->GetMaxMP() : MP;
         PChar->UpdateHealth();
-        luautils::OnGameIn(PChar, zoning == 1);
-    }
-
-    void LoadSpells(CCharEntity* PChar)
-    {
-        // disable all spells
-        PChar->m_SpellList.reset();
-
-        std::string enabledExpansions = "\"\"";
-
-        // Compile a string of all enabled expansions
-        for (auto&& expan : {"COP", "TOAU", "WOTG", "ACP", "AMK", "ASA", "ABYSSEA", "SOA"})
-        {
-            if (luautils::IsExpansionEnabled(expan))
-            {
-                enabledExpansions += ",\"";
-                enabledExpansions += expan;
-                enabledExpansions += "\"";
-            }
-        }
-
-        // Select all player spells from enabled expansions
-        const int8* fmtQuery =
-            "SELECT char_spells.spellid "
-            "FROM char_spells "
-            "JOIN spell_list "
-            "ON spell_list.spellid = char_spells.spellid "
-            "WHERE charid = %u AND "
-            "(spell_list.required_expansion IN (%s) OR "
-            "spell_list.required_expansion IS NULL);";
-
-        int32 ret = Sql_Query(SqlHandle, fmtQuery, PChar->id, enabledExpansions.c_str());
-
-        if (ret != SQL_ERROR &&
-            Sql_NumRows(SqlHandle) != 0)
-        {
-            while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
-            {
-                uint16 spellId = Sql_GetUIntData(SqlHandle, 0);
-
-                if (spell::GetSpell(spellId) != nullptr)
-                {
-                    PChar->m_SpellList.set(spellId);
-                }
-            }
-        }
-
+        luautils::OnGameIn(PChar, zoning);
     }
 
     /************************************************************************
@@ -1064,11 +1008,11 @@ namespace charutils
 
     void SendInventory(CCharEntity* PChar)
     {
-        auto pushContainer = [&](auto LocationID)
+        for (uint8 LocationID = 0; LocationID < MAX_CONTAINER_ID; ++LocationID)
         {
             CItemContainer* container = PChar->getStorage(LocationID);
             if (container == nullptr)
-                return;
+                continue;
 
             uint8 size = container->GetSize();
             for (uint8 slotID = 0; slotID <= size; ++slotID)
@@ -1079,14 +1023,6 @@ namespace charutils
                     PChar->pushPacket(new CInventoryItemPacket(PItem, LocationID, slotID));
                 }
             }
-        };
-
-        //Send important items first
-        //Note: it's possible that non-essential inventory items are sent in response to another packet
-        for (auto&& containerID : {LOC_INVENTORY, LOC_TEMPITEMS, LOC_WARDROBE, LOC_WARDROBE2, LOC_MOGSAFE,
-            LOC_STORAGE, LOC_MOGLOCKER, LOC_MOGSATCHEL, LOC_MOGSACK, LOC_MOGCASE, LOC_MOGSAFE2})
-        {
-            pushContainer(containerID);
         }
 
         for (int32 i = 0; i < 16; ++i)
@@ -1255,7 +1191,7 @@ namespace charutils
         charutils::BuildingCharSkillsTable(PChar);
         charutils::CalculateStats(PChar);
         charutils::CheckValidEquipment(PChar);
-        PChar->PRecastContainer->ChangeJob();
+        PChar->PRecastContainer->ResetAbilities();
         charutils::BuildingCharAbilityTable(PChar);
         charutils::BuildingCharTraitsTable(PChar);
 
@@ -1266,7 +1202,7 @@ namespace charutils
         charutils::SaveCharStats(PChar);
         charutils::SaveCharJob(PChar, PChar->GetMJob());
         charutils::SaveCharExp(PChar, PChar->GetMJob());
-        PChar->updatemask |= UPDATE_HP;
+        charutils::UpdateHealth(PChar);
 
         PChar->pushPacket(new CCharJobsPacket(PChar));
         PChar->pushPacket(new CCharStatsPacket(PChar));
@@ -1327,7 +1263,7 @@ namespace charutils
     *																		*
     ************************************************************************/
 
-    uint32 UpdateItem(CCharEntity* PChar, uint8 LocationID, uint8 slotID, int32 quantity, bool force)
+    uint32 UpdateItem(CCharEntity* PChar, uint8 LocationID, uint8 slotID, int32 quantity)
     {
         CItem* PItem = PChar->getStorage(LocationID)->GetItem(slotID);
 
@@ -1341,15 +1277,6 @@ namespace charutils
         {
             ShowDebug("UpdateItem: Trying to move too much quantity\n");
             return 0;
-        }
-
-        auto PState = dynamic_cast<CItemState*>(PChar->PAI->GetCurrentState());
-        if (PState)
-        {
-            CItem* item = PState->GetItem();
-
-            if (item && item->getSlotID() == PItem->getSlotID() && item->getLocationID() == PItem->getLocationID() && !force)
-                return 0;
         }
 
         uint32 ItemID = PItem->getID();
@@ -1394,13 +1321,13 @@ namespace charutils
                         if (PChar->styleItems[equipSlotID] == ItemID) {
                             switch (equipSlotID)
                             {
-                                case SLOT_HEAD:
-                                case SLOT_BODY:
-                                case SLOT_HANDS:
-                                case SLOT_LEGS:
-                                case SLOT_FEET:
-                                    charutils::UpdateArmorStyle(PChar, equipSlotID);
-                                    break;
+                            case SLOT_HEAD:
+                            case SLOT_BODY:
+                            case SLOT_HANDS:
+                            case SLOT_LEGS:
+                            case SLOT_FEET:
+                                charutils::UpdateArmorStyle(PChar, equipSlotID);
+                                break;
                             }
                         }
                     }
@@ -1414,7 +1341,7 @@ namespace charutils
 
     /************************************************************************
     *                                                                       *
-    *  Check the possibility of trade between the characters             *
+    *  Проверяем возможность обмена между персонажами                       *
     *                                                                       *
     ************************************************************************/
 
@@ -1422,7 +1349,6 @@ namespace charutils
     {
         if (PTarget->getStorage(LOC_INVENTORY)->GetFreeSlotsCount() < PChar->UContainer->GetItemsCount())
         {
-            ShowDebug(CL_CYAN"Unable to trade, %s doesn't have enough inventory space\n" CL_RESET, PTarget->GetName());
             return false;
         }
         for (uint8 slotid = 0; slotid <= 8; ++slotid)
@@ -1433,7 +1359,6 @@ namespace charutils
             {
                 if (HasItem(PTarget, PItem->getID()))
                 {
-                    ShowDebug(CL_CYAN"Unable to trade, %s has the rare item already (%s)\n" CL_RESET, PTarget->GetName(), PItem->getName());
                     return false;
                 }
             }
@@ -1449,7 +1374,6 @@ namespace charutils
 
     void DoTrade(CCharEntity* PChar, CCharEntity* PTarget)
     {
-        ShowDebug(CL_CYAN"%s->%s trade item movement started\n" CL_RESET, PChar->GetName(), PTarget->GetName());
         for (uint8 slotid = 0; slotid <= 8; ++slotid)
         {
             CItem* PItem = PChar->UContainer->GetItem(slotid);
@@ -1458,20 +1382,13 @@ namespace charutils
             {
                 if (PItem->getStackSize() == 1)
                 {
-                    CItem* PNewItem = itemutils::GetItem(PItem);
-                    ShowDebug(CL_CYAN"Adding %s to %s inventory stacksize 1\n" CL_RESET, PNewItem->getName(), PTarget->GetName());
-                    PNewItem->setReserve(0);
-                    AddItem(PTarget, LOC_INVENTORY, PNewItem);
+                    AddItem(PTarget, LOC_INVENTORY, itemutils::GetItem(PItem));
                 }
-                else
-                {
-                    ShowDebug(CL_CYAN"Adding %s to %s inventory\n" CL_RESET, PItem->getName(), PTarget->GetName());
+                else {
                     AddItem(PTarget, LOC_INVENTORY, PItem->getID(), PItem->getReserve());
                 }
-                ShowDebug(CL_CYAN"Removing %s from %s's inventory\n" CL_RESET, PItem->getName(), PChar->GetName());
                 UpdateItem(PChar, LOC_INVENTORY, PItem->getSlotID(), -PItem->getReserve());
                 PItem->setReserve(0);
-                PChar->UContainer->ClearSlot(slotid);
             }
         }
     }
@@ -1491,9 +1408,9 @@ namespace charutils
         {
             switch (((CItemArmor*)PItem)->getRemoveSlotId())
             {
-                case SLOT_HEAD:  PChar->look.head = 0; break;
-                case SLOT_HANDS: PChar->look.hands = 0; break;
-                case SLOT_FEET:  PChar->look.feet = 0; break;
+            case SLOT_HEAD:  PChar->look.head = 0; break;
+            case SLOT_HANDS: PChar->look.hands = 0; break;
+            case SLOT_FEET:  PChar->look.feet = 0; break;
             }
 
             uint8 slotID = PChar->equip[equipSlotID];
@@ -1523,7 +1440,7 @@ namespace charutils
             }
             PItem->setSubType(ITEM_UNLOCKED);
 
-            if (equipSlotID == SLOT_SUB) {
+            if (equipSlotID == SLOT_SUB){
                 // Removed sub item, if main hand is empty, then possibly eligible for H2H weapon
                 if (!PChar->getEquip(SLOT_MAIN) || !PChar->getEquip(SLOT_MAIN)->isType(ITEM_ARMOR))
                 {
@@ -1539,69 +1456,68 @@ namespace charutils
 
             switch (equipSlotID)
             {
-                case SLOT_HEAD:   PChar->look.head = 0; break;
-                case SLOT_BODY:   PChar->look.body = 0; break;
-                case SLOT_HANDS:  PChar->look.hands = 0; break;
-                case SLOT_LEGS:   PChar->look.legs = 0; break;
-                case SLOT_FEET:   PChar->look.feet = 0; break;
-                case SLOT_SUB:
+            case SLOT_HEAD:   PChar->look.head = 0; break;
+            case SLOT_BODY:   PChar->look.body = 0; break;
+            case SLOT_HANDS:  PChar->look.hands = 0; break;
+            case SLOT_LEGS:   PChar->look.legs = 0; break;
+            case SLOT_FEET:   PChar->look.feet = 0; break;
+            case SLOT_SUB:
+            {
+                PChar->look.sub = 0;
+                PChar->m_Weapons[SLOT_SUB] = itemutils::GetUnarmedItem();			// << equips "nothing" in the sub slot to prevent multi attack exploit
+                PChar->health.tp = 0;
+                BuildingCharWeaponSkills(PChar);
+                UpdateWeaponStyle(PChar, equipSlotID, nullptr);
+            }
+            break;
+            case SLOT_AMMO:
+            {
+                if (PChar->equip[SLOT_RANGED] == 0)
                 {
-                    PChar->look.sub = 0;
-                    PChar->m_Weapons[SLOT_SUB] = itemutils::GetUnarmedItem();			// << equips "nothing" in the sub slot to prevent multi attack exploit
-                    PChar->health.tp = 0;
-                    BuildingCharWeaponSkills(PChar);
-                    UpdateWeaponStyle(PChar, equipSlotID, nullptr);
+                    PChar->look.ranged = 0;
                 }
-                break;
-                case SLOT_AMMO:
+                PChar->PBattleAI->SetCurrentAction(ACTION_RANGED_INTERRUPT);
+                UpdateWeaponStyle(PChar, equipSlotID, nullptr);
+            }
+            break;
+            case SLOT_RANGED:
+            {
+                if (PChar->equip[SLOT_RANGED] == 0)
                 {
-                    if (PChar->equip[SLOT_RANGED] == 0)
-                    {
-                        PChar->look.ranged = 0;
-                    }
-                    PChar->m_Weapons[SLOT_AMMO] = nullptr;
-                    UpdateWeaponStyle(PChar, equipSlotID, nullptr);
+                    PChar->look.ranged = 0;
                 }
-                break;
-                case SLOT_RANGED:
+                PChar->PBattleAI->SetCurrentAction(ACTION_RANGED_INTERRUPT);
+                PChar->health.tp = 0;
+                BuildingCharWeaponSkills(PChar);
+                UpdateWeaponStyle(PChar, equipSlotID, nullptr);
+            }
+            break;
+            case SLOT_MAIN:
+            {
+                if (PItem->isType(ITEM_WEAPON))
                 {
-                    if (PChar->equip[SLOT_RANGED] == 0)
+                    if (((CItemWeapon*)PItem)->getSkillType() == SKILL_H2H)
                     {
-                        PChar->look.ranged = 0;
+                        PChar->look.sub = 0;
                     }
-                    PChar->m_Weapons[SLOT_RANGED] = nullptr;
-                    PChar->health.tp = 0;
-                    BuildingCharWeaponSkills(PChar);
-                    UpdateWeaponStyle(PChar, equipSlotID, nullptr);
                 }
-                break;
-                case SLOT_MAIN:
-                {
-                    if (PItem->isType(ITEM_WEAPON))
-                    {
-                        if (((CItemWeapon*)PItem)->getSkillType() == SKILL_H2H)
-                        {
-                            PChar->look.sub = 0;
-                        }
-                    }
 
-                    if (PChar->PAI->IsEngaged())
-                    {
-                        auto state = dynamic_cast<CAttackState*>(PChar->PAI->GetCurrentState());
-                        if (state) state->ResetAttackTimer();
-                    }
-
-                    // If main hand is empty, figure out which UnarmedItem to give the player.
-                    if (!PChar->getEquip(SLOT_MAIN) || !PChar->getEquip(SLOT_MAIN)->isType(ITEM_ARMOR))
-                    {
-                        CheckUnarmedWeapon(PChar);
-                    }
-
-                    PChar->health.tp = 0;
-                    BuildingCharWeaponSkills(PChar);
-                    UpdateWeaponStyle(PChar, equipSlotID, nullptr);
+                if (PChar->PBattleAI->GetCurrentAction() == ACTION_ATTACK)
+                {
+                    PChar->PBattleAI->SetLastActionTime(gettick());
                 }
-                break;
+
+                // If main hand is empty, figure out which UnarmedItem to give the player.
+                if (!PChar->getEquip(SLOT_MAIN) || !PChar->getEquip(SLOT_MAIN)->isType(ITEM_ARMOR))
+                {
+                    CheckUnarmedWeapon(PChar);
+                }
+
+                PChar->health.tp = 0;
+                BuildingCharWeaponSkills(PChar);
+                UpdateWeaponStyle(PChar, equipSlotID, nullptr);
+            }
+            break;
             }
 
             if (update)
@@ -1633,7 +1549,6 @@ namespace charutils
     bool EquipArmor(CCharEntity* PChar, uint8 slotID, uint8 equipSlotID, uint8 containerID)
     {
         CItemArmor* PItem = (CItemArmor*)PChar->getStorage(containerID)->GetItem(slotID);
-        CItemArmor* oldItem = PChar->getEquip((SLOTTYPE)equipSlotID);
 
         if (PItem == nullptr)
         {
@@ -1648,6 +1563,8 @@ namespace charutils
 
         if (equipSlotID == SLOT_MAIN)
         {
+            CItemArmor* oldItem = PChar->getEquip((SLOTTYPE)equipSlotID);
+
             if (!(slotID == PItem->getSlotID() && oldItem &&
                 (oldItem->isType(ITEM_WEAPON) && PItem->isType(ITEM_WEAPON)) &&
                 ((((CItemWeapon*)PItem)->isTwoHanded() == true) && (((CItemWeapon*)oldItem)->isTwoHanded() == true))))
@@ -1672,213 +1589,212 @@ namespace charutils
 
             switch (equipSlotID)
             {
-                case SLOT_MAIN:
+            case SLOT_MAIN:
+            {
+                if (PItem->isType(ITEM_WEAPON))
+                {
+                    switch (((CItemWeapon*)PItem)->getSkillType())
+                    {
+                    case SKILL_H2H:
+                    case SKILL_GSD:
+                    case SKILL_GAX:
+                    case SKILL_SYH:
+                    case SKILL_POL:
+                    case SKILL_GKT:
+                    case SKILL_STF:
+                    {
+                        CItemArmor* armor = (CItemArmor*)PChar->getEquip(SLOT_SUB);
+                        if ((armor != nullptr) && armor->isType(ITEM_ARMOR))
+                        {
+                            if (armor->isType(ITEM_WEAPON))
+                            {
+                                CItemWeapon* PWeapon = (CItemWeapon*)armor;
+                                if (PWeapon->getSkillType() != SKILL_NON || ((CItemWeapon*)PItem)->getSkillType() == SKILL_H2H)
+                                {
+                                    UnequipItem(PChar, SLOT_SUB, false);
+                                }
+                            }
+                            else
+                            {
+                                UnequipItem(PChar, SLOT_SUB, false);
+                            }
+                        }
+                        if (((CItemWeapon*)PItem)->getSkillType() == SKILL_H2H)
+                        {
+                            PChar->look.sub = PItem->getModelId() + 0x1000;
+                        }
+                    }
+                    break;
+                    }
+                    if (PChar->PBattleAI->GetCurrentAction() == ACTION_ATTACK)
+                    {
+                        PChar->PBattleAI->SetLastActionTime(gettick());
+                    }
+                    PChar->m_Weapons[SLOT_MAIN] = (CItemWeapon*)PItem;
+
+                    if (!PChar->m_Weapons[SLOT_MAIN]->isTwoHanded())
+                    {
+                        PChar->StatusEffectContainer->DelStatusEffect(EFFECT_HASSO);
+                        PChar->StatusEffectContainer->DelStatusEffect(EFFECT_SEIGAN);
+                    }
+
+                }
+                PChar->look.main = PItem->getModelId();
+                UpdateWeaponStyle(PChar, equipSlotID, (CItemWeapon*)PItem);
+            }
+            break;
+            case SLOT_SUB:
+            {
+                CItemWeapon* weapon = (CItemWeapon*)PChar->getEquip(SLOT_MAIN);
+                if (weapon == nullptr || !weapon->isType(ITEM_WEAPON))
                 {
                     if (PItem->isType(ITEM_WEAPON))
                     {
-                        switch (((CItemWeapon*)PItem)->getSkillType())
-                        {
-                            case SKILL_H2H:
-                            case SKILL_GSD:
-                            case SKILL_GAX:
-                            case SKILL_SYH:
-                            case SKILL_POL:
-                            case SKILL_GKT:
-                            case SKILL_STF:
-                            {
-                                CItemArmor* armor = (CItemArmor*)PChar->getEquip(SLOT_SUB);
-                                if ((armor != nullptr) && armor->isType(ITEM_ARMOR))
-                                {
-                                    if (armor->isType(ITEM_WEAPON))
-                                    {
-                                        CItemWeapon* PWeapon = (CItemWeapon*)armor;
-                                        if (PWeapon->getSkillType() != SKILL_NON || ((CItemWeapon*)PItem)->getSkillType() == SKILL_H2H)
-                                        {
-                                            UnequipItem(PChar, SLOT_SUB, false);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        UnequipItem(PChar, SLOT_SUB, false);
-                                    }
-                                }
-                                if (((CItemWeapon*)PItem)->getSkillType() == SKILL_H2H)
-                                {
-                                    PChar->look.sub = PItem->getModelId() + 0x1000;
-                                }
-                            }
-                            break;
-                        }
-                        if (PChar->PAI->IsEngaged())
-                        {
-                            auto state = dynamic_cast<CAttackState*>(PChar->PAI->GetCurrentState());
-                            if (state) state->ResetAttackTimer();
-                        }
-                        PChar->m_Weapons[SLOT_MAIN] = (CItemWeapon*)PItem;
-
-                        if (!PChar->m_Weapons[SLOT_MAIN]->isTwoHanded())
-                        {
-                            PChar->StatusEffectContainer->DelStatusEffect(EFFECT_HASSO);
-                            PChar->StatusEffectContainer->DelStatusEffect(EFFECT_SEIGAN);
-                        }
-
+                        return false;
                     }
-                    PChar->look.main = PItem->getModelId();
-                    UpdateWeaponStyle(PChar, equipSlotID, (CItemWeapon*)PItem);
                 }
-                break;
-                case SLOT_SUB:
+                else
                 {
-                    CItemWeapon* weapon = (CItemWeapon*)PChar->getEquip(SLOT_MAIN);
-                    if (weapon == nullptr || !weapon->isType(ITEM_WEAPON))
+                    switch (weapon->getSkillType())
                     {
-                        if (PItem->isType(ITEM_WEAPON))
+                    case SKILL_H2H:
+                    {
+                        if (!PItem->isType(ITEM_WEAPON))
+                        {
+                            UnequipItem(PChar, SLOT_MAIN, false);
+                        }
+                    }
+                    case SKILL_DAG:
+                    case SKILL_SWD:
+                    case SKILL_AXE:
+                    case SKILL_KAT:
+                    case SKILL_CLB:
+                    {
+                        if (PItem->isType(ITEM_WEAPON) && (!charutils::hasTrait(PChar, TRAIT_DUAL_WIELD) || ((CItemWeapon*)PItem)->getSkillType() == SKILL_NON))
                         {
                             return false;
                         }
+                        PChar->m_Weapons[SLOT_SUB] = (CItemWeapon*)PItem;
                     }
-                    else
+                    break;
+                    default:
                     {
-                        switch (weapon->getSkillType())
+                        if (!PItem->isType(ITEM_WEAPON))
                         {
-                            case SKILL_H2H:
-                            {
-                                if (!PItem->isType(ITEM_WEAPON))
-                                {
-                                    UnequipItem(PChar, SLOT_MAIN, false);
-                                }
-                            }
-                            case SKILL_DAG:
-                            case SKILL_SWD:
-                            case SKILL_AXE:
-                            case SKILL_KAT:
-                            case SKILL_CLB:
-                            {
-                                if (PItem->isType(ITEM_WEAPON) && (!charutils::hasTrait(PChar, TRAIT_DUAL_WIELD) || ((CItemWeapon*)PItem)->getSkillType() == SKILL_NON))
-                                {
-                                    return false;
-                                }
-                                PChar->m_Weapons[SLOT_SUB] = (CItemWeapon*)PItem;
-                            }
-                            break;
-                            default:
-                            {
-                                if (!PItem->isType(ITEM_WEAPON))
-                                {
-                                    UnequipItem(PChar, SLOT_MAIN, false);
-                                }
-                                else if (!((CItemWeapon*)PItem)->getSkillType() == SKILL_NON)
-                                {
-                                    //allow Grips to be equipped
-                                    return false;
-                                }
-                            }
+                            UnequipItem(PChar, SLOT_MAIN, false);
+                        }
+                        else if (!((CItemWeapon*)PItem)->getSkillType() == SKILL_NON)
+                        {
+                            //allow Grips to be equipped
+                            return false;
                         }
                     }
-                    PChar->look.sub = PItem->getModelId();
+                    }
+                }
+                PChar->look.sub = PItem->getModelId();
+                UpdateWeaponStyle(PChar, equipSlotID, (CItemWeapon*)PItem);
+            }
+            break;
+            case SLOT_RANGED:
+            {
+                if (PItem->isType(ITEM_WEAPON))
+                {
+                    CItemWeapon* weapon = (CItemWeapon*)PChar->getEquip(SLOT_AMMO);
+                    if ((weapon != nullptr) && weapon->isType(ITEM_WEAPON))
+                    {
+                        if (((CItemWeapon*)PItem)->getSkillType() != weapon->getSkillType() ||
+                            ((CItemWeapon*)PItem)->getSubSkillType() != weapon->getSubSkillType())
+                        {
+                            UnequipItem(PChar, SLOT_AMMO, false);
+                        }
+                    }
+                    PChar->m_Weapons[SLOT_RANGED] = (CItemWeapon*)PItem;
+                }
+                PChar->look.ranged = PItem->getModelId();
+                UpdateWeaponStyle(PChar, equipSlotID, (CItemWeapon*)PItem);
+            }
+            break;
+            case SLOT_AMMO:
+            {
+                if (PItem->isType(ITEM_WEAPON))
+                {
+                    CItemWeapon* weapon = (CItemWeapon*)PChar->getEquip(SLOT_RANGED);
+                    if ((weapon != nullptr) && weapon->isType(ITEM_WEAPON))
+                    {
+                        if (((CItemWeapon*)PItem)->getSkillType() != weapon->getSkillType() ||
+                            ((CItemWeapon*)PItem)->getSubSkillType() != weapon->getSubSkillType())
+                        {
+                            UnequipItem(PChar, SLOT_RANGED, false);
+                        }
+                    }
+                    if (PChar->equip[SLOT_RANGED] == 0)
+                    {
+                        PChar->look.ranged = PItem->getModelId();
+                    }
+                    PChar->m_Weapons[SLOT_AMMO] = (CItemWeapon*)PItem;
                     UpdateWeaponStyle(PChar, equipSlotID, (CItemWeapon*)PItem);
                 }
-                break;
-                case SLOT_RANGED:
+            }
+            break;
+            case SLOT_HEAD:
+            {
+                CItemArmor* armor = PChar->getEquip(SLOT_BODY);
+                if ((armor != nullptr) && armor->isType(ITEM_ARMOR))
                 {
-                    if (PItem->isType(ITEM_WEAPON))
-                    {
-                        CItemWeapon* weapon = (CItemWeapon*)PChar->getEquip(SLOT_AMMO);
-                        if ((weapon != nullptr) && weapon->isType(ITEM_WEAPON))
-                        {
-                            if (((CItemWeapon*)PItem)->getSkillType() != weapon->getSkillType() ||
-                                ((CItemWeapon*)PItem)->getSubSkillType() != weapon->getSubSkillType())
-                            {
-                                UnequipItem(PChar, SLOT_AMMO, false);
-                            }
-                        }
-                        PChar->m_Weapons[SLOT_RANGED] = (CItemWeapon*)PItem;
-                    }
-                    PChar->look.ranged = PItem->getModelId();
-                    UpdateWeaponStyle(PChar, equipSlotID, (CItemWeapon*)PItem);
-                }
-                break;
-                case SLOT_AMMO:
-                {
-                    if (PItem->isType(ITEM_WEAPON))
-                    {
-                        CItemWeapon* weapon = (CItemWeapon*)PChar->getEquip(SLOT_RANGED);
-                        if ((weapon != nullptr) && weapon->isType(ITEM_WEAPON))
-                        {
-                            if (((CItemWeapon*)PItem)->getSkillType() != weapon->getSkillType() ||
-                                ((CItemWeapon*)PItem)->getSubSkillType() != weapon->getSubSkillType())
-                            {
-                                UnequipItem(PChar, SLOT_RANGED, false);
-                            }
-                        }
-                        if (PChar->equip[SLOT_RANGED] == 0)
-                        {
-                            PChar->look.ranged = PItem->getModelId();
-                        }
-                        PChar->m_Weapons[SLOT_AMMO] = (CItemWeapon*)PItem;
-                        UpdateWeaponStyle(PChar, equipSlotID, (CItemWeapon*)PItem);
+                    uint8 removeSlotID = armor->getRemoveSlotId();
+                    if (removeSlotID == SLOT_HEAD) {
+                        UnequipItem(PChar, SLOT_BODY, false);
                     }
                 }
-                break;
-                case SLOT_HEAD:
+                PChar->look.head = PItem->getModelId();
+            }
+            break;
+            case SLOT_BODY:
+            {
+                if (PItem->getRemoveSlotId() == SLOT_HANDS)
                 {
-                    CItemArmor* armor = PChar->getEquip(SLOT_BODY);
-                    if ((armor != nullptr) && armor->isType(ITEM_ARMOR))
-                    {
-                        uint8 removeSlotID = armor->getRemoveSlotId();
-                        if (removeSlotID == SLOT_HEAD) {
-                            UnequipItem(PChar, SLOT_BODY, false);
-                        }
-                    }
-                    PChar->look.head = PItem->getModelId();
+                    PChar->look.hands = 157;
                 }
-                break;
-                case SLOT_BODY:
+                PChar->look.body = PItem->getModelId();
+            }
+            break;
+            case SLOT_HANDS:
+            {
+                CItemArmor* armor = PChar->getEquip(SLOT_BODY);
+                if ((armor != nullptr) && armor->isType(ITEM_ARMOR))
                 {
-                    if (PItem->getRemoveSlotId() == SLOT_HANDS)
+                    uint8 removeSlotID = armor->getRemoveSlotId();
+                    if (removeSlotID == SLOT_HANDS)
                     {
-                        PChar->look.hands = 157;
+                        UnequipItem(PChar, SLOT_BODY, false);
                     }
-                    PChar->look.body = PItem->getModelId();
                 }
-                break;
-                case SLOT_HANDS:
+                PChar->look.hands = PItem->getModelId();
+            }
+            break;
+            case SLOT_LEGS:
+            {
+                if (PItem->getRemoveSlotId() == SLOT_FEET)
                 {
-                    CItemArmor* armor = PChar->getEquip(SLOT_BODY);
-                    if ((armor != nullptr) && armor->isType(ITEM_ARMOR))
-                    {
-                        uint8 removeSlotID = armor->getRemoveSlotId();
-                        if (removeSlotID == SLOT_HANDS)
-                        {
-                            UnequipItem(PChar, SLOT_BODY, false);
-                        }
-                    }
-                    PChar->look.hands = PItem->getModelId();
+                    PChar->look.feet = 157;
                 }
-                break;
-                case SLOT_LEGS:
+                PChar->look.legs = PItem->getModelId();
+            }
+            break;
+            case SLOT_FEET:
+            {
+                CItemArmor* armor = PChar->getEquip(SLOT_LEGS);
+                if ((armor != nullptr) && armor->isType(ITEM_ARMOR))
                 {
-                    if (PItem->getRemoveSlotId() == SLOT_FEET)
+                    uint8 removeSlotID = armor->getRemoveSlotId();
+                    if (removeSlotID == SLOT_FEET)
                     {
-                        PChar->look.feet = 157;
+                        UnequipItem(PChar, SLOT_LEGS, false);
                     }
-                    PChar->look.legs = PItem->getModelId();
                 }
-                break;
-                case SLOT_FEET:
-                {
-                    CItemArmor* armor = PChar->getEquip(SLOT_LEGS);
-                    if ((armor != nullptr) && armor->isType(ITEM_ARMOR))
-                    {
-                        uint8 removeSlotID = armor->getRemoveSlotId();
-                        if (removeSlotID == SLOT_FEET)
-                        {
-                            UnequipItem(PChar, SLOT_LEGS, false);
-                        }
-                    }
-                    PChar->look.feet = PItem->getModelId();
-                }
-                break;
+                PChar->look.feet = PItem->getModelId();
+            }
+            break;
             }
             PChar->equip[equipSlotID] = slotID;
             PChar->equipLoc[equipSlotID] = containerID;
@@ -1924,13 +1840,13 @@ namespace charutils
         else
             for (uint8 i = 0; i < SLOT_LINK1; i++)
                 PChar->styleItems[i] = 0;
-
+        
         if (PChar->getStyleLocked() != isStyleLocked)
             PChar->pushPacket(new CMessageStandardPacket(isStyleLocked ? 0x10B : 0x10C));
         PChar->setStyleLocked(isStyleLocked);
     }
 
-    void UpdateWeaponStyle(CCharEntity* PChar, uint8 equipSlotID, CItemWeapon* PItem)
+    void UpdateWeaponStyle(CCharEntity* PChar, uint8 equipSlotID, CItemWeapon* PItem) 
     {
         if (!PChar->getStyleLocked())
             return;
@@ -1940,44 +1856,44 @@ namespace charutils
 
         switch (equipSlotID)
         {
-            case SLOT_MAIN:
-                if (hasValidStyle(PChar, PItem, appearance))
-                    PChar->mainlook.main = appearanceModel;
-                else
-                    PChar->mainlook.main = PChar->look.main;
+        case SLOT_MAIN:
+            if (hasValidStyle(PChar, PItem, appearance)) 
+                PChar->mainlook.main = appearanceModel;
+            else 
+                PChar->mainlook.main = PChar->look.main;
 
-                if (PItem == nullptr)
+            if (PItem == nullptr)
+                PChar->mainlook.sub = PChar->look.sub;
+            else
+                switch (((CItemWeapon*)PItem)->getSkillType())
+                {
+                case SKILL_H2H:
+                    PChar->mainlook.sub = appearanceModel + 0x1000;
+                    break;
+                case SKILL_GSD:
+                case SKILL_GAX:
+                case SKILL_SYH:
+                case SKILL_POL:
+                case SKILL_GKT:
+                case SKILL_STF:
                     PChar->mainlook.sub = PChar->look.sub;
-                else
-                    switch (((CItemWeapon*)PItem)->getSkillType())
-                    {
-                        case SKILL_H2H:
-                            PChar->mainlook.sub = appearanceModel + 0x1000;
-                            break;
-                        case SKILL_GSD:
-                        case SKILL_GAX:
-                        case SKILL_SYH:
-                        case SKILL_POL:
-                        case SKILL_GKT:
-                        case SKILL_STF:
-                            PChar->mainlook.sub = PChar->look.sub;
-                            break;
-                    }
-                break;
-            case SLOT_SUB:
-                if (hasValidStyle(PChar, PItem, appearance))
-                    PChar->mainlook.sub = appearanceModel;
-                else
-                    PChar->mainlook.sub = PChar->look.sub;
-                break;
-            case SLOT_RANGED:
-            case SLOT_AMMO:
-                // Appears as though these aren't implemented by SE.
-                break;
+                    break;
+                }
+            break;
+        case SLOT_SUB:
+            if (hasValidStyle(PChar, PItem, appearance))
+                PChar->mainlook.sub = appearanceModel;
+            else
+                PChar->mainlook.sub = PChar->look.sub;
+            break;
+        case SLOT_RANGED:
+        case SLOT_AMMO:
+            // Appears as though these aren't implemented by SE.
+            break;
         }
     }
 
-    void UpdateArmorStyle(CCharEntity* PChar, uint8 equipSlotID)
+    void UpdateArmorStyle(CCharEntity* PChar, uint8 equipSlotID) 
     {
         if (!PChar->getStyleLocked())
             return;
@@ -1989,26 +1905,26 @@ namespace charutils
         if (!canEquipItemOnAnyJob(PChar, appearance))
             return;
 
-        switch (equipSlotID)
+        switch (equipSlotID) 
         {
-            case SLOT_HEAD:
-                PChar->mainlook.head = appearanceModel;
-                break;
-            case SLOT_BODY:
-                PChar->mainlook.body = appearanceModel;
-                break;
-            case SLOT_HANDS:
-                PChar->mainlook.hands = appearanceModel;
-                break;
-            case SLOT_LEGS:
-                PChar->mainlook.legs = appearanceModel;
-                break;
-            case SLOT_FEET:
-                PChar->mainlook.feet = appearanceModel;
-                break;
+        case SLOT_HEAD:
+            PChar->mainlook.head = appearanceModel;
+            break;
+        case SLOT_BODY:
+            PChar->mainlook.body = appearanceModel;
+            break;
+        case SLOT_HANDS:
+            PChar->mainlook.hands = appearanceModel;
+            break;
+        case SLOT_LEGS:
+            PChar->mainlook.legs = appearanceModel;
+            break;
+        case SLOT_FEET:
+            PChar->mainlook.feet = appearanceModel;
+            break;
         }
     }
-
+    
     /************************************************************************
     *																		*
     *																		*
@@ -2017,11 +1933,6 @@ namespace charutils
 
     void EquipItem(CCharEntity* PChar, uint8 slotID, uint8 equipSlotID, uint8 containerID)
     {
-        CItemArmor* PItem = (CItemArmor*)PChar->getStorage(containerID)->GetItem(slotID);
-
-        if (PItem && PItem == PChar->getEquip((SLOTTYPE)equipSlotID))
-            return;
-
         if (slotID == 0)
         {
             CItemArmor* PSubItem = PChar->getEquip(SLOT_SUB);
@@ -2035,6 +1946,7 @@ namespace charutils
         }
         else
         {
+            CItemArmor* PItem = (CItemArmor*)PChar->getStorage(containerID)->GetItem(slotID);
 
             if ((PItem != nullptr) && PItem->isType(ITEM_ARMOR))
             {
@@ -2049,7 +1961,7 @@ namespace charutils
                     if (PItem->isType(ITEM_USABLE) && ((CItemUsable*)PItem)->getCurrentCharges() != 0)
                     {
                         PItem->setAssignTime(CVanaTime::getInstance()->getVanaTime());
-                        PChar->PRecastContainer->Add(RECAST_ITEM, slotID, PItem->getReuseTime() / 1000);
+                        PChar->PRecastContainer->Add(RECAST_ITEM, slotID, PItem->getReuseTime()/1000);
 
                         // не забываем обновить таймер при экипировке предмета
 
@@ -2058,7 +1970,7 @@ namespace charutils
                     }
                     PItem->setSubType(ITEM_LOCKED);
 
-                    if (equipSlotID == SLOT_SUB) {
+                    if (equipSlotID == SLOT_SUB){
                         // If main hand is empty, check which UnarmedItem to use.
                         if (!PChar->getEquip(SLOT_MAIN) || !PChar->getEquip(SLOT_MAIN)->isType(ITEM_ARMOR))
                         {
@@ -2219,33 +2131,42 @@ namespace charutils
         JOBTYPE curSubJob = PChar->GetSJob();
 
         CItemWeapon* PItem;
-        int main_ws = 0;
-        int range_ws = 0;
-        int main_ws_dyn = 0;
-        int range_ws_dyn = 0;
+        int16 wsIDs[3] = { 0 };
+        int16 wsDynIDs[3] = { 0 };
 
         bool isInDynamis = PChar->isInDynamis();
 
-        for (auto&& slot : {std::make_tuple(SLOT_MAIN, std::ref(main_ws), std::ref(main_ws_dyn)),
-            std::make_tuple(SLOT_RANGED, std::ref(range_ws), std::ref(range_ws_dyn))})
+        for (int i = 0; i < 3; ++i)
         {
-            if (PChar->m_Weapons[std::get<0>(slot)])
+            if (PChar->equip[i])
             {
-                PItem = PChar->m_Weapons[std::get<0>(slot)];
+                PItem = (CItemWeapon*)PChar->getEquip((SLOTTYPE)i);
 
-                std::get<1>(slot) = battleutils::GetScaledItemModifier(PChar, PItem, MOD_ADDS_WEAPONSKILL);
-                std::get<2>(slot) = battleutils::GetScaledItemModifier(PChar, PItem, MOD_ADDS_WEAPONSKILL_DYN);
+                for (std::vector<CModifier*>::iterator it = PItem->modList.begin(); it != PItem->modList.end(); ++it)
+                {
+                    if ((*it)->getModID() == MOD_ADDS_WEAPONSKILL)
+                    {
+                        wsIDs[i] = (*it)->getModAmount();
+                        break;
+                    }
+                    if ((*it)->getModID() == MOD_ADDS_WEAPONSKILL_DYN)
+                    {
+                        wsDynIDs[i] = (*it)->getModAmount();
+                        break;
+                    }
+                }
             }
         }
 
         //add in melee ws
         uint8 skill = PChar->m_Weapons[SLOT_MAIN]->getSkillType();
-        auto& WeaponSkillList = battleutils::GetWeaponSkills(skill);
-        for (auto&& PSkill : WeaponSkillList)
+        std::list<CWeaponSkill*>&& WeaponSkillList = battleutils::GetWeaponSkills(skill);
+        for (std::list<CWeaponSkill*>::iterator it = WeaponSkillList.begin(); it != WeaponSkillList.end(); ++it)
         {
+            CWeaponSkill* PSkill = *it;
             if (PChar->GetSkill(skill) >= PSkill->getSkillLevel() && (PSkill->getJob(curMainJob) > 0 || PSkill->getJob(curSubJob) > 0 && !PSkill->mainOnly())
-                || PSkill->getID() == main_ws
-                || isInDynamis && (PSkill->getID() == main_ws_dyn))
+                || PSkill->getID() == wsIDs[SLOT_MAIN] || PSkill->getID() == wsIDs[SLOT_SUB]
+                || isInDynamis && (PSkill->getID() == wsDynIDs[SLOT_MAIN] || PSkill->getID() == wsDynIDs[SLOT_SUB]))
             {
                 addWeaponSkill(PChar, PSkill->getID());
             }
@@ -2256,12 +2177,13 @@ namespace charutils
         if (PItem != nullptr && PItem->isType(ITEM_WEAPON) && PItem->getSkillType() != SKILL_THR)
         {
             skill = PChar->m_Weapons[SLOT_RANGED]->getSkillType();
-            auto& WeaponSkillList = battleutils::GetWeaponSkills(skill);
-            for (auto&& PSkill : WeaponSkillList)
+            std::list<CWeaponSkill*>&& WeaponSkillList = battleutils::GetWeaponSkills(skill);
+            for (std::list<CWeaponSkill*>::iterator it = WeaponSkillList.begin(); it != WeaponSkillList.end(); ++it)
             {
+                CWeaponSkill* PSkill = *it;
                 if (PChar->GetSkill(skill) >= PSkill->getSkillLevel() && (PSkill->getJob(curMainJob) > 0 || PSkill->getJob(curSubJob) > 0 && !PSkill->mainOnly())
-                    || PSkill->getID() == range_ws
-                    || isInDynamis && (PSkill->getID() == range_ws_dyn))
+                    || PSkill->getID() == wsIDs[SLOT_RANGED]
+                    || isInDynamis && (PSkill->getID() == wsDynIDs[SLOT_RANGED]))
                 {
                     addWeaponSkill(PChar, PSkill->getID());
                 }
@@ -2269,12 +2191,12 @@ namespace charutils
         }
     }
 
-    void BuildingCharPetAbilityTable(CCharEntity* PChar, CPetEntity* PPet, uint32 PetID) {
+    void BuildingCharPetAbilityTable(CCharEntity* PChar, CPetEntity* PPet, uint32 PetID){
         DSP_DEBUG_BREAK_IF(PPet == nullptr || PChar == nullptr);
 
         memset(&PChar->m_PetCommands, 0, sizeof(PChar->m_PetCommands));
 
-        if (PetID == 0) {//technically Fire Spirit but we're using this to null the abilities shown
+        if (PetID == 0){//technically Fire Spirit but we're using this to nullptr the abilities shown
             PChar->pushPacket(new CCharAbilitiesPacket(PChar));
             return;
         }
@@ -2320,14 +2242,6 @@ namespace charutils
                 }
             }
         }
-        if (PPet->getPetType() == PETTYPE_JUG_PET)
-        {
-            auto skillList {battleutils::GetMobSkillList(PPet->m_MobSkillList)};
-            for (auto&& abilityid : skillList)
-            {
-                addPetAbility(PChar, abilityid - 496);
-            }
-        }
         PChar->pushPacket(new CCharAbilitiesPacket(PChar));
     }
 
@@ -2350,7 +2264,7 @@ namespace charutils
         {
             CAbility* PAbility = AbilitiesList.at(i);
 
-            if (PAbility == nullptr) {
+            if (PAbility == nullptr){
                 continue;
             }
 
@@ -2359,27 +2273,19 @@ namespace charutils
                 if (PAbility->getID() < 496 && PAbility->getID() != ABILITY_PET_COMMANDS && CheckAbilityAddtype(PChar, PAbility))
                 {
                     addAbility(PChar, PAbility->getID());
-                    Charge_t* charge = ability::GetCharge(PChar, PAbility->getRecastId());
-                    auto chargeTime = 0;
-                    auto maxCharges = 0;
-                    if (charge)
-                    {
-                        chargeTime = charge->chargeTime - PChar->PMeritPoints->GetMeritValue((MERIT_TYPE)charge->merit, PChar);
-                        maxCharges = charge->maxCharges;
-                    }
                     if (!PChar->PRecastContainer->Has(RECAST_ABILITY, PAbility->getRecastId()))
                     {
-                        PChar->PRecastContainer->Add(RECAST_ABILITY, PAbility->getRecastId(), 0, chargeTime, maxCharges);
+                        PChar->PRecastContainer->Add(RECAST_ABILITY, PAbility->getRecastId(), 0);
                     }
                 }
             }
-            else {
+            else{
                 break;
             }
         }
 
         //To stop a character with no SJob to receive the traits with job = 0 in the DB.
-        if (PChar->GetSJob() == JOB_NON) {
+        if (PChar->GetSJob() == JOB_NON){
             return;
         }
 
@@ -2391,33 +2297,38 @@ namespace charutils
 
             if (PChar->GetSLevel() >= PAbility->getLevel())
             {
-                if (PAbility == nullptr) {
+                if (PAbility == nullptr){
                     continue;
                 }
 
-                if (PAbility->getLevel() != 0 && PAbility->getID() < 496)
+                if (PAbility->getLevel() != 0  && PAbility->getID() < 496)
                 {
                     if (PAbility->getID() != ABILITY_PET_COMMANDS && CheckAbilityAddtype(PChar, PAbility) && !(PAbility->getAddType() & ADDTYPE_MAIN_ONLY))
                     {
                         addAbility(PChar, PAbility->getID());
-                        Charge_t* charge = ability::GetCharge(PChar, PAbility->getRecastId());
-                        auto chargeTime = 0;
-                        auto maxCharges = 0;
-                        if (charge)
-                        {
-                            chargeTime = charge->chargeTime - PChar->PMeritPoints->GetMeritValue((MERIT_TYPE)charge->merit, PChar);
-                            maxCharges = charge->maxCharges;
-                        }
                         if (!PChar->PRecastContainer->Has(RECAST_ABILITY, PAbility->getRecastId()))
                         {
-                            PChar->PRecastContainer->Add(RECAST_ABILITY, PAbility->getRecastId(), 0, chargeTime, maxCharges);
+                            PChar->PRecastContainer->Add(RECAST_ABILITY, PAbility->getRecastId(), 0);
                         }
                     }
                 }
             }
-            else {
+            else{
                 break;
             }
+        }
+        
+        if (PChar->GetMJob() == 21 || PChar->GetSJob() == 21)
+        {
+            addAbility(PChar, 341);
+            addAbility(PChar, 342);
+            addAbility(PChar, 343);
+            addAbility(PChar, 344);
+            addAbility(PChar, 345);
+            addAbility(PChar, 346);
+            addAbility(PChar, 347);
+            addAbility(PChar, 348);
+            addAbility(PChar, 349);
         }
     }
 
@@ -2430,11 +2341,7 @@ namespace charutils
 
     void BuildingCharSkillsTable(CCharEntity* PChar)
     {
-        MERIT_TYPE skillMerit[] = {MERIT_H2H, MERIT_DAGGER, MERIT_SWORD, MERIT_GSWORD, MERIT_AXE, MERIT_GAXE, MERIT_SCYTHE, MERIT_POLEARM, MERIT_KATANA, MERIT_GKATANA, MERIT_CLUB, MERIT_STAFF,
-            MERIT_ARCHERY, MERIT_MARKSMANSHIP, MERIT_THROWING, MERIT_GUARDING, MERIT_EVASION, MERIT_SHIELD, MERIT_PARRYING, MERIT_DIVINE, MERIT_HEALING, MERIT_ENHANCING, MERIT_ENFEEBLING,
-            MERIT_ELEMENTAL, MERIT_DARK, MERIT_SUMMONING, MERIT_NINJITSU, MERIT_SINGING, MERIT_STRING, MERIT_WIND, MERIT_BLUE, MERIT_GEO, MERIT_HANDBELL};
-
-        uint8 meritIndex = 0;
+        uint16 meritIndex = 8;		// h2h merit index starts at 8
 
         for (int32 i = 0; i < 48; ++i)
         {
@@ -2447,7 +2354,7 @@ namespace charutils
                 PChar->StatusEffectContainer->HasStatusEffect(EFFECT_ADDENDUM_WHITE)))
                 ||
                 (i >= 35 && i <= 37 && (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_DARK_ARTS) ||
-                    PChar->StatusEffectContainer->HasStatusEffect(EFFECT_ADDENDUM_BLACK))))
+                PChar->StatusEffectContainer->HasStatusEffect(EFFECT_ADDENDUM_BLACK))))
             {
                 uint16 artsSkill = battleutils::GetMaxSkill(SKILL_ENH, JOB_RDM, PChar->GetMLevel()); //B+ skill
                 uint16 skillCapD = battleutils::GetMaxSkill((SKILLTYPE)i, JOB_SCH, PChar->GetMLevel()); // D skill cap
@@ -2513,9 +2420,9 @@ namespace charutils
             }
 
             //ignore these indexes when calculating merits
-            if (i > 0 && (i < 13 || i > 24) && i < 46)
+            if (i < 13 || i > 24)
             {
-                skillBonus += PChar->PMeritPoints->GetMeritValue(skillMerit[meritIndex], PChar);
+                skillBonus += PChar->PMeritPoints->GetMeritValue((Merit_t*)PChar->PMeritPoints->GetMeritByIndex(meritIndex), PChar);
                 meritIndex++;
             }
 
@@ -2571,8 +2478,102 @@ namespace charutils
 
         TraitList_t* PTraitsList;
 
-        battleutils::AddTraits(PChar, traits::GetTraits(PChar->GetMJob()), PChar->GetMLevel());
-        battleutils::AddTraits(PChar, traits::GetTraits(PChar->GetSJob()), PChar->GetSLevel());
+        PTraitsList = traits::GetTraits(PChar->GetMJob());
+        for (uint8 i = 0; i < PTraitsList->size(); ++i)
+        {
+            CTrait* PTrait = PTraitsList->at(i);
+
+            if (PChar->GetMLevel() >= PTrait->getLevel() && PTrait->getLevel() > 0)
+            {
+
+                bool add = true;
+
+                for (uint8 j = 0; j < PChar->TraitList.size(); ++j)
+                {
+                    CTrait* PExistingTrait = PChar->TraitList.at(j);
+
+                    if (PExistingTrait->getID() == PTrait->getID())
+                    {
+                        if (PExistingTrait->getRank() < PTrait->getRank())
+                        {
+                            PChar->delModifier(PExistingTrait->getMod(), PExistingTrait->getValue());
+                            delTrait(PChar, PExistingTrait->getID());
+                            PChar->TraitList.erase(PChar->TraitList.begin() + j);
+                            break;
+                        }
+                        else if (PExistingTrait->getRank() > PTrait->getRank())
+                        {
+                            add = false;
+                            break;
+                        }
+                        else
+                        {
+                            if (PExistingTrait->getMod() == PTrait->getMod())
+                            {
+                                add = false;
+                                break;
+                            }
+                        }
+                    }
+
+                }
+                if (add)
+                {
+                    addTrait(PChar, PTrait->getID());
+
+                    PChar->TraitList.push_back(PTrait);
+                    PChar->addModifier(PTrait->getMod(), PTrait->getValue());
+                }
+            }
+        }
+        PTraitsList = traits::GetTraits(PChar->GetSJob());
+        for (uint8 i = 0; i < PTraitsList->size(); ++i)
+        {
+            CTrait* PTrait = PTraitsList->at(i);
+
+            if (PChar->GetSLevel() >= PTrait->getLevel() && PTrait->getLevel() > 0)
+            {
+
+                bool add = true;
+
+                for (uint8 j = 0; j < PChar->TraitList.size(); ++j)
+                {
+                    CTrait* PExistingTrait = PChar->TraitList.at(j);
+
+                    if (PExistingTrait->getID() == PTrait->getID())
+                    {
+                        if (PExistingTrait->getRank() < PTrait->getRank())
+                        {
+                            PChar->delModifier(PExistingTrait->getMod(), PExistingTrait->getValue());
+                            delTrait(PChar, PExistingTrait->getID());
+                            PChar->TraitList.erase(PChar->TraitList.begin() + j);
+                            break;
+                        }
+                        else if (PExistingTrait->getRank() > PTrait->getRank())
+                        {
+                            add = false;
+                            break;
+                        }
+                        else
+                        {
+                            if (PExistingTrait->getMod() == PTrait->getMod())
+                            {
+                                add = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (add)
+                {
+                    addTrait(PChar, PTrait->getID());
+
+                    PChar->TraitList.push_back(PTrait);
+                    PChar->addModifier(PTrait->getMod(), PTrait->getValue());
+                }
+            }
+        }
 
         if (PChar->GetMJob() == JOB_BLU || PChar->GetSJob() == JOB_BLU)
         {
@@ -2605,7 +2606,7 @@ namespace charutils
             int16  Diff = MaxSkill - CurSkill / 10;
             double SkillUpChance = Diff / 5.0 + map_config.skillup_chance_multiplier * (2.0 - log10(1.0 + CurSkill / 100));
 
-            double random = dsprand::GetRandomNumber(1.);
+            double random = WELL512::GetRandomNumber(1.);
 
             if (SkillUpChance > 0.5)
             {
@@ -2620,16 +2621,16 @@ namespace charutils
 
                 for (uint8 i = 0; i < 4; ++i) // 1 + 4 возможных дополнительных (максимум 5)
                 {
-                    random = dsprand::GetRandomNumber(1.);
+                    random = WELL512::GetRandomNumber(1.);
 
                     switch (tier)
                     {
-                        case 5:  chance = 0.900; break;
-                        case 4:  chance = 0.700; break;
-                        case 3:  chance = 0.500; break;
-                        case 2:  chance = 0.300; break;
-                        case 1:  chance = 0.200; break;
-                        default: chance = 0.000; break;
+                    case 5:  chance = 0.900; break;
+                    case 4:  chance = 0.700; break;
+                    case 3:  chance = 0.500; break;
+                    case 2:  chance = 0.300; break;
+                    case 1:  chance = 0.200; break;
+                    default: chance = 0.000; break;
                     }
 
                     if (chance < random || SkillAmount == 5) break;
@@ -2690,13 +2691,16 @@ namespace charutils
         {
             return;
         }
-        auto& WeaponSkillList = battleutils::GetWeaponSkills(skill);
+        std::list<CWeaponSkill*> WeaponSkillList;
+        WeaponSkillList = battleutils::GetWeaponSkills(skill);
         uint16 curSkill = PChar->RealSkills.skill[skill] / 10;
         JOBTYPE curMainJob = PChar->GetMJob();
         JOBTYPE curSubJob = PChar->GetSJob();
 
-        for (auto&& PSkill : WeaponSkillList)
+        for (std::list<CWeaponSkill*>::iterator it = WeaponSkillList.begin(); it != WeaponSkillList.end(); ++it)
         {
+            CWeaponSkill* PSkill = *it;
+
             if (curSkill == PSkill->getSkillLevel() && (PSkill->getJob(curMainJob) > 0 || PSkill->getJob(curSubJob) > 0))
             {
                 addWeaponSkill(PChar, PSkill->getID());
@@ -2745,25 +2749,27 @@ namespace charutils
 
     int32 hasSpell(CCharEntity* PChar, uint16 SpellID)
     {
-        return PChar->m_SpellList[SpellID];
+        return hasBit(SpellID, PChar->m_EnabledSpellList, sizeof(PChar->m_EnabledSpellList));
     }
 
     int32 addSpell(CCharEntity* PChar, uint16 SpellID)
     {
-        if (!hasSpell(PChar, SpellID)) {
-            PChar->m_SpellList[SpellID] = true;
-            return 1;
-        }
-        return 0;
+        addBit(SpellID, PChar->m_SpellList, sizeof(PChar->m_SpellList));
+        return addBit(SpellID, PChar->m_EnabledSpellList, sizeof(PChar->m_EnabledSpellList));
     }
 
     int32 delSpell(CCharEntity* PChar, uint16 SpellID)
     {
-        if (hasSpell(PChar, SpellID)) {
-            PChar->m_SpellList[SpellID] = false;
-            return 1;
+        delBit(SpellID, PChar->m_SpellList, sizeof(PChar->m_SpellList));
+        return delBit(SpellID, PChar->m_EnabledSpellList, sizeof(PChar->m_EnabledSpellList));
+    }
+
+    void filterEnabledSpells(CCharEntity* PChar){
+        for (int i = 0; i < MAX_SPELL_ID; i++){
+            if (spell::GetSpell(i) == nullptr){
+                delBit(i, PChar->m_EnabledSpellList, sizeof(PChar->m_EnabledSpellList));
+            }
         }
-        return 0;
     }
 
     /************************************************************************
@@ -2916,6 +2922,43 @@ namespace charutils
     }
 
     /************************************************************************
+    *                                                                       *
+    *  Обновляем MP, HP и TP персонажа                                      *
+    *                                                                       *
+    ************************************************************************/
+
+    void UpdateHealth(CCharEntity* PChar)
+    {
+        DSP_DEBUG_BREAK_IF(PChar->objtype != TYPE_PC);
+        ShowDebug("Update Health fired.");
+        PChar->updatemask |= UPDATE_HP;
+
+        if (PChar->PParty != nullptr)
+        {
+            if (PChar->PParty->m_PAlliance == nullptr)
+            {
+                PChar->PParty->PushPacket(PChar->id, PChar->getZone(), new CCharHealthPacket(PChar));
+                if (PChar->PAlly.size() > 0)
+                {
+                    for (auto ally : PChar->PAlly)
+                    {
+                        PChar->PParty->PushPacket(ally->id, ally->getZone(), new CCharHealthPacket(ally));
+                    }
+                }
+            }
+            else if (PChar->PParty->m_PAlliance != nullptr)
+            {
+                for (uint8 i = 0; i < PChar->PParty->m_PAlliance->partyList.size(); ++i)
+                {
+                    ((CParty*)PChar->PParty->m_PAlliance->partyList.at(i))->PushPacket(PChar->id, PChar->getZone(), new CCharHealthPacket(PChar));
+                }
+            }
+        }
+
+        PChar->pushPacket(new CCharHealthPacket(PChar));
+    }
+
+    /************************************************************************
     *																		*
     *  Инициализируем таблицу опыта											*
     *																		*
@@ -2923,6 +2966,9 @@ namespace charutils
 
     void LoadExpTable()
     {
+        memset(g_ExpTable, 0, sizeof(g_ExpTable));
+        memset(g_ExpPerLevel, 0, sizeof(g_ExpPerLevel));
+
         const int8* fmtQuery = "SELECT r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r16,r17,r18,r19,r20 "
             "FROM exp_table "
             "ORDER BY level ASC "
@@ -3012,28 +3058,19 @@ namespace charutils
         // Distribute gil to player/party/alliance
         if (PChar->PParty != nullptr)
         {
-            std::vector<CCharEntity*> members;
-
-            // First gather all valid party members
-            PChar->ForAlliance([PMob, &members](CBattleEntity* PPartyMember)
+            PChar->ForAlliance([PMob, gil](CBattleEntity* PPartyMember)
             {
+                uint8 count = 0;
+                //work out how many pt members should get the gil
+                CCharEntity* PMember = (CCharEntity*)PPartyMember;
                 if (PPartyMember->getZone() == PMob->getZone() && distance(PPartyMember->loc.p, PMob->loc.p) < 100)
                 {
-                    members.push_back((CCharEntity*)PPartyMember);
+                    count++;
+                    uint32 gilperperson = count == 0 ? gil : (gil / count);
+                    UpdateItem(PMember, LOC_INVENTORY, 0, gilperperson);
+                    PMember->pushPacket(new CMessageBasicPacket(PMember, PMember, gilperperson, 0, 565));
                 }
-            });
-
-            // all members might not be in range
-            if (members.size() > 0)
-            {
-                // distribute gil
-                uint32 gilPerPerson = gil / members.size();
-                for (auto PMember : members)
-                {
-                    UpdateItem(PMember, LOC_INVENTORY, 0, gilPerPerson);
-                    PMember->pushPacket(new CMessageBasicPacket(PMember, PMember, gilPerPerson, 0, 565));
-                }
-            }
+            } );
         }
         else if (distance(PChar->loc.p, PMob->loc.p) < 100)
         {
@@ -3050,137 +3087,158 @@ namespace charutils
 
     void DistributeExperiencePoints(CCharEntity* PChar, CMobEntity* PMob)
     {
-        auto pcinzone = 0;
+        uint16 pcinzone = 0;
         uint8 minlevel = 0, maxlevel = PChar->GetMLevel();
-        REGIONTYPE region = PChar->loc.zone->GetRegionID();
-
+        uint32 baseexp = 0, exp = 0, dedication = 0;
+        float permonstercap, monsterbonus = 1.0f;
+        permonstercap = 6.0f;
+        bool chainactive = false;
         if (PChar->PParty != nullptr)
         {
             if (PChar->PParty->GetSyncTarget() != nullptr)
             {
                 if (distance(PMob->loc.p, PChar->PParty->GetSyncTarget()->loc.p) >= 100 || PChar->PParty->GetSyncTarget()->health.hp == 0)
                 {
-                    PChar->ForParty([&PMob](CBattleEntity* PMember) {
+                    for (uint8 i = 0; i < PChar->PParty->members.size(); i++)
+                    {
+                        CCharEntity* PMember = (CCharEntity*)PChar->PParty->members.at(i);
                         if (PMember->getZone() == PMob->getZone() && distance(PMember->loc.p, PMob->loc.p) < 100)
                         {
-                            auto PChar = static_cast<CCharEntity*>(PMember);
-                            PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, 0, 545));
+                            PMember->pushPacket(new CMessageBasicPacket(PMember, PMember, 0, 0, 545));
                         }
-                    });
+                    }
                     return;
                 }
             }
-        }
-
-        PChar->ForAlliance([&pcinzone, &PMob, &minlevel, &maxlevel](CBattleEntity* PMember) {
-            if (PMember->getZone() == PMob->getZone() && distance(PMember->loc.p, PMob->loc.p) < 100)
+            for (uint8 i = 0; i < PChar->PParty->members.size(); i++)
             {
-                if (PMember->PPet != nullptr && PMember->PPet->GetMLevel() > maxlevel && PMember->PPet->objtype != TYPE_PET)
+                CBattleEntity* PBattle = PChar->PParty->members[i];
+                if (PBattle->getZone() == PMob->getZone() && distance(PBattle->loc.p, PMob->loc.p) < 100)
                 {
-                    maxlevel = PMember->PPet->GetMLevel();
+                    if (PBattle->PPet != nullptr && PBattle->PPet->GetMLevel() > maxlevel) maxlevel = PBattle->PPet->GetMLevel();
+                    if (PBattle->GetMLevel() > maxlevel) maxlevel = PBattle->GetMLevel();
+                    else if (PBattle->GetMLevel() < minlevel) minlevel = PBattle->GetMLevel();
+                    pcinzone++;
+                    pcinzone = pcinzone + PBattle->PAlly.size();
                 }
-                if (PMember->GetMLevel() > maxlevel)
-                {
-                    maxlevel = PMember->GetMLevel();
-                }
-                else if (PMember->GetMLevel() < minlevel)
-                {
-                    minlevel = PMember->GetMLevel();
-                }
-                pcinzone++;
             }
-        });
-
-        PChar->ForAlliance([&PMob, &region, &minlevel, &maxlevel, &pcinzone](CBattleEntity* PPartyMember) {
-            auto PMember = static_cast<CCharEntity*>(PPartyMember);
-            uint32 baseexp = 0, exp = 0, dedication = 0;
-            float permonstercap, monsterbonus = 1.0f;
-            bool chainactive = false;
             if (PMob->m_HiPCLvl > maxlevel) maxlevel = PMob->m_HiPCLvl;
             baseexp = GetRealExp(maxlevel, PMob->GetMLevel());
+            
             if (baseexp != 0)
             {
-                if (PMember->getZone() == PMob->getZone())
+                for (uint8 i = 0; i < PChar->PParty->members.size(); ++i)
                 {
-                    if (map_config.exp_party_gap_penalties == 1)
+                    exp = 0;
+                    monsterbonus = 1.0f;
+                    chainactive = false;
+                    CCharEntity* PMember = (CCharEntity*)PChar->PParty->members[i];
+                    if (PMember->getZone() == PMob->getZone())
                     {
-                        if (maxlevel > 50 || maxlevel > (PMember->GetMLevel() + 7))
+                        if (map_config.exp_party_gap_penalties == 1)
                         {
-                            exp = (float)baseexp*(float)((float)(PMember->GetMLevel()) / (float)(maxlevel));
+                            if (maxlevel > 50 || maxlevel > (PMember->GetMLevel() + 7))
+                            {
+                                exp = (float)baseexp*(float)((float)(PMember->GetMLevel()) / (float)(maxlevel));
+                            }
+                            else
+                            {
+                                exp = (float)baseexp*(float)((float)(GetExpNEXTLevel(PMember->GetMLevel())) / (float)(GetExpNEXTLevel(maxlevel)));
+                            }
+                        }
+                        else exp = baseexp;
+                        
+                                        
+                        if (PMob->IsNM())
+                        {
+                            exp *= 5;
+                        }
+                        if (PMob->m_EcoSystem == SYSTEM_BEASTMEN)
+                        {
+                            switch (PMob->GetMJob())
+                            {
+                                case JOB_WHM:
+                                case JOB_BLM:
+                                case JOB_DRK:
+                                case JOB_RDM:
+                                case JOB_SCH:
+                                case JOB_BLU:
+                                                exp *= 1.1f;
+                                                break;
+                            }
+                        }
+                        else if (PMob->m_EcoSystem == SYSTEM_ELEMENTAL)
+                        {
+                            exp *= 1.3f;
+                        }
+                        if (PMob->GetMLevel() > PMember->GetMLevel() + 6)
+                        {
+                            int8 diffLevel = PMob->GetMLevel() - (PMember->GetMLevel() + 6);
+                            exp *= (1.0f + ((float)diffLevel) * 0.1);
+                        }
+
+                        // implement variety bonus +15% XP
+                        if (PMember->GetLocalVar("LastFamily") != 0 && PMember->GetLocalVar("LastFamily") !=
+                                PMob->m_Family) {
+                            exp *= 1.15f;
+                            PMember->SetLocalVar("LastFamily", PMob->m_Family);
                         }
                         else
+                            PMember->SetLocalVar("LastFamily", PMob->m_Family);
+                        
+                        if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) || PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SANCTION))
                         {
-                            exp = (float)baseexp*(float)((float)(GetExpNEXTLevel(PMember->GetMLevel())) / (float)(GetExpNEXTLevel(maxlevel)));
-                        }
-                    }
-                    else exp = baseexp;
-                    if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) && (region >= 0 && region <= 22))
-                    {
-                        switch (pcinzone)
-                        {
+                            switch (pcinzone)
+                            {
                             case 1: exp *= 1.00f; break;
                             case 2:	exp *= 0.75f; break;
                             case 3: exp *= 0.55f; break;
                             case 4: exp *= 0.45f; break;
                             case 5:	exp *= 0.39f; break;
                             case 6: exp *= 0.35f; break;
-                            default: exp *= (1.8f / pcinzone); break;
+                            default: break;
+                            }
                         }
-                    }
-                    else if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SANCTION) && (region >= 28 && region <= 32))
-                    {
-                        switch (pcinzone)
+                        else
                         {
-                            case 1: exp *= 1.00f; break;
-                            case 2: exp *= 0.75f; break;
-                            case 3: exp *= 0.55f; break;
-                            case 4: exp *= 0.45f; break;
-                            case 5: exp *= 0.39f; break;
-                            case 6: exp *= 0.35f; break;
-                            default: exp *= (1.8f / pcinzone); break;
-                        }
-
-                    }
-                    else
-                    {
-                        switch (pcinzone)
-                        {
+                            switch (pcinzone)
+                            {
                             case 1:	exp *= 1.00f; break;
                             case 2: exp *= 0.60f; break;
                             case 3: exp *= 0.45f; break;
                             case 4: exp *= 0.40f; break;
                             case 5: exp *= 0.37f; break;
                             case 6: exp *= 0.35f; break;
-                            default: exp *= (1.8f / pcinzone); break;
+                            default: break;
+                            }
                         }
-                    }
 
-                    if (PMob->getMobMod(MOBMOD_EXP_BONUS))
-                    {
-                        monsterbonus = 1 + (float)PMob->getMobMod(MOBMOD_EXP_BONUS) / 100.0f;
-                        exp *= monsterbonus;
-                    }
-
-                    permonstercap = ((PMember->PParty != nullptr && pcinzone > 1) ? 1.35f : 1.15f);
-
-                    if (PMember->GetMLevel() <= 50)
-                    {
-                        if (exp > (200 * permonstercap)) exp = 200 * permonstercap;
-                    }
-                    else if (PMember->GetMLevel() <= 60)
-                    {
-                        if (exp > (250 * permonstercap)) exp = 250 * permonstercap;
-                    }
-                    else if (exp > (300 * permonstercap))
-                    {
-                        exp = 300 * permonstercap;
-                    }
-
-                    if (PMember->expChain.chainTime > gettick() || PMember->expChain.chainTime == 0)
-                    {
-                        chainactive = true;
-                        switch (PMember->expChain.chainNumber)
+                        if (PMob->getMobMod(MOBMOD_EXP_BONUS))
                         {
+                            monsterbonus = 1 + (float)PMob->getMobMod(MOBMOD_EXP_BONUS) / 100.0f;
+                            exp *= monsterbonus;
+                        }
+
+                        permonstercap = ((PMember->PParty != nullptr && pcinzone > 1) ? 6.35f : 6.15f);
+
+                        if (PMember->GetMLevel() <= 50)
+                        {
+                            if (exp > (200 * permonstercap)) exp = 200 * permonstercap;
+                        }
+                        else if (PMember->GetMLevel() <= 60)
+                        {
+                            if (exp > (250 * permonstercap)) exp = 250 * permonstercap;
+                        }
+                        else if (exp > (300 * permonstercap))
+                        {
+                            exp = 300 * permonstercap;
+                        }
+
+                        if (PMember->expChain.chainTime > gettick() || PMember->expChain.chainTime == 0)
+                        {
+                            chainactive = true;
+                            switch (PMember->expChain.chainNumber)
+                            {
                             case 0: exp *= 1.0f; break;
                             case 1: exp *= 1.2f; break;
                             case 2: exp *= 1.25f; break;
@@ -3188,25 +3246,25 @@ namespace charutils
                             case 4: exp *= 1.4f; break;
                             case 5: exp *= 1.5f; break;
                             default: exp *= 1.55f; break;
+                            }
                         }
-                    }
-                    else
-                    {
-                        if (PMember->GetMLevel() <= 10) PMember->expChain.chainTime = gettick() + 50000;
-                        else if (PMember->GetMLevel() <= 20) PMember->expChain.chainTime = gettick() + 100000;
-                        else if (PMember->GetMLevel() <= 30) PMember->expChain.chainTime = gettick() + 150000;
-                        else if (PMember->GetMLevel() <= 40) PMember->expChain.chainTime = gettick() + 200000;
-                        else if (PMember->GetMLevel() <= 50) PMember->expChain.chainTime = gettick() + 250000;
-                        else if (PMember->GetMLevel() <= 60) PMember->expChain.chainTime = gettick() + 300000;
-                        else PMember->expChain.chainTime = gettick() + 360000;
-                        chainactive = false;
-                        PMember->expChain.chainNumber = 1;
-                    }
-
-                    if (chainactive && PMember->GetMLevel() <= 10)
-                    {
-                        switch (PMember->expChain.chainNumber)
+                        else
                         {
+                            if (PMember->GetMLevel() <= 5) PMember->expChain.chainTime = gettick() + 50000;
+                            else if (PMember->GetMLevel() <= 10) PMember->expChain.chainTime = gettick() + 100000;
+                            else if (PMember->GetMLevel() <= 15) PMember->expChain.chainTime = gettick() + 150000;
+                            else if (PMember->GetMLevel() <= 20) PMember->expChain.chainTime = gettick() + 200000;
+                            else if (PMember->GetMLevel() <= 25) PMember->expChain.chainTime = gettick() + 250000;
+                            else if (PMember->GetMLevel() <= 30) PMember->expChain.chainTime = gettick() + 300000;
+                            else PMember->expChain.chainTime = gettick() + 460000;
+                            chainactive = false;
+                            PMember->expChain.chainNumber = 1;
+                        }
+
+                        if (chainactive && PMember->GetMLevel() <= 5)
+                        {
+                            switch (PMember->expChain.chainNumber)
+                            {
                             case 0: PMember->expChain.chainTime = gettick() + 50000; break;
                             case 1:	PMember->expChain.chainTime = gettick() + 40000; break;
                             case 2: PMember->expChain.chainTime = gettick() + 30000; break;
@@ -3214,12 +3272,12 @@ namespace charutils
                             case 4: PMember->expChain.chainTime = gettick() + 10000; break;
                             case 5: PMember->expChain.chainTime = gettick() + 6000; break;
                             default: PMember->expChain.chainTime = gettick() + 2000; break;
+                            }
                         }
-                    }
-                    else if (chainactive && PMember->GetMLevel() <= 20)
-                    {
-                        switch (PMember->expChain.chainNumber)
+                        else if (chainactive && PMember->GetMLevel() <= 10)
                         {
+                            switch (PMember->expChain.chainNumber)
+                            {
                             case 0: PMember->expChain.chainTime = gettick() + 100000; break;
                             case 1:	PMember->expChain.chainTime = gettick() + 80000; break;
                             case 2: PMember->expChain.chainTime = gettick() + 60000; break;
@@ -3227,12 +3285,12 @@ namespace charutils
                             case 4: PMember->expChain.chainTime = gettick() + 20000; break;
                             case 5: PMember->expChain.chainTime = gettick() + 8000; break;
                             default: PMember->expChain.chainTime = gettick() + 4000; break;
+                            }
                         }
-                    }
-                    else if (chainactive && PMember->GetMLevel() <= 30)
-                    {
-                        switch (PMember->expChain.chainNumber)
+                        else if (chainactive && PMember->GetMLevel() <= 15)
                         {
+                            switch (PMember->expChain.chainNumber)
+                            {
                             case 0: PMember->expChain.chainTime = gettick() + 150000; break;
                             case 1:	PMember->expChain.chainTime = gettick() + 120000; break;
                             case 2: PMember->expChain.chainTime = gettick() + 90000; break;
@@ -3240,12 +3298,12 @@ namespace charutils
                             case 4: PMember->expChain.chainTime = gettick() + 30000; break;
                             case 5: PMember->expChain.chainTime = gettick() + 10000; break;
                             default: PMember->expChain.chainTime = gettick() + 5000; break;
+                            }
                         }
-                    }
-                    else if (chainactive && PMember->GetMLevel() <= 40)
-                    {
-                        switch (PMember->expChain.chainNumber)
+                        else if (chainactive && PMember->GetMLevel() <= 20)
                         {
+                            switch (PMember->expChain.chainNumber)
+                            {
                             case 0: PMember->expChain.chainTime = gettick() + 200000; break;
                             case 1:	PMember->expChain.chainTime = gettick() + 160000; break;
                             case 2: PMember->expChain.chainTime = gettick() + 120000; break;
@@ -3253,12 +3311,12 @@ namespace charutils
                             case 4: PMember->expChain.chainTime = gettick() + 40000; break;
                             case 5: PMember->expChain.chainTime = gettick() + 40000; break;
                             default: PMember->expChain.chainTime = gettick() + 30000; break;
+                            }
                         }
-                    }
-                    else if (chainactive && PMember->GetMLevel() <= 50)
-                    {
-                        switch (PMember->expChain.chainNumber)
+                        else if (chainactive && PMember->GetMLevel() <= 25)
                         {
+                            switch (PMember->expChain.chainNumber)
+                            {
                             case 0: PMember->expChain.chainTime = gettick() + 250000; break;
                             case 1:	PMember->expChain.chainTime = gettick() + 200000; break;
                             case 2: PMember->expChain.chainTime = gettick() + 150000; break;
@@ -3266,12 +3324,12 @@ namespace charutils
                             case 4: PMember->expChain.chainTime = gettick() + 50000; break;
                             case 5: PMember->expChain.chainTime = gettick() + 50000; break;
                             default: PMember->expChain.chainTime = gettick() + 50000; break;
+                            }
                         }
-                    }
-                    else if (chainactive && PMember->GetMLevel() <= 60)
-                    {
-                        switch (PMember->expChain.chainNumber)
+                        else if (chainactive && PMember->GetMLevel() <= 30)
                         {
+                            switch (PMember->expChain.chainNumber)
+                            {
                             case 0: PMember->expChain.chainTime = gettick() + 300000; break;
                             case 1:	PMember->expChain.chainTime = gettick() + 240000; break;
                             case 2: PMember->expChain.chainTime = gettick() + 180000; break;
@@ -3279,43 +3337,244 @@ namespace charutils
                             case 4: PMember->expChain.chainTime = gettick() + 90000; break;
                             case 5: PMember->expChain.chainTime = gettick() + 60000; break;
                             default: PMember->expChain.chainTime = gettick() + 60000; break;
+                            }
                         }
-                    }
-                    else if (chainactive)
-                    {
-                        switch (PMember->expChain.chainNumber)
+                        else if (chainactive)
                         {
-                            case 0: PMember->expChain.chainTime = gettick() + 360000; break;
-                            case 1:	PMember->expChain.chainTime = gettick() + 300000; break;
-                            case 2: PMember->expChain.chainTime = gettick() + 240000; break;
-                            case 3: PMember->expChain.chainTime = gettick() + 165000; break;
+                            switch (PMember->expChain.chainNumber)
+                            {
+                            case 0: PMember->expChain.chainTime = gettick() + 560000; break;
+                            case 1:	PMember->expChain.chainTime = gettick() + 400000; break;
+                            case 2: PMember->expChain.chainTime = gettick() + 340000; break;
+                            case 3: PMember->expChain.chainTime = gettick() + 265000; break;
                             case 4: PMember->expChain.chainTime = gettick() + 105000; break;
                             case 5: PMember->expChain.chainTime = gettick() + 60000; break;
                             default: PMember->expChain.chainTime = gettick() + 60000; break;
+                            }
                         }
-                    }
-                    exp = charutils::AddExpBonus(PMember, exp);
+                        exp = charutils::AddExpBonus(PMember, exp);
 
-                    // pet or companion exp penalty needs to be added here
+                        // pet or companion exp penalty needs to be added here
 
-                    if (distance(PMember->loc.p, PMob->loc.p) > 100)
-                    {
-                        PMember->pushPacket(new CMessageBasicPacket(PMember, PMember, 0, 0, 37));
-                        return;
-                    }
-                    uint16 Pzone = PMember->getZone();
-                    if (PMob->m_Type == MOBTYPE_NORMAL && ((Pzone > 0 && Pzone < 39) || (Pzone > 42 && Pzone < 134) || (Pzone > 135 && Pzone < 185) || (Pzone > 188 && Pzone < 255)))
-                    {
-                        if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) && PMob->m_Element > 0 && dsprand::GetRandomNumber(100) < 20 &&
-                            PMember->loc.zone == PMob->loc.zone) // Need to move to SIGNET_CHANCE constant
+                        if (distance(PMember->loc.p, PMob->loc.p) > 100)
                         {
-                            PMember->PTreasurePool->AddItem(4095 + PMob->m_Element, PMob);
+                            PMember->pushPacket(new CMessageBasicPacket(PMember, PMember, 0, 0, 37));
+                            continue;
                         }
+                        uint16 Pzone = PMember->getZone();
+                        if (PMob->m_Type == MOBTYPE_NORMAL && ((Pzone > 0 && Pzone < 39) || (Pzone > 42 && Pzone < 134) || (Pzone > 135 && Pzone < 185) || (Pzone > 188 && Pzone < 255)))
+                        {
+                            if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) && PMob->m_Element > 0 && WELL512::GetRandomNumber(100) < 20 &&
+                                PMember->loc.zone == PMob->loc.zone) // Need to move to SIGNET_CHANCE constant
+                            {
+                                PMember->PTreasurePool->AddItem(4095 + PMob->m_Element, PMob);
+                            }
+                        }
+                        if (PChar->PParty != nullptr && PChar->PParty->m_PAlliance != nullptr && PMob->m_Type == MOBTYPE_NORMAL)
+                        {
+                            if ((Pzone > 38 && Pzone < 43) || (Pzone > 133 && Pzone < 136) || (Pzone > 184 && Pzone < 189)) AddExperiencePoints(false, PMember, PMob, exp, 1, false);
+                            else AddExperiencePoints(false, PMember, PMob, 1, 1, false);
+                        }
+                        else AddExperiencePoints(false, PMember, PMob, exp, baseexp, chainactive);
                     }
-                    charutils::AddExperiencePoints(false, PMember, PMob, exp, baseexp, chainactive);
                 }
             }
-        });
+        }
+        else
+        {
+            if (PChar->PPet != nullptr && PChar->PPet->GetMLevel() > maxlevel) maxlevel = PChar->PPet->GetMLevel();
+            baseexp = GetRealExp(maxlevel, PMob->GetMLevel());
+            exp = baseexp;
+            permonstercap = 6.15f;
+            
+            
+            if (PMob->IsNM())
+            {
+                exp *= 5;
+            }
+            if (PMob->m_EcoSystem == SYSTEM_BEASTMEN)
+            {
+                switch (PMob->GetMJob())
+                {
+                    case JOB_WHM:
+                    case JOB_BLM:
+                    case JOB_DRK:
+                    case JOB_RDM:
+                    case JOB_SCH:
+                    case JOB_BLU:
+                                    exp *= 1.1f;
+                                    break;
+                }
+            }
+            else if (PMob->m_EcoSystem == SYSTEM_ELEMENTAL)
+            {
+                exp *= 1.3f;
+            }
+            
+            if (PMob->GetMLevel() > PChar->GetMLevel() + 6)
+                        {
+                            int8 diffLevel = PMob->GetMLevel() - (PChar->GetMLevel() + 6);
+                            exp *= (1.0f + ((float)diffLevel) * 0.1);
+                        }
+
+            // implement variety bonus +15% XP
+			if (PChar->GetLocalVar("LastFamily") != 0 && PChar->GetLocalVar("LastFamily") !=
+                                                           PMob->m_Family) {
+                exp *= 1.15f;
+				PChar->SetLocalVar("LastFamily", PMob->m_Family);
+            }
+            else
+				PChar->SetLocalVar("LastFamily", PMob->m_Family);
+
+
+            if (PMob->getMobMod(MOBMOD_EXP_BONUS))
+            {
+                monsterbonus = 1 + (float)PMob->getMobMod(MOBMOD_EXP_BONUS) / 100.0f;
+                exp *= monsterbonus;
+            }
+
+            if (PChar->GetMLevel() <= 50)
+            {
+                if (exp > (200 * permonstercap)) exp = 200 * permonstercap;
+            }
+            else if (PChar->GetMLevel() <= 60)
+            {
+                if (exp > (250 * permonstercap)) exp = 250 * permonstercap;
+            }
+            else if (exp > (300 * permonstercap))
+            {
+                exp = 300 * permonstercap;
+            }
+
+            if (PChar->expChain.chainTime > gettick() || PChar->expChain.chainTime == 0)
+            {
+                chainactive = true;
+                switch (PChar->expChain.chainNumber)
+                {
+                case 0: exp *= 1.0f; break;
+                case 1: exp *= 1.2f; break;
+                case 2: exp *= 1.25f; break;
+                case 3: exp *= 1.3f; break;
+                case 4: exp *= 1.4f; break;
+                case 5: exp *= 1.5f; break;
+                default: exp *= 1.55f; break;
+                }
+            }
+            else
+            {
+                if (PChar->GetMLevel() <= 5) PChar->expChain.chainTime = gettick() + 50000;
+                else if (PChar->GetMLevel() <= 10) PChar->expChain.chainTime = gettick() + 100000;
+                else if (PChar->GetMLevel() <= 15) PChar->expChain.chainTime = gettick() + 150000;
+                else if (PChar->GetMLevel() <= 20) PChar->expChain.chainTime = gettick() + 200000;
+                else if (PChar->GetMLevel() <= 25) PChar->expChain.chainTime = gettick() + 250000;
+                else if (PChar->GetMLevel() <= 30) PChar->expChain.chainTime = gettick() + 300000;
+                else PChar->expChain.chainTime = gettick() + 460000;
+                chainactive = false;
+                PChar->expChain.chainNumber = 1;
+            }
+
+            if (chainactive && PChar->GetMLevel() <= 5)
+            {
+                switch (PChar->expChain.chainNumber)
+                {
+                case 0: PChar->expChain.chainTime = gettick() + 50000; break;
+                case 1:	PChar->expChain.chainTime = gettick() + 40000; break;
+                case 2: PChar->expChain.chainTime = gettick() + 30000; break;
+                case 3: PChar->expChain.chainTime = gettick() + 20000; break;
+                case 4: PChar->expChain.chainTime = gettick() + 10000; break;
+                case 5: PChar->expChain.chainTime = gettick() + 6000; break;
+                default: PChar->expChain.chainTime = gettick() + 2000; break;
+                }
+            }
+            else if (chainactive && PChar->GetMLevel() <= 10)
+            {
+                switch (PChar->expChain.chainNumber)
+                {
+                case 0: PChar->expChain.chainTime = gettick() + 100000; break;
+                case 1:	PChar->expChain.chainTime = gettick() + 80000; break;
+                case 2: PChar->expChain.chainTime = gettick() + 60000; break;
+                case 3: PChar->expChain.chainTime = gettick() + 40000; break;
+                case 4: PChar->expChain.chainTime = gettick() + 20000; break;
+                case 5: PChar->expChain.chainTime = gettick() + 8000; break;
+                default: PChar->expChain.chainTime = gettick() + 4000; break;
+                }
+            }
+            else if (chainactive && PChar->GetMLevel() <= 15)
+            {
+                switch (PChar->expChain.chainNumber)
+                {
+                case 0: PChar->expChain.chainTime = gettick() + 150000; break;
+                case 1:	PChar->expChain.chainTime = gettick() + 120000; break;
+                case 2: PChar->expChain.chainTime = gettick() + 90000; break;
+                case 3: PChar->expChain.chainTime = gettick() + 60000; break;
+                case 4: PChar->expChain.chainTime = gettick() + 30000; break;
+                case 5: PChar->expChain.chainTime = gettick() + 10000; break;
+                default: PChar->expChain.chainTime = gettick() + 5000; break;
+                }
+            }
+            else if (chainactive && PChar->GetMLevel() <= 20)
+            {
+                switch (PChar->expChain.chainNumber)
+                {
+                case 0: PChar->expChain.chainTime = gettick() + 200000; break;
+                case 1:	PChar->expChain.chainTime = gettick() + 160000; break;
+                case 2: PChar->expChain.chainTime = gettick() + 120000; break;
+                case 3: PChar->expChain.chainTime = gettick() + 80000; break;
+                case 4: PChar->expChain.chainTime = gettick() + 40000; break;
+                case 5: PChar->expChain.chainTime = gettick() + 40000; break;
+                default: PChar->expChain.chainTime = gettick() + 30000; break;
+                }
+            }
+            else if (chainactive && PChar->GetMLevel() <= 25)
+            {
+                switch (PChar->expChain.chainNumber)
+                {
+                case 0: PChar->expChain.chainTime = gettick() + 250000; break;
+                case 1:	PChar->expChain.chainTime = gettick() + 200000; break;
+                case 2: PChar->expChain.chainTime = gettick() + 150000; break;
+                case 3: PChar->expChain.chainTime = gettick() + 100000; break;
+                case 4: PChar->expChain.chainTime = gettick() + 50000; break;
+                case 5: PChar->expChain.chainTime = gettick() + 50000; break;
+                default: PChar->expChain.chainTime = gettick() + 50000; break;
+                }
+            }
+            else if (chainactive && PChar->GetMLevel() <= 30)
+            {
+                switch (PChar->expChain.chainNumber)
+                {
+                case 0: PChar->expChain.chainTime = gettick() + 300000; break;
+                case 1:	PChar->expChain.chainTime = gettick() + 240000; break;
+                case 2: PChar->expChain.chainTime = gettick() + 180000; break;
+                case 3: PChar->expChain.chainTime = gettick() + 120000; break;
+                case 4: PChar->expChain.chainTime = gettick() + 90000; break;
+                case 5: PChar->expChain.chainTime = gettick() + 60000; break;
+                default: PChar->expChain.chainTime = gettick() + 60000; break;
+                }
+            }
+            else if (chainactive)
+            {
+                switch (PChar->expChain.chainNumber)
+                {
+                case 0: PChar->expChain.chainTime = gettick() + 560000; break;
+                case 1:	PChar->expChain.chainTime = gettick() + 400000; break;
+                case 2: PChar->expChain.chainTime = gettick() + 340000; break;
+                case 3: PChar->expChain.chainTime = gettick() + 265000; break;
+                case 4: PChar->expChain.chainTime = gettick() + 105000; break;
+                case 5: PChar->expChain.chainTime = gettick() + 60000; break;
+                default: PChar->expChain.chainTime = gettick() + 60000; break;
+                }
+            }
+            exp = charutils::AddExpBonus(PChar, exp);
+
+            // pet or companion exp penalty needs to be added here
+            exp = (exp * 5) / (PChar->PAlly.size() + 5);
+            if (distance(PChar->loc.p, PMob->loc.p) > 100)
+            {
+                PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, 0, 37));
+                return;
+            }
+            AddExperiencePoints(false, PChar, PMob, exp, baseexp, chainactive);
+        }
     }
 
     /************************************************************************
@@ -3389,7 +3648,7 @@ namespace charutils
 
             PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CMessageDebugPacket(PChar, PChar, PChar->jobs.job[PChar->GetMJob()], 0, 11));
             luautils::OnPlayerLevelDown(PChar);
-            PChar->updatemask |= UPDATE_HP;
+            charutils::UpdateHealth(PChar);
         }
         else
         {
@@ -3405,6 +3664,17 @@ namespace charutils
     *  Добавляем очки опытка указанному персонажу                           *
     *                                                                       *
     ************************************************************************/
+    
+    void AddLimitPoints(CCharEntity* PChar, CBaseEntity* PMob, uint32 exp)
+    {
+        if (PChar->PMeritPoints->AddLimitPoints(exp))
+            {
+                PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CMessageDebugPacket(PChar, PMob, PChar->PMeritPoints->GetMeritPoints(), 0, 368));
+            }
+        PChar->pushPacket(new CMessageDebugPacket(PChar, PChar, exp, 0, 371));
+        PChar->pushPacket(new CMenuMeritPacket(PChar));
+    }
+    
 
     void AddExperiencePoints(bool expFromRaise, CCharEntity* PChar, CBaseEntity* PMob, uint32 exp, uint32 baseexp, bool isexpchain)
     {
@@ -3419,11 +3689,11 @@ namespace charutils
         bool onLimitMode = false;
 
         // Incase player de-levels to 74 on the field
-        if (PChar->MeritMode == true && PChar->jobs.job[PChar->GetMJob()] > 74 && expFromRaise == false)
+        if (PChar->MeritMode == true && PChar->jobs.job[PChar->GetMJob()] > 49 && expFromRaise == false)
             onLimitMode = true;
 
         //we check if the player is level capped and max exp..
-        if (PChar->jobs.job[PChar->GetMJob()] > 74 && PChar->jobs.job[PChar->GetMJob()] >= PChar->jobs.genkai && PChar->jobs.exp[PChar->GetMJob()] == GetExpNEXTLevel(PChar->jobs.job[PChar->GetMJob()]) - 1)
+        if (PChar->jobs.job[PChar->GetMJob()] > 49 && PChar->jobs.job[PChar->GetMJob()] >= PChar->jobs.genkai && PChar->jobs.exp[PChar->GetMJob()] == GetExpNEXTLevel(PChar->jobs.job[PChar->GetMJob()]) - 1)
             onLimitMode = true;
 
         // exp added from raise shouldn't display a message. Don't need a message for zero exp either
@@ -3515,8 +3785,6 @@ namespace charutils
             }
         }
 
-        PChar->PAI->EventHandler.triggerListener("EXPERIENCE_POINTS", PChar, exp);
-
         // Player levels up
         if ((currentExp + exp) >= GetExpNEXTLevel(PChar->jobs.job[PChar->GetMJob()]) && onLimitMode == false)
         {
@@ -3568,7 +3836,7 @@ namespace charutils
 
                 PChar->health.hp = PChar->GetMaxHP();
                 PChar->health.mp = PChar->GetMaxMP();
-
+                
                 SaveCharStats(PChar);
                 SaveCharJob(PChar, PChar->GetMJob());
                 SaveCharExp(PChar, PChar->GetMJob());
@@ -3587,7 +3855,7 @@ namespace charutils
                 PChar->pushPacket(new CCharStatsPacket(PChar));
 
                 luautils::OnPlayerLevelUp(PChar);
-                PChar->updatemask |= UPDATE_HP;
+                charutils::UpdateHealth(PChar);
                 return;
             }
         }
@@ -3601,7 +3869,6 @@ namespace charutils
         {
             PChar->pushPacket(new CMenuMeritPacket(PChar));
         }
-
     }
 
     /************************************************************************
@@ -3626,6 +3893,8 @@ namespace charutils
         const int8* Query =
             "UPDATE chars "
             "SET "
+            "pos_zone = %u,"
+            "pos_prevzone = %u,"
             "pos_rot = %u,"
             "pos_x = %.3f,"
             "pos_y = %.3f,"
@@ -3634,6 +3903,8 @@ namespace charutils
             "WHERE charid = %u;";
 
         Sql_Query(SqlHandle, Query,
+            PChar->m_moghouseID ? 0 : PChar->getZone(),
+            PChar->loc.prevzone,
             PChar->loc.p.rotation,
             PChar->loc.p.x,
             PChar->loc.p.y,
@@ -3784,27 +4055,21 @@ namespace charutils
     *																		*
     ************************************************************************/
 
-    void SaveSpell(CCharEntity* PChar, uint16 spellID)
+    void SaveSpells(CCharEntity* PChar)
     {
         const int8* Query =
-            "INSERT IGNORE INTO char_spells "
-            "VALUES (%u, %u);";
+            "UPDATE chars SET "
+            "spells = '%s' "
+            "WHERE charid = %u;";
+
+        int8 spells[sizeof(PChar->m_SpellList) * 2 + 1];
+        Sql_EscapeStringLen(SqlHandle, spells, (const int8*)PChar->m_SpellList, sizeof(PChar->m_SpellList));
 
         Sql_Query(SqlHandle, Query,
-            PChar->id,
-            spellID);
+            spells,
+            PChar->id);
     }
 
-    void DeleteSpell(CCharEntity* PChar, uint16 spellID)
-    {
-        const int8* Query =
-            "DELETE FROM char_spells "
-            "WHERE charid = %u AND spellid = %u;";
-
-        Sql_Query(SqlHandle, Query,
-            PChar->id,
-            spellID);
-    }
 
     /************************************************************************
     *																		*
@@ -3908,7 +4173,7 @@ namespace charutils
             look->sub,
             look->ranged,
             PChar->id);
-
+        
         Sql_Query(SqlHandle,
             "UPDATE chars SET isstylelocked = %u WHERE charid = %u;",
             PChar->getStyleLocked() ? 1 : 0,
@@ -4040,29 +4305,28 @@ namespace charutils
 
         switch (job)
         {
-            case JOB_WAR: fmtQuery = "UPDATE char_jobs SET unlocked = %u, war = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_MNK: fmtQuery = "UPDATE char_jobs SET unlocked = %u, mnk = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_WHM: fmtQuery = "UPDATE char_jobs SET unlocked = %u, whm = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_BLM: fmtQuery = "UPDATE char_jobs SET unlocked = %u, blm = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_RDM: fmtQuery = "UPDATE char_jobs SET unlocked = %u, rdm = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_THF: fmtQuery = "UPDATE char_jobs SET unlocked = %u, thf = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_PLD: fmtQuery = "UPDATE char_jobs SET unlocked = %u, pld = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_DRK: fmtQuery = "UPDATE char_jobs SET unlocked = %u, drk = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_BST: fmtQuery = "UPDATE char_jobs SET unlocked = %u, bst = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_BRD: fmtQuery = "UPDATE char_jobs SET unlocked = %u, brd = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_RNG: fmtQuery = "UPDATE char_jobs SET unlocked = %u, rng = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_SAM: fmtQuery = "UPDATE char_jobs SET unlocked = %u, sam = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_NIN: fmtQuery = "UPDATE char_jobs SET unlocked = %u, nin = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_DRG: fmtQuery = "UPDATE char_jobs SET unlocked = %u, drg = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_SMN: fmtQuery = "UPDATE char_jobs SET unlocked = %u, smn = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_BLU: fmtQuery = "UPDATE char_jobs SET unlocked = %u, blu = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_COR: fmtQuery = "UPDATE char_jobs SET unlocked = %u, cor = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_PUP: fmtQuery = "UPDATE char_jobs SET unlocked = %u, pup = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_DNC: fmtQuery = "UPDATE char_jobs SET unlocked = %u, dnc = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_SCH: fmtQuery = "UPDATE char_jobs SET unlocked = %u, sch = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_GEO: fmtQuery = "UPDATE char_jobs SET unlocked = %u, geo = %u WHERE charid = %u LIMIT 1"; break;
-            case JOB_RUN: fmtQuery = "UPDATE char_jobs SET unlocked = %u, run = %u WHERE charid = %u LIMIT 1"; break;
-            default: fmtQuery = ""; break;
+        case JOB_WAR: fmtQuery = "UPDATE char_jobs SET unlocked = %u, war = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_MNK: fmtQuery = "UPDATE char_jobs SET unlocked = %u, mnk = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_WHM: fmtQuery = "UPDATE char_jobs SET unlocked = %u, whm = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_BLM: fmtQuery = "UPDATE char_jobs SET unlocked = %u, blm = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_RDM: fmtQuery = "UPDATE char_jobs SET unlocked = %u, rdm = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_THF: fmtQuery = "UPDATE char_jobs SET unlocked = %u, thf = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_PLD: fmtQuery = "UPDATE char_jobs SET unlocked = %u, pld = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_DRK: fmtQuery = "UPDATE char_jobs SET unlocked = %u, drk = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_BST: fmtQuery = "UPDATE char_jobs SET unlocked = %u, bst = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_BRD: fmtQuery = "UPDATE char_jobs SET unlocked = %u, brd = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_RNG: fmtQuery = "UPDATE char_jobs SET unlocked = %u, rng = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_SAM: fmtQuery = "UPDATE char_jobs SET unlocked = %u, sam = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_NIN: fmtQuery = "UPDATE char_jobs SET unlocked = %u, nin = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_DRG: fmtQuery = "UPDATE char_jobs SET unlocked = %u, drg = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_SMN: fmtQuery = "UPDATE char_jobs SET unlocked = %u, smn = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_BLU: fmtQuery = "UPDATE char_jobs SET unlocked = %u, blu = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_COR: fmtQuery = "UPDATE char_jobs SET unlocked = %u, cor = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_PUP: fmtQuery = "UPDATE char_jobs SET unlocked = %u, pup = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_DNC: fmtQuery = "UPDATE char_jobs SET unlocked = %u, dnc = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_SCH: fmtQuery = "UPDATE char_jobs SET unlocked = %u, sch = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_GEO: fmtQuery = "UPDATE char_jobs SET unlocked = %u, geo = %u WHERE charid = %u LIMIT 1"; break;
+        case JOB_RUN: fmtQuery = "UPDATE char_jobs SET unlocked = %u, run = %u WHERE charid = %u LIMIT 1"; break;
         }
         Sql_Query(SqlHandle, fmtQuery, PChar->jobs.unlocked, PChar->jobs.job[job], PChar->id);
 
@@ -4089,29 +4353,28 @@ namespace charutils
 
         switch (job)
         {
-            case JOB_WAR: Query = "UPDATE char_exp SET war = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_MNK: Query = "UPDATE char_exp SET mnk = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_WHM: Query = "UPDATE char_exp SET whm = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_BLM: Query = "UPDATE char_exp SET blm = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_RDM: Query = "UPDATE char_exp SET rdm = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_THF: Query = "UPDATE char_exp SET thf = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_PLD: Query = "UPDATE char_exp SET pld = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_DRK: Query = "UPDATE char_exp SET drk = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_BST: Query = "UPDATE char_exp SET bst = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_BRD: Query = "UPDATE char_exp SET brd = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_RNG: Query = "UPDATE char_exp SET rng = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_SAM: Query = "UPDATE char_exp SET sam = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_NIN: Query = "UPDATE char_exp SET nin = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_DRG: Query = "UPDATE char_exp SET drg = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_SMN: Query = "UPDATE char_exp SET smn = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_BLU: Query = "UPDATE char_exp SET blu = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_COR: Query = "UPDATE char_exp SET cor = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_PUP: Query = "UPDATE char_exp SET pup = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_DNC: Query = "UPDATE char_exp SET dnc = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_SCH: Query = "UPDATE char_exp SET sch = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_GEO: Query = "UPDATE char_exp SET geo = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            case JOB_RUN: Query = "UPDATE char_exp SET run = %u, merits = %u, limits = %u WHERE charid = %u"; break;
-            default: Query = ""; break;
+        case JOB_WAR: Query = "UPDATE char_exp SET war = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_MNK: Query = "UPDATE char_exp SET mnk = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_WHM: Query = "UPDATE char_exp SET whm = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_BLM: Query = "UPDATE char_exp SET blm = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_RDM: Query = "UPDATE char_exp SET rdm = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_THF: Query = "UPDATE char_exp SET thf = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_PLD: Query = "UPDATE char_exp SET pld = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_DRK: Query = "UPDATE char_exp SET drk = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_BST: Query = "UPDATE char_exp SET bst = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_BRD: Query = "UPDATE char_exp SET brd = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_RNG: Query = "UPDATE char_exp SET rng = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_SAM: Query = "UPDATE char_exp SET sam = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_NIN: Query = "UPDATE char_exp SET nin = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_DRG: Query = "UPDATE char_exp SET drg = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_SMN: Query = "UPDATE char_exp SET smn = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_BLU: Query = "UPDATE char_exp SET blu = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_COR: Query = "UPDATE char_exp SET cor = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_PUP: Query = "UPDATE char_exp SET pup = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_DNC: Query = "UPDATE char_exp SET dnc = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_SCH: Query = "UPDATE char_exp SET sch = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_GEO: Query = "UPDATE char_exp SET geo = %u, merits = %u, limits = %u WHERE charid = %u"; break;
+        case JOB_RUN: Query = "UPDATE char_exp SET run = %u, merits = %u, limits = %u WHERE charid = %u"; break;
         }
         Sql_Query(SqlHandle, Query,
             PChar->jobs.exp[job],
@@ -4228,14 +4491,24 @@ namespace charutils
         uint16 reduction = PChar->getMod(MOD_PERPETUATION_REDUCTION);
 
         static const MODIFIER strong[8] = {
-            MOD_FIRE_AFFINITY_PERP,
-            MOD_EARTH_AFFINITY_PERP,
-            MOD_WATER_AFFINITY_PERP,
-            MOD_WIND_AFFINITY_PERP,
-            MOD_ICE_AFFINITY_PERP,
-            MOD_THUNDER_AFFINITY_PERP,
-            MOD_LIGHT_AFFINITY_PERP,
-            MOD_DARK_AFFINITY_PERP};
+            MOD_FIRE_AFFINITY,
+            MOD_EARTH_AFFINITY,
+            MOD_WATER_AFFINITY,
+            MOD_WIND_AFFINITY,
+            MOD_ICE_AFFINITY,
+            MOD_THUNDER_AFFINITY,
+            MOD_LIGHT_AFFINITY,
+            MOD_DARK_AFFINITY };
+
+        static const MODIFIER weak[8] = {
+            MOD_WATER_AFFINITY,
+            MOD_WIND_AFFINITY,
+            MOD_THUNDER_AFFINITY,
+            MOD_ICE_AFFINITY,
+            MOD_FIRE_AFFINITY,
+            MOD_EARTH_AFFINITY,
+            MOD_DARK_AFFINITY,
+            MOD_LIGHT_AFFINITY };
 
         static const WEATHER weatherStrong[8] = {
             WEATHER_HOT_SPELL,
@@ -4245,25 +4518,37 @@ namespace charutils
             WEATHER_SNOW,
             WEATHER_THUNDER,
             WEATHER_AURORAS,
-            WEATHER_GLOOM};
+            WEATHER_GLOOM };
 
         uint8 element = ((CPetEntity*)(PChar->PPet))->m_Element - 1;
 
         DSP_DEBUG_BREAK_IF(element > 7);
 
-        reduction = reduction + PChar->getMod(strong[element]);
+        int16 affinity = PChar->getMod(strong[element]) - PChar->getMod(weak[element]);
+
+        // TODO: don't use ItemIDs in CORE. it must be MOD
+
+        CItemWeapon* mainHand = (CItemWeapon*)PChar->getEquip(SLOT_MAIN);
+
+        if (mainHand && mainHand->getID() == 18632)
+            affinity = affinity + 1;
+        else if (mainHand && mainHand->getID() == 18633)
+            affinity = affinity + 2;
+
+        //-----------------------------------------------
+
+        if (affinity > 0)
+            reduction = reduction + affinity + 1;
+        else if (affinity < 0)
+            reduction = reduction - affinity - 1;
 
         if (CVanaTime::getInstance()->getWeekday() == element)
-        {
             reduction = reduction + PChar->getMod(MOD_DAY_REDUCTION);
-        }
 
         WEATHER weather = battleutils::GetWeather(PChar, false);
 
         if (weather == weatherStrong[element] || weather == weatherStrong[element] + 1)
-        {
             reduction = reduction + PChar->getMod(MOD_WEATHER_REDUCTION);
-        }
 
         return reduction;
     }
@@ -4365,41 +4650,6 @@ namespace charutils
                 return false;
             }
         }
-        if ((PAbility->getAddType() & (ADDTYPE_JUGPET | ADDTYPE_CHARMPET)) == (ADDTYPE_JUGPET | ADDTYPE_CHARMPET))
-        {
-            if (!PChar->PPet || !(PChar->PPet->objtype == TYPE_MOB || (PChar->PPet->objtype == TYPE_PET && static_cast<CPetEntity*>(PChar->PPet)->getPetType() == PETTYPE_JUG_PET)))
-            {
-                return false;
-            }
-        }
-        if ((PAbility->getAddType() & (ADDTYPE_JUGPET | ADDTYPE_CHARMPET)) == ADDTYPE_JUGPET)
-        {
-            if (!PChar->PPet || PChar->PPet->objtype != TYPE_PET || static_cast<CPetEntity*>(PChar->PPet)->getPetType() != PETTYPE_JUG_PET)
-            {
-                return false;
-            }
-        }
-        if ((PAbility->getAddType() & (ADDTYPE_JUGPET | ADDTYPE_CHARMPET)) == ADDTYPE_CHARMPET)
-        {
-            if (!PChar->PPet || PChar->PPet->objtype != TYPE_MOB)
-            {
-                return false;
-            }
-        }
-        if (PAbility->getAddType() & ADDTYPE_AVATAR)
-        {
-            if (!PChar->PPet || PChar->PPet->objtype != TYPE_PET || static_cast<CPetEntity*>(PChar->PPet)->getPetType() != PETTYPE_AVATAR)
-            {
-                return false;
-            }
-        }
-        if (PAbility->getAddType() & ADDTYPE_AUTOMATON)
-        {
-            if (!PChar->PPet || PChar->PPet->objtype != TYPE_PET || static_cast<CPetEntity*>(PChar->PPet)->getPetType() != PETTYPE_AUTOMATON)
-            {
-                return false;
-            }
-        }
         return true;
     }
 
@@ -4483,6 +4733,7 @@ namespace charutils
     {
         int ret = Sql_Query(SqlHandle, "SELECT partyid, allianceid, partyflag & %d FROM accounts_sessions s JOIN accounts_parties p ON "
             "s.charid = p.charid WHERE p.charid = %u;", (PARTY_SECOND | PARTY_THIRD), PChar->id);
+        ShowDebug("Reload Party fired.\n");
         if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
         {
             uint32 partyid = Sql_GetUIntData(SqlHandle, 0);
@@ -4517,16 +4768,15 @@ namespace charutils
                 if (!PParty)
                 {
                     PParty = new CParty(partyid);
+                    ShowDebug("This shouldn't be firing.");
                 }
 
                 PParty->PushMember(PChar);
+                ShowDebug("Pushing member.\n");
             }
 
             CBattleEntity* PSyncTarget = PChar->PParty->GetSyncTarget();
-            if (PSyncTarget && PChar->getZone() == PSyncTarget->getZone()
-                && !(PChar->StatusEffectContainer->HasStatusEffect(EFFECT_LEVEL_SYNC))
-                && PSyncTarget->StatusEffectContainer->HasStatusEffect(EFFECT_LEVEL_SYNC)
-                && PSyncTarget->StatusEffectContainer->GetStatusEffect(EFFECT_LEVEL_SYNC)->GetDuration() == 0)
+            if (PSyncTarget && !(PChar->StatusEffectContainer->HasStatusEffect(EFFECT_LEVEL_SYNC)) && PChar->getZone() == PSyncTarget->getZone() && PSyncTarget->StatusEffectContainer->HasStatusEffect(EFFECT_LEVEL_SYNC) && PSyncTarget->StatusEffectContainer->GetStatusEffect(EFFECT_LEVEL_SYNC)->GetDuration() == 0)
             {
                 PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, PSyncTarget->GetMLevel(), 540));
                 PChar->StatusEffectContainer->AddStatusEffect(new CStatusEffect(
@@ -4594,6 +4844,7 @@ namespace charutils
             if (PChar->PParty)
             {
                 PChar->PParty->DelMember(PChar);
+                ShowDebug("Deleting party?");
             }
             PChar->ReloadPartyDec();
         }
@@ -4631,15 +4882,15 @@ namespace charutils
     {
         switch (PChar->profile.nation)
         {
-            case 0:
-                return "sandoria_cp";
-            case 1:
-                return "bastok_cp";
-            case 2:
-                return "windurst_cp";
-            default:
-                DSP_DEBUG_BREAK_IF(true);
-                return nullptr;
+        case 0:
+            return "sandoria_cp";
+        case 1:
+            return "bastok_cp";
+        case 2:
+            return "windurst_cp";
+        default:
+            DSP_DEBUG_BREAK_IF(true);
+            return nullptr;
         }
     }
 
@@ -4678,26 +4929,6 @@ namespace charutils
         }
 
         PChar->pushPacket(new CServerIPPacket(PChar, type, ipp));
-    }
-
-    void AddWeaponSkillPoints(CCharEntity* PChar, SLOTTYPE slotid, int wspoints)
-    {
-        CItemWeapon* PWeapon = (CItemWeapon*)PChar->m_Weapons[slotid];
-
-        if (PWeapon && PWeapon->isUnlockable() && !PWeapon->isUnlocked())
-        {
-            if (PWeapon->addWsPoints(wspoints))
-            {
-                // weapon is now broken
-                PChar->PLatentEffectContainer->CheckLatentsWeaponBreak(slotid);
-                PChar->pushPacket(new CCharStatsPacket(PChar));
-            }
-            int8 extra[sizeof(PWeapon->m_extra) * 2 + 1];
-            Sql_EscapeStringLen(SqlHandle, extra, (const char*)PWeapon->m_extra, sizeof(PWeapon->m_extra));
-
-            const int8* Query = "UPDATE char_inventory SET extra = '%s' WHERE charid = %u AND location = %u AND slot = %u LIMIT 1";
-            Sql_Query(SqlHandle, Query, extra, PChar->id, PWeapon->getLocationID(), PWeapon->getSlotID());
-        }
     }
 
     int32 GetVar(CCharEntity* PChar, const char* var)

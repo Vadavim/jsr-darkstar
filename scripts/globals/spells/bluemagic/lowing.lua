@@ -31,21 +31,24 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    local typeEffect = EFFECT_PLAGUE;
+    local duration = 120;    
     local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
-    local resist = applyResistance(caster,spell,target,dINT,BLUE_SKILL);
-    local duration = 60 * resist;
-    local power = 5;
+    local resist = applyResistance(caster,spell,target,dINT,37);
     
-    if (resist > 0.5) then -- Do it!
-        if (target:addStatusEffect(typeEffect,power,0,duration)) then
-            spell:setMsg(236);
-        else
-            spell:setMsg(75);
-        end
-    else
+    if(resist < 0.0625) then
+    -- resisted!
         spell:setMsg(85);
-    end;
+        return 0;
+    end
 
-    return typeEffect; 
+	if(target:hasStatusEffect(EFFECT_INT_DOWN) == true) then
+        -- no effect
+    else
+        target:addStatusEffect(EFFECT_CHA_DOWN,30,0,duration);
+    end
+
+        target:addStatusEffect(EFFECT_PLAGUE,5,0,duration);
+        spell:setMsg(236);
+
+    return EFFECT_PLAGUE;    
 end;

@@ -42,21 +42,21 @@ function onSpellCast(caster,target,spell)
         params.tp150 = 1.5;
         params.tp300 = 1.5;
         params.azuretp = 1.5;
-        params.duppercap = 41;
+        params.duppercap = 43;
         params.str_wsc = 0.0;
         params.dex_wsc = 0.2;
         params.vit_wsc = 0.0;
         params.agi_wsc = 0.0;
-        params.int_wsc = 0.2;
+        params.int_wsc = 0.6;
         params.mnd_wsc = 0.0;
         params.chr_wsc = 0.0;
     damage = BluePhysicalSpell(caster, target, spell, params);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
 
-    if (target:hasStatusEffect(EFFECT_ATTACK_DOWN)) then
+    if(target:hasStatusEffect(EFFECT_ATTACK_DOWN)) then
         spell:setMsg(75); -- no effect
     else    
-        target:addStatusEffect(EFFECT_ATTACK_DOWN,15,0,20);
+        target:addStatusEffect(EFFECT_ATTACK_DOWN,15,0,90);
     end
 
     return damage;

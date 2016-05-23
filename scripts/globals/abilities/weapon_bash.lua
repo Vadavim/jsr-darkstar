@@ -28,21 +28,22 @@ end;
 
 function onUseAbility(player,target,ability)
     -- Applying Weapon Bash stun. Rate is said to be near 100%, so let's say 99%.
-    if (math.random()*100 < 99) then
+    if(math.random()*100 < 99) then
         target:addStatusEffect(EFFECT_STUN,1,0,6);
     end
     
     -- Weapon Bash deals damage dependant of Dark Knight level
     local darkKnightLvl = 0;
-    if (player:getMainJob()==JOB_DRK) then
+    if(player:getMainJob()==JOB_DRK) then
         darkKnightLvl = player:getMainLvl();    -- Use Mainjob Lvl
-    elseif (player:getSubJob()==JOB_DRK) then
+    elseif(player:getSubJob()==JOB_DRK) then
         darkKnightLvl = player:getSubLvl();    -- Use Subjob Lvl
     end
     
     -- Calculating and applying Weapon Bash damage
-    local damage = math.floor(((darkKnightLvl + 11) / 4) + player:getMod(MOD_WEAPON_BASH));
+    local damage = math.floor(((darkKnightLvl + 11) / 4) + player:getMod(MOD_WEAPON_BASH) + player:getStat(MOD_STR));
     target:delHP(damage);
     target:updateEnmityFromDamage(player,damage);
+    target:addStatusEffect(EFFECT_CHAINBOUND,1,0,10);
     return damage;
 end;

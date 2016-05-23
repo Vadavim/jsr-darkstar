@@ -41,14 +41,14 @@ function onSpellCast(caster,target,spell)
         params.tp150 = 1.0;
         params.tp300 = 1.0;
         params.azuretp = 1.0;
-        params.duppercap = 133;
-        params.str_wsc = 0.0;
+        params.duppercap = 80;
+        params.str_wsc = 0.5;
         params.dex_wsc = 0.0;
-        params.vit_wsc = 0.3;
+        params.vit_wsc = 0.5;
         params.agi_wsc = 0.0;
-        params.int_wsc = 0.1;
-        params.mnd_wsc = 0.1;
-        params.chr_wsc = 0.1;
+        params.int_wsc = 0.0;
+        params.mnd_wsc = 0.0;
+        params.chr_wsc = 0.0;
     damage = BluePhysicalSpell(caster, target, spell, params);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
    

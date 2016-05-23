@@ -1,7 +1,7 @@
 -----------------------------------
 --
---     EFFECT_BURN
---     
+-- 	EFFECT_BURN
+-- 	
 -----------------------------------
 
 require("scripts/globals/status");
@@ -12,8 +12,14 @@ require("scripts/globals/magic");
 -----------------------------------
 
 function onEffectGain(target,effect)
-    target:addMod(MOD_REGEN_DOWN, effect:getPower());
-    target:addMod(MOD_INT, -getElementalDebuffStatDownFromDOT(effect:getPower()));
+    if (target:isMob() and target:getSystem() == SYSTEM_PLANTOID) then
+        effect:setPower(math.floor(effect:getPower() * 1.5));
+    end;
+	target:addMod(MOD_REGEN_DOWN, effect:getPower());
+	target:addMod(MOD_MND, -getElementalDebuffStatDownFromDOT(effect:getPower()));
+
+	target:addMod(MOD_REGEN_DOWN, effect:getPower());
+	target:addMod(MOD_INT, -getElementalDebuffStatDownFromDOT(effect:getPower()));
 end;
 
 -----------------------------------
@@ -28,6 +34,6 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
-    target:delMod(MOD_REGEN_DOWN, effect:getPower());
-    target:delMod(MOD_INT, -getElementalDebuffStatDownFromDOT(effect:getPower()));
+	target:delMod(MOD_REGEN_DOWN, effect:getPower());
+	target:delMod(MOD_INT, -getElementalDebuffStatDownFromDOT(effect:getPower()));
 end;

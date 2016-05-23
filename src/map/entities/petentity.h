@@ -24,7 +24,7 @@
 #ifndef _CPETENTITY_H
 #define _CPETENTITY_H
 
-#include "mobentity.h"
+#include "battleentity.h"
 
 enum PETTYPE
 {
@@ -35,7 +35,7 @@ enum PETTYPE
 	PETTYPE_AUTOMATON         = 4,
 	PETTYPE_ADVENTURING_FELLOW= 5,
 	PETTYPE_CHOCOBO           = 6,
-    PETTYPE_TRUST             = 7
+    PETTYPE_ALLY              = 7
 };
 
 enum WYVERNTYPE
@@ -46,25 +46,24 @@ enum WYVERNTYPE
     WYVERNTYPE_OFFENSIVE = 3
 };
 
-class CPetEntity : public CMobEntity
+class CPetEntity : public CBattleEntity
 {
 public:
 	 CPetEntity(PETTYPE petType);						// конструктор
 	~CPetEntity();						// деструктор
 	PETTYPE getPetType();
+    void setPetType(PETTYPE pType);
     bool isBstPet();
+	uint16 m_Family;
 	uint8 m_Element;
 	uint32 m_PetID;
-    std::string GetScriptName();
+
+    uint8 m_name_prefix;
 
     WYVERNTYPE getWyvernType();
-    virtual void PostTick() override;
-    virtual void FadeOut() override;
-    virtual void Die() override;
-    virtual void Spawn() override;
-    virtual void OnAbility(CAbilityState&, action_t&) override;
-    virtual bool ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags) override;
+    void UpdateEntity() override;
 
+	std::vector<CMobSkill*> PetSkills;
 private:
 	PETTYPE m_PetType;					//the type of pet e.g. avatar/wyvern/jugpet etc
 };

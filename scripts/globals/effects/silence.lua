@@ -1,14 +1,16 @@
 -----------------------------------
 --
---     EFFECT_NONE
---     
+-- 	EFFECT_NONE
+-- 	
 -----------------------------------
-
+require("scripts/globals/status");
+require("scripts/globals/jsr_utils");
 -----------------------------------
 -- onEffectGain Action
 -----------------------------------
 
 function onEffectGain(target,effect)
+    applyBarDurationReduction(target, effect, EFFECT_BARSILENCE);
 end;
 
 -----------------------------------

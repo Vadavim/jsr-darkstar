@@ -16,11 +16,11 @@ require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
 -----------------------------------
 
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID)
 
     local params = {};
     params.numHits = 1;
-    params.ftp100 = 1; params.ftp200 = 1; params.ftp300 = 1;
+    params.ftp100 = 1.75; params.ftp200 = 1.75; params.ftp300 = 1.75;
     params.str_wsc = 0.2; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.2; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
     params.crit100 = 0.3; params.crit200 = 0.6; params.crit300 = 0.9;
     params.canCrit = true;
@@ -31,7 +31,18 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         params.str_wsc = 0.5; params.agi_wsc = 0.5;
     end
 
-    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
+    damage = damage * WEAPON_SKILL_POWER
+    
+    if (damage > 0 and player:getStatusEffect(EFFECT_POTENCY) == nil) then
+        local duration = 30 * player:getTP() / 100;
+        player:addStatusEffect(EFFECT_POTENCY, 10, 0, duration);
+    end
+
+    if (target:isMob() and (target:getSystem() == SYSTEM_BEASTMEN or target:getSystem() == SYSTEM_HUMANOID) ) then
+        damage = damage * 1.2;
+    end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

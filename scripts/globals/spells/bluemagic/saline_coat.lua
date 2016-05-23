@@ -32,23 +32,23 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    local typeEffect = EFFECT_MAGIC_DEF_BOOST;
-    local power = 40;
     local duration = 60;
-
-    if (caster:hasStatusEffect(EFFECT_DIFFUSION)) then
+    
+    if(caster:hasStatusEffect(EFFECT_DIFFUSION)) then
         local diffMerit = caster:getMerit(MERIT_DIFFUSION);
-
-        if (diffMerit > 0) then
+        
+        if(diffMerit > 0) then
             duration = duration + (duration/100)* diffMerit;
-        end;
-
+        end
+        
         caster:delStatusEffect(EFFECT_DIFFUSION);
-    end;
-
-    if (target:addStatusEffect(typeEffect,power,0,duration) == false) then
+    end
+    
+    if(caster:hasStatusEffect(EFFECT_MAGIC_DEF_BOOST) == true) then
         spell:setMsg(75);
-    end;
+    else
+        caster:addStatusEffect(EFFECT_MAGIC_DEF_BOOST,25,0,duration);
+    end
 
-    return typeEffect;
+    return EFFECT_MAGIC_DEF_BOOST;
 end;

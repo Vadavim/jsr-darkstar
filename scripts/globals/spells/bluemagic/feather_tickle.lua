@@ -31,14 +31,13 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
-    local resist = applyResistance(caster,spell,target,dINT,BLUE_SKILL);
-    local power = 300 * resist;
+    local tp = 30;
     
-    if (target:getTP() == 0) then
-        spell:setMsg(75);
+    if(target:getTP() == 0) then
+        spell:setMsg(75); 
     else
-        target:delTP(power);
+        target:delTP(tp);
+	caster:addTP(tp);
         spell:setMsg(431);
     end
     

@@ -5,13 +5,15 @@
 -----------------------------------
 
 require("scripts/globals/status");
+require("scripts/globals/jsr_utils");
 
 -----------------------------------
 -- onEffectGain Action
 -----------------------------------
 
 function onEffectGain(target,effect)
-    target:addMod(MOD_PARALYZE,effect:getPower());
+	target:addMod(MOD_PARALYZE,effect:getPower());
+    applyBarDurationReduction(target, effect, EFFECT_BARPARALYZE);
 end;
 
 -----------------------------------
@@ -26,5 +28,5 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
-    target:delMod(MOD_PARALYZE,effect:getPower());
+	target:delMod(MOD_PARALYZE,effect:getPower());
 end;

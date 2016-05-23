@@ -23,16 +23,14 @@ This file is part of DarkStar-server source code.
 
 #include "targetfind.h"
 
-#include <math.h>
 #include "../../entities/charentity.h"
 #include "../../entities/mobentity.h"
 #include "../../packets/action.h"
 #include "../../alliance.h"
+#include <math.h>
 #include "../../../common/mmo.h"
-#include "../../../common/utils.h"
 #include "../../utils/zoneutils.h"
 #include "../../enmity_container.h"
-#include "../../status_effect_container.h"
 
 #include "../../packets/action.h"
 
@@ -87,10 +85,11 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
 
     // no not include pets if this AoE is a buff spell
     // this is a buff because i'm targetting my self
+ 
     bool withPet = PETS_CAN_AOE_BUFF || (m_findFlags & FINDFLAGS_PET) || (m_PMasterTarget->objtype != m_PBattleEntity->objtype);
-
+    withPet = true;
     // always add original target first
-    addEntity(PTarget, false); // pet will be added later
+    addEntity(PTarget, true); // pet will be added later
 
     m_PTarget = PTarget;
     isPlayer = checkIsPlayer(m_PBattleEntity);
@@ -129,8 +128,9 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
             addAllInMobList(m_PMasterTarget, false);
         }
 
-    }
-    else {
+    } 
+    else
+    {
         // handle this as a mob
 
         if (m_PMasterTarget->objtype == TYPE_PC || m_PBattleEntity->allegiance == ALLEGIANCE_PLAYER){
@@ -146,8 +146,7 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
             withPet = PETS_CAN_AOE_BUFF;
         }
 
-        if (m_findFlags & FINDFLAGS_HIT_ALL ||
-            m_findType == FIND_MONSTER_PLAYER && ((CMobEntity*)m_PBattleEntity)->CalledForHelp())
+        if (m_findFlags & FINDFLAGS_HIT_ALL)
         {
             addAllInZone(m_PMasterTarget, withPet);
         }
@@ -156,13 +155,13 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
             addAllInAlliance(m_PMasterTarget, withPet);
 
             // Is the monster casting on a player..
-            if (m_findType == FIND_MONSTER_PLAYER)
-            {
-                if (m_PBattleEntity->allegiance == ALLEGIANCE_PLAYER)
-                    addAllInZone(m_PMasterTarget, withPet);
-                else
-                    addAllInEnmityList();
-            }
+			if (m_findType == FIND_MONSTER_PLAYER)
+			{
+				if (m_PBattleEntity->allegiance == ALLEGIANCE_PLAYER)
+					addAllInZone(m_PMasterTarget, withPet);
+				else
+					addAllInEnmityList();
+			}
         }
     }
 }
@@ -279,6 +278,19 @@ void CTargetFind::addEntity(CBattleEntity* PTarget, bool withPet)
     if (withPet && PTarget->PPet != nullptr && validEntity(PTarget->PPet))
     {
         m_targets.push_back(PTarget->PPet);
+    }
+    
+    //Add allies
+    if (withPet && PTarget->PAlly.size() > 0)
+    {
+        for (uint8 i = 0; i < PTarget->PAlly.size(); i++)
+            {
+                CBattleEntity* ally = PTarget->PAlly[i];
+                if (validEntity(ally))
+                {
+                    m_targets.push_back(ally);
+                }                    
+            }
     }
 
 }
@@ -449,21 +461,11 @@ bool CTargetFind::isWithinRange(position_t* pos, float range)
     return distance(m_PBattleEntity->loc.p, *pos) <= range;
 }
 
-
-bool CTargetFind::canSee(position_t* point)
+CBattleEntity* CTargetFind::getValidTarget(uint16 actionTargetID, uint8 validTargetFlags)
 {
-    //TODO: the detours raycast is not a line of sight raycast (it's a walkability raycast)
-    //if (m_PBattleEntity->loc.zone && m_PBattleEntity->loc.zone->m_navMesh)
-    //{
-    //    position_t pA {0, m_PBattleEntity->loc.p.x, m_PBattleEntity->loc.p.y - 1, m_PBattleEntity->loc.p.z};
-    //    position_t pB {0, point->x, point->y - 1, point->z};
-    //    return m_PBattleEntity->loc.zone->m_navMesh->raycast(pA, pB);
-    //}
-    return true;
-}
 
-CBattleEntity* CTargetFind::getValidTarget(uint16 actionTargetID, uint16 validTargetFlags)
-{
+    DSP_DEBUG_BREAK_IF(actionTargetID == 0);
+
     CBattleEntity* PTarget = (CBattleEntity*)m_PBattleEntity->GetEntity(actionTargetID, TYPE_MOB | TYPE_PC | TYPE_PET);
 
     if (PTarget == nullptr)
@@ -471,14 +473,64 @@ CBattleEntity* CTargetFind::getValidTarget(uint16 actionTargetID, uint16 validTa
         return nullptr;
     }
 
-    if (validTargetFlags & TARGET_PET)
+    if (m_PBattleEntity->StatusEffectContainer->GetConfrontationEffect() != PTarget->StatusEffectContainer->GetConfrontationEffect())
     {
-        return m_PBattleEntity->PPet;
+        return nullptr;
     }
 
-    if (PTarget->ValidTarget(m_PBattleEntity, validTargetFlags))
+    if (PTarget->objtype == TYPE_PC || PTarget->objtype == TYPE_PET)
     {
-        return PTarget;
+        if ((validTargetFlags & TARGET_SELF) && PTarget->targid == m_PBattleEntity->targid)
+        {
+            return PTarget;
+        }
+        if (validTargetFlags & TARGET_PLAYER)
+        {
+            return PTarget;
+        }
+        if ((validTargetFlags & TARGET_PLAYER_PARTY) && (m_PBattleEntity->PParty != nullptr && m_PBattleEntity->PParty == PTarget->PParty))
+        {
+            return PTarget;
+        }
+        if ((validTargetFlags & TARGET_PLAYER_PARTY_PIANISSIMO) && (m_PBattleEntity->StatusEffectContainer->HasStatusEffect(EFFECT_PIANISSIMO)) &&
+            (m_PBattleEntity->PParty != nullptr && m_PBattleEntity->PParty == PTarget->PParty))
+        {
+            return PTarget;
+        }
+        if ((validTargetFlags & TARGET_PLAYER_DEAD) && PTarget->isDead())
+        {
+            return PTarget;
+        }
+        return nullptr;
+    }
+
+	if (PTarget->objtype == TYPE_MOB)
+	{
+		if (validTargetFlags & TARGET_PLAYER_DEAD && ((CMobEntity*)PTarget)->m_Behaviour & BEHAVIOUR_RAISABLE
+			&& PTarget->isDead())
+		{
+			return PTarget;
+		}
+
+        if (validTargetFlags & TARGET_NPC)
+        {
+            if (PTarget->allegiance == m_PBattleEntity->allegiance && (PTarget == m_PBattleEntity ||
+                !(((CMobEntity*)PTarget)->m_Behaviour & BEHAVIOUR_NOHELP)))
+            {
+                return PTarget;
+            }
+        }
+	}
+
+    if (validTargetFlags & TARGET_ENEMY)
+    {
+        if (!PTarget->isDead())
+        {
+            if (PTarget->allegiance == (m_PBattleEntity->allegiance % 2 == 0 ? m_PBattleEntity->allegiance + 1 : m_PBattleEntity->allegiance - 1))
+            {
+                return PTarget;
+            }
+        }
     }
 
     return nullptr;

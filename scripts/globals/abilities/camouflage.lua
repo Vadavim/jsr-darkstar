@@ -24,6 +24,23 @@ end;
 function onUseAbility(player,target,ability)
 
     local duration = math.random(30, 300);
+    
+    local rngLevel = 0;
+    if(player:getMainJob() == JOB_RNG) then
+        rngLevel = player:getMainLvl();
+    else
+        rngLevel = player:getSubLvl();
+    end
+    
+    shadowEffect = EFFECT_COPY_IMAGE;
+    local shadows = 0;
+    if (rngLevel < 45) then
+        shadows = 1;
+    else
+        shadows = 2;
+        shadowEffect = EFFECT_COPY_IMAGE_2;
+    end
+    
 
     if (target:getEquipID(SLOT_BODY) == 14224) then -- Hunter's Jerkin
         duration = duration * 1.3;
@@ -31,4 +48,11 @@ function onUseAbility(player,target,ability)
         duration = duration * 1.5;
     end
     player:addStatusEffect(EFFECT_CAMOUFLAGE,1,0,(math.floor(duration) * SNEAK_INVIS_DURATION_MULTIPLIER));
+    
+    local effect = target:getStatusEffect(EFFECT_COPY_IMAGE);
+    
+    if (effect == nil) then
+		target:addStatusEffectEx(EFFECT_COPY_IMAGE, shadowEffect, shadows, 0, 120);
+		target:setMod(MOD_UTSUSEMI, 1);
+    end
 end;

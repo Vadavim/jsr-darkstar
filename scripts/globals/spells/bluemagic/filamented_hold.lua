@@ -31,21 +31,22 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    local typeEffect = EFFECT_SLOW
     local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
-    local resist = applyResistanceEffect(caster,spell,target,dINT,BLUE_SKILL,0,typeEffect);
-    local duration = 90 * resist;
-    local power = 256;
+    local resist = applyResistance(caster,spell,target,dINT,37);
     
-    if (resist > 0.5) then -- Do it!
-        if (target:addStatusEffect(typeEffect,power,0,duration)) then
-            spell:setMsg(236);
-        else
-            spell:setMsg(75);
-        end
-    else
+    if(resist < 0.0625) then
+        -- resisted!
         spell:setMsg(85);
+        return 0;
     end
 
-    return typeEffect;
+    if(target:hasStatusEffect(EFFECT_SLOW) == true) then
+        -- no effect
+        spell:setMsg(75);
+    else
+        target:addStatusEffect(EFFECT_SLOW,15,0,60);
+        spell:setMsg(236);
+    end
+
+    return EFFECT_SLOW;
 end;

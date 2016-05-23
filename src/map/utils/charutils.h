@@ -28,25 +28,23 @@ This file is part of DarkStar-server source code.
 
 #include "../trait.h"
 #include "../entities/charentity.h"
-#include "../items/item_armor.h"
 
 class CPetEntity;
 class CMobEntity;
 class CMeritPoints;
-class CAbility;
 
 namespace charutils
 {
 
     void	LoadExpTable();
     void	LoadChar(CCharEntity* PChar);
-    void    LoadSpells(CCharEntity* PChar);
     void	LoadInventory(CCharEntity* PChar);
     void    LoadEquip(CCharEntity* PChar);
 
     void	SendQuestMissionLog(CCharEntity* PChar);
     void	SendKeyItems(CCharEntity* PChar);
     void	SendInventory(CCharEntity* PChar);
+    void AddLimitPoints(CCharEntity* PChar, CBaseEntity* PMob, uint32 exp);
 
     void	CalculateStats(CCharEntity* PChar);
     void    UpdateSubJob(CCharEntity* PChar);
@@ -76,17 +74,19 @@ namespace charutils
     uint8   AddItem(CCharEntity* PChar, uint8 LocationID, CItem* PItem, bool silence = false);
     uint8	AddItem(CCharEntity* PChar, uint8 LocationID, uint16 itemID, uint32 quantity = 1, bool silence = false);
     uint8   MoveItem(CCharEntity* PChar, uint8 LocationID, uint8 SlotID, uint8 NewSlotID);
-    uint32	UpdateItem(CCharEntity* PChar, uint8 LocationID, uint8 slotID, int32 quantity, bool force = false);
+    uint32	UpdateItem(CCharEntity* PChar, uint8 LocationID, uint8 slotID, int32 quantity);
     void	CheckValidEquipment(CCharEntity* PChar);
     void	CheckEquipLogic(CCharEntity* PChar, SCRIPTTYPE ScriptType, uint32 param);
     void	EquipItem(CCharEntity* PChar, uint8 slotID, uint8 equipSlotID, uint8 containerID);
     void	UnequipItem(CCharEntity* PChar, uint8 equipSlotID, bool update = true); //call with update == false to prevent calls to UpdateHealth() - used for correct handling of stats on armor swaps
     void    RemoveSub(CCharEntity* PChar);
-    bool    EquipArmor(CCharEntity* PChar, uint8 slotID, uint8 equipSlotID, uint8 containerID);
+    bool    EquipArmor(CCharEntity* PChar, uint8 slotID, uint8 equipSlotID);
     void	CheckUnarmedWeapon(CCharEntity* PChar);
     void    SetStyleLock(CCharEntity* PChar, bool isStyleLocked);
     void    UpdateWeaponStyle(CCharEntity* PChar, uint8 equipSlotID, CItemWeapon* PItem);
     void    UpdateArmorStyle(CCharEntity* PChar, uint8 equipSlotID);
+
+    void    UpdateHealth(CCharEntity* PChar);
 
     int32	hasKeyItem(CCharEntity* PChar, uint16 KeyItemID);	        // проверяем наличие ключевого предмета
     int32	seenKeyItem(CCharEntity* PChar, uint16 KeyItemID);	        // проверяем, было ли описание ключевого предмета прочитано
@@ -97,6 +97,7 @@ namespace charutils
     int32	hasSpell(CCharEntity* PChar, uint16 SpellID);		        // проверяем наличие заклинания
     int32	addSpell(CCharEntity* PChar, uint16 SpellID);		        // добавляем заклинание
     int32	delSpell(CCharEntity* PChar, uint16 SpellID);		        // улаляем заклинание
+    void    filterEnabledSpells(CCharEntity* PChar);                    // Calculates a View of a Char's Spell List filtering out spells that are disabled.
 
     int32	hasLearnedAbility(CCharEntity* PChar, uint16 AbilityID);	// проверяем наличие заклинания
     int32	addLearnedAbility(CCharEntity* PChar, uint16 AbilityID);	// добавляем заклинание
@@ -134,8 +135,7 @@ namespace charutils
     void	SaveZonesVisited(CCharEntity* PChar);				        // сохраняем посещенные зоны
     void	SaveKeyItems(CCharEntity* PChar);					        // сохраняем ключевые предметы
     void	SaveCharInventoryCapacity(CCharEntity* PChar);              // Save Character inventory capacity
-    void	SaveSpell(CCharEntity* PChar, uint16 spellID);						        // сохраняем выученные заклинания
-    void	DeleteSpell(CCharEntity* PChar, uint16 spellID);
+    void	SaveSpells(CCharEntity* PChar);						        // сохраняем выученные заклинания
     void	SaveLearnedAbilities(CCharEntity* PChar);					// saved learned abilities (corsair rolls)
     void    SaveTitles(CCharEntity* PChar);						        // сохраняем заслуженные звания
     void	SaveCharStats(CCharEntity* PChar);					        // сохраняем флаги, текущие значения жихней, маны и профессий
@@ -172,7 +172,6 @@ namespace charutils
     int32   GetPoints(CCharEntity* PChar, const char* type);
     std::string GetConquestPointsName(CCharEntity* PChar);
     void    SendToZone(CCharEntity* PChar, uint8 type, uint64 ipp);
-    void    AddWeaponSkillPoints(CCharEntity*, SLOTTYPE, int);
 
     int32   GetVar(CCharEntity* PChar, const char* var);
 };

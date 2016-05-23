@@ -12,34 +12,42 @@
 -- 100%TP    200%TP    300%TP
 -- 1.00      1.00      1.00
 -----------------------------------
+
 require("scripts/globals/status");
 require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
 -----------------------------------
 
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID)
 
-    local params = {};
-    params.numHits = 1;
-    params.ftp100 = 1; params.ftp200 = 1; params.ftp300 = 1;
-    params.str_wsc = 0.35; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
-    params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
-    params.canCrit = false;
-    params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
-    params.atkmulti = 1;
+	local params = {};
+	params.numHits = 1;
+	params.ftp100 = 1; params.ftp200 = 1; params.ftp300 = 1;
+	params.str_wsc = 0.35; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
+	params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
+	params.canCrit = false;
+	params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
+	params.atkmulti = 1;
 
-    if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.str_wsc = 1.0;
-    end
+	if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
+		params.str_wsc = 1.0;
+	end
 
-    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+	local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, params);
+	local resist = applyResistanceWeaponskill(player, target, ELE_WIND, SKILL_STF);
+	if (damage > 0 and resist >= 0.125) then
+		local tp = player:getTP();
+		local duration = (tp/100 * 60) + 120;
+		if(target:addStatusEffect(EFFECT_DEFENSE_DOWN, 25, 0, duration * resist)) then
+			target:setPendingMessage(277, EFFECT_DEFENSE_DOWN);
+		end
+	end
+	damage = damage * WEAPON_SKILL_POWER
 
-    if (damage > 0) then
-        local duration = (tp/1000 * 60) + 120;
-        if (target:hasStatusEffect(EFFECT_DEFENSE_DOWN) == false) then
-            target:addStatusEffect(EFFECT_DEFENSE_DOWN, 25, 0, duration);
-        end
-    end
-    return tpHits, extraHits, criticalHit, damage;
+	if (target:isMob() and target:getSystem() == SYSTEM_AQUAN) then
+		damage = damage * 1.20;
+	end
+
+	return tpHits, extraHits, criticalHit, damage;
 
 end
