@@ -1,0 +1,15 @@
+[Poison]
+Duration: 30 -> 60 seconds
+Max DOT: 4 -> 8, and scales faster (+1 per 15 skill)
+
+[Poison II]
+Duration: 120 -> 60 seconds
+Max DOT: 10 -> 20, and scales faster (8 +1 per 20 skill)
+
+[Poison III]
+Duration: 120 -> 60 seconds
+Max DOT: 20 -> 35, and scales faster (15 +1 per 15 skill)
+
+[Poisonaga]
+Duration: 60 -> 180 seconds
+Max DOT: 4 -> 15, and scales faster (5 +1 per 20 skill)

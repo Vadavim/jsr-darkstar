@@ -16,15 +16,15 @@ end;
 function onSpellCast(caster,target,spell)
     local effect = EFFECT_POISON;
 
-    local duration = 60;
+    local duration = 180;
 
     local pINT = caster:getStat(MOD_INT);
     local mINT = target:getStat(MOD_INT);
 
     local dINT = (pINT - mINT);
-    local power = caster:getSkillLevel(ENFEEBLING_MAGIC_SKILL) / 20 + 1;
-    if power > 6 then
-        power = 6;
+    local power = caster:getSkillLevel(ENFEEBLING_MAGIC_SKILL) / 20 + 5;
+    if power > 15 then
+        power = 15;
     end
 
     local resist = applyResistanceEffect(caster,spell,target,dINT,ENFEEBLING_MAGIC_SKILL,0,effect);

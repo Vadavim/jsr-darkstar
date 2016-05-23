@@ -1,0 +1,11 @@
+SKILL CHANGES
+
+TRAIT CHANGES
+
+ABILITY CHANGES
+
+[Efflux]
+ - Gained at level 60
+ - Instead resets Burst Affinity and Chain Affinity.
+
+

@@ -1,0 +1,5 @@
+[Magic Weaponskills]
+ - All magic weaponskills have an inherent +20 bonus to magic accuracy.
+ - They gain an additional +1 bonus to MACC for every 50 TP above 1000.
+ - Magic weaponskills are more affected by weather and day bonuses matching the element of the skill.
+ - Magic weaponskills inflict an extra 10% damage against creatures that are weak to the element of the skill.

@@ -1,0 +1,38 @@
+SKILL CHANGES
+ - B- Sword
+ - B- Hand to Hand
+ - A+ Parry
+ - A- Throwing
+ - B- Marksmanship
+ - B- Archery
+
+TRAIT CHANGES
+ - Has Dual-Wield I/II/III at levels 20 / 40 / 60
+ - Triple Attack increases to 8% at level 70
+ - +10 / +22 Accuracy at Levels 30 and 50
+
+
+ABILITY CHANGES
+
+[Steal]
+ - Instead steals a temporary item (such as a potion).
+ - The type of item depends upon the monster's level.
+
+[Mug]
+ - Also steals the target's TP (up to 100).
+
+[Flee]
+ - Duration is doubled when main job is Thief.
+
+[Hide]
+ - Gained at level 10 instead of 45.
+ - Grants 1 shadow when used. At level 45, grants 2 shadows.
+
+[Despoil]
+ - Gained at level 45 instead of 77.
+
+[Bully]
+ - Gained at level 55 instead of 93.
+
+[Conspirator]
+ - Gained at level 70 instead of 87.

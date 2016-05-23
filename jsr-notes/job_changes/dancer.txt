@@ -1,0 +1,75 @@
+SKILL CHANGES
+
+TRAIT CHANGES
+ - Gains Auto-Regain at levels 20, 40, and 60. Regains 5/10/15 TP per 3 seconds.
+
+
+ABILITY CHANGES
+
+[Presto]
+ - Gained at level 45
+
+[Steps]
+ - Steps only require 5% TP
+
+[Grand Pas]
+ - Gained at level 65
+ - Instead consumes all TP to give Regain effect to self over three minutes.
+
+
+SAMBA CHANGES
+[Drain Sambas]
+ - Drains samba also deals damage based on amount drained.
+ - Duration increased to 3 minutes.
+ 
+[Aspir Sambas]
+ - Aspir samba drains MP whether or not mob as MP.
+ - Only requires 10% TP.
+ - Duration increased to 3 minutes.
+
+[Haste Samba]
+ - Duration increased to 3 minutes. 
+
+FLOURISH CHANGES
+
+[Desperate Flourish]
+ - Much higher chance to weigh down target now.
+ - Also inflicts -10 EVA.
+ - Lasts for 60 seconds.
+
+[Violent Flourish]
+ - Gained at Level 35
+ - Stun duration increased. Much higher success rate.
+ - Damage of attack increased.
+
+[Animated Flourish]
+ - Recast reduced to 20 seconds.
+
+FLOURISHES II CHANGES
+
+[Reverse Flourish]
+ - No longer shares recast with other flourishes, but recast increased to 4 minutes.
+ - TP return also increased greatly.
+
+[Building Flourish]
+ - Duration increased to 10 minutes.
+ - Next Weaponskill gets a +25/+50/+75 TP bonus in addition to other effects.
+ -
+FLOURISHES III
+
+[Climactic Flourish]
+ - Gained at level 45
+ - Instead increases critical hit rate by +4% per finishing move spent.
+ - Lasts for one minute.
+ - Recast is 30  seconds.
+
+[Striking Flourish]
+ - Gained at level 55
+ - Instead increases Attack by 12% for 5 minutes.
+ - Recast is 30 seconds.
+
+[Ternary Flourish]
+ - Gained at level 70
+ - Instead grants 6% Triple Attack chance for 5 minutes.
+ - Recast is 30 seconds.
+

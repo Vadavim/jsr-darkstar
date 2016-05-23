@@ -360,7 +360,6 @@ public:
     int32 hasTrait(lua_State*);
 
     int32 addExp(lua_State*);                // Add to Character Experience
-    int32 addLimitPoints(lua_State*);                // Add to Character Experience
     int32 delExp(lua_State*);                // Subtracts from Character Experience
 
     int32 getPetElement(lua_State*);
@@ -542,8 +541,6 @@ public:
     int32 entityVisualPacket(lua_State* L);
     int32 entityAnimationPacket(lua_State* L);
     int32 getPartyLeader(lua_State* L);
-    int32 setSpawner(lua_State* L);
-    int32 getSpawner(lua_State*);
     int32 getParty(lua_State* L);
     int32 getAlliance(lua_State* L);
     int32 messageText(lua_State* L);
@@ -568,23 +565,9 @@ public:
     int32 instantiateMob(lua_State* L);
 
     int32 getActiveManeuvers(lua_State*);
-    int32 getActiveRunes(lua_State*);
-    int32 getRuneTypes(lua_State*);
-    int32 getEffectsCount(lua_State* L);
     int32 removeOldestManeuver(lua_State*);
-    int32 getNewestRune(lua_State*);
-    int32 getRecentAlly(lua_State*);
-    int32 isUniqueAlly(lua_State* L);
     int32 removeAllManeuvers(lua_State*);
-    int32 removeOldestRune(lua_State*);
-    int32 removeAllRunes(lua_State*);
     int32 addBurden(lua_State* L);
-    int32 jsrCustom(lua_State* L);
-    int32 doMagicBurstMP(lua_State* L);
-    int32 applyConfrontationToParty(lua_State* L);
-    int32 removeConfrontationFromParty(lua_State* L);
-    int32 dieWithNoReward(lua_State*);
-    int32 setPendingMessage(lua_State* L);
 
     int32 setElevator(lua_State* L);
 

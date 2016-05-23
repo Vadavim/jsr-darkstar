@@ -722,9 +722,9 @@ function calculateMagicBurst(caster, spell, target)
     -- Add in Magic Burst Bonus Modifier
     if (burst > 1) then
         burst = burst + (caster:getMod(MOD_MAG_BURST_BONUS) / 100);
-        --JSR: casters gain MP based on magic burst
-        local burstMP = math.floor(burst * spell:getMPCost());
-        caster:doMagicBurstMP(burstMP);
+        --JSR: casters gain MP based on magic burst (TEMP DISABLED)
+--        local burstMP = math.floor(burst * spell:getMPCost());
+--        caster:doMagicBurstMP(burstMP);
     end
 
     return burst;
