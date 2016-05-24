@@ -2,6 +2,11 @@ SKILL CHANGES
 
 TRAIT CHANGES
 
+HP Up at levels: 15, 25, 35, 45, 55, 65, and 75
+Subtle Blow at levels: 5, 15, 30, 45, 60, and 75
+Counter: 10% (Level 10) + 2% per 20 levels
+
+
 ABILITY CHANGES
 
 [Dodge]

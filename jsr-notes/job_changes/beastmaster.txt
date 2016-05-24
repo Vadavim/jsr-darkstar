@@ -1,13 +1,20 @@
 SKILL CHANGES
 
+Dagger: B
+Axe: A+
+Scythe: B+
+Evasion: B
+Shield: B
+Parrying: B
+
 TRAIT CHANGES
 
 [Killer Traits]
- - All killer traits are gained at level 10. They start with an activation rate of 10%.
- - At levels 20, 30, 40, 50, 60, and 70, activation rate increased by 2%.
+ - All killer traits are gained at level 10. They start with an activation rate of 8%.
+ - At levels 20, 35, 50, and 65, activation rate increased by 2%.
 
 [Max HP Boost]
- - Gains a Max HP boost at levels 15, 30, 50, and 70
+ - Gains a Max HP boost at levels 15, 30, 50, and 60
 
 ABILITY CHANGES
 

@@ -5051,7 +5051,11 @@ namespace battleutils
             cast = cast * (1.0f - ((songcasting > 50 ? 50 : songcasting) / 100.0f));
         }
 
-        int16 fastCast = dsp_cap(PEntity->getMod(MOD_FASTCAST), -100, 50);
+        int16 fastCast = dsp_cap(PEntity->getMod(MOD_FASTCAST), -100, 80);
+        if (PSpell->getSpellGroup() == SPELLGROUP_BLACK) {
+            fastCast += PEntity->getMod(MOD_ELEMENTAL_CELERITY);
+            fastCast = dsp_cap(fastCast, -100, 80);
+        }
         if (PSpell->isCure()) // Cure cast time reductions
         {
             fastCast += PEntity->getMod(MOD_CURE_CAST_TIME);

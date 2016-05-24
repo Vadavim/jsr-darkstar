@@ -1,5 +1,13 @@
 SKILL CHANGES
 
+HtH: B+
+Dagger: B
+Sword: B
+Great Katana: B
+Marksmanship: B
+Ninjitsu: A+
+
+
 TRAIT CHANGES
 
  - Gains Magic Burst Bonus (+15%) at level 20. Increases by 5% at levels 40 and 60.

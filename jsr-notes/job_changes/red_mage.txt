@@ -6,6 +6,8 @@ SKILL CHANGES
  - C+ Evasion
  - B Parrying
  - B Healing
+ - B Dark
+ - B Divine
  - B Elemental
  - B- Shield
 

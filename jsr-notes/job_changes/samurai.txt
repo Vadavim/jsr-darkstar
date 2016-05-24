@@ -1,4 +1,7 @@
+[SKILLS]
 
+ - A- Polearm
+ - B+ Archery
 ABILITY CHANGES
 
 [Warding Circle]

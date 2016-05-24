@@ -211,6 +211,12 @@ bool CMagicState::HasCost()
             return false;
         }
     }
+    
+    if (m_PEntity->objtype == TYPE_PET)
+    {
+        return true;
+    }
+    
     // check has mp available
     else if (!m_PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_MANAFONT) &&
         !(m_flags & MAGICFLAGS_IGNORE_MP) && battleutils::CalculateSpellCost(m_PEntity, GetSpell()) > m_PEntity->health.mp)
@@ -244,7 +250,7 @@ void CMagicState::SpendCost()
 
         if (dsprand::GetRandomNumber(100) < rate)
         {
-            cost *= (dsprand::GetRandomNumber(8.f, 16.f) / 16.0f);
+            cost *= (dsprand::GetRandomNumber(4.f, 12.f) / 16.0f);
         }
 
         m_PEntity->addMP(-cost);

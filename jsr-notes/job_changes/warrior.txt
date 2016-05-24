@@ -1,6 +1,16 @@
 SKILL CHANGES
+ - B Shield
+ - B- Evasion
+ - B- Parrying
+ - A Great Sword
+ - A Scythe
+ - A Polearm
+ - A Sword
+ - B- Archery
 
 TRAIT CHANGES
+
+Additional Defense Bonus at level 50
 
 ABILITY CHANGES
 

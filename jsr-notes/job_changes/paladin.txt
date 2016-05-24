@@ -1,3 +1,9 @@
+[Paladin]
+Club: A+
+Staff: A+
+Polearm: B
+Parrying: B-
+
 [Shield Bash]
  - Adds STR to damage
  - Adds Chainbound effect for 10 seconds (next weaponskill triggers a skillchain).

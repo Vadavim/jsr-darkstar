@@ -1,4 +1,7 @@
 SKILL CHANGES
+Parrying: B
+Evasion: C+
+Shield: B
 
 TRAIT CHANGES
 

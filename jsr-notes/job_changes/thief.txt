@@ -3,7 +3,7 @@ SKILL CHANGES
  - B- Hand to Hand
  - A+ Parry
  - A- Throwing
- - B- Marksmanship
+ - B+ Marksmanship
  - B- Archery
 
 TRAIT CHANGES

@@ -1,13 +1,20 @@
 ADDED / FIXED TRAITS
  - Added back Elemental Celerity (works on all black magic, however)
  - Added back Occult Acumen
+ - Conserve MP is more effective
 
 
+RANGED ATTACKS
+ - Ranged attack bonus is increased by Dex instead of Str (2/3 Dex)
+ - Ranged accuracy increased by 2/3 Agi
 
 SKILL CHAIN / MAGIC BURST
 
 Magic burst damage increased (starts at +60% damage, scales up to +100%).
 The magic burst damage modifier is multiplicative (was additive) with this damage bonus.
+
+
+
 
 EXPERIENCE POINTS
 

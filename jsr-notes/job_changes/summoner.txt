@@ -1,5 +1,13 @@
 SKILL CHANGES
 
+ - A+ Staff
+ - A+ Summoning
+ - B Elemental
+ - B Enhancing
+ - B Enfeebling
+ - B Dark
+ - B Divine
+
 TRAIT CHANGES
 
 ABILITY CHANGES

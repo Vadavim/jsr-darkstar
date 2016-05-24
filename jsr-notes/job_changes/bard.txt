@@ -1,5 +1,12 @@
 SKILL CHANGES
 
+Dagger: B+
+Club: B
+Staff: B
+Evasion: B
+Parrying: B+
+
+
 TRAIT CHANGES
 
 ABILITY CHANGES

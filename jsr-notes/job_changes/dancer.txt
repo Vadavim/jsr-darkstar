@@ -1,7 +1,10 @@
 SKILL CHANGES
 
+HtH: A+
+Guarding: A
+
 TRAIT CHANGES
- - Gains Auto-Regain at levels 20, 40, and 60. Regains 5/10/15 TP per 3 seconds.
+ - Gains Auto-Regain at levels 30, 50, and 70. Regains 5/10/15 TP per 3 seconds.
 
 
 ABILITY CHANGES

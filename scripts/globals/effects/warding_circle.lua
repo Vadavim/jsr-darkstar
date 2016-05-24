@@ -12,6 +12,8 @@ require("scripts/globals/status");
 
 function onEffectGain(target,effect)
    target:addMod(MOD_DEMON_KILLER,8);
+   target:addMod(MOD_SKILLCHAINBONUS, 10);
+   target:addMod(MOD_MEVA, 10);
 end;
 
 -----------------------------------
@@ -27,4 +29,6 @@ end;
 
 function onEffectLose(target,effect)
    target:delMod(MOD_DEMON_KILLER,8);
+   target:delMod(MOD_SKILLCHAINBONUS, 10);
+   target:addMod(MOD_MEVA, 10);
 end;
