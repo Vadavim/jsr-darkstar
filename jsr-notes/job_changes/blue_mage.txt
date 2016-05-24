@@ -7,6 +7,9 @@ TRAIT CHANGES
 
 ABILITY CHANGES
 
+[Burst Affinity]
+ - Increases potency of next magical blue spell by current TP (+50% per 1000 TP).
+
 [Efflux]
  - Gained at level 60
  - Instead resets Burst Affinity and Chain Affinity.

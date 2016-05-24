@@ -11,7 +11,11 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onEffectGain(target,effect)
-   target:addMod(MOD_DRAGON_KILLER,8);
+   local power = effect:getPower();
+   target:addMod(MOD_DRAGON_KILLER,power);
+   target:addMod(MOD_FIRERES, power * 5);
+   target:addMod(MOD_THUNDERRES, power * 5);
+   target:addMod(MOD_ICERES, power * 5);
 end;
 
 -----------------------------------
@@ -26,5 +30,9 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
-   target:delMod(MOD_DRAGON_KILLER,8);
+   local power = effect:getPower();
+   target:delMod(MOD_DRAGON_KILLER,power);
+   target:delMod(MOD_FIRERES, power * 5);
+   target:delMod(MOD_THUNDERRES, power * 5);
+   target:delMod(MOD_ICERES, power * 5);
 end;

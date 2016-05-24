@@ -3161,7 +3161,7 @@ namespace charutils
                         exp *= monsterbonus;
                     }
 
-                    permonstercap = ((PMember->PParty != nullptr && pcinzone > 1) ? 1.35f : 1.15f);
+                    permonstercap = ((PMember->PParty != nullptr && pcinzone > 1) ? 1.5f : 1.35f);
 
                     if (PMember->GetMLevel() <= 50)
                     {
@@ -3207,10 +3207,10 @@ namespace charutils
                     {
                         switch (PMember->expChain.chainNumber)
                         {
-                            case 0: PMember->expChain.chainTime = gettick() + 50000; break;
-                            case 1:	PMember->expChain.chainTime = gettick() + 40000; break;
-                            case 2: PMember->expChain.chainTime = gettick() + 30000; break;
-                            case 3: PMember->expChain.chainTime = gettick() + 20000; break;
+                            case 0: PMember->expChain.chainTime = gettick() + 100000; break;
+                            case 1:	PMember->expChain.chainTime = gettick() + 80000; break;
+                            case 2: PMember->expChain.chainTime = gettick() + 60000; break;
+                            case 3: PMember->expChain.chainTime = gettick() + 30000; break;
                             case 4: PMember->expChain.chainTime = gettick() + 10000; break;
                             case 5: PMember->expChain.chainTime = gettick() + 6000; break;
                             default: PMember->expChain.chainTime = gettick() + 2000; break;
@@ -3220,10 +3220,10 @@ namespace charutils
                     {
                         switch (PMember->expChain.chainNumber)
                         {
-                            case 0: PMember->expChain.chainTime = gettick() + 100000; break;
-                            case 1:	PMember->expChain.chainTime = gettick() + 80000; break;
-                            case 2: PMember->expChain.chainTime = gettick() + 60000; break;
-                            case 3: PMember->expChain.chainTime = gettick() + 40000; break;
+                            case 0: PMember->expChain.chainTime = gettick() + 200000; break;
+                            case 1:	PMember->expChain.chainTime = gettick() + 160000; break;
+                            case 2: PMember->expChain.chainTime = gettick() + 120000; break;
+                            case 3: PMember->expChain.chainTime = gettick() + 60000; break;
                             case 4: PMember->expChain.chainTime = gettick() + 20000; break;
                             case 5: PMember->expChain.chainTime = gettick() + 8000; break;
                             default: PMember->expChain.chainTime = gettick() + 4000; break;
@@ -3233,11 +3233,11 @@ namespace charutils
                     {
                         switch (PMember->expChain.chainNumber)
                         {
-                            case 0: PMember->expChain.chainTime = gettick() + 150000; break;
-                            case 1:	PMember->expChain.chainTime = gettick() + 120000; break;
-                            case 2: PMember->expChain.chainTime = gettick() + 90000; break;
-                            case 3: PMember->expChain.chainTime = gettick() + 60000; break;
-                            case 4: PMember->expChain.chainTime = gettick() + 30000; break;
+                            case 0: PMember->expChain.chainTime = gettick() + 300000; break;
+                            case 1:	PMember->expChain.chainTime = gettick() + 240000; break;
+                            case 2: PMember->expChain.chainTime = gettick() + 180000; break;
+                            case 3: PMember->expChain.chainTime = gettick() + 90000; break;
+                            case 4: PMember->expChain.chainTime = gettick() + 35000; break;
                             case 5: PMember->expChain.chainTime = gettick() + 10000; break;
                             default: PMember->expChain.chainTime = gettick() + 5000; break;
                         }
@@ -3246,12 +3246,12 @@ namespace charutils
                     {
                         switch (PMember->expChain.chainNumber)
                         {
-                            case 0: PMember->expChain.chainTime = gettick() + 200000; break;
-                            case 1:	PMember->expChain.chainTime = gettick() + 160000; break;
-                            case 2: PMember->expChain.chainTime = gettick() + 120000; break;
-                            case 3: PMember->expChain.chainTime = gettick() + 80000; break;
-                            case 4: PMember->expChain.chainTime = gettick() + 40000; break;
-                            case 5: PMember->expChain.chainTime = gettick() + 40000; break;
+                            case 0: PMember->expChain.chainTime = gettick() + 400000; break;
+                            case 1:	PMember->expChain.chainTime = gettick() + 300000; break;
+                            case 2: PMember->expChain.chainTime = gettick() + 240000; break;
+                            case 3: PMember->expChain.chainTime = gettick() + 120000; break;
+                            case 4: PMember->expChain.chainTime = gettick() + 80000; break;
+                            case 5: PMember->expChain.chainTime = gettick() + 60000; break;
                             default: PMember->expChain.chainTime = gettick() + 30000; break;
                         }
                     }
@@ -3259,12 +3259,12 @@ namespace charutils
                     {
                         switch (PMember->expChain.chainNumber)
                         {
-                            case 0: PMember->expChain.chainTime = gettick() + 250000; break;
-                            case 1:	PMember->expChain.chainTime = gettick() + 200000; break;
-                            case 2: PMember->expChain.chainTime = gettick() + 150000; break;
-                            case 3: PMember->expChain.chainTime = gettick() + 100000; break;
-                            case 4: PMember->expChain.chainTime = gettick() + 50000; break;
-                            case 5: PMember->expChain.chainTime = gettick() + 50000; break;
+                            case 0: PMember->expChain.chainTime = gettick() + 450000; break;
+                            case 1:	PMember->expChain.chainTime = gettick() + 350000; break;
+                            case 2: PMember->expChain.chainTime = gettick() + 280000; break;
+                            case 3: PMember->expChain.chainTime = gettick() + 140000; break;
+                            case 4: PMember->expChain.chainTime = gettick() + 80000; break;
+                            case 5: PMember->expChain.chainTime = gettick() + 60000; break;
                             default: PMember->expChain.chainTime = gettick() + 50000; break;
                         }
                     }
@@ -3272,12 +3272,12 @@ namespace charutils
                     {
                         switch (PMember->expChain.chainNumber)
                         {
-                            case 0: PMember->expChain.chainTime = gettick() + 300000; break;
-                            case 1:	PMember->expChain.chainTime = gettick() + 240000; break;
-                            case 2: PMember->expChain.chainTime = gettick() + 180000; break;
-                            case 3: PMember->expChain.chainTime = gettick() + 120000; break;
-                            case 4: PMember->expChain.chainTime = gettick() + 90000; break;
-                            case 5: PMember->expChain.chainTime = gettick() + 60000; break;
+                            case 0: PMember->expChain.chainTime = gettick() + 500000; break;
+                            case 1:	PMember->expChain.chainTime = gettick() + 400000; break;
+                            case 2: PMember->expChain.chainTime = gettick() + 320000; break;
+                            case 3: PMember->expChain.chainTime = gettick() + 160000; break;
+                            case 4: PMember->expChain.chainTime = gettick() + 120000; break;
+                            case 5: PMember->expChain.chainTime = gettick() + 80000; break;
                             default: PMember->expChain.chainTime = gettick() + 60000; break;
                         }
                     }
@@ -3285,12 +3285,12 @@ namespace charutils
                     {
                         switch (PMember->expChain.chainNumber)
                         {
-                            case 0: PMember->expChain.chainTime = gettick() + 360000; break;
-                            case 1:	PMember->expChain.chainTime = gettick() + 300000; break;
-                            case 2: PMember->expChain.chainTime = gettick() + 240000; break;
-                            case 3: PMember->expChain.chainTime = gettick() + 165000; break;
-                            case 4: PMember->expChain.chainTime = gettick() + 105000; break;
-                            case 5: PMember->expChain.chainTime = gettick() + 60000; break;
+                            case 0: PMember->expChain.chainTime = gettick() + 550000; break;
+                            case 1:	PMember->expChain.chainTime = gettick() + 450000; break;
+                            case 2: PMember->expChain.chainTime = gettick() + 340000; break;
+                            case 3: PMember->expChain.chainTime = gettick() + 195000; break;
+                            case 4: PMember->expChain.chainTime = gettick() + 135000; break;
+                            case 5: PMember->expChain.chainTime = gettick() + 80000; break;
                             default: PMember->expChain.chainTime = gettick() + 60000; break;
                         }
                     }

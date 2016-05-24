@@ -9,8 +9,8 @@ TRAIT CHANGES
 
 ABILITY CHANGES
 
-[Presto]
- - Gained at level 45
+
+NOTE: fix Waltz Recast modifier
 
 [Steps]
  - Steps only require 5% TP
@@ -18,6 +18,16 @@ ABILITY CHANGES
 [Grand Pas]
  - Gained at level 65
  - Instead consumes all TP to give Regain effect to self over three minutes.
+
+[No Foot Rise]
+ - Gained at Level 65, doesn't require a merit.
+
+[Fan Dance]
+ - No longer requires merit point to use
+ - +5 bonus to Parrying per merit point (in addition to other effects)
+
+[Waltzes]
+ - Charisma from equipment/effects reduce the TP cost of Waltzes
 
 
 SAMBA CHANGES
@@ -27,7 +37,6 @@ SAMBA CHANGES
  
 [Aspir Sambas]
  - Aspir samba drains MP whether or not mob as MP.
- - Only requires 10% TP.
  - Duration increased to 3 minutes.
 
 [Haste Samba]
@@ -37,27 +46,32 @@ FLOURISH CHANGES
 
 [Desperate Flourish]
  - Much higher chance to weigh down target now.
+ - Lowers enmity
  - Also inflicts -10 EVA.
- - Lasts for 60 seconds.
 
 [Violent Flourish]
  - Gained at Level 35
- - Stun duration increased. Much higher success rate.
+ - Stun duration increased. Higher success rate.
  - Damage of attack increased.
+ - Damage is doubled with H2H weapons
 
 [Animated Flourish]
  - Recast reduced to 20 seconds.
+ - Inflicts 35% Attack down for 6 / 12 seconds
 
 FLOURISHES II CHANGES
 
 [Reverse Flourish]
- - No longer shares recast with other flourishes, but recast increased to 4 minutes.
- - TP return also increased greatly.
+ - ##No longer shares recast with other flourishes, but recast increased to 4 minutes.
+ - ##TP return also increased greatly.
+ - Instead grants Regain effect (50 TP per tic)
+ - Recast time: 30 -> 5 seconds
 
 [Building Flourish]
- - Duration increased to 10 minutes.
- - Next Weaponskill gets a +25/+50/+75 TP bonus in addition to other effects.
- -
+ - Only consumes up to two finishing moves (effect still scales with three finishing moves)
+ - Bestows Presto effect on self
+ 
+
 FLOURISHES III
 
 [Climactic Flourish]

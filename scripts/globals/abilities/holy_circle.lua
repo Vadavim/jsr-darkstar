@@ -22,5 +22,6 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    target:addStatusEffect(EFFECT_HOLY_CIRCLE,1,0,60);
+    local bonus = player:getMerit(MERIT_HOLY_CIRCLE_RECAST) / 10;
+    target:addStatusEffect(EFFECT_HOLY_CIRCLE,8 + bonus,0,60);
 end;

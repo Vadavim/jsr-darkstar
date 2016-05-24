@@ -23,13 +23,13 @@ function onPetAbility(target, pet, skill, master)
     local dINT = math.floor(pet:getStat(MOD_INT) - target:getStat(MOD_INT));
     
     local level = pet:getMainLvl()
-    local damage = 48 + (level * 8);
+    local damage = 48 + (level * 8) + master:getMP() / 3;
     damage = damage + (dINT * 1.5);
     damage = MobMagicalMove(pet,target,skill,damage,ELE_WATER,1,TP_NO_EFFECT,0);
     damage = mobAddBonuses(pet, nil, target, damage.dmg, ELE_WATER);
     damage = AvatarFinalAdjustments(damage,pet,skill,target,MOBSKILL_MAGICAL,MOBPARAM_NONE,1);
 
-    master:setMP(0);
+    master:delStatusEffect(EFFECT_ASTRAL_FLOW);
     target:delHP(damage);
     target:updateEnmityFromDamage(pet,damage);
 

@@ -22,5 +22,6 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    target:addStatusEffect(EFFECT_WARDING_CIRCLE,1,0,60);
+    local bonus = player:getMerit(MERIT_WARDING_CIRCLE_RECAST) / 10;
+    target:addStatusEffect(EFFECT_WARDING_CIRCLE,8 + bonus,0,180);
 end;

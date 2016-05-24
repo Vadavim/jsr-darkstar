@@ -41,11 +41,13 @@ end;
 function onUseAbility(player,target,ability)
     if (player:hasStatusEffect(EFFECT_FINISHING_MOVE_1)) then
         player:delStatusEffect(EFFECT_FINISHING_MOVE_1);
+        target:addStatusEffect(EFFECT_ATTACK_DOWN_II, 35, 0, 6);
 
     --Add extra enmity if 2 finishing moves are used
     elseif (player:hasStatusEffect(EFFECT_FINISHING_MOVE_2)) then
         player:delStatusEffect(EFFECT_FINISHING_MOVE_2);
         target:addEnmity(player, 0, 500);
+        target:addStatusEffect(EFFECT_ATTACK_DOWN_II, 35, 0, 12);
     elseif (player:hasStatusEffect(EFFECT_FINISHING_MOVE_3)) then
         player:delStatusEffectSilent(EFFECT_FINISHING_MOVE_3);
         player:addStatusEffect(EFFECT_FINISHING_MOVE_1,1,0,7200);

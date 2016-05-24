@@ -53,11 +53,12 @@ function onSpellCast(caster,target,spell)
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
     
    -- Changed to Drown
-local chance = math.random();
+    local chance = math.random();
     if (chance < 0.95 and target:getStatusEffect(EFFECT_DROWN) == nil) then
         local DOT = (caster:getMainLvl()/5) + 6;
         target:addStatusEffect(EFFECT_DROWN,DOT, 3, 60,FLAG_ERASBLE);
     end
-   
+
+
     return damage;
 end;

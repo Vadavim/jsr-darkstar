@@ -28,8 +28,10 @@ ABILITY CHANGES
 	- +40 Dark Resistance
 	- +40 Curse Resistance
 	- -Reduces Dark damage received by 25%.
-	- +10 Magic Attack
+	- +10 Dark Magic Attack
 	- +20 Dark Magic Accuracy
+
+ - Merit: each point of Arcane Circle Recast adds the following: +1 Arcana Killer, +8 Dark and Curse Res, +1 Dark Magic Attack, and +2 Dark magic Accuracy.
 
 [Last Resort]
  - While active, bestows 30% fastcast with black magic. 

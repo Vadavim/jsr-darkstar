@@ -27,7 +27,7 @@ end;
 
 function onUseAbility(player,target,ability)
     
-    local moves = player:getMerit(MERIT_NO_FOOT_RISE);
+    local moves = player:getMerit(MERIT_NO_FOOT_RISE) + 1;
     if (player:hasStatusEffect(EFFECT_FINISHING_MOVE_1)) then
         if (moves > 4) then
             moves = 4;

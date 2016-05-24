@@ -33,6 +33,9 @@ PHYSICAL SPELLS
  - WSC: 100(50)% Dex
  - D cap: 52 (49)
 
+[Smite of Rage]
+ - Set Points: 2 (3)
+
 [Spinal Cleave]
  - WSC: 40(30)% Str
 
@@ -73,6 +76,7 @@ MAGICAL SPELLS
  - Multiplier: 3.0 (1.5625)
  - D cap: 66 (61)
  - WSC: 60(30)% Int, 20(10)% Mnd
+ - Trait: Undead Killer (+1 point)
 
 [Ice Break]
  - Multiplier: 3.8 (2.25)
@@ -135,6 +139,8 @@ only deal 50% of its normal damage.
 
 [Magnetite Cloud]
  - Multiplier: 3.4
+ - MP: 60 (84) 
+ - Casting Time: 2 (4) seconds
  - T Multiplier: 1.25
  - WSC: 100% Vit
  - D Cap: 55
@@ -142,20 +148,25 @@ only deal 50% of its normal damage.
 [Hecatomb Wave]
  - Multiplier: 3.8
  - T Multiplier: 1.5
+ - 3 (5) seconds
  - WSC: 100% Vit
  - D Cap: 65
  - Blind is -25 ACC
 
 [Radiant Breath]
  - Multiplier: 3.6
+ - Casting Time: 3 (5) seconds
  - T Multiplier: 1.5
  - WSC: 100% Vit
+ - MP 80 (116)
  - D Cap: 65
  - Slow power: 225
 
 [Flying Hip Press]
  - Multiplier: 3.9
  - T Multiplier: 1.75
+ - MP 105 (125)
+ - Casting Time: 3 (5) seconds
  - WSC: 100% Vit
  - D Cap: 70
 
@@ -167,6 +178,8 @@ only deal 50% of its normal damage.
  - Poison: 10/tic
  - Paralyze: 25% chance of losing action
  - Slow: comparable to Slow spell
+ - MP: 160 (212)
+- Casting Time: 5 (8.8) second
  - Blind: -25 ACC
 
 [Frost Breath]
@@ -174,11 +187,15 @@ only deal 50% of its normal damage.
  - T Multiplier: 2
  - WSC: 100% Vit
  - D Cap: 75
+ - Casting Time: 4.25 (6) seconds
+ - MP: 136
  - Paralyze: 25% chance of losing action
 
 [Heat Breath]
  - Multiplier: 5.0
  - T Multiplier: 2.5
+ - 140 (169) MP
+ - 5 (7) seconds
  - WSC: 100% Vit
  - D Cap: 75
 
@@ -190,20 +207,26 @@ ENHANCING SPELLS
 
 [Refueling]
  - Haste is 15(10)%
+ - Set Points: 3 (4)
+ - Trait: Undead Killer +1
+ - 10 (29) MP
 
 [Feather Barrier]
  - Duration: 5(1.3)min
  - +20 EVA
+ - 10 (29) MP
 
-[Momento Mori]
- - Casting Time: 0.5(6) seconds
+[Memento Mori]
+ - Casting Time: 0.5(3) seconds
  - +35(20) MATK
+ - 40 (56) MP
 
 [Voracious Trunky]
  - Casting Time: 2 (10) seconds
 
 [Diamondhide]
  - Prevents damage equal to BLUE SKILL
+ - Cast Time: 5 (7) seconds
 
 [Warmup]
  - Duration: 600 (300) seconds
@@ -213,6 +236,7 @@ ENHANCING SPELLS
 
 [Saline Coat]
  - Duration: 600 (60) seconds
+ - 30 (66) MP
  - +30 MDEF
 
 
@@ -220,8 +244,9 @@ ENHANCING SPELLS
 EFEEBLING SPELLS
 
 [Sound Blast]
- - Casting Time: 1 (4) second
+ - Casting Time: 2 (4) second
  - INT penalty: -20
+ - MP: 15 (25)
  - Duration: 120 (30) seconds
  - Set Bonus: +2 INT
 
@@ -231,78 +256,87 @@ EFEEBLING SPELLS
  - +1 AGI, +1 CHR, +1 MND
 
 [Blank Gaze]
- - Casting Time: 1 second
+ - Casting Time: 2 (3) seconds
  - Blue Points: 1 (2)
  - Set Bonus: +2 CHR
 
 [Venom Shell]
  - Casting Time: 2 (3) seconds
+ - MP: 60 (86)
  - Blue Points: 2 (3)
  - Set Bonus: +2 MND, +10 MP
  - Poison: (12 + Level / 3)/tic.
  - Duration: 120 seconds
 
 [Cold Wave]
- - Cast Time: 1 (4) second
+ - Cast Time: 2 (4) seconds
  - Set Bonus: +2 Int
  - Higher DoT (+5 more than Frost)
 
 [Stinking Gas]
  - Casting Time: 2 (4) seconds
+ - MP 15 (37)
  - VIT penalty: -20 
  - Duration: 90 seconds
 
 [Awful Eye]
  - Casting Time: 1 (2.5) seconds
  - STR Penalty: -20
+ - 10 (32) MP
  - Duration: 120 Seconds
  - Blue Points: 1 (2)
  - Set Bonus: +1 MND, +2 CHR
 
 [Jettatura]
  - Blue Points: 2 (4)
+ - MP: 20 (37)
  - Set Bonus: +15 MP, +2 AGI
 
 [Filamented Hold]
  - Blue Points: 2 (3)
+ - MP: 20 (38)
  - Set Bonus: +2 VIT, +10 HP
 
 [Light of Penance]
- - Lowers TP by 50 (10)
+ - Lowers TP by 500 (100)
  - Duration 60 (30) seconds
+ - MP: 35 (53)
  - Blue Points: 2 (5)
  - Set Bonus: +2 CHR, +30 HP
 
 [Feather Tickle]
  - TP Drain: Drains 30 TP and adds to self.
  - Blue Points: 2 (3)
+ - 30 (40) MP
  - Casting Time: 1 (4) second
  - Set Bonus: +2 AGI, +2 DEX
 
 [Infrasonics]
- - Casting Time: 1 (5) second
+ - Casting Time: 2 (3) seconds
+ - MP: 30 (42)
  - Blue Points: 2 (3)
  - Set Bonus: Int +3
  - Duration: 120 (60) seconds
 
 [Sandspray]
- - Casting Time: 1 (3) seconds
+ - Casting Time: 1.5 (3) seconds
+ - MP: 28 (43)
  - Blue Points: 1 (3)
  - Set Bonus: VIT +2, HP +10
  - Blind: -30 (25) ACC
- - Duration: 300 (60) seconds
+ - Duration: 120 (60) seconds
 
 [Ennervation]
- - Casting Time: 2 (6) seconds
+ - Casting Time: 2 (3.5) seconds
  - Stat Bonus: +1 Int, +1 Cha, +15 MP
  - Blue Points: 3 (5)
  - DEF/MDEF Down: -12%
  - Duration 90 (30) seconds
 
 [Lowing]
- - Casting Time: 2 (7) seconds
+ - Casting Time: 3.5 (7) seconds
+ - MP: 45 (66)
  - Stat Bonus: VIT +2, HP +20
- - Also lowers target's CHA by -30
  - Duration: 120 seconds
 
 
@@ -324,6 +358,18 @@ OTHER
  - Does not cause weakness.
  - Recast: 60 (21) seconds.
  - Set Bonus: STR +2, HP +20
+
+
+-------------------------------
+
+[TRAITS]
+
+Clear Mind (now up to +18 at 12 points)
+
+Killer Traits: now scales from +8 to +16 based on if you've equipped 2, 3, or 4 spells
+
+Undead Killer: Blitzstrahl (+1)
+
 
 
 

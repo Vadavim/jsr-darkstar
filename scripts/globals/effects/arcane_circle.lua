@@ -11,12 +11,13 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onEffectGain(target,effect)
-   target:addMod(MOD_ARCANA_KILLER, effect:getPower());
-   target:addMod(MOD_DARKRES, 40);
-   target:addMod(MOD_CURSERES, 40);
+   local power = effect:getPower();
+   target:addMod(MOD_ARCANA_KILL, power);
+   target:addMod(MOD_DARKRES, power * 5);
+   target:addMod(MOD_CURSERES, power * 5);
    target:addMod(MOD_DARKDEF, 25);
-   target:addMod(MOD_DARKACC, 20);
-   target:addMod(MOD_MATT, 10);
+   target:addMod(MOD_DARKACC, 4 + power * 2);
+   target:addMod(MOD_MATT, 2 + power);
 end;
 
 -----------------------------------
@@ -31,10 +32,11 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
-   target:delMod(MOD_ARCANA_KILLER, effect:getPower());
-   target:delMod(MOD_DARKRES, 40);
-   target:delMod(MOD_CURSERES, 40);
+   local power = effect:getPower();
+   target:delMod(MOD_ARCANA_KILLER, power);
+   target:delMod(MOD_DARKRES, power * 5);
+   target:delMod(MOD_CURSERES, power * 5);
    target:delMod(MOD_DARKDEF, 25);
-   target:delMod(MOD_DARKACC, 20);
-   target:delMod(MOD_MATT, 10);
+   target:delMod(MOD_DARKACC, 4 + power * 2);
+   target:delMod(MOD_MATT, 2 + power);
 end;

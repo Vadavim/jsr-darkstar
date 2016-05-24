@@ -13,9 +13,10 @@ Parrying: B-
  - Grants the following for the duration:
 	- +40 Light Resistance
 	- Reduces Light damage received by 25%.
-	- Reduces physical damage received by 10%.
 	- +20 Light Magic Accuracy
+        - +10 Light Magic Attack
 	- +10% Cure Potency
+ - Merit: Each point of Holy Circle Recast adds the folowing: Undead Killer +1, +8 Light Res, +2 Light Acc, +1 Light Atk, +1% Cure Potency.
 
 
 [Cover]

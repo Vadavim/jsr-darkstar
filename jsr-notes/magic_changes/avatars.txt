@@ -118,3 +118,6 @@ RAMUH
 
 [Ramuh's Favor]
  - Grants +25% critical damage and +5% critical hit chance
+
+[Thunderspark]
+ - Paralysis effect increases with TP

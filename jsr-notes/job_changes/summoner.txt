@@ -12,6 +12,10 @@ TRAIT CHANGES
 
 ABILITY CHANGES
 
+[Astral Flow]
+ - Does not consume MP when an Astral Flow move is used. Instead, cancels effet.
+ - Power of Astral Flow is based upon MP
+
 [Apogee]
  - Instead resets bloodpact timers.
  - Does not consume MP.

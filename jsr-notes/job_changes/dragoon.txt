@@ -5,25 +5,15 @@
 [Ancient Circle]
  - Grants the following for the duration:
 	- +40 Ice, Thunder, and Fire Resistance
+ - Merit: Ancient Circle Recast also adds +5 to resistances and +1 to dragon killer effect per point.
 
 [Spirit Link]
- - Also grants HP regeneration to wyvern (1 + level / 4)/tic for one minute.
+ - Merit: Spirit Link Recast also increases HP regen by +2 per merit
 
-[Dragon Breaker]
- - Gained at level 60.
- - Instead makes target vulnerable to critical hits (+10% chance) for 30 seconds.
-
-[Fly High]
- - Gained at level 70.
- - Recast reduced to 10 minutes.
- - Instead resets all Jump abilities.
+[Deep Breathing]
+ - Gained at Level 60 and does not require a merit to use (merits add directly to effect)
 
 
-[Smiting Breath]
- - Gained at level 20
+[Healing Breath IV]
+ - Gained at level 70
 
-[Healing Breath]
- - Gained at level 40
-
-[Steady Wing]
- - Gained at level 60

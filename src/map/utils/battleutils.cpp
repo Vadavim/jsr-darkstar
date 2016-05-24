@@ -1139,6 +1139,7 @@ namespace battleutils
                     Action->addEffectParam = Samba;
 
                     PAttacker->addHP(Samba);	// does not do any additional drain to targets HP, only a portion of it
+                    PDefender->addHP(-Samba); //  JSR: drain samba also damages
                     if (PChar != nullptr) {
                         PChar->updatemask |= UPDATE_HP;
                     }
@@ -1159,8 +1160,9 @@ namespace battleutils
 
                     int16 mpDrained = PDefender->addMP(-Samba);
 
-                    PAttacker->addMP(mpDrained);
-                    Action->addEffectParam = mpDrained;
+                    PAttacker->addMP(Samba);
+//                    Action->addEffectParam = mpDrained;
+                    Action->addEffectParam = Samba;
 
                     if (PChar != nullptr) {
                         PChar->updatemask |= UPDATE_HP;

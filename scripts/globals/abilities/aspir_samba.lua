@@ -37,7 +37,7 @@ function onUseAbility(player,target,ability)
         player:delTP(100);
     end;
 
-    local duration = 120 + player:getMod(MOD_SAMBA_DURATION);
+    local duration = 180 + player:getMod(MOD_SAMBA_DURATION);
     duration = duration * (100 + player:getMod(MOD_SAMBA_PDURATION))/100;
     player:delStatusEffect(EFFECT_HASTE_SAMBA);
     player:delStatusEffect(EFFECT_DRAIN_SAMBA);

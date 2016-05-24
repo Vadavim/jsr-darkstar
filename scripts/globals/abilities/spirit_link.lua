@@ -60,8 +60,9 @@ function onUseAbility(player,target,ability)
     local pet = player:getPet();    
     local healPet = drainamount * 2;
     local petTP = pet:getTP();
-    local regenAmount = player:getMainLvl()/3; -- level/3 tic regen
-    
+    local bonus = player:getMerit(MERIT_SPIRIT_LINK_RECAST) * 3 / 2;
+    local regenAmount = player:getMainLvl()/3 + bonus; -- level/3 tic regen
+
     if (player:getEquipID(SLOT_HEAD)==15238) then
         healPet = healPet + 15;
     end

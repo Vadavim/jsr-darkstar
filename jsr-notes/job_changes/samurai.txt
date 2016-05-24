@@ -8,6 +8,7 @@ ABILITY CHANGES
  - Grants the following for the duration:
 	- +10 Magic Evade
 	- +10% bonus to skillchain damage
+ - Merit: each point of Warding Circle recast increases the following: +1 Demon Killer, +2 Magic Evade, +2% skillchain damage
 
 [Hagakure]
  - Gained at level 50

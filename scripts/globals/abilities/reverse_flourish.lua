@@ -67,13 +67,19 @@ function onUseAbility(player,target,ability)
     end;
     
     TPGain = TPGain * 10;
-    
-    player:addTP(TPGain);
+    local duration = TPGain * 2;
+
+    player:delStatusEffect(EFFECT_REGAIN);
+    player:addStatusEffect(EFFECT_REGAIN, 50, 3, duration);
+    ability:setMsg(230);
+
+--    player:addTP(TPGain);
     player:delStatusEffect(EFFECT_FINISHING_MOVE_1);
     player:delStatusEffect(EFFECT_FINISHING_MOVE_2);
     player:delStatusEffect(EFFECT_FINISHING_MOVE_3);
     player:delStatusEffect(EFFECT_FINISHING_MOVE_4);
     player:delStatusEffect(EFFECT_FINISHING_MOVE_5);
-    
-    return TPGain;
+
+--    return TPGain;
+    return EFFECT_REGAIN;
 end;

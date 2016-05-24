@@ -128,7 +128,7 @@ FAMILY CHANGES
  - +25% XP
 
 [Hippogryph]
- - +35% XP
+ - +45% XP
 
 [Sea Monk]
  - +35% XP

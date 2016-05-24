@@ -1,4 +1,10 @@
 SKILL CHANGES
+ - A+ Divine
+ - B Enhancing
+ - B Enfeebling
+ - A- Club
+ - B- Staff
+ - B Shield
 
 TRAIT CHANGES
 

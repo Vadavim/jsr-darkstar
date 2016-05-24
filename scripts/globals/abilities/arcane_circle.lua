@@ -21,5 +21,6 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    target:addStatusEffect(EFFECT_ARCANE_CIRCLE,8,0,180);
+    local bonus = player:getMerit(MERIT_ARCANE_CIRCLE_RECAST) / 10;
+    target:addStatusEffect(EFFECT_ARCANE_CIRCLE,8 + bonus,0,180);
 end;

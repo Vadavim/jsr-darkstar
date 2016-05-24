@@ -41,7 +41,8 @@ end;
 function onUseAbility(player,target,ability)
     -- Only remove TP if the player doesn't have Trance.
     if not player:hasStatusEffect(EFFECT_TRANCE) then
-        player:delTP(200);
+        local amount = 200 - player:getMod(MOD_CHR) * 2;
+        player:delTP(amount);
     end;
     
     --Grabbing variables.

@@ -182,7 +182,7 @@ function BlueMagicalSpell(caster, target, spell, params, statMod)
     local ST = BlueGetWsc(caster, params); -- According to Wiki ST is the same as WSC, essentially Blue mage spells that are magical use the dmg formula of Magical type Weapon skills
 
     if (caster:hasStatusEffect(EFFECT_BURST_AFFINITY)) then
-        ST = ST * 2;
+        ST = ST * (2 + caster:getTP() / 2000)
     end
 
     local convergenceBonus = 1.0;

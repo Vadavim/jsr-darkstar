@@ -58,13 +58,14 @@ function onUseAbility(player,target,ability,action)
     params.atkmulti = 1;
     
     --apply WSC
-    local weaponDamage = player:getWeaponDmg();
+    local weaponDamage = player:getWeaponDmg() * 1.5;
     
     if (player:getWeaponSkillType(0) == 1) then
         local h2hSkill = ((player:getSkillLevel(1) * 0.11) + 3);
         weaponDamage = player:getWeaponDmg()-3;
 
         weaponDamage = weaponDamage + h2hSkill;
+        weaponDamage = weaponDamage * 2;
     end
     
     local base = weaponDamage + fstr
@@ -84,8 +85,8 @@ function onUseAbility(player,target,ability,action)
         local spell = getSpell(252);
         local resist = applyResistance(player,spell,target,0,player:getWeaponSkillType(SLOT_MAIN),bonus);
         
-        if resist > 0.25 then
-            target:addStatusEffect(EFFECT_STUN, 1, 0, 2);
+        if resist > 0.125 then
+            target:addStatusEffect(EFFECT_STUN, 1, 0, 3);
         else
             ability:setMsg(110);
         end

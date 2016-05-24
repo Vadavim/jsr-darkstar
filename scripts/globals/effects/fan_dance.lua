@@ -20,6 +20,7 @@ function onEffectGain(target,effect)
     target:delStatusEffect(EFFECT_DRAIN_SAMBA);
     target:delStatusEffect(EFFECT_SABER_DANCE);
     target:addMod(MOD_ENMITY, 15);
+    target:addMod(MOD_PARRY, 5 * fanDanceMerits);
 end;
 
 -----------------------------------
@@ -39,4 +40,5 @@ function onEffectLose(target,effect)
         target:delMod(MOD_WALTZ_RECAST, (fanDanceMerits-5));
     end
     target:delMod(MOD_ENMITY, 15);
+    target:delMod(MOD_PARRY, 5 * fanDanceMerits);
 end;
