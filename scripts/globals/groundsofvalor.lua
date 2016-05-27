@@ -568,8 +568,8 @@ function checkGoVregime(player,mob,rid,index)
 
                         -- Award gil and tabs once per day.
                         if (player:getVar("fov_LastReward") < VanadielEpoch) then
-                            player:messageBasic(GOV_MSG_GET_GIL,reward);
-                            player:addGil(reward);
+                            player:messageBasic(GOV_MSG_GET_GIL,reward / 2);
+                            player:addGil(reward / 2);
                             player:addCurrency("valor_point", tabs);
                             player:messageBasic(GOV_MSG_GET_TABS,tabs,player:getCurrency("valor_point")); -- Careful about order.
                             if (REGIME_WAIT == 1) then

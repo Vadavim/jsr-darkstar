@@ -743,33 +743,36 @@ function addBonuses(caster, spell, target, dmg, bonusmab)
     local magicDefense = getElementalDamageReduction(target, ele);
     dmg = math.floor(dmg * magicDefense);
 
+    if (isHelixSpell(spell)) then
+        dmg = math.floor(dmg * affinityBonus * magicDefense);
+    end
     local dayWeatherBonus = 1.00;
     local weather = caster:getWeather();
 
     if (weather == singleWeatherStrong[ele]) then
         if (caster:getMod(MOD_IRIDESCENCE) >= 1) then
-            if (math.random() < 0.33 or caster:getMod(elementalObi[ele]) >= 1 or isHelixSpell(spell)) then
+            if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1 or isHelixSpell(spell)) then
                 dayWeatherBonus = dayWeatherBonus + 0.10;
             end
         end
-        if (math.random() < 0.33 or caster:getMod(elementalObi[ele]) >= 1 or isHelixSpell(spell)) then
+        if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1 or isHelixSpell(spell)) then
             dayWeatherBonus = dayWeatherBonus + 0.10;
         end
     elseif (caster:getWeather() == singleWeatherWeak[ele]) then
-        if (math.random() < 0.33 or caster:getMod(elementalObiWeak[ele]) >= 1 or isHelixSpell(spell)) then
+        if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1 or isHelixSpell(spell)) then
             dayWeatherBonus = dayWeatherBonus - 0.10;
         end
     elseif (weather == doubleWeatherStrong[ele]) then
         if (caster:getMod(MOD_IRIDESCENCE) >= 1) then
-            if (math.random() < 0.33 or caster:getMod(elementalObi[ele]) >= 1 or isHelixSpell(spell)) then
+            if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1 or isHelixSpell(spell)) then
                 dayWeatherBonus = dayWeatherBonus + 0.10;
             end
         end
-        if (math.random() < 0.33 or caster:getMod(elementalObi[ele]) >= 1 or isHelixSpell(spell)) then
+        if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1 or isHelixSpell(spell)) then
             dayWeatherBonus = dayWeatherBonus + 0.25;
         end
     elseif (weather == doubleWeatherWeak[ele]) then
-        if (math.random() < 0.33 or caster:getMod(elementalObiWeak[ele]) >= 1 or isHelixSpell(spell)) then
+        if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1 or isHelixSpell(spell)) then
             dayWeatherBonus = dayWeatherBonus - 0.25;
         end
     end
@@ -777,11 +780,11 @@ function addBonuses(caster, spell, target, dmg, bonusmab)
     local dayElement = VanadielDayElement();
     if (dayElement == dayStrong[ele]) then
         dayWeatherBonus = dayWeatherBonus + caster:getMod(MOD_DAY_NUKE_BONUS)/100; -- sorc. tonban(+1)/zodiac ring
-        if (math.random() < 0.33 or caster:getMod(elementalObi[ele]) >= 1 or isHelixSpell(spell)) then
+        if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1 or isHelixSpell(spell)) then
             dayWeatherBonus = dayWeatherBonus + 0.10;
         end
     elseif (dayElement == dayWeak[ele]) then
-        if (math.random() < 0.33 or caster:getMod(elementalObiWeak[ele]) >= 1 or isHelixSpell(spell)) then
+        if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1 or isHelixSpell(spell)) then
             dayWeatherBonus = dayWeatherBonus - 0.10;
         end
     end
@@ -845,6 +848,92 @@ function addBonuses(caster, spell, target, dmg, bonusmab)
     return dmg;
 end;
 
+
+function addBonusesWeaponskill(caster, ele, target, dmg, params)
+
+    local affinityBonus = AffinityBonusDmg(caster, ele);
+    dmg = math.floor(dmg * affinityBonus * affinityBonus);
+
+    local magicDefense = getElementalDamageReduction(target, ele);
+    dmg = math.floor(dmg * magicDefense * magicDefense);
+
+    local dayWeatherBonus = 1.00;
+    local weather = caster:getWeather();
+
+    if (weather == singleWeatherStrong[ele]) then
+        if (caster:getMod(MOD_IRIDESCENCE) >= 1) then
+            if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
+                dayWeatherBonus = dayWeatherBonus + 0.20;
+            end
+        end
+        if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
+            dayWeatherBonus = dayWeatherBonus + 0.20;
+        end
+    elseif (caster:getWeather() == singleWeatherWeak[ele]) then
+        if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1) then
+            dayWeatherBonus = dayWeatherBonus - 0.20;
+        end
+    elseif (weather == doubleWeatherStrong[ele]) then
+        if (caster:getMod(MOD_IRIDESCENCE) >= 1) then
+            if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
+                dayWeatherBonus = dayWeatherBonus + 0.20;
+            end
+        end
+        if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
+            dayWeatherBonus = dayWeatherBonus + 0.50;
+        end
+    elseif (weather == doubleWeatherWeak[ele]) then
+        if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1) then
+            dayWeatherBonus = dayWeatherBonus - 0.50;
+        end
+    end
+
+    local dayElement = VanadielDayElement();
+    if (dayElement == dayStrong[ele]) then
+        dayWeatherBonus = dayWeatherBonus + caster:getMod(MOD_DAY_NUKE_BONUS)/100; -- sorc. tonban(+1)/zodiac ring
+        if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
+            dayWeatherBonus = dayWeatherBonus + 0.20;
+        end
+    elseif (dayElement == dayWeak[ele]) then
+        if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1) then
+            dayWeatherBonus = dayWeatherBonus - 0.20;
+        end
+    end
+
+    if dayWeatherBonus > 1.8 then
+        dayWeatherBonus = 1.8;
+    end
+
+    dmg = math.floor(dmg * dayWeatherBonus);
+
+    local mab = 1;
+    local mdefBarBonus = 0;
+    if (ele > 0 and ele <= 6 and target:hasStatusEffect(barSpells[ele])) then -- bar- spell magic defense bonus
+    mdefBarBonus = target:getStatusEffect(barSpells[ele]):getSubPower();
+    end
+
+    if (params ~= nil and params.bonusmab ~= nil and params.includemab == true) then
+        mab = (100 + caster:getMod(MOD_MATT) + params.bonusmab) / (100 + target:getMod(MOD_MDEF) + mdefBarBonus);
+    elseif (params == nil or (params ~= nil and params.includemab == true)) then
+        mab = (100 + caster:getMod(MOD_MATT)) / (100 + target:getMod(MOD_MDEF) + mdefBarBonus);
+    end
+
+    if (mab < 0) then
+        mab = 0;
+    end
+
+    dmg = math.floor(dmg * mab * mab);
+
+    -- print(affinityBonus);
+    -- print(speciesReduction);
+    -- print(dayWeatherBonus);
+    -- print(burst);
+    -- print(mab);
+    -- print(magicDmgMod);
+
+    return dmg;
+end;
+
 function addBonusesAbility(caster, ele, target, dmg, params)
 
     local affinityBonus = AffinityBonusDmg(caster, ele);
@@ -858,28 +947,28 @@ function addBonusesAbility(caster, ele, target, dmg, params)
 
     if (weather == singleWeatherStrong[ele]) then
         if (caster:getMod(MOD_IRIDESCENCE) >= 1) then
-            if (math.random() < 0.33 or caster:getMod(elementalObi[ele]) >= 1) then
+            if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
                 dayWeatherBonus = dayWeatherBonus + 0.10;
             end
         end
-        if (math.random() < 0.33 or caster:getMod(elementalObi[ele]) >= 1) then
+        if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
             dayWeatherBonus = dayWeatherBonus + 0.10;
         end
     elseif (caster:getWeather() == singleWeatherWeak[ele]) then
-        if (math.random() < 0.33 or caster:getMod(elementalObiWeak[ele]) >= 1) then
+        if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1) then
             dayWeatherBonus = dayWeatherBonus - 0.10;
         end
     elseif (weather == doubleWeatherStrong[ele]) then
         if (caster:getMod(MOD_IRIDESCENCE) >= 1) then
-            if (math.random() < 0.33 or caster:getMod(elementalObi[ele]) >= 1) then
+            if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
                 dayWeatherBonus = dayWeatherBonus + 0.10;
             end
         end
-        if (math.random() < 0.33 or caster:getMod(elementalObi[ele]) >= 1) then
+        if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
             dayWeatherBonus = dayWeatherBonus + 0.25;
         end
     elseif (weather == doubleWeatherWeak[ele]) then
-        if (math.random() < 0.33 or caster:getMod(elementalObiWeak[ele]) >= 1) then
+        if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1) then
             dayWeatherBonus = dayWeatherBonus - 0.25;
         end
     end
@@ -887,11 +976,11 @@ function addBonusesAbility(caster, ele, target, dmg, params)
     local dayElement = VanadielDayElement();
     if (dayElement == dayStrong[ele]) then
         dayWeatherBonus = dayWeatherBonus + caster:getMod(MOD_DAY_NUKE_BONUS)/100; -- sorc. tonban(+1)/zodiac ring
-        if (math.random() < 0.33 or caster:getMod(elementalObi[ele]) >= 1) then
+        if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
             dayWeatherBonus = dayWeatherBonus + 0.10;
         end
     elseif (dayElement == dayWeak[ele]) then
-        if (math.random() < 0.33 or caster:getMod(elementalObiWeak[ele]) >= 1) then
+        if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1) then
             dayWeatherBonus = dayWeatherBonus - 0.10;
         end
     end
@@ -935,6 +1024,8 @@ function getElementalDamageReduction(target, element)
     local defense = 1;
     if (element > 0) then
         defense = 1 - (target:getMod(defenseMod[element]) / 256);
+--        defense = 1 - (target:getMod(defenseMod[element]) / 100);
+
 
         return utils.clamp(defense, 0.0, 2.0);
     end

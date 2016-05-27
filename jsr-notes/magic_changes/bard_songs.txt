@@ -1,0 +1,7 @@
+[Foe Requiem DoT]:
+I: 1 + CHA * 0.1
+II: 2 + CHA * 0.15
+III: 3 + CHA * 0.2
+IV: 4 + CHA * 0.25
+V: 5 + CHA * 0.3
+VI: 6 + CHA * 0.35

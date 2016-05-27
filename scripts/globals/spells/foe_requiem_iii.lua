@@ -14,9 +14,9 @@ end;
 function onSpellCast(caster,target,spell)
     local effect = EFFECT_REQUIEM;
     local duration = 95;
-    local power = 3;
 
     local pCHR = caster:getStat(MOD_CHR);
+    local power = 3 + math.floor(pCHR * 0.2);
     local mCHR = target:getStat(MOD_CHR);
     local dCHR = (pCHR - mCHR);
     local resm = applyResistance(caster,spell,target,dCHR,SINGING_SKILL,0);

@@ -600,6 +600,8 @@ public:
     int32 getNearbyEntities(lua_State* L);
     int32 getAutomatonFrame(lua_State* L);
     int32 getAutomatonHead(lua_State* L);
+
+    int32 setPendingMessage(lua_State* L);
 };
 
 #endif

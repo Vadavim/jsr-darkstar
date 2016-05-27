@@ -10636,6 +10636,36 @@ int32 CLuaBaseEntity::getAutomatonHead(lua_State* L)
     return 1;
 }
 
+// JSR UTILITIES
+inline int32 CLuaBaseEntity::setPendingMessage(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 2) || !lua_isnumber(L, 2));
+    uint16 message = lua_tointeger(L,1);
+    uint32 param = lua_tointeger(L,2);
+
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+	PEntity->SetLocalVar("PendingEffectID", message);
+	PEntity->SetLocalVar("PendingEffectParam", param);
+    
+	/*
+	if (PEntity->PPendingAction != nullptr)
+        return 0;
+
+	apAction_t Action;
+    Action.ActionTarget = PEntity;
+    Action.messageID = message;
+    Action.param = param;
+
+	PEntity->PPendingAction = &Action;
+	PEntity->m_ActionList.push_back(Action);
+	PEntity->loc.zone->PushPacket(PEntity, CHAR_INRANGE_SELF, new CActionPacket(PEntity));
+    return 0;*/
+	return 0;
+}
+
 //==========================================================//
 
 const int8 CLuaBaseEntity::className[] = "CBaseEntity";
@@ -11102,6 +11132,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,unequipItem),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,recalculateStats),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,checkImbuedItems),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,setPendingMessage),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNearbyEntities),
     {nullptr,nullptr}
 };

@@ -31,6 +31,10 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     end
 
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
+    if (damage > 0) then
+        local enmityReduction = 15 * player:getTP() / 100;
+        target:lowerEnmity(player, enmityReduction);
+    end
     return tpHits, extraHits, criticalHit, damage;
 
 end

@@ -3000,7 +3000,7 @@ namespace charutils
     void DistributeGil(CCharEntity* PChar, CMobEntity* PMob)
     {
         //work out the amount of gil to give (guessed; replace with testing)
-        uint32 gil = PMob->GetRandomGil();
+        uint32 gil = PMob->GetRandomil();
         uint32 gBonus = 0;
 
         if (map_config.all_mobs_gil_bonus > 0)
@@ -3174,6 +3174,10 @@ namespace charutils
                     else if (exp > (300 * permonstercap))
                     {
                         exp = 300 * permonstercap;
+                    }
+
+                    if (PMob->m_Type == MOBTYPE_NOTORIOUS){
+                        exp *= 10;
                     }
 
                     if (PMember->expChain.chainTime > gettick() || PMember->expChain.chainTime == 0)

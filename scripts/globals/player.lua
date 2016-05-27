@@ -33,29 +33,29 @@ function onGameIn(player, firstlogin, zoning)
 
     if (player:getVar("GodMode") == 1) then
         -- Add bonus effects to the player..
-        player:addStatusEffect(EFFECT_MAX_HP_BOOST,1000,0,0);
-        player:addStatusEffect(EFFECT_MAX_MP_BOOST,1000,0,0);
-        player:addStatusEffect(EFFECT_SENTINEL,100,0,0);
-        player:addStatusEffect(EFFECT_MIGHTY_STRIKES,1,0,0);
-        player:addStatusEffect(EFFECT_HUNDRED_FISTS,1,0,0);
+        player:addStatusEffect(EFFECT_MAX_HP_BOOST,3000,0,0);
+        player:addStatusEffect(EFFECT_MAX_MP_BOOST,3000,0,0);
+--        player:addStatusEffect(EFFECT_SENTINEL,100,0,0);
+--        player:addStatusEffect(EFFECT_MIGHTY_STRIKES,1,0,0);
+--        player:addStatusEffect(EFFECT_HUNDRED_FISTS,1,0,0);
         player:addStatusEffect(EFFECT_CHAINSPELL,1,0,0);
-        player:addStatusEffect(EFFECT_PERFECT_DODGE,1,0,0);
-        player:addStatusEffect(EFFECT_INVINCIBLE,1,0,0);
-        player:addStatusEffect(EFFECT_MANAFONT,1,0,0);
+--        player:addStatusEffect(EFFECT_PERFECT_DODGE,1,0,0);
+--        player:addStatusEffect(EFFECT_INVINCIBLE,1,0,0);
+--        player:addStatusEffect(EFFECT_MANAFONT,1,0,0);
         player:addStatusEffect(EFFECT_REGAIN,150,1,0);
         player:addStatusEffect(EFFECT_REFRESH,99,0,0);
         player:addStatusEffect(EFFECT_REGEN,99,0,0);
 
         -- Add bonus mods to the player..
-        player:addMod(MOD_RACC,2500);
-        player:addMod(MOD_RATT,2500);
-        player:addMod(MOD_ACC,2500);
-        player:addMod(MOD_ATT,2500);
-        player:addMod(MOD_MATT,2500);
-        player:addMod(MOD_MACC,2500);
-        player:addMod(MOD_RDEF,2500);
-        player:addMod(MOD_DEF,2500);
-        player:addMod(MOD_MDEF,2500);
+--        player:addMod(MOD_RACC,2500);
+--        player:addMod(MOD_RATT,2500);
+--        player:addMod(MOD_ACC,2500);
+--        player:addMod(MOD_ATT,2500);
+--        player:addMod(MOD_MATT,2500);
+--        player:addMod(MOD_MACC,2500);
+--        player:addMod(MOD_RDEF,2500);
+--        player:addMod(MOD_DEF,2500);
+--        player:addMod(MOD_MDEF,2500);
 
         -- Heal the player from the new buffs..
         player:addHP( 50000 );

@@ -1370,6 +1370,7 @@ CMobEntity* InstantiateAlly(uint32 groupid, uint16 zoneID, CInstance* instance)
 			PMob->setModifier(MOD_LIGHTRES, (int16)((Sql_GetFloatData(SqlHandle, 41) - 1) * -100));
 			PMob->setModifier(MOD_DARKRES, (int16)((Sql_GetFloatData(SqlHandle, 42) - 1) * -100));
 
+
 			PMob->m_Element = (uint8)Sql_GetIntData(SqlHandle, 43);
 			PMob->m_Family = (uint16)Sql_GetIntData(SqlHandle, 44);
 			PMob->m_name_prefix = (uint8)Sql_GetIntData(SqlHandle, 45);

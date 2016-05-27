@@ -17,8 +17,8 @@ require("scripts/globals/common");
 
 -- Enable Extension (1= yes 0= no)
 ENABLE_COP     = 1;
-ENABLE_TOAU    = 0;
-ENABLE_WOTG    = 0;
+ENABLE_TOAU    = 1;
+ENABLE_WOTG    = 1;
 ENABLE_ACP     = 1;
 ENABLE_AMK     = 1;
 ENABLE_ASA     = 1;
@@ -58,7 +58,7 @@ DARK_POWER      = 1.000; -- Multiplies amount drained by Dark Magic.
 ITEM_POWER      = 1.000; -- Multiplies the effect of items such as Potions and Ethers.
 WEAPON_SKILL_POWER  = 1.000; -- Multiplies damage dealt by Weapon Skills.
 WEAPON_SKILL_POINTS = 1.000; -- Multiplies points earned during weapon unlocking.
-USE_ADOULIN_WEAPON_SKILL_CHANGES = false; -- true/false. Change to toggle new Adoulin weapon skill damage calculations
+USE_ADOULIN_WEAPON_SKILL_CHANGES = true; -- true/false. Change to toggle new Adoulin weapon skill damage calculations
 
 --JSR: higher item harvesting rates
 HARVESTING_BREAK_CHANCE = 0.33; -- % chance for the sickle to break during harvesting.  Set between 0 and 1.
@@ -115,8 +115,8 @@ GROUNDS_TOMES = 1; -- Enables Grounds of Valor tomes
 
 -- JOB ABILITY/TRAIT SPECIFIC SETTINGS
 --JSR: higher intimidation rate
-CIRCLE_KILLER_EFFECT = 30; -- Intimidation percentage granted by circle effects. (made up number)
-KILLER_EFFECT = 20; -- Intimidation percentage from killer job traits.
+CIRCLE_KILLER_EFFECT = 20; -- Intimidation percentage granted by circle effects. (made up number)
+KILLER_EFFECT = 10; -- Intimidation percentage from killer job traits.
 
 -- SPELL SPECIFIC SETTINGS
 DIA_OVERWRITE = 1; --Set to 1 to allow Bio to overwrite same tier Dia.  Default is 1.
@@ -131,7 +131,7 @@ ELEMENTAL_DEBUFF_DURATION = 120; -- base duration of elemental debuffs
 AQUAVEIL_COUNTER = 1;  -- Base amount of hits Aquaveil absorbs to prevent spell interrupts. Retail is 1.
 ABSORB_SPELL_AMOUNT = 8; -- how much of a stat gets absorbed by DRK absorb spells - expected to be a multiple of 8.
 ABSORB_SPELL_TICK = 9; -- duration of 1 absorb spell tick
-SNEAK_INVIS_DURATION_MULTIPLIER = 1; -- multiplies duration of sneak,invis,deodorize to reduce player torture. 1 = retail behavior.
+SNEAK_INVIS_DURATION_MULTIPLIER = 5; -- multiplies duration of sneak,invis,deodorize to reduce player torture. 1 = retail behavior.
 USE_OLD_CURE_FORMULA = false; -- true/false. if true, uses older cure formula (3*MND + VIT + 3*(healing skill/5)) // cure 6 will use the newer formula
 
 -- CELEBRATIONS
@@ -155,7 +155,7 @@ LANTERNS_STAY_LIT = 1200; -- time in seconds that lanterns in the Den of Rancor 
 ENABLE_COP_ZONE_CAP=1; -- enable or disable lvl cap
 TIMEZONE_OFFSET = 9.0; -- Offset from UTC used to determine when "JP Midnight" is for the server.  Default is JST (+9.0).
 ALLOW_MULTIPLE_EXP_RINGS = 1; -- Set to 1 to remove ownership restrictions on the Chariot/Empress/Emperor Band trio.
-BYPASS_EXP_RING_ONE_PER_WEEK = 1; -- -- Set to 1 to bypass the limit of one ring per Conquest Tally Week.
+BYPASS_EXP_RING_ONE_PER_WEEK = 0; -- -- Set to 1 to bypass the limit of one ring per Conquest Tally Week.
 NUMBER_OF_DM_EARRINGS = 1; -- Number of earrings players can simultaneously own from Divine Might before scripts start blocking them (Default: 1)
 HOMEPOINT_TELEPORT = 1; -- Enables the homepoint teleport system
 DIG_ABUNDANCE_BONUS = 0; -- Increase chance of digging up an item (450  = item digup chance +45)
