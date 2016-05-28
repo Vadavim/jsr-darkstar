@@ -368,6 +368,7 @@ public:
     int32 charm(lua_State*);                 // applies charm on target
     int32 uncharm(lua_State*);               // removes charm on target
     int32 spawnPet(lua_State*);              // Calls Pet
+    int32 spawnAlly(lua_State*);              // Calls Ally
     int32 despawnPet(lua_State*);            // Despawns Pet
     int32 petAttack(lua_State*);             // Despawns Pet
     int32 petRetreat(lua_State*);
@@ -602,6 +603,8 @@ public:
     int32 getAutomatonHead(lua_State* L);
 
     int32 setPendingMessage(lua_State* L);
+    int32 getRecentAlly(lua_State*);
+    int32 isUniqueAlly(lua_State* L);
 };
 
 #endif

@@ -159,6 +159,22 @@ void CPetEntity::Die()
     {
         petutils::DetachPet(PMaster);
     }
+
+    // when Ally dies
+    uint8 counter = 0;
+    if (PMaster != nullptr && PMaster->PAlly.size() != 0){
+        for (auto ally : PMaster->PAlly)
+        {
+            if (ally == this)
+            {
+                PMaster->PAlly.erase(PMaster->PAlly.begin() + counter);
+                break;
+            }
+            counter++;
+        }
+        PMaster->PParty->ReloadParty();
+    }
+
 }
 
 void CPetEntity::Spawn()

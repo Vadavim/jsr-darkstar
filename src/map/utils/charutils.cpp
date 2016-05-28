@@ -3000,7 +3000,7 @@ namespace charutils
     void DistributeGil(CCharEntity* PChar, CMobEntity* PMob)
     {
         //work out the amount of gil to give (guessed; replace with testing)
-        uint32 gil = PMob->GetRandomil();
+        uint32 gil = PMob->GetRandomGil();
         uint32 gBonus = 0;
 
         if (map_config.all_mobs_gil_bonus > 0)

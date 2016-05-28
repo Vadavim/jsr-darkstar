@@ -41,7 +41,7 @@ CMenuMeritPacket::CMenuMeritPacket(CCharEntity* PChar)
     WBUFB(data,(0x0A)) = PChar->PMeritPoints->GetMeritPoints();
 
 	uint8 flag = 0x00;
-    --JSR: merit point menu is always available
+    // JSR: merit point menu is always available
 	if ( true )			// keyitem Limit Breaker
 	{
 		flag |= 0x20;

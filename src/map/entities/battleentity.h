@@ -622,7 +622,10 @@ public:
     TraitList_t     TraitList;                  // список постянно активных способностей в виде указателей
 
     EntityID_t	    m_OwnerID;				    // ID атакующей сущности (после смерти будет хранить ID сущности, нанесщей последний удар)
-
+    std::vector<CBattleEntity*> PAlly;
+    void            clearAllies();
+    CBattleEntity*  getRecentAlly();
+    bool            isUniqueAlly(uint32 petID);
     ActionList_t	m_ActionList;			    // список совершенных действий за одну атаку (нужно будет написать структуру, включающую ActionList в которой будут категории анимации и т.д.)
 
     CParty*			PParty;					    // описание группы, в которой состоит сущность

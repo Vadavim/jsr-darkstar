@@ -66,6 +66,9 @@ bool CPlayerController::Engage(uint16 targid)
 
     if (PTarget)
     {
+        for (auto ally : PChar->PAlly){
+            ally->PAI->Engage(targid);
+        }
         if (distance(PChar->loc.p, PTarget->loc.p) < 30)
         {
             if (m_LastAttackTime + std::chrono::milliseconds(PChar->GetWeaponDelay(false)) < server_clock::now())

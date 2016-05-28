@@ -21,7 +21,7 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-	caster:spawnPet(73);
+	caster:spawnAlly(73);
 --	caster:spawnAlly(76);
 --    ally = caster:getRecentAlly();
 --    ally:addMod(MOD_ENMITY, -25);

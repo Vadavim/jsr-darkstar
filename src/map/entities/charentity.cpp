@@ -478,6 +478,14 @@ void CCharEntity::PostTick()
                 static_cast<CCharEntity*>(PEntity)->pushPacket(new CCharHealthPacket(this));
             });
         }
+
+        if (PAlly.size() > 0)
+        {
+            for (auto ally : PAlly)
+            {
+                PParty->PushPacket(ally->id, ally->getZone(), new CCharHealthPacket(ally));
+            }
+        }
         pushPacket(new CCharUpdatePacket(this));
         updatemask = 0;
     }

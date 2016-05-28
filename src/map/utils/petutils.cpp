@@ -786,6 +786,50 @@ namespace petutils
         }
     }
 
+ void SpawnAlly(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone) {
+
+     // check to see if in full party
+     uint16 partySize = PMaster->PAlly.size();
+     if (PMaster->PParty != nullptr)
+     {
+         // party members and their allies count towards party size
+         for (uint8 i = 0; i < PMaster->PParty->members.size(); i++)
+         {
+             CBattleEntity* PPartyMember = PMaster->PParty->members[i];
+             partySize = partySize + 1 + PPartyMember->PAlly.size();
+         }
+     }
+     else
+     {
+         partySize += 1;
+     }
+
+     if (partySize > 6)
+         return;
+
+
+     // get rid of an ally if max of two has been reached
+     if (PMaster->PAlly.size() > 2) {
+         PMaster->PAlly[1]->Die();
+         PMaster->PAlly.pop_back();
+     }
+
+     // make a new party with ally
+     if (PMaster->PParty == nullptr)
+         PMaster->PParty = new CParty(PMaster);
+
+     CPetEntity* PAlly = LoadAlly(PMaster, PetID, spawningFromZone);
+     PAlly->allegiance = PMaster->allegiance;
+     PMaster->StatusEffectContainer->CopyConfrontationEffect(PAlly);
+     PAlly->PMaster = PMaster;
+     PAlly->Spawn();
+     PMaster->loc.zone->InsertPET(PAlly);
+     PMaster->PParty->ReloadParty();
+
+
+
+}
+
     void SpawnMobPet(CBattleEntity* PMaster, uint32 PetID)
     {
         // this is ONLY used for mob smn elementals / avatars
@@ -1086,6 +1130,60 @@ namespace petutils
         PPet->addModifier(MOD_DEFP, rate * 100.0f);
 
     }
+
+
+    CPetEntity* LoadAlly(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone)
+    {
+        DSP_DEBUG_BREAK_IF(PetID >= g_PPetList.size());
+
+        Pet_t* PPetData = g_PPetList.at(PetID);
+        PETTYPE petType = PETTYPE_ALLY;
+        CPetEntity* PPet = new CPetEntity(petType);
+        PPet->m_Weapons[SLOT_MAIN]->setDelay(floor(1000.0f*(240.0f / 60.0f)));
+
+        PPet->SetMLevel(PMaster->GetMLevel());
+        PPet->SetSLevel(PMaster->GetMLevel() / 2);
+        LoadJugStats(PPet, PPetData);
+        PPet->loc = PMaster->loc;
+        PPet->loc.p = nearPosition(PMaster->loc.p, CPetController::PetRoamDistance, M_PI);
+
+        PPet->look = g_PPetList.at(PetID)->look;
+        PPet->name = g_PPetList.at(PetID)->name;
+        PPet->m_name_prefix = g_PPetList.at(PetID)->name_prefix;
+        PPet->m_Family = g_PPetList.at(PetID)->m_Family;
+        PPet->SetMJob(g_PPetList.at(PetID)->mJob);
+        PPet->m_MobSkillList = g_PPetList.at(PetID)->m_MobSkillList;
+        PPet->m_Element = g_PPetList.at(PetID)->m_Element;
+        PPet->m_PetID = PetID;
+
+
+        for (int i = SKILL_DIV; i <= SKILL_BLU; i++) {
+            uint16 maxSkill = battleutils::GetMaxSkill((SKILLTYPE)i, PPet->GetMJob(), PPet->GetMLevel());
+            if (maxSkill != 0) {
+                PPet->WorkingSkills.skill[i] = maxSkill;
+            }
+            else //if the mob is WAR/BLM and can cast spell
+            {
+                // set skill as high as main level, so their spells won't get resisted
+                uint16 maxSubSkill = battleutils::GetMaxSkill((SKILLTYPE)i, PPet->GetSJob(), PPet->GetMLevel());
+
+                if (maxSubSkill != 0)
+                {
+                    PPet->WorkingSkills.skill[i] = maxSubSkill;
+                }
+            }
+        }
+
+        FinalizePetStatistics(PMaster, PPet);
+//        PPet->PetSkills = battleutils::GetMobSkillsByFamily(PPet->m_Family);
+        PPet->status = STATUS_NORMAL;
+        PPet->m_ModelSize += g_PPetList.at(PetID)->size;
+        PPet->m_EcoSystem = g_PPetList.at(PetID)->EcoSystem;
+        PMaster->PAlly.insert(PMaster->PAlly.begin(), PPet);
+
+        return PPet;
+    }
+
 
     void LoadPet(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone)
     {

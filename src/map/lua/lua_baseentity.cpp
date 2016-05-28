@@ -5980,6 +5980,29 @@ inline int32 CLuaBaseEntity::spawnPet(lua_State *L)
     return 0;
 }
 
+
+inline int32 CLuaBaseEntity::spawnAlly(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+
+    if ( m_PBaseEntity->objtype == TYPE_PC )
+    {
+        if( !lua_isnil(L,1) && lua_isstring(L,1) )
+        {
+            uint8 petId = lua_tointeger(L,1);
+
+            petutils::SpawnAlly((CBattleEntity*)m_PBaseEntity, lua_tointeger(L,1), false);
+        }
+        else
+        {
+            ShowError(CL_RED"CLuaBaseEntity::spawnPet : PetID is NULL\n" CL_RESET);
+        }
+    }
+    return 0;
+}
+
+
 //==========================================================//
 
 inline int32 CLuaBaseEntity::petAttack(lua_State *L)
@@ -10666,6 +10689,43 @@ inline int32 CLuaBaseEntity::setPendingMessage(lua_State* L)
 	return 0;
 }
 
+inline int32 CLuaBaseEntity::getRecentAlly(lua_State* L)
+{
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+    uint16 allySize = PEntity->PAlly.size();
+    if(allySize > 0)
+    {
+        //uint32 petid = (uint32);
+
+        CBattleEntity* ally = PEntity->PAlly[allySize - 1];
+
+        lua_getglobal(L,CLuaBaseEntity::className);
+        lua_pushstring(L,"new");
+        lua_gettable(L,-2);
+        lua_insert(L,-2);
+        lua_pushlightuserdata(L,(void*)ally);
+        lua_pcall(L,2,1,0);
+        return 1;
+    }
+    lua_pushnil(L);
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::isUniqueAlly(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L,1) || !lua_isnumber(L,1));
+
+    bool isUnique = false;
+
+    isUnique = ((CBattleEntity*)m_PBaseEntity)->isUniqueAlly((uint16)lua_tointeger(L,1));
+
+    lua_pushboolean(L, isUnique);
+    return 1;
+}
+
 //==========================================================//
 
 const int8 CLuaBaseEntity::className[] = "CBaseEntity";
@@ -11114,6 +11174,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRetrievableItemsForSlip),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,retrieveItemFromSlip),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getILvlMacc),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,spawnAlly),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getConfrontationEffect),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,copyConfrontationEffect),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addPetMod),
@@ -11125,6 +11186,8 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeListener),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,triggerListener),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAmmo),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRecentAlly),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,isUniqueAlly),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,takeWeaponskillDamage),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,handleAfflatusMiseryDamage),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setEquipBlock),

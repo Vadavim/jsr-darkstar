@@ -67,6 +67,29 @@ CPartyMemberUpdatePacket::CPartyMemberUpdatePacket(CCharEntity* PChar, uint8 Mem
 
     memcpy(data + (0x26), PChar->GetName(), PChar->name.size());
 }
+
+
+CPartyMemberUpdatePacket::CPartyMemberUpdatePacket(CBattleEntity* PAlly, uint8 MemberNumber, uint16 memberflags, uint16 ZoneID)
+{
+    this->type = 0xDD;
+    this->size = 0x20;
+
+    ref<uint32>(0x04) = PAlly->id;
+
+    ref<uint16>(0x14) = 0;
+    ref<uint32>(0x08) = PAlly->health.hp;
+    ref<uint32>(0x0C) = PAlly->health.mp;
+    ref<uint16>(0x10) = PAlly->health.tp;
+    ref<uint16>(0x18) = PAlly->targid;
+    ref<uint8>(0x1A) = MemberNumber;
+    ref<uint8>(0x1D) = PAlly->GetHPP();
+    ref<uint8>(0x1E) = PAlly->GetMPP();
+
+
+    memcpy(data + (0x26), PAlly->GetName(), PAlly->name.size());
+}
+
+
 CPartyMemberUpdatePacket::CPartyMemberUpdatePacket(uint32 id, const int8* name, uint16 memberFlags, uint8 MemberNumber, uint16 ZoneID)
 {
 
