@@ -45,6 +45,9 @@ BARD SONG CHANGES
 [Elegy]
  - The amount of slow from elegies has been halved.
 
+[Paeon]
+ - Healing amount doubled, and grants a large amount of HPP
+
 
 
 
