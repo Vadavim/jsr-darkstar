@@ -12,16 +12,18 @@ SKILL CHANGES
 TRAIT CHANGES
  - Auto-Refresh at level 35
  - Occult Acumen: Starts at 12% at Level 15, and increases by +2% every 15 levels.
-Magic Attack Bonus (+20 / +24) at level 30 / 60 
- - Starting at level 20, the Dark Knight adds bonus damage to his magical spells based upon
-   his INT and current level. This starts at INT/2 bonus damage and scales up to INT*1.875    bonus damage at level 75.
+Magic Attack Bonus (+20 / +24) at level 30 / 60 S
  - Has Magic BUrst Bonus (+15% at Level 20, +25% at Level 40, and +50% at level 60)
+ - Dark Knights deal additional magic damage based on missing HP (scales better with higher damaging spells)
 
 ABILITY CHANGES
 
+[Blood Weapon]
+ - Recast Time is 10 minutes
+
 [Weapon Bash]
- - Adds STR to damage
- - Adds Chainbound effect for 10 seconds (next weaponskill triggers a skillchain).
+ - Deals additional damage equal to weapon's damage
+ - Deals additional damage equal to STR * 1.5
 
 [Arcane Circle]
  - Grants the following for the duration:
@@ -34,9 +36,11 @@ ABILITY CHANGES
  - Merit: each point of Arcane Circle Recast adds the following: +1 Arcana Killer, +8 Dark and Curse Res, +1 Dark Magic Attack, and +2 Dark magic Accuracy.
 
 [Last Resort]
- - While active, bestows 30% fastcast with black magic. 
- - In addition, the base damage of elemental nukes are doubled, but so is the MP cost.
- - As a subjob, base damage is only increased by 30%.
+ - // While active, bestows 30% fastcast with black magic. 
+ - // Black magic deals additional damage based on missing HP
+ - Grants Endark Effect
+ - // In addition, the base damage of elemental nukes are doubled, but so is the MP cost.
+ - // As a subjob, base damage is only increased by 30%.
 
 [Nether Void]
  - Gained at level 10.

@@ -9,7 +9,8 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onEffectGain(target,effect)
-    target:addMod(MOD_REGEN, effect:getPower());
+    target:addMod(MOD_REGEN, effect:getPower() * 2);
+    target:addMod(MOD_HPP, effect:getPower() * 20);
 end;
 
 -----------------------------------
@@ -24,5 +25,6 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
-    target:delMod(MOD_REGEN, effect:getPower());
+    target:delMod(MOD_REGEN, effect:getPower() * 2);
+    target:delMod(MOD_HPP, effect:getPower() * 20);
 end;

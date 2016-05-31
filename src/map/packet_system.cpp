@@ -146,6 +146,7 @@ This file is part of DarkStar-server source code.
 #include "packets/zone_in.h"
 #include "packets/zone_visited.h"
 #include "packets/menu_raisetractor.h"
+#include <stdio.h>
 
 uint8 PacketSize[512];
 void(*PacketParser[512])(map_session_data_t*, CCharEntity*, CBasicPacket);
@@ -3468,6 +3469,9 @@ void SmallPacket0x085(map_session_data_t* session, CCharEntity* PChar, CBasicPac
 
     if ((PItem != nullptr) && ((gil != nullptr) && gil->isType(ITEM_CURRENCY)))
     {
+        uint32 sellAmount = ((uint32)quantity) * PItem->getBasePrice();
+        charutils::ApplyBonusPoints(PChar, itemID, sellAmount);
+
         charutils::UpdateItem(PChar, LOC_INVENTORY, 0, quantity * PItem->getBasePrice());
         charutils::UpdateItem(PChar, LOC_INVENTORY, slotID, -(int32)quantity);
 

@@ -12,7 +12,7 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-    local duration = 120;
+    local duration = 600;
     local power = 256;
 
     local pCHR = caster:getStat(MOD_CHR);

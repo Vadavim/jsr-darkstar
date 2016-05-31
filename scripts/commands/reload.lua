@@ -12,6 +12,7 @@ cmdprops =
 function onTrigger(player, shop)
     package.loaded["scripts/globals/jsr_item"] = nil;
     package.loaded["scripts/globals/magic"] = nil;
+    package.loaded["scripts/globals/moghouse"] = nil;
     package.loaded["scripts/globals/summon"] = nil;
     package.loaded["scripts/globals/jsr_utils"] = nil;
     package.loaded["scripts/globals/weaponskills"] = nil;

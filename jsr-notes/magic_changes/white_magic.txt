@@ -1,0 +1,2 @@
+[Boost / Gain]
+Duration: 300 -> 600 seconds

@@ -75,6 +75,26 @@ require("scripts/globals/settings");
 SOFT_CAP = 60; --guesstimated
 HARD_CAP = 120; --guesstimated
 
+
+function doDarkKnightBonusDamage(player, damage)
+    if (player:getMainJob() ~= JOB_DRK and player:getSubJob() ~= JOB_DRK) then
+        return damage;
+    end
+
+    local missing = player:getMaxHP() - player:getHP();
+    local bonus = missing * (missing / (missing + damage));
+    if (player:getSubJob() == JOB_DRK) then
+        bonus = bonus / 2;
+    end
+
+    return math.floor(damage + bonus);
+end
+
+function doOccultAcumen(player, spell)
+    local acument = player:getMod(MOD_ACC);
+    local mp = spell:getMPCost();
+end
+
 function calculateMagicDamage(V,M,player,spell,target,skilltype,atttype,hasMultipleTargetReduction)
 
     local dint = player:getStat(atttype) - target:getStat(atttype);
@@ -101,12 +121,13 @@ function calculateMagicDamage(V,M,player,spell,target,skilltype,atttype,hasMulti
 
     -- printf("dmg: %d dint: %d\n", dmg, dint);
 
+    dmg = doDarkKnightBonusDamage(player, dmg);
     return dmg;
 
 end;
 
 function doBoostGain(caster,target,spell,effect)
-    local duration = 300;
+    local duration = 600;
     if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
         duration = duration * 3;
     end
@@ -149,7 +170,7 @@ function doEnspell(caster,target,spell,effect)
         return;
     end
 
-    local duration = 180;
+    local duration = 300;
     if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
         duration = duration * 3;
     end
@@ -359,6 +380,16 @@ end;
 
 -- Applies resistance for additional effects
 function applyResistanceAddEffect(player,target,element,bonus)
+    bonus = bonus + math.max(0, diff);
+
+    local p = getMagicHitRate(player, target, 0, element, 0, bonus);
+
+    return getMagicResist(p);
+end;
+
+function applyResistanceItemEffect(player,target,element,bonus)
+    local diff = (player:getStat(MOD_CHR) - target:getStat(MOD_CHR)) * 2;
+    bonus = bonus + math.max(0, diff);
 
     local p = getMagicHitRate(player, target, 0, element, 0, bonus);
 

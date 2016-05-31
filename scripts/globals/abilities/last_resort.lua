@@ -23,4 +23,13 @@ end;
 
 function onUseAbility(player,target,ability)
     player:addStatusEffect(EFFECT_LAST_RESORT,player:getMerit(MERIT_DESPERATE_BLOWS),0,180);
+
+
+    -- JSR: Endark Effect
+    local effect = EFFECT_ENDARK;
+    local magicskill = target:getSkillLevel(DARK_MAGIC_SKILL);
+    local duration = 180;
+
+    local potency = (magicskill / 8) + 12.5;
+    player:addStatusEffect(effect,potency,0,duration)
 end;

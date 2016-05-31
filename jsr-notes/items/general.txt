@@ -1,0 +1,4 @@
+[Added Effects]
+
+Charisma influences resistance rate of added effects procced by items
+Charisma bonus from magic/equipments influences activation rate of items

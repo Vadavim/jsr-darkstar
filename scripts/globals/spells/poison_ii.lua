@@ -26,9 +26,9 @@ function onSpellCast(caster,target,spell)
     local mINT = target:getStat(MOD_INT);
 --JSR: increased DOT and reduced duration
     local dINT = (pINT - mINT);
-    local power = caster:getSkillLevel(ENFEEBLING_MAGIC_SKILL) / 20 + 8;
-    if power > 20 then
-        power = 20;
+    local power = caster:getSkillLevel(ENFEEBLING_MAGIC_SKILL) / 15 + 3;
+    if power > 25 then
+        power = 25;
     end
     
         if (caster:hasStatusEffect(EFFECT_SABOTEUR)) then

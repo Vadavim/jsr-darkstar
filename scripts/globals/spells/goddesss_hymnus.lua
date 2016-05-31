@@ -15,7 +15,7 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-        local duration = 120;
+        local duration = 600;
 
         duration = duration * (caster:getMod(MOD_SONG_DURATION_BONUS)/100)
 

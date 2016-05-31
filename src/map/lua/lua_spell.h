@@ -50,6 +50,7 @@ public:
     int32 setRadius(lua_State*);
     int32 setAnimation(lua_State*);
     int32 setMPCost(lua_State*);
+    int32 getMPCost(lua_State*);
     int32 canTargetEnemy(lua_State*);
     int32 isAoE(lua_State*);
     int32 tookEffect(lua_State*);

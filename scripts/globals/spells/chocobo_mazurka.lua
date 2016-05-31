@@ -19,7 +19,7 @@ function onSpellCast(caster,target,spell)
     
     local iBoost = caster:getMod(MOD_MAZURKA_EFFECT) + caster:getMod(MOD_ALL_SONGS_EFFECT);
     
-    local duration = 120;
+    local duration = 600;
     
     duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
     

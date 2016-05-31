@@ -34,7 +34,7 @@ function onSpellCast(caster,target,spell)
     end
     caster:delStatusEffect(EFFECT_MARCATO);
     
-    local duration = 120;
+    local duration = 600;
     duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
     
     if (caster:hasStatusEffect(EFFECT_TROUBADOUR)) then

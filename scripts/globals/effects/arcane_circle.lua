@@ -15,7 +15,7 @@ function onEffectGain(target,effect)
    target:addMod(MOD_ARCANA_KILL, power);
    target:addMod(MOD_DARKRES, power * 5);
    target:addMod(MOD_CURSERES, power * 5);
-   target:addMod(MOD_DARKDEF, 25);
+   target:addMod(MOD_DARKDEF, 60);
    target:addMod(MOD_DARKACC, 4 + power * 2);
    target:addMod(MOD_MATT, 2 + power);
 end;
@@ -36,7 +36,7 @@ function onEffectLose(target,effect)
    target:delMod(MOD_ARCANA_KILLER, power);
    target:delMod(MOD_DARKRES, power * 5);
    target:delMod(MOD_CURSERES, power * 5);
-   target:delMod(MOD_DARKDEF, 25);
+   target:delMod(MOD_DARKDEF, 60);
    target:delMod(MOD_DARKACC, 4 + power * 2);
    target:delMod(MOD_MATT, 2 + power);
 end;

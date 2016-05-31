@@ -12,7 +12,7 @@ require("scripts/globals/magic");
 -----------------------------------
 
 function onAdditionalEffect(player,target,damage)
-    local chance = 5;
+    local chance = 10 + math.max(0, player:getMod(MOD_CHR) - target:getMod(MOD_CHR));
 
     if (math.random(0,99) >= chance) then
         return 0,0,0;
@@ -20,9 +20,9 @@ function onAdditionalEffect(player,target,damage)
         local dmg = math.random(3,10);
         local params = {};
         params.bonusmab = 0;
-        params.includemab = false;
+        params.includemab = true;
         dmg = addBonusesAbility(player, ELE_FIRE, target, dmg, params);
-        dmg = dmg * applyResistanceAddEffect(player,target,ELE_FIRE,0);
+        dmg = dmg * applyResistanceItemEffect(player,target,ELE_FIRE,0);
         dmg = adjustForTarget(target,dmg,ELE_FIRE);
         dmg = finalMagicNonSpellAdjustments(player,target,ELE_FIRE,dmg);
 

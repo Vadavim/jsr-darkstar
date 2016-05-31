@@ -4719,4 +4719,24 @@ namespace charutils
         return 0;
     }
 
+    void ApplyBonusPoints(CCharEntity* PChar, uint16 id, uint32 sellAmount)
+    {
+        const int8* fmtQuery = "SELECT guild,points FROM bonus_item_points WHERE itemid = %u LIMIT 1;";
+
+        int32 ret = Sql_Query(SqlHandle, fmtQuery, id);
+
+        if (ret != SQL_ERROR &&
+            Sql_NumRows(SqlHandle) != 0 &&
+            Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+        {
+            uint32 points = Sql_GetUIntData(SqlHandle, 1);
+            const char* guild = Sql_GetData(SqlHandle, 0);
+            points = 0;
+
+            if (points == 0)
+                points = sellAmount / 5;
+            charutils::AddPoints(PChar, guild, points);
+        }
+    }
+
 }; // namespace charutils

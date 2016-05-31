@@ -1,0 +1,7 @@
+[Fire Sword]
+Base Chance: 5 -> 10
+Affected by MAB
+
+[Flame Sword]
+Base Chance: 5 -> 10
+Affected by MAB

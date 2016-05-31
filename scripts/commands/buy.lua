@@ -9,8 +9,47 @@ cmdprops =
     parameters = "s"
 };
 
+WOOD = "woodworking"
+FISH = "fishing"
+SMIT = "smithing"
+GOLD = "goldsmithing"
+WEAV = "weaving"
+LEAT = "leathercraft"
+BONE = "bonecraft"
+ALCH = "alchemy"
+COOK = "cooking"
 
-function white1(player)
+function special_stock(stock, points)
+    local newStock = {};
+    local counter = 0;
+    local i, id, cost, skill, element, threshold = nil, nil, nil, nil, nil, nil;
+
+    while (true) do
+        i, id = next(stock, i);
+        i, cost = next(stock, i);
+        i, element = next(stock, i);
+        if (i == nil or id == nil) then
+            break
+        end
+
+        -- if array, then first element is skill and second element is guild point threshold
+        if (type(element) == "table") then
+            skill = element[1];
+            threshold = element[2];
+        else
+            skill = element;
+            threshold = cost; -- default threshold
+        end
+
+        if (points[skill] > threshold) then
+            table.insert(newStock, id);
+            table.insert(newStock, cost);
+        end
+    end
+    return newStock;
+end
+
+function white1(player, points)
     local stock = {
         4609,   100,    --Cure
         4631,   150,    --Dia
@@ -32,7 +71,7 @@ function white1(player)
     return stock;
 end
 
-function white2(player)
+function white2(player, points)
     local stock = {
         4695,   500,    --Barpoisonra
         4610,   750,    --Cure II
@@ -54,7 +93,7 @@ function white2(player)
     return stock;
 end
 
-function white3(player)
+function white3(player, points)
     local stock = {
         4697,   1300,   --Barblindra
         4641,   800,    --Diaga
@@ -76,7 +115,7 @@ function white3(player)
     return stock;
 end
 
-function white4(player)
+function white4(player, points)
     local stock = {
         4652,   2000,   --Protect II
         4734,   2000,   --Protectra II
@@ -98,7 +137,7 @@ function white4(player)
     return stock;
 end
 
-function white5(player)
+function white5(player, points)
     local stock = {
         4729,   35000,  --Teleport Altep
         4626,   2800,   --Stona
@@ -120,7 +159,7 @@ function white5(player)
     return stock;
 end
 
-function white7(player)
+function white7(player, points)
     local stock = {
         4629,   3800,   --Holy
         4617,   3800,   --Curaga III
@@ -142,7 +181,7 @@ function white7(player)
     return stock;
 end
 
-function white8(player)
+function white8(player, points)
     local stock = {
         4659,   4600,   --Shell IV
         4741,   4600,   --Shellra IV
@@ -153,7 +192,7 @@ function white8(player)
     return stock;
 end
 
-function misc(player)
+function misc(player, points)
     local stock = {
         19010,  2500,   --Brass Grip +1
         19012,  650,    --Lizad Lthr Srap +1
@@ -165,59 +204,59 @@ function misc(player)
     return stock;
 end
 
-function jugs(player)
+function jugs(player, points)
     local stock = {
-        17860,  20, --Carrot
-        17864,  20, --Herbal
-        17876,  20, --Fish
-        17877,  55, --Fish Oil
-        17822,  35, --Alchemist's
-        17905,  35, --Wormy
-        17868,  50, --Humus
-        17870,  80, --Meat
-        17885,  65, --Grass
-        17862,  90, --Bug
-        17866,  110,    --Carrion
-        17880,  110,    --Seedbed
-        17887,  125,    --Mole
-        17872,  145,    --Tree
-        17891,  155,    --Antica
+        17860,  20,{COOK, 400},  --Carrot
+        17864,  20,{COOK, 400},  --Herbal
+        17876,  20, {COOK, 400}, --Fish
+        17877,  55, {COOK, 1100}, --Fish Oil
+        17822,  35, {COOK, 700}, --Alchemist's
+        17905,  35, {COOK, 800}, --Wormy
+        17868,  50, {COOK, 1000}, --Humus
+        17870,  80, {COOK, 1600}, --Meat
+        17885,  65, {COOK, 1300}, --Grass
+        17862,  90, {COOK, 1800}, --Bug
+        17866,  110,{COOK, 2200},     --Carrion
+        17880,  110,{COOK, 2200},     --Seedbed
+        17887,  125,{COOK, 2500},     --Mole
+        17872,  145,{COOK, 2900},     --Tree
+        17891,  155,{COOK, 3100}     --Antica
     };
-    return stock;
+    return specialStock(stock, points);
 end
 
-function jugs2(player)
+function jugs2(player, points)
     local stock = {
-        17861,  170,    --Famous Carrot
-        17865,  170,    --Singing Herbal
-        17889,  190,    --Blood
-        17869,  240,    --Rich Humus
-        17871,  240,    --Warm Meat
-        17863,  270,    --Quadav
-        17867,  270,    --Cold Carrion
-        17886,  270,    --Noisy Grass
-        17888,  270,    --Lively Mole
-        17873,  350,    --Scarlet Sap
-        17890,  350,    --Clear Blood
-        17892,  350,    --Fragrant Antica
-        17884,  450,    --Sun Water
+        17861,  170,{COOK, 3400},     --Famous Carrot
+        17865,  170,{COOK, 3400},     --Singing Herbal
+        17889,  190,{COOK, 3700},     --Blood
+        17869,  240,{COOK, 4800},     --Rich Humus
+        17871,  240,{COOK, 4800},     --Warm Meat
+        17863,  270,{COOK, 5400},     --Quadav
+        17867,  270,{COOK, 5400},     --Cold Carrion
+        17886,  270,{COOK, 5400},     --Noisy Grass
+        17888,  270,{COOK, 5400},     --Lively Mole
+        17873,  320,{COOK, 6400},     --Scarlet Sap
+        17890,  350,{COOK, 7000},     --Clear Blood
+        17892,  350,{COOK, 7000},     --Fragrant Antica
+        17884,  400,{COOK, 8000}    --Sun Water
     };
-    return stock;
+    return special_stock(stock, points);
 end
 
-function treats(player)
+function treats(player, points)
     local stock = {
-        17016,  5,  --Pet Food Alpha
-        17017,  10, --Pet Food Beta
-        17018,  20, --Pet Food Gamma
-        17019,  30, --Pet Food Delta
-        17020,  40, --Pet Food Epsilon
-        17021,  60, --Pet Food Zeta
+        17016,  10, {FOOD, 0},  --Pet Food Alpha
+        17017,  20, {FOOD, 500}, --Pet Food Beta
+        17018,  40, {FOOD, 1500}, --Pet Food Gamma
+        17019,  60, {FOOD, 3000}, --Pet Food Delta
+        17020,  80, {FOOD, 5000}, --Pet Food Epsilon
+        17021,  100, {FOOD, 7000} --Pet Food Zeta
     };
-    return stock;
+    return special_stock(stock, points);
 end
 
-function greataxes(player)
+function greataxes(player, points)
     local stock = {
         16716,  200,    --Butterfly Axe +1
         16713,  400,    --Hellfire Axe
@@ -235,7 +274,7 @@ function greataxes(player)
     return stock;
 end
 
-function knuckles(player)
+function knuckles(player, points)
     local stock = {
         16690,  150,    --Cesti +1 >Cougar Bag
         16640,  250,    --Bronze Knuckles +1 > Snic Knuckles
@@ -253,7 +292,7 @@ function knuckles(player)
     return stock;
 end
 
-function spears(player)
+function spears(player, points)
     local stock = {
         16862,  150,    --Harpoon +1
         16859,  250,    --Bronze Spear +1 > Wind Spear
@@ -271,7 +310,7 @@ function spears(player)
     return stock;
 end
 
-function scythes(player)
+function scythes(player, points)
     local stock = {
         16778,  100,    --Bronze Zaghnal +1
         16772,  250,    --Brass Zaghnal +1
@@ -289,7 +328,7 @@ function scythes(player)
     return stock;
 end
 
-function greatswords(player)
+function greatswords(player, points)
     local stock = {
         16606,  100,    --Rusty Greatsword
         16638,  250,    --Claymore +1
@@ -307,7 +346,7 @@ function greatswords(player)
     return stock;
 end
 
-function greatkatanas(player)
+function greatkatanas(player, points)
     local stock = {
         16981,  300,    --Tachi +1
         16978,  550,    --Uchigatana +1
@@ -323,7 +362,7 @@ function greatkatanas(player)
     return stock;
 end
 
-function swords(player)
+function swords(player, points)
     local stock = {
         16535,  200,    --Bronze Sword
         16610,  600,    --Wax Sword +1
@@ -345,7 +384,7 @@ function swords(player)
     return stock;
 end
 
-function clubs(player)
+function clubs(player, points)
     local stock = {
         17087,  150,    --Maple Wand +1
         17138,  250,    --Willow Wand +1
@@ -367,7 +406,7 @@ function clubs(player)
     return stock;
 end
 
-function staves(player)
+function staves(player, points)
     local stock = {
         17123,  100,    --Ash Staff +1 >Chanter's Staff
         17122,  200,    --Ash Pole +1
@@ -384,7 +423,7 @@ function staves(player)
     return stock;
 end
 
-function axes(player)
+function axes(player, points)
     local stock = {
         16646,  100,    --Bronze Axe +1
         16661,  225,    --Brass Axe +1 >Tabar+1
@@ -400,7 +439,7 @@ function axes(player)
     return stock;
 end
 
-function katanas(player)
+function katanas(player, points)
     local stock = {
         16914,  150,    --Kunai +1
         16918,  250,    --Wakazashi +1
@@ -419,7 +458,7 @@ function katanas(player)
     return stock;
 end
 
-function throwing(player)
+function throwing(player, points)
     local stock = {
         17307,  1,  --Dart
         17308,  1,  --Hawkeye
@@ -437,7 +476,7 @@ function throwing(player)
     return stock;
 end
 
-function boomerangs(player)
+function boomerangs(player, points)
     local stock = {
         17280,  200,    --Boomerange +1
         17291,  500,    --Flame Boomerange
@@ -453,7 +492,7 @@ function boomerangs(player)
     return stock;
 end
 
-function shields(player)
+function shields(player, points)
     local stock = {
         12290,  300,    --Maple Shield → Nymph Shield +1
         12325,  900,    --Aspis +1
@@ -469,34 +508,123 @@ function shields(player)
     return stock;
 end
 
-function rings(player)
+function rings(player, points)
     local stock = {
-        13282,  1500,   --Saintly Ring >Sol Ring+1
-        13284,  1500,   --Eremite Ring >Wis Ring+1
-        14670,  400,    --Safeguard Ring >Aegis Ring
-        13522,  2500,   --Courage Ring >Puis Ring+1
-        13524,  2500,   --Balance Ring >Deft Ring+1
-        14597,  1200,   --Stamina Ring +1 >Verve Ring+1
-        14599,  1200,   --Hope Ring +1 >Loyal Ring+1
-        13501,  2000,   --Beetle Ring +1 >Marksman's Ring
-        15837,  3800,   --Smilodon Ring +1
-        14606,  4000,   --Aura Ring+1
-        13549,  5500,   --Ether Ring
-        13550,  2000,    --Crossbow Ring
-        15802,  3800,   --Feral Ring
-        14676,  6000,   --Assailant's Ring
-        15817,  8000   --Ecphoria Ring
+        13443,  2000,   --Opal Ring
+        13444,  2000,   --Sardonyx Ring
+        13468,  2000,   --Tourmaline Ring
+        13470,  2000,   --Clear Ring
+        13471,  2000,   --Amethyst Ring
+        13472,  2000,   --Lapis Ring
+        13473,  2000,   --Amber Ring
+        13474,  2000,   --Onyx Ring
+        13554,  1000,   --Aegis Ring
+        14606,  3500,   --Aura Ring+1
+        13501,  3500,   --Beetle Ring +1 >Marksman's Ring
+        13550,  6000,    --Crossbow Ring
+        13514,  7000,    --Archer's Ring
+        13503,  10000,   --Carapace Ring +1
+        14676,  15000,   --Assailant's Ring
+        13516,  4500,   --Phalanx Ring
     };
     return stock;
 end
 
-function template(player)
+
+function rings2(player, points)
+    local stock = {
+        13476,  4000,   --Peridot Ring
+        13477,  4000,   --
+        13478,  4000,   --
+        13479,  4000,   --
+        13480,  4000,   --
+        13481,  4000,   --
+        13482,  4000,   --
+        13483,  4000,   --
+        13545,  15000,   -- Demon's Ring + 1
+        15789,  18000,   -- Marid Ring + 1
+        15855,  18000,   -- Krousis Ring + 1
+        15722,  24000,   -- Scintilant Ring + 1
+    };
+    return stock;
+end
+
+function rings3(player, points)
+    local stock = {
+        13448,  8000,   --Emerald Ring
+        13449,  8000,   --Emerald Ring
+        13450,  8000,   --Emerald Ring
+        13451,  8000,   --Emerald Ring
+        13452,  8000,   --Emerald Ring
+        13453,  8000,   --Emerald Ring
+        13454,  8000,   --Emerald Ring
+        13455,  8000,   --Emerald Ring
+    };
+    return stock;
+end
+
+function ringsEx(player, points)
+    local stock = {
+        13499,  800,{LEAT},     -- Leather Ring + 1
+        13521,  3000,{GOLD},     --Reflex Ring
+        13522,  3000,{GOLD},     --Courage Ring
+        13523,  3000,{GOLD},     --Courage Ring
+        13524,  3000,{GOLD},     --Courage Ring
+        13525,  3000,{GOLD},     --Courage Ring
+        13526,  3000,{GOLD},     --Courage Ring
+        13527,  3000,{GOLD},     --Courage Ring
+        13528,  3000,{GOLD},     --Courage Ring
+        13549,  6000,{GOLD},   --Ether Ring
+        14650,  9000,{GOLD},   --Marksman's Ring
+        15817,  10000,{GOLD},   --Ecphoria Ring
+        15802,  12000,{GOLD},   --Feral Ring
+        14675,  15000,{GOLD},   --Woodsman Ring
+        15814,  16000,{GOLD},   --Nereid Ring
+    };
+    return special_stock(stock, points);
+end
+
+
+function ringsEx2(player, points)
+    local stock = {
+        14600,  6000,{GOLD},     --Alacrity Ring + 1
+        14601,  6000,{GOLD},     --Alacrity Ring
+        14602,  6000,{GOLD},     --Alacrity Ring
+        14603,  6000,{GOLD},     --Alacrity Ring
+        14604,  6000,{GOLD},     --Alacrity Ring
+        14605,  6000,{GOLD},     --Alacrity Ring
+        14606,  6000,{GOLD},     --Alacrity Ring
+        14607,  6000,{GOLD},     --Alacrity Ring
+        13552,  18000,{GOLD},   --Serket Ring
+        15789,  25000,{GOLD},   -- Serene Ring
+        15812,  30000,{GOLD},   -- Wivre Ring + 1
+        13556,  30000,{GOLD},   -- Behemoth Ring + 1
+    };
+    return special_stock(stock, points);
+end
+
+function ringsEx3(player, points)
+    local stock = {
+        14617,  12000,{GOLD},     --Nimble Ring + 1
+        14618,  12000,{GOLD},     --Nimble Ring + 1
+        14619,  12000,{GOLD},     --Nimble Ring + 1
+        14620,  12000,{GOLD},     --Nimble Ring + 1
+        14621,  12000,{GOLD},     --Nimble Ring + 1
+        14622,  12000,{GOLD},     --Nimble Ring + 1
+        14623,  12000,{GOLD},     --Nimble Ring + 1
+        14624,  12000,{GOLD},     --Nimble Ring + 1
+        15781,  38000,{GOLD},     --Cerberus Ring
+    };
+    return special_stock(stock, points);
+end
+
+function template(player, points)
     stock = {
     };
     return stock;
 end
 
-function neck(player)
+function neck(player, points)
     local stock = {
         0x3319,   100,    --Leather Gorget
         0x330f,   150,    --Scale Gorget
@@ -513,7 +641,7 @@ function neck(player)
     return stock;
 end
 
-function back(player)
+function back(player, points)
     local stock = {
         0x350f,   120,    --Cape
         0x351a,   80, --Rabbit Mantle
@@ -532,7 +660,7 @@ function back(player)
     return stock;
 end
 
-function hands(player)
+function hands(player, points)
     local stock = {
         12696,  100,    --Leather Gloves
         12736,  100,    --Mitts >Seer's Mitts +1
@@ -551,7 +679,7 @@ function hands(player)
     return stock;
 end
 
-function belts(player)
+function belts(player, points)
     local stock = {
         13192,  75, --Leather Belt >Warrior's Belt +1
         13226,  300,    --Blood Stone +1 >Augment +5 HP
@@ -570,7 +698,7 @@ function belts(player)
     return stock;
 end
 
-function legs(player)
+function legs(player, points)
     local stock = {
         12824,  125,    --Leather Trousers >Cuir Trousers +1
         12898,  200,    --Slacks +1 >Mage's Slacks
@@ -590,7 +718,7 @@ function legs(player)
 end
 
 
-function feet(player)
+function feet(player, points)
     local stock = {
         12952,  70, --Leather Highboots
         13027,  250,    --Brass Leggins +1
@@ -609,7 +737,7 @@ function feet(player)
     return stock;
 end
 
-function earrings(player)
+function earrings(player, points)
     local stock = {
         14694,  1500,   --Energy Ear +1 >Astral Earring
         14695,  1500,   --Hope Ear +1 >Bloodbead Ear
@@ -627,7 +755,7 @@ function earrings(player)
     return stock;
 end
 
-function hats(player)
+function hats(player, points)
     local stock = {
         0x2FD0,   150,    --Leather Bandana >Kingdom Bandana
         0x30D1,   250,    --Brass Hairpin >augment
@@ -643,7 +771,7 @@ function hats(player)
     return stock;
 end
 
-function helmets(player)
+function helmets(player, points)
     local stock = {
         0x3090,   250,    --Faceguard >augment
         0x30C0,   650,    --Lizard Helm +1
@@ -655,7 +783,7 @@ function helmets(player)
 end
 
 
-function clothing(player)
+function clothing(player, points)
     local stock = {
         0x3118,   300,    --Leather Vest
         0x3148,   500,    --Tunic +1
@@ -673,7 +801,7 @@ function clothing(player)
     return stock;
 end
 
-function armor(player)
+function armor(player, points)
     local stock = {
         0x3175,   1000,   --Solid Mail
         0x3117,   4000,   --Steam Scale Mail
@@ -688,43 +816,68 @@ function armor(player)
     return stock;
 end
 
-function bows(player)
+function bows(player, points)
+--    local stock = {
+--        17160,  100,    --Longbow
+--        17176,  250,    --Self Bow +1
+--        17183,  400,    --Hunter's Longbow
+--        17178,  700,    --Power Bow +1
+--        17172,  1000,   --Wrapped Bow +1
+--        17180,  1600,   --Great Bow +1
+--        17181,  2500,   --Battle Bow +1
+--        17173,  4000,   --War Bow +1
+--    };
+
     local stock = {
-        17160,  100,    --Longbow
-        17176,  250,    --Self Bow +1
-        17183,  400,    --Hunter's Longbow
-        17178,  700,    --Power Bow +1
-        17172,  1000,   --Wrapped Bow +1
-        17180,  1600,   --Great Bow +1
-        17181,  2500,   --Battle Bow +1
-        17173,  4000,   --War Bow +1
+        17160,  100, {WOOD, 1000000},   --Longbow
+        17176,  250, WOOD,    --Self Bow +1
+        17183,  400, WOOD,    --Hunter's Longbow
+        17178,  700, WOOD,    --Power Bow +1
+        17172,  1000, WOOD,   --Wrapped Bow +1
+        17180,  1600, WOOD,   --Great Bow +1
+        17181,  2500, WOOD,   --Battle Bow +1
+        17173,  4000, WOOD,   --War Bow +1
     };
-    return stock;
+    return special_stock(stock, points);
 end
 
-function arrows(player)
+function arrows(player, points)
     local stock = {
-        17318,  1,  --Wooden Arrow
-        17319,  1,  --Bone Arrow
-        17320,  1,  --Iron Arrow
+        4219,  1,  --Stone Arrow Quiver
+        4220,  125,  --Bone Arrow Quiver
+        4225,  150,  --Iron Arrow Quiver
         17332,  2,  --Fang Arrow
-        18154,  3,  --Beetle Arrow
-        18157,  3,  --Poison Arrow
-        17321,  3,  --Silver Arrow
-        18156,  4,  --Horn Arrow
-        18158,  4,  --Sleep Arrow
-        17317,  4,  --Gold Arrow
-        18155,  5,  --Scorpion Arrow
-        17322,  5,  --Fire Arrow
-        17323,  5,  --Ice Arrow
-        17324,  5,  --Lightning Arrow
-        17334,  6,  --Platinum Arrow
+        4221,  300,  --Beetle Arrow Quiver
+        4226,  300,  --Silver Arrow Quiver
+        4222,  400,  --Horn Arrow Quiver
+        4223,  650,  --Scorpion Arrow Quiver
         18178,  9,  --Bodkin Arrow
+        18730, 10, --Obsidian Arrow
+        18697, 12, --Marid Arrow
+        5332,  1300,  --Kabura Arrow Quiver
     };
     return stock;
 end
 
-function crossbows(player)
+function arrowsEx(player, points)
+    local stock = {
+        18157,  3, {WOOD, 400},  --Poison Arrow
+        5333,  1500,  {WOOD, 1200}, --Sleep Arrow Quiver
+        17322,  10,  {WOOD, 3500}, --Fire Arrow
+        17323,  10,  {WOOD, 3500}, --Ice Arrow
+        18699,  10,  {WOOD, 3500}, --Earth Arrow
+        18698,  10,  {WOOD, 3500}, --Water Arrow
+        18700,  10,  {WOOD, 3500}, --Wind Arrow
+        17324,  10,  {WOOD, 3500}, --Lightning Arrow
+        18696,  4,  {WOOD, 7500}, --Paralysis Arrow
+        17317,  3, {WOOD, 2225},  --Gold Arrow
+        17334,  4, {WOOD, 4500},  --Platinum Arrow
+        4224, 1100, {WOOD, 6000} --Demon Arrow Quiver
+    };
+    return special_stock(stock, points);
+end
+
+function crossbows(player, points)
     local stock = {
         17228,  150,    --Light Crossbow +1
         17217,  300,    --Crossbow
@@ -738,7 +891,7 @@ function crossbows(player)
     return stock;
 end
 
-function bolts(player)
+function bolts(player, points)
     local stock = {
         17339,  1,  --Bronze Bolt
         18150,  1,  --Blind Bolt
@@ -757,7 +910,7 @@ function bolts(player)
     return stock;
 end
 
-function drinks(player)
+function drinks(player, points)
     local stock = {
         0x1146,    40,     --Orange Juice
         0x1147,    60,     --Apple Juice
@@ -779,7 +932,7 @@ function drinks(player)
     return stock;
 end
 
-function coins(player)
+function coins(player, points)
     local stock = {
         656,    100,     --Beastcoin
         750,    250,     --Silver Beastoin
@@ -790,7 +943,7 @@ function coins(player)
     return stock;
 end
 
-function guns(player)
+function guns(player, points)
     local stock = {
         19225,  300,    --Musketoon +1 > Serpentine Gun
         17258,  750,    --Bandit's Gun +1
@@ -807,7 +960,7 @@ function guns(player)
     return stock;
 end
 
-function bullets(player)
+function bullets(player, points)
     local stock = {
         17343,  2,  --Bronze Bulet
         19229,  3,  --Tin Bullet
@@ -823,7 +976,7 @@ function bullets(player)
     return stock;
 end
 
-function daggers(player)
+function daggers(player, points)
     local stock = {
         16491,  100,    --Bronze Knife +1 >Kris +1
         16490,  250,    --Blind Knife +1
@@ -845,13 +998,20 @@ function daggers(player)
     return stock;
 end
 
-function default_error(player)
+function default_error(player, points)
     return false;
 end
 
 
+
 funcs = {
     ["earrings"] = earrings,
+    ["rings"] = rings,
+    ["rings2"] = rings2,
+    ["rings3"] = rings3,
+    ["ringsEx"] = ringsEx,
+    ["rings2Ex"] = rings2Ex,
+    ["rings3Ex"] = rings3Ex,
     ["feet"] = feet,
     ["hands"] = hands,
     ["legs"] = legs,
@@ -868,6 +1028,7 @@ funcs = {
     ["drinks"] = drinks,
     ["bows"] = bows,
     ["arrows"] = arrows,
+    ["arrowsEx"] = arrowsEx,
     ["crossbows"] = crossbows,
     ["bolts"] = bolts,
     ["guns"] = guns,
@@ -887,7 +1048,7 @@ funcs = {
     ["misc"] = misc,
     ["jugs"] = jugs,
     ["jugs2"] = jugs,
-    ["treats"] = jugs,
+    ["treats"] = treats,
     ["boomerangs"] = boomerangs,
     ["white1"] = white1,
     ["white2"] = white2,
@@ -899,6 +1060,21 @@ funcs = {
     ["white8"] = white8,
 };
 
+function getGuildPoints(player)
+    return {
+        ["fishing"] = player:getCurrency("guild_fishing"),
+        ["woodworking"] = player:getCurrency("guild_woodworking"),
+        ["smithing"] = player:getCurrency("guild_smithing"),
+        ["goldsmithing"] = player:getCurrency("guild_goldsmithing"),
+        ["weaving"] = player:getCurrency("guild_weaving"),
+        ["leathercraft"] = player:getCurrency("guild_leathercraft"),
+        ["bonecraft"] = player:getCurrency("guild_bonecraft"),
+        ["alchemy"] = player:getCurrency("guild_alchemy"),
+        ["cooking"] = player:getCurrency("guild_cooking")
+    };
+end
+
+
 function onTrigger(player, shop)
     local id = player:getZoneID();
     local stock = false;
@@ -906,21 +1082,16 @@ function onTrigger(player, shop)
         return
     end
 
+    local points = getGuildPoints(player);
 
     local result = funcs[shop];
     if (result == nil) then
         stock = false;
     else
-        stock = result(player);
+        stock = result(player, points);
     end
 
-
-
-
-
-
-
-    if ( stock == false ) then
+    if ( stock == false or next(stock) == nil ) then
         return;
     end
     

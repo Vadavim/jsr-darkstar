@@ -28,7 +28,7 @@ function onSpellCast(caster,target,spell)
     local dINT = (pINT - mINT);
     local power = caster:getSkillLevel(ENFEEBLING_MAGIC_SKILL) / 15 + 1;
     if power > 8 then
-        power = 8;
+        power = 10;
     end
     
         if (caster:hasStatusEffect(EFFECT_SABOTEUR)) then

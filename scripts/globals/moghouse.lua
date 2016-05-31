@@ -14,6 +14,13 @@ MOGLOCKER_ACCESS_TYPE_ALLAREAS = 1
 MOGLOCKER_PLAYERVAR_ACCESS_TYPE = "mog-locker-access-type"
 MOGLOCKER_PLAYERVAR_EXPIRY_TIMESTAMP = "mog-locker-expiry-timestamp"
 
+function makeCluster(player, crystal, cluster)
+    if (crystal > 0) then
+        player:addItem(cluster, crystal);
+        player:messageSpecial(ITEM_OBTAINED,cluster, 1);
+    end
+end
+
 
 function moogleTrade(player,npc,trade)
     if (player:isInMogHouse()) then
@@ -27,6 +34,33 @@ function moogleTrade(player,npc,trade)
                 return true;
             end
         end
+    end
+
+    local count = trade:getItemCount();
+    local free = player:getFreeSlotsCount();
+    local fire      =       (trade:getItemQty(4096) / 12);
+    local ice      =       (trade:getItemQty(4097) / 12);
+    local wind      =       (trade:getItemQty(4098) / 12);
+    local earth      =       (trade:getItemQty(4099) / 12);
+    local lightning      =       (trade:getItemQty(4100) / 12);
+    local water      =       (trade:getItemQty(4101) / 12);
+    local light      =       (trade:getItemQty(4102) / 12);
+    local dark      =       (trade:getItemQty(4103) / 12);
+    local total = fire + ice + wind + earth + lightning + water + light + dark;
+    local cp = player:getCP();
+
+    if (total * 12 == count and cp > total * 10 and math.floor(total) == total) then
+        player:tradeComplete();
+        player:delCP(total * 10);
+        makeCluster(player, fire, 4104);
+        makeCluster(player, ice, 4105);
+        makeCluster(player, wind, 4106);
+        makeCluster(player, earth, 4107);
+        makeCluster(player, lightning, 4108);
+        makeCluster(player, water, 4109);
+        makeCluster(player, light, 4110);
+        makeCluster(player, dark, 4111);
+        return true;
     end
     return false;
 end
