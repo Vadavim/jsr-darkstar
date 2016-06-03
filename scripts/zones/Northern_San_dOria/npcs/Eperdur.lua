@@ -67,6 +67,24 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function healingLandReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 1500,
+        ["gil"] = 5000
+    };
+    jsrReward(player, reward);
+end
+
+function sorceryNorthReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 2500,
+        ["gil"] = 9000
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -104,6 +122,7 @@ function onEventFinish(player,csid,option)
             player:addTitle(PILGRIM_TO_HOLLA);
             player:addItem(4730);
             player:messageSpecial(ITEM_OBTAINED,4730); -- Scroll of Teleport-Holla
+            healingLandReward(player);
             player:needToZone(true);
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA,HEALING_THE_LAND);
@@ -118,6 +137,7 @@ function onEventFinish(player,csid,option)
             player:addItem(4747);
             player:messageSpecial(ITEM_OBTAINED,4747); -- Scroll of Teleport-Vahzl
             player:addFame(SANDORIA,30);
+            sorceryNorthReward(player);
             player:completeQuest(SANDORIA,SORCERY_OF_THE_NORTH);
         end
     end

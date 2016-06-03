@@ -37,6 +37,7 @@ This file is part of DarkStar-server source code.
 #include "../../entities/mobentity.h"
 #include "../../packets/entity_update.h"
 #include "../../utils/battleutils.h"
+#include "../../utils/mobutils.h"
 #include "../../../common/utils.h"
 
 CMobController::CMobController(CMobEntity* PEntity) :
@@ -917,6 +918,12 @@ void CMobController::Disengage()
         PMob->SetDespawnTime(std::chrono::milliseconds(PMob->getMobMod(MOBMOD_IDLE_DESPAWN)));
     }
 
+    // JSR: reset monster's level if it scaled
+    if (PMob->getMobMod(MOBMOD_SCALE_LEVEL)) {
+        PMob->SetMLevel(PMob->getMobMod(MOBMOD_SCALE_LEVEL));
+        mobutils::CalculateStats(PMob);
+    }
+
     PMob->delRageMode();
     PMob->m_OwnerID.clean();
     PMob->updatemask |= (UPDATE_STATUS | UPDATE_HP);
@@ -942,6 +949,26 @@ bool CMobController::Engage(uint16 targid)
         if(PMob->getBigMobMod(MOBMOD_SPECIAL_DELAY) != 0)
         {
             m_LastSpecialTime = m_Tick - std::chrono::milliseconds(PMob->getBigMobMod(MOBMOD_SPECIAL_COOL) + dsprand::GetRandomNumber(PMob->getBigMobMod(MOBMOD_SPECIAL_DELAY)));
+        }
+
+        // JSR: scale monster's level to highest level attacker
+        if (PMob->getMobMod(MOBMOD_SCALE_LEVEL)) {
+            CBattleEntity* attacker = (CBattleEntity*)PMob->GetEntity(targid, TYPE_MOB | TYPE_PC | TYPE_PET);
+            if (attacker->objtype == TYPE_PET)
+                attacker = ((CPetEntity*)attacker)->PMaster;
+            int highestLevel = attacker->GetMLevel();
+            if (attacker->PParty) {
+                for (CBattleEntity* member : attacker->PParty->members){
+                    if (member->GetMLevel() > highestLevel)
+                        highestLevel = member->GetMLevel();
+                }
+            }
+            // don't attempt to scale if level is lower
+            if (highestLevel > PMob->GetMLevel() + 1) {
+
+                PMob->SetMLevel(highestLevel);
+                mobutils::CalculateStats(PMob);
+            }
         }
     }
     return ret;

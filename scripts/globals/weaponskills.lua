@@ -231,12 +231,12 @@ end;
 -- params: ftp100, ftp200, ftp300, wsc_str, wsc_dex, wsc_vit, wsc_agi, wsc_int, wsc_mnd, wsc_chr,
 --         ele (ELE_FIRE), skill (SKILL_STF), includemab = true
 
-function applyResistanceWeaponskill(attacker, target, wsID, params, tp, primary)
+function applyResistanceWeaponskill(attacker, target, params, element, skill)
 
     local bonusTP = params.bonusTP or 0
     local bonusfTP, bonusacc = handleWSGorgetBelt(attacker);
     bonusacc = bonusacc + attacker:getMod(MOD_WSACC) + 20; --JSR: magic weaponskills more accurate
-    local p = applyResistanceAbility(attacker,target,params.ele,params.skill, bonusacc);
+    local p = applyResistanceAbility(attacker,target,element,skill, bonusacc);
     return p;
 end
 

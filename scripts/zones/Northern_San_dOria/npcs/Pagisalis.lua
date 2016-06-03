@@ -23,6 +23,8 @@ function onTrade(player,npc,trade)
     if (player:getQuestStatus(SANDORIA,UNDYING_FLAMES) == QUEST_ACCEPTED) then
         if (trade:hasItemQty(913,2) and trade:getItemCount() == 2) then -- Trade Lump of Beeswax
             player:startEvent(0x0233);
+        elseif (trade:hasItemQty(750,2) and trade:getItemCount() == 2) then -- Trade silver beastcoins
+            player:startEvent(0x0233);
         end
     end
             
@@ -71,20 +73,31 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 800,
+        ["guild"] = {ALCH, 250},
+        ["item"] = 13211
+    };
+    jsrReward(player, reward);
+end
+
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
     if (csid == 0x0232 and option == 0) then
         player:addQuest(SANDORIA,UNDYING_FLAMES);
+        player:SayToPlayer("You may trade two Silver Beastoins instead of beeswax.")
     elseif (csid == 0x0233) then
         if (player:getFreeSlotsCount() == 0) then 
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,13211); -- Friars Rope
         else
             player:tradeComplete();
             player:addTitle(FAITH_LIKE_A_CANDLE);
-            player:addItem(13211);
-            player:messageSpecial(ITEM_OBTAINED,13211); -- Friars Rope
+            questReward(player);
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA,UNDYING_FLAMES);
         end

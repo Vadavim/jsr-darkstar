@@ -9,6 +9,7 @@ package.loaded["scripts/zones/Northern_San_dOria/TextIDs"] = nil;
 require("scripts/globals/settings");
 require("scripts/globals/titles");
 require("scripts/globals/keyitems");
+require("scripts/globals/jsr_utils");
 require("scripts/globals/quests");
 require("scripts/zones/Northern_San_dOria/TextIDs");
 
@@ -71,6 +72,16 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+function traderReward(player)
+    local reward = {
+        ["gil"] = 500,
+        ["xp"] = 400,
+        ["guild"] = {COOK, 250},
+        ["beast"] = 1,
+        ["augment"] = {12615, 9, 7}, -- Robe +1: MP +8
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -78,7 +89,7 @@ function onEventFinish(player,csid,option)
 
     -- "The Trader in the Forest" Quest
     if (csid == 0x020c and option == 0 or csid == 0x0250 and option == 0) then
-        if (player:getFreeSlotsCount() == 0) then 
+        if (player:getFreeSlotsCount() == 0) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,592);
         else
             player:addQuest(SANDORIA,THE_TRADER_IN_THE_FOREST);
@@ -95,13 +106,14 @@ function onEventFinish(player,csid,option)
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED, SUPPLIES_ORDER);
         end
     elseif (csid == 0x020d) then
-        if (player:getFreeSlotsCount() == 0) then 
+        if (player:getFreeSlotsCount() <= 1) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,12600); -- Robe
         else
             player:tradeComplete();
             player:addTitle(GREEN_GROCER);
-            player:addItem(12600);
-            player:messageSpecial(ITEM_OBTAINED,12600); -- Robe
+            traderReward(player);
+--            player:addItem(12600);
+--            player:messageSpecial(ITEM_OBTAINED,12600); -- Robe
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA,THE_TRADER_IN_THE_FOREST);
         end

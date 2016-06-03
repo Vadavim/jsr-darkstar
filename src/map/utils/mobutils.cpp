@@ -234,39 +234,49 @@ void CalculateStats(CMobEntity * PMob)
 
         //give hp boost every 10 levels after 25
         //special boosts at 25 and 50
-        if(mLvl > 75)
+        if(mLvl > 81)
         {
             growth = 1.28;
             petGrowth = 1.03;
         }
+        else if(mLvl > 78)
+        {
+            growth = 1.24;
+            petGrowth = 1.03;
+        }
+        else if(mLvl > 75)
+        {
+            growth = 1.20;
+            petGrowth = 1.03;
+        }
         else if(mLvl > 65)
         {
-            growth = 1.27;
+            growth = 1.18;
             petGrowth = 1.02;
         }
         else if(mLvl > 55)
         {
-            growth = 1.25;
+            growth = 1.16;
             petGrowth = 0.99;
         }
         else if(mLvl > 50)
         {
-            growth = 1.21;
+            growth = 1.14;
             petGrowth = 0.96;
         }
         else if(mLvl > 45)
         {
-            growth = 1.17;
+            growth = 1.12;
             petGrowth = 0.95;
         }
         else if(mLvl > 35)
         {
-            growth = 1.14;
+            growth = 1.10;
             petGrowth = 0.92;
         }
         else if(mLvl > 25)
         {
-            growth = 1.1;
+            growth = 1.08;
             petGrowth = 0.82;
         }
 

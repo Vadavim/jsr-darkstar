@@ -2292,7 +2292,7 @@ namespace battleutils
 
         if (PAttacker->objtype == TYPE_PC)
         {
-            ratioCap = 2.25f;
+            ratioCap = 2.25f + dsp_cap(0.150f * (PAttacker->GetMLevel() - PDefender->GetMLevel()), 0.f, 2.f);
         }
         if (PAttacker->objtype == TYPE_MOB)
         {

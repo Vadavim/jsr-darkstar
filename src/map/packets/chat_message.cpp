@@ -50,3 +50,26 @@ CChatMessagePacket::CChatMessagePacket(CCharEntity* PChar, CHAT_MESSAGE_TYPE Mes
     memcpy(data + (0x08) , PChar->GetName(), PChar->name.size());
     memcpy(data + (0x18) , buff, buffSize);
 }
+
+CChatMessagePacket::CChatMessagePacket(CHAT_MESSAGE_TYPE MessageType, int8* buff)
+{
+    //there seems to be some sort of variable cap on the length of the packet, which I cannot determine
+    // (it changed when zoning, but not when zoning back)
+    // if you'd like to try and figure out what the cap is based on, the client side max message length is also
+    // variable in the same way, and is probably so under the same circumstances
+    // until that can be found, we'll just use the max length
+    int32 buffSize = (strlen(buff) > 236) ? 236 : strlen(buff);
+
+    // Build the packet..
+    CBasicPacket::id(id);
+    this->type = 0x17;
+    //12 (base length / 2) + ((buffSize in chunks of 4) / 2)
+    //this->size = 12 + ((buffSize / 4) + 1) * 2;
+    this->size = 0x82;
+
+    ref<uint8>(0x04) = MessageType;
+//    ref<uint16>(0x06) = 0;
+
+    memcpy(data + (0x08) , "[*]", 4);
+    memcpy(data + (0x18) , buff, buffSize);
+}

@@ -92,6 +92,15 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 500,
+        ["guild"] = {ALCH, 150},
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -100,6 +109,7 @@ function onEventFinish(player,csid,option)
         player:tradeComplete();
         player:completeQuest(SANDORIA,GROWING_FLOWERS);
         player:addFame(SANDORIA,120);
+        questReward(player);
         player:moghouseFlag(1);
         player:messageSpecial(MOGHOUSE_EXIT);
     elseif (csid == 0x025d and option == 1) then

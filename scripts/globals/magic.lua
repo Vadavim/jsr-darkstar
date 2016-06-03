@@ -77,22 +77,33 @@ HARD_CAP = 120; --guesstimated
 
 
 function doDarkKnightBonusDamage(player, damage)
-    if (player:getMainJob() ~= JOB_DRK and player:getSubJob() ~= JOB_DRK) then
+    if ((player:getMainJob() ~= 8) and (player:getSubJob() ~= 8)) then
         return damage;
     end
 
     local missing = player:getMaxHP() - player:getHP();
-    local bonus = missing * (missing / (missing + damage));
+    local bonus = missing * (damage / (missing + damage));
     if (player:getSubJob() == JOB_DRK) then
         bonus = bonus / 2;
     end
+    print(bonus);
 
     return math.floor(damage + bonus);
 end
 
 function doOccultAcumen(player, spell)
-    local acument = player:getMod(MOD_ACC);
+    local acumen = player:getMod(MOD_OCCULT_ACUMEN);
+    if (acumen == 0) then
+        return
+    end
+
     local mp = spell:getMPCost();
+    local time = spell:castTime();
+    local level = player:getMainLvl();
+
+    local tp = acumen + (100 * ((1 + mp) / (level + 10)));
+--    tp = tp * ((time + 500) / 3000);
+    player:addTP(tp);
 end
 
 function calculateMagicDamage(V,M,player,spell,target,skilltype,atttype,hasMultipleTargetReduction)
@@ -122,6 +133,7 @@ function calculateMagicDamage(V,M,player,spell,target,skilltype,atttype,hasMulti
     -- printf("dmg: %d dint: %d\n", dmg, dint);
 
     dmg = doDarkKnightBonusDamage(player, dmg);
+    doOccultAcumen(player, spell);
     return dmg;
 
 end;
@@ -1248,6 +1260,9 @@ function doElementalNuke(caster, spell, target, spellParams)
 
     --add in final adjustments
     DMG = finalMagicAdjustments(caster, target, spell, DMG);
+
+    DMG = doDarkKnightBonusDamage(caster, DMG);
+    doOccultAcumen(caster, spell);
 
     return DMG;
 end

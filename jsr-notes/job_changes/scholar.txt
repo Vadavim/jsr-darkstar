@@ -8,8 +8,8 @@ ABILITY CHANGES
 STRATAGEM CHANGES
  - Max Charges and recast are as follows:
 	- Level 10: 1 (4:00)
-	- Level 25: 2 (2:30)
-	- Level 40: 3 (1:20)
+	- Level 30: 2 (2:00)
+	- Level 45: 3 (1:20)
 	- Level 60: 4 (1:00)
 	- Level 75: 5 (:48)
 

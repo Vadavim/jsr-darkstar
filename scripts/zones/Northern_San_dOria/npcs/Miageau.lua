@@ -67,18 +67,30 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 500,
+        ["xp"] = 400,
+        ["guild"] = {ALCH, 100},
+        ["item"] = 13183,
+        ["item2"] = 4778
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
     if (csid == 0x0203) then
-        if (player:getFreeSlotsCount() == 0) then 
+        if (player:getFreeSlotsCount() <= 1) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED, 13183);
         else
             player:tradeComplete();
-            player:addItem(13183);
-            player:messageSpecial(ITEM_OBTAINED, 13183);
+--            player:addItem(13183);
+--            player:messageSpecial(ITEM_OBTAINED, 13183);
+            questReward(player);
             player:addFame(SANDORIA,30);
             player:addTitle(THE_PURE_ONE);
             player:completeQuest(SANDORIA,WATER_OF_THE_CHEVAL);

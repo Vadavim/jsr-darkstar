@@ -1,3 +1,7 @@
+[HP]
+ - Mob HP growth scales lower at higher levels
+
+
 SYSTEM CHANGES
 
 [Lizards]

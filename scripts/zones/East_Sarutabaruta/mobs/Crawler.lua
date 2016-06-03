@@ -11,6 +11,7 @@ require("scripts/zones/East_Sarutabaruta/MobIDs");
 -- onMobDeath
 -----------------------------------
 
+
 function onMobDeath(mob, player, isKiller)
     checkRegime(player,mob,92,2);
     checkRegime(player,mob,93,2);

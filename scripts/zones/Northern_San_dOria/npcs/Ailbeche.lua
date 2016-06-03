@@ -119,6 +119,17 @@ end;
 -- onEventFinish
 -----------------------------------
 
+
+function fatherReward(player)
+    player:messageSpecial(GIL_OBTAINED,250);
+    player:addGil(250);
+    player:addExp(200);
+    player:addItem(4112);
+    player:addItem(1126);
+    player:messageSpecial(ITEM_OBTAINED,4112); --Potion
+    player:messageSpecial(ITEM_OBTAINED,1126); --Beastman's Seal
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -127,11 +138,12 @@ function onEventFinish(player,csid,option)
     if (csid == 0x01fc) then 
         player:addQuest(SANDORIA,FATHER_AND_SON);
     elseif (csid == 0x01fd) then 
-        if (player:getFreeSlotsCount() == 0) then 
-            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,17391);
+        if (player:getFreeSlotsCount() <= 1) then
+            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,4112);
         else
-            player:addItem(17391);
-            player:messageSpecial(ITEM_OBTAINED, 17391); -- Willow Fishing Rod
+--            player:addItem(17391);
+--            player:messageSpecial(ITEM_OBTAINED, 17391); -- Willow Fishing Rod
+            fatherReward(player);
             player:addTitle(LOST_CHILD_OFFICER);
             player:setVar("QuestfatherAndSonVar",0);
             player:addFame(SANDORIA,30);

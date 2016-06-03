@@ -175,3 +175,79 @@ function applyBarDurationReduction(target, effect, barType)
         effect:setDuration(duration);
     end
 end;
+
+WOOD = "woodworking"
+FISH = "fishing"
+SMIT = "smithing"
+GOLD = "goldsmithing"
+WEAV = "weaving"
+LEAT = "leathercraft"
+BONE = "bonecraft"
+ALCH = "alchemy"
+COOK = "cooking"
+
+
+function jsrReward(player, rewards)
+    if (rewards["xp"] ~= nil) then
+        player:addExp(rewards["xp"]);
+    end
+
+    if (rewards["gil"] ~= nil) then
+        player:addGil(rewards["gil"]);
+        player:messageSpecial(GIL_OBTAINED,rewards["gil"]);
+    end
+
+    if (rewards["cp"] ~= nil) then
+        player:addCP(rewards["cp"]);
+        player:SayToPlayer("Received " .. tostring(rewards["cp"]) .. " cp.");
+    end
+
+    if (rewards["beast"] ~= nil) then
+        player:addItem(1126, rewards["beast"]);
+        if (rewards["beast"] == 1) then
+            player:messageSpecial(ITEM_OBTAINED,1126, rewards["beast"]);
+        else
+            player:SayToPlayer("Received " .. tostring(rewards["beast"]) .. " beastman seals.");
+        end
+    end
+
+    if (rewards["item"] ~= nil) then
+        player:addItem(rewards["item"]);
+        player:messageSpecial(ITEM_OBTAINED,rewards["item"]);
+    end
+
+    if (rewards["item2"] ~= nil) then
+        player:addItem(rewards["item2"]);
+        player:messageSpecial(ITEM_OBTAINED,rewards["item2"]);
+    end
+
+    if (rewards["augment"] ~= nil) then
+        local arr = rewards["augment"];
+        player:addItem(arr[1], 1, arr[2], arr[3], arr[4], arr[5], arr[6], arr[7]);
+        player:messageSpecial(ITEM_OBTAINED,arr[1]);
+    end
+
+    if (rewards["guild"] ~= nil) then
+        local arr = rewards["guild"]
+        player:addCurrency("guild_" .. arr[1], arr[2]);
+        player:SayToPlayer("Received " .. tostring(arr[2]) .. " " .. arr[1] .. " points.");
+    end
+
+    if (rewards["scyld"] ~= nil) then
+        player:addCurrency("scyld", rewards["scyld"]);
+        player:SayToPlayer("Received " .. tostring(rewards["scyld"]) .. " scylds.");
+    end
+
+    if (rewards["jetton"] ~= nil) then
+        player:addCurrency("jetton", rewards["jetton"]);
+        player:SayToPlayer("Received " .. tostring(rewards["jetton"]) .. " jettons.");
+    end
+
+    if (rewards["spark"] ~= nil) then
+        player:addCurrency("spark_of_eminence", rewards["spark"]);
+        player:SayToPlayer("Received " .. tostring(rewards["spark"]) .. " sparks of eminence.");
+    end
+
+end
+
+

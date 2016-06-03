@@ -2,19 +2,22 @@ SKILL CHANGES
 
 TRAIT CHANGES
 
+Elemental Celerity: 10% (Lvl 30), 15% (Lvl 45), 20% (Lvl 60), 25% (Lvl 75)
+ - Decreases casting time (but not recast) of black magic
+
 ABILITY CHANGES
 
 [Mana Wall]
- - Gained at level 50 (instead of 76)
+ - Gained at level 55 (instead of 76)
  - Now grants 50% physical damage reduction.
  - Drains (level / 2) MP a tic while active.
  - Recast time reduced to 1 minutes.
 
 
 [Subtle Sorcery]
- - Gained at level 40 (instead of 96)
- - When active, gives a -50 penalty to Fastcast.
- - Increases MATK by +30, Conserve MP by 35, Enmity -20, and MACC by 20.
+ - Gained at level 45 (instead of 96)
+ - When active, gives a -50 penalty to Fastcast and a -25 penalty to magic attack
+ - Conserve MP +35, Enmity -20, MACC +20
 
 [Manawell]
  - Gained at level 65 (instead of 95)

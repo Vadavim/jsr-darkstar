@@ -10673,19 +10673,18 @@ inline int32 CLuaBaseEntity::setPendingMessage(lua_State* L)
 	PEntity->SetLocalVar("PendingEffectID", message);
 	PEntity->SetLocalVar("PendingEffectParam", param);
     
-	/*
-	if (PEntity->PPendingAction != nullptr)
-        return 0;
+//	/*
+//	if (PEntity->PPendingAction != nullptr)
+//        return 0;
 
-	apAction_t Action;
-    Action.ActionTarget = PEntity;
-    Action.messageID = message;
-    Action.param = param;
-
-	PEntity->PPendingAction = &Action;
-	PEntity->m_ActionList.push_back(Action);
-	PEntity->loc.zone->PushPacket(PEntity, CHAR_INRANGE_SELF, new CActionPacket(PEntity));
-    return 0;*/
+//	apAction_t Action;
+//    Action.ActionTarget = PEntity;
+//    Action.messageID = message;
+//    Action.param = param;
+//
+////	PEntity->PPendingAction = &Action;
+//	PEntity->m_ActionList.push_back(Action);
+//	PEntity->loc.zone->PushPacket(PEntity, CHAR_INRANGE_SELF, new CActionPacket(PEntity));
 	return 0;
 }
 
@@ -10724,6 +10723,19 @@ inline int32 CLuaBaseEntity::isUniqueAlly(lua_State *L)
 
     lua_pushboolean(L, isUnique);
     return 1;
+}
+
+inline int32 CLuaBaseEntity::SayToPlayer(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L,1) || !lua_isstring(L, 1));
+
+//    ((CCharEntity*)m_PBaseEntity)->pushPacket(new CChatMessagePacket((CCharEntity*)m_PBaseEntity,MESSAGE_SYSTEM_2,(char*)lua_tostring(L,1)));
+    ((CCharEntity*)m_PBaseEntity)->pushPacket(new CChatMessagePacket(MESSAGE_SAY,(char*)lua_tostring(L,1)));
+
+    return 0;
 }
 
 //==========================================================//
@@ -11156,6 +11168,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getAllegiance),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setAllegiance),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,stun),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,SayToPlayer),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,weaknessTrigger),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getBehaviour),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setBehaviour),

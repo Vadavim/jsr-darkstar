@@ -82,6 +82,20 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+function questReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 900,
+        ["xp"] = 300,
+    };
+    if (firstTime) then
+        reward = {
+            ["gil"] = 2500,
+            ["xp"] = 1200,
+        };
+    end
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
 --print("CSID: %u",csid);
@@ -95,12 +109,12 @@ function onEventFinish(player,csid,option)
         player:setVar("BlackMailQuest",2);
     elseif (csid == 0x0288) then
         player:tradeComplete();
-        player:addGil(GIL_RATE*900);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*900)
         if (player:getQuestStatus(SANDORIA,BLACKMAIL) == QUEST_ACCEPTED) then
+            questReward(player, true);
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA,BLACKMAIL);
         else
+            questReward(player, false);
             player:addFame(SANDORIA,5);
         end
     elseif (csid == 0x028 and option == 1) then

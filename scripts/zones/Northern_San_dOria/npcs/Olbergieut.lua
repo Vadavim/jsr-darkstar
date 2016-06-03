@@ -54,6 +54,17 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 500,
+        ["xp"] = 250,
+        ["item"] = 4637,
+        ["augment"] = {13601, 180, 14, 775, 14}, -- Cotton Cape +1: Resist Silence +15, Dark Res +15
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -63,14 +74,15 @@ function onEventFinish(player,csid,option)
         player:addKeyItem(SCRIPTURE_OF_WIND);
         player:messageSpecial(KEYITEM_OBTAINED, SCRIPTURE_OF_WIND);
     elseif (csid == 0x026c) then
-        if (player:getFreeSlotsCount() == 0) then
+        if (player:getFreeSlotsCount() <= 1) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED, 13584);
         else
             player:completeQuest(SANDORIA,GATES_TO_PARADISE);
             player:addFame(SANDORIA,30);
             player:addTitle(THE_PIOUS_ONE);
             player:delKeyItem(SCRIPTURE_OF_WATER);
-            player:addItem(13584,1);
+            questReward(player);
+--            player:addItem(13584,1);
             player:messageSpecial(ITEM_OBTAINED,13584);
         end;
     end;

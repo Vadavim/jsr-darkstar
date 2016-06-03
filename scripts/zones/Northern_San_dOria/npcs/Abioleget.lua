@@ -61,18 +61,31 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 100,
+        ["beast"] = 1,
+        ["augment"] = {13493, 1, 7, 768, 14}, -- Brass Ring +1: +8 HP, +15 Fire Resistance
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
-    
+
     if (csid == 0x0258) then
-        player:addItem(13465);
-        player:messageSpecial(6567, 13465);
-        player:addFame(SANDORIA,30);
-        player:addTitle(THE_BENEVOLENT_ONE);
-        player:setVar("sermonQuestVar",0);
-        player:completeQuest(SANDORIA,THE_VICASQUE_S_SERMON );
-    elseif (csid == 0x024D) then    
+        if (player:getFreeSlotsCount() <= 1) then
+            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED, 13493);
+        else
+            questReward(player);
+            player:addFame(SANDORIA,30);
+            player:addTitle(THE_BENEVOLENT_ONE);
+            player:setVar("sermonQuestVar",0);
+            player:completeQuest(SANDORIA,THE_VICASQUE_S_SERMON );
+        end
+    elseif (csid == 0x024D) then
         player:addQuest(SANDORIA,THE_VICASQUE_S_SERMON );
     elseif (csid == 0x024F) then    
         player:addItem(618);
