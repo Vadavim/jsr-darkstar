@@ -204,6 +204,37 @@ function misc(player, points)
     return stock;
 end
 
+function grips(player, points)
+    local stock = {
+        19010,  500,   --Lizard Lthre Strap +1
+        19010,  1500,   --Brass Grip +1
+        19015,  2000,   --Raptor Leather Strap
+        19013,  3000,   --Mythril Grip
+        19022,  3800,   --Axe Grip
+        19027,  4800,   --Claymore Grip
+        19026,  5500,   --Spear Strap
+    };
+    return stock;
+end
+
+function gripsEx(player, points)
+    local stock = {
+        19043,  800, {LEAT},   --Tenax Strap
+        19045,  800, {GOLD},   --Succubus Grip
+        19044,  800, {GOLD},   --Disciple Grip
+        19047,  1900, {GOLD},   --Reaver Grip +1
+        19039,  2500, {LEAT},   --Orca Strap
+        19015,  3250, {LEAT},   --Raptor Leather Strap +1
+        19018,  4800, {LEAT},   --Bugard Leather Strap +1
+        19013,  5500, {GOLD},   --Mythril Grip + 1
+        19023,  6500, {LEAT},   --Staff Strap
+        19040,  7800, {LEAT},   --Shark Strap
+        19025,  8000, {GOLD},   --Pole Grip
+        19051,  13500, {LEAT},   --Vivid Strap +1
+    };
+    return special_stock(stock, points);
+end
+
 function jugs(player, points)
     local stock = {
         17860,  20,{COOK, 400},  --Carrot
@@ -364,24 +395,73 @@ end
 
 function swords(player, points)
     local stock = {
-        16535,  200,    --Bronze Sword
-        16610,  600,    --Wax Sword +1
-        16530,  400,    --Xiphos
-        16801,  900,    --Sapara +1
-        16565,  800,    --Spatha ->Bee Spatha +1
-        16512,  1200,   --Bilbo → Spark Bilbo +1
-        16536,  1800,   --Iron Sword → Flame Sword
-        16532,  2500,   --Gladius → Strider Sword
-        16806,  6000,   --Centurion's Sword → Republic Sword
-        17739,  3200,   --Steel Kilij  → Tulwar +1
-        16537,  4200,   --Mithril Sword
-        15416,  5000,   --Junior Msk. Tuck → Tck +2
-        17701,  5000,   --Shotel → Falchion +1
-        16564,  6500,   --Flame Blade
-        16822,  4500,   --Crimson Blade
-        16571,  7000,   --Tmpl Knt Army → +3 version
+        16535,  200,    --bronze sword
+        16530,  400,    --xiphos
+        16565,  800,    --spatha ->bee spatha +1
+        16512,  1200,   --bilbo → spark bilbo +1
+        16536,  1800,   --iron sword → flame sword
+        16532,  2500,   --gladius → strider sword
+        17739,  2800,   --steel kilij  → tulwar +1
+        16537,  3200,   --mithril sword
+        15416,  4800,   --junior msk. tuck → tck +2
+        17701,  4800,   --shotel → falchion +1
+        16558,  5200,   --falchion
+        16822,  5600,   --crimson blade
+        16571,  6200,   --tmpl knt army → +3 version
     };
     return stock;
+end
+
+function swords2(player, points)
+    local stock = {
+        16814,  6800,    --Crescent Sword
+        16808,  7400,    --Wise Wizard
+        16554,  8000,    --Hanger
+        16825,  8600,    --Cermet Sword +1
+        16618,  8900,    --Mailbreaker +1
+        17641,  9500,    --Gold Sword +1
+        17636,  10100,    --Jagdplaute +1
+        16620,  10700,    --Merman's Sword
+        17662,  11600,    --Company Sword
+        16563,  11600,    --Rune Blade
+        17719,  12100,    --Rune Blade
+    };
+    return stock;
+end
+
+function swords2Ex(player, points)
+    local stock = {
+        16557,  10600, {SMIT},    --Muskateer Commander's Falchion
+        16805,  11200, {SMIT},    --Royal Guard Fleuret
+        17718,  12500, {SMIT},    --Leech Scimitar
+        17634,  13200, {SMIT},    --Wasp Fleuret
+        17677,  14000, {SMIT},    --Tact Espadon +2
+        17714,  15200, {SMIT},    --Macuahuitl +1
+        17637,  16500, {SMIT},    --Wing Sword +1
+        17712,  18500, {SMIT},    --Kaskara +1
+        17656,  19800, {SMIT},    --Verdun +1
+        17694,  21000, {SMIT},    --Guespiere
+        17728,  22000, {SMIT},    --Adaman Kilij
+        17751,  24500, {SMIT},    --Fragarach
+    };
+    return special_stock(stock, points);
+end
+
+function swordsEx(player, points)
+    local stock = {
+        16610,  300, {SMIT},    --Wax Sword +1
+        16801,  700, {SMIT},    --Sapara +1
+        16611,  1300, {SMIT},    --Bee Spatha +1
+        17679,  1800, {SMIT},    --Kingdom Sword
+        16621,  2500, {SMIT},  --Flame Sword
+        16819,  3200, {SMIT},   --Mithran Scimitar
+        16806,  5000, {SMIT},   --Centurion's Sword → Republic Sword
+        16812,  6500, {SMIT},   --War Sword
+        16816,  7500, {SMIT},   --Holy Sword +1
+        16804,  8250, {SMIT},   --Flame Blade + 1
+        16810,  9200, {SMIT},   --Tact Espadon
+    };
+    return special_stock(stock, points);
 end
 
 function clubs(player, points)
@@ -495,17 +575,71 @@ end
 function shields(player, points)
     local stock = {
         12290,  300,    --Maple Shield → Nymph Shield +1
-        12325,  900,    --Aspis +1
-        12291,  500,    --Elm Shield → Strong Shield
-        12292,  6750,   --Mahogany Shield
-        12337,  900,    --Decurion's Shield → Republic Targe
-        12413,  1200,   --Turtle's Shield +1
+        12325,  550,    --Aspis +1
+        12291,  550,    --Elm Shield → Strong Shield
+        12333,  900,   --Mahogany Shield
+        12337,  1000,    --Decurion's Shield → Republic Targe
         12326,  1600,   --Kite Shield +1
         12335,  2000,   --Targe +1
-        12328,  2500,   --Heater Shield +1
-        12378,  3200,   --Hard Shield → Divine Shield +1
+        12293,  2500,   --Oak Shield
+        12328,  3000,   --Heater Shield +1
+        12327,  3500,   --Buckler +1
+        12312,  4000,   --Royal Tmpl Army Shield
     };
     return stock;
+end
+
+function shieldsEx(player, points)
+    local stock = {
+        16185,  500, {WOOD},    --Pelte
+        12413,  1800, {BONE},    --Turtle Shield +1
+        12338,  2400, {WOOD},    --Frost Shield
+        12343,  2800, {WOOD},    --Faerie Shield
+        16185,  3200, {SMIT},    --Lantern Shield
+        12365,  4000, {WOOD},    --Nymph Shield +1
+        12336,  4800, {WOOD},    --Royal Squire Shield
+        16185,  5500, {SMIT},    --Flat Shield
+        12350,  6100, {WOOD},    --Strike Shield
+        16186,  6550, {WOOD},    --Spellcaster's Ecu
+        12375,  6800, {SMIT},    --Light Buckler
+        12380,  7200, {SMIT},    --Divine Shield
+        12356,  7800, {WOOD},    --Viking Shield
+    };
+    return special_stock(stock, points);
+end
+
+
+
+function shields2(player, points)
+    local stock = {
+        12339,  5200,   --Scutum +1
+        12412,  5500,   --Hoplon +1
+        16171,  6000,   --Wivre Shield +1
+        12347,  6500,   --Spiked Buckler
+        12352,  6800,   --Round Shield +1
+        12354,  7000,   --Tower Shield +1
+        12309,  8200,   --Ritter Shield +1
+        12387,  9000,   --Koenig Shield
+    };
+    return stock;
+end
+
+function shields2Ex(player, points)
+    local stock = {
+        12348,  8200, {SMIT},    --Serket Shield
+        12344,  8800, {SMIT},    --Master Shield
+        12369,  10800, {SMIT},    --Royal Knight Army Shield +2
+        12410,  12000, {WOOD},    --Numinous Shield +1
+        12360,  15000, {WOOD},    --Tatami Shield
+        16179,  13000, {SMIT},    --Airy Buckler
+        12388,  14500, {SMIT},    --Kaiser Shield
+        16162,  16000, {SMIT},    --Tariqah
+        16180,  18000, {WOOD},    --Harpy Shield
+        16162,  19000, {SMIT},    --Acheron's Shield
+        16164,  28000, {SMIT},    --Tariqah +1
+        12386,  38000, {SMIT},    --Acheron's Shield +1
+    };
+    return special_stock(stock, points);
 end
 
 function rings(player, points)
@@ -817,28 +951,16 @@ function armor(player, points)
 end
 
 function bows(player, points)
---    local stock = {
---        17160,  100,    --Longbow
---        17176,  250,    --Self Bow +1
---        17183,  400,    --Hunter's Longbow
---        17178,  700,    --Power Bow +1
---        17172,  1000,   --Wrapped Bow +1
---        17180,  1600,   --Great Bow +1
---        17181,  2500,   --Battle Bow +1
---        17173,  4000,   --War Bow +1
---    };
-
     local stock = {
-        17160,  100, {WOOD, 1000000},   --Longbow
-        17176,  250, WOOD,    --Self Bow +1
-        17183,  400, WOOD,    --Hunter's Longbow
-        17178,  700, WOOD,    --Power Bow +1
-        17172,  1000, WOOD,   --Wrapped Bow +1
-        17180,  1600, WOOD,   --Great Bow +1
-        17181,  2500, WOOD,   --Battle Bow +1
-        17173,  4000, WOOD,   --War Bow +1
+        17160,  100,    --Longbow
+        17176,  250,    --Self Bow +1
+        17183,  400,    --Hunter's Longbow
+        17178,  700,    --Power Bow +1
+        17172,  1000,   --Wrapped Bow +1
+        17180,  1600,   --Great Bow +1
+        17181,  2500,   --Battle Bow +1
+        17173,  4000,   --War Bow +1
     };
-    return special_stock(stock, points);
 end
 
 function arrows(player, points)
@@ -1012,6 +1134,8 @@ funcs = {
     ["ringsEx"] = ringsEx,
     ["rings2Ex"] = rings2Ex,
     ["rings3Ex"] = rings3Ex,
+    ["grips"] = grips,
+    ["gripsEx"] = gripsEx,
     ["feet"] = feet,
     ["hands"] = hands,
     ["legs"] = legs,
@@ -1022,6 +1146,9 @@ funcs = {
     ["clothing"] = clothing,
     ["armor"] = armor,
     ["shields"] = shields,
+    ["shieldsEx"] = shieldsEx,
+    ["shields2"] = shields2,
+    ["shields2Ex"] = shields2Ex,
     ["throwing"] = throwing,
     ["hats"] = hats,
     ["coins"] = coins,
@@ -1035,6 +1162,9 @@ funcs = {
     ["bullets"] = bullets,
     ["daggers"] = daggers,
     ["swords"] = swords,
+    ["swordsEx"] = swordsEx,
+    ["swords2"] = swords2,
+    ["swords2Ex"] = swords2Ex,
     ["clubs"] = clubs,
     ["staves"] = staves,
     ["axes"] = axes,

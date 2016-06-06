@@ -10738,6 +10738,16 @@ inline int32 CLuaBaseEntity::SayToPlayer(lua_State* L)
     return 0;
 }
 
+
+inline int32 CLuaBaseEntity::pushSkillchain(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+    CWeaponSkill* ws = battleutils::GetWeaponSkill(lua_tointeger(L, 1));
+    battleutils::GetSkillChainEffect(PEntity, ws);
+    return 0;
+}
+
 //==========================================================//
 
 const int8 CLuaBaseEntity::className[] = "CBaseEntity";
@@ -11210,5 +11220,6 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,checkImbuedItems),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setPendingMessage),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNearbyEntities),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,pushSkillchain),
     {nullptr,nullptr}
 };

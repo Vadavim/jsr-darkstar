@@ -88,6 +88,13 @@ FAMILY CHANGES
 [Goobbue]
  - +30% XP
 
+[Mandragora]
+ - Scream: also inflicts Terror for a brief period of time (4 to 10 seconds)
+ - Leaf Dagger: Poison DoT doubled
+ - Photosynthesis: healing increased slightly (power and duration reduced by Bio and Poison)
+ - Wild Oats: Refunds 500 TP
+
+
 [Morbol]
  - +40% XP
  - Very weak to Fire.

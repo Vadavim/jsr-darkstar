@@ -58,22 +58,25 @@ function onUseAbility(player,target,ability)
         effects[counter] = threnody;
         counter = counter + 1;
     end
-    
+
+    target:pushSkillchain(18); -- Shadowstitch: Reverberation
     if counter > 1 then
-        local effect = effects[math.random(1, counter-1)];
-        local duration = effect:getDuration();
-        local startTime = effect:getStartTime();
-        local tick = effect:getTick();
-        local power = effect:getPower();
-        local subpower = effect:getSubPower();
-        local tier = effect:getTier();
-        local effectId = effect:getType();
-        local subId = effect:getSubType();
-        power = power * 1.2;
-        target:delStatusEffectSilent(effectId);
-        target:addStatusEffect(effectId, power, tick, duration, subId, subpower, tier);
-        local newEffect = target:getStatusEffect(effectId);
-        newEffect:setStartTime(startTime);
+        for i = 1, counter do
+            local effect = effects[i];
+            local duration = effect:getDuration();
+            local startTime = effect:getStartTime();
+            local tick = effect:getTick();
+            local power = effect:getPower();
+            local subpower = effect:getSubPower();
+            local tier = effect:getTier();
+            local effectId = effect:getType();
+            local subId = effect:getSubType();
+            power = power * 1.33;
+            target:delStatusEffectSilent(effectId);
+            target:addStatusEffect(effectId, power, tick, duration, subId, subpower, tier);
+            local newEffect = target:getStatusEffect(effectId);
+            newEffect:setStartTime(startTime);
+        end
     end
 
     local del = player:delItem(2181, 1) or player:delItem(2974, 1)

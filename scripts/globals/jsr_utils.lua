@@ -250,4 +250,31 @@ function jsrReward(player, rewards)
 
 end
 
+function reduced_healing_factor(target)
+    local factor = 1.0;
+    if (target:getStatusEffect(EFFECT_POISON) ~= nil) then
+        factor = factor * 0.75;
+    end
+
+    if (target:getStatusEffect(EFFECT_BIO) ~= nil) then
+        factor = factor * 0.75;
+    end
+
+    if (target:getStatusEffect(EFFECT_DISEASE) ~= nil) then
+        factor = factor * 0.66;
+    end
+
+    if (target:getStatusEffect(EFFECT_PLAGUE) ~= nil) then
+        factor = factor * 0.66;
+    end
+
+    if (target:getstatuseffect(effect_rasp) ~= nil) then
+        factor = factor * 0.75;
+    end
+
+
+    return factor;
+end
+
+
 

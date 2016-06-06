@@ -12,6 +12,7 @@ require("scripts/globals/status");
 
 function onEffectGain(target,effect)
     target:addMod(MOD_SPELLINTERRUPT, effect:getPower());
+    target:addMod(MOD_REGEN, effect:getPower() / 15);
 end;
 
 -----------------------------------
@@ -27,4 +28,5 @@ end;
 
 function onEffectLose(target,effect)
     target:delMod(MOD_SPELLINTERRUPT, effect:getPower());
+    target:delMod(MOD_REGEN, effect:getPower() / 15);
 end;

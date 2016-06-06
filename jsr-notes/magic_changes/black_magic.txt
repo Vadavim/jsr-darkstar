@@ -17,3 +17,6 @@ Max DOT: 4 -> 15, and scales faster (5 +1 per 20 skill)
 [Enspell / Enspell II]
 Duration: 180 -> 300 Seconds
 
+[Elemental Spikes]
+Duration: 180 -> 300 Seconds
+Fire Spikes: increased damage

@@ -29,3 +29,7 @@ STRATAGEM CHANGES
 [Helices]
  - Deal increased damage based on Int
 
+[Storm Spells]
+ - Duration: 180 -> 300 Seconds
+ - +30 seconds per point in Stormsurge
+

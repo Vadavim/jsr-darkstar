@@ -60,7 +60,7 @@ end;
 
 
 function applyRoll(caster,target,ability,action,total)
-    local duration = 300 + caster:getMerit(MERIT_WINNING_STREAK)
+    local duration = 600 + caster:getMerit(MERIT_WINNING_STREAK)
     local effectpowers = {10, 11, 11, 12, 20, 13, 15, 16, 8, 17, 24, 6};
     local effectpower = effectpowers[total];
     if (caster:getMainJob() == JOBS.COR and caster:getMainLvl() < target:getMainLvl()) then

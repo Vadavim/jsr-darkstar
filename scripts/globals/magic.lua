@@ -965,7 +965,7 @@ function addBonusesWeaponskill(caster, ele, target, dmg, params)
         mab = 0;
     end
 
-    dmg = math.floor(dmg * mab * mab);
+--    dmg = math.floor(dmg * mab * mab);
 
     -- print(affinityBonus);
     -- print(speciesReduction);

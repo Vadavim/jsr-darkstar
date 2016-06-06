@@ -13,7 +13,7 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-    local duration = SPIKE_EFFECT_DURATION;
+    local duration = 300;
   local typeEffect = EFFECT_ICE_SPIKES;
     if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
         duration = duration * 3;

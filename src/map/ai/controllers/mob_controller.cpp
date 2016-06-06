@@ -965,9 +965,12 @@ bool CMobController::Engage(uint16 targid)
             }
             // don't attempt to scale if level is lower
             if (highestLevel > PMob->GetMLevel() + 1) {
-
+                int32 missingHP = PMob->health.maxhp - PMob->health.hp;
                 PMob->SetMLevel(highestLevel);
+
+                // keep track of missing HP (due to a first hit)
                 mobutils::CalculateStats(PMob);
+                PMob->addHP(-missingHP);
             }
         }
     }

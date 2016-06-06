@@ -13,7 +13,8 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-    local duration = SPIKE_EFFECT_DURATION;
+--    local duration = SPIKE_EFFECT_DURATION;
+    local duration = 300;
   local typeEffect = EFFECT_BLAZE_SPIKES;
     if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
         duration = duration * 3;
@@ -21,7 +22,7 @@ function onSpellCast(caster,target,spell)
 
     local int = caster:getStat(MOD_INT);
     local magicAtk = caster:getMod(MOD_MATT);
-    local power = ((int + 2) / 12 + 4) * (1 + (magicAtk / 100));
+    local power = ((int + 2) / 4 + 4) * (1 + (magicAtk / 100));
 
    if (target:addStatusEffect(typeEffect,power,0,duration)) then
      spell:setMsg(230);

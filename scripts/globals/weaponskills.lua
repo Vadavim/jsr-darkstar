@@ -247,13 +247,16 @@ function doMagicWeaponskill(attacker, target, wsID, params, tp, primary)
     bonusacc = bonusacc + attacker:getMod(MOD_WSACC) + 20; --JSR: magic weaponskills more accurate
 
     local fint = utils.clamp(8 + (attacker:getStat(MOD_INT) - target:getStat(MOD_INT)), -32, 32);
-    local dmg = attacker:getMainLvl() + 2 + (attacker:getStat(MOD_STR) * params.str_wsc + attacker:getStat(MOD_DEX) * params.dex_wsc +
+    local dmg = attacker:getMainLvl() * 1.5 + 2 + (attacker:getStat(MOD_STR) * params.str_wsc + attacker:getStat(MOD_DEX) * params.dex_wsc +
          attacker:getStat(MOD_VIT) * params.vit_wsc + attacker:getStat(MOD_AGI) * params.agi_wsc +
          attacker:getStat(MOD_INT) * params.int_wsc + attacker:getStat(MOD_MND) * params.mnd_wsc +
          attacker:getStat(MOD_CHR) * params.chr_wsc) + fint;
     
     -- Applying fTP multiplier
     local ftp = fTP(tp,params.ftp100,params.ftp200,params.ftp300) + bonusfTP;
+    if (ftp > 1000) then
+        bonusacc = bonusacc + math.floor(ftp / 50 - 20);
+    end
     
     dmg = dmg * ftp;
     

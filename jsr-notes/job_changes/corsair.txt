@@ -5,16 +5,60 @@ TRAIT CHANGES
 ABILITY CHANGES
 
 [Double-Up]
- - Recast time reduced to 4 seconds
+ - Recast tim: 8 -> 5 Seconds
 
 [Rolls]
- - Rolls now last 10 minutes, but also have a recast of 10 minutes.
+ - Duration: 5 -> 10 Minutes
+ - Recast Time: 60 -> 30 seconds
+ - Winning Streak Duration bonus: 20 -> 40 seconds
 
 [Quick Draw]
- - At level 55, gain a third charge and reduces recharge time to 50 seconds.
- - At level 70, gain a fourth charge and reduces recharge time to 40 seconds.
+ - At level 55, recharge time reduced to 50 seconds
+ - At level 70, recharge time reduced to 40 seconds.
  - Each elemental shot will imbue the target with the corresponding skillchain attribute (Detonation for Wind, Induration for Ice, etc.).
+ - Increases potency of associated elemental status effects by 33%
+ - Boosts all associated elemental status effects (instead of just 1)
 
 
 [Triple Shot]
  - Gained at level 35
+
+
+--------------
+
+[Magus's Roll]
+ - Also increases status effect resistance by a proportionate amount (up to 33%)
+
+[Drachen Roll]
+ - Also increases Fire, Ice, and Thunder resistance, accuracy, attack, and defense for all pets.
+
+[Monk's Roll]
+ - Also increases Guard skill and Maximum HP% by half of Subtle Blow bonus.
+
+[Warlock's Roll]
+ - Also bestows Fast Cast requal to 1/2 magic accuracy bonus
+
+[Choral Roll]
+ - Also bestows HP Regen equal to 1/15th spell interruption rate reduction
+
+[Beast Roll]
+ - Also increases pet's Defense by an equal amount
+
+[Gallant's Roll]
+ - Also increases Shield skill and TP gained on blocking
+
+[Evoker's Roll]
+ - Also increases Maximum MP
+
+[Dancer's Roll]
+ - Also bestows a minor TP regen
+
+[Puppet Roll]
+ - Also bestows HP regen and TP regen equal to 1/2 amount.
+
+[Rogue's Roll]
+ - Also increases Parry and TP gained when parrying
+
+[Scholar's Roll]
+ - Conserve MP amount doubled.
+ - Also grants enmity reduction

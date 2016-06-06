@@ -37,9 +37,9 @@ function onSpellCast(caster,target,spell)
         params.dmgtype = DMGTYPE_H2H;
         params.scattr = SC_FUSION;
         params.numhits = 1;
-        params.multiplier = 1.75;
-        params.tp150 = 2.125;
-        params.tp300 = 2.75;
+        params.multiplier = 2.1;
+        params.tp150 = 2.65;
+        params.tp300 = 3.55;
         params.azuretp = 2.875;
         params.duppercap = 75;
         params.str_wsc = 0.5;

@@ -41,6 +41,7 @@ PHYSICAL SPELLS
 
 [Cannon Ball
  - WSC 50% Str, 100(50)% Vit
+ - fTP: 2.1 (1.75), 2.65 (2.125), 3.55 (2.75)
 
 [Hydro Shot]
  - WSC: 30% Agi, 30(0)% Int
@@ -51,6 +52,8 @@ PHYSICAL SPELLS
  - fTP: 1.0(1.0), 3.0(1.75), 6.0(1.875)
 
 MAGICAL SPELLS
+
+All spell's damage have been increased slightly in addition to the following changes.
 
 [Blastbomb]
  - Multiplier: 1.5 (1.375)

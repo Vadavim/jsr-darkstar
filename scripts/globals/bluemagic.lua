@@ -178,6 +178,7 @@ function BlueMagicalSpell(caster, target, spell, params, statMod)
     if (D > params.duppercap) then
         D = params.duppercap;
     end
+    D = math.floor(D * 1.33);
 
     local ST = BlueGetWsc(caster, params); -- According to Wiki ST is the same as WSC, essentially Blue mage spells that are magical use the dmg formula of Magical type Weapon skills
 
@@ -398,9 +399,9 @@ function getBlueEffectDuration(caster,resist,effect)
     elseif (effect == EFFECT_STUN) then
         duration = math.random(2,3) + resist;
         -- printf("Duration of stun is %i",duration);
-    elseif (effect == EFFECT_WEIGHT) then
+    elseif (effect == EFFECT_WEIGHT or effect == EFFECT_SILENCE) then
         duration = math.random(20,24) + resist * 9; -- 30-60
-    elseif (effect == EFFECT_PARALYSIS) then
+    else
         duration = math.random(50,60) + resist * 15; -- 60- 120
     end
 

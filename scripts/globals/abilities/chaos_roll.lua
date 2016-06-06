@@ -56,7 +56,7 @@ end;
 
 function onUseAbilityRoll(caster,target,ability,total)
 
-    local duration = 300 + caster:getMerit(MERIT_WINNING_STREAK)
+    local duration = 600 + caster:getMerit(MERIT_WINNING_STREAK)
     local effectpowers = {6, 8, 9, 25, 11, 13, 16, 3, 17, 19, 31, 10}
     local effectpower = effectpowers[total];
     local jobBonus = caster:getLocalVar("DRK_roll_bonus");

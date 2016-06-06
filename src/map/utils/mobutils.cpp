@@ -593,6 +593,14 @@ void CalculateStats(CMobEntity * PMob)
     {
         ShowError("Mobutils::CalculateStats Mob (%s, %d, %d) has no detection methods!\n", PMob->GetName(), PMob->id, PMob->m_Family);
     }
+
+
+    // JSR: added enspell effect
+    if (PMob->getMobMod(MOBMOD_ENSPELL) > 0) {
+        PMob->setModifier(MOD_ENSPELL, PMob->getMobMod(MOBMOD_ENSPELL));
+        uint32 endam = 1 + PMob->GetMLevel() / 2;
+        PMob->setModifier(MOD_ENSPELL_DMG, endam);
+    }
 }
 
 void SetupJob(CMobEntity* PMob)

@@ -967,6 +967,30 @@ namespace battleutils
             }
         }
 
+        // JSR: poison attack mod
+        if (PAttacker->objtype == TYPE_MOB && ((CMobEntity*)PAttacker)->getMobMod(MOBMOD_POISON_ATTACK)){
+            int32 poisonDuration = ((CMobEntity*)PAttacker)->getMobMod(MOBMOD_POISON_ATTACK);
+            int32 poisonRes = PDefender->getMod(MOD_POISONRES);
+            int32 waterRes = PDefender->getMod(MOD_WATERRES);
+            int32 aVit = PAttacker->VIT();
+            int32 dVit = PDefender->VIT();
+            float chance = (float)(aVit - dVit) + (50.0 - (waterRes * 0.1)) - poisonRes;
+            int32 poisonPower = 1 + PAttacker->GetMLevel() / 3;
+            ShowDebug("PoisonRes: %d\n", poisonRes);
+            ShowDebug("WaterRes: %d\n", waterRes);
+//            poisonPower /= (1 + (waterRes * 0.01));
+            if (dsprand::GetRandomNumber(0.0, 100.0) < chance) {
+                PDefender->StatusEffectContainer->AddStatusEffect(
+                    new CStatusEffect(EFFECT_POISON, EFFECT_POISON, poisonPower, 3, poisonDuration));
+                Action->addEffectMessage = 278;
+                Action->messageID = EFFECT_POISON;
+                Action->additionalEffect = SUBEFFECT_POISON;
+            }
+
+
+
+        }
+
         // Enspell overwrites weapon effects
         if (PAttacker->getMod(MOD_ENSPELL) > 0)
         {

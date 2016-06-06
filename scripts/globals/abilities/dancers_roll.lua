@@ -17,7 +17,7 @@
 -- 7           |1HP/Tick            |5HP/Tick
 -- 8           |8HP/Tick            |12HP/Tick
 -- 9           |9HP/Tick            |13HP/Tick
--- 10          |10HP/Tick           |14HP/Tick
+-- 10          |10HP/Tick           |14HP/Tic
 -- 11          |16HP/Tick           |20HP/Tick
 -- 12+         |-4hp(regen)/Tick    |-4hp(regen)/Tick
 -- A bust will cause a regen effect on you to be reduced by 4, it will not drain HP from you if no regen effect is active.
@@ -56,7 +56,7 @@ function onUseAbility(caster,target,ability,action)
 end;
 
 function applyRoll(caster,target,ability,action,total)
-    local duration = 300 + caster:getMerit(MERIT_WINNING_STREAK)
+    local duration = 600 + caster:getMerit(MERIT_WINNING_STREAK)
     local effectpowers = {3, 4, 12, 5, 6, 7, 1, 8, 9, 10, 16, 4};
     local effectpower = effectpowers[total];
     if (caster:getLocalVar("corsairRollBonus") == 1 and total < 12) then

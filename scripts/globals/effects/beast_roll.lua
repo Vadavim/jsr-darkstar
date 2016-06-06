@@ -12,6 +12,7 @@ require("scripts/globals/status");
 
 function onEffectGain(target,effect)
     target:addPetMod(MOD_ATTP, effect:getPower());
+    target:addPetMod(MOD_DEFP, effect:getPower());
 end;
 
 -----------------------------------
@@ -27,4 +28,5 @@ end;
 
 function onEffectLose(target,effect)
     target:delPetMod(MOD_ATTP, effect:getPower());
+    target:addPetMod(MOD_DEFP, effect:getPower());
 end;

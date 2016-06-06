@@ -606,6 +606,7 @@ public:
     int32 setPendingMessage(lua_State* L);
     int32 getRecentAlly(lua_State*);
     int32 isUniqueAlly(lua_State* L);
+    int32 pushSkillchain(lua_State* L);
 };
 
 #endif
