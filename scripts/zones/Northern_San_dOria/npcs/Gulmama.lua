@@ -77,7 +77,18 @@ end;
 function onEventFinish(player,csid,option)
 -- printf("CSID: %u",csid);
 -- printf("RESULT: %u",option);
-    
+
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 3000,
+        ["scyld"] = 35,
+        ["spark"] = 10,
+    };
+    jsrReward(player, reward);
+end
+
+
     if (csid == 0x02c2 and option == 1) then
         if (player:getQuestStatus(SANDORIA,TRIAL_BY_ICE) == QUEST_COMPLETED) then
             player:delQuest(SANDORIA,TRIAL_BY_ICE);
@@ -107,12 +118,23 @@ function onEventFinish(player,csid,option)
                 player:addSpell(302); -- Avatar
                 player:messageSpecial(SHIVA_UNLOCKED,0,0,4);
             else
-                player:addItem(item);
+                if (item == 17492) then -- Shiva's Claws
+                    player:addItem(item, 1, 132, 4);
+                elseif (item == 13242) then -- Ice Belt
+                    player:addItem(item, 1, 100, 4, 101, 4);
+                elseif (item == 13561) then -- Ice Ring
+                    player:addItem(item, 1, 769, 19, 178, 19, 516, 2);
+                else
+                    player:addItem(item);
+                end
+
+
                 player:messageSpecial(ITEM_OBTAINED,item); -- Item
             end
             player:addTitle(HEIR_OF_THE_GREAT_ICE);
             player:delKeyItem(WHISPER_OF_FROST); --Whisper of Frost, as a trade for the above rewards
             player:setVar("TrialByIce_date", os.date("%j")); -- %M for next minute, %j for next day
+            questReward(playr);
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA,TRIAL_BY_ICE);
         end

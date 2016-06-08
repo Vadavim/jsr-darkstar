@@ -12,6 +12,15 @@ require("scripts/zones/Port_San_dOria/TextIDs");
 -----------------------------------
 -- onTrade Action
 -----------------------------------
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["guild"] = {COOK, 200},
+        ["gil"] = 1800,
+        ["xp"] = 400,
+    };
+    jsrReward(player, reward);
+end
 
 function onTrade(player,npc,trade)
 -- "Flyers for Regine" conditional script
@@ -31,7 +40,7 @@ FlyerForRegine = player:getQuestStatus(SANDORIA,FLYERS_FOR_REGINE);
         if (LufetSalt == true and count == 3) then
             player:tradeComplete();
             player:addFame(SANDORIA,30);
-            player:addGil(GIL_RATE*600);
+            questReward(player);
             player:addTitle(BEAN_CUISINE_SALTER);
             player:completeQuest(SANDORIA,LUFET_S_LAKE_SALT);
             player:startEvent(0x000b);

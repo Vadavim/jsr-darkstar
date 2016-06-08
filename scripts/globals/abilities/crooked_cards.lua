@@ -1,9 +1,9 @@
 -----------------------------------
--- Ability: Snake Eye
--- Your next roll will automatically be a 1.
+-- Ability: Fold
+-- Erases one roll or bust effect. Targets self-cast effect with the longest remaining duration.
 -- Obtained: Corsair Level 75
--- Recast Time: 0:05:00
--- Duration: 0:01:00 or the next usage of Phantom Roll or Double-Up
+-- Recast Time: 00:05:00
+-- Duration: Instant
 -----------------------------------
 
 require("scripts/globals/settings");
@@ -22,7 +22,6 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    player:addStatusEffect(EFFECT_SNAKE_EYE,(player:getMerit(MERIT_SNAKE_EYE)),0,60);
+    player:setLocalVar("crookedCards", 1);
 
-    return EFFECT_SNAKE_EYE;
 end;

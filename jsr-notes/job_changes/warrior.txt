@@ -1,6 +1,5 @@
 SKILL CHANGES
  - B Shield
- - B- Evasion
  - B- Parrying
  - A Great Sword
  - A Scythe

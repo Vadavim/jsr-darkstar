@@ -70,6 +70,15 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 350,
+        ["gil"] = 1500,
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -82,8 +91,7 @@ function onEventFinish(player,csid,option)
         player:setVar("FFR",1);
     elseif (csid == 603) then
         player:completeQuest(SANDORIA,FLYERS_FOR_REGINE);
-        player:addGil(GIL_RATE*440)
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*440);
+        questReward(player);
         player:addTitle(ADVERTISING_EXECUTIVE);
         player:addFame(SANDORIA,30);
         player:setVar("tradeAnswald",0);

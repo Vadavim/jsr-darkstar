@@ -56,6 +56,16 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 250,
+        ["guild"] = {COOK, 50},
+        ["item"] = 4371
+    };
+
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
 --printf("CSID: %u",csid);
@@ -67,8 +77,7 @@ function onEventFinish(player,csid,option)
         if (player:getFreeSlotsCount() == 0) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED_2, 4371);
         else
-            player:addItem(4371,1);
-            player:messageSpecial(ITEM_OBTAINED,4371);
+            questReward(player);
             player:setVar("aTasteForMeat", 0);
         end;
     end;

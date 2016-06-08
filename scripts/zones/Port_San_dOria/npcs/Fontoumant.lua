@@ -92,6 +92,17 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 200,
+        ["gil"] = 800,
+        ["guild"] = {WOOD, 100},
+        ["augment"] = {0x3001, 17, 2}
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -125,8 +136,7 @@ function onEventFinish(player,csid,option)
         player:tradeComplete()
     elseif (csid == 0x0203) then
         if (freeSlots ~= 0) then
-            player:addItem(0x3001);
-            player:messageSpecial(ITEM_OBTAINED,0x3001);
+            questReward(player);
             player:addTitle(COURIER_EXTRAORDINAIRE);
             player:completeQuest(SANDORIA,THE_BRUGAIRE_CONSORTIUM);
             player:addFame(SANDORIA,30);

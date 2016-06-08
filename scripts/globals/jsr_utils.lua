@@ -250,6 +250,8 @@ function jsrReward(player, rewards)
 
 end
 
+
+
 function reduced_healing_factor(target)
     local factor = 1.0;
     if (target:getStatusEffect(EFFECT_POISON) ~= nil) then

@@ -27,11 +27,23 @@ end;
 -- onUseAbility
 -----------------------------------
 
+fiveRolls = {ABILITY_CORSAIRS_ROLL, ABILITY_EVOKERS_ROLL, ABILITY_ROGUES_ROLL,
+            ABILITY_FIGHTERS_ROLL, ABILITY_WIZARDS_ROLL};
+
+fourRolls = {ABILITY_NINJA_ROLL, ABILITY_HUNTERS_ROLL, ABILITY_CHAOS_ROLL,
+            ABILITY_DRACHEN_ROLL, ABILITY_BEAST_ROLL, ABILITY_WARLOCKS_ROLL};
+
+threeRolls = {ABILITY_MONKS_ROLL, ABILITY_PUPPET_ROLL, ABILITY_GALLANTS_ROLL,
+            ABILITY_HEALERS_ROLL, ABILITY_DANCERS_ROLL};
+
+twoRolls = {ABILITY_MAGUSS_ROLL, ABILITY_CHORAL_ROLL, ABILITY_SAMURAI_ROLL,
+            ABILITY_SCHOLARS_ROLL};
 function onUseAbility(caster,target,ability,action)
     if (caster:getID() == target:getID()) then
         local du_effect = caster:getStatusEffect(EFFECT_DOUBLE_UP_CHANCE);
         local prev_roll = caster:getStatusEffect(du_effect:getSubPower());
         local roll = prev_roll:getSubPower();
+        local oldRoll = roll;
         local job = du_effect:getTier()
         caster:setLocalVar("corsairActiveRoll", du_effect:getSubType())
         local snake_eye = caster:getStatusEffect(EFFECT_SNAKE_EYE);
@@ -43,12 +55,26 @@ function onUseAbility(caster,target,ability,action)
             end
             caster:delStatusEffect(EFFECT_SNAKE_EYE)
         else
-            roll = roll + math.random(1,6)
+            local newRoll = math.random(1,6);
+            if (caster:getLocalVar("crookedCards") == 1) then
+                caster:setLocalVar("crookedCards", 0);
+                newRoll = 6;
+            end
+
+
+            roll = roll + newRoll;
+
+            if (caster:getLocalVar("cuttingCards") == 1) then
+                caster:setLocalVar("cuttingCards", 0);
+                roll = math.floor(oldRoll / 2);
+            end
+
             if (roll > 12) then
                 roll = 12
                 caster:delStatusEffectSilent(EFFECT_DOUBLE_UP_CHANCE)
             end
         end
+
         if (roll == 11) then
             caster:resetRecast(RECAST_ABILITY, 193)
         end
@@ -58,6 +84,7 @@ function onUseAbility(caster,target,ability,action)
     end
     local total = caster:getLocalVar("corsairRollTotal")
     local prev_ability = getAbility(caster:getLocalVar("corsairActiveRoll"));
+
     if (prev_ability) then
         action:animation(target:getID(),prev_ability:getAnimation());
         action:actionID(prev_ability:getID()+16)

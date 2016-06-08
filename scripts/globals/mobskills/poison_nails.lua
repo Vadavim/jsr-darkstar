@@ -22,7 +22,7 @@ function onMobWeaponSkill(target, mob, skill)
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_PIERCE,MOBPARAM_WIPE_SHADOWS);
 
     local typeEffect = EFFECT_POISON;
-    local power = 1;
+    local power = 1 + math.floor(mob:getMainLvl() / 3);
 
     MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, power, 3, 60);
 

@@ -59,6 +59,17 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 8000,
+        ["xp"] = 1000,
+        ["guild"] = {COOK, 1000},
+        ["scyld"] = 100,
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -68,8 +79,7 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x0054) then
         player:tradeComplete();
         player:addTitle(SHEEPS_MILK_DELIVERER);
-        player:addGil(GIL_RATE*5000);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*5000);
+        questReward(player);
         player:addFame(SANDORIA,30);
         player:completeQuest(SANDORIA,SLEEPLESS_NIGHTS);
     end

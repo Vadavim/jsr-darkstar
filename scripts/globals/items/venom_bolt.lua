@@ -12,16 +12,18 @@ require("scripts/globals/magic");
 function onAdditionalEffect(player,target,damage)
     local chance = 95;
     if (target:getMainLvl() > player:getMainLvl()) then
-        chance = chance - 5 * (target:getMainLvl() - player:getMainLvl())
+        chance = chance - 5 * (target:getMainLvl() - player:getMainLvl()) + player:getMod(MOD_CHR)
         chance = utils.clamp(chance, 5, 95);
     end
     if (target:hasImmunity(256)) then
         spell:setMsg(75);
-    elseif (math.random(0,99) >= chance or applyResistanceAddEffect(player,target,ELE_WATER,0) <= 0.5) then
+    elseif (math.random(0,99) >= chance or applyResistanceItemEffect(player,target,ELE_WATER,0) <= 0.5) then
         return 0,0,0;
     else
+        target:delStatusEffect(EFFECT_POISON)
         if (not target:hasStatusEffect(EFFECT_POISON)) then
-            target:addStatusEffect(EFFECT_POISON, 4, 3, 30);
+            local power = 6 + math.floor(target:getStat(MOD_CHR) / 3);
+            target:addStatusEffect(EFFECT_POISON, power, 3, 60);
         end
         return SUBEFFECT_POISON, MSGBASIC_ADD_EFFECT_STATUS, EFFECT_POISON;
     end

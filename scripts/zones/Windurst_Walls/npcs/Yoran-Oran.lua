@@ -17,6 +17,51 @@ require("scripts/globals/keyitems");
 -- onTrade Action
 -----------------------------------
 
+function cornetteReward(player)
+    local reward = {
+        ["gil"] = 350,
+        ["xp"] = 150,
+        ["guild"] = {WOOD, 80},
+    };
+    jsrReward(player, reward);
+end
+
+function fourLeafReward(player)
+    local reward = {
+        ["gil"] = 225,
+        ["xp"] = 100,
+        ["guild"] = {WOOD, 40},
+    };
+    jsrReward(player, reward);
+end
+
+function sulfurReward(player)
+    local reward = {
+        ["gil"] = 900,
+        ["xp"] = 350,
+        ["guild"] = {WOOD, 120},
+    };
+    jsrReward(player, reward);
+end
+
+function threeLeafReward(player)
+    local reward = {
+        ["gil"] = 3000,
+        ["xp"] = 650,
+        ["guild"] = {WOOD, 220},
+    };
+    jsrReward(player, reward);
+end
+
+function snobbyReward(player)
+    local reward = {
+        ["gil"] = 9000,
+        ["xp"] = 1500,
+        ["guild"] = {WOOD, 650},
+    };
+    jsrReward(player, reward);
+end
+
 function onTrade(player,npc,trade)
 local MandragoraMad = player:getQuestStatus(WINDURST,MANDRAGORA_MAD);
     if (MandragoraMad ~= QUEST_AVAILABLE) then
@@ -25,36 +70,31 @@ local MandragoraMad = player:getQuestStatus(WINDURST,MANDRAGORA_MAD);
             if (trade:hasItemQty(17344,1)) then
                 player:tradeComplete();
                 player:addFame(WINDURST,10);
-                player:addGil(GIL_RATE*200);
-                player:startEvent(0x00fb,GIL_RATE*200);
+                cornetteReward(player);
                 player:completeQuest(WINDURST,MANDRAGORA_MAD);
             -- Sulfur
             elseif (trade:hasItemQty(934,1)) then
                 player:tradeComplete();
                 player:addFame(WINDURST,25);
-                player:addGil(GIL_RATE*250);
-                player:startEvent(0x00fc,GIL_RATE*250);
+                sulfurReward(player);
                 player:completeQuest(WINDURST,MANDRAGORA_MAD);
             -- ThreeLeafBud
             elseif (trade:hasItemQty(1154,1)) then
                 player:tradeComplete();
                 player:addFame(WINDURST,50);
-                player:addGil(GIL_RATE*1200);
-                player:startEvent(0x00fd,GIL_RATE*1200);
+                threeLeafReward(player);
                 player:completeQuest(WINDURST,MANDRAGORA_MAD);
             -- FourLeafBud
             elseif (trade:hasItemQty(4369,1)) then
                 player:tradeComplete();
                 player:addFame(WINDURST,10);
-                player:addGil(GIL_RATE*120);
-                player:startEvent(0x00fe,GIL_RATE*120);
+                fourLeafReward(player);
                 player:completeQuest(WINDURST,MANDRAGORA_MAD);
             -- Letter
             elseif (trade:hasItemQty(1150,1)) then
                 player:tradeComplete();
                 player:addFame(WINDURST,100);
-                player:addGil(GIL_RATE*5500);
-                player:startEvent(0x00ff,GIL_RATE*5500);
+                snobbyReward(player);
                 player:completeQuest(WINDURST,MANDRAGORA_MAD);
             else
                 player:startEvent(0x00fa);

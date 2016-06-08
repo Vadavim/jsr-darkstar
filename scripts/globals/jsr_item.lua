@@ -1,4 +1,5 @@
 require("scripts/globals/status");
+require("scripts/globals/magic");
 
 function checkPotion(target)
     local result = 0;
@@ -72,7 +73,7 @@ function elementalArrowEffect(player,target,damage, element, stat)
     if (math.random(0,99) >= chance) then
         return 0,0,0;
     else
-        local dmg = math.random(5,15) + math.max(0, math.floor(player:getStat(stat) - target:getStat(stat) / 2));
+        local dmg = math.random(1,5) + math.max(0, math.floor(player:getStat(stat) - target:getStat(stat) / 2));
         local params = {};
         params.bonusmab = 0;
         params.includemab = true;
@@ -85,6 +86,7 @@ function elementalArrowEffect(player,target,damage, element, stat)
         if (dmg < 0) then
             message = MSGBASIC_ADD_EFFECT_HEAL;
         end
+
 
         local ele_effect = ELE_EFFECTS[element];
         return ele_effect,message,dmg;

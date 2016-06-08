@@ -17,5 +17,19 @@ function onAdditionalEffect(player,target,damage)
         stat = MOD_INT;
     end
 
+    -- Rasp effect
+    local resist = applyResistanceAbility(player, target, ELE_EARTH, SKILL_ARC, 0);
+    if (resist > 0.125) then
+        local power = getElementalDebuffDOT(player:getStat(stat));
+
+        -- Remove Shock
+        if (target:getStatusEffect(EFFECT_SHOCK) ~= nil) then
+            target:delStatusEffect(EFFECT_SHOCK);
+        end;
+
+        target:addStatusEffect(EFFECT_RASP,power, 3, 60 * resist,FLAG_ERASABLE);
+        target:setPendingMessage(277, EFFECT_RASP);
+    end
+
     return elementalArrowEffect(player, target, damage, ELE_EARTH, stat);
 end;

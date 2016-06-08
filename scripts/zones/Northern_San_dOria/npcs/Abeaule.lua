@@ -83,6 +83,16 @@ function traderReward(player)
     jsrReward(player, reward);
 end
 
+function medicineReward(player)
+    local reward = {
+        ["gil"] = 4500,
+        ["xp"] = 1000,
+        ["guild"] = {ALCH, 500},
+        ["item"] = 4616,
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -123,8 +133,7 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x0266) then
         player:addTitle(TRAVELING_MEDICINE_MAN); 
         player:delKeyItem(COLD_MEDICINE);
-        player:addGil(GIL_RATE*2100);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*2100);    
+        medicineReward(player);
         player:addFame(SANDORIA,30);
         player:completeQuest(SANDORIA,THE_MEDICINE_WOMAN);
     end

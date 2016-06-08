@@ -4,6 +4,7 @@
 --
 -----------------------------------
 require("scripts/globals/status");
+require("scripts/globals/utils");
 
     ABILITY_MIGHTY_STRIKES     = 0;
     ABILITY_HUNDRED_FISTS      = 1;
@@ -417,6 +418,22 @@ require("scripts/globals/status");
 
 function corsairSetup(caster, ability, action, effect, job)
     local roll = math.random(1,6);
+--    local win = caster:getLocalVar("storedStreak");
+--    if (win > 0) then
+--        if (win > 12) then
+--            roll = 11;
+--        else
+--            roll = win;
+--        end
+--
+--        caster:setLocalVar("storedStreak", 0);
+--    end
+    if (caster:getLocalVar("crookedCards") == 1) then
+        caster:setLocalVar("crookedCards", 0);
+        roll = 6;
+    end
+
+
     caster:delStatusEffectSilent(EFFECT_DOUBLE_UP_CHANCE);
     caster:addStatusEffectEx(EFFECT_DOUBLE_UP_CHANCE,
                              EFFECT_DOUBLE_UP_CHANCE, 
@@ -439,6 +456,30 @@ end
 function atMaxCorsairBusts(caster)
     local numBusts = caster:numBustEffects();
     return (numBusts >= 2 and caster:getMainJob() == JOBS.COR) or (numBusts >= 1 and caster:getMainJob() ~= JOBS.COR);
+end
+
+function handleWinningStreak(caster, lucky, unlucky, total)
+    local curStreak = caster:getLocalVar("winningStreak");
+    if (total > 11) then
+        curStreak = curStreak - 6;
+        caster:delTP(500);
+    elseif (total == 11) then
+        caster:addTP(50 + curStreak * 5);
+        curStreak = curStreak + 3;
+    elseif (total == 10) then
+        caster:addTP(40 + curStreak * 4);
+        curStreak = curStreak + 2;
+    elseif (total == lucky or total == 9) then
+        caster:addTP(30 + curStreak * 3);
+        curStreak = curStreak + 1;
+    elseif (total == unlucky) then
+        curStreak = curStreak - 1;
+    end
+
+    curStreak = utils.clamp(curStreak, 0, 20);
+
+    caster:setLocalVar("winningStreak", curStreak);
+    caster:SayToPlayer("Winning Streak: " .. tostring(curStreak));
 end
 
 function checkForJobBonus(caster, job)

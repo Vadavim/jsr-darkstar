@@ -81,6 +81,14 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 6500,
+        ["xp"] = 1500,
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -97,7 +105,7 @@ function onEventFinish(player,csid,option)
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA,SIGNED_IN_BLOOD);
             player:setVar("SIGNED_IN_BLOOD_Prog",0);
-            player:addGil(GIL_RATE*3500);
+            questReward(player);
             player:tradeComplete();
         else
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,14760);

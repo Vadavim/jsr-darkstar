@@ -5,8 +5,12 @@ SKILL CHANGES
  - A- Throwing
  - B+ Evasion
  - B- Parrying
+
 TRAIT CHANGES
  - Recycle chance increased to 25%.
+ - Alertness: also grants a +10 bonus to Evasion, Magic Evasion, Guard, Shield, and Parry
+ - Dead Aim is gained at levels 30, 55, and 65. It increases Crit Rate by +2%, +3%, and +4% respectively.
+ - Gains Bird and Beast Killer at level 35
 
 
 ABILITY CHANGES
@@ -19,7 +23,7 @@ ABILITY CHANGES
 
 [Camouflage]
  - Enmity reduction also works for subjobs.
- - Also grants 1 shadow when used. At level 45, grants 2 shadows.
+ - Also grants 2 shadows when used.
 
 [Decoy Shot]
  - Instead inflicts -40 ACC, MACC, EVA, and MEVA for 30 seconds.

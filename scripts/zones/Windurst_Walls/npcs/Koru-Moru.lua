@@ -153,6 +153,15 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function starReward(player)
+    local reward = {
+        ["gil"] = 800,
+        ["xp"] = 200,
+        ["guild"] = {GOLD, 150},
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -167,6 +176,7 @@ function onEventFinish(player,csid,option)
         player:addItem(12502);
         player:messageSpecial(ITEM_OBTAINED,12502);
         player:completeQuest(WINDURST,STAR_STRUCK);
+        starReward(player);
         player:needToZone(true);
         player:addFame(WINDURST,20);
     elseif (csid == 0x00c7) then

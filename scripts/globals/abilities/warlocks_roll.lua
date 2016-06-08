@@ -58,6 +58,10 @@ function applyRoll(caster,target,ability,action,total)
     local duration = 600 + caster:getMerit(MERIT_WINNING_STREAK)
     local effectpowers = {2, 3, 4, 12, 5, 6, 7, 1, 8, 9, 15, 5}
     local effectpower = effectpowers[total];
+    if (caster:getID() == target:getID()) then
+        handleWinningStreak(caster, 4, 8, total);
+    end
+
     if (caster:getLocalVar("corsairRollBonus") == 1 and total < 12) then
         effectpower = effectpower + 5
     end

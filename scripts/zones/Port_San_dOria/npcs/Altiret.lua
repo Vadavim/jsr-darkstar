@@ -88,14 +88,23 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 200,
+        ["gil"] = 800,
+        ["augment"] = {16667, 48, 9}
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
 
     -- "The Pickpocket" reward with light axe, done with quest
     if (csid == 0x0226) then
-        player:addItem(16667);
-        player:messageSpecial(6403, 16667);
+        questReward(player);
     end;
 end;
 

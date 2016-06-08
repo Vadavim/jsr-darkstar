@@ -17,5 +17,19 @@ function onAdditionalEffect(player,target,damage)
         stat = MOD_INT;
     end
 
+    -- Shock effect
+    local resist = applyResistanceAbility(player, target, ELE_THUNDER, SKILL_ARC, 0);
+    if (resist > 0.125) then
+        local power = getElementalDebuffDOT(player:getStat(stat));
+
+        -- Remove Drown
+        if (target:getStatusEffect(EFFECT_DROWN) ~= nil) then
+            target:delStatusEffect(EFFECT_DROWN);
+        end;
+
+        target:addStatusEffect(EFFECT_SHOCK,power, 3, 60 * resist,FLAG_ERASABLE);
+        target:setPendingMessage(277, EFFECT_SHOCK);
+    end
+
     return elementalArrowEffect(player, target, damage, ELE_THUNDER, stat);
 end;

@@ -98,6 +98,16 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 100,
+        ["guild"] = {ALCH, 50},
+        ["augment"] = {12832, 1, 4, 177, 19}, -- Bronze Subligar: HP +5, Poison Res +19
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option,npc)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -125,8 +135,7 @@ function onEventFinish(player,csid,option,npc)
         else
             player:tradeComplete();
             player:addTitle(RONFAURIAN_RESCUER);
-            player:addItem(12832);
-            player:messageSpecial(ITEM_OBTAINED,12832); -- Bronze Subligar
+            questReward(player);
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA,A_SENTRY_S_PERIL);
         end

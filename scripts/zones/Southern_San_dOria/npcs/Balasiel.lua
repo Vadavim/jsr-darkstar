@@ -99,6 +99,37 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 250,
+        ["guild"] = {ALCH, 100},
+        ["augment"] = {16565, 516, 1, 9, 7}
+    };
+    jsrReward(player, reward);
+end
+
+function questReward2(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 600,
+        ["gil"] = 1200,
+    };
+    jsrreward(player, reward);
+end
+
+function questReward3(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 900,
+        ["gil"] = 2500,
+        ["spark"] = 100,
+        ["augment"] = {12306, 517, 3, 9, 9}, --Kite Shield: +4 Mnd and +10 MP
+    };
+    jsrreward(player, reward);
+end
+
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -116,8 +147,6 @@ function onEventFinish(player,csid,option)
         if (player:getFreeSlotsCount(0) >= 1) then
             player:tradeComplete();
             player:addTitle(KNIGHT_IN_TRAINING);
-            player:addItem(16565);
-            player:messageSpecial(ITEM_OBTAINED, 16565); -- Spatha
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA,A_SQUIRE_S_TEST);
         else
@@ -131,6 +160,7 @@ function onEventFinish(player,csid,option)
         player:delKeyItem(STALACTITE_DEW);
         player:addKeyItem(SQUIRE_CERTIFICATE);
         player:messageSpecial(KEYITEM_OBTAINED, SQUIRE_CERTIFICATE);
+        questReward2(player);
         player:addFame(SANDORIA,30);
         player:completeQuest(SANDORIA,A_SQUIRE_S_TEST_II);
     elseif (csid == 0x0273) then
@@ -153,8 +183,7 @@ function onEventFinish(player,csid,option)
             player:delKeyItem(BOOK_OF_TASKS);
             player:delKeyItem(BOOK_OF_THE_WEST);
             player:delKeyItem(BOOK_OF_THE_EAST);
-            player:addItem(12306);
-            player:messageSpecial(ITEM_OBTAINED, 12306); -- Kite Shield
+            questReward3(player);
             player:unlockJob(7); --Paladin
             player:messageSpecial(UNLOCK_PALADIN);
             player:addFame(SANDORIA,30);

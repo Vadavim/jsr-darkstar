@@ -63,6 +63,15 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 200,
+        ["gil"] = 1200,
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -76,8 +85,7 @@ function onEventFinish(player,csid,option)
         player:addFame(SANDORIA,30);
         player:addTitle(LOST_CHILD_OFFICER);
         player:completeQuest(SANDORIA, THE_DISMAYED_CUSTOMER);
-        player:addGil(560*GIL_RATE);
-        player:messageSpecial(GIL_OBTAINED,560*GIL_RATE);
+        questReward(player);
     end;
     
 end;

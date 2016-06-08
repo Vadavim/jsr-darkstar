@@ -77,6 +77,24 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function wardingVampiresReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 1200,
+        ["guild"] = {COOK, 50},
+        ["item"] = 4258 -- Red Drop
+    };
+    if (firstTime) then
+        reward = {
+            ["gil"] = 2500,
+            ["guild"] = {COOK, 250},
+            ["item"] = 4258 -- Red Drop
+        };
+    end
+
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -86,13 +104,13 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x0017) then
         player:tradeComplete();
         player:addTitle(VAMPIRE_HUNTER_DMINUS);
-        player:addGil(GIL_RATE*900);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*900);
         if (player:getQuestStatus(SANDORIA,WARDING_VAMPIRES) == QUEST_ACCEPTED) then
+            wardingVampiresReward(player, true);
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA,WARDING_VAMPIRES);
         else
             player:addFame(SANDORIA,5);
+            wardingVampiresReward(player, false);
         end
     elseif (csid == 0x0327) then
         player:setMaskBit(player:getVar("WildcatSandy"),"WildcatSandy",7,true);

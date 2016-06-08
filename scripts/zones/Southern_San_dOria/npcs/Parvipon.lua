@@ -66,6 +66,21 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 180,
+        ["guild"] = {LEAT, 40},
+    };
+    if (firstTime) then
+        reward = {
+            ["gil"] = 800,
+            ["guild"] = {LEAT, 100},
+        };
+    end
+
+    jsrReward(player, reward);
+end
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -74,13 +89,13 @@ function onEventFinish(player,csid,option)
         player:addQuest(SANDORIA,THE_MERCHANT_S_BIDDING);
     elseif (csid == 0x59) then
         player:tradeComplete();
-        player:addGil(GIL_RATE*120);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*120);
         if (player:getQuestStatus(SANDORIA,THE_MERCHANT_S_BIDDING) == QUEST_ACCEPTED) then
             player:addFame(SANDORIA,30);
+            questReward(player, true);
             player:completeQuest(SANDORIA,THE_MERCHANT_S_BIDDING);
         else
             player:addFame(SANDORIA,5);
+            questReward(player, false);
         end
     end
     

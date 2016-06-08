@@ -27,7 +27,7 @@ function onSpellCast(caster,target,spell)
 --JSR: increased DOT and duration for Poison
     local dINT = (pINT - mINT);
     local power = caster:getSkillLevel(ENFEEBLING_MAGIC_SKILL) / 15 + 1;
-    if power > 8 then
+    if power > 10 then
         power = 10;
     end
     

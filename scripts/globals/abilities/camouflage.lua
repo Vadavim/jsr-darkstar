@@ -31,4 +31,6 @@ function onUseAbility(player,target,ability)
         duration = duration * 1.5;
     end
     player:addStatusEffect(EFFECT_CAMOUFLAGE,1,0,(math.floor(duration) * SNEAK_INVIS_DURATION_MULTIPLIER));
+    target:addStatusEffectEx(EFFECT_COPY_IMAGE, EFFECT_COPY_IMAGE_2, 2, 0, 60);
+    target:setMod(MOD_UTSUSEMI, 2);
 end;

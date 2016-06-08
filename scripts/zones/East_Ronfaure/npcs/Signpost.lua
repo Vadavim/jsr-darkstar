@@ -22,6 +22,17 @@ end;
 -- onTrigger Action
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 1200,
+        ["gil"] = 5000,
+        ["guild"] = {ALCH, 250},
+        ["item"] = 4627, -- Scroll of Viruna
+    };
+    jsrReward(player, reward);
+end
+
 function onTrigger(player,npc)
 
     local X = player:getXPos();
@@ -31,8 +42,7 @@ function onTrigger(player,npc)
         if (player:hasKeyItem(SCROLL_OF_TREASURE) == true) then
             player:startEvent(20);
             player:delKeyItem(SCROLL_OF_TREASURE);
-            player:addGil(GIL_RATE*3000);
-            player:messageSpecial(GIL_OBTAINED,GIL_RATE*3000);
+            questReward(player);
         else
             player:startEvent(5);        
         end

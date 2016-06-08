@@ -51,6 +51,26 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 200,
+        ["gil"] = 950,
+        ["guild"] = {BONE, 65},
+        ["item"] = 4262 -- Purple Drop
+    };
+    if (firstTime) then
+        reward = {
+            ["xp"] = 400,
+            ["gil"] = 2600,
+            ["guild"] = {BONE, 300},
+            ["item"] = 4262 -- Purple Drop
+        };
+    end
+
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -63,14 +83,14 @@ function onEventFinish(player,csid,option)
         if (player:getQuestStatus(SANDORIA,THICK_SHELLS) == QUEST_ACCEPTED) then
             player:completeQuest(SANDORIA,THICK_SHELLS);
             player:addFame(SANDORIA,30);
+            questReward(player, true);
         else
             player:addFame(SANDORIA,5);
+            questReward(player, false);
         end
 
         player:tradeComplete();
         player:addTitle(BUG_CATCHER);
-        player:addGil(GIL_RATE*750);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*750)
     end
     
 end;

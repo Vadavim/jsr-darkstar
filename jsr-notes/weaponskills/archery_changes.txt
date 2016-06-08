@@ -1,6 +1,7 @@
-[Burning Arrow]
+[Flaming Arrow]
  - On a hit, inflicts Burn Duration varies with TP (60 at 1000 to 180 at 3000).
- - Modifiers changed to Agi 40% and Mnd 80%
+ - If Fire Arrow is used, Burn damage and weaponskill damage is increased.
+ - Modifiers changed to Agi 50% and Mnd 80%
  - fTP changed to 1 (1000), 2.5 (2000), 4 (3000)
 
 [Piercing Arrow]

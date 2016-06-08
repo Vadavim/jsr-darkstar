@@ -53,6 +53,16 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 500,
+        ["guild"] = {SMIT, 250},
+        ["augment"] = {16706, 47, 7, 25, 14, 41, 4}, --Heavy Axe
+        ["item"] = 4778
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -62,13 +72,12 @@ function onEventFinish(player,csid,option)
         player:addQuest(SANDORIA,TROUBLE_AT_THE_SLUICE);
         player:setVar("troubleAtTheSluiceVar",1);
     elseif (csid == 0x0038) then
-        if (player:getFreeSlotsCount() == 0) then 
+        if (player:getFreeSlotsCount() <= 1) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,16706); -- Heavy Axe
         else
             player:tradeComplete();
             player:delKeyItem(NEUTRALIZER);
-            player:addItem(16706);
-            player:messageSpecial(ITEM_OBTAINED,16706); -- Heavy Axe
+            questReward(player);
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA,TROUBLE_AT_THE_SLUICE);
         end

@@ -27,11 +27,36 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.atkmulti = 1;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.ftp100 = 0.5; params.ftp200 = 0.75; params.ftp300 = 1;
-        params.str_wsc = 0.2; params.agi_wsc = 0.5;
+        params.ftp100 = 1.0; params.ftp200 = 2.5; params.ftp300 = 4;
+        params.str_wsc = 0.0; params.agi_wsc = 0.5; params.mnd_wsc = 0.8;
+    end
+
+    local isFireArrow = player:getEquipID(SLOT_AMMO) == 17322;
+
+    -- add Burn
+    local resist = applyResistanceWeaponskill(player, target, ELE_FIRE, SKILL_ARC);
+    if (damage > 0 and resist > 0.125)then
+        local DOT = math.floor(player:getMainLvl()/4) + 2;
+        if (isFireArrow) then
+            DOT = math.floor(DOT * 1.5);
+        end
+
+        local duration = (60 * (player:getTP() / 100));
+
+        -- Remove Frost
+        if (target:getStatusEffect(EFFECT_FROST) ~= nil) then
+            target:delStatusEffect(EFFECT_FROST);
+        end;
+
+        target:addStatusEffect(EFFECT_BURN, DOT, 3, duration * resist,FLAG_ERASABLE);
+        target:setPendingMessage(277, EFFECT_BURN);
     end
 
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
+    if (isFireArrow) then
+        damage = math.floor(damage * 1.33);
+    end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

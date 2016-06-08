@@ -3,7 +3,7 @@
 -- desc: Gives the GM or target player experience points.
 ---------------------------------------------------------------------------------------------------
 
-require("scripts/zones/Northern_San_dOria/npcs/Olbergieut");
+require("scripts/zones/Northern_San_dOria/npcs/Belgidiveau");
 cmdprops =
 {
     permission = 1,

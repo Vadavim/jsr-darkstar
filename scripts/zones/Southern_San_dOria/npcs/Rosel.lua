@@ -68,6 +68,16 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 100,
+        ["gil"] = 800,
+        ["guild"] = {SMIT, 50},
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
 --printf("CSID: %u",csid);
 --printf("RESULT: %u",option);
@@ -80,9 +90,9 @@ function onEventFinish(player,csid,option)
         player:messageSpecial(KEYITEM_OBTAINED,RECEIPT_FOR_THE_PRINCE);
     -- Rosel the Armorer, finished quest, recieve 200gil
     elseif (csid == 0x020f) then
+        questReward(player);
         npcUtil.completeQuest(player, SANDORIA, ROSEL_THE_ARMORER, {
-            title= ENTRANCE_DENIED,
-            gil= 200
+            title= ENTRANCE_DENIED
             });
     end
 

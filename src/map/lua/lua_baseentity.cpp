@@ -7028,6 +7028,33 @@ inline int32 CLuaBaseEntity::addRecast(lua_State* L)
     return 0;
 }
 
+//inline int32 CLuaBaseEntity::addRecastRange(lua_State* L)
+//{
+//    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+//    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+//    DSP_DEBUG_BREAK_IF(lua_isnil(L, 2) || !lua_isnumber(L, 2));
+//    DSP_DEBUG_BREAK_IF(lua_isnil(L, 3) || !lua_isnumber(L, 3));
+//
+//    if (m_PBaseEntity->objtype == TYPE_PC)
+//    {
+//        CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+//
+//        RECASTTYPE recastContainer = (RECASTTYPE)lua_tointeger(L, 1);
+//        uint16 start = lua_tointeger(L, 2);
+//        uint16 stop = lua_tointeger(L, 3);
+//
+//        for (int i = start; i < stop; i++) {
+//            if(PChar->PRecastContainer->Has(recastContainer, i))
+//                continue;
+//            PChar->PRecastContainer->Add(recastContainer, i, 60);
+//        }
+//
+//        PChar->pushPacket(new CCharSkillsPacket(PChar));
+//        PChar->pushPacket(new CCharRecastPacket(PChar));
+//    }
+//    return 0;
+//}
+
 
 /***************************************************************
   Attempts to register a BCNM or Dynamis battlefield.
@@ -10672,7 +10699,18 @@ inline int32 CLuaBaseEntity::setPendingMessage(lua_State* L)
     CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
 	PEntity->SetLocalVar("PendingEffectID", message);
 	PEntity->SetLocalVar("PendingEffectParam", param);
-    
+
+    action_t action;
+    action.id = PEntity->id;
+
+    actionList_t& actionList = action.getNewActionList();
+    actionList.ActionTargetID = PEntity->id;
+
+    actionTarget_t& actionTarget = actionList.getNewActionTarget();
+    actionTarget.messageID = message;
+    actionTarget.param = param;
+    PEntity->loc.zone->PushPacket(PEntity, CHAR_INRANGE_SELF, new CActionPacket(action));
+
 //	/*
 //	if (PEntity->PPendingAction != nullptr)
 //        return 0;
@@ -11221,5 +11259,6 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setPendingMessage),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNearbyEntities),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,pushSkillchain),
+//    LUNAR_DECLARE_METHOD(CLuaBaseEntity,addRecastRange),
     {nullptr,nullptr}
 };

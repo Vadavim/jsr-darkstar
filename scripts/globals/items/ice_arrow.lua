@@ -17,5 +17,19 @@ function onAdditionalEffect(player,target,damage)
         stat = MOD_INT;
     end
 
+    -- Frost effect
+    local resist = applyResistanceAbility(player, target, ELE_FROST, SKILL_ARC, 0);
+    if (resist > 0.125) then
+        local power = getElementalDebuffDOT(player:getStat(stat));
+
+        -- Remove Choke
+        if (target:getStatusEffect(EFFECT_CHOKE) ~= nil) then
+            target:delStatusEffect(EFFECT_CHOKE);
+        end;
+
+        target:addStatusEffect(EFFECT_FROST,power, 3, 60 * resist,FLAG_ERASABLE);
+        target:setPendingMessage(277, EFFECT_FROST);
+    end
+
     return elementalArrowEffect(player, target, damage, ELE_ICE, stat);
 end;

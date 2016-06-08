@@ -30,6 +30,38 @@ end;
 -- onTrade Action
 -----------------------------------
 
+function oneReward(player)
+    local reward = {
+        ["gil"] = 150,
+        ["xp"] = 50,
+    };
+    jsrReward(player, reward);
+end
+
+function twoReward(player)
+    local reward = {
+        ["gil"] = 400,
+        ["xp"] = 100,
+    };
+    jsrReward(player, reward);
+end
+
+function threeReward(player)
+    local reward = {
+        ["gil"] = 750,
+        ["xp"] = 200,
+    };
+    jsrReward(player, reward);
+end
+
+function fourReward(player)
+    local reward = {
+        ["gil"] = 1500,
+        ["xp"] = 400,
+    };
+    jsrReward(player, reward);
+end
+
 function onTrade(player,npc,trade)
     QuestStatus = player:getQuestStatus(WINDURST,THE_POSTMAN_ALWAYS_KO_S_TWICE);
 
@@ -92,39 +124,39 @@ function onEventFinish(player,csid,option)
         player:addQuest(WINDURST,THE_POSTMAN_ALWAYS_KO_S_TWICE);
     elseif (csid == 0x0034) then
         player:tradeComplete();
-        player:addGil(GIL_RATE*50);
+        oneReward(player);
         player:addFame(WINDURST,80);
         player:completeQuest(WINDURST,THE_POSTMAN_ALWAYS_KO_S_TWICE);
     elseif (csid == 0x0035) then
         player:tradeComplete();
-        player:addGil(GIL_RATE*150);
+        twoReward(player);
         player:addFame(WINDURST,80);
         player:completeQuest(WINDURST,THE_POSTMAN_ALWAYS_KO_S_TWICE);
     elseif (csid == 0x0036) then
         player:tradeComplete();
-        player:addGil(GIL_RATE*250);
+        threeReward(player);
         player:addFame(WINDURST,80);
         player:completeQuest(WINDURST,THE_POSTMAN_ALWAYS_KO_S_TWICE);
     elseif (csid == 0x0037) then
         player:tradeComplete();
-        player:addGil(GIL_RATE*500);
+        fourReward(player);
         player:addFame(WINDURST,80);
         player:completeQuest(WINDURST,THE_POSTMAN_ALWAYS_KO_S_TWICE);
     elseif (csid == 0x0039) then
         player:tradeComplete();
-        player:addGil(GIL_RATE*50);
+        oneReward(player);
         player:addFame(WINDURST,5);
     elseif (csid == 0x003a) then
         player:tradeComplete();
-        player:addGil(GIL_RATE*150);
+        twoReward(player);
         player:addFame(WINDURST,15);
     elseif (csid == 0x003b) then
         player:tradeComplete();
-        player:addGil(GIL_RATE*250);
+        threeReward(player);
         player:addFame(WINDURST,25);
     elseif (csid == 0x003c) then
         player:tradeComplete();
-        player:addGil(GIL_RATE*500);
+        fourReward(player);
         player:addFame(WINDURST,50);
     end
 end;

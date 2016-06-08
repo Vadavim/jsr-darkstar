@@ -421,7 +421,7 @@ function swords2(player, points)
         16618,  8900,    --Mailbreaker +1
         17641,  9500,    --Gold Sword +1
         17636,  10100,    --Jagdplaute +1
-        16620,  10700,    --Merman's Sword
+        16548,  10700,    --Coral Sword
         17662,  11600,    --Company Sword
         16563,  11600,    --Rune Blade
         17719,  12100,    --Rune Blade
@@ -437,6 +437,7 @@ function swords2Ex(player, points)
         17634,  13200, {SMIT},    --Wasp Fleuret
         17677,  14000, {SMIT},    --Tact Espadon +2
         17714,  15200, {SMIT},    --Macuahuitl +1
+        16620,  15800, {SMIT},    --Merman's Sword
         17637,  16500, {SMIT},    --Wing Sword +1
         17712,  18500, {SMIT},    --Kaskara +1
         17656,  19800, {SMIT},    --Verdun +1

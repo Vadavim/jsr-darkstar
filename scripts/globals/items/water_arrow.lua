@@ -17,5 +17,19 @@ function onAdditionalEffect(player,target,damage)
         stat = MOD_INT;
     end
 
+    -- Drown effect
+    local resist = applyResistanceAbility(player, target, ELE_WATER, SKILL_ARC, 0);
+    if (resist > 0.125) then
+        local power = getElementalDebuffDOT(player:getStat(stat));
+
+        -- Remove Burn
+        if (target:getStatusEffect(EFFECT_BURN) ~= nil) then
+            target:delStatusEffect(EFFECT_BURN);
+        end;
+
+        target:addStatusEffect(EFFECT_DROWN,power, 3, 60 * resist,FLAG_ERASABLE);
+        target:setPendingMessage(277, EFFECT_DROWN);
+    end
+
     return elementalArrowEffect(player, target, damage, ELE_WATER, stat);
 end;

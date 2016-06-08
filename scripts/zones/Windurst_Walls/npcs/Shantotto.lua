@@ -127,19 +127,50 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function cursesReward(player)
+    local reward = {
+        ["gil"] = 800,
+        ["xp"] = 300,
+        ["item"] = 4768, -- Stone II
+        ["guild"] = {BONE, 250},
+        ["augment"] = {17081, 25, 5}, -- Brass Rod: Attack +6
+    };
+    jsrReward(player, reward);
+end
+
+function cursesReward2(player)
+    local reward = {
+        ["gil"] = 1500,
+        ["xp"] = 600,
+        ["guild"] = {ALCH, 250},
+        ["item"] = 4753, -- Fire II
+        ["augment"] = {17116, 25, 5}, -- Misery Staff: Attack +10
+    };
+    jsrReward(player, reward);
+end
+
+function golemReward(player)
+    local reward = {
+        ["gil"] = 5500,
+        ["xp"] = 1400,
+        ["guild"] = {ALCH, 600},
+        ["item"] = 4870, -- Warp II
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
     if (csid == 0xad) then
-        if (player:getFreeSlotsCount() == 0) then 
+        if (player:getFreeSlotsCount() <= 1) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,17081); 
         else
             player:tradeComplete();
             player:setVar("CursesFoiledAgainDay",VanadielDayOfTheYear());
             player:setVar("CursesFoiledAgainYear",VanadielYear());
             player:addFame(WINDURST,80);
-            player:addItem(17081);
-            player:messageSpecial(ITEM_OBTAINED,17081);
+            cursesReward(player);
             player:completeQuest(WINDURST,CURSES_FOILED_AGAIN_1);
         end
     
@@ -160,13 +191,12 @@ function onEventFinish(player,csid,option)
         player:setTitle(TARUTARU_MURDER_SUSPECT);
     
     elseif (csid == 0x00B7) then
-        if (player:getFreeSlotsCount() == 0) then 
+        if (player:getFreeSlotsCount() <= 1) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,17116); 
         else
             player:tradeComplete();
             player:setTitle(HEXER_VEXER);
-            player:addItem(17116);
-            player:messageSpecial(ITEM_OBTAINED,17116);
+            cursesReward2(player);
             player:completeQuest(WINDURST,CURSES_FOILED_AGAIN_2);
             player:needToZone(true);
             player:addFame(WINDURST,90);
@@ -185,8 +215,7 @@ function onEventFinish(player,csid,option)
         else
             player:completeQuest(WINDURST,CURSES_FOILED_A_GOLEM);
             player:setVar("foiledagolemdeliverycomplete",0);
-            player:addItem(4870);
-            player:messageSpecial(ITEM_OBTAINED,4870);
+            golemReward(player);
             player:setTitle(DOCTOR_SHANTOTTOS_FLAVOR_OF_THE_MONTH);
             player:addFame(WINDURST,120);
         end

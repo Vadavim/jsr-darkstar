@@ -83,6 +83,16 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function gardenReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 1500,
+        ["gil"] = 5500,
+        ["guild"] = {WOOD, 500},
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);

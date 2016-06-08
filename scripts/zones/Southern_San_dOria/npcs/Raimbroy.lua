@@ -79,6 +79,25 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 500,
+        ["xp"] = 50,
+        ["guild"] = {ALCH, 50},
+    };
+    jsrReward(player, reward);
+end
+
+function questRewardFirst(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 1200,
+        ["xp"] = 250,
+        ["guild"] = {ALCH, 200},
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -100,11 +119,12 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x0217) then
         player:tradeComplete();
         player:addTitle(APIARIST);
-        player:addGil(GIL_RATE*400);
         if (player:getQuestStatus(SANDORIA, THE_SWEETEST_THINGS) == QUEST_ACCEPTED) then
             player:addFame(SANDORIA,30);
+            questRewardFirst(player);
             player:completeQuest(SANDORIA, THE_SWEETEST_THINGS);
         else
+            questReward(player);
             player:addFame(SANDORIA, 5);
         end
     end

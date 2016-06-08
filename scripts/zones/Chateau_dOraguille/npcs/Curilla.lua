@@ -85,6 +85,17 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 1000,
+        ["gil"] = 3000,
+        ["beast"] = 2,
+        ["augment"] = {16409, 1, 19, 326, 9}
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -94,12 +105,11 @@ function onEventFinish(player,csid,option)
         player:addKeyItem(CURILLAS_BOTTLE_EMPTY);
         player:messageSpecial(KEYITEM_OBTAINED,CURILLAS_BOTTLE_EMPTY);
     elseif (csid == 0x0036) then 
-        if (player:getFreeSlotsCount() == 0) then 
+        if (player:getFreeSlotsCount() >= 2) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,16409); -- Lynx Baghnakhs
         else
             player:delKeyItem(CURILLAS_BOTTLE_FULL);
-            player:addItem(16409);
-            player:messageSpecial(ITEM_OBTAINED,16409); -- Lynx Baghnakhs
+            questReward(player);
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA,THE_GENERAL_S_SECRET);
         end

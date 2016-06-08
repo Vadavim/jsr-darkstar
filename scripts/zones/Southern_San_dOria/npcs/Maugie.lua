@@ -62,6 +62,16 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 800,
+        ["gil"] = 3500,
+        ["beast"] = 2,
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -70,8 +80,7 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x002c) then
         player:setVar("CleanSignPost",0);
         player:addFame(SANDORIA,30);
-        player:addGil(GIL_RATE*1500);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*1500);
+        questReward(player);
         player:completeQuest(SANDORIA,GRIMY_SIGNPOSTS);
     end
 end;

@@ -59,6 +59,24 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 3200,
+        ["xp"] = 300,
+        ["guild"] = {BONE, 6300},
+    };
+    if (firstTime) then
+        reward = {
+            ["gil"] = 6000,
+            ["xp"] = 1000,
+            ["guild"] = {BONE, 600},
+        };
+    end
+
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -68,13 +86,13 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x023c) then
         player:tradeComplete();
         player:addTitle(FANG_FINDER);
-        player:addGil(GIL_RATE*2100);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*2100)
         if (player:getQuestStatus(SANDORIA,TIGER_S_TEETH) == QUEST_ACCEPTED) then
             player:addFame(SANDORIA,30);
+            questReward(player, true);
             player:completeQuest(SANDORIA,TIGER_S_TEETH);
         else
             player:addFame(SANDORIA,5);
+            questReward(player, false);
         end
     end
 

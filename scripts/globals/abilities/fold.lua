@@ -27,9 +27,15 @@ end;
 
 function onUseAbility(player,target,ability)
     target:fold();
+    local win = player:getLocalVar("winningStreak");
+    if (win > 0) then
+        player:setLocalVar("storedStreak", win);
+        player:addTP(win * 50);
+    end
+    player:setLocalVar("winningStreak", 0);
 
     local merit = target:getMerit(MERIT_FOLD);
-    merit = merit - 10;
+    merit = merit;
     
     if (math.random(0, 99) < merit) then
         target:resetRecast(RECAST_ABILITY,193);

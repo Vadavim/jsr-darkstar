@@ -55,6 +55,9 @@ function onUseAbility(caster,target,ability,action)
         corsairSetup(caster, ability, action, EFFECT_CORSAIRS_ROLL, JOBS.COR);
     end
     local total = caster:getLocalVar("corsairRollTotal")
+    if (caster:getID() == target:getID()) then
+        handleWinningStreak(caster, 5, 9, total);
+    end
     return applyRoll(caster,target,ability,action,total)
 end;
 
@@ -63,6 +66,10 @@ function applyRoll(caster,target,ability,action,total)
     local duration = 600 + caster:getMerit(MERIT_WINNING_STREAK)
     local effectpowers = {10, 11, 11, 12, 20, 13, 15, 16, 8, 17, 24, 6};
     local effectpower = effectpowers[total];
+    if (caster:getID() == target:getID()) then
+        handleWinningStreak(caster, 5, 9, total);
+    end
+
     if (caster:getMainJob() == JOBS.COR and caster:getMainLvl() < target:getMainLvl()) then
         effectpower = effectpower * (caster:getMainLvl() / target:getMainLvl());
     elseif (caster:getSubJob() == JOBS.COR and caster:getSubLvl() < target:getMainLvl()) then

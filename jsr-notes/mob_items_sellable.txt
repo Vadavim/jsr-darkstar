@@ -2,3 +2,6 @@
 The following quest items can now be sold.
 
 Engraved Key: 3500 gil
+Mary's Milk: 1500 gil (Cooking)
+Lufet Salt: 200 gil (Cooking)
+Meteorite: 500 gil (Goldsmithing)

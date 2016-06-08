@@ -74,6 +74,16 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 1200,
+        ["xp"] = 350,
+        ["guild"] = {BONE, 100},
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -91,8 +101,7 @@ function onEventFinish(player,csid,option)
         player:tradeComplete();
         player:setVar("OfferingWaterOK",0);
         player:addTitle(ROYAL_GRAVE_KEEPER);
-        player:addGil(GIL_RATE*560);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*560)
+        questReward(player);
         player:addFame(SANDORIA,30);
         player:completeQuest(SANDORIA,GRAVE_CONCERNS);
     end

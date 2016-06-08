@@ -1,11 +1,29 @@
 SKILL CHANGES
+Dagger: A-
+Sword: B+
+Evasion: C+
+Marksmanship: B+
+
 
 TRAIT CHANGES
 
+Tactical Parry at level 20, 40, and 60
+
 ABILITY CHANGES
 
+[Winning Streak]
+ - A running total, Winning Streak, is kept track of after each roll.
+ - If an 11 is rolled, +2 points.
+ - If a 10 is rolled or if the Lucky number is rolled, +1 point.
+ - If the Unlucky number is rolled, -1 point.
+ - On a bust, all points are lost.
+ - A maximum of 20 points can be earned.
+
+Various abilities make use of Winning Streak.
+The Loaded Deck merit trait now instead affects Winning Streak by giving a chance to double the amount of Winning Streak points earned.
+
 [Double-Up]
- - Recast tim: 8 -> 5 Seconds
+ - Recast time: 8 -> 5 Seconds
 
 [Rolls]
  - Duration: 5 -> 10 Minutes
@@ -19,9 +37,34 @@ ABILITY CHANGES
  - Increases potency of associated elemental status effects by 33%
  - Boosts all associated elemental status effects (instead of just 1)
 
+[Random Deal]
+ - Now instead grants random beneficial status effects (chosen from a large list) for 5 minutes. Recast is 10 minutes.
+ - Base chance for each status effect is 10%, +1% per 2 Winning Streak points
+ - Random Deal Recast Merit: 40 -> 20 seconds reduction per point
+
+[Fold]
+ - Now gained at level 25 (merit point bonuses updated accordingly.)
+ - When Fold is used, all Winning Streak points are converted into TP (50 TP per point).
+
+[Snake Eyes]
+ - Now gained at level 35.
+
+[Crooked Cards]
+ - Now gained at level 60. Recast is 5 minutes.
+ - When used, next roll will automatically be a 6. 
+ - Recast ID currently unknown (i.e. you won't see the recast timer update)
+
+[Cutting Cards]
+ - Now gained at level 70. Recast is 5 minutes.
+ - When used, the next time Double-Up is used, the current total is halved, rounded down (instead of a roll being added).
+	- For instead, if you had 10, and used Cutting Cards and then Double-Up, then your total would be reduced to 5. 
+ - Recast is not shown
+
+
 
 [Triple Shot]
  - Gained at level 35
+
 
 
 --------------

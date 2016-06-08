@@ -113,6 +113,54 @@ end;
 -- onEventFinish
 -----------------------------------
 
+function seamstressReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 250,
+        ["guild"] = {LEAT, 50},
+        ["augment"] = {12696, 1, 4, 771, 4, 769, 4}, -- Leather Gloves (+5 HP, +5 Earth and Ice Res)
+    };
+
+    if (firstTime) then
+        reward = {
+            ["gil"] = 800,
+            ["guild"] = {LEAT, 200},
+            ["augment"] = {12696, 1, 4, 771, 4, 769, 4}, -- Leather Gloves (+5 HP, +5 Earth and Ice Res)
+        };
+    end
+
+    jsrReward(player, reward);
+end
+
+function lizardReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 350,
+        ["guild"] = {LEAT, 65},
+        ["augment"] = {12697, 1, 5, 771, 8, 769, 8}, -- Lizard Gloves (+6 HP, +15 Earth and Ice Res)
+    };
+
+    if (firstTime) then
+        reward = {
+            ["gil"] = 1200,
+            ["guild"] = {LEAT, 250},
+            ["augment"] = {12697, 1, 5, 771, 8, 769, 8}, -- Lizard Gloves (+6 HP, +15 Earth and Ice Res)
+        };
+    end
+
+    jsrReward(player, reward);
+end
+
+function tigerReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 3500,
+        ["xp"] = 1200,
+        ["guild"] = {LEAT, 850},
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -127,13 +175,13 @@ function onEventFinish(player,csid,option)
         else
             player:tradeComplete();
             player:addTitle(SILENCER_OF_THE_LAMBS);
-            player:addItem(12696);
-            player:messageSpecial(ITEM_OBTAINED, 12696); -- Leather Gloves
             if (player:getQuestStatus(SANDORIA,THE_SEAMSTRESS) == QUEST_ACCEPTED) then
                 player:addFame(SANDORIA,30);
                 player:completeQuest(SANDORIA,THE_SEAMSTRESS);
+                seamstressReward(player, true);
             else
                 player:addFame(SANDORIA,5);
+                seamstressReward(player, false);
             end
         end
     
@@ -147,13 +195,13 @@ function onEventFinish(player,csid,option)
         else
             player:tradeComplete();
             player:addTitle(LIZARD_SKINNER);
-            player:addItem(12697);
-            player:messageSpecial(ITEM_OBTAINED, 12697); -- Lizard Gloves
             if (player:getQuestStatus(SANDORIA,LIZARD_SKINS) == QUEST_ACCEPTED) then
                 player:addFame(SANDORIA,30);
                 player:completeQuest(SANDORIA,LIZARD_SKINS);
+                lizardReward(player, true);
             else
                 player:addFame(SANDORIA,5);
+                lizardReward(player, false);
             end
         end
         
@@ -170,6 +218,7 @@ function onEventFinish(player,csid,option)
             player:addItem(13119);
             player:messageSpecial(ITEM_OBTAINED, 13119); -- Tyger Stole
             player:addFame(SANDORIA,30);
+            tigerReward(player);
             player:completeQuest(SANDORIA,BLACK_TIGER_SKINS);
         end
     end

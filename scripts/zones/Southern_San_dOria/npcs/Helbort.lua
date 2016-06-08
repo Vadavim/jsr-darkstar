@@ -50,9 +50,21 @@ end;
 -----------------------------------
 -- onEventFinish Action
 -----------------------------------
+
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 200,
+        ["beast"] = 1,
+        ["augment"] = {17090, 512, 1, 25, 1}, -- Elm Staff (+2 STR and Attack)
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
 --print("CSID:",csid);
---print("RESULT:",option); 
+--print("RESULT:",option);
+
 
     if (csid == 0x0252 and option == 0) then
         player:addQuest(SANDORIA, A_PURCHASE_OF_ARMS);
@@ -64,8 +76,7 @@ function onEventFinish(player,csid,option)
         else
             player:addTitle(ARMS_TRADER);
             player:delKeyItem(WEAPONS_RECEIPT);
-            player:addItem(17090); 
-            player:messageSpecial(ITEM_OBTAINED,17090); -- Elm Staff
+            questReward(player);
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA, A_PURCHASE_OF_ARMS);
         end

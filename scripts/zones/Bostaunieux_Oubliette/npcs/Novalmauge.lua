@@ -106,6 +106,16 @@ end;
 -- onEventFinish
 -----------------------------------
 
+
+function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 500,
+        ["guild"] = {ALCH, 250},
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option,npc)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -126,6 +136,7 @@ function onEventFinish(player,csid,option,npc)
             player:tradeComplete();
             player:addItem(4853);
             player:messageSpecial(ITEM_OBTAINED, 4853); -- Scroll of Drain
+            questReward(player);
 
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA,THE_RUMOR);

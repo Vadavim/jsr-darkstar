@@ -70,7 +70,7 @@ function onUseAbility(player,target,ability)
     local duration = TPGain * 2;
 
     player:delStatusEffect(EFFECT_REGAIN);
-    player:addStatusEffect(EFFECT_REGAIN, 50, 3, duration);
+    player:addStatusEffect(EFFECT_REGAIN, 5, 3, duration);
     ability:setMsg(230);
 
 --    player:addTP(TPGain);
