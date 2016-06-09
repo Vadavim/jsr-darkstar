@@ -19,21 +19,27 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local params = {};
     params.numHits = 1;
-    params.ftp100 = 1; params.ftp200 = 1; params.ftp300 = 1;
-    params.str_wsc = 0.0; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.3; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
-    params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
-    params.canCrit = false;
+    params.ftp100 = 1.7; params.ftp200 = 1.7; params.ftp300 = 1.7;
+    params.str_wsc = 0.0; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
+    params.crit100 = 0.20; params.crit200 = 0.50; params.crit300 = 0.95;
+    params.canCrit = true;
     params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
     params.atkmulti = 1;
+    params.bonusACC = 30;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.agi_wsc = 0.7;
+        params.int_wsc = 1.5;
     end
 
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
 
     if (damage > 0 and target:hasStatusEffect(EFFECT_INT_DOWN) == false) then
-        target:addStatusEffect(EFFECT_INT_DOWN, 10, 0, 140);
+        target:addStatusEffect(EFFECT_INT_DOWN, 20, 0, 120);
+        target:setPendingMessage(277, EFFECT_INT_DOWN);
+    end
+    local system = target:getSystem();
+    if (system == SYSTEM_BEASTMEN or system == SYSTEM_HUMANOID) then
+        damage = math.floor(damage * 1.33);
     end
     return tpHits, extraHits, criticalHit, damage;
 

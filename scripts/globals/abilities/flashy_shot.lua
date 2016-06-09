@@ -1,9 +1,5 @@
 -----------------------------------
--- Ability: Super Jump
--- Performs a super jump.
--- Obtained: Dragoon Level 50
--- Recast Time: 3:00
--- Duration: Instant
+-- Ability: Flashy Shot
 -----------------------------------
 
 require("scripts/globals/settings");
@@ -22,9 +18,7 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    if (target:isMob()) then
-        local enmityShed = 100
-        target:lowerEnmity(player, enmityShed);
-    end
-    target:addStatusEffect(EFFECT_CHAINBOUND,1,0,15);
+    local bonus = player:getMerit(MERIT_FLASHY_SHOT);
+    player:addStatusEffect(EFFECT_FLASHY_SHOT,10 + bonus,0,180);
+    return EFFECT_FLASHY_SHOT;
 end;

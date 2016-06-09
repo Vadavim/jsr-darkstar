@@ -19,7 +19,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local params = {};
     params.numHits = 1;
-    params.ftp100 = 3; params.ftp200 = 3; params.ftp300 = 3;
+    params.ftp100 = 2.5; params.ftp200 = 2.5; params.ftp300 = 2.5;
     params.str_wsc = 0.0; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.6; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
     params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
     params.canCrit = false;
@@ -34,9 +34,11 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     if (damage > 0) then
         local duration = (tp/1000 * 60)
-        if (target:hasStatusEffect(EFFECT_PARALYSIS) == false) then
-            target:addStatusEffect(EFFECT_PARALYSIS, 30, 0, duration);
+        local resist = applyResistanceWeaponskill(player, target, params, ELE_ICE, SKILL_MRK);
+        if (resist > 0.125) then
+            target:addStatusEffect(EFFECT_PARALYSIS, 35, 0, duration * resist);
         end
+
     end
     return tpHits, extraHits, criticalHit, damage;
 

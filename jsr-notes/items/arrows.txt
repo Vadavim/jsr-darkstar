@@ -3,7 +3,7 @@ Poison DoT: 4 -> 6 + (CHA / 3).
 Duration: 30 -> 60 seconds
 
 [Paralysis Arrows]
-Paralysis Power: 20 -> 30 (still lasts 30 seconds)
+Duration: 30 -> 60 seconds
 
 [Water / Earth / Wind / Fire / Ice / Lightning Arrow]
  - Magic attack bonuses adds to damage

@@ -20,7 +20,11 @@ function onAdditionalEffect(player,target,damage)
     else
         target:delStatusEffect(EFFECT_PARALYSIS)
         if (not target:hasStatusEffect(EFFECT_PARALYSIS)) then
-            target:addStatusEffect(EFFECT_PARALYSIS, 30, 0, 30);
+            local power = 20;
+            if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
+                power = 25;
+            end
+            target:addStatusEffect(EFFECT_PARALYSIS, power, 0, 60);
         end
         return SUBEFFECT_PARALYSIS, MSGBASIC_ADD_EFFECT_STATUS, EFFECT_PARALYSIS;
     end

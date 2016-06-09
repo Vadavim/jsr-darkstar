@@ -22,7 +22,12 @@ function onAdditionalEffect(player,target,damage)
     else
         target:delStatusEffect(EFFECT_BLINDNESS)
         if (not target:hasStatusEffect(EFFECT_BLINDNESS)) then
-            target:addStatusEffect(EFFECT_BLINDNESS, 10, 0, 30);
+
+            local power = 20;
+            if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
+                power = 25;
+            end
+            target:addStatusEffect(EFFECT_BLINDNESS, power, 0, 60);
         end
         return SUBEFFECT_BLIND, MSGBASIC_ADD_EFFECT_STATUS, EFFECT_BLINDNESS;
     end

@@ -19,18 +19,53 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local params = {};
     params.numHits = 1;
-    params.ftp100 = 2; params.ftp200 = 2; params.ftp300 = 2;
+    params.ftp100 = 1.35; params.ftp200 = 1.35; params.ftp300 = 1.35;
     params.str_wsc = 0.16; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.25; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
-    params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
-    params.canCrit = false;
+    params.crit100 = 0.05; params.crit200 = 0.30; params.crit300 = 0.90;
+    params.canCrit = true;
     params.acc100 = 0.8; params.acc200= 0.9; params.acc300= 1;
     params.atkmulti = 1;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.str_wsc = 0.2; params.agi_wsc = 0.5;
+        params.str_wsc = 2.0;
     end
 
+    local isEarthArrow = player:getEquipID(SLOT_AMMO) == 18699;
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
+    local damage2, criticalHit2, tpHits2, extraHits2 = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+
+    damage = damage + damage2;
+    criticalHit = criticalHit or criticalHit2;
+    tpHits = tpHits + tpHits2;
+    extraHits = extraHits + extraHits2;
+
+--    -- add Rasp
+--    local resist = applyResistanceWeaponskill(player, target, params, ELE_EARTH, SKILL_ARC);
+--    if (damage > 0 and resist > 0.125) then
+--        local DOT = math.floor(player:getMainLvl()/5) + 1;
+--        if (isEarthArrow) then
+--            DOT = math.floor(DOT * 1.5);
+--        end
+--
+--        local duration = 30 * (tp / 1000) * (1 + tp / 3000);
+--
+--        -- Remove Shock
+--        if (target:getStatusEffect(EFFECT_SHOCK) ~= nil) then
+--            target:delStatusEffect(EFFECT_SHOCK);
+--        end;
+--
+--        target:addStatusEffect(EFFECT_RASP, DOT, 3, duration * resist,FLAG_ERASABLE);
+--        target:setPendingMessage(277, EFFECT_RASP);
+--    end
+
+    local distance = player:checkDistance(target)
+    distance = utils.clamp(distance, 0, 100);
+    damage= math.floor(damage * ((100 - distance) / 100));
+
+--    if (isEarthArrow) then
+--        damage = math.floor(damage * 1.33);
+--    end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

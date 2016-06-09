@@ -22,6 +22,9 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
     local multiHitfTP = params.multiHitfTP or false
     local bonusfTP, bonusacc = handleWSGorgetBelt(attacker);
     bonusacc = bonusacc + attacker:getMod(MOD_WSACC);
+    if (params.bonusACC) then
+        bonusacc = bonusacc + params.bonusACC;
+    end
 
     -- get fstr
     local fstr = fSTR(attacker:getStat(MOD_STR),target:getStat(MOD_VIT),attacker:getWeaponDmgRank());
@@ -91,7 +94,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
         end
 
         if (nativecrit > 0.2) then -- caps!
-            nativecrit = 0.2;
+            nativecrit = 0.25;
         elseif (nativecrit < 0.05) then
             nativecrit = 0.05;
         end
@@ -115,14 +118,16 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
     end
 
     local tpHitsLanded = 0;
+    local critMult = 1.75 + attacker:getMod(MOD_CRIT_DMG_INCREASE / 100);
     if ((firsthit <= hitrate or isSneakValid or isAssassinValid or math.random() < attacker:getMod(MOD_ZANSHIN)/100) and
             not target:hasStatusEffect(EFFECT_PERFECT_DODGE) and not target:hasStatusEffect(EFFECT_ALL_MISS) ) then
         dmg = base * ftp;
         if (params.canCrit or isSneakValid or isAssassinValid) then
             local critchance = math.random();
             if (critchance <= critrate or hasMightyStrikes or isSneakValid or isAssassinValid) then -- crit hit!
+                criticalHit = true;
                 local cpdif = generatePdif (ccritratio[1], ccritratio[2], true);
-                finaldmg = dmg * cpdif;
+                finaldmg = dmg * cpdif * critMult;
                 if (isSneakValid and attacker:getMainJob()==6) then -- have to add on DEX bonus if on THF main
                     finaldmg = finaldmg + (attacker:getStat(MOD_DEX) * ftp * cpdif) * ((100+(attacker:getMod(MOD_AUGMENTS_SA)))/100);
                 end
@@ -157,7 +162,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
                 if (critchance <= nativecrit or hasMightyStrikes) then -- crit hit!
                     criticalHit = true;
                     cpdif = generatePdif (ccritratio[1], ccritratio[2], true);
-                    finaldmg = finaldmg + dmg * cpdif;
+                    finaldmg = finaldmg + dmg * cpdif * critMult;
                 else
                     finaldmg = finaldmg + dmg * pdif;
                 end
@@ -186,7 +191,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
                     if (critchance <= nativecrit or hasMightyStrikes) then -- crit hit!
                         criticalHit = true;
                         cpdif = generatePdif (ccritratio[1], ccritratio[2], true);
-                        finaldmg = finaldmg + dmg * cpdif;
+                        finaldmg = finaldmg + dmg * cpdif * critMult;
                     else
                         finaldmg = finaldmg + dmg * pdif;
                     end
@@ -225,6 +230,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
     if tpHitsLanded + extraHitsLanded > 0 then
         finaldmg = takeWeaponskillDamage(target, attacker, params, finaldmg, SLOT_MAIN, tpHitsLanded, (extraHitsLanded * 10) + bonusTP, taChar)
     end
+
     return finaldmg, criticalHit, tpHitsLanded, extraHitsLanded;
 end;
 
@@ -672,7 +678,47 @@ end;
     local bonusTP = params.bonusTP or 0
     local multiHitfTP = params.multiHitfTP or false
     local bonusfTP, bonusacc = handleWSGorgetBelt(attacker);
-    bonusacc = bonusacc + attacker:getMod(MOD_WSACC);
+    bonusacc = bonusacc + attacker:getMod(MOD_WSACC)
+    if (params.bonusACC) then
+        bonusacc = bonusacc + params.bonusACC;
+    end
+
+
+    local critMult = 1.75 + attacker:getMod(MOD_CRIT_DMG_INCREASE / 100);
+    -- Chance of resetting Eagle Eye shot
+    if (attacker:getMainJob() == 11 and attacker:isPC() and wsID ~= 0) then
+        local rngLevel = attacker:getMainLvl();
+        local chance = attacker:getMainLvl() / 3;
+        local resetEagle = false;
+        local resetCamo = false;
+        if (math.random(0, 100) < chance) then
+            resetEagle = true;
+--            attacker:SayToPlayer("Eagle Eye Shot has been reset!");
+--            attacker:resetRecast(RECAST_ABILITY, 0);
+        end
+
+        -- Stealth Shot
+        if (attacker:hasStatusEffect(EFFECT_STEALTH_SHOT)) then
+            chance = 33 + attacker:getMerit(MERIT_STEALTH_SHOT) * 3;
+            if (math.random(0, 100) < chance) then
+                resetCamo = true;
+--                attacker:SayToPlayer("Camouflage has been reset!");
+--                attacker:resetRecast(RECAST_ABILITY, 123);
+            end
+        end
+
+        if (resetEagle and resetCamo) then
+            attacker:SayToPlayer("Camouflage and Eagle Eye Shot have been reset!");
+            attacker:resetRecast(RECAST_ABILITY, 0);
+            attacker:resetRecast(RECAST_ABILITY, 123);
+        elseif (resetEagle) then
+            attacker:SayToPlayer("Eagle Eye Shot has been reset!");
+            attacker:resetRecast(RECAST_ABILITY, 0);
+        elseif (resetCamo) then
+            attacker:SayToPlayer("Camouflage has been reset!");
+            attacker:resetRecast(RECAST_ABILITY, 123);
+        end
+    end
 
     -- get fstr
     local fstr = fSTR(attacker:getStat(MOD_STR),target:getStat(MOD_VIT),attacker:getRangedDmgForRank());
@@ -708,8 +754,8 @@ end;
             nativecrit = nativecrit + attacker:getStatusEffect(EFFECT_INNIN):getPower();
         end
 
-        if (nativecrit > 0.2) then -- caps!
-            nativecrit = 0.2;
+        if (nativecrit > 0.25) then -- caps!
+            nativecrit = 0.25;
         elseif (nativecrit < 0.05) then
             nativecrit = 0.05;
         end
@@ -740,7 +786,7 @@ end;
             if (critchance <= critrate or hasMightyStrikes) then -- crit hit!
                 crit = true
                 local cpdif = generatePdif (ccritratio[1], ccritratio[2], false);
-                finaldmg = dmg * cpdif;
+                finaldmg = dmg * cpdif * critMult;
             else
                 finaldmg = dmg * pdif;
             end
@@ -768,8 +814,9 @@ end;
                 if (canCrit) then
                     critchance = math.random();
                     if (critchance <= critrate or hasMightyStrikes) then -- crit hit!
+                        crit = true;
                         cpdif = generatePdif (ccritratio[1], ccritratio[2], false);
-                        finaldmg = finaldmg + dmg * cpdif;
+                        finaldmg = finaldmg + dmg * cpdif * critMult;
                     else
                         finaldmg = finaldmg + dmg * pdif;
                     end

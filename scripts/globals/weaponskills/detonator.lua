@@ -26,14 +26,17 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
     params.canCrit = false;
     params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
-    params.atkmulti = 1;
+    params.atkmulti = 1.5;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
         params.ftp100 = 1.5; params.ftp200 = 2.5; params.ftp300 = 5.0;
-        params.agi_wsc = 0.7;
+        params.agi_wsc = 0.6; params.int_wsc = 0.6;
     end
 
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
+    if (target:getStatusEffect(EFFECT_BURN) ~= nil) then
+        damage = math.floor(damage * 1.33);
+    end;
     return tpHits, extraHits, criticalHit, damage;
 
 end

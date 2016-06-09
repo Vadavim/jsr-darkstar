@@ -27,11 +27,18 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.atkmulti = 1;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.ftp100 = 3; params.ftp200 = 4.25; params.ftp300 = 7;
-        params.str_wsc = 0.6;
+        params.ftp100 = 1.5; params.ftp200 = 2.0; params.ftp300 = 3;
+        params.str_wsc = 0.0; params.agi_wsc = 0.5; params.mnd_wsc = 0.5;
     end
 
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
+
+    if (damage > 0 and target:getStatusEffect(EFFECT_FLASH) == nil) then
+        local duration = 8 * (tp / 1000);
+        target:addStatusEffect(EFFECT_FLASH, 200, 0, duration);
+        target:setPendingMessage(277, EFFECT_FLASH);
+    end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

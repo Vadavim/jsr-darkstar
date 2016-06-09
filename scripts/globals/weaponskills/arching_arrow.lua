@@ -13,6 +13,7 @@
 require("scripts/globals/status");
 require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
+require("scripts/globals/utils");
 -----------------------------------
 
 function onUseWeaponSkill(player, target, wsID, tp, primary)
@@ -32,9 +33,13 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
     if (damage > 0) then
-        local enmityReduction = 15 * player:getTP() / 100;
+        local enmityReduction = 15 * tp / 1000;
         target:lowerEnmity(player, enmityReduction);
     end
+    local distance = player:checkDistance(target)
+    distance = utils.clamp(distance, 0, 50);
+    damage= math.floor(damage * (1 + distance / 150));
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

@@ -17,7 +17,8 @@ function onAbilityCheck(player,target,ability)
         return MSGBASIC_REQUIRES_A_PET,0;
     else
         if (player:getPet():getHP() == player:getPet():getMaxHP() and player:getMerit(MERIT_EMPATHY) == 0) then
-            return MSGBASIC_UNABLE_TO_USE_JA,0;
+--            return MSGBASIC_UNABLE_TO_USE_JA,0;
+            return 0,0;
         else
             return 0,0;
         end

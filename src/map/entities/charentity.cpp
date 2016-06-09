@@ -1327,7 +1327,7 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
 
     battleutils::RemoveAmmo(this, ammoConsumed);
     // only remove detectables
-    StatusEffectContainer->DelStatusEffectsByFlag(EFFECTFLAG_DETECTABLE);
+    StatusEffectContainer->DelStatusEffectsByFlagExceptCam(EFFECTFLAG_DETECTABLE);
 
     // Try to double shot
     //#TODO: figure out the packet structure of double/triple shot

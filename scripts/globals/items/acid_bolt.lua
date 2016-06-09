@@ -19,7 +19,11 @@ function onAdditionalEffect(player,target,damage)
         return 0,0,0;
     else
         target:delStatusEffect(EFFECT_DEFENSE_BOOST);
-        target:addStatusEffect(EFFECT_DEFENSE_DOWN, 1, 0, 60);
+        local power = 12;
+        if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
+            power = 15;
+        end
+        target:addStatusEffect(EFFECT_DEFENSE_DOWN, power, 0, 60);
         return SUBEFFECT_DEFENSE_DOWN, MSGBASIC_ADD_EFFECT_STATUS, EFFECT_DEFENSE_DOWN;
     end
 end;

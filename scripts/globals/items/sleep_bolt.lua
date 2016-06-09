@@ -19,6 +19,9 @@ function onAdditionalEffect(player,target,damage)
         return 0,0,0;
     else
         local duration = 25;
+        if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
+            duration = 32;
+        end
         if (target:getMainLvl() > player:getMainLvl()) then
             duration = duration - (target:getMainLvl() - player:getMainLvl())
         end

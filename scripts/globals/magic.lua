@@ -392,8 +392,6 @@ end;
 
 -- Applies resistance for additional effects
 function applyResistanceAddEffect(player,target,element,bonus)
-    bonus = bonus + math.max(0, diff);
-
     local p = getMagicHitRate(player, target, 0, element, 0, bonus);
 
     return getMagicResist(p);

@@ -616,6 +616,7 @@ enum MODIFIER
     MOD_AQUAVEIL_COUNT            = 832, // Modifies the amount of hits that Aquaveil absorbs before being removed
     MOD_ELEMENTAL_CELERITY        = 700,  // Improves black-magic casting time (modId = 700)
     MOD_OCCULT_ACUMEN        = 701,  // Grants TP when casting spells
+    MOD_CONSERVE_TP               = 702, // Percent chance
 
     // Weaponskill %damage modifiers
     // The following modifier should not ever be set, but %damage modifiers to weaponskills use the next 255 IDs (this modifier + the WSID)

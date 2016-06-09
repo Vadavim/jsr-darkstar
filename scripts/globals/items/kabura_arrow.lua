@@ -15,7 +15,14 @@ function onAdditionalEffect(player,target,damage)
         chance = chance - 5 * (target:getMainLvl() - player:getMainLvl())
         chance = utils.clamp(chance, 5, 95);
     end
-    if (math.random(0,99) >= chance or applyResistanceAddEffect(player,target,ELE_WIND,0) <= 0.5) then
+
+    local bonus = 0;
+
+    if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
+        bonus = 20;
+    end
+
+    if (math.random(0,99) >= chance or applyResistanceAddEffect(player,target,ELE_WIND,bonus) <= 0.5) then
         return 0,0,0;
     else
         target:delStatusEffect(EFFECT_SILENCE)

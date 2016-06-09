@@ -4766,6 +4766,17 @@ inline int32 CLuaBaseEntity::delStatusEffectsByFlag(lua_State *L)
     return 1;
 }
 
+inline int32 CLuaBaseEntity::delStatusEffectsByFlagExceptCam(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+
+    ((CBattleEntity*)m_PBaseEntity)->StatusEffectContainer->DelStatusEffectsByFlagExceptCam((EFFECTFLAG)lua_tointeger(L, 1));
+
+    return 1;
+}
+
 inline int32 CLuaBaseEntity::delStatusEffectSilent(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
@@ -11259,6 +11270,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setPendingMessage),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNearbyEntities),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,pushSkillchain),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,delStatusEffectsByFlagExceptCam),
 //    LUNAR_DECLARE_METHOD(CLuaBaseEntity,addRecastRange),
     {nullptr,nullptr}
 };

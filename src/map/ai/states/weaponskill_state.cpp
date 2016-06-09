@@ -90,8 +90,14 @@ void CWeaponSkillState::SpendCost()
     }
     else
     {
+        // chance to recover half of TP
+        int16 rate = m_PEntity->getMod(MOD_CONSERVE_TP);
         tp = m_PEntity->health.tp;
-        m_PEntity->health.tp = 0;
+        if (dsprand::GetRandomNumber(100) < rate) {
+            m_PEntity->health.tp = tp * (dsprand::GetRandomNumber(4.f, 12.f) / 16.0f);
+        }
+        else
+            m_PEntity->health.tp = 0;
     }
     m_spent = tp;
 }

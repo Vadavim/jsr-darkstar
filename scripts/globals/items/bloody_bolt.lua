@@ -22,6 +22,9 @@ function onAdditionalEffect(player,target,damage)
             diff = 20 + (diff - 20) / 2;
         end
         local drain = diff + (player:getMainLvl() - target:getMainLvl()) + damage/2;
+        if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
+            drain = math.floor(drain * 1.33);
+        end
         local params = {};
         params.bonusmab = 0;
         params.includemab = false;

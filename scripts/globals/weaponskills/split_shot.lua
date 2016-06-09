@@ -20,7 +20,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local params = {};
     params.numHits = 1;
-    params.ftp100 = 1; params.ftp200 = 1; params.ftp300 = 1;
+    params.ftp100 = 1.8; params.ftp200 = 1.8; params.ftp300 = 1.8;
     params.str_wsc = 0.0; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.3; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
     params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
     params.canCrit = false;
@@ -33,11 +33,15 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     -- Defense ignored is 0%, 35%, 50% as per wiki.bluegartr.com
     params.ignoresDef = true;
-    params.ignored100 = 0;
-    params.ignored200 = 0.35;
-    params.ignored300 = 0.5;
+    params.ignored100 = 0.2;
+    params.ignored200 = 0.45;
+    params.ignored300 = 0.8;
 
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
+    local system = target:getSystem();
+    if (system == SYSTEM_ARCANA) then
+        damage = math.floor(damage * 1.33);
+    end
     return tpHits, extraHits, criticalHit, damage;
 
 end

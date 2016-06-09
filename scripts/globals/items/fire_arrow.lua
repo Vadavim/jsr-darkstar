@@ -21,6 +21,10 @@ function onAdditionalEffect(player,target,damage)
     local resist = applyResistanceAbility(player, target, ELE_FIRE, SKILL_ARC, 0);
     if (resist > 0.125) then
         local power = getElementalDebuffDOT(player:getStat(stat));
+        if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
+            power = math.floor(power * 1.33);
+        end
+
 
         -- Remove Frost
         if (target:getStatusEffect(EFFECT_FROST) ~= nil) then

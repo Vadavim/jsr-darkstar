@@ -22,7 +22,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.numHits = 3;
     params.ftp100 = 1; params.ftp200 = 1; params.ftp300 = 1;
     params.str_wsc = 0.35; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
-    params.crit100 = 0.1; params.crit200 = 0.3; params.crit300 = 0.5;
+    params.crit100 = 0.3; params.crit200 = 0.65; params.crit300 = 0.95;
     params.canCrit = true;
     params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
     params.atkmulti = 1;
@@ -32,6 +32,11 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    if (criticalHit) then
+        target:addStatusEffect(EFFECT_DEFENSE_DOWN_II, 20, 3, 60,FLAG_ERASABLE);
+        target:setPendingMessage(277, EFFECT_DEFENSE_DOWN_II);
+    end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

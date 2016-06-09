@@ -1,9 +1,5 @@
 -----------------------------------
--- Ability: Super Jump
--- Performs a super jump.
--- Obtained: Dragoon Level 50
--- Recast Time: 3:00
--- Duration: Instant
+-- Ability: Stealth Shot
 -----------------------------------
 
 require("scripts/globals/settings");
@@ -22,9 +18,7 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    if (target:isMob()) then
-        local enmityShed = 100
-        target:lowerEnmity(player, enmityShed);
-    end
-    target:addStatusEffect(EFFECT_CHAINBOUND,1,0,15);
+    local bonus = player:getMerit(MERIT_STEALTH_SHOT);
+    player:addStatusEffect(EFFECT_STEALTH_SHOT,20 + bonus * 2,0,180);
+    return EFFECT_STEALTH_SHOT;
 end;

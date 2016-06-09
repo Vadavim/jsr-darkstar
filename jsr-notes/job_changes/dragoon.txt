@@ -1,6 +1,15 @@
 [SKILLS]
 
+[TRAITS]
+ - Gain Conserve TP at levels 30, 50, and 70 (chance is 15%, 20%, and 25% respectively).
 
+[Jump]
+ - There is a chance that Jump's recast will be reset.
+ - Chance is Dragoon's level / 2
+ - Jump Recast Merit adds +3% chance per point.
+
+[Super Jump]
+ - Adds Chainbound effect to target for 15 seconds (next weaponskill causes a skillchain)
 
 [Ancient Circle]
  - Grants the following for the duration:

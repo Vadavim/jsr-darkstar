@@ -21,7 +21,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local params = {};
     params.numHits = 1;
-    params.ftp100 = 1; params.ftp200 = 1; params.ftp300 = 1;
+    params.ftp100 = 1.5; params.ftp200 = 1.5; params.ftp300 = 1.5;
     params.str_wsc = 0.16; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.25; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
     params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
     params.canCrit = false;
@@ -29,15 +29,33 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.atkmulti = 1;
     -- Defense ignored is 0%, 35%, 50% as per wiki.bluegartr.com
     params.ignoresDef = true;
-    params.ignored100 = 0;
-    params.ignored200 = 0.35;
-    params.ignored300 = 0.5;
+    params.ignored100 = 0.15;
+    params.ignored200 = 0.40;
+    params.ignored300 = 0.80;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.str_wsc = 0.2; params.agi_wsc = 0.5;
+        params.str_wsc = 0.0; params.agi_wsc = 1.25;
     end
 
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
+    -- dispels beneficial defense spells
+    local resist = applyResistanceWeaponskill(player, target, params, ELE_LIGHT, SKILL_ARC);
+    if (damage > 0 and resist > 0.125) then
+        target:delStatusEffect(EFFECT_PROTECT);
+        target:delStatusEffect(EFFECT_SHELL);
+        target:delStatusEffect(EFFECT_MAGIC_DEF_BOOST);
+        target:delStatusEffect(EFFECT_DEFENSE_BOOST);
+        target:delStatusEffect(EFFECT_PHALANX);
+        target:delStatusEffect(EFFECT_STONESKIN);
+        target:delStatusEffect(EFFECT_BLINK);
+        target:delStatusEffect(EFFECT_BLAZE_SPIKES);
+        target:delStatusEffect(EFFECT_SHOCK_SPIKES);
+        target:delStatusEffect(EFFECT_ICE_SPIKES);
+        target:delStatusEffect(EFFECT_DREAD_SPIKES);
+        target:delStatusEffect(EFFECT_EVASION_BOOST);
+    end
+
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

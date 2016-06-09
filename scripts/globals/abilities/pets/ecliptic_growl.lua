@@ -22,7 +22,7 @@ function onPetAbility(target, pet, skill)
     if (durBonus > 300) then
         durBonus = 300;
     end
-    duration = (duration + durBonus) * (1 + skill:getTP() / 100);
+    duration = (duration + durBonus) * (1 + skill:getTP() / 1000);
 	local buffvalue = 0;
 	if moon > 90 then
 		buffvalue = 18;

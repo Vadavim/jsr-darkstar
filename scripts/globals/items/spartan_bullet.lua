@@ -14,6 +14,9 @@ function onAdditionalEffect(player,target,damage)
     if (target:getMainLvl() > player:getMainLvl()) then
         chance = chance - 5 * (target:getMainLvl() - player:getMainLvl())
         chance = utils.clamp(chance, 5, 50);
+        if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
+            chance = chance + 10;
+        end
     end
     if (math.random(0,50) >= chance or applyResistanceAddEffect(player,target,ELE_LIGHTNING,0) <= 0.5) then
         return 0,0,0;

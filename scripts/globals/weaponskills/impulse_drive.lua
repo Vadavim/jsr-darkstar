@@ -34,6 +34,12 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    if (damage > 0) then
+        local duration = 60 * (tp / 1000) * (1 + tp / 3000);
+        player:addStatusEffect(EFFECT_ACCURACY_BOOST,10,0,duration);
+        player:addStatusEffect(EFFECT_EVASION_BOOST,40,0,duration);
+    end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

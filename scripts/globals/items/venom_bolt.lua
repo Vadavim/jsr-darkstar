@@ -23,6 +23,9 @@ function onAdditionalEffect(player,target,damage)
         target:delStatusEffect(EFFECT_POISON)
         if (not target:hasStatusEffect(EFFECT_POISON)) then
             local power = 6 + math.floor(target:getStat(MOD_CHR) / 3);
+            if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
+                power = math.floor(power * 1.33);
+            end
             target:addStatusEffect(EFFECT_POISON, power, 3, 60);
         end
         return SUBEFFECT_POISON, MSGBASIC_ADD_EFFECT_STATUS, EFFECT_POISON;

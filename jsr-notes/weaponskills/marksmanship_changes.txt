@@ -1,26 +1,39 @@
 [Hot Shot]
- - fTP increased to 1.0 (1000), 1.5 (2000), 3.0 (3000)
- - +20% damage against plantoids
+ - fTP increased to 1.5 (1000), 3.5 (2000), 7.5 (3000)
+ - +33% damage against plantoids
 
 [Split Shot]
- - Base fTP is 1.25
- - Defense ignore increased to: 20% (1000 TP), 45% (2000 TP), 70% (3000 TP)
+ - Base fTP is 1.8
+ - Defense ignore increased to: 20% (1000 TP), 45% (2000 TP), 80% (3000 TP)
+ - +33% damage against arcana
 
 [Heavy Shot]
- - Inflicts Weight. Duration varies with TP. (60 at 1000 to 180 at 3000).
+- Instead gained at 200 Marksmanship
+ - Inflicts Weight (50% reduction to speed). Duration varies with TP. (60 at 1000 to 360 at 3000).
 
 [Sniper Shot]
  - Base fTP is 1.7
- - Crit chance is 20% (1000 TP), 50% (2000 TP), 90% (3000 TP)
+ - Crit chance is 20% (1000 TP), 50% (2000 TP), 95% (3000 TP)
  - The attack is more accurate (+30 bonus to accuracy)
+ - Modifiers changed to: 150% INT
+ - +33% damage against beastmen and humanoids
  - Int penalty is -20 for 120 seconds.
 
 [Blast Shot]
- - Also inflicts Rasp. Duration varies with TP. (30 at 1000 TP to 90 at 3000 TP).
+ - Instead gained at 125 Marksmanship
+ - No longer requires melee distance, however damage drops off the further away you are from target.
+ - Can critically hit. Crit Chance: 5% (1000 TP), 40% (2000 TP), 90% (3000 TP)
+ - Modifiers chance to: STR 100% and AGI 100%
+ - Performs two attacks (one physical, one ranged), with a base fTP of 1.35 for each attack.
+	- As such, it's based off of Attack and Ranged Attack.
 
 [Detonator]
- - +20% damage against targets suffering from Burn.
+- Instead gained at 225 Marksmanship
+ - +33% damage against targets suffering from Burn.
+ - Attack Multiplier: 1 -> 1.5
+ - Modifiers: 60% AGI, 60% INT
 
 [Numbing Shot]
- - Available at skill level 260
- - Paralysis potency is 30% (duration is 60 seconds at 1000 TP to 180 seconds at 3000 TP).
+ - Available at skill level 250
+ - Base FTP reduced to 2.5
+ - Paralysis potency is 35% (duration is 60 seconds at 1000 TP to 180 seconds at 3000 TP).

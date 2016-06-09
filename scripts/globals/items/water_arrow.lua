@@ -21,6 +21,9 @@ function onAdditionalEffect(player,target,damage)
     local resist = applyResistanceAbility(player, target, ELE_WATER, SKILL_ARC, 0);
     if (resist > 0.125) then
         local power = getElementalDebuffDOT(player:getStat(stat));
+        if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
+            power = math.floor(power * 1.33);
+        end
 
         -- Remove Burn
         if (target:getStatusEffect(EFFECT_BURN) ~= nil) then

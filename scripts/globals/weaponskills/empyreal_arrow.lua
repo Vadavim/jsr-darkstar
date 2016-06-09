@@ -29,11 +29,17 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
         params.ftp100 = 1.5; params.ftp200 = 2.5; params.ftp300 = 5;
-        params.str_wsc = 0.20; params.agi_wsc = 0.50;
+        params.str_wsc = 0.20; params.agi_wsc = 0.50; params.mnd_wsc = 0.75;
         params.atkmulti = 2;
     end
 
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
+    local system = target:getSystem();
+    if (system == SYSTEM_AMORPH or system == SYSTEM_DEMON
+                                or system == SYSTEM_UNDEAD or system == SYSTEM_ARCANA) then
+        damage = math.floor(damage * 1.33);
+    end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

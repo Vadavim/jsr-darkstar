@@ -15,6 +15,13 @@ require("scripts/globals/weaponskills");
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
+    if (player:getMainJob() == 14) then
+        local doubleJump = player:getMainLvl() / 2 + player:getMerit(MERIT_JUMP_RECAST) * 1.5;
+        if (math.random(0, 100) < doubleJump) then
+            ability:setRecast(0);
+            player:SayToPlayer("Jump has been reset!");
+        end
+    end
     return 0,0;
 end;
 
@@ -55,6 +62,7 @@ function onUseAbility(player,target,ability,action)
         ability:setMsg(MSGBASIC_USES_BUT_MISSES)
         action:speceffect(target:getID(), 0)
     end
+
 
     return damage;
 end;

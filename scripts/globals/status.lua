@@ -1297,6 +1297,7 @@ MOD_QUICK_DRAW_DMG_PERCENT    = 831 -- Percentage increase to QD damage
 MOD_WEAPONSKILL_DAMAGE_BASE = 570 -- See modifier.h for how this is used
 MOD_ELEMENTAL_CELERITY = 700
 MOD_OCCULT_ACUMEN = 701
+MOD_CONSERVE_TP        = 702
 
 -- The entire mod list is in desperate need of kind of some organizing.
 -- The spares take care of finding the next ID to use so long as we don't forget to list IDs that have been freed up by refactoring.

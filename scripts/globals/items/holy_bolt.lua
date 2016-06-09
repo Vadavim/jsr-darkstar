@@ -23,6 +23,9 @@ function onAdditionalEffect(player,target,damage)
         if (dmg > 40) then
             dmg = dmg+(dmg-40)/2;
         end
+        if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
+            dmg = math.floor(dmg * 1.33);
+        end
         local params = {};
         params.bonusmab = 0;
         params.includemab = false;

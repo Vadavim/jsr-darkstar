@@ -9,6 +9,9 @@
 -----------------------------------
 
 function onEffectGain(target,effect)
+    target:addMod(MOD_RATTP,effect:getPower());
+    target:addMod(MOD_RACC,-10);
+    target:addMod(MOD_ENMITY,15);
 end;
 
 -----------------------------------
@@ -23,4 +26,7 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
+    target:delMod(MOD_RATTP,effect:getPower());
+    target:delMod(MOD_RACC,-10);
+    target:delMod(MOD_ENMITY,15);
 end;

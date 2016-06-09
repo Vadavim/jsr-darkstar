@@ -593,6 +593,18 @@ void CStatusEffectContainer::DelStatusEffectsByFlag(uint32 flag, bool silent)
     }
 }
 
+void CStatusEffectContainer::DelStatusEffectsByFlagExceptCam(uint32 flag, bool silent)
+{
+    for (uint16 i = 0; i < m_StatusEffectList.size(); ++i)
+    {
+        if ((m_StatusEffectList.at(i)->GetFlag() & flag)
+            && (m_StatusEffectList.at(i)->GetStatusID() != EFFECT_CAMOUFLAGE))
+        {
+            RemoveStatusEffect(i--, silent);
+        }
+    }
+}
+
 /************************************************************************
 *																		*
 *  Удаляем первый добавленный отрицательный эффект с флагом	erase.      *
