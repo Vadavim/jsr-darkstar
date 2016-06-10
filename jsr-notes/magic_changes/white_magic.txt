@@ -1,2 +1,10 @@
 [Boost / Gain]
 Duration: 300 -> 600 seconds
+
+[Diaga]
+ - Defense Reduction: 5% -> 7%
+ - DoT: 1 -> 2
+
+
+[Banish Spells]
+ - Damage increased significantly

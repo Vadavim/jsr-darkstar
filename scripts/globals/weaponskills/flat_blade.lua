@@ -28,15 +28,22 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.atkmulti = 1;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.str_wsc = 1.0;
+        params.str_wsc = 1.5;
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
 
-    local chance = tp-1000 > math.random()*150;
-    if (damage > 0 and target:hasStatusEffect(EFFECT_STUN) == false and chance) then
-        target:addStatusEffect(EFFECT_STUN, 1, 0, 4);
+    local chance = (tp / 1000) * 50 > math.random(0, 99);
+    if (damage > 0 and chance) then
+        if (target:hasStatusEffect(EFFECT_STUN) == false) then
+            local stunDuration = (4 * (tp / 1000));
+            target:addStatusEffect(EFFECT_STUN, 1, 0, stunDuration);
+            if (target:addStatusEffect(EFFECT_ADDLE, 30, 0, 60, 0, 30)) then
+                target:setPendingMessage(277, EFFECT_ADDLE);
+            end
+        end
     end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

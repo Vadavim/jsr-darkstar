@@ -3,3 +3,22 @@ Increased drain to: Dark Magic Skill * 1.3
 
 [Drain II]
 Increase drain to: Dark Magic Skill * 1.6
+
+
+[Bio in general]
+ - DoT affected by MAB, MDB, dark attack, dark defense, day, and weather.
+ - Lowers target's Dark Resistance by 20.
+
+[Bio]
+Duration: 90  seconds
+Max DOT: 3 -> 10
+
+[Bio II]
+Duration: 120  seconds
+Max DOT: 8 -> 20
+
+[Bio III]
+Duration: 120  seconds
+Max DOT: 17 -> 30
+
+

@@ -19,6 +19,7 @@ function onEffectGain(target,effect)
 	local subpower = effect:getSubPower();
 	target:addMod(MOD_ATTP,-subpower);
 	target:addMod(MOD_REGEN_DOWN, power);
+	target:addMod(MOD_DARKRES, -20);
 end;
 
 -----------------------------------
@@ -37,4 +38,5 @@ function onEffectLose(target,effect)
 	local subpower = effect:getSubPower();
 	target:delMod(MOD_ATTP,-subpower);
 	target:delMod(MOD_REGEN_DOWN, power);
+	target:delMod(MOD_DARKRES, -20);
 end;

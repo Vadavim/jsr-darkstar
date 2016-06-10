@@ -44,7 +44,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     -- attempt to apply weight
     local resist = applyResistanceWeaponskill(player, target, params, ELE_EARTH, SKILL_POL);
     if (damage > 0 and resist > 0.125) then
-        local duration = (60 * (tp / 1000));
+        local duration = (60 * (tp / 1000) * (1 + (tp - 1000) / 2000));
         target:addStatusEffect(EFFECT_WEIGHT, 50, 0, duration * resist,FLAG_ERASABLE);
         target:setPendingMessage(277, EFFECT_WEIGHT);
     end

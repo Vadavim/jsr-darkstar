@@ -2,20 +2,24 @@
  -DoT affected by MAB, MDB, water attack, water defense, day, and weather.
 
 [Poison]
-Duration: 30 -> 60 seconds
-Max DOT: 4 -> 10, and scales faster (+1 per 15 skill)
+Duration: 90  seconds
+Max DOT: 4 -> 6, and scales faster (+1 per 15 skill)
 
 [Poison II]
-Duration: 120 -> 60 seconds
-Max DOT: 10 -> 25, and scales faster (3 +1 per 15 skill)
+Duration: 120 -> 90 seconds
+Max DOT: 10 -> 18, and scales faster (3 +1 per 15 skill)
 
 [Poison III]
-Duration: 120 -> 60 seconds
+Duration: 120 -> 90 seconds
 Max DOT: 20 -> 35, and scales faster (10 +1 per 15 skill)
 
 [Poisonaga]
-Duration: 60 -> 180 seconds
-Max DOT: 4 -> 15, and scales faster (5 +1 per 20 skill)
+Duration: 60 -> 90 seconds
+Max DOT: 4 -> 15, and scales faster (2 +1 per 15 skill)
+
+[Poisonaga]
+Duration: 60 -> 90 seconds
+Max DOT: 15 -> 25, and scales faster (6 +1 per 15 skill)
 
 [Enspell / Enspell II]
 Duration: 180 -> 300 Seconds
@@ -25,7 +29,7 @@ Duration: 180 -> 300 Seconds
 Fire Spikes: increased damage
 
 [Burn / Shock / Drown / Rasp / Choke / Frost]
- - DoT: 2 + INT / 5
+ - DoT: 1 + INT / 5
  - Each effect reduces the target's elemental resistances (-10) and defenses (-5%) based on the element and the element that it is strong against.
  - For instance, Burn reduces a target's Fire and Ice resistances/defenses. 
  - DoT affected by MAB, MDB, elemental attack, elemental defense, day, and weather.

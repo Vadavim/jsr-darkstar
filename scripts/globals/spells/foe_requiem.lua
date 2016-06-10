@@ -16,7 +16,7 @@ function onSpellCast(caster,target,spell)
     local duration = 63;
 
     local pCHR = caster:getStat(MOD_CHR);
-    local power = 1 + math.floor(pCHR * 0.25);
+    local power = 1 + math.floor(pCHR * 0.1);
     local mCHR = target:getStat(MOD_CHR);
     local dCHR = (pCHR - mCHR);
     local resm = applyResistance(caster,spell,target,dCHR,SINGING_SKILL,0);
@@ -37,7 +37,7 @@ function onSpellCast(caster,target,spell)
 
     -- apply weather / element / mab / etc.
     local params = {}; params.bonusmab = 0; params.includemab = true;
-    power = addBonusesAbility(caster, 7, target, power, param, 1.0);
+    power = addBonusesAbility(caster, 7, target, power, params, 1.0);
 
     duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
     

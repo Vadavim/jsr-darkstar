@@ -28,10 +28,27 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.atkmulti = 1;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.ftp100 = 1.5; params.ftp200 = 1.75; params.ftp300 = 2.75;
-        params.str_wsc = 0.8;
+        params.ftp100 = 1.75; params.ftp200 = 2.5; params.ftp300 = 4;
+        params.str_wsc = 0.8; params.agi_wsc = 0.8;
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+
+    if (system == SYSTEM_BEAST) then
+        damage = math.floor(damage * 1.33);
+    end
+
+    local moon = VanadielMoonPhase();
+    if (moon >= 90 or moon <= 10) then
+        damage = math.floor(damage * 1.2);
+    end
+
+    if (damage > 0) then
+        local duration = 30 * (tp / 1000) * (1 + (tp - 1000) / 2000);
+        local power = 1 + math.floor(player:getMainLvl() / 15);
+        player:addStatusEffect(EFFECT_REFRESH_II,power,0,duration);
+    end
+
+
     return tpHits, extraHits, criticalHit, damage;
 end

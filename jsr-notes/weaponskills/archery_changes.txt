@@ -29,7 +29,7 @@
 
 [Arching Arrow]
  - Gained at skill level 200 (instead of 225)
- - On a hit, lowers target's enmity towards self. Amount depends upon TP (15 per 100 TP).
+ - On a hit, lowers target's enmity towards self. Amount depends upon TP (15% to 45%).
  - Deals additional damage based on distance, up to +33% damage at 50 yalms.
 
 [Empyreal Arrow]

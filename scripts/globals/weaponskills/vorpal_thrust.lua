@@ -38,7 +38,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         damage = math.floor(damage * 1.33);
     end
     if (damage > 0) then
-        local duration = 40 * tp / 1000;
+        local duration = 40 * tp / 1000 * (1 + (tp - 1000) / 2000);
         player:addStatusEffect(EFFECT_POTENCY,15,0,duration);
     end
 

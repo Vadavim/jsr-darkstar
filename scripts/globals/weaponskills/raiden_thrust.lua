@@ -30,8 +30,14 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     end
 
     local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, params, tp, primary);
-    if (target:hasStatusEffect(EFFECT_SHOCK)) then
+
+    local sEffect = target:getStatusEffect(EFFECT_SHOCK);
+    if (sEffect ~= nil) then
         damage = math.floor(damage * 1.20);
+        sEffect:addMod(MOD_REGEN_DOWN, math.floor(1 + player:getMainLvl() / 5));
+        sEffect:addMod(MOD_MND, -3);
+        target:addMod(MOD_MND, -3);
+        target:addMod(MOD_REGEN_DOWN, math.floor(1 + player:getMainLvl() / 5));
     end
 
     if (target:hasStatusEffect(EFFECT_STUN)) then
@@ -39,10 +45,10 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     end
 
     if (damage > 0) then
-        local duration = 60 * (tp / 1000) * (1 + tp / 3000);
-        local mATK = 1 + player:getMod(MOD_MATT) / 100;
-        local tATK = 1 + player:getMod(MOD_THUNDERATT) / 100;
-        local power = (1 + player:getMainLvl() / 4) * mATK * tATK;
+        local duration = 30 * (tp / 1000) * (1 + (tp - 1000) / 2000);
+        local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
+        local power = 1 + player:getMainLvl() / 5;
+        power = addBonusesAbility(player, ELE_THUNDER, target, power, mParams, 1.0);
         player:addStatusEffect(EFFECT_SHOCK_SPIKES,power,0,duration);
     end
 

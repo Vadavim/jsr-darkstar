@@ -34,7 +34,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
 
     if (damage > 0 and target:getStatusEffect(EFFECT_FLASH) == nil) then
-        local duration = 8 * (tp / 1000);
+        local duration = 8 * (tp / 1000) * ((tp - 1000) / 2000);
         target:addStatusEffect(EFFECT_FLASH, 200, 0, duration);
         target:setPendingMessage(277, EFFECT_FLASH);
     end

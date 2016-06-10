@@ -21,7 +21,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     -- wscs are in % so 0.2=20%
     params.str_wsc = 0.2; params.dex_wsc = 0.0; params.vit_wsc = 0.2; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
     -- critical mods, again in % (ONLY USE FOR CRITICAL HIT VARIES WITH TP)
-    params.crit100 = 0.2; params.crit200=0.4; params.crit300=0.6;
+    params.crit100 = 0.4; params.crit200=0.7; params.crit300=1.0;
     params.canCrit = true;
     -- accuracy mods (ONLY USE FOR ACCURACY VARIES WITH TP) , should be the acc at those %s NOT the penalty values. Leave 0 if acc doesnt vary with tp.
     params.acc100 = 0; params.acc200=0; params.acc300=0;
@@ -33,5 +33,11 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    if (criticalHit) then
+        local duration = 60 * (tp / 1000) * (1 + (tp - 1000) / 2000);
+        player:addStatusEffect(EFFECT_ATTACK_BOOST_II,15,0,duration);
+        player:addStatusEffect(EFFECT_REGAIN, 2,3,duration);
+    end
+
     return tpHits, extraHits, criticalHit, damage;
 end

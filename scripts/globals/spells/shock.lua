@@ -31,7 +31,7 @@ function onSpellCast(caster,target,spell)
             local sINT = caster:getStat(MOD_INT);
             local DOT = getElementalDebuffDOT(sINT);
             local params = {}; params.bonusmab = 0; params.includemab = true;
-            DOT = addBonusesAbility(caster, ELE_THUNDER, target, DOT, param, 1.0);
+            DOT = addBonusesAbility(caster, ELE_THUNDER, target, DOT, params, 1.0);
             local effect = target:getStatusEffect(EFFECT_SHOCK);
             local noeffect = false;
             if (effect ~= nil) then

@@ -16,7 +16,7 @@ end;
 function onSpellCast(caster,target,spell)
     local effect = EFFECT_POISON;
 
-    local duration = 60;
+    local duration = 90;
     
         if (caster:hasStatusEffect(EFFECT_SABOTEUR)) then
         duration = duration * 2;
@@ -27,10 +27,13 @@ function onSpellCast(caster,target,spell)
 --JSR: increased DOT and reduced duration
     local dINT = (pINT - mINT);
     local power = caster:getSkillLevel(ENFEEBLING_MAGIC_SKILL) / 15 + 3;
-    if power > 25 then
-        power = 25;
+    if power > 18 then
+        power = 18;
     end
-    
+
+    local params = {}; params.bonusmab = 0; params.includemab = true;
+    power = addBonusesAbility(caster, ELE_WATER, target, power, params, 1.0);
+
         if (caster:hasStatusEffect(EFFECT_SABOTEUR)) then
         power = power * 2;
     end

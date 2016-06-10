@@ -1,44 +1,53 @@
 [Hard Slash]
- - +20% damage against Arcana
+ - +33% damage against Arcana
  - If the target is weak against blunt damage, inflicts an extra +20% damage.
  - Ignores Defense (10% at 1000 TP, 25% at 2000 TP, 50% at 3000 TP).
+ - fTP: 1.5 (1000), 2.1 (2000), 3.0 (3000)
 
 [Power Slash]
- - On a critical hit, gain +15% Attack bonus and 30/tp per 3 seconds for 60 seconds.
+ - On a critical hit, gain +15% Attack bonus and 20/tp per 3 seconds for 60 to 360 seconds (duration varies with TP).
  - Crit chance is 40% at 1000 TP, 70% at 2000 TP, and 100% at 3000 TP
 
 [Frost Bite]
- - On a hit, applies Frost. Duration varies with TP (60 at 1000 to 180 at 3000).
- - Int modifier increased to 80%.
+ - On a hit, applies Frost. Duration varies with TP (30 at 1000 to 180 at 3000).
+ - fTP: 1.5 (1000), 3 (2000), 4.5 (3000)
+ - Modifiers changed to Str 60% and Int 100%
+
+[Freezebite]
+ - On a hit, grants Ice Spikes for 60 to 360 seconds (depending upon TP).
+ - +20% damage against targets affected by Frost, and enhances existing Frost's DoT and AGI Down effect.
+ - fTP: 1.5 (1000), 3.5 (2000), 6.0 (3000)
+ - Modifiers changed to Str 60% and Int 100%
 
 [Shockwave]
- - Instead inflicts Stun (3 to 9 seconds) and Weight 60 to 180 seconds).
+ - Instead inflicts Stun (4 to 12 seconds) and Weight 60 to 180 seconds).
  - Multipliers are 50% Mnd and 50% Str
  - Ftp is: 1.5 (1000), 2.5 (2000), 4.0 (2000)
 
-[Freezebite]
- - Applies Paralyze (potency is 25%). Duration varies with TP (60 at 100 to 180 at 3000).
- - fTP changed to: 1.25 (1000), 2.5 (2000), 4 (3000)
- - Modifiers changed to Str 40% and Int 80%
-
-
 [Crescent Moon]
  - Damage increased by 25% during Waxing/Waning Crescent moon phase.
- - +20% damage against beasts.
+ - +33% damage against beasts.
+ - Grants Refresh (1 + 1 per 15 levels) for 30 to 180 seconds (depending upon TP). Stacks with normal refresh.
  - fTP changed to 1.75 (1000), 2.5 (2000), 4 (3000)
- - Mods changed to 80% Str and 80% Agi
+ - Mods changed to 60% Str and 60% INT
 
 [Sickle Moon]
- - +20% damage against plantoids.
- - Can crit (10% at 1000, 25% at 2000, 40% at 3000)
+ - +33% damage against plantoids.
+ - Can crit (10% at 1000, 25% at 2000, 50% at 3000)
+ - On a crit, lowers target's critical evasion by 10% for 40 to 240 seconds (depending upon TP).
 
-
+[Spinning Slash]
+ - Modifiers: STR 60%
+ - Ftp is: 2.5 (1000), 5.0 (2000), 7.5 (2000)
 
 [Ground Strike]
- - Petrifies target (3 seconds at 1000 TP, up to 9 seconds at 3000 TP).
+ - Modifiers: STR 80%, INT 80%
+ - Petrifies target (6 seconds at 1000 TP, up to 18 seconds at 3000 TP).
+ - Petrification can be resisted (Earth-based).
 
 [Herculean Slash]
- - Gained at skill level 260
+ - Gained at skill level 250
  - fTP changed to 2 (1000), 3.5 (2000), 6 (3000)
- - Instead inflicts Slow (35%). Duration varies with TP (60 at 1000 to 180 at 3000).
+ - Instead inflicts Slow (-250 delay). Duration varies with TP (60 at 1000 to 180 at 3000).
  - Resistance against Slow is based off of Ice instead of Earth.
+ - Stacks with normal Slow.

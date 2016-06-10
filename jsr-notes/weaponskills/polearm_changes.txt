@@ -6,8 +6,8 @@
 [Raiden Thrust]
  - Modifiers changed to: Str (60%) and Dex (60%)
  - fTP changed to 1.55 (1000), 3.5 (2000), 5.5 (3000)
- - On a hit, grants Shock Spikes for 60 to 360 seconds (depending upon TP).
- - +20% damage when target is Shocked.
+ - On a hit, grants Shock Spikes for 30 to 180 seconds (depending upon TP).
+ - +20% damage when target is Shocked, and enhances Shock DoT and MND Down effect
  - +20% damage when target is Stunned.
 
 [Leg Sweep]

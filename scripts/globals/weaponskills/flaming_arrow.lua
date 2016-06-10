@@ -13,6 +13,7 @@
 require("scripts/globals/status");
 require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
+require("scripts/globals/magic");
 -----------------------------------
 
 function onUseWeaponSkill(player, target, wsID, tp, primary)
@@ -37,12 +38,16 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     -- add Burn
     local resist = applyResistanceWeaponskill(player, target, params, ELE_FIRE, SKILL_ARC);
     if (damage > 0 and resist > 0.125)then
-        local DOT = math.floor(player:getMainLvl()/4) + 2;
+        local DOT = math.floor(player:getMainLvl()/3) + 1;
         if (isFireArrow) then
             DOT = math.floor(DOT * 1.5);
         end
 
-        local duration = (30 * (tp / 1000) * (1 + tp / 3000));
+
+        local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
+        DOT = addBonusesAbility(player, ELE_FIRE, target, DOT, mParams, 1.0);
+
+        local duration = (30 * (tp / 1000) * (1 + (tp - 1000) / 2000));
 
         -- Remove Frost
         if (target:getStatusEffect(EFFECT_FROST) ~= nil) then

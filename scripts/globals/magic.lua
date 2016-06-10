@@ -427,6 +427,13 @@ function getMagicHitRate(caster, target, skillType, element, percentBonus, bonus
         magicacc = magicacc + caster:getSkillLevel(skillType) + caster:getMod(79 + skillType);
 
         -- JSR: singing skill also adds instrument (if one exists)
+        if (skillType == SKILL_SNG) then
+            local iType = caster:getWeaponSkillType(SLOT_RANGED);
+            if (iType == SKILL_WND or iType == SKILL_STR) then
+                magicacc = magicacc + math.floor(caster:getWeaponSkillLevel(SLOT_RANGED) / 10);
+            end
+
+        end
 
     else
         -- for mob skills / additional effects which don't have a skill
@@ -1089,7 +1096,7 @@ end
 
 function getElementalDebuffDOT(INT)
     --JSR: elemental DOT is much stronger now
-	local DOT = 2 + math.floor(INT / 5);
+	local DOT = 1 + math.floor(INT / 5);
     --if (INT<= 39) then
     --    DOT = 1;
     --elseif (INT <= 69) then
@@ -1106,7 +1113,7 @@ end;
 
 function getElementalDebuffStatDownFromDOT(dot)
     --JSR: elemental debuff is much stronger now
-	local stat_down = 4 + math.floor(dot / 2);
+	local stat_down = 5 + math.floor(dot / 2);
     --if (dot == 1) then
     --    stat_down = 5;
     --elseif (dot == 2) then
@@ -1170,11 +1177,11 @@ function handleThrenody(caster, target, spell, basePower, baseDuration, modifier
     local duration = baseDuration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
 
     -- JSR: handle DoT
-    local DoT = 1 + caster:getStat(MOD_CHR) / 4;
+    local DoT = 1 + caster:getStat(MOD_CHR) / 5;
     local element = modifier - 53;
     local params = {};
     params.bonusmab = 0; params.includemab = true;
-    DoT = addBonusesAbility(caster, element, target, DoT, param) + iBoost;
+    DoT = addBonusesAbility(caster, element, target, DoT, params) + iBoost;
 
     if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
         power = power * 2;

@@ -14,7 +14,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     local params = {};
     params.numHits = 1;
     -- ftp damage mods (for Damage Varies with TP; lines are calculated in the function
-    params.ftp100 = 1.5; params.ftp200 = 1.75; params.ftp300 = 2.0;
+    params.ftp100 = 1.5; params.ftp200 = 2.1; params.ftp300 = 3.0;
     -- wscs are in % so 0.2=20%
     params.str_wsc = 0.3; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
     -- critical mods, again in % (ONLY USE FOR params.critICAL HIT VARIES WITH TP)
@@ -25,10 +25,20 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     -- attack multiplier (only some WSes use this, this varies the actual ratio value, see Tachi: Kasha) 1 is default.
     params.atkmulti = 1;
 
+    params.ignoresDef = true;
+    params.ignored100 = 0.10;
+    params.ignored200 = 0.25;
+    params.ignored300 = 0.50;
+
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
         params.str_wsc = 1.0;
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+
+    local system = target:getSystem();
+    if (system == SYSTEM_ARCANA) then
+        damage = math.floor(damage * 1.33);
+    end
     return tpHits, extraHits, criticalHit, damage;
 end

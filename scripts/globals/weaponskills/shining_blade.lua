@@ -27,11 +27,16 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.includemab = true;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.ftp100 = 1.125; params.ftp200 = 2.222; params.ftp300 = 3.523;
-        params.str_wsc = 0.4; params.mnd_wsc = 0.4;
+        params.ftp100 = 1.5; params.ftp200 = 3; params.ftp300 = 4.5;
+        params.str_wsc = 0.4; params.mnd_wsc = 1.0;
     end
 
+
     local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, params, tp, primary);
+    if (damage > 0) then
+        local duration = 60 * (tp / 1000) * (1 + (tp - 1000) / 2000);
+        player:addStatusEffect(EFFECT_MAGIC_DEF_BOOST_II,35,0,duration);
+    end
     return tpHits, extraHits, criticalHit, damage;
 
 end

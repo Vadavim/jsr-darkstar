@@ -27,6 +27,9 @@ function onSpellCast(caster,target,spell)
         power = 35;
     end
 
+    local params = {}; params.bonusmab = 0; params.includemab = true;
+    power = addBonusesAbility(caster, ELE_WATER, target, power, params, 1.0);
+
     local resist = applyResistanceEffect(caster,spell,target,dINT,ENFEEBLING_MAGIC_SKILL,0,effect);
     if (resist == 1 or resist == 0.5) then -- effect taken
         duration = duration * resist;

@@ -42,7 +42,7 @@ function onSpellCast(caster,target,spell)
 
     -- Do it!
     if (bio == nil or (DIA_OVERWRITE == 0 and bio:getPower() <= 3) or (DIA_OVERWRITE == 1 and bio:getPower() < 3)) then
-        target:addStatusEffect(EFFECT_DIA,3,3,duration,FLAG_ERASABLE, 0, 15);
+        target:addStatusEffect(EFFECT_DIA,4,3,duration,FLAG_ERASABLE, 0, 17);
         spell:setMsg(2);
     else
         spell:setMsg(75);

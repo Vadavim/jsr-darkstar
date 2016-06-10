@@ -34,8 +34,11 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     -- add Shock
     local resist = applyResistanceWeaponskill(player, target, params, ELE_THUNDER, SKILL_POL);
     if (damage > 0 and resist > 0.125) then
-        local DOT = math.floor(player:getMainLvl()/4) + 2;
-        local duration = 30 * (tp / 1000) * (1 + tp / 3000);
+        local DOT = math.floor(player:getMainLvl()/3) + 1;
+        local duration = 30 * (tp / 1000) * (1 + (tp - 1000) / 2000);
+
+        local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
+        DOT = addBonusesAbility(player, ELE_THUNDER, target, DOT, mParams, 1.0);
 
         -- Remove Drown
         target:delStatusEffect(EFFECT_DROWN);

@@ -30,6 +30,8 @@ function onSpellCast(caster,target,spell)
             end;
             local sINT = caster:getStat(MOD_INT);
             local DOT = getElementalDebuffDOT(sINT);
+            local params = {}; params.bonusmab = 0; params.includemab = true;
+            DOT = addBonusesAbility(caster, ELE_WIND, target, DOT, params, 1.0);
             local effect = target:getStatusEffect(EFFECT_CHOKE);
             local noeffect = false;
             if (effect ~= nil) then

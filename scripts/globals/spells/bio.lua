@@ -49,6 +49,12 @@ function onSpellCast(caster,target,spell)
 
     -- Calculate DoT (rough, though fairly accurate)
     local dotdmg = 2 + math.floor(caster:getSkillLevel(DARK_MAGIC_SKILL) / 30);
+    if (dotdmg > 10) then
+        dotdmg = 10;
+    end
+
+    local params = {}; params.bonusmab = 0; params.includemab = true;
+    dotdmg = addBonusesAbility(caster, ELE_DARK, target, dotdmg, params, 1.0);
 
     -- Do it!
     if (BIO_OVERWRITE == 0 or (BIO_OVERWRITE == 1 and dia == nil)) then
