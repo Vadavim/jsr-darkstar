@@ -13,6 +13,7 @@ SKILL CHANGES
 
 TRAIT CHANGES
  - Has Shield Mastery I and II at levels 30 / 70
+ - Fencer at levels: 35 (+200, +4%) and 65 (+300, +6%)
 
 ABILITY CHANGES
 

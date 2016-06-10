@@ -1,0 +1,14 @@
+[Blind Bolt]
+ACC Penalty: -10 -> -20
+Duration: 30 -> 60 seconds
+
+[Poison Bolt]
+Poison DoT: 4 -> 6 + (CHA / 3).
+
+[Paralysis Arrows]
+Duration: 30 -> 60 seconds
+
+[Water / Earth / Wind / Fire / Ice / Lightning Arrow]
+ - Magic attack bonuses adds to damage
+ - Uses MND or INT to determine damage (whichever is highest)
+ - Will apply associated elemental debuff (for example, Fire Arrow applies Burn)

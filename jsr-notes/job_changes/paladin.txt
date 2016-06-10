@@ -3,6 +3,13 @@ Club: A+
 Staff: A+
 Polearm: B
 Parrying: B-
+Divine: A+
+Enhancing: B
+Healing: B
+
+[Traits]
+ - Crit Defense at levels 25, 45, and 65 respectively. Each level lower chance of being critically hit by 1%.
+ - Auto Refresh at levels 35 and 70
 
 [Shield Bash]
  - Adds STR to damage

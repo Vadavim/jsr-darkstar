@@ -46,6 +46,8 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
          attacker:getStat(MOD_INT) * params.int_wsc + attacker:getStat(MOD_MND) * params.mnd_wsc +
          attacker:getStat(MOD_CHR) * params.chr_wsc) * getAlpha(attacker:getMainLvl());
 
+
+
     -- Applying fTP multiplier
     local ftp = fTP(tp,params.ftp100,params.ftp200,params.ftp300) + bonusfTP;
 
@@ -103,6 +105,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
 
 
     local dmg = 0;
+
 
     -- Applying pDIF
     local pdif = generatePdif (cratio[1], cratio[2], true);
@@ -209,8 +212,9 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
     finaldmg = finaldmg + souleaterBonus(attacker, (tpHitsLanded+extraHitsLanded));
     -- print("Landed " .. hitslanded .. "/" .. numHits .. " hits with hitrate " .. hitrate .. "!");
 
+
     finaldmg = target:physicalDmgTaken(finaldmg);
-    
+
     if (weaponType == SKILL_H2H) then
         finaldmg = finaldmg * target:getMod(MOD_HTHRES) / 1000;
     elseif (weaponType == SKILL_DAG or weaponType == SKILL_POL) then
@@ -227,6 +231,16 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
 
     attacker:delStatusEffectSilent(EFFECT_BUILDING_FLOURISH);
     finaldmg = finaldmg * WEAPON_SKILL_POWER
+
+    if (attacker:hasStatusEffect(EFFECT_BOOST)) then
+        local boostEffect = attacker:getStatusEffect(EFFECT_BOOST);
+        local bSubPower = boostEffect:getSubPower();
+        bSubPower = (bSubPower * (1 + bSubPower / 500)) * (0.01 + 0.008 * attacker:getMainLvl());
+        print(bSubPower);
+        finaldmg = finaldmg + bSubPower;
+        attacker:delStatusEffect(EFFECT_BOOST);
+    end
+
     if tpHitsLanded + extraHitsLanded > 0 then
         finaldmg = takeWeaponskillDamage(target, attacker, params, finaldmg, SLOT_MAIN, tpHitsLanded, (extraHitsLanded * 10) + bonusTP, taChar)
     end
@@ -251,12 +265,26 @@ function doMagicWeaponskill(attacker, target, wsID, params, tp, primary)
     local bonusTP = params.bonusTP or 0
     local bonusfTP, bonusacc = handleWSGorgetBelt(attacker);
     bonusacc = bonusacc + attacker:getMod(MOD_WSACC) + 20; --JSR: magic weaponskills more accurate
+    if (params.bonusACC) then
+        bonusacc = bonusacc + params.bonusACC;
+    end
+    if (tp > 1000) then
+        bonusacc = bonusacc + math.floor((tp - 1000) / 50);
+    end
 
-    local fint = utils.clamp(8 + (attacker:getStat(MOD_INT) - target:getStat(MOD_INT)), -32, 32);
+
+
+    local fint = utils.clamp(8 + (attacker:getStat(MOD_INT) - target:getStat(MOD_INT)), -32, 32) * params.int_wsc;
+    local fmnd = utils.clamp(8 + (attacker:getStat(MOD_MND) - target:getStat(MOD_MND)), -32, 32) * params.mnd_wsc;
+    local fchr = utils.clamp(8 + (attacker:getStat(MOD_CHR) - target:getStat(MOD_CHR)), -32, 32) * params.chr_wsc;
+    local fstr = utils.clamp(8 + (attacker:getStat(MOD_STR) - target:getStat(MOD_STR)), -32, 32) * params.str_wsc;
+    local fdex = utils.clamp(8 + (attacker:getStat(MOD_DEX) - target:getStat(MOD_DEX)), -32, 32) * params.dex_wsc;
+    local fagi = utils.clamp(8 + (attacker:getStat(MOD_AGI) - target:getStat(MOD_AGI)), -32, 32) * params.agi_wsc;
+    local fvit = utils.clamp(8 + (attacker:getStat(MOD_VIT) - target:getStat(MOD_VIT)), -32, 32) * params.vit_wsc;
     local dmg = attacker:getMainLvl() * 1.5 + 2 + (attacker:getStat(MOD_STR) * params.str_wsc + attacker:getStat(MOD_DEX) * params.dex_wsc +
          attacker:getStat(MOD_VIT) * params.vit_wsc + attacker:getStat(MOD_AGI) * params.agi_wsc +
          attacker:getStat(MOD_INT) * params.int_wsc + attacker:getStat(MOD_MND) * params.mnd_wsc +
-         attacker:getStat(MOD_CHR) * params.chr_wsc) + fint;
+         attacker:getStat(MOD_CHR) * params.chr_wsc) + fint + fmnd + fchr + fstr + fdex + fagi + fvit;
     
     -- Applying fTP multiplier
     local ftp = fTP(tp,params.ftp100,params.ftp200,params.ftp300) + bonusfTP;

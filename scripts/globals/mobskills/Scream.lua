@@ -15,8 +15,9 @@ end;
 
 function onMobWeaponSkill(target, mob, skill)
     local typeEffect = EFFECT_MND_DOWN;
-    local power = 10;
-    local duration = math.random(4, 10);
+    local tpMod = tpModifier(skill);
+    local power = 10 * tpMod;
+    local duration = math.random(4, 10) * tpMod;
 
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     if (hard > 0) then

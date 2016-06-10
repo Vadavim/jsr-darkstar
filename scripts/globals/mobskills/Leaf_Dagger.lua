@@ -28,17 +28,17 @@ function onMobWeaponSkill(target, mob, skill)
 
 
     local power = (mob:getMainLvl()/5);
+    power = power * tpModifier(skill);
     if (power < 1 ) then
         power = 1;
     end
 
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
-    print(hard);
     if (hard > 0) then
         power = math.floor(power * (1 + hard / 2));
     end
 
-    MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, 1, 3, 18);
+    MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, power, 3, 18);
 
     target:delHP(dmg);
     return dmg;

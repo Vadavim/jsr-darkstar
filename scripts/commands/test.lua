@@ -4,6 +4,7 @@
 ---------------------------------------------------------------------------------------------------
 
 require("scripts/zones/Northern_San_dOria/npcs/Belgidiveau");
+require("scripts/globals/status");
 cmdprops =
 {
     permission = 1,
@@ -11,5 +12,7 @@ cmdprops =
 };
 
 function onTrigger(player, amount, target)
-    questReward(player);
+--    questReward(player);
+    print(player:getSkillLevel(SKILL_ELE));
+    print(player:getWeaponSkillType(SLOT_RANGED));
 end;

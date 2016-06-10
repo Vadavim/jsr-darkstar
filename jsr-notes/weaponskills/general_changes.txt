@@ -1,6 +1,7 @@
 [Magic Weaponskills]
  - All magic weaponskills have an inherent +20 bonus to magic accuracy.
  - Base damage for magic weaponskills increased (1.5 per level)
+ - Bonus damage (originally just difference between attacker and defender's int) is determined by the attribute modifiers of the weaponskill instead of just INT.
  - They gain an additional +1 bonus to MACC for every 50 TP above 1000.
  - Magic weaponskills are more affected by weather and day bonuses matching the element of the skill.
  - Magic weaponskills are more affected by elemental attack and defense mods

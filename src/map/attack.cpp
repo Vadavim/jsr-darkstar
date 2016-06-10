@@ -373,6 +373,7 @@ bool CAttack::CheckCounter()
         isFaceing(m_victim->loc.p, m_attacker->loc.p, 40) && dsprand::GetRandomNumber(100) < battleutils::GetHitRate(m_victim, m_attacker))
     {
         m_isCountered = true;
+        m_victim->SetLocalVar("counterAttack", 1);
         m_isCritical = (dsprand::GetRandomNumber(100) < battleutils::GetCritHitRate(m_victim, m_attacker, false));
     }
     else if (m_victim->StatusEffectContainer->HasStatusEffect(EFFECT_PERFECT_COUNTER))

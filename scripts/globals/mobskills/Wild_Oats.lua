@@ -16,7 +16,8 @@ end;
 
 function onMobWeaponSkill(target, mob, skill)
     local typeEffect = EFFECT_VIT_DOWN;
-    local power = 10;
+    local tpMod = tpModifier(skill);
+    local power = 10 * tpMod;
     mob:addTP(500);
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     print(hard);
@@ -24,7 +25,7 @@ function onMobWeaponSkill(target, mob, skill)
         power = power * (1 + hard / 2);
     end
 
-    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, power, 3, 120));
+    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, power, 3, 120 * tpMod));
 
     return typeEffect;
 end;

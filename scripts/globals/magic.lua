@@ -49,6 +49,7 @@ require("scripts/globals/settings");
     elementalObi = {MOD_FORCE_FIRE_DWBONUS, MOD_FORCE_EARTH_DWBONUS, MOD_FORCE_WATER_DWBONUS, MOD_FORCE_WIND_DWBONUS, MOD_FORCE_ICE_DWBONUS, MOD_FORCE_LIGHTNING_DWBONUS, MOD_FORCE_LIGHT_DWBONUS, MOD_FORCE_DARK_DWBONUS};
     elementalObiWeak = {MOD_FORCE_WATER_DWBONUS, MOD_FORCE_WIND_DWBONUS, MOD_FORCE_LIGHTNING_DWBONUS, MOD_FORCE_ICE_DWBONUS, MOD_FORCE_FIRE_DWBONUS, MOD_FORCE_EARTH_DWBONUS, MOD_FORCE_DARK_DWBONUS, MOD_FORCE_LIGHT_DWBONUS};
     spellAcc = {MOD_FIREACC, MOD_EARTHACC, MOD_WATERACC, MOD_WINDACC, MOD_ICEACC, MOD_THUNDERACC, MOD_LIGHTACC, MOD_DARKACC};
+    spellAtt = {MOD_FIREATT, MOD_EARTHATT, MOD_WATERATT, MOD_WINDATT, MOD_ICEATT, MOD_THUNDERATT, MOD_LIGHTATT, MOD_DARKATT};
     strongAffinityDmg = {MOD_FIRE_AFFINITY_DMG, MOD_EARTH_AFFINITY_DMG, MOD_WATER_AFFINITY_DMG, MOD_WIND_AFFINITY_DMG, MOD_ICE_AFFINITY_DMG, MOD_THUNDER_AFFINITY_DMG, MOD_LIGHT_AFFINITY_DMG, MOD_DARK_AFFINITY_DMG};
     strongAffinityAcc = {MOD_FIRE_AFFINITY_ACC, MOD_EARTH_AFFINITY_ACC, MOD_WATER_AFFINITY_ACC, MOD_WIND_AFFINITY_ACC, MOD_ICE_AFFINITY_ACC, MOD_THUNDER_AFFINITY_ACC, MOD_LIGHT_AFFINITY_ACC, MOD_DARK_AFFINITY_ACC};
     resistMod = {MOD_FIRERES, MOD_EARTHRES, MOD_WATERRES, MOD_WINDRES, MOD_ICERES, MOD_THUNDERRES, MOD_LIGHTRES, MOD_DARKRES};
@@ -318,6 +319,7 @@ function AffinityBonusDmg(caster,ele)
 
     local affinity = caster:getMod(strongAffinityDmg[ele]);
     local bonus = 1.00 + affinity * 0.05; -- 5% per level of affinity
+    bonus = bonus + caster:getMod(spellAtt[ele]) / 100; -- add elemental attack
     -- print(bonus);
     return bonus;
 end;
@@ -423,6 +425,9 @@ function getMagicHitRate(caster, target, skillType, element, percentBonus, bonus
 
     if (skillType ~= 0) then
         magicacc = magicacc + caster:getSkillLevel(skillType) + caster:getMod(79 + skillType);
+
+        -- JSR: singing skill also adds instrument (if one exists)
+
     else
         -- for mob skills / additional effects which don't have a skill
         magicacc = magicacc + utils.getSkillLvl(1, caster:getMainLvl());
@@ -904,28 +909,28 @@ function addBonusesWeaponskill(caster, ele, target, dmg, params)
     if (weather == singleWeatherStrong[ele]) then
         if (caster:getMod(MOD_IRIDESCENCE) >= 1) then
             if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
-                dayWeatherBonus = dayWeatherBonus + 0.20;
+                dayWeatherBonus = dayWeatherBonus + 0.15;
             end
         end
         if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
-            dayWeatherBonus = dayWeatherBonus + 0.20;
+            dayWeatherBonus = dayWeatherBonus + 0.15;
         end
     elseif (caster:getWeather() == singleWeatherWeak[ele]) then
         if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1) then
-            dayWeatherBonus = dayWeatherBonus - 0.20;
+            dayWeatherBonus = dayWeatherBonus - 0.15;
         end
     elseif (weather == doubleWeatherStrong[ele]) then
         if (caster:getMod(MOD_IRIDESCENCE) >= 1) then
             if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
-                dayWeatherBonus = dayWeatherBonus + 0.20;
+                dayWeatherBonus = dayWeatherBonus + 0.15;
             end
         end
         if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
-            dayWeatherBonus = dayWeatherBonus + 0.50;
+            dayWeatherBonus = dayWeatherBonus + 0.35;
         end
     elseif (weather == doubleWeatherWeak[ele]) then
         if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1) then
-            dayWeatherBonus = dayWeatherBonus - 0.50;
+            dayWeatherBonus = dayWeatherBonus - 0.35;
         end
     end
 
@@ -933,16 +938,16 @@ function addBonusesWeaponskill(caster, ele, target, dmg, params)
     if (dayElement == dayStrong[ele]) then
         dayWeatherBonus = dayWeatherBonus + caster:getMod(MOD_DAY_NUKE_BONUS)/100; -- sorc. tonban(+1)/zodiac ring
         if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
-            dayWeatherBonus = dayWeatherBonus + 0.20;
+            dayWeatherBonus = dayWeatherBonus + 0.15;
         end
     elseif (dayElement == dayWeak[ele]) then
         if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1) then
-            dayWeatherBonus = dayWeatherBonus - 0.20;
+            dayWeatherBonus = dayWeatherBonus - 0.15;
         end
     end
 
-    if dayWeatherBonus > 1.8 then
-        dayWeatherBonus = 1.8;
+    if dayWeatherBonus > 1.65 then
+        dayWeatherBonus = 1.65;
     end
 
     dmg = math.floor(dmg * dayWeatherBonus);
@@ -963,7 +968,7 @@ function addBonusesWeaponskill(caster, ele, target, dmg, params)
         mab = 0;
     end
 
---    dmg = math.floor(dmg * mab * mab);
+    dmg = math.floor(dmg * mab);
 
     -- print(affinityBonus);
     -- print(speciesReduction);
@@ -975,7 +980,11 @@ function addBonusesWeaponskill(caster, ele, target, dmg, params)
     return dmg;
 end;
 
-function addBonusesAbility(caster, ele, target, dmg, params)
+function addBonusesAbility(caster, ele, target, dmg, params, dChance)
+    if (dChance == nil) then
+        dChance = 0.75;
+    end
+
 
     local affinityBonus = AffinityBonusDmg(caster, ele);
     dmg = math.floor(dmg * affinityBonus);
@@ -988,28 +997,28 @@ function addBonusesAbility(caster, ele, target, dmg, params)
 
     if (weather == singleWeatherStrong[ele]) then
         if (caster:getMod(MOD_IRIDESCENCE) >= 1) then
-            if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
+            if (math.random() < dChance or caster:getMod(elementalObi[ele]) >= 1) then
                 dayWeatherBonus = dayWeatherBonus + 0.10;
             end
         end
-        if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
+        if (math.random() < dChance or caster:getMod(elementalObi[ele]) >= 1) then
             dayWeatherBonus = dayWeatherBonus + 0.10;
         end
     elseif (caster:getWeather() == singleWeatherWeak[ele]) then
-        if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1) then
+        if (math.random() < dChance or caster:getMod(elementalObiWeak[ele]) >= 1) then
             dayWeatherBonus = dayWeatherBonus - 0.10;
         end
     elseif (weather == doubleWeatherStrong[ele]) then
         if (caster:getMod(MOD_IRIDESCENCE) >= 1) then
-            if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
+            if (math.random() < dChance or caster:getMod(elementalObi[ele]) >= 1) then
                 dayWeatherBonus = dayWeatherBonus + 0.10;
             end
         end
-        if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
+        if (math.random() < dChance or caster:getMod(elementalObi[ele]) >= 1) then
             dayWeatherBonus = dayWeatherBonus + 0.25;
         end
     elseif (weather == doubleWeatherWeak[ele]) then
-        if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1) then
+        if (math.random() < dChance or caster:getMod(elementalObiWeak[ele]) >= 1) then
             dayWeatherBonus = dayWeatherBonus - 0.25;
         end
     end
@@ -1017,17 +1026,17 @@ function addBonusesAbility(caster, ele, target, dmg, params)
     local dayElement = VanadielDayElement();
     if (dayElement == dayStrong[ele]) then
         dayWeatherBonus = dayWeatherBonus + caster:getMod(MOD_DAY_NUKE_BONUS)/100; -- sorc. tonban(+1)/zodiac ring
-        if (math.random() < 0.75 or caster:getMod(elementalObi[ele]) >= 1) then
+        if (math.random() < dChance or caster:getMod(elementalObi[ele]) >= 1) then
             dayWeatherBonus = dayWeatherBonus + 0.10;
         end
     elseif (dayElement == dayWeak[ele]) then
-        if (math.random() < 0.75 or caster:getMod(elementalObiWeak[ele]) >= 1) then
+        if (math.random() < dChance or caster:getMod(elementalObiWeak[ele]) >= 1) then
             dayWeatherBonus = dayWeatherBonus - 0.10;
         end
     end
 
-    if dayWeatherBonus > 1.4 then
-        dayWeatherBonus = 1.4;
+    if dayWeatherBonus > 1.5 then
+        dayWeatherBonus = 1.5;
     end
 
     dmg = math.floor(dmg * dayWeatherBonus);
@@ -1080,7 +1089,7 @@ end
 
 function getElementalDebuffDOT(INT)
     --JSR: elemental DOT is much stronger now
-	local DOT = 4 + math.floor(INT / 4);
+	local DOT = 2 + math.floor(INT / 5);
     --if (INT<= 39) then
     --    DOT = 1;
     --elseif (INT <= 69) then
@@ -1097,7 +1106,7 @@ end;
 
 function getElementalDebuffStatDownFromDOT(dot)
     --JSR: elemental debuff is much stronger now
-	local stat_down = 5 + math.floor(dot / 2);
+	local stat_down = 4 + math.floor(dot / 2);
     --if (dot == 1) then
     --    stat_down = 5;
     --elseif (dot == 2) then
@@ -1152,6 +1161,7 @@ function handleThrenody(caster, target, spell, basePower, baseDuration, modifier
         return EFFECT_THRENODY;
     end
 
+
     -- Remove previous Threnody
     target:delStatusEffect(EFFECT_THRENODY);
 
@@ -1159,10 +1169,19 @@ function handleThrenody(caster, target, spell, basePower, baseDuration, modifier
     local power = basePower + iBoost*5;
     local duration = baseDuration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
 
+    -- JSR: handle DoT
+    local DoT = 1 + caster:getStat(MOD_CHR) / 4;
+    local element = modifier - 53;
+    local params = {};
+    params.bonusmab = 0; params.includemab = true;
+    DoT = addBonusesAbility(caster, element, target, DoT, param) + iBoost;
+
     if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
         power = power * 2;
+        DoT = DoT * 2;
     elseif (caster:hasStatusEffect(EFFECT_MARCATO)) then
         power = power * 1.5;
+        DoT = DoT * 1.5;
     end
 
     if (caster:hasStatusEffect(EFFECT_TROUBADOUR)) then
@@ -1171,6 +1190,11 @@ function handleThrenody(caster, target, spell, basePower, baseDuration, modifier
 
     -- Set spell message and apply status effect
     target:addStatusEffect(EFFECT_THRENODY, power, 0, duration, 0, modifier, 0);
+
+    -- get the effect so we can add a DoT
+    local effect = target:getStatusEffect(EFFECT_THRENODY);
+    effect:addMod(MOD_REGEN_DOWN, DoT);
+    target:addMod(MOD_REGEN_DOWN, DoT);
 
     return EFFECT_THRENODY;
 end;

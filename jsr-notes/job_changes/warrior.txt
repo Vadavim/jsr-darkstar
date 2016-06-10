@@ -8,16 +8,18 @@ SKILL CHANGES
  - B- Archery
 
 TRAIT CHANGES
+ - Fencer at levels: 45 (+200, +4%), 58 (+300, +6%), 71 (+400, +8%) 
 
 Additional Defense Bonus at level 50
 
 ABILITY CHANGES
 
 [Defender]
- - Also reduces enmity lost by receiving damage.
+ - Also reduces physical damage by 20% (10% when used by a subjob).
+ - Cancels and is cancelled by Berserk
 
 [Warcry]
- - Also grants a +50 TP Bonus to weaponskills for the duration.
+ - Also grants a +200 TP Bonus (+100 if subjob) to weaponskills for the duration.
 
 [Restraint]
  - Gained at level 55

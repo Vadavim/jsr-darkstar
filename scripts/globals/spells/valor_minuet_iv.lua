@@ -16,7 +16,11 @@ end;
 function onSpellCast(caster,target,spell)
 
     local sLvl = caster:getSkillLevel(SKILL_SNG); -- Gets skill level of Singing
-    local iLvl = caster:getWeaponSkillLevel(SLOT_RANGED);
+    local iType = caster:getWeaponSkillType(SLOT_RANGED);
+    local iLvl = 0;
+    if (iType == SKILL_WND or iType == SKILL_STR) then
+        iLvl = caster:getWeaponSkillLevel(SLOT_RANGED);
+    end
 
     local power = 31;
 

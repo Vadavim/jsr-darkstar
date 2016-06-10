@@ -25,15 +25,23 @@ function onUseAbility(player,target,ability)
     local power = 0;
     local duration = 30;
 
+    local tpBonus = 200;
     if player:getMainJob() == 1 then
         power = math.floor((player:getMainLvl()/4)+4.75)/256;
     else
         power = math.floor((player:getSubLvl()/4)+4.75)/256;
+        tpBonus = 100;
     end
 
     power = power * 100;
     duration = duration + player:getMod(MOD_WARCRY_DURATION);
 
 
-    target:addStatusEffect(EFFECT_WARCRY,power,0,duration,0,merit);
+    target:addStatusEffect(EFFECT_WARCRY,power,0,duration,0,merit + tpBonus);
+    effect = target:getStatusEffect(EFFECT_WARCRY);
+    if (effect ~= nil) then
+        effect:addMod(MOD_STR, 20);
+        target:addMod(MOD_STR, 20);
+    end
+
 end;

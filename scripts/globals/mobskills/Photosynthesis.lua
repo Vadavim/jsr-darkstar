@@ -10,6 +10,7 @@
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/monstertpmoves");
+require("scripts/globals/jsr_utils");
 
 ---------------------------------------------
 function onMobSkillCheck(target,mob,skill)
@@ -22,8 +23,9 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local power = mob:getMainLvl()/10 * 6 + 5;
-    local duration = 30;
+    local tpMod = tpModifier(skill);
+    local power = (mob:getMainLvl()/10 * 6 + 5) * tpMod;
+    local duration = 30 * tpMod;
 
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     if (hard > 0) then
@@ -31,6 +33,7 @@ function onMobWeaponSkill(target, mob, skill)
         duration = duration * (hard * 3);
     end
 
+    power = reduce_healing_factor(target) * power;
 
 
     local typeEffect = EFFECT_REGEN;

@@ -16,7 +16,7 @@ function onSpellCast(caster,target,spell)
     local duration = 79;
 
     local pCHR = caster:getStat(MOD_CHR);
-    local power = 2 + math.floor(pCHR * 0.15);
+    local power = 3 + math.floor(pCHR * 0.25);
     local mCHR = target:getStat(MOD_CHR);
     local dCHR = (pCHR - mCHR);
     local resm = applyResistance(caster,spell,target,dCHR,SINGING_SKILL,0);
@@ -34,7 +34,9 @@ function onSpellCast(caster,target,spell)
         power = power * 1.5;
     end
     caster:delStatusEffect(EFFECT_MARCATO);
-    
+
+    local params = {}; params.bonusmab = 0; params.includemab = true;
+    power = addBonusesAbility(caster, 7, target, power, param, 1.0);
     duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
     
     if (caster:hasStatusEffect(EFFECT_TROUBADOUR)) then

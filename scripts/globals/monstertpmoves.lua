@@ -706,6 +706,14 @@ function MobDrainStatusEffectMove(mob, target)
     return MSG_NO_EFFECT;
 end;
 
+function tpModifier(skill)
+    local tp = skill:getTP();
+    if (tp < 1000) then
+        return 1
+    end
+    return (tp / 1000) * (1 + tp / 3000);
+end
+
 -- Adds a status effect to a target
 function MobStatusEffectMove(mob, target, typeEffect, power, tick, duration)
 

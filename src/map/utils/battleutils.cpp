@@ -976,8 +976,8 @@ namespace battleutils
             int32 dVit = PDefender->VIT();
             float chance = (float)(aVit - dVit) + (50.0 - (waterRes * 0.1)) - poisonRes;
             int32 poisonPower = 1 + PAttacker->GetMLevel() / 3;
-            ShowDebug("PoisonRes: %d\n", poisonRes);
-            ShowDebug("WaterRes: %d\n", waterRes);
+//            ShowDebug("PoisonRes: %d\n", poisonRes);
+//            ShowDebug("WaterRes: %d\n", waterRes);
 //            poisonPower /= (1 + (waterRes * 0.01));
             if (dsprand::GetRandomNumber(0.0, 100.0) < chance) {
                 PDefender->StatusEffectContainer->AddStatusEffect(
@@ -2269,7 +2269,17 @@ namespace battleutils
         else
         {
             //apply merit mods
-            if (PAttacker->objtype == TYPE_PC) crithitrate += ((CCharEntity*)PAttacker)->PMeritPoints->GetMeritValue(MERIT_CRIT_HIT_RATE, (CCharEntity*)PAttacker);
+            if (PAttacker->objtype == TYPE_PC) {
+                CCharEntity* PChar = (CCharEntity*) PAttacker;
+                crithitrate += ((CCharEntity *) PAttacker)->PMeritPoints->GetMeritValue(MERIT_CRIT_HIT_RATE,
+                                                                                        (CCharEntity *) PAttacker);
+                CItemWeapon* mainHand = PChar->m_Weapons[SLOT_MAIN];
+                uint8 offHand = PChar->equip[SLOT_SUB];
+                if (offHand == 0  &&
+                    mainHand != nullptr && !(mainHand->isTwoHanded())) {
+                    crithitrate += PChar->getMod(MOD_FENCER) / 50;
+                }
+            }
             if (PDefender->objtype == TYPE_PC) crithitrate -= ((CCharEntity*)PDefender)->PMeritPoints->GetMeritValue(MERIT_ENEMY_CRIT_RATE, (CCharEntity*)PDefender);
             //ShowDebug("Crit rate mod before Innin/Yonin: %d\n", crithitrate);
             // Check for Innin crit rate bonus from behind target
@@ -2342,6 +2352,9 @@ namespace battleutils
 
         if (isCritical) {
             cRatio += 1;
+            if (PAttacker->objtype == TYPE_PC) {
+                PAttacker->SetLocalVar("critHit", 1);
+            }
         }
 
         cRatio = dsp_cap(cRatio, 0, ratioCap);
@@ -5316,6 +5329,14 @@ namespace battleutils
             if (PChar->equip[SLOT_SUB] != 0)
             {
                 tp -= battleutils::GetScaledItemModifier(PEntity, PChar->m_Weapons[SLOT_SUB], MOD_TP_BONUS);
+            }
+
+            // add Fencer bonus
+            CItemWeapon* mainHand = PChar->m_Weapons[SLOT_MAIN];
+            uint8 offHand = PChar->equip[SLOT_SUB];
+            if (offHand == 0 && damslot != SLOT_RANGED &&
+                    mainHand != nullptr && !(mainHand->isTwoHanded())) {
+                tp += PChar->getMod(MOD_FENCER);
             }
 
             //if ranged WS, remove TP bonus from mainhand weapon

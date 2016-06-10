@@ -9,23 +9,38 @@ Counter: 10% (Level 10) + 2% per 20 levels
 
 ABILITY CHANGES
 
+[Boost]
+ - No longer goes away after an attack. Only boosts Attack by 2% per boost.
+ - After the 3rd Boost, each boost begins to cost HP and there is a 10% chance that the Boost effect is lost.
+ - Using Boost generates Ki. 
+ - When a physical weaponskill is used, Boost is consumed, and its stored Ki increases the damage of the skill by a flat amount.
+
+[Ki Points]
+ - As mentioned above, Boost generates Ki points.
+ - The base amount generated is 50 (25 when used by a subjob).
+ - 5% of the user's TP is consumed and converted into Ki (max of 50).
+ - If the user is low on health, additional Ki is generated.
+ - If the user has countered or critically hit, an additional 25 Ki is generated (both stack).
+
 [Dodge]
- - Grants one shadow when used. At level 45, grants two shadows.
+ - Grants two shadows when used (only grants one shadow when used by a subjob).
 
 [Focus]
- - Also increases MACC and MATK by 20 for the duration.
+ - Also increases MACC by 20 and MATT by 15 for duration.
+ - While under Focus, generate +10 Ki when Boost is used.
 
 [Chakra]
- - Also restores MP equal to VIT * 2.
- - HP healed increased to VIT * 2 + 30% of your Maximum HP.
+ - Can be used to heal other targets.
+ - If used on self, also restores MP equal to VIT * 2.
+ - Consumes Focus to increased healing amount (heal additional HP equal to (Ki / 10)% of your maximum HP).
+ - At 250+ Ki, will bestow a powerful Regen for 30 seconds.
+ - At 350+ Ki, Erasable status effects are removed
 
 [Chi Blast]
- - Recast reduced to 1 minute
+ - Consumed Ki to deal additional damage.
+ - Base damage increased significantly.
+ - Affected by MATT, MDEF, and Light Attack / Defense.
+ - At 250+ Ki, bestows a powerful Dia II effect (higher DoT, and defense is lowered by 12%). DoT is based on MND.
+ - At 350+ Ki, dispels a status effect from the target
 
-[Perfect Counter]
- - Gained at level 53 instead of 79
-
-[Impetus]
- - Gained at level 70 instead of 88
- - Recast reduced to 10 minutes.
 

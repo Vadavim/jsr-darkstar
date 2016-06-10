@@ -89,8 +89,42 @@ Creates by Lautan.
 1304 - puppet ws
 
 
+1600 - [CAST] unleashes a quick burst of dark energy (AoE)
+1601 - [CAST] charges before unleashing dark burst (AoE) 
+1613 - [STILL] fiery aura around mob that transfers to target
+1622 - [HUMAN] cool jump spin plus flash / debuff
+1623 - [CAST] conjure feather barrage
+1640 - [ABY] cool charging then lightning bolts around target
+1632 to 164 - [HUMAN] bloody claw / elemental strikes (boring)
+1652 - [ANY] Healing charge then aura around
+1653 - [STILL] Greeen cloud / poison
+1654 - [ANY] Charge tornado then release (big one) (also silence effect)
+1656 - [ANY] Really cool fire blast then ice spikes
+1657 - [ANY] Striking motion, fiery debuff burst, then effect on target
+1659 - [ANY] self destructing thing
+1666 - [ANY] black magical symbols, dark orb, then debuff enemies
+1668 - [STILL] cloud of healing stuff?
+1681 - [CAST] debuffing thingy darkness
+
 These need to be used together.  Teleport out, change pos, teleport in.
 Used by mobs such as Ark Angel TT, which teleports around the battlefield instead of moving.  Target isn't lost on AA TT.
 Not to be confused with worms moving, which is completely different.  Costume and walk around.
 Teleport out: 639, 674, 689
 Teleport in: ???, 675, 690
+
+
+--------------
+WEIRD
+
+1603 - [MANDRAGORA] petal pirouette (funny)
+1660 - [MANDRAGORA] scream / slow spin thingy
+1614 - 1616+ (gun stuff?)
+
+
+1667 - snowball throw?
+1682 - floating dark orb thingy (maybe ghost?)
+1684 - LOTS OF ICE FALLING
+
+1687 - Cait Sith is around here (also 1692 has lots of dice )
+
+1697 - Level Up

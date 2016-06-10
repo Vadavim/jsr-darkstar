@@ -51,13 +51,34 @@ function onUseAbility(player,target,ability)
     end
 
     local recover = (multi * vit);
-    player:setHP((hp + recover));
+--    player:setHP((hp + recover));
 
+    if (player:hasStatusEffect(EFFECT_BOOST)) then
+        local effect = player:getStatusEffect(EFFECT_BOOST);
+        local subPower = effect:getSubPower();
+        if (subPower >= 250) then
+            local regen = 2 + player:getMainLvl() / 2 + merits / 4;
+            target:addStatusEffect(EFFECT_REGEN,regen,0,30,0,0,1);
+        end
+        if (subPower >= 350) then
+            target:eraseAllStatusEffects();
+        end
+
+        recover = recover + player:getMaxHP() * subPower / 1000;
+        player:delStatusEffect(EFFECT_BOOST);
+    end
+
+    if (player:getID() == target:getID()) then
+        player:addMP(player:getStat(MOD_VIT) * 2);
+    end
+
+
+
+    target:addHP(recover);
     if (merits >= 1) then
         if (player:hasStatusEffect(EFFECT_REGEN)) then
             player:delStatusEffect(EFFECT_REGEN);
         end
-        player:addStatusEffect(EFFECT_REGEN,10,0,merits,0,0,1);
     end
 
     return recover;

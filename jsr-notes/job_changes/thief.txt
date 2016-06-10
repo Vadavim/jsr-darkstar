@@ -1,10 +1,13 @@
 SKILL CHANGES
- - B- Sword
- - B- Hand to Hand
+ - B Sword
+ - B Hand to Hand
+ - B Club
  - A+ Parry
- - A- Throwing
+ - B+ Throwing
  - B+ Marksmanship
- - B- Archery
+ - B Archery
+ - B- Guarding
+ - C+ Shield
 
 TRAIT CHANGES
  - Has Dual-Wield I/II/III at levels 20 / 40 / 60
