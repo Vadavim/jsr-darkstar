@@ -1,7 +1,17 @@
 [Foe Requiem DoT]:
-I: 1 + CHA * 0.1
-II: 2 + CHA * 0.15
-III: 3 + CHA * 0.2
-IV: 4 + CHA * 0.25
-V: 5 + CHA * 0.3
-VI: 6 + CHA * 0.35
+I: 1 + CHR * 0.25
+II: 3 + CHR * 0.25
+III: 5 + CHR * 0.25
+IV: 7 + CHR * 0.25
+V: 9 + CHR * 0.25
+VI: 11 + CHR * 0.25
+
+ - DoT affected by MAB, MDB, light attack, light defense, day, and weather.
+
+[Carnage Elegy]
+ - Power: +512 -> +356 delay
+ - Duration: 180 -> 360 seconds
+
+[Threnodies]
+ - Applies a DoT (1 + CHR / 4) based on elemental resistance that is being reduced.
+ - DoT affected by MAB, MDB, elemental attack, elemental defense, day, and weather.

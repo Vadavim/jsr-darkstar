@@ -1,3 +1,6 @@
+[Poison in general]
+ -DoT affected by MAB, MDB, water attack, water defense, day, and weather.
+
 [Poison]
 Duration: 30 -> 60 seconds
 Max DOT: 4 -> 10, and scales faster (+1 per 15 skill)
@@ -20,3 +23,9 @@ Duration: 180 -> 300 Seconds
 [Elemental Spikes]
 Duration: 180 -> 300 Seconds
 Fire Spikes: increased damage
+
+[Burn / Shock / Drown / Rasp / Choke / Frost]
+ - DoT: 2 + INT / 5
+ - Each effect reduces the target's elemental resistances (-10) and defenses (-5%) based on the element and the element that it is strong against.
+ - For instance, Burn reduces a target's Fire and Ice resistances/defenses. 
+ - DoT affected by MAB, MDB, elemental attack, elemental defense, day, and weather.

@@ -12,9 +12,10 @@
  - Inflicts Weight (50% reduction to speed). Duration varies with TP. (60 at 1000 to 360 at 3000).
 
 [Sniper Shot]
- - Base fTP is 1.7
+ - Base fTP is 2.0
  - Crit chance is 20% (1000 TP), 50% (2000 TP), 95% (3000 TP)
- - The attack is more accurate (+30 bonus to accuracy)
+ - The attack is more accurate (+40 bonus to accuracy)
+ - On a critical hit, target is stunned for 8 seconds
  - Modifiers changed to: 150% INT
  - +33% damage against beastmen and humanoids
  - Int penalty is -20 for 120 seconds.
@@ -36,4 +37,4 @@
 [Numbing Shot]
  - Available at skill level 250
  - Base FTP reduced to 2.5
- - Paralysis potency is 35% (duration is 60 seconds at 1000 TP to 180 seconds at 3000 TP).
+ - Paralysis potency is 35% (duration is 40 seconds at 1000 TP to 240 seconds at 3000 TP).
