@@ -7,6 +7,9 @@ SKILL CHANGES
  - A Sword
  - B- Archery
 
+STAT CHANGES
+ - VIT increased
+
 TRAIT CHANGES
  - Fencer at levels: 45 (+200, +4%), 58 (+300, +6%), 71 (+400, +8%) 
 
@@ -14,18 +17,54 @@ Additional Defense Bonus at level 50
 
 ABILITY CHANGES
 
+[Provoke]
+ - [Berserk] (Main only): gives a temporary STR bonus and has a chance of stunning target. Greatly affected by Fire Resistance and CHR.
+ - [Defender] (Main ony): gives a temporary VIT bonus.
+
 [Defender]
  - Also reduces physical damage by 20% (10% when used by a subjob).
  - Cancels and is cancelled by Berserk
 
 [Warcry]
- - Also grants a +200 TP Bonus (+100 if subjob) to weaponskills for the duration.
+ - [Berserk]: grants a +200 TP Bonus (+100 if subjob) to weaponskills for the duration.
+     - Each Savagery merit increases bonus by +25.
+ - [Defender]: grants 10% (5% if subjob) chance of nullifying physical damage for duration.
+     - Each Savagery merit increases chance by 1%.
+
+[Aggressor]
+ - Aggressive aim gives +4 RACC and +4 RATP per merit point.
+ - [Berserk]: grants +5% chance to critically hit
+ - [Defender]: grants +10 Enmity
+
+[Retaliation]
+ - Does not give TP to attacker (but warrior still gains TP).
+ - [Berserk]: 	Increases damage of retliation by 50%. 
+		Each counterattack grants +2% Attack for remainder of Retaliation.
+
+ - [Defender]: 	Increases enmity gainedfrom counterattack by 250%.
+		Each counterattack grants +2% Defense for remainder of Retaliation.
 
 [Restraint]
  - Gained at level 55
- - Changed to -25% Attack, -5% crit chance, and +50 Store TP.
+ - Changed to -25% Attack, -5% crit chance, +25 Subtle Blow, and +50 Store TP.
+
+[Warrior's Charge]
+ - Gained at level 60 (no longer requires merit)
+ - Instead increases double attack rate by 25% (+2% per merit point) for duration
+ - During this time, the warrior may swap weapons without losing TP.
+ - [Berserk]: reduces recast to 3 minutes
+ - [Defender]: Grants +40 Shield and Parry skill. Also significantly increases TP gained from parrying or blocking.
 
 [Blood Rage]
  - Gained at level 70
+ - Recast ID is unknown (so timer won't reflect cooldown), but has cooldown of 3 minutes
+ - Affected by warcry recast merit
+ - Grants +5% Crit Hit Rate and +25% crit damage for 30 seconds
+ - [Berserk]: Increased to +7% Crit Hit Rate and +35% crit damage.
+ - [Defender]: reduces chance of being critically hit by 10%.
+
+[Tomahawk]
+ - No longer requires merit to use.
+
 
 

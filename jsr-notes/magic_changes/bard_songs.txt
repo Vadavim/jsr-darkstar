@@ -13,5 +13,5 @@ VI: 11 + CHR * 0.1
  - Duration: 180 -> 360 seconds
 
 [Threnodies]
- - Applies a DoT (1 + CHR / 5) based on elemental resistance that is being reduced.
+ - Applies a DoT (1 + CHR / 8) based on elemental resistance that is being reduced.
  - DoT affected by MAB, MDB, elemental attack, elemental defense, day, and weather.

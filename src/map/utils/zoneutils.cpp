@@ -275,7 +275,7 @@ void LoadNPCList()
           name_prefix, \
           required_expansion \
         FROM npc_list INNER JOIN zone_settings \
-        ON (npcid & 0xFFF000) >> 12 = zone_settings.zoneid \
+        ON (npcid & 0xFFF000) >> 12 = zone_settings.zoneid && zoneport != 0\
         WHERE IF(%d <> 0, '%s' = zoneip AND %d = zoneport, TRUE);";
 
     int32 ret = Sql_Query(SqlHandle, Query, map_ip, inet_ntoa(map_ip), map_port);
@@ -363,10 +363,10 @@ void LoadMOBList()
             allegiance, namevis, aggro, roamflag, mob_pools.skill_list_id, mob_pools.true_detection, mob_family_system.detects, \
             mob_family_system.charmable \
             FROM mob_groups INNER JOIN mob_pools ON mob_groups.poolid = mob_pools.poolid \
-            INNER JOIN mob_spawn_points ON mob_groups.groupid = mob_spawn_points.groupid \
+            INNER JOIN mob_spawn_points ON mob_groups.groupid = mob_spawn_points.groupid  \
             INNER JOIN mob_family_system ON mob_pools.familyid = mob_family_system.familyid \
-            INNER JOIN zone_settings ON mob_groups.zoneid = zone_settings.zoneid \
-            WHERE NOT (pos_x = 0 AND pos_y = 0 AND pos_z = 0) AND IF(%d <> 0, '%s' = zoneip AND %d = zoneport, TRUE) \
+            INNER JOIN zone_settings ON mob_groups.zoneid = zone_settings.zoneid && zoneport != 0 \
+            WHERE NOT ((pos_x = 0 AND pos_y = 0 AND pos_z = 0) OR disabled != 0) AND IF(%d <> 0, '%s' = zoneip AND %d = zoneport, TRUE) \
             AND mob_groups.zoneid = ((mobid >> 12) & 0xFFF);";
 
     int32 ret = Sql_Query(SqlHandle, Query, map_ip, inet_ntoa(map_ip), map_port);
@@ -546,7 +546,7 @@ void LoadMOBList()
         FROM mob_pets \
         LEFT JOIN mob_spawn_points ON mob_pets.mob_mobid = mob_spawn_points.mobid \
         LEFT JOIN mob_groups ON mob_spawn_points.groupid = mob_groups.groupid \
-        INNER JOIN zone_settings ON mob_groups.zoneid = zone_settings.zoneid \
+        INNER JOIN zone_settings ON mob_groups.zoneid = zone_settings.zoneid && zoneport != 0 \
         WHERE IF(%d <> 0, '%s' = zoneip AND %d = zoneport, TRUE);";
 
     ret = Sql_Query(SqlHandle, PetQuery, map_ip, inet_ntoa(map_ip), map_port);

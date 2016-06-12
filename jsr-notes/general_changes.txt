@@ -3,17 +3,31 @@ ADDED / FIXED TRAITS
  - Added back Occult Acumen
  - Conserve MP is more effective
 
+ATTACKS
+ - Deal additional damage with auto-attack against lower leveled enemies
+ - Players have less of a damage penalty against high level mobs
+ - Critical hit damage increased (+50%)
+
 
 RANGED ATTACKS
  - Ranged attack bonus is increased by Dex instead of Str (2/3 Dex)
  - Ranged accuracy increased by 2/3 Agi
+
+
+DEFENSE
+ - Max Parry Rate: 25% -> 35%
+ - Max Guard Rate: 25% -> 45%
+ - Mobs gain less of a damage bonus against players when they are higher level than the player (~15% less)
 
 SKILL CHAIN / MAGIC BURST
 
 Magic burst damage increased (starts at +60% damage, scales up to +100%).
 The magic burst damage modifier is multiplicative (was additive) with this damage bonus.
 
-
+STATUS EFFECTS
+ - Paralyze Resistance slightly affects Paralyze chance (for every two points of resistance -1% chance of proccing Paralyze)
+ - Ice Spikes Paralze potency: 20% -> 25%
+ - Curse: when used on mobs, decreases their status effects resistances (-20).
 
 
 EXPERIENCE POINTS

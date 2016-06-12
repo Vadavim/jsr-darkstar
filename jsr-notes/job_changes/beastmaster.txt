@@ -7,6 +7,12 @@ Evasion: B
 Shield: B
 Parrying: B
 
+STAT CHANGES
+ - STR increased
+ - VIT increased
+ - HP increased
+
+
 TRAIT CHANGES
 
 [Killer Traits]

@@ -17,7 +17,7 @@ end;
 function addRune(player, rune)
     local runLevel = 0;
     local minRunes = 0;
-    if(player:getMainJob() == JOB_RUN or player:getMainJob() == JOB_GEO) then
+    if(player:getMainJob() == JOBS.RUN or player:getMainJob() == JOBS.GEO) then
         runLevel = player:getMainLvl();
     else
         runLevel = player:getSubLvl();
@@ -39,11 +39,11 @@ end;
 
 function vallationDefense(count)
     if (count == 1) then
-        return 300;
+        return 75;
     elseif (count == 2) then
-        return 350;
+        return 100;
     elseif (count == 3) then
-        return 400;
+        return 125;
     else
         return 0;
     end
@@ -101,14 +101,14 @@ function applyValianceMask(effect)
     local lux = rshift(band(mask, lshift(3, 12)), 12);
     local tenebrae = rshift(band(mask, lshift(3, 14)), 14);
     
-    effect:addMod(MOD_FIREDEF, vallationDefense(ignis));
-    effect:addMod(MOD_ICEDEF, vallationDefense(gelus));
-    effect:addMod(MOD_WATERDEF, vallationDefense(unda));
-    effect:addMod(MOD_EARTHDEF, vallationDefense(tellus));
-    effect:addMod(MOD_THUNDERDEF, vallationDefense(sulpor));
-    effect:addMod(MOD_WINDDEF, vallationDefense(flabra));
-    effect:addMod(MOD_LIGHTDEF, vallationDefense(lux));
-    effect:addMod(MOD_DARKDEF, vallationDefense(tenebrae));      
+    effect:addMod(MOD_FIREDEF, vallationDefense(unda));
+    effect:addMod(MOD_ICEDEF, vallationDefense(ignis));
+    effect:addMod(MOD_WATERDEF, vallationDefense(sulpor));
+    effect:addMod(MOD_EARTHDEF, vallationDefense(flabra));
+    effect:addMod(MOD_THUNDERDEF, vallationDefense(tellus));
+    effect:addMod(MOD_WINDDEF, vallationDefense(gelus));
+    effect:addMod(MOD_LIGHTDEF, vallationDefense(tenebrae));
+    effect:addMod(MOD_DARKDEF, vallationDefense(lux));
 end;
 
 function applyPflugMask(effect)
@@ -127,29 +127,36 @@ function applyPflugMask(effect)
     local lux = rshift(band(mask, lshift(3, 12)), 12);
     local tenebrae = rshift(band(mask, lshift(3, 14)), 14);
     
-    effect:addMod(MOD_FIRERES, pflugRes(ignis));
-    effect:addMod(MOD_VIRUSRES, pflugRes(ignis) / 10);
-    effect:addMod(MOD_AMNESIARES, pflugRes(ignis) / 10);
-    effect:addMod(MOD_ICERES, pflugRes(gelus));
-    effect:addMod(MOD_PARALYZERES, pflugRes(gelus) / 10);
-    effect:addMod(MOD_BINDRES, pflugRes(gelus) / 10);
-    effect:addMod(MOD_WATERRES, pflugRes(unda));
-    effect:addMod(MOD_POISONRES, pflugRes(unda) / 10);
-    effect:addMod(MOD_EARTHRES, pflugRes(tellus));
-    effect:addMod(MOD_SLOWRES, pflugRes(tellus) / 10);
-    effect:addMod(MOD_GRAVITYRES, pflugRes(tellus) / 10);
-    effect:addMod(MOD_PETRIFYRES, pflugRes(tellus) / 10);
-    effect:addMod(MOD_THUNDERRES, pflugRes(sulpor));
-    effect:addMod(MOD_STUNRES, pflugRes(sulpor) / 10);
-    effect:addMod(MOD_WINDRES, pflugRes(flabra));
-    effect:addMod(MOD_SILENCERES, pflugRes(flabra) / 10);
-    effect:addMod(MOD_LIGHTRES, pflugRes(lux));
-    effect:addMod(MOD_CHARMRES, pflugRes(lux) / 10);
-    effect:addMod(MOD_DARKRES, pflugRes(tenebrae));      
-    effect:addMod(MOD_SLEEPRES, pflugRes(tenebrae) / 10);    
-    effect:addMod(MOD_BLINDRES, pflugRes(tenebrae) / 10);    
-    effect:addMod(MOD_CURSERES, pflugRes(tenebrae) / 10);      
-    effect:addMod(MOD_DEATHRES, pflugRes(tenebrae) / 10);      
+    effect:addMod(MOD_FIRERES, pflugRes(unda));
+    effect:addMod(MOD_VIRUSRES, pflugRes(unda) / 10);
+    effect:addMod(MOD_AMNESIARES, pflugRes(unda) / 10);
+
+    effect:addMod(MOD_ICERES, pflugRes(ignis));
+    effect:addMod(MOD_PARALYZERES, pflugRes(ignis) / 10);
+    effect:addMod(MOD_BINDRES, pflugRes(ignis) / 10);
+
+    effect:addMod(MOD_WATERRES, pflugRes(sulpor));
+    effect:addMod(MOD_POISONRES, pflugRes(sulpor) / 10);
+
+    effect:addMod(MOD_EARTHRES, pflugRes(flabra));
+    effect:addMod(MOD_SLOWRES, pflugRes(flabra) / 10);
+    effect:addMod(MOD_GRAVITYRES, pflugRes(flabra) / 10);
+    effect:addMod(MOD_PETRIFYRES, pflugRes(flabra) / 10);
+
+    effect:addMod(MOD_THUNDERRES, pflugRes(tellus));
+    effect:addMod(MOD_STUNRES, pflugRes(tellus) / 10);
+
+    effect:addMod(MOD_WINDRES, pflugRes(tellus));
+    effect:addMod(MOD_SILENCERES, pflugRes(tellus) / 10);
+
+    effect:addMod(MOD_LIGHTRES, pflugRes(tenebrae));
+    effect:addMod(MOD_CHARMRES, pflugRes(tenebrae) / 10);
+
+    effect:addMod(MOD_DARKRES, pflugRes(lux));
+    effect:addMod(MOD_SLEEPRES, pflugRes(lux) / 10);
+    effect:addMod(MOD_BLINDRES, pflugRes(lux) / 10);
+    effect:addMod(MOD_CURSERES, pflugRes(lux) / 10);
+    effect:addMod(MOD_DEATHRES, pflugRes(lux) / 10);
 end;
 
 function startConfrontation(player, power, duration, mobs)
@@ -270,7 +277,7 @@ function reduced_healing_factor(target)
         factor = factor * 0.66;
     end
 
-    if (target:getstatuseffect(effect_rasp) ~= nil) then
+    if (target:getStatusEffect(EFFECT_RASP) ~= nil) then
         factor = factor * 0.75;
     end
 

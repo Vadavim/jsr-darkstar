@@ -20,7 +20,6 @@ function onMobWeaponSkill(target, mob, skill)
     local power = 10 * tpMod;
     mob:addTP(500);
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
-    print(hard);
     if (hard > 0) then
         power = power * (1 + hard / 2);
     end

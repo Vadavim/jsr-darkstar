@@ -11,7 +11,12 @@ cmdprops =
 
 function onTrigger(player, target)
     if (target == nil) then
-        player:PrintToPlayer("You must enter a valid player name.");
+        local targ = player:getCursorTarget();
+        if (targ == nil) then
+            return;
+        end
+
+        player:setPos( targ:getXPos(), targ:getYPos(), targ:getZPos(), 0 );
         return;
     end
 

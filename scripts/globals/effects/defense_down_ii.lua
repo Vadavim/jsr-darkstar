@@ -15,6 +15,10 @@ function onEffectGain(target,effect)
         effect:setPower(50);
     end
     target:addMod(MOD_DEFP,-effect:getPower());
+    target:addMod(MOD_SLASHRES, -effect:getSubPower());
+    target:addMod(MOD_PIERCERES, -effect:getSubPower());
+    target:addMod(MOD_IMPACTRES, -effect:getSubPower());
+    target:addMod(MOD_HTHRES, -effect:getSubPower());
 end;
 
 -----------------------------------
@@ -30,4 +34,8 @@ end;
 
 function onEffectLose(target,effect)
     target:delMod(MOD_DEFP,-effect:getPower());
+    target:delMod(MOD_SLASHRES, -effect:getSubPower());
+    target:delMod(MOD_PIERCERES, -effect:getSubPower());
+    target:delMod(MOD_IMPACTRES, -effect:getSubPower());
+    target:delMod(MOD_HTHRES, -effect:getSubPower());
 end;

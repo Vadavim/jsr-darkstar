@@ -2,6 +2,14 @@
 
  - A- Polearm
  - B+ Archery
+
+
+STAT CHANGES
+ - INT increased
+ - VIT decreased
+
+
+
 ABILITY CHANGES
 
 [Warding Circle]

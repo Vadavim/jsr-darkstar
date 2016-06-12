@@ -424,7 +424,8 @@ function getMagicHitRate(caster, target, skillType, element, percentBonus, bonus
     local magicacc = caster:getMod(MOD_MACC) + caster:getILvlMacc();
 
     if (skillType ~= 0) then
-        magicacc = magicacc + caster:getSkillLevel(skillType) + caster:getMod(79 + skillType);
+--        magicacc = magicacc + caster:getSkillLevel(skillType) + caster:getMod(79 + skillType);
+        magicacc = magicacc + caster:getSkillLevel(skillType);
 
         -- JSR: singing skill also adds instrument (if one exists)
         if (skillType == SKILL_SNG) then
@@ -1177,7 +1178,7 @@ function handleThrenody(caster, target, spell, basePower, baseDuration, modifier
     local duration = baseDuration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
 
     -- JSR: handle DoT
-    local DoT = 1 + caster:getStat(MOD_CHR) / 5;
+    local DoT = 1 + caster:getStat(MOD_CHR) / 8;
     local element = modifier - 53;
     local params = {};
     params.bonusmab = 0; params.includemab = true;

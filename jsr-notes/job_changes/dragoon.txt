@@ -1,5 +1,10 @@
 [SKILLS]
 
+STATS
+
+ - HP increased
+ - AGI increased
+
 [TRAITS]
  - Gain Conserve TP at levels 30, 50, and 70 (chance is 15%, 20%, and 25% respectively).
 

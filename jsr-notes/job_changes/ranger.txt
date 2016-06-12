@@ -6,6 +6,12 @@ SKILL CHANGES
  - B+ Evasion
  - B- Parrying
 
+STATS
+ - DEX increased
+ - VIT decreased
+ - INT increased
+ - MND increased
+
 TRAIT CHANGES
  - Recycle chance increased to 25%.
  - Alertness: also grants a +10 bonus to Evasion, Magic Evasion, Guard, Shield, and Parry

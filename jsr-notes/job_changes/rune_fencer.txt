@@ -24,12 +24,12 @@ ABILITY CHANGES
 	Enspell damage associated with [rune element]. Increases by 15% per additioal rune of same element.
 
  - Let [weak element] be the element that is weak against the [rune element]. Then each rune gives:
-	+[weak element] resistance
-	+8% [weak element] damage reduction
+	+ [weak element] resistance
+	+10% [weak element] damage reduction
 
  - Let [strong element] be the element that is strong against the [rune element]. Then each rune gives:	
 	-20 [strong element] resistance
-	-4% [strong element] damage vulnerability
+	-4% [strong element] damage reduction
 	-5 [strong element] MACC
 	-5% [strong element] damage penalty
 

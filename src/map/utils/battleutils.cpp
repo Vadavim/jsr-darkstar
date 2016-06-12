@@ -586,7 +586,7 @@ namespace battleutils
         MODIFIER resistarray[8] = { MOD_FIRERES, MOD_EARTHRES, MOD_WATERRES, MOD_WINDRES, MOD_ICERES, MOD_THUNDERRES, MOD_LIGHTRES, MOD_DARKRES };
         bool obiBonus = false;
 
-        double half = (double)(PDefender->getMod(resistarray[element])) / 100;
+        double half = (double)(PDefender->getMod(resistarray[element])) / 1000.0;
         double quart = pow(half, 2);
         double eighth = pow(half, 3);
         double sixteenth = pow(half, 4);
@@ -615,21 +615,38 @@ namespace battleutils
             // mobs random multiplier
             dBonus += dsprand::GetRandomNumber(100) / 1000.0f;
         }
-        if (WeekDay == strongDay[element] && (obiBonus || dsprand::GetRandomNumber(100) < 33))
+        if (WeekDay == strongDay[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
             dBonus += 0.1;
-        else if (WeekDay == weakDay[element] && (obiBonus || dsprand::GetRandomNumber(100) < 33))
+        else if (WeekDay == weakDay[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
             dBonus -= 0.1;
-        if (weather == strongWeatherSingle[element] && (obiBonus || dsprand::GetRandomNumber(100) < 33))
+        if (weather == strongWeatherSingle[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
             dBonus += 0.1;
-        else if (weather == strongWeatherDouble[element] && (obiBonus || dsprand::GetRandomNumber(100) < 33))
+        else if (weather == strongWeatherDouble[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
             dBonus += 0.25;
-        else if (weather == weakWeatherSingle[element] && (obiBonus || dsprand::GetRandomNumber(100) < 33))
+        else if (weather == weakWeatherSingle[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
             dBonus -= 0.1;
-        else if (weather == weakWeatherDouble[element] && (obiBonus || dsprand::GetRandomNumber(100) < 33))
+        else if (weather == weakWeatherDouble[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
             dBonus -= 0.25;
 
+        // randomize it a little
+        dBonus += dsprand::GetRandomNumber(150) / 1000.0f;
         damage = (damage * (float)resist);
         damage = (damage * (float)dBonus);
+
+
+        // calculate matt / mdef
+        float matb = 1.0 + (float)PAttacker->getMod(MOD_MATT) / 100.0;
+        float mdef = 1.0 + (float)PDefender->getMod(MOD_MDEF) / 100.0;
+        damage *= matb * mdef;
+
+        // calculate elemental attack / defense
+        uint32 eleAttack[8] = { MOD_FIREATT, MOD_EARTHATT, MOD_WATERATT, MOD_WINDATT, ICEDAY, MOD_THUNDERATT, MOD_LIGHTATT, MOD_DARKATT };
+        uint32 eleDefense[8] = { MOD_FIREDEF, MOD_EARTHDEF, MOD_WATERDEF, MOD_WINDDEF, ICEDAY, MOD_THUNDERDEF, MOD_LIGHTDEF, MOD_DARKDEF };
+        float eleAttackRatio = 1.0 + (float)PAttacker->getMod(eleAttack[element]) / 100.0;
+        float eleDefenseRatio = 1.0 - (float)PDefender->getMod(eleDefense[element]) / 255.0;
+        damage *= eleAttackRatio * eleDefenseRatio;
+
+        // take damage
         damage = MagicDmgTaken(PDefender, damage, (ELEMENT)(element + 1));
 
         if (damage > 0)
@@ -652,7 +669,21 @@ namespace battleutils
     {
         uint16 damage = Action->spikesParam;
         int16 intStat = PDefender->INT();
-        int16 mattStat = PDefender->getMod(MOD_MATT);
+        float matb = 1.0 + (float)PDefender->getMod(MOD_MATT) / 100.0;
+        float mdef = 1.0 + (float)PAttacker->getMod(MOD_MDEF) / 100.0;
+
+        uint32 WeekDay = CVanaTime::getInstance()->getWeekday();
+        WEATHER weather = GetWeather(PAttacker, false);
+        DAYTYPE strongDay[8] = { FIRESDAY, EARTHSDAY, WATERSDAY, WINDSDAY, ICEDAY, LIGHTNINGDAY, LIGHTSDAY, DARKSDAY };
+        DAYTYPE weakDay[8] = { WATERSDAY, WINDSDAY, LIGHTNINGDAY, ICEDAY, FIRESDAY, EARTHSDAY, DARKSDAY, LIGHTSDAY };
+        WEATHER strongWeatherSingle[8] = { WEATHER_HOT_SPELL, WEATHER_DUST_STORM, WEATHER_RAIN, WEATHER_WIND, WEATHER_SNOW, WEATHER_THUNDER, WEATHER_AURORAS, WEATHER_GLOOM };
+        WEATHER strongWeatherDouble[8] = { WEATHER_HEAT_WAVE, WEATHER_SAND_STORM, WEATHER_SQUALL, WEATHER_GALES, WEATHER_BLIZZARDS, WEATHER_THUNDERSTORMS, WEATHER_STELLAR_GLARE, WEATHER_DARKNESS };
+        WEATHER weakWeatherSingle[8] = { WEATHER_RAIN, WEATHER_WIND, WEATHER_THUNDER, WEATHER_SNOW, WEATHER_HOT_SPELL, WEATHER_DUST_STORM, WEATHER_GLOOM, WEATHER_AURORAS };
+        WEATHER weakWeatherDouble[8] = { WEATHER_SQUALL, WEATHER_GALES, WEATHER_THUNDERSTORMS, WEATHER_BLIZZARDS, WEATHER_HEAT_WAVE, WEATHER_SAND_STORM, WEATHER_DARKNESS, WEATHER_STELLAR_GLARE };
+
+        uint32 eleAttack[8] = { MOD_FIREATT, MOD_EARTHATT, MOD_WATERATT, MOD_WINDATT, ICEDAY, MOD_THUNDERATT, MOD_LIGHTATT, MOD_DARKATT };
+        uint32 eleDefense[8] = { MOD_FIREDEF, MOD_EARTHDEF, MOD_WATERDEF, MOD_WINDDEF, ICEDAY, MOD_THUNDERDEF, MOD_LIGHTDEF, MOD_DARKDEF };
+        uint32 ele = 0;
 
         switch (Action->spikesEffect)
         {
@@ -660,8 +691,47 @@ namespace battleutils
                 // drain same as damage taken
                 damage = damageTaken;
                 break;
+            case SPIKE_BLAZE:
+                ele = ELEMENT_FIRE;
+                break;
+            case SPIKE_ICE:
+                ele = ELEMENT_ICE;
+                break;
+            case SPIKE_SHOCK:
+                ele = ELEMENT_THUNDER;
+                break;
             default:
                 break;
+        }
+
+        if (ele != 0) {
+
+            // elemental attack / defense bonus
+            damage *= matb * mdef;
+            float eleAttackRatio = 1.0 + (float)PDefender->getMod(eleAttack[ele]) / 100.0;
+            float eleDefenseRatio = 1.0 - (float)PAttacker->getMod(eleDefense[ele]) / 255.0;
+            damage *= eleAttackRatio * eleDefenseRatio;
+            float dBonus = 1.0;
+
+            // day / weather bonus
+            if (WeekDay == strongDay[ele])
+                dBonus += 0.1;
+            else if (WeekDay == weakDay[ele])
+                dBonus -= 0.1;
+            if (weather == strongWeatherSingle[ele])
+                dBonus += 0.1;
+            else if (weather == strongWeatherDouble[ele])
+                dBonus += 0.25;
+            else if (weather == weakWeatherSingle[ele])
+                dBonus -= 0.1;
+            else if (weather == weakWeatherDouble[ele])
+                dBonus -= 0.25;
+
+            // randomize it a little
+            dBonus += dsprand::GetRandomNumber(150) / 1000.0f;
+            damage *= dBonus;
+
+
         }
 
         return damage;
@@ -707,10 +777,25 @@ namespace battleutils
                 uint16 bonus = dmg * (PDefender->getMod(MOD_RETALIATION) / 100);
                 dmg = dmg + bonus;
 
+                CStatusEffect* cRet = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_RETALIATION);
+                if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_BERSERK)) {
+                    dmg = dmg * 1.5;
+                    cRet->addMod(MOD_ATTP, 2);
+                    PDefender->addModifier(MOD_ATTP, 2);
+
+                } else if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_DEFENDER)) {
+                    if (PAttacker->objtype == TYPE_MOB)
+                        ((CMobEntity*)PAttacker)->PEnmityContainer->UpdateEnmityFromAttack(PDefender, damage * 1.5);
+
+                    cRet->addMod(MOD_DEFP, 2);
+                    PDefender->addModifier(MOD_DEFP, 2);
+                }
+
+
                 // FINISH HIM! dun dun dun
                 // TP and stoneskin are handled inside TakePhysicalDamage
                 Action->spikesMessage = 536;
-                Action->spikesParam = battleutils::TakePhysicalDamage(PDefender, PAttacker, dmg, false, SLOT_MAIN, 1, nullptr, true, true, true);
+                Action->spikesParam = battleutils::TakePhysicalDamage(PDefender, PAttacker, dmg, false, SLOT_MAIN, 1, nullptr, false, true, true);
             }
         }
 
@@ -982,8 +1067,8 @@ namespace battleutils
             if (dsprand::GetRandomNumber(0.0, 100.0) < chance) {
                 PDefender->StatusEffectContainer->AddStatusEffect(
                     new CStatusEffect(EFFECT_POISON, EFFECT_POISON, poisonPower, 3, poisonDuration));
-                Action->addEffectMessage = 278;
-                Action->messageID = EFFECT_POISON;
+//                Action->addEffectMessage = 278;
+//                Action->messageID = EFFECT_POISON;
                 Action->additionalEffect = SUBEFFECT_POISON;
             }
 
@@ -1532,12 +1617,17 @@ namespace battleutils
         //get ratio (not capped for RAs)
         float ratio = (float)rAttack / (float)PDefender->DEF();
 
-        ratio = dsp_cap(ratio, 0, 3);
+        ratio = dsp_cap(ratio, 0, 3.5);
 
         //level correct (0.025 not 0.05 like for melee)
         if (PDefender->GetMLevel() > PAttacker->GetMLevel()) {
             ratio -= 0.025f * (PDefender->GetMLevel() - PAttacker->GetMLevel());
+        } else if (PDefender->GetMLevel() < PAttacker->GetMLevel()) {
+            ratio += 0.04f * (PAttacker->GetMLevel() - PDefender->GetMLevel());
         }
+
+        ratio = dsp_cap(ratio, 0, 6.5);
+
 
         //calculate min/max PDIF
         float minPdif = 0;
@@ -1559,8 +1649,8 @@ namespace battleutils
             maxPdif = ratio;
         }
 
-        minPdif = dsp_cap(minPdif, 0, 3);
-        maxPdif = dsp_cap(maxPdif, 0, 3);
+        minPdif = dsp_cap(minPdif, 0, 6);
+        maxPdif = dsp_cap(maxPdif, 0, 6);
 
         //return random number between the two
         return dsprand::GetRandomNumber(minPdif, maxPdif);
@@ -1779,7 +1869,7 @@ namespace battleutils
                 float dex = PAttacker->DEX();
                 float agi = PDefender->AGI();
 
-                uint8 parryRate = dsp_cap((skill * 0.1f + (agi - dex) * 0.125f + 10.0f) * diff, 5, 25);
+                uint8 parryRate = dsp_cap((skill * 0.1f + (agi - dex) * 0.125f + 10.0f) * diff, 5, 35);
 
                 // Issekigan grants parry rate bonus. From best available data, if you already capped out at 25% parry it grants another 25% bonus for ~50% parry rate
                 if (PDefender->objtype == TYPE_PC && PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_ISSEKIGAN)) {
@@ -1822,7 +1912,7 @@ namespace battleutils
             float dex = PAttacker->DEX();
             float agi = PDefender->AGI();
 
-            return dsp_cap((skill * 0.1f + (agi - dex) * 0.125f + 10.0f) * diff, 5, 25);
+            return dsp_cap((skill * 0.1f + (agi - dex) * 0.125f + 10.0f) * diff, 5, 45);
         }
 
         return 0;
@@ -2326,7 +2416,7 @@ namespace battleutils
 
         if (PAttacker->objtype == TYPE_PC)
         {
-            ratioCap = 2.25f + dsp_cap(0.150f * (PAttacker->GetMLevel() - PDefender->GetMLevel()), 0.f, 2.f);
+            ratioCap = 3.85f + dsp_cap(0.150f * (PAttacker->GetMLevel() - PDefender->GetMLevel()), 0.f, 6.f);
         }
         if (PAttacker->objtype == TYPE_MOB)
         {
@@ -2337,21 +2427,22 @@ namespace battleutils
         float cRatio = ratio;
         if (PAttacker->objtype == TYPE_PC)
         {
-            if (PAttacker->GetMLevel() < PDefender->GetMLevel())
-            {
-                cRatio -= 0.050f * (PDefender->GetMLevel() - PAttacker->GetMLevel());
+            if (PAttacker->GetMLevel() < PDefender->GetMLevel()) {
+                cRatio -= 0.040f * (PDefender->GetMLevel() - PAttacker->GetMLevel());
+            } else if (PAttacker->GetMLevel() > PDefender->GetMLevel()) {
+                cRatio += (0.020f * (PAttacker->GetMLevel() - PDefender->GetMLevel())) * ratio;
             }
         }
         else
         {
             if (PAttacker->GetMLevel() > PDefender->GetMLevel())
             {
-                cRatio += 0.050f * (PAttacker->GetMLevel() - PDefender->GetMLevel());
+                cRatio += 0.04f * (PAttacker->GetMLevel() - PDefender->GetMLevel()) * (ratio < 1 ? ratio : 1);
             }
         }
 
         if (isCritical) {
-            cRatio += 1;
+            cRatio += 1.5;
             if (PAttacker->objtype == TYPE_PC) {
                 PAttacker->SetLocalVar("critHit", 1);
             }
@@ -2402,8 +2493,11 @@ namespace battleutils
         if (isCritical)
         {
             int16 criticaldamage = PAttacker->getMod(MOD_CRIT_DMG_INCREASE);
-            criticaldamage = dsp_cap(criticaldamage, 0, 100);
+            criticaldamage = dsp_cap(criticaldamage, 0, 200);
             pDIF *= ((100 + criticaldamage) / 100.0f);
+        }
+        if (PAttacker->objtype == TYPE_PC) {
+            ShowDebug("Ratio Final: %\n", cRatio);
         }
 
         //x1.00 ~ x1.05 final multiplier, giving max value 3*1.05 -> 3.15
@@ -2655,7 +2749,7 @@ namespace battleutils
 
     bool IsParalyzed(CBattleEntity* PAttacker)
     {
-        return (dsprand::GetRandomNumber(100) < dsp_cap(PAttacker->getMod(MOD_PARALYZE) - PAttacker->getMod(MOD_PARALYZERES), 0, 100));
+        return (dsprand::GetRandomNumber(100) < dsp_cap(PAttacker->getMod(MOD_PARALYZE) - PAttacker->getMod(MOD_PARALYZERES) / 2, 0, 100));
     }
 
     /************************************************************************
@@ -3240,7 +3334,7 @@ namespace battleutils
             * (100 + PAttacker->getMod(MOD_SKILLCHAINBONUS)) / 100
             * (100 + PAttacker->getMod(MOD_SKILLCHAINDMG)) / 100);
 
-        damage = damage * (1000 - resistance) / 1000;
+        damage = damage * (256 - resistance) / 256;
         damage = MagicDmgTaken(PDefender, damage, appliedEle);
         if (damage > 0)
         {

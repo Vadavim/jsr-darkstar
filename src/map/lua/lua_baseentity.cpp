@@ -10774,6 +10774,78 @@ inline int32 CLuaBaseEntity::isUniqueAlly(lua_State *L)
     return 1;
 }
 
+inline int32 CLuaBaseEntity::disableSpawn(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    const int8* disableQuery =
+            "UPDATE mob_spawn_points \
+            SET disabled = 1 \
+            WHERE mobid = %d;";
+
+    Sql_Query(SqlHandle, disableQuery, m_PBaseEntity->id);
+    return 1;
+}
+
+
+inline int32 CLuaBaseEntity::moveSpawn(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    float xPos = (float)lua_tonumber(L, 1);
+    float yPos = (float)lua_tonumber(L, 2);
+    float zPos = (float)lua_tonumber(L, 3);
+    uint8 rotation = (uint8)lua_tointeger(L, 4);
+
+//    SET pos_x = %f, pos_y = %f, pos_z = %f, pos_rot = %d
+    const int8* moveQuery =
+            "UPDATE mob_spawn_points \
+            SET pos_x = %f , pos_y = %f , pos_z = %f , pos_rot = %d \
+            WHERE mobid = %d;";
+
+//    Sql_Query(SqlHandle, moveQuery, xPos, yPos, zPos, rotation, m_PBaseEntity->id);
+    Sql_Query(SqlHandle, moveQuery, xPos, yPos, zPos, rotation, m_PBaseEntity->id);
+    CMobEntity* mob = (CMobEntity*) m_PBaseEntity;
+    mob->m_roamFlags = 0;
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::grabNPCList(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    float xPos = (float)lua_tonumber(L, 1);
+    float yPos = (float)lua_tonumber(L, 2);
+    float zPos = (float)lua_tonumber(L, 3);
+    uint8 zoneID = (uint8)lua_tonumber(L, 4);
+    char* npcName = (char*)lua_tostring(L, 5);
+
+//    SET pos_x = %f, pos_y = %f, pos_z = %f, pos_rot = %d
+    const int8* npcQuery =
+            "SELECT npcid \
+            FROM npc_list \
+            WHERE name = '%s' AND (npcid & 0xFFF000) >> 12 = %d;";
+
+//    Sql_Query(SqlHandle, moveQuery, xPos, yPos, zPos, rotation, m_PBaseEntity->id);
+    int32 ret = Sql_Query(SqlHandle, npcQuery, npcName, zoneID);
+    uint32 NpcID = 0;
+    CBaseEntity* npc = nullptr;
+    if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0) {
+        while (Sql_NextRow(SqlHandle) == SQL_SUCCESS) {
+            NpcID = Sql_GetUIntData(SqlHandle, 0);
+            npc = zoneutils::GetEntity(NpcID, TYPE_NPC);
+            if (npc != nullptr) {
+                npc->loc.p.x = xPos;
+                npc->loc.p.y = yPos;
+                npc->loc.p.z = zPos;
+                npc->status = STATUS_NORMAL;
+                npc->updatemask |= UPDATE_POS;
+            }
+        }
+    }
+    return 1;
+}
+
 inline int32 CLuaBaseEntity::SayToPlayer(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
@@ -10794,6 +10866,77 @@ inline int32 CLuaBaseEntity::pushSkillchain(lua_State* L)
     CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
     CWeaponSkill* ws = battleutils::GetWeaponSkill(lua_tointeger(L, 1));
     battleutils::GetSkillChainEffect(PEntity, ws);
+    return 0;
+}
+
+inline int32 CLuaBaseEntity::getEffectsCount(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+    
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+    
+    lua_pushinteger(L, PEntity->StatusEffectContainer->GetEffectsCount((EFFECT)lua_tointeger(L, 1)));
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::getActiveRunes(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    lua_pushinteger(L, PEntity->StatusEffectContainer->GetActiveRunes());
+
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::getNewestRune(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    lua_pushinteger(L, PEntity->StatusEffectContainer->GetNewestRune());
+
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::getRuneTypes(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+    EFFECT type1 = (EFFECT)0;
+    EFFECT type2 = (EFFECT)0;
+    EFFECT type3 = (EFFECT)0;
+    PEntity->StatusEffectContainer->GetRuneTypes(type1, type2, type3);
+    lua_pushinteger(L, type1);
+    lua_pushinteger(L, type2);
+    lua_pushinteger(L, type3);
+
+    return 3;
+}
+
+inline int32 CLuaBaseEntity::removeOldestRune(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    PEntity->StatusEffectContainer->RemoveOldestRune();
+
+    return 0;
+}
+
+inline int32 CLuaBaseEntity::removeAllRunes(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    PEntity->StatusEffectContainer->RemoveAllRunes();
+
     return 0;
 }
 
@@ -11270,6 +11413,15 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setPendingMessage),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNearbyEntities),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,pushSkillchain),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,disableSpawn),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,moveSpawn),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,grabNPCList),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeOldestRune),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllRunes),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getActiveRunes),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getEffectsCount),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNewestRune),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRuneTypes),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,delStatusEffectsByFlagExceptCam),
 //    LUNAR_DECLARE_METHOD(CLuaBaseEntity,addRecastRange),
     {nullptr,nullptr}

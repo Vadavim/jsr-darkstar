@@ -4,6 +4,9 @@ Sword: B+
 Evasion: C+
 Marksmanship: B+
 
+STATS
+ - DEX increased
+ - CHR increased
 
 TRAIT CHANGES
 

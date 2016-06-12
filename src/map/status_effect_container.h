@@ -87,8 +87,13 @@ public:
     void Fold(uint32 charid);
 
     uint8 GetActiveManeuvers();
+    uint8 GetActiveRunes();
+    void GetRuneTypes(EFFECT &type1, EFFECT &type2, EFFECT &type3);
     void RemoveOldestManeuver();
     void RemoveAllManeuvers();
+    void RemoveOldestRune();
+    void RemoveAllRunes();
+    EFFECT GetNewestRune(); 
 
     void WakeUp(); // remove sleep effects
     bool IsAsleep();

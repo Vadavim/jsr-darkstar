@@ -43,7 +43,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     if (damage > 0) then
         local duration = 60 * (tp / 1000) * (1 + (tp - 1000) / 2000);
-        local power = 3 + player:getMainLvl() / 3;
+        local power = 3 + player:getMainLvl() / 2;
         local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
         power = addBonusesAbility(player, ELE_FIRE, target, power, mParams, 1.0);
         player:addStatusEffect(EFFECT_BLAZE_SPIKES,power,0,duration);

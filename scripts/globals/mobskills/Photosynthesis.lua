@@ -33,7 +33,7 @@ function onMobWeaponSkill(target, mob, skill)
         duration = duration * (hard * 3);
     end
 
-    power = reduce_healing_factor(target) * power;
+    power = reduced_healing_factor(target) * power;
 
 
     local typeEffect = EFFECT_REGEN;

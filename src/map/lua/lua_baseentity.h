@@ -568,6 +568,12 @@ public:
     int32 instantiateMob(lua_State* L);
 
     int32 getActiveManeuvers(lua_State*);
+    int32 getActiveRunes(lua_State*);
+    int32 getRuneTypes(lua_State*);
+    int32 getEffectsCount(lua_State* L);
+    int32 getNewestRune(lua_State*);
+    int32 removeOldestRune(lua_State*);
+    int32 removeAllRunes(lua_State*);
     int32 removeOldestManeuver(lua_State*);
     int32 removeAllManeuvers(lua_State*);
     int32 addBurden(lua_State* L);
@@ -608,6 +614,9 @@ public:
     int32 getRecentAlly(lua_State*);
     int32 isUniqueAlly(lua_State* L);
     int32 pushSkillchain(lua_State* L);
+    int32 disableSpawn(lua_State* L);
+    int32 moveSpawn(lua_State* L);
+    int32 grabNPCList(lua_State* L);
 //    int32 addRecastRange(lua_State*);
 };
 

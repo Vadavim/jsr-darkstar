@@ -9,6 +9,9 @@ SKILL CHANGES
  - B- Guarding
  - C+ Shield
 
+STAT CHANGES
+ - Base CHR increased greatly
+
 TRAIT CHANGES
  - Has Dual-Wield I/II/III at levels 20 / 40 / 60
  - Triple Attack increases to 8% at level 70

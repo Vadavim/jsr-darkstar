@@ -7,6 +7,12 @@ Great Katana: B
 Marksmanship: B
 Ninjitsu: A+
 
+STAT CHANGES
+ - Maximum HP decreased
+ - AGI increased
+ - INT increased
+ - STR decreased
+ - VIT decreased
 
 TRAIT CHANGES
 

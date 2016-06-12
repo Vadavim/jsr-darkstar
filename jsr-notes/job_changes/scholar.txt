@@ -1,5 +1,9 @@
 SKILL CHANGES
 
+STAT CHANGES
+
+ - MND increased
+
 TRAIT CHANGES
 
 
