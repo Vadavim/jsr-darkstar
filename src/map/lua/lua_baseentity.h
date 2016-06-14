@@ -464,6 +464,7 @@ public:
 
     int32 injectActionPacket(lua_State*);   // ONLY FOR DEBUGGING. Injects an action packet with the specified params.
     int32 setMobFlags(lua_State*);          // Used to manipulate the mob's flags for testing.
+    int32 setNamePrefix(lua_State*);          // Used to manipulate the mob's flags for testing.
 
     int32 setDelay(lua_State*);             // sets a mobs weapon delay
     int32 setDamage(lua_State*);            // sets a mobs weapon damage
@@ -617,7 +618,7 @@ public:
     int32 disableSpawn(lua_State* L);
     int32 moveSpawn(lua_State* L);
     int32 grabNPCList(lua_State* L);
-//    int32 addRecastRange(lua_State*);
+    int32 addRecastRange(lua_State*);
 };
 
 #endif

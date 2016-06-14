@@ -698,6 +698,10 @@ EFFECT_HASTE_II                 = 580
 EFFECT_FLURRY_II                = 581
 EFFECT_APOGEE                   = 583
 
+EFFECT_CONSUME_MANA             = 599
+EFFECT_MAGIC_EVASION_BOOST      = 611
+
+
 -- Effect icons in packet can go from 0-767, so no custom effects should go in that range.
 
 -- Purchased from Cruor Prospector

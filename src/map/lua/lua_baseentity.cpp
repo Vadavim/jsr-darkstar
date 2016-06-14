@@ -7039,32 +7039,29 @@ inline int32 CLuaBaseEntity::addRecast(lua_State* L)
     return 0;
 }
 
-//inline int32 CLuaBaseEntity::addRecastRange(lua_State* L)
-//{
-//    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-//    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
-//    DSP_DEBUG_BREAK_IF(lua_isnil(L, 2) || !lua_isnumber(L, 2));
-//    DSP_DEBUG_BREAK_IF(lua_isnil(L, 3) || !lua_isnumber(L, 3));
-//
-//    if (m_PBaseEntity->objtype == TYPE_PC)
-//    {
-//        CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
-//
-//        RECASTTYPE recastContainer = (RECASTTYPE)lua_tointeger(L, 1);
-//        uint16 start = lua_tointeger(L, 2);
-//        uint16 stop = lua_tointeger(L, 3);
-//
-//        for (int i = start; i < stop; i++) {
-//            if(PChar->PRecastContainer->Has(recastContainer, i))
-//                continue;
-//            PChar->PRecastContainer->Add(recastContainer, i, 60);
-//        }
-//
-//        PChar->pushPacket(new CCharSkillsPacket(PChar));
-//        PChar->pushPacket(new CCharRecastPacket(PChar));
-//    }
-//    return 0;
-//}
+inline int32 CLuaBaseEntity::addRecastRange(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 2) || !lua_isnumber(L, 2));
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 3) || !lua_isnumber(L, 3));
+
+    if (m_PBaseEntity->objtype == TYPE_PC)
+    {
+        CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+
+        uint16 start = lua_tointeger(L, 2);
+        uint16 stop = lua_tointeger(L, 3);
+
+        for (int i = start; i < stop; i++) {
+            Sql_Query(SqlHandle, "REPLACE INTO char_recast VALUES (%u, %u, %llu, %u);", PChar->id, i, time(nullptr), 60);
+        }
+
+        PChar->pushPacket(new CCharSkillsPacket(PChar));
+        PChar->pushPacket(new CCharRecastPacket(PChar));
+    }
+    return 0;
+}
 
 
 /***************************************************************
@@ -7783,6 +7780,60 @@ inline int32 CLuaBaseEntity::setMobFlags(lua_State* L)
         if (!lua_isnil(L, 1) && lua_isnumber(L, 1))
         {
             ((CMobEntity*)PTarget)->setMobFlags((uint32)(lua_tointeger(L, 1)));
+            PTarget->updatemask |= UPDATE_HP;
+        }
+    }
+    return 0;
+}
+
+
+inline int32 CLuaBaseEntity::setNamePrefix(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    if (!lua_isnil(L, 2) && lua_isnumber(L, 2))
+    {
+        uint32 mobid = (uint32)lua_tointeger(L, 2);
+        CMobEntity* PMob = nullptr;
+
+        if (!lua_isnil(L, 2) && lua_isuserdata(L, 2))
+        {
+            CLuaInstance* PLuaInstance = Lunar<CLuaInstance>::check(L, 2);
+            PMob = (CMobEntity*)PLuaInstance->GetInstance()->GetEntity(mobid & 0xFFF, TYPE_MOB);
+        }
+        else
+        {
+            PMob = (CMobEntity*)zoneutils::GetEntity(mobid, TYPE_MOB);
+        }
+
+        if (PMob != nullptr)
+        {
+            if (!lua_isnil(L, 1) && lua_isnumber(L, 1))
+            {
+                ((CMobEntity*)PMob)->m_name_prefix = (uint8)(lua_tointeger(L, 1));
+                PMob->updatemask |= UPDATE_HP;
+            }
+        }
+    }
+    else
+    {
+        CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+        CBattleEntity* PTarget = (CBattleEntity*)PChar->GetEntity(PChar->m_TargID);
+
+        if (PTarget == nullptr)
+        {
+            ShowError("Must target a monster to use for setMobFlags \n");
+            return 0;
+        }
+        else if (PTarget->objtype != TYPE_MOB)
+        {
+            ShowError("Battle target must be a monster to use setMobFlags \n");
+            return 0;
+        }
+        if (!lua_isnil(L, 1) && lua_isnumber(L, 1))
+        {
+            ((CMobEntity*)PTarget)->m_name_prefix = (uint8)(lua_tointeger(L, 1));
             PTarget->updatemask |= UPDATE_HP;
         }
     }
@@ -11289,6 +11340,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,isPet),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,injectActionPacket),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setMobFlags),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,setNamePrefix),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,hasTrait),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getTrickAttackChar),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setDelay),
@@ -11423,6 +11475,6 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNewestRune),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRuneTypes),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,delStatusEffectsByFlagExceptCam),
-//    LUNAR_DECLARE_METHOD(CLuaBaseEntity,addRecastRange),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,addRecastRange),
     {nullptr,nullptr}
 };

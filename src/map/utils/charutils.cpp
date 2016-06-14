@@ -55,6 +55,7 @@ This file is part of DarkStar-server source code.
 #include "../packets/inventory_item.h"
 #include "../packets/inventory_assign.h"
 #include "../packets/inventory_finish.h"
+#include "../packets/chat_message.h"
 #include "../packets/inventory_modify.h"
 #include "../packets/key_items.h"
 #include "../packets/linkshell_equip.h"
@@ -3088,6 +3089,7 @@ namespace charutils
                     minlevel = PMember->GetMLevel();
                 }
                 pcinzone++;
+                pcinzone += PMember->PAlly.size();
             }
         });
 
@@ -3114,6 +3116,10 @@ namespace charutils
                         }
                     }
                     else exp = baseexp;
+
+                    // special bonus xp
+                    uint32 sBonusXP = PMob->GetLocalVar("xpBonus");
+                    sBonusXP = sBonusXP > exp / 2 ? exp / 2 : sBonusXP;
                     if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) && (region >= 0 && region <= 22))
                     {
                         switch (pcinzone)
@@ -3165,19 +3171,25 @@ namespace charutils
 
                     if (PMember->GetMLevel() <= 50)
                     {
-                        if (exp > (200 * permonstercap)) exp = 200 * permonstercap;
+                        if (exp > (300 * permonstercap)) exp = 300 * permonstercap;
                     }
                     else if (PMember->GetMLevel() <= 60)
                     {
-                        if (exp > (250 * permonstercap)) exp = 250 * permonstercap;
+                        if (exp > (400 * permonstercap)) exp = 400 * permonstercap;
                     }
-                    else if (exp > (300 * permonstercap))
+                    else if (exp > (500 * permonstercap))
                     {
-                        exp = 300 * permonstercap;
+                        exp = 500 * permonstercap;
                     }
 
                     if (PMob->m_Type == MOBTYPE_NOTORIOUS){
-                        exp *= 10;
+                        exp *= 5;
+                        if (PMember->GetMLevel() < PMob->GetMLevel() + 5) {
+                            exp += (10 + PMob->GetMLevel() / 2) * PMob->GetMLevel();
+                        }
+                        if (exp > 100 && PMember->objtype == TYPE_PC) {
+                            charutils::AddPoints((CCharEntity*) PMember, "scyld", exp / 100);
+                        }
                     }
 
                     if (PMember->expChain.chainTime > gettick() || PMember->expChain.chainTime == 0)
@@ -3298,6 +3310,9 @@ namespace charutils
                             default: PMember->expChain.chainTime = gettick() + 60000; break;
                         }
                     }
+                    if (PMob->m_flags & 131072) {
+                        exp *= 5;
+                    }
                     exp = charutils::AddExpBonus(PMember, exp);
 
                     // pet or companion exp penalty needs to be added here
@@ -3316,9 +3331,48 @@ namespace charutils
                             PMember->PTreasurePool->AddItem(4095 + PMob->m_Element, PMob);
                         }
                     }
+                    bool sExists = false;
+                    for (int i = 0; i < PMember->systemList.size(); i++) {
+                        if (PMember->systemList.at(i) == PMob->m_EcoSystem) {
+                            sExists = true;
+                            break;
+                        }
+                    }
+
+
+                    int sBonus = PMember->GetLocalVar("systemBonus");
+                    if (!sExists && PMember->systemList.size() > 0) {
+                        PMember->systemList.push_back(PMob->m_EcoSystem);
+                        sBonus = sBonus > 40 ? sBonus : sBonus + 4;
+                    } else if (sExists){
+                        sBonus = (sBonus - 2) < 0 ? 0 : sBonus - 2;
+                        PMember->systemList.clear();
+                    }
+
+                    if (sBonus > 0) {
+                        exp *= 1.0f + (float)sBonus / 100.0f;
+                        int8 bonusString[40];
+                        if (sBonusXP > 0)
+                            sprintf(bonusString, "System Bonus: +%d%%; Bonus XP: +%d", sBonus, sBonusXP);
+                        else
+                            sprintf(bonusString, "System Bonus: +%d%%", sBonus);
+
+                        PMember->pushPacket(new CChatMessagePacket(MESSAGE_SAY, bonusString));
+                    } else if (sBonusXP > 0) {
+                        int8 bonusString[40];
+                        sprintf(bonusString, "Bonux XP: +%d", sBonusXP);
+                        PMember->pushPacket(new CChatMessagePacket(MESSAGE_SAY, bonusString));
+                    }
+
+
+                    if (PMember->systemList.size() == 0)
+                        PMember->systemList.push_back(PMob->m_EcoSystem);
+
+                    PMember->SetLocalVar("systemBonus", sBonus);
                     charutils::AddExperiencePoints(false, PMember, PMob, exp, baseexp, chainactive);
                 }
             }
+            PMob->SetLocalVar("xpBonus", 0);
         });
     }
 

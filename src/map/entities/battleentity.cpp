@@ -1627,6 +1627,32 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
             break;
         }
     }
+
+    if (objtype == TYPE_PC){
+        CCharEntity* PChar = (CCharEntity*) this;
+        CItemWeapon* PItem = (CItemWeapon*)PChar->getEquip(SLOT_RANGED);
+        CItemWeapon* PAmmo = (CItemWeapon*)PChar->getEquip(SLOT_AMMO);
+        bool ammoThrowing = PAmmo ? PAmmo->isThrowing() : false;
+        bool rangedThrowing = PItem ? PItem->isThrowing() : false;
+        bool ammoMark = PAmmo ? PAmmo->getSkillType() == SKILL_MRK : false;
+
+        int32 daken = PChar->getMod(MOD_DAKEN);
+        bool isDaken = dsprand::GetRandomNumber(100) < daken;
+        uint32 cor = PChar->GetMJob() == JOB_COR ? PChar->GetMLevel() : 0;
+        bool isCor = dsprand::GetRandomNumber(100) < cor / 4;
+
+        if (((ammoThrowing || rangedThrowing) && isDaken) || (ammoMark && isCor) ) {
+            PAI->QueueAction(queueAction_t(750ms + 500ms * (list.actionTargets.size()), false, [PTarget](CBaseEntity* PEntity) {
+                if (PTarget->isDead())
+                    return;
+
+                action_t actionRanged;
+                ((CCharEntity*) PEntity)->OnRangedAttackEx((CBattleEntity*)PTarget, actionRanged);
+                ((CCharEntity*)PEntity)->loc.zone->PushPacket(PEntity, CHAR_INRANGE_SELF, new CActionPacket(actionRanged));
+            }));
+        }
+    }
+
     PAI->EventHandler.triggerListener("ATTACK", this, PTarget, &action);
     PTarget->PAI->EventHandler.triggerListener("ATTACKED", PTarget, this, &action);
     /////////////////////////////////////////////////////////////////////////////////////////////

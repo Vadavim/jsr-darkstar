@@ -10,6 +10,12 @@ Healing: B
 [Traits]
  - Crit Defense at levels 25, 45, and 65 respectively. Each level lower chance of being critically hit by 1%.
  - Auto Refresh at levels 35 and 70
+ - Shield Mastery at levels 20, 35, 50, 65 (+20/30/40/50 TP per block). 
+ 	- Also gives MP equal to 1/5th the TP bonus on a block.
+
+[Divine Emblem]
+ - Gained at level 20
+ - Recast is 6 minutes
 
 [Shield Bash]
  - Adds STR to damage
@@ -41,9 +47,9 @@ Healing: B
  - Also grants +50 Light Magic Attack.
 
 [Palisade]
- - Gained at level 45
+ - Gained at level 70
 
 [Intervene]
- - Gained at level 25
- - Recast reduced to 10 minutes.
+ - Gained at level 45
+ - Recast time is 10 minutes (shares recast with 2hour)
  - Inflicts -40 ACC, -25% Attack, -40 EVA, and -40MEVA for 30 seconds.

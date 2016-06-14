@@ -12,7 +12,7 @@ TRAIT CHANGES
 ABILITY CHANGES
 
 [Benediction]
- - Also grants the caster +50% cure potency to one minute.
+ - Healing effect is hateless
 
 [Divine Caress]
  - Gained at level 30 instead of 83.

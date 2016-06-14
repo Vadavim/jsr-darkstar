@@ -16,9 +16,10 @@ STAT CHANGES
 
 TRAIT CHANGES
 
- - Gains Magic Burst Bonus (+15%) at level 20. Increases by 5% at levels 40 and 60.
- - Gains Skillchain Bonus (+15%) at level 30. Increases by 5% at levels 50 and 70.
- - Gains Tactical Parry at level 15, 30, 45, 60, and 75 (+2 TP per parry).
+ - Gains Magic Burst Bonus (+15%) at level 15. Increases by 5% at levels 30, 45, 60, and 75 .
+ - Gains Skillchain Bonus (+15%) at level 30. Increases by 5% at levels 45 and 70
+ - Gains Tactical Parry at levels 35 and 70 (+20 / +30 TP per parry)
+ - Daken works for all throwing weapons, not just shurikens
 
 ABILITY CHANGES
 
@@ -27,5 +28,30 @@ ABILITY CHANGES
 
 [Issekigan]
  - Instead gained at level 55.
+
+[Mijin Gakure]
+ - Does not kill user.
+ - Deals damage equal to half user's current HP (and removes it from user).
+ - Lowers enmity against target
+ - After using Mijin Gakure, gain Invisiblity, Sneak, Deodorize, Flee, and 5 shadows.
+ - Recast is 20 minutes
+
+[Sange]
+ - Gained at 45
+ - Instead acts like Barrage with Shurikens
+
+[Mikage]
+ - Gained at level 65
+
+-------------------
+
+[ELEMENTAL NINJITSU]
+ - Ichi version's casting speed is faster (1 second)
+ - M value (difference between caster and target's Int) has a much greater effect.
+ - Base damage increased slightly (+25%)
+ - Deals bonus damage after a parry, critical hit, or weaponskill (+20%, bonuses stack).
+
+[Poison Ninjitsu]
+ - DoT increased (and affected by magic attack, magic defense, water attack/defense)
 
 

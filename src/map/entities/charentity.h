@@ -174,6 +174,7 @@ class CItemUsable;
 typedef std::deque<CBasicPacket*> PacketList_t;
 typedef std::map<uint32, CBaseEntity*> SpawnIDList_t;
 typedef std::vector<EntityID_t> BazaarList_t;
+typedef std::vector<uint32> systems_t;
 
 class CCharEntity : public CBattleEntity
 {
@@ -297,6 +298,7 @@ public:
     uint8             m_mentor;                     // Mentor flag status.
     bool              m_isNewPlayer;                // New player flag..
     uint32            m_moghouseID;
+    systems_t	      systemList;              // Array holding systems of slain mobs
 
     int8			  getShieldSize();
 
@@ -349,6 +351,7 @@ public:
     virtual void OnWeaponSkillFinished(CWeaponSkillState&, action_t&) override;
     virtual void OnAbility(CAbilityState&, action_t&) override;
     virtual void OnRangedAttack(CRangeState&, action_t&);
+    virtual void OnRangedAttackEx(CBattleEntity*, action_t&);
     virtual void OnDeathTimer() override;
     virtual void OnRaise() override;
     virtual void OnItemFinish(CItemState&, action_t&);

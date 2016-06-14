@@ -572,6 +572,25 @@ void CMobEntity::Spawn()
     mobutils::CalculateStats(this);
     mobutils::GetAvailableSpells(this);
 
+    if (m_Type == MOBTYPE_NORMAL && !(m_roamFlags & ROAMFLAG_EVENT) && !(m_roamFlags & ROAMFLAG_STEALTH)
+            &&  dsprand::GetRandomNumber(0, 100) <= 5) {
+        m_flags |= 131072;
+        health.maxhp *= 1.5;
+        health.hp = health.maxhp;
+        addModifier(MOD_ATTP, 20);
+        addModifier(MOD_DEFP, 20);
+        addModifier(MOD_MACC, 20);
+        addModifier(MOD_MATT, 20);
+        addModifier(MOD_EVA, 20);
+        addModifier(MOD_MEVA, 20);
+        addModifier(MOD_ACC, 20);
+        addModifier(MOD_MDEF, 10);
+        addModifier(MOD_STORETP, 35);
+        setMobMod(MOBMOD_HARD_MODE, 1);
+    } else if (m_flags & 131072) {
+        m_flags -= 131072;
+    }
+
     // spawn somewhere around my point
     loc.p = m_SpawnPoint;
 

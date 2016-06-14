@@ -383,6 +383,17 @@ namespace battleutils
         }
     }
 
+
+    float GetKillerRatio(CBattleEntity* PAttacker,CBattleEntity* PDefender) {
+        uint32 killerTypes[] = {0, MOD_AMORPH_KILLER, MOD_AQUAN_KILLER,  MOD_ARCANA_KILLER, 0, 0,
+                                MOD_BEAST_KILLER, 0, MOD_BIRD_KILLER, MOD_DEMON_KILLER, MOD_DRAGON_KILLER,
+                                0, MOD_EMPTY_KILLER, MOD_HUMANOID_KILLER, MOD_LIZARD_KILLER, MOD_LUMORIAN_KILLER,
+                                MOD_LUMINION_KILLER, MOD_PLANTOID_KILLER, 0, MOD_UNDEAD_KILLER, MOD_VERMIN_KILLER, 0};
+
+        uint32 system = killerTypes[PDefender->m_EcoSystem];
+        return system == 0 ? 1.0 : 1.0 + (float) PAttacker->getMod(system) / 100.0f;
+    }
+
     /************************************************************************
     *                                                                       *
     *  Get Mob Skills by list id                                          *
@@ -586,7 +597,7 @@ namespace battleutils
         MODIFIER resistarray[8] = { MOD_FIRERES, MOD_EARTHRES, MOD_WATERRES, MOD_WINDRES, MOD_ICERES, MOD_THUNDERRES, MOD_LIGHTRES, MOD_DARKRES };
         bool obiBonus = false;
 
-        double half = (double)(PDefender->getMod(resistarray[element])) / 1000.0;
+        double half = (double)(PDefender->getMod(resistarray[element])) / (100.0 + PDefender->GetMLevel() * 5);
         double quart = pow(half, 2);
         double eighth = pow(half, 3);
         double sixteenth = pow(half, 4);
@@ -1617,7 +1628,7 @@ namespace battleutils
         //get ratio (not capped for RAs)
         float ratio = (float)rAttack / (float)PDefender->DEF();
 
-        ratio = dsp_cap(ratio, 0, 3.5);
+        ratio = dsp_cap(ratio, 0, 4.5);
 
         //level correct (0.025 not 0.05 like for melee)
         if (PDefender->GetMLevel() > PAttacker->GetMLevel()) {
@@ -1653,7 +1664,7 @@ namespace battleutils
         maxPdif = dsp_cap(maxPdif, 0, 6);
 
         //return random number between the two
-        return dsprand::GetRandomNumber(minPdif, maxPdif);
+        return dsprand::GetRandomNumber(minPdif, maxPdif) * GetKillerRatio(PAttacker, PDefender);
     }
 
     int16 CalculateBaseTP(int delay) {
@@ -1982,6 +1993,7 @@ namespace battleutils
                             // If the player blocked with a shield and has shield mastery, add shield mastery TP bonus
                             // unblocked damage (before block but as if affected by stoneskin/phalanx) must be greater than zero
                             PDefender->addTP(PDefender->getMod(MOD_SHIELD_MASTERY_TP));
+                            PDefender->addMP(PDefender->getMod(MOD_SHIELD_MASTERY_TP) / 5);
                         }
                     }
                     else
@@ -2395,6 +2407,7 @@ namespace battleutils
         return (uint8)crithitrate;
     }
 
+
     /************************************************************************
     *																		*
     *	Formula for calculating damage ratio								*
@@ -2445,6 +2458,10 @@ namespace battleutils
             cRatio += 1.5;
             if (PAttacker->objtype == TYPE_PC) {
                 PAttacker->SetLocalVar("critHit", 1);
+            }
+
+            if (PDefender->objtype == TYPE_MOB) {
+                PDefender->SetLocalVar("xpBonus", PDefender->GetLocalVar("xpBonus") + 1);
             }
         }
 
@@ -2497,8 +2514,9 @@ namespace battleutils
             pDIF *= ((100 + criticaldamage) / 100.0f);
         }
         if (PAttacker->objtype == TYPE_PC) {
-            ShowDebug("Ratio Final: %\n", cRatio);
+            ShowDebug("Ratio Final: %f\n", cRatio);
         }
+        pDIF *= GetKillerRatio(PAttacker, PDefender);
 
         //x1.00 ~ x1.05 final multiplier, giving max value 3*1.05 -> 3.15
         return pDIF * dsprand::GetRandomNumber(1.f, 1.05f);
@@ -3375,6 +3393,7 @@ namespace battleutils
             case TYPE_MOB:
             {
                 ((CMobEntity*)PDefender)->PEnmityContainer->UpdateEnmityFromDamage(PAttacker, (uint16)damage);
+                PDefender->SetLocalVar("xpBonus", PDefender->GetLocalVar("xpBonus") + 10);
             }
             break;
         }
@@ -4457,6 +4476,7 @@ namespace battleutils
                 int16 tpBonus = PEntity->getMod(MOD_TACTICAL_PARRY);
                 //ShowDebug(CL_CYAN"HandleTacticalParry: Tactical Parry Tp Bonus = %d\n" CL_RESET, tpBonus);
                 PEntity->addTP(tpBonus);
+                PEntity->addMP(tpBonus / 5);
             }
         }
     }

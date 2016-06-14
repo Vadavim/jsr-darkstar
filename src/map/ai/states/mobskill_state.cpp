@@ -123,6 +123,8 @@ void CMobSkillState::Cleanup(time_point tick)
         actionTarget_t& actionTarget = actionList.getNewActionTarget();
         actionTarget.animation = m_PSkill->getID();
 
+        m_PEntity->SetLocalVar("xpBonus", m_PEntity->GetLocalVar("xpBonus") + 20);
+
         m_PEntity->loc.zone->PushPacket(m_PEntity, CHAR_INRANGE, new CActionPacket(action));
     }
 }

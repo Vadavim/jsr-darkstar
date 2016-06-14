@@ -12,6 +12,7 @@ TRAIT CHANGES
 
  - Tactical Parry at level 20, 40, and 60
  - Fencer at levels: 35 (+200, +4%) and 65 (+300, +6%)
+ - Corsairs (main job only) have a chance of making a free ranged attack with a gun (like Daken). The chance is equal to a fourth of their level.
 
 ABILITY CHANGES
 

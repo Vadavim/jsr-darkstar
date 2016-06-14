@@ -111,6 +111,8 @@ public:
         }
     }
 
+    int size();
+
 	CStatusEffectContainer(CBattleEntity* PEntity);
 	~CStatusEffectContainer();
 

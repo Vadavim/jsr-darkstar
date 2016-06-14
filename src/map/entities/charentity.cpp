@@ -593,27 +593,46 @@ bool CCharEntity::OnAttack(CAttackState& state, action_t& action)
     controller->setLastAttackTime(server_clock::now());
     auto ret = CBattleEntity::OnAttack(state, action);
 
+
+
     auto PTarget = static_cast<CBattleEntity*>(state.GetTarget());
 
-    if (PTarget->isDead())
-    {
+    if (PTarget->isDead()) {
         if (this->m_hasAutoTarget && PTarget->objtype == TYPE_MOB) // Auto-Target
         {
-            for (auto&& PPotentialTarget : this->SpawnMOBList)
-            {
+            for (auto &&PPotentialTarget : this->SpawnMOBList) {
                 if (PPotentialTarget.second->animation == ANIMATION_ATTACK &&
                     isFaceing(this->loc.p, PPotentialTarget.second->loc.p, 64) &&
-                    distance(this->loc.p, PPotentialTarget.second->loc.p) <= 10)
-                {
-                    std::unique_ptr<CMessageBasicPacket> errMsg;
-                    if (IsValidTarget(PPotentialTarget.second->targid, TARGET_ENEMY, errMsg))
-                    {
+                    distance(this->loc.p, PPotentialTarget.second->loc.p) <= 10) {
+                    std::unique_ptr <CMessageBasicPacket> errMsg;
+                    if (IsValidTarget(PPotentialTarget.second->targid, TARGET_ENEMY, errMsg)) {
                         controller->ChangeTarget(PPotentialTarget.second->targid);
                     }
                 }
             }
         }
     }
+//    } else {
+//        CItemWeapon* PItem = (CItemWeapon*)this->getEquip(SLOT_RANGED);
+//        CItemWeapon* PAmmo = (CItemWeapon*)this->getEquip(SLOT_AMMO);
+//        bool ammoThrowing = PAmmo ? PAmmo->isThrowing() : false;
+//        bool rangedThrowing = PItem ? PItem->isThrowing() : false;
+//
+//        if (ammoThrowing) {
+//                PAI->QueueAction(queueAction_t(2s, false, [PTarget](CBaseEntity* PEntity) {
+//                    if (PTarget->isDead())
+//                        return;
+//
+//                    action_t actionRanged;
+//                    ((CCharEntity*) PEntity)->OnRangedAttackEx((CBattleEntity*)PTarget, actionRanged);
+//                    ((CCharEntity*)PEntity)->loc.zone->PushPacket(PEntity, CHAR_INRANGE_SELF, new CActionPacket(actionRanged));
+//                }));
+//        }
+//            this->OnRangedAttackEx((CBattleEntity*)PTarget, action);
+//            this->loc.zone->PushPacket(this, CHAR_INRANGE_SELF, new CActionPacket(action));
+//        }
+
+//    }
     return ret;
 }
 
@@ -693,6 +712,7 @@ void CCharEntity::OnCastInterrupted(CMagicState& state, action_t& action, MSGBAS
 void CCharEntity::OnWeaponSkillFinished(CWeaponSkillState& state, action_t& action)
 {
     CBattleEntity::OnWeaponSkillFinished(state, action);
+    SetLocalVar("usedWeaponskill", 1);
 
     auto PWeaponSkill = state.GetSkill();
     auto PBattleTarget = static_cast<CBattleEntity*>(state.GetTarget());
@@ -1155,11 +1175,13 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
     {
         hitCount += battleutils::getBarrageShotCount(this);
     }
-    else if (ammoThrowing && this->StatusEffectContainer->HasStatusEffect(EFFECT_SANGE))
+    else if ((ammoThrowing || rangedThrowing) && this->StatusEffectContainer->HasStatusEffect(EFFECT_SANGE))
     {
         isSange = true;
-        hitCount += getMod(MOD_UTSUSEMI);
+//        hitCount += getMod(MOD_UTSUSEMI);
+        hitCount += 4;
     }
+
 
     // loop for barrage hits, if a miss occurs, the loop will end
     for (uint8 i = 1; i <= hitCount; ++i)
@@ -1246,6 +1268,7 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
             recycleChance += PMeritPoints->GetMeritValue(MERIT_RECYCLE, this);
         }
 
+
         // Only remove unlimited shot on hit
         if (hitOccured && this->StatusEffectContainer->HasStatusEffect(EFFECT_UNLIMITED_SHOT))
         {
@@ -1320,7 +1343,7 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
         uint16 power = StatusEffectContainer->GetStatusEffect(EFFECT_SANGE)->GetPower();
 
         // remove shadows
-        while (realHits-- && dsprand::GetRandomNumber(100) <= power && battleutils::IsAbsorbByShadow(this));
+//        while (realHits-- && dsprand::GetRandomNumber(100) <= power && battleutils::IsAbsorbByShadow(this));
 
         StatusEffectContainer->DelStatusEffect(EFFECT_SANGE);
     }
@@ -1344,6 +1367,190 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
     //}
     static_cast<CPlayerController*>(PAI->GetController())->setNextRangedTime(server_clock::now() + 1s + std::chrono::milliseconds(this->GetAmmoDelay()));
 }
+
+
+
+void CCharEntity::OnRangedAttackEx(CBattleEntity* PTarget, action_t& action)
+{
+//    auto PTarget = PAI->TargetFind->getValidTarget(targid);
+
+    int32 damage = 0;
+    int32 totalDamage = 0;
+
+    action.id = id;
+    action.actiontype = ACTION_RANGED_FINISH;
+
+    actionList_t& actionList = action.getNewActionList();
+//    actionList_t& actionList = action.actionLists[0];
+    actionList.ActionTargetID = PTarget->id;
+
+    actionTarget_t& actionTarget = actionList.getNewActionTarget();
+    actionTarget.reaction = REACTION_HIT;		//0x10
+    actionTarget.speceffect = SPECEFFECT_HIT;		//0x60 (SPECEFFECT_HIT + SPECEFFECT_RECOIL)
+    actionTarget.messageID = 352;
+
+    CItemWeapon* PItem = (CItemWeapon*)this->getEquip(SLOT_RANGED);
+    CItemWeapon* PAmmo = (CItemWeapon*)this->getEquip(SLOT_AMMO);
+
+    bool ammoThrowing = PAmmo ? PAmmo->isThrowing() : false;
+    bool rangedThrowing = PItem ? PItem->isThrowing() : false;
+    uint8 slot = SLOT_RANGED;
+
+    if (ammoThrowing)
+    {
+        slot = SLOT_AMMO;
+        PItem = nullptr;
+    }
+    if (rangedThrowing)
+    {
+        PAmmo = nullptr;
+    }
+
+    uint8 shadowsTaken = 0;
+    uint8 hitCount = 1;			// 1 hit by default
+    uint8 realHits = 0;			// to store the real number of hit for tp multipler
+    auto ammoConsumed = 0;
+    bool hitOccured = false;	// track if player hit mob at all
+
+
+
+    // loop for barrage hits, if a miss occurs, the loop will end
+    for (uint8 i = 1; i <= hitCount; ++i)
+    {
+        if (PTarget->StatusEffectContainer->HasStatusEffect(EFFECT_PERFECT_DODGE, 0))
+        {
+            actionTarget.messageID = 32;
+            actionTarget.reaction = REACTION_EVADE;
+            actionTarget.speceffect = SPECEFFECT_NONE;
+            hitCount = i; // end barrage, shot missed
+        }
+        else if (dsprand::GetRandomNumber(100) < battleutils::GetRangedHitRate(this, PTarget, false)) // hit!
+        {
+            // absorbed by shadow
+            if (battleutils::IsAbsorbByShadow(PTarget))
+            {
+                shadowsTaken++;
+            }
+            else
+            {
+                float pdif = battleutils::GetRangedPDIF(this, PTarget);
+                bool isCrit = false;
+
+                if (dsprand::GetRandomNumber(100) < battleutils::GetCritHitRate(this, PTarget, true))
+                {
+                    pdif *= 1.25; //uncapped
+                    int16 criticaldamage = getMod(MOD_CRIT_DMG_INCREASE);
+                    criticaldamage = dsp_cap(criticaldamage, 0, 100);
+                    pdif *= ((100 + criticaldamage) / 100.0f);
+                    actionTarget.speceffect = SPECEFFECT_CRITICAL_HIT;
+                    actionTarget.messageID = 353;
+                    isCrit = true;
+                }
+
+                // at least 1 hit occured
+                hitOccured = true;
+                realHits++;
+
+                damage = (this->GetRangedWeaponDmg() + battleutils::GetFSTR(this, PTarget, slot)) * pdif;
+
+                if (slot == SLOT_RANGED)
+                {
+
+                    if (PItem != nullptr)
+                    {
+                        charutils::TrySkillUP(this, (SKILLTYPE)PItem->getSkillType(), PTarget->GetMLevel());
+                    }
+                }
+                else if (slot == SLOT_AMMO && PAmmo != nullptr)
+                {
+                    charutils::TrySkillUP(this, (SKILLTYPE)PAmmo->getSkillType(), PTarget->GetMLevel());
+                }
+            }
+        }
+        else //miss
+        {
+            actionTarget.reaction = REACTION_EVADE;
+            actionTarget.speceffect = SPECEFFECT_NONE;
+            actionTarget.messageID = 354;
+
+            battleutils::ClaimMob(PTarget, this);
+
+            hitCount = i; // end barrage, shot missed
+        }
+
+        // check for recycle chance
+        uint16 recycleChance = getMod(MOD_RECYCLE);
+        if (charutils::hasTrait(this, TRAIT_RECYCLE))
+        {
+            recycleChance += PMeritPoints->GetMeritValue(MERIT_RECYCLE, this);
+        }
+
+
+        // Only remove unlimited shot on hit
+        if (hitOccured && this->StatusEffectContainer->HasStatusEffect(EFFECT_UNLIMITED_SHOT))
+        {
+            StatusEffectContainer->DelStatusEffect(EFFECT_UNLIMITED_SHOT);
+            recycleChance = 100;
+        }
+
+        if (PAmmo != nullptr && dsprand::GetRandomNumber(100) > recycleChance)
+        {
+            ++ammoConsumed;
+            TrackArrowUsageForScavenge(PAmmo);
+            if (PAmmo->getQuantity() == i)
+            {
+                hitCount = i;
+            }
+        }
+        totalDamage += damage;
+    }
+
+    // if a hit did occur (even without barrage)
+    if (hitOccured == true)
+    {
+
+        actionTarget.param = battleutils::TakePhysicalDamage(this, PTarget, totalDamage, false, slot, realHits, nullptr, true, true);
+
+        // lower damage based on shadows taken
+        if (shadowsTaken)
+            actionTarget.param = actionTarget.param * (1 - ((float)shadowsTaken / realHits));
+
+        // absorb message
+        if (actionTarget.param < 0)
+        {
+            actionTarget.param = -(actionTarget.param);
+            actionTarget.messageID = 382;
+        }
+
+        //add additional effects
+        //this should go AFTER damage taken
+        //or else sleep effect won't work
+        //battleutils::HandleRangedAdditionalEffect(this,PTarget,&Action);
+        //TODO: move all hard coded additional effect ammo to scripts
+        if ((PAmmo != nullptr && battleutils::GetScaledItemModifier(this, PAmmo, MOD_ADDITIONAL_EFFECT) > 0) ||
+            (PItem != nullptr && battleutils::GetScaledItemModifier(this, PItem, MOD_ADDITIONAL_EFFECT) > 0)) {}
+        luautils::OnAdditionalEffect(this, PTarget, (PAmmo != nullptr ? PAmmo : PItem), &actionTarget, totalDamage);
+    }
+    else if (shadowsTaken > 0)
+    {
+        // shadows took damage
+        actionTarget.messageID = 0;
+        actionTarget.reaction = REACTION_EVADE;
+        PTarget->loc.zone->PushPacket(PTarget, CHAR_INRANGE_SELF, new CMessageBasicPacket(PTarget, PTarget, 0, shadowsTaken, MSGBASIC_SHADOW_ABSORB));
+
+        battleutils::ClaimMob(PTarget, this);
+    }
+
+    if (actionTarget.speceffect == SPECEFFECT_HIT && actionTarget.param > 0)
+        actionTarget.speceffect = SPECEFFECT_RECOIL;
+
+
+    battleutils::RemoveAmmo(this, ammoConsumed);
+    // only remove detectables
+    StatusEffectContainer->DelStatusEffectsByFlagExceptCam(EFFECTFLAG_DETECTABLE);
+//    static_cast<CPlayerController*>(PAI->GetController())->setNextRangedTime(server_clock::now() + 1s + std::chrono::milliseconds(this->GetAmmoDelay()));
+}
+
 
 bool CCharEntity::IsMobOwner(CBattleEntity* PBattleTarget)
 {

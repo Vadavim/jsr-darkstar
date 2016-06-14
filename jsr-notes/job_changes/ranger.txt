@@ -22,6 +22,7 @@ TRAIT CHANGES
 ABILITY CHANGES
 
 [Eagle Eye Shot]
+ - Very long range (40 yalms)
  - Bonus accuracy (+100)
  - Whenever a ranged weaponskill is used, there is a chance of resetting Eagle Eye Shot.
  - Chance is (Level / 3)%
@@ -49,6 +50,15 @@ ABILITY CHANGES
  - Also grants 2 shadows when used.
  - Also grants +15 Subtle Blow for the duration
  - For each merit point in Camouflage Recast, +4 to Store TP while under effect of Camouflage.
+
+[Bounty Shot]
+ - Recast is 180 seconds
+ - Instead grants HP, MP, and TP if shot kills the target.
+
+[Decoy Shot]
+ - Gained at level 55
+ - Recast is 5 minutes
+ - Instead lowers target's Accuracy, Evasion, Magic Evasion by -20, and critical evasion by -5. Lasts for 60 seconds. Wind-based and can be resisted.
 
 
 

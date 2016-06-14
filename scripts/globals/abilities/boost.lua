@@ -47,6 +47,16 @@ function onUseAbility(player,target,ability)
         subPower = subPower + 25;
     end
 
+    if (player:getLocalVar("guarded") == 1) then
+        player:setLocalVar("guarded", 0);
+        subPower = subPower + 25;
+    end
+
+    if (player:getLocalVar("parried") == 1) then
+        player:setLocalVar("parried", 0);
+        subPower = subPower + 25;
+    end
+
     if (player:getLocalVar("counterAttack") == 1) then
         player:setLocalVar("counterAttack", 0);
         subPower = subPower + 25;

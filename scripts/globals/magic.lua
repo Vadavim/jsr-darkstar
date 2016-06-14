@@ -83,12 +83,10 @@ function doDarkKnightBonusDamage(player, damage)
     end
 
     local missing = player:getMaxHP() - player:getHP();
-    local bonus = missing * (damage / (missing + damage));
-    if (player:getSubJob() == JOB_DRK) then
-        bonus = bonus / 2;
+    local bonus = (200 - player:getHPP()) / 100;
+    if (player:getSubJob() == JOBS.DRK and bonus > 1) then
+        bonus = 1 + (bonus - 1) / 2;
     end
-    print(bonus);
-
     return math.floor(damage + bonus);
 end
 
@@ -511,6 +509,15 @@ function getMagicResist(magicHitRate)
     return resist;
 end
 
+
+function applyEmbolden(caster, power, duration)
+    if (caster:hasStatusEffect(EFFECT_EMBOLDEN)) then
+        caster:delStatusEffect(EFFECT_EMBOLDEN);
+        return power * 1.5, duration * 0.5;
+    end
+    return power, duration;
+end
+
 -- Returns the amount of resistance the
 -- target has to the given effect (stun, sleep, etc..)
 function getEffectResistance(target, effect)
@@ -776,6 +783,7 @@ function calculateMagicBurst(caster, spell, target)
     -- Add in Magic Burst Bonus Modifier
     if (burst > 1) then
         burst = burst + (caster:getMod(MOD_MAG_BURST_BONUS) / 100);
+        target:setLocalVar("xpBonus", target:getLocalVar("xpBonus") + 10);
         --JSR: casters gain MP based on magic burst (TEMP DISABLED)
 --        local burstMP = math.floor(burst * spell:getMPCost());
 --        caster:doMagicBurstMP(burstMP);
@@ -1303,6 +1311,26 @@ end
 
 function doNinjutsuNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus,mabBonus)
     mabBonus = mabBonus or 0;
+    M = M * 2;
+    V = V * 1.25;
+    if (caster:getLocalVar("critHit") ~= 0) then
+        caster:setLocalVar("critHit", 0);
+        print("crit");
+        mabBonus = mabBonus + 20;
+    end
+
+    if (caster:getLocalVar("parried") ~= 0) then
+        caster:setLocalVar("parried", 0);
+        print("parry");
+        mabBonus = mabBonus + 20;
+    end
+
+    if (caster:getLocalVar("usedWeaponskill") ~= 0) then
+        caster:setLocalVar("usedWeaponskill", 0);
+        print("weaponskill");
+        mabBonus = mabBonus + 20;
+    end
+
 
     mabBonus = mabBonus + caster:getMod(MOD_NIN_NUKE_BONUS); -- "enhances ninjutsu damage" bonus
     if (caster:hasStatusEffect(EFFECT_INNIN) and caster:isBehind(target, 23)) then -- Innin mag atk bonus from behind, guesstimating angle at 23 degrees

@@ -106,7 +106,10 @@ namespace attackutils
     {
         if (isFaceing(PDefender->loc.p, PAttacker->loc.p, 40))
         {
-            return (dsprand::GetRandomNumber(100) < battleutils::GetParryRate(PAttacker, PDefender));
+            bool parry = (dsprand::GetRandomNumber(100) < battleutils::GetParryRate(PAttacker, PDefender));
+            if (parry)
+                PDefender->SetLocalVar("parried", 1);
+            return parry;
         }
         return false;
     }
@@ -120,7 +123,10 @@ namespace attackutils
     {
         if (isFaceing(PDefender->loc.p, PAttacker->loc.p, 40))
         {
-            return(dsprand::GetRandomNumber(100) < battleutils::GetGuardRate(PAttacker, PDefender));
+            bool guard = (dsprand::GetRandomNumber(100) < battleutils::GetGuardRate(PAttacker, PDefender));
+            if (guard)
+                PDefender->SetLocalVar("guarded", 1);
+            return guard;
         }
         return false;
     }
@@ -134,7 +140,10 @@ namespace attackutils
     {
         if (isFaceing(PDefender->loc.p, PAttacker->loc.p, 40))
         {
-            return(dsprand::GetRandomNumber(100) < battleutils::GetBlockRate(PAttacker, PDefender));
+            bool block = (dsprand::GetRandomNumber(100) < battleutils::GetGuardRate(PAttacker, PDefender));
+            if (block)
+                PDefender->SetLocalVar("blocked", 1);
+            return block;
         }
         return false;
     }

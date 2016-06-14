@@ -244,6 +244,23 @@ void CAttackRound::CreateAttacks(CItemWeapon* PWeapon, PHYSICAL_ATTACK_DIRECTION
     else if (num == 1 && dsprand::GetRandomNumber(100) < doubleAttack)
         AddAttackSwing(DOUBLE_ATTACK, direction, 1);
 
+//    if (direction == RIGHTATTACK && PWeapon->getSkillType() == SKILL_H2H && dsprand::GetRandomNumber(100) < m_attacker->getMod(MOD_DUAL_WIELD)) {
+//        AddAttackSwing(DOUBLE_ATTACK, direction, 2);
+//    }
+
+
+//    if (m_attacker->objtype == TYPE_PC && direction == RIGHTATTACK) {
+//        CCharEntity* PChar = (CCharEntity*)m_attacker;
+//        CItemWeapon* PItem = (CItemWeapon*)PChar->getEquip(SLOT_RANGED);
+//        CItemWeapon* PAmmo = (CItemWeapon*)PChar->getEquip(SLOT_AMMO);
+//        bool ammoThrowing = PAmmo ? PAmmo->isThrowing() : false;
+//        bool rangedThrowing = PItem ? PItem->isThrowing() : false;
+//        if (ammoThrowing) {
+//            AddAttackSwing(RANGED_ATTACK, direction, 1);
+//        }
+//
+//    }
+
     // Ammo extra swing - players only
     if (m_attacker->objtype == TYPE_PC && m_attacker->getMod(MOD_AMMO_SWING) > 0)
     {

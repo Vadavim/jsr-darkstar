@@ -19,7 +19,13 @@ function onSpellCast(caster,target,spell)
     local dINT = (caster:getStat(MOD_INT) - target:getStat(MOD_INT));
     --Duration Calculation
     local duration = 60 * applyResistance(caster,spell,target,dINT,NINJUTSU_SKILL,0);
-    local power = 3;
+
+    local power = caster:getSkillLevel(NINJUTSU_SKILL) / 15 + 1;
+    if power > 6 then
+        power = 6;
+    end
+    local params = {}; params.bonusmab = 0; params.includemab = true;
+    power = addBonusesAbility(caster, ELE_WATER, target, power, params, 1.0);
 
     --Calculates resist chanve from Reist Blind
     if (target:hasStatusEffect(effect)) then

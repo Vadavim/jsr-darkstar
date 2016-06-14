@@ -9,8 +9,9 @@ SKILL CHANGES
 TRAIT CHANGES
 
  - Gains Auto-Regen at level 10, and the amount increases every 10 levels thereafter.
- - Gains Tactical Parry at levels 15 / 30 / 45 / 60 / 75
-	- Restores 2/4/6/8/10% TP per parry.
+ - Gains Tactical Parry at levels 5 / 20 / 35 / 50 / 65 / 75
+	- Restores +20/30/40/50/60/70 TP per parry.
+	- Restores MP equal to 1/5th the TP bonus per parry.
  - Inquartata: Grants +5 Parrying skill at level 15 / 30 / 45 / 60 / 75
  - Gains Accuracy Bonus at levels 20, 40, and 60
 
@@ -92,6 +93,7 @@ ABILITY CHANGES
 
 
 [Embolden]
+ - Gained at level 35
  - Reduced recast to 3 minutes.
 
 
@@ -165,7 +167,10 @@ SPELL ENHANCEMENTS
  - With a Tellus rune, increases amount absorbed by 50%.
 
 [Foil]
- - With a Flabra rune, grants self 10% Haste (stacks with normal haste).
- - With a Sulpor rune, grants self 5% Double Attack.
+ - Foil starts at power 100 and decreases by 5 each tick. 
+ - Mob special moves suffer an accuracy penalty equal to foil's power.
+ - Foil is consumed after a mob special move is used, and grants TP to the Rune Fencer equal to power * 5.
+ - Foil is also consumed when a weaponskill is used, increasing the damage by (power / 200)%.
+ - [Flabra x2]: power starts at 125
 
  

@@ -129,6 +129,14 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
         eva = eva + target:getStatusEffect(EFFECT_YONIN):getPower();
     end
 
+
+    local foil = target:getStatusEffect(EFFECT_FOIL)
+    if (foil ~= nil) then
+        acc = acc - foil:getPower();
+        target:addTP(foil:getPower() * 5);
+        target:delStatusEffect(EFFECT_FOIL);
+    end
+
     --apply WSC
     local base = mob:getWeaponDmg() + dstr; --todo: change to include WSC
     if (base < 1) then
@@ -294,6 +302,10 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue)
     local mdefBarBonus = 0;
     if (element > 0 and element <= 6 and target:hasStatusEffect(barSpells[element])) then -- bar- spell magic defense bonus
         mdefBarBonus = target:getStatusEffect(barSpells[element]):getSubPower();
+        if (mdefBarBonus > 0) then
+            mob:setLocalVar("bonusXP", mob:getLocalVar("bonusXP") + 5);
+        end
+
     end
     -- plus 100 forces it to be a number
     mab = (100 + mob:getMod(MOD_MATT)) / (100 + target:getMod(MOD_MDEF) + mdefBarBonus);
@@ -348,11 +360,24 @@ function applyPlayerResistance(mob,effect,target,diff,bonus,element)
         magicaccbonus = magicaccbonus + diff;
     end
 
+    local foil = target:getStatusEffect(EFFECT_FOIL)
+    if (foil ~= nil) then
+        magicaccbonus = magicaccbonus - foil:getPower();
+        target:addTP(foil:getPower() * 5);
+        target:delStatusEffect(EFFECT_FOIL);
+    end
+
+
     if (bonus ~= nil) then
         magicaccbonus = magicaccbonus + bonus;
     end
 
     if(effect ~= nil) then
+        local statRes = getEffectResistance(target, effect);
+        if (statRes >= 5) then
+            mob:setLocalVar("bonusXP", mob:getLocalVar("bonusXP") + 5);
+        end
+
         percentBonus = percentBonus - getEffectResistance(target, effect);
     end
 

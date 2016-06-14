@@ -1598,6 +1598,10 @@ void CStatusEffectContainer::WakeUp()
     DelStatusEffect(EFFECT_LULLABY);
 }
 
+int CStatusEffectContainer::size() {
+    return m_StatusEffectList.size();
+}
+
 bool CStatusEffectContainer::HasBustEffect(uint16 id)
 {
     for (uint16 i = 0; i < m_StatusEffectList.size(); ++i)

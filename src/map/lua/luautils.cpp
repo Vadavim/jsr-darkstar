@@ -1277,6 +1277,9 @@ namespace luautils
     {
         lua_prepscript("scripts/zones/%s/Zone.lua", PChar->m_moghouseID ? "Residential_Area" : zoneutils::GetZone(PChar->loc.destination)->GetName());
 
+        // get rid of system bonus
+        PChar->systemList.clear();
+
         if (prepFile(File, "onZoneIn"))
         {
             return -1;

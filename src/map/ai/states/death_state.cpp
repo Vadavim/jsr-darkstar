@@ -36,6 +36,10 @@ CDeathState::CDeathState(CBattleEntity* PEntity, duration death_time) :
     m_deathTime(death_time),
     m_raiseTime(GetEntryTime())
 {
+    if (m_PEntity->objtype == TYPE_MOB) {
+        int bonus = (m_PEntity->StatusEffectContainer->size() - 1) * 2;
+        m_PEntity->SetLocalVar("xpBonus", m_PEntity->GetLocalVar("xpBonus") + (bonus < 0 ? 0 : (uint32) bonus));
+    }
     m_PEntity->StatusEffectContainer->DelStatusEffectsByFlag(EFFECTFLAG_DEATH, true);
 
     m_PEntity->animation = ANIMATION_DEATH;

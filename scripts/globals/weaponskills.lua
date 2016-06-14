@@ -212,6 +212,12 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
     finaldmg = finaldmg + souleaterBonus(attacker, (tpHitsLanded+extraHitsLanded));
     -- print("Landed " .. hitslanded .. "/" .. numHits .. " hits with hitrate " .. hitrate .. "!");
 
+    local foil = attacker:getStatusEffect(EFFECT_FOIL);
+    if (foil ~= nil) then
+        finaldmg = finaldmg * (1 + foil:getPower() / 200);
+        attacker:delStatusEffect(EFFECT_FOIL);
+    end
+
 
     finaldmg = target:physicalDmgTaken(finaldmg);
 

@@ -31,3 +31,8 @@ STATS
 [Healing Breath IV]
  - Gained at level 70
 
+[Smiting / Healing Breath]
+ - Gained at level 60
+ - Consumed 25% of Dragoon's TP and gives 4x the amount to the Wyvern before activating the breath.
+ - Recast is 5 minutes
+

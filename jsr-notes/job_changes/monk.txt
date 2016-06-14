@@ -47,4 +47,10 @@ ABILITY CHANGES
  - At 250+ Ki, bestows a powerful Dia II effect (higher DoT, and defense is lowered by 12%). DoT is based on MND.
  - At 350+ Ki, dispels a status effect from the target
 
+[Perfect Counter]
+ - Gained at level 70
+
+
+
+
 

@@ -18,13 +18,16 @@ TRAIT CHANGES
  - Auto-Refresh at levels 35 and 70
  - Occult Acumen Base TP: 50 (Lvl 30), 65 (Lvl 50), 80 (Lvl 70)
  - Magic Attack Bonus (+20 / +24) at level 45 / 65 
- - Has Magic BUrst Bonus (+15% at Level 20, +25% at Level 40, and +50% at level 60)
+ - Has Magic BUrst Bonus (+15% at Level 15) and +5% every 15 levels thereafter
  - Dark Knights deal additional magic damage based on missing HP (scales better with higher damaging spells)
 
 ABILITY CHANGES
 
 [Blood Weapon]
  - Recast Time is 10 minutes
+
+[Dark Seal]
+ - Gained at level 10
 
 [Weapon Bash]
  - Deals additional damage equal to weapon's damage
@@ -50,10 +53,28 @@ ABILITY CHANGES
  - // As a subjob, base damage is only increased by 30%.
 
 [Nether Void]
- - Gained at level 10.
+ - Gained at level 25.
+
+[Diabolic Eye]
+ - Gained at level 45
+
+[Consume Mana]
+ - Gained at level 55
+ - Instead consumed mana to boost magic attack, base magic damage, and magic accuracy for duration.
+
+[Arcane Crest]
+ - Gained at level 70
+ - Instead increases MATK and MACC by +15 for party for 1 minute.
+ - Recast is 10 minutes.
 
 [Scarlet Delirium]
- - Gained at level 35
+ - Gained at level 45
  - Duration reduced to 1 minute.
- - Also grants Endark.
+ - Recast is 10 minutes
  - Instead convert damage taken into MP.
+
+[Soul Enslavement
+ - Gained at level 65
+ - Duration reduced to 1 minute.
+ - Recast is 10 minutes, shares recast with Blood Weapon
+ - Melee attacks drain 10% of the target's current TP (modified by attack speed of weapon)

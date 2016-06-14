@@ -16,6 +16,7 @@ TRAIT CHANGES
  - Has Dual-Wield I/II/III at levels 20 / 40 / 60
  - Triple Attack increases to 8% at level 70
  - +10 / +22 Accuracy at Levels 30 and 50
+ - Crit Damage Bonus (+15%) at level 20, and +5% per every 15 levels thereafter
 
 
 ABILITY CHANGES

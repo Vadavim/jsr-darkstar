@@ -17,8 +17,8 @@ require("scripts/globals/common");
 
 -- Enable Extension (1= yes 0= no)
 ENABLE_COP     = 1;
-ENABLE_TOAU    = 1;
-ENABLE_WOTG    = 1;
+ENABLE_TOAU    = 0;
+ENABLE_WOTG    = 0;
 ENABLE_ACP     = 1;
 ENABLE_AMK     = 1;
 ENABLE_ASA     = 1;
@@ -125,8 +125,8 @@ BARELEMENT_OVERWRITE = 1; --Set to 1 to allow Barelement spells to overwrite eac
 BARSTATUS_OVERWRITE = 1; --Set to 1 to allow Barstatus spells to overwrite each other (prevent stacking).  Default is 1.
 STONESKIN_CAP = 350; -- soft cap for hp absorbed by stoneskin
 BLINK_SHADOWS = 2;   -- number of shadows supplied by Blink spell
-ENSPELL_DURATION = 180; -- duration of RDM en-spells
-SPIKE_EFFECT_DURATION = 180; -- the duration of RDM, BLM spikes effects (not Reprisal)
+ENSPELL_DURATION = 300; -- duration of RDM en-spells
+SPIKE_EFFECT_DURATION = 300; -- the duration of RDM, BLM spikes effects (not Reprisal)
 ELEMENTAL_DEBUFF_DURATION = 120; -- base duration of elemental debuffs
 AQUAVEIL_COUNTER = 1;  -- Base amount of hits Aquaveil absorbs to prevent spell interrupts. Retail is 1.
 ABSORB_SPELL_AMOUNT = 8; -- how much of a stat gets absorbed by DRK absorb spells - expected to be a multiple of 8.
@@ -149,7 +149,7 @@ HALLOWEEN_2005 = 0; -- Set to 1 to Enable the 2005 version of Harvest Festival, 
 HALLOWEEN_YEAR_ROUND = 0; -- Set to 1 to have Harvest Festival initialize outside of normal times.
 
 -- MISC
-HOMEPOINT_HEAL = 0; --Set to 1 if you want Home Points to heal you like in single-player Final Fantasy games.
+HOMEPOINT_HEAL = 1; --Set to 1 if you want Home Points to heal you like in single-player Final Fantasy games.
 RIVERNE_PORTERS = 120; -- Time in seconds that Unstable Displacements in Cape Riverne stay open after trading a scale.
 LANTERNS_STAY_LIT = 1200; -- time in seconds that lanterns in the Den of Rancor stay lit.
 ENABLE_COP_ZONE_CAP=1; -- enable or disable lvl cap

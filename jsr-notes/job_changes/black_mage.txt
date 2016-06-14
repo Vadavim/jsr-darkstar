@@ -2,6 +2,8 @@ SKILL CHANGES
 
 TRAIT CHANGES
 
+Magic Burst Bonus: +15% (Lvl 45), +20% (Lvl 70)
+
 Elemental Celerity: 10% (Lvl 30), 15% (Lvl 45), 20% (Lvl 60), 25% (Lvl 75)
  - Decreases casting time (but not recast) of black magic
 
