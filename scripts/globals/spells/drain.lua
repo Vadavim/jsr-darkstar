@@ -40,6 +40,12 @@ function onSpellCast(caster,target,spell)
         dmg = 0
     end
 
+    local void = caster:getStatusEffect(EFFECT_NETHER_VOID);
+    if (void ~= nil) then
+        dmg = dmg * (1 + void:getPower() / 100);
+    end
+
+
     if (target:getHP() < dmg) then
         dmg = target:getHP();
     end

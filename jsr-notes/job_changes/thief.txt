@@ -13,9 +13,10 @@ STAT CHANGES
  - Base CHR increased greatly
 
 TRAIT CHANGES
+ - Gains Resist Blind at levels 15, 25, 45, and 65
  - Has Dual-Wield I/II/III at levels 20 / 40 / 60
  - Triple Attack increases to 8% at level 70
- - +10 / +22 Accuracy at Levels 30 and 50
+ - +10 / +22 Accuracy at Levels 30 and 65
  - Crit Damage Bonus (+15%) at level 20, and +5% per every 15 levels thereafter
 
 
@@ -33,7 +34,7 @@ ABILITY CHANGES
 
 [Hide]
  - Gained at level 10 instead of 45.
- - Grants 1 shadow when used. At level 45, grants 2 shadows.
+ - Grants 2 shadows when used.
 
 [Despoil]
  - Gained at level 45 instead of 77.

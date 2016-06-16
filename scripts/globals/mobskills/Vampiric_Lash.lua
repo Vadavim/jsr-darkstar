@@ -17,11 +17,23 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local dmgmod = 1;
-    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*3,ELE_DARK,dmgmod,TP_NO_EFFECT);
-    local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_MAGICAL,MOBPARAM_DARK,MOBPARAM_1_SHADOW);
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
 
-        skill:setMsg(MobPhysicalDrainMove(mob, target, skill, MOBDRAIN_HP, dmg));
+
+    local dmgmod = 0.8 + hard / 4;
+    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*2,ELE_DARK,dmgmod,TP_NO_EFFECT);
+    local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_MAGICAL,MOBPARAM_DARK,MOBPARAM_1_SHADOW);
+    skill:setMsg(MobPhysicalDrainMove(mob, target, skill, MOBDRAIN_HP, dmg));
+    MobDrainStatusEffectMove(mob, target);
+    MobDrainStatusEffectMove(mob, target);
+
+    if (hard > 0) then
+        local power = 1 + (mob:getMainLvl() / 5) * (1 + hard / 4);
+        local success = MobStatusEffectMove(mob, target, skill, EFFECT_BIO, power, 3, 15 * hard, EFFECTFLAG_ERASABLE, 10 );
+        if (success == 242) then
+            target:setPendingMessage(277, EFFECT_BIO);
+        end
+    end
 
     return dmg;
 end;

@@ -15,6 +15,7 @@ STATS
 
 
 TRAIT CHANGES
+ - Gain Resist Curse at levels 5, 15, 30, 45, 60, 75
  - Auto-Refresh at levels 35 and 70
  - Occult Acumen Base TP: 50 (Lvl 30), 65 (Lvl 50), 80 (Lvl 70)
  - Magic Attack Bonus (+20 / +24) at level 45 / 65 
@@ -54,27 +55,29 @@ ABILITY CHANGES
 
 [Nether Void]
  - Gained at level 25.
+ - Does not get consumed, and instead increases potency of drains by 33% (+2% per merit in Dark Seal).
 
 [Diabolic Eye]
  - Gained at level 45
+ 
 
 [Consume Mana]
  - Gained at level 55
- - Instead consumed mana to boost magic attack, base magic damage, and magic accuracy for duration.
+ - Instead consumes 25% current mana and adds it as base magical damage.
 
 [Arcane Crest]
  - Gained at level 70
- - Instead increases MATK and MACC by +15 for party for 1 minute.
+ - Instead increases MATK and MACC by +15 to party for 1 minute.
  - Recast is 10 minutes.
 
 [Scarlet Delirium]
  - Gained at level 45
  - Duration reduced to 1 minute.
  - Recast is 10 minutes
- - Instead convert damage taken into MP.
+ - Instead converts 25% damage taken into MP.
 
 [Soul Enslavement
  - Gained at level 65
- - Duration reduced to 1 minute.
- - Recast is 10 minutes, shares recast with Blood Weapon
+ - Duration reduced to 30 seconds.
+ - Recast is 10 minutes.
  - Melee attacks drain 10% of the target's current TP (modified by attack speed of weapon)

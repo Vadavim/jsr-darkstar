@@ -23,14 +23,26 @@ function onMobWeaponSkill(target, mob, skill)
 
     mob:setMobMod(MOBMOD_VAR, 3);
     local numhits = 1;
-    local accmod = 1;
-    local dmgmod = 2;
+    local accmod = 1.25;
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    local tp = skill:getTP();
+    local duration = 120 * fTP(tp, 1, 1.5, 2) * (1 + hard / 5)
+
+
+    local dmgmod = 2 + hard / 4;
     local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES,1,2,3);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_PIERCE,info.hitslanded);
 
     local typeEffect = EFFECT_DISEASE;
+    if (hard > 0) then
+        typeEffect = EFFECT_PLAGUE;
+    end
 
-    MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, 1, 0, 180);
+
+    local success = MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, 2, 0, duration);
+    if (success == 242) then
+        target:setPendingMessage(277, typeEffect);
+    end
 
     target:delHP(dmg);
     return dmg;

@@ -11,6 +11,7 @@ STAT CHANGES
 
 TRAIT CHANGES
  - Fencer at levels: 35 (+200, +4%) and 65 (+300, +6%)
+ - Gain Resist Charm at levels 5, 25, 45, and 65
 
 ABILITY CHANGES
 

@@ -35,7 +35,18 @@ function onSpellCast(caster,target,spell)
         duration = duration * 3;
     end
 
-    target:addStatusEffect(EFFECT_AQUAVEIL,power,0,duration);
+
+    local subPower = 0
+    if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_UNDA) >= 1) then
+        power = power + 2;
+        subPower = 1 + caster:getMainLvl() / 4;
+        if (caster:hasStatusEffect(EFFECT_EMBOLDEN)) then
+            subPower = subPower * 1.5;
+        end
+    end
+    power, duration = applyEmbolden(caster, power, duration);
+
+    target:addStatusEffect(EFFECT_AQUAVEIL,power,0,duration, 0, subPower);
     spell:setMsg(230);
 
     return EFFECT_AQUAVEIL;

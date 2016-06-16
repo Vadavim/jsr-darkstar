@@ -16,6 +16,7 @@ STAT CHANGES
 
 TRAIT CHANGES
 
+ - Gains Resist Poison at levels 20, 40, and 75
  - Gains Magic Burst Bonus (+15%) at level 15. Increases by 5% at levels 30, 45, 60, and 75 .
  - Gains Skillchain Bonus (+15%) at level 30. Increases by 5% at levels 45 and 70
  - Gains Tactical Parry at levels 35 and 70 (+20 / +30 TP per parry)

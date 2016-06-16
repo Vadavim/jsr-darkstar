@@ -22,12 +22,18 @@ function onSpellCast(caster,target,spell)
     else
         local dINT = caster:getStat(MOD_INT) - target:getStat(MOD_INT);
         local resist = applyResistance(caster,spell,target,dINT,37,0);
+        local power = 20;
+        local duration = 90;
+        local void = caster:getStatusEffect(EFFECT_NETHER_VOID);
+        if (void ~= nil) then
+            power = power * (1 + void:getPower() / 100);
+        end
         if (resist <= 0.125) then
             spell:setMsg(85);
         else
-            spell:setMsg(333);
-            caster:addStatusEffect(EFFECT_INT_BOOST,ABSORB_SPELL_AMOUNT*resist*((100+(caster:getMod(MOD_AUGMENTS_ABSORB)))/100), ABSORB_SPELL_TICK, ABSORB_SPELL_AMOUNT*ABSORB_SPELL_TICK,FLAG_DISPELABLE); -- caster gains INT
-            target:addStatusEffect(EFFECT_INT_DOWN,ABSORB_SPELL_AMOUNT*resist*((100+(caster:getMod(MOD_AUGMENTS_ABSORB)))/100), ABSORB_SPELL_TICK, ABSORB_SPELL_AMOUNT*ABSORB_SPELL_TICK,FLAG_ERASBLE);    -- target loses INT
+            spell:setMsg(332);
+            caster:addStatusEffect(EFFECT_INT_BOOST,power*resist*((100+(caster:getMod(MOD_AUGMENTS_ABSORB)))/100), 0, duration,FLAG_DISPELABLE); -- caster gains INT
+            target:addStatusEffect(EFFECT_INT_DOWN,power*resist*((100+(caster:getMod(MOD_AUGMENTS_ABSORB)))/100), 0, duration,FLAG_ERASBLE);    -- target loses INT
         end
     end
     return EFFECT_INT_DOWN;

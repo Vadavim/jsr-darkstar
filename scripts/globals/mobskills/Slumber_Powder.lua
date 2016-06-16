@@ -14,9 +14,21 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local typeEffect = EFFECT_SLEEP_I;
-    local power = math.random(15, 20) + mob:getMainLvl()/4;
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
 
+
+    local typeEffect = EFFECT_SLEEP_I;
+    local power = math.random(15, 20);
+
+    if (hard > 0) then
+        local effect = target:getStatusEffect(EFFECT_SLEEP_I);
+        if (effect ~= nil) then
+            effect:addMod(MOD_REGAIN_DOWN, hard * 2);
+            effect:addMod(MOD_REFRESH_DOWN, hard * 2);
+            target:addMod(MOD_REGAIN_DOWN, hard * 2);
+            target:addMod(MOD_REFRESH_DOWN, hard * 2);
+        end
+    end
 
     skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 1, 0, power));
 

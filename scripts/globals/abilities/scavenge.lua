@@ -8,6 +8,7 @@
 
 require("scripts/globals/settings");
 require("scripts/globals/status");
+require("scripts/globals/jsr_utils");
 
 -----------------------------------
 -- onAbilityCheck
@@ -46,6 +47,7 @@ function onUseAbility(player, target, ability, action)
         end;
 
     else
+    rewardTemporaryItem(player);
 
     local bonuses = (player:getMod(MOD_SCAVENGE_EFFECT)  + player:getMerit(MERIT_SCAVENGE_EFFECT) ) / 100;
     local arrowsToReturn = math.floor(math.floor(player:getLocalVar("ArrowsUsed")  % 10000) * (player:getMainLvl() / 200 + bonuses));

@@ -12,6 +12,7 @@ require("scripts/globals/status");
 
 function onEffectGain(target,effect)
     target:addMod(MOD_THUNDERRES,effect:getPower());
+    target:addMod(MOD_LTNG_ABSORB,effect:getSubPower());
 end;
 
 -----------------------------------
@@ -27,4 +28,5 @@ end;
 
 function onEffectLose(target,effect)
     target:delMod(MOD_THUNDERRES,effect:getPower());
+    target:delMod(MOD_LTNG_ABSORB,effect:getSubPower());
 end;

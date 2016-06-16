@@ -27,6 +27,10 @@ function onSpellCast(caster,target,spell)
     --add in target adjustment
     dmg = adjustForTarget(target,dmg,spell:getElement());
     --add in final adjustments
+    local void = caster:getStatusEffect(EFFECT_NETHER_VOID);
+    if (void ~= nil) then
+        dmg = dmg * (1 + void:getPower() / 100);
+    end
 
     if (dmg < 0) then
         dmg = 0

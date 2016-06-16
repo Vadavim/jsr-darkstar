@@ -12,6 +12,7 @@ require("scripts/globals/status");
 
 function onEffectGain(target,effect)
     target:addMod(MOD_ICERES,effect:getPower());
+    target:addMod(MOD_ICE_ABSORB,effect:getSubPower());
 end;
 
 -----------------------------------
@@ -27,4 +28,5 @@ end;
 
 function onEffectLose(target,effect)
     target:delMod(MOD_ICERES,effect:getPower());
+    target:delMod(MOD_ICE_ABSORB,effect:getSubPower());
 end;

@@ -361,7 +361,7 @@ void LoadMOBList()
             mob_pools.familyid, name_prefix, flags, animationsub, \
             (mob_family_system.HP / 100), (mob_family_system.MP / 100), hasSpellScript, spellList, ATT, ACC, mob_groups.poolid, \
             allegiance, namevis, aggro, roamflag, mob_pools.skill_list_id, mob_pools.true_detection, mob_family_system.detects, \
-            mob_family_system.charmable \
+            mob_family_system.charmable, mob_family_system.xpbonus \
             FROM mob_groups INNER JOIN mob_pools ON mob_groups.poolid = mob_pools.poolid \
             INNER JOIN mob_spawn_points ON mob_groups.groupid = mob_spawn_points.groupid  \
             INNER JOIN mob_family_system ON mob_pools.familyid = mob_family_system.familyid \
@@ -510,6 +510,7 @@ void LoadMOBList()
                 PMob->m_Detects = Sql_GetUIntData(SqlHandle, 66);
 
                 PMob->setMobMod(MOBMOD_CHARMABLE, Sql_GetUIntData(SqlHandle, 67));
+                PMob->setMobMod(MOBMOD_EXP_BONUS, Sql_GetUIntData(SqlHandle, 68));
 
                 // must be here first to define mobmods
                 mobutils::InitializeMob(PMob, GetZone(ZoneID));

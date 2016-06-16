@@ -7,6 +7,7 @@ STATS
 
 [TRAITS]
  - Gain Conserve TP at levels 30, 50, and 70 (chance is 15%, 20%, and 25% respectively).
+ - Gain Resist Stun and Bind at levels 15, 35, 55, and 75
 
 [Jump]
  - There is a chance that Jump's recast will be reset.

@@ -18,10 +18,20 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local numhits = 1;
-    local accmod = 1;
-    local dmgmod = 2.5;
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_NO_EFFECT);
+    local numhits = 2;
+    local accmod = 0.8;
+    if (mob:hasStatusEffect(EFFECT_WEIGHT)) then
+        accmod = accmod - 0.1;
+    end
+    if (mob:hasStatusEffect(EFFECT_BIND)) then
+        accmod = accmod - 0.2;
+    end
+
+
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    local dmgmod = 1.5 + hard / 6;
+
+    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_PIERCE,info.hitslanded);
     target:delHP(dmg);
     return dmg;

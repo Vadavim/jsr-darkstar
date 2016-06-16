@@ -16,10 +16,18 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local typeEffect = EFFECT_POISON;
-    local power = math.ceil(mob:getMainLvl() / 5);
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    local tp = skill:getTP();
+    local duration = 45 * fTP(tp, 1, 1.5, 2) * (1 + hard / 5)
+    
 
-    MobStatusEffectMove(mob, target, typeEffect, power, 3, 60);
+    local typeEffect = EFFECT_POISON;
+    local power = math.ceil(mob:getMainLvl() / 5) * (1 + hard / 3);
+
+    local success = MobStatusEffectMove(mob, target, typeEffect, power, 3, duration, MOD_VIT);
+    if (success == 242) then
+        target:setPendingMessage(277, EFFECT_POISON);
+    end
 
     local dmgmod = MobBreathMove(mob, target, 0.1, 1.25, ELE_WATER, 200);
 

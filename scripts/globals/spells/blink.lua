@@ -3,6 +3,7 @@
 -----------------------------------------
 
 require("scripts/globals/status");
+require("scripts/globals/magic");
 
 -----------------------------------------
 -- OnSpellCast
@@ -17,8 +18,17 @@ function onSpellCast(caster,target,spell)
     if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
         duration = duration * 3;
     end
+    local subPower = caster:getSkillLevel(ENHANCING_MAGIC_SKILL) / 15;
 
-    if (target:addStatusEffect(EFFECT_BLINK, BLINK_SHADOWS, 0, duration)) then
+    local shadows = 2;
+    shadows, duration = applyEmbolden(caster, shadows, duration);
+
+    if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_FLABRA) >= 1) then
+        shadows = shadows + 1;
+        subPower = subPower + 10;
+    end
+
+    if (target:addStatusEffect(EFFECT_BLINK, shadows, 0, duration, 0, subPower)) then
         spell:setMsg(230);
     else
         spell:setMsg(75);

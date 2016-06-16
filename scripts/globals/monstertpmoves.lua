@@ -173,8 +173,13 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     hitdamage = hitdamage * dmgmod;
 
     if (tpeffect == TP_DMG_VARIES) then
-        hitdamage = hitdamage * MobTPMod(skill:getTP() / 10);
+        hitdamage = hitdamage * MobTPMod(skill:getTP());
     end
+
+    if (tpeffect == TP_CRIT_VARIES) then
+        local critChance = 25 * fTP(skill:getTP(), mtp000, mtp150, mtp300);
+    end
+
 
     --work out min and max cRatio
     local maxRatio = 1;
@@ -273,6 +278,66 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
 
 end
 
+function purgeNegative(target, times)
+    if (times == nil) then
+        times = 100;
+    end
+
+    local currentCount = times;
+
+    if (times > 0 and target:delStatusEffect(EFFECT_POISON)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_POISON_II)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_DISEASE)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_PLAGUE)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_BLINDNESS)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_WEIGHT)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_BIND)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_SLEEP)) then times = times - 1 end;
+
+
+    if (times > 0 and target:delStatusEffect(EFFECT_MND_DOWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_STR_DOWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_AGI_DOWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_DEX_DOWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_INT_DOWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_CHR_DOWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_VIT_DOWN)) then times = times - 1 end;
+
+    if (times > 0 and target:delStatusEffect(EFFECT_BURN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_FROST)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_CHOKE)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_SHOCK)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_DROWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_RASP)) then times = times - 1 end;
+
+    if (times > 0 and target:delStatusEffect(EFFECT_ACCURACY_DOWN_II)) then times = times - 1 end;
+
+    if (times > 0 and target:delStatusEffect(EFFECT_EVASION_DOWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_EVASION_DOWN_II)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_ACCURACY_DOWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_ACCURACY_DOWN_II)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_DEFENSE_DOWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_DEFENSE_DOWN_II)) then times = times - 1 end;
+
+    if (times > 0 and target:delStatusEffect(EFFECT_MAGIC_ACC_DOWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_MAGIC_ACC_DOWN_II)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_MAGIC_ATK_DOWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_MAGIC_ATK_DOWN_II)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_MAGIC_EVASION_DOWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_MAGIC_EVASION_DOWN_II)) then times = times - 1 end;
+
+    if (times > 0 and target:delStatusEffect(EFFECT_ATTACK_DOWN)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_ATTACK_DOWN_II)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_SLOW)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_SLOW_II)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_PARALYSIS)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_PARALYSIS_II)) then times = times - 1 end;
+
+    if (times > 0 and target:delStatusEffect(EFFECT_DIA)) then times = times - 1 end;
+    if (times > 0 and target:delStatusEffect(EFFECT_BIO)) then times = times - 1 end;
+    return currentCount - times;
+end
+
 -- MAGICAL MOVE
 -- Call this on every magical move!
 -- mob/target/skill should be passed from onMobWeaponSkill.
@@ -308,7 +373,7 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue)
 
     end
     -- plus 100 forces it to be a number
-    mab = (100 + mob:getMod(MOD_MATT)) / (100 + target:getMod(MOD_MDEF) + mdefBarBonus);
+    local mab = (100 + mob:getMod(MOD_MATT)) / (100 + target:getMod(MOD_MDEF) + mdefBarBonus);
     
     if (mab > 1.3) then
         mab = 1.3;
@@ -322,9 +387,13 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue)
         damage = damage * (((skill:getTP() / 10)*tpvalue)/100);
     end
 
+    if (tpeffect == TP_DMG_VARIES or tpeffect == TP_MAB_BONUS) then
+        damage = damage * MobTPMod(skill:getTP());
+    end
+
     -- printf("power: %f, bonus: %f", damage, mab);
     -- resistence is added last
-    finaldmg = damage * mab * dmgmod;
+    local finaldmg = damage * mab * dmgmod;
 
     -- get resistence
     local avatarAccBonus = 0;
@@ -502,6 +571,19 @@ function MobBreathMove(mob, target, percent, base, element, cap)
     -- Deal bonus damage vs mob ecosystem
     local systemBonus = utils.getSystemStrengthBonus(mob, target);
     damage = damage + (damage * (systemBonus * 0.25));
+
+    if (mob:hasStatusEffect(EFFECT_CHOKE)) then
+        damage = damage * 0.85;
+    end
+
+    if (mob:hasStatusEffect(EFFECT_DROWN)) then
+        damage = damage * 0.85;
+    end
+
+    if (mob:hasStatusEffect(EFFECT_SILENCE)) then
+        damage = damage * 0.75;
+    end
+
 
     -- elemental resistence
     if (element ~= nil and element > 0) then
@@ -731,22 +813,51 @@ function MobDrainStatusEffectMove(mob, target)
     return MSG_NO_EFFECT;
 end;
 
-function tpModifier(skill)
+function tpModifier(skill, scale1, scale2)
     local tp = skill:getTP();
     if (tp < 1000) then
         return 1
     end
+
+    local base = tp / 1000;
+
+    if (scale1 ~= nil) then
+        base = base * (1 + (tp - 1000 ) / 2000)
+    end
+
+    if (scale2 ~= nil and tp > 2000) then
+        base = base * (1 + (tp - 2000 ) / 1000)
+    end
+
+
     return (tp / 1000) * (1 + tp / 3000);
 end
 
+function enmityStatusCheck(target, mob, skill, amount)
+    if (skill:getMsg() == MSG_ENFEEB_IS) then
+        mob:lowerEnmity(target, amount);
+    end
+end
+
 -- Adds a status effect to a target
-function MobStatusEffectMove(mob, target, typeEffect, power, tick, duration)
+function MobStatusEffectMove(mob, target, typeEffect, power, tick, duration, specificStat)
 
     if (target:canGainStatusEffect(typeEffect, power)) then
         local statmod = MOD_INT;
+        local defStatMod = MOD_INT;
+
         local element = mob:getStatusEffectElement(typeEffect);
 
-        local resist = applyPlayerResistance(mob,typeEffect,target,mob:getStat(statmod)-target:getStat(statmod),0,element);
+        if (specificStat ~= nil) then
+            statmod = specificStat;
+            defStatMod = specificStat;
+            if (statmod == MOD_STR) then
+                edefStatMod = MOD_VIT;
+            end
+        end
+
+
+        local resist = applyPlayerResistance(mob,typeEffect,target,mob:getStat(statmod)-target:getStat(defStatMod),0,element);
 
         if (resist >= 0.25) then
 
@@ -762,21 +873,49 @@ function MobStatusEffectMove(mob, target, typeEffect, power, tick, duration)
 end;
 
 -- similar to status effect move except, this will not land if the attack missed
-function MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, power, tick, duration)
+function MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, power, tick, duration, specificStat)
 
     if (MobPhysicalHit(skill)) then
-        return MobStatusEffectMove(mob, target, typeEffect, power, tick, duration);
+        return MobStatusEffectMove(mob, target, typeEffect, power, tick, duration, specificStat);
     end
 
     return MSG_MISS;
 end;
 
 -- similar to statuseffect move except it will only take effect if facing
-function MobGazeMove(mob, target, typeEffect, power, tick, duration)
+function MobGazeMove(mob, target, typeEffect, power, tick, duration, specificStat)
+    if (mob:hasStatusEffect(EFFECT_BLINDNESS) and math.random(0, 100) < 10) then
+        return MSG_NO_EFFECT;
+    end
+
+    if (mob:hasStatusEffect(EFFECT_FLASH) and math.random(0, 100) < 50) then
+        return MSG_NO_EFFECT;
+    end
+
+    if (mob:hasStatusEffect(EFFECT_FLASH) and math.random(0, 100) < 50) then
+        return MSG_NO_EFFECT;
+    end
+
     if (target:isFacing(mob)) then
-        return MobStatusEffectMove(mob, target, typeEffect, power, tick, duration);
+        return MobStatusEffectMove(mob, target, typeEffect, power, tick, duration, specificStat);
     end
     return MSG_NO_EFFECT;
+end;
+
+function MobRoarMove(mob, target, typeEffect, power, tick, duration, specificStat)
+    if (mob:hasStatusEffect(EFFECT_DROWN) and math.random(0, 100) < 10 ) then
+        return MSG_NO_EFFECT;
+    end
+
+    if (mob:hasStatusEffect(EFFECT_CHOKE) and math.random(0, 100) < 10 ) then
+        return MSG_NO_EFFECT;
+    end
+
+    if (mob:hasStatusEffect(EFFECT_SILENCE) and math.random(0, 100) < 50 ) then
+        return MSG_NO_EFFECT;
+    end
+
+    return MobStatusEffectMove(mob, target, typeEffect, power, tick, duration, specificStat);
 end;
 
 function MobBuffMove(mob, typeEffect, power, tick, duration)
@@ -792,9 +931,33 @@ function MobHealMove(target, heal)
     local mobHP = target:getHP();
     local mobMaxHP = target:getMaxHP();
 
+    local factor = 1.0;
+    if (target:getStatusEffect(EFFECT_POISON) ~= nil) then
+        factor = factor * 0.75;
+    end
+
+    if (target:getStatusEffect(EFFECT_BIO) ~= nil) then
+        factor = factor * 0.75;
+    end
+
+    if (target:getStatusEffect(EFFECT_DISEASE) ~= nil) then
+        factor = factor * 0.66;
+    end
+
+    if (target:getStatusEffect(EFFECT_PLAGUE) ~= nil) then
+        factor = factor * 0.66;
+    end
+
+    if (target:getStatusEffect(EFFECT_RASP) ~= nil) then
+        factor = factor * 0.75;
+    end
+
+
     if (mobHP+heal > mobMaxHP) then
         heal = mobMaxHP - mobHP;
     end
+
+    heal = heal * factor;
 
     target:wakeUp();
 

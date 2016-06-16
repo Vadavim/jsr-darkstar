@@ -19,6 +19,16 @@ DEFENSE
  - Max Guard Rate: 25% -> 45%
  - Mobs gain less of a damage bonus against players when they are higher level than the player (~15% less)
 
+
+TP
+ - Players gain TP from being hit by magical spells (like mobs). Previously this was not the case.
+
+STATS
+ - Gain a bonus to critical damage equal to: (aSTR - dVIT)%, max of -40% to 40%.
+ - Gain a bonus to TP gain equal to: ((aINT - dMND) * 075)%, max of -30% to 30%.
+ - Reduces monster's TP gain by: ((aAGI - dAGI) * 0.75))%, max of -30% to 30%.
+ - Increase effectiveness of Enmity modifiers by: ((aCHR - dCHR) * 1.5)%, max of -60% to 60%.
+
 SKILL CHAIN / MAGIC BURST
 
 Magic burst damage increased (starts at +60% damage, scales up to +100%).
@@ -27,7 +37,7 @@ The magic burst damage modifier is multiplicative (was additive) with this damag
 STATUS EFFECTS
  - Paralyze Resistance slightly affects Paralyze chance (for every two points of resistance -1% chance of proccing Paralyze)
  - Ice Spikes Paralze potency: 20% -> 25%
- - Curse: when used on mobs, decreases their status effects resistances (-20).
+ - Curse: instead decreases all attributes and status resistances.
 
 
 EXPERIENCE POINTS

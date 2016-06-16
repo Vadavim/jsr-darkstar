@@ -3182,6 +3182,12 @@ namespace charutils
                         exp = 500 * permonstercap;
                     }
 
+                    uint32 job = PMob->GetMJob();
+                    if (job == JOB_BLM || job == JOB_RDM || job == JOB_BLU || job == JOB_SMN || job == JOB_SCH)
+                        exp *= 1.2;
+                    else if (job == JOB_DRK || job == JOB_WHM || job == JOB_BST)
+                        exp *= 1.1;
+
                     if (PMob->m_Type == MOBTYPE_NOTORIOUS){
                         exp *= 5;
                         if (PMember->GetMLevel() < PMob->GetMLevel() + 5) {

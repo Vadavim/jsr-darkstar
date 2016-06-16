@@ -8,6 +8,7 @@
 
 require("scripts/globals/settings");
 require("scripts/globals/status");
+require("scripts/globals/jsr_utils");
 
 -- these are the quadavs that the thf af1 item can be stolen from
 -- bronze quadav groupid = 7949
@@ -64,6 +65,17 @@ function onUseAbility(player,target,ability)
         end
 
         player:addItem(stolen);
+        rewardTemporaryItem(player);
+        if (math.random(0, 100) < 25) then
+            rewardTemporaryItem(player);
+        end
+        if (math.random(0, 100) < 25) then
+            rewardTemporaryItem(player);
+        end
+        if (math.random(0, 100) < 25) then
+            rewardTemporaryItem(player);
+        end
+
         target:itemStolen();
         ability:setMsg(125); -- Item stolen successfully
     else

@@ -18,11 +18,20 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local dmgmod = 1;
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+
+    local dmgmod = 1 + hard / 4;
     local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*3,ELE_DARK,dmgmod,TP_NO_EFFECT);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_MAGICAL,MOBPARAM_DARK,MOBPARAM_1_SHADOW);
 
     skill:setMsg(MobPhysicalDrainMove(mob, target, skill, MOBDRAIN_HP, dmg));
+
+    if (hard > 0) then
+        local success = MobStatusEffectMove(mob, target, skill, EFFECT_DISEASE, 1, 3, 20 * hard);
+        if (success == 242) then
+            target:setPendingMessage(277, EFFECT_DISEASE);
+        end
+    end
 
     return dmg;
 end;

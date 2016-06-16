@@ -29,5 +29,11 @@ function onSpellCast(caster,target,spell)
      spell:setMsg(75);
    end
 
+    if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_GELUS) >= 1) then
+        power = power * 1.5;
+    end
+
+    power, duration = applyEmbolden(caster, power, duration);
+
    return typeEffect;
 end;

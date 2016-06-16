@@ -12,6 +12,7 @@ require("scripts/globals/status");
 
 function onEffectGain(target,effect)
     target:setMod(MOD_STONESKIN, effect:getPower());
+    target:addMod(MOD_UDMGPHYS, -effect:getSubPower());
 end;
 
 -----------------------------------
@@ -27,4 +28,5 @@ end;
 
 function onEffectLose(target,effect)
     target:setMod(MOD_STONESKIN, 0);
+    target:delMod(MOD_UDMGPHYS, -effect:getSubPower());
 end;

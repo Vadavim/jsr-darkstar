@@ -21,7 +21,7 @@ function onSpellCast(caster,target,spell)
     end
 
     local power = 100;
-    if (target:getEffectsCount(EFFECT_FLABRA) >= 2) then
+    if (target:getEffectsCount(EFFECT_FLABRA) >= 1) then
         local power = 125;
     end
 

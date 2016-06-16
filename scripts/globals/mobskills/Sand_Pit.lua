@@ -15,6 +15,17 @@ end;
 function onMobWeaponSkill(target, mob, skill)
     local typeEffect = EFFECT_BIND;
     skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 1, 0, 30));
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    enmityStatusCheck(target, mob, skill, 30 + hard * 5);
+
+    if (hard > 0) then
+        local success = MobStatusEfectMove(mob, target, skill, EFFECT_RASP, (1 + mob:getMainLvl() / 4) * (1 + hard / 5), 0, 60);
+        if (success == 242) then
+            target:setPendingMessage(277, EFFECT_RASP);
+        end
+    end
+
+
 
     if (mob:getPool() == 1318) then -- if the pool ID == Feeler Antlion ID
         local npcX = mob:getXPos();

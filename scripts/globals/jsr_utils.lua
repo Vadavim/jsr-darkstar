@@ -33,17 +33,17 @@ function addRune(player, rune)
     if (player:getActiveRunes() >= minRunes) then
         player:removeOldestRune();
     end
-    local power = math.floor(1 + runLevel * 0.45);
+    local power = math.floor(5 + runLevel * 0.3);
     player:addStatusEffect(rune,power,3,300);
 end;
 
 function vallationDefense(count)
     if (count == 1) then
-        return 75;
+        return 50;
     elseif (count == 2) then
-        return 100;
+        return 65;
     elseif (count == 3) then
-        return 125;
+        return 80;
     else
         return 0;
     end
@@ -128,35 +128,35 @@ function applyPflugMask(effect)
     local tenebrae = rshift(band(mask, lshift(3, 14)), 14);
     
     effect:addMod(MOD_FIRERES, pflugRes(unda));
-    effect:addMod(MOD_VIRUSRES, pflugRes(unda) / 10);
-    effect:addMod(MOD_AMNESIARES, pflugRes(unda) / 10);
+    effect:addMod(MOD_VIRUSRES, pflugRes(unda) / 5);
+    effect:addMod(MOD_AMNESIARES, pflugRes(unda) / 5);
 
     effect:addMod(MOD_ICERES, pflugRes(ignis));
-    effect:addMod(MOD_PARALYZERES, pflugRes(ignis) / 10);
-    effect:addMod(MOD_BINDRES, pflugRes(ignis) / 10);
+    effect:addMod(MOD_PARALYZERES, pflugRes(ignis) / 5);
+    effect:addMod(MOD_BINDRES, pflugRes(ignis) / 5);
 
     effect:addMod(MOD_WATERRES, pflugRes(sulpor));
-    effect:addMod(MOD_POISONRES, pflugRes(sulpor) / 10);
+    effect:addMod(MOD_POISONRES, pflugRes(sulpor) / 5);
 
     effect:addMod(MOD_EARTHRES, pflugRes(flabra));
-    effect:addMod(MOD_SLOWRES, pflugRes(flabra) / 10);
-    effect:addMod(MOD_GRAVITYRES, pflugRes(flabra) / 10);
-    effect:addMod(MOD_PETRIFYRES, pflugRes(flabra) / 10);
+    effect:addMod(MOD_SLOWRES, pflugRes(flabra) / 5);
+    effect:addMod(MOD_GRAVITYRES, pflugRes(flabra) / 5);
+    effect:addMod(MOD_PETRIFYRES, pflugRes(flabra) / 5);
 
     effect:addMod(MOD_THUNDERRES, pflugRes(tellus));
-    effect:addMod(MOD_STUNRES, pflugRes(tellus) / 10);
+    effect:addMod(MOD_STUNRES, pflugRes(tellus) / 5);
 
-    effect:addMod(MOD_WINDRES, pflugRes(tellus));
-    effect:addMod(MOD_SILENCERES, pflugRes(tellus) / 10);
+    effect:addMod(MOD_WINDRES, pflugRes(gelus));
+    effect:addMod(MOD_SILENCERES, pflugRes(gelus) / 5);
 
     effect:addMod(MOD_LIGHTRES, pflugRes(tenebrae));
-    effect:addMod(MOD_CHARMRES, pflugRes(tenebrae) / 10);
+    effect:addMod(MOD_CHARMRES, pflugRes(tenebrae) / 5);
 
     effect:addMod(MOD_DARKRES, pflugRes(lux));
-    effect:addMod(MOD_SLEEPRES, pflugRes(lux) / 10);
-    effect:addMod(MOD_BLINDRES, pflugRes(lux) / 10);
-    effect:addMod(MOD_CURSERES, pflugRes(lux) / 10);
-    effect:addMod(MOD_DEATHRES, pflugRes(lux) / 10);
+    effect:addMod(MOD_SLEEPRES, pflugRes(lux) / 5);
+    effect:addMod(MOD_BLINDRES, pflugRes(lux) / 5);
+    effect:addMod(MOD_CURSERES, pflugRes(lux) / 5);
+    effect:addMod(MOD_DEATHRES, pflugRes(lux) / 5);
 end;
 
 function startConfrontation(player, power, duration, mobs)
@@ -284,6 +284,45 @@ function reduced_healing_factor(target)
 
     return factor;
 end
+
+function rewardTemporaryItem(player)
+    local level = player:getMainLvl();
+    local hasMP = player:getMaxMP() > 25;
+    local statPotions = {4207, 4205, 4211, 4209, 4199, 4203};
+    local boostItems = { -- Count: 18
+        5440, -- Dusty Wing
+        5392, -- Champion's Drink
+        5389, -- Spy's Drink
+        5386, -- Fighter's Drink
+        5385, -- Barbarian's Drink
+        5849, -- Berserker's Drink
+        5241, -- Giant's Drink
+        5395, -- Cleric's Drink
+        5770, -- Super Reraiser
+        5322, -- Healing Powder
+        5832, -- Healing Mist
+        5833, -- Mana Mist
+        4255, -- Mana Powder
+        5393, -- Monarch's Drink
+        4174, -- Vile Elixir
+        4175, -- Vile Elixir +1
+        4254, -- Megalixir
+        4155 -- Remedy
+    };
+
+
+    local item = 0;
+    local rand = math.random(0, 100);
+    if (rand <= 15) then
+       item = statPotions[math.random(1,6)];
+    else
+        item = boostItems[math.random(1,18)];
+    end
+
+    player:addTempItem(item);
+    player:messageSpecial(ITEM_OBTAINED, item);
+end
+
 
 
 

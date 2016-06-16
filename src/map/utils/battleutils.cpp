@@ -652,10 +652,8 @@ namespace battleutils
 
         // calculate elemental attack / defense
         uint32 eleAttack[8] = { MOD_FIREATT, MOD_EARTHATT, MOD_WATERATT, MOD_WINDATT, ICEDAY, MOD_THUNDERATT, MOD_LIGHTATT, MOD_DARKATT };
-        uint32 eleDefense[8] = { MOD_FIREDEF, MOD_EARTHDEF, MOD_WATERDEF, MOD_WINDDEF, ICEDAY, MOD_THUNDERDEF, MOD_LIGHTDEF, MOD_DARKDEF };
         float eleAttackRatio = 1.0 + (float)PAttacker->getMod(eleAttack[element]) / 100.0;
-        float eleDefenseRatio = 1.0 - (float)PDefender->getMod(eleDefense[element]) / 255.0;
-        damage *= eleAttackRatio * eleDefenseRatio;
+        damage *= eleAttackRatio;
 
         // take damage
         damage = MagicDmgTaken(PDefender, damage, (ELEMENT)(element + 1));
@@ -693,7 +691,6 @@ namespace battleutils
         WEATHER weakWeatherDouble[8] = { WEATHER_SQUALL, WEATHER_GALES, WEATHER_THUNDERSTORMS, WEATHER_BLIZZARDS, WEATHER_HEAT_WAVE, WEATHER_SAND_STORM, WEATHER_DARKNESS, WEATHER_STELLAR_GLARE };
 
         uint32 eleAttack[8] = { MOD_FIREATT, MOD_EARTHATT, MOD_WATERATT, MOD_WINDATT, ICEDAY, MOD_THUNDERATT, MOD_LIGHTATT, MOD_DARKATT };
-        uint32 eleDefense[8] = { MOD_FIREDEF, MOD_EARTHDEF, MOD_WATERDEF, MOD_WINDDEF, ICEDAY, MOD_THUNDERDEF, MOD_LIGHTDEF, MOD_DARKDEF };
         uint32 ele = 0;
 
         switch (Action->spikesEffect)
@@ -711,6 +708,15 @@ namespace battleutils
             case SPIKE_SHOCK:
                 ele = ELEMENT_THUNDER;
                 break;
+            case SPIKE_DELUGE:
+                ele = ELEMENT_WATER;
+                break;
+            case SPIKE_STONE:
+                ele = ELEMENT_EARTH;
+                break;
+            case SPIKE_WIND:
+                ele = ELEMENT_WIND;
+                break;
             default:
                 break;
         }
@@ -720,8 +726,7 @@ namespace battleutils
             // elemental attack / defense bonus
             damage *= matb * mdef;
             float eleAttackRatio = 1.0 + (float)PDefender->getMod(eleAttack[ele]) / 100.0;
-            float eleDefenseRatio = 1.0 - (float)PAttacker->getMod(eleDefense[ele]) / 255.0;
-            damage *= eleAttackRatio * eleDefenseRatio;
+            damage *= eleAttackRatio;
             float dBonus = 1.0;
 
             // day / weather bonus
@@ -827,6 +832,9 @@ namespace battleutils
             {
                 case SPIKE_BLAZE:
                 case SPIKE_ICE:
+                case SPIKE_DELUGE:
+                case SPIKE_WIND:
+                case SPIKE_STONE:
                 case SPIKE_SHOCK:
                     PAttacker->addHP(-Action->spikesParam);
                     break;
@@ -989,6 +997,31 @@ namespace battleutils
                 }
                 break;
             }
+            case SUBEFFECT_DELUGE_SPIKES:
+            {
+                if (dsprand::GetRandomNumber(100) <= 20 + lvlDiff && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_POISON_II) == false)
+                {
+                    int poisonPower = 1 + PDefender->GetMLevel() / 2;
+                    PAttacker->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_POISON_II, EFFECT_POISON_II, poisonPower, 0, 30));
+                }
+                break;
+            }
+            case SUBEFFECT_WIND_SPIKES:
+            {
+                if (dsprand::GetRandomNumber(100) <= 20 + lvlDiff && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SILENCE) == false)
+                {
+                    PAttacker->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_SILENCE, EFFECT_SILENCE, 1, 0, 30));
+                }
+                break;
+            }
+            case SUBEFFECT_STONE_SPIKES:
+            {
+                if (dsprand::GetRandomNumber(100) <= 20 + lvlDiff && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SLOW_II) == false)
+                {
+                    PAttacker->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_SLOW_II, EFFECT_SLOW_II, 150, 0, 30));
+                }
+                break;
+            }
             case SUBEFFECT_SHOCK_SPIKES:
             {
                 if (dsprand::GetRandomNumber(100) <= 30 + lvlDiff && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_STUN) == false)
@@ -1142,6 +1175,21 @@ namespace battleutils
                 Action->addEffectMessage = 161;
 
                 Action->addEffectParam = PAttacker->addHP(Action->param);
+
+                if (PChar != nullptr) {
+                    PChar->updatemask |= UPDATE_HP;
+                }
+            }
+            else if (enspell == ENSPELL_SOUL_ENSLAVEMENT)
+            {
+                Action->additionalEffect = SUBEFFECT_TP_DRAIN;
+                Action->addEffectMessage = 161;
+                float delayPower = 1.0f * (PAttacker->GetWeaponDelay(false) / 300.f);
+
+                int32 tpDrain = PDefender->health.tp * (0.1f * delayPower);
+                PDefender->addTP(-tpDrain);
+
+                Action->addEffectParam = PAttacker->addTP(tpDrain);
 
                 if (PChar != nullptr) {
                     PChar->updatemask |= UPDATE_HP;
@@ -2059,6 +2107,7 @@ namespace battleutils
         {
             PDefender->StatusEffectContainer->DelStatusEffectsByFlag(EFFECTFLAG_DAMAGE);
 
+
             // Check for bind breaking
             BindBreakCheck(PAttacker, PDefender);
 
@@ -2133,21 +2182,23 @@ namespace battleutils
 
             if (giveTPtoAttacker)
             {
-                PAttacker->addTP(tpMultiplier * (baseTp * (1.0f + 0.01f * (float)((PAttacker->getMod(MOD_STORETP) + getStoreTPbonusFromMerit(PAttacker))))));
+                float tpDiffBonus = dsp_cap(((float)PAttacker->INT() - (float)PDefender->MND()) * 0.75f, -30, 30);
+                PAttacker->addTP(tpMultiplier * tpDiffBonus * (baseTp * (1.0f + 0.01f * (float)((PAttacker->getMod(MOD_STORETP) + getStoreTPbonusFromMerit(PAttacker))))));
             }
 
             if (giveTPtoVictim)
             {
                 //account for attacker's subtle blow which reduces the baseTP gain for the defender
                 float sBlowMult = ((100.0f - dsp_cap((float)PAttacker->getMod(MOD_SUBTLE_BLOW), 0.0f, 50.0f)) / 100.0f);
+                float dAGI = dsp_cap(((float)PAttacker->AGI() - (float)PDefender->AGI()) * 0.75f, -30.0f, 30.0f);
 
                 //mobs hit get basetp+30 whereas pcs hit get basetp/3
                 if (PDefender->objtype == TYPE_PC)
                 {
-                    PDefender->addTP(tpMultiplier * ((baseTp / 3) * sBlowMult * (1.0f + 0.01f * (float)((PDefender->getMod(MOD_STORETP) + getStoreTPbonusFromMerit(PAttacker)))))); //yup store tp counts on hits taken too!
+                    PDefender->addTP(tpMultiplier * ((baseTp / 3) * sBlowMult * dAGI * (1.0f + 0.01f * (float)((PDefender->getMod(MOD_STORETP) + getStoreTPbonusFromMerit(PAttacker)))))); //yup store tp counts on hits taken too!
                 }
                 else
-                    PDefender->addTP(tpMultiplier * ((baseTp + 30) * sBlowMult * (1.0f + 0.01f * (float)PDefender->getMod(MOD_STORETP)))); //subtle blow also reduces the "+30" on mob tp gain
+                    PDefender->addTP(tpMultiplier * ((baseTp + 30) * sBlowMult * dAGI * (1.0f + 0.01f * (float)PDefender->getMod(MOD_STORETP)))); //subtle blow also reduces the "+30" on mob tp gain
             }
         }
         else if (PDefender->objtype == TYPE_MOB)
@@ -2155,6 +2206,7 @@ namespace battleutils
 
         if (PAttacker->objtype == TYPE_PC && !isRanged)
             PAttacker->StatusEffectContainer->DelStatusEffectsByFlag(EFFECTFLAG_ATTACK);
+
 
         return damage;
     }
@@ -2251,16 +2303,18 @@ namespace battleutils
 
 
             // add tp to attacker
-            PChar->addTP(((tpMultiplier * baseTp) + bonusTP) * (1.0f + 0.01f * (float)((PChar->getMod(MOD_STORETP) + getStoreTPbonusFromMerit(PChar)))));
+            float tpDiffBonus = dsp_cap(((float)PChar->INT() - (float)PDefender->MND()) * 0.75f, -30, 30);
+            PChar->addTP(((tpDiffBonus * tpMultiplier * baseTp) + bonusTP) * (1.0f + 0.01f * (float)((PChar->getMod(MOD_STORETP) + getStoreTPbonusFromMerit(PChar)))));
 
             //account for attacker's subtle blow which reduces the baseTP gain for the defender
             float sBlowMult = ((100.0f - dsp_cap((float)PChar->getMod(MOD_SUBTLE_BLOW), 0.0f, 50.0f)) / 100.0f);
+            float dAGI = dsp_cap(((float)PChar->AGI() - (float)PDefender->AGI()) * 0.75f, -30.0f, 30.0f);
 
             //mobs hit get basetp+30 whereas pcs hit get basetp/3
             if (PDefender->objtype == TYPE_PC)
-                PDefender->addTP(tpMultiplier * targetTPMultiplier * ((baseTp / 3) * sBlowMult * (1.0f + 0.01f * (float)((PDefender->getMod(MOD_STORETP) + getStoreTPbonusFromMerit(PChar)))))); //yup store tp counts on hits taken too!
+                PDefender->addTP(tpMultiplier * targetTPMultiplier * ((baseTp / 3) * sBlowMult * dAGI * (1.0f + 0.01f * (float)((PDefender->getMod(MOD_STORETP) + getStoreTPbonusFromMerit(PChar)))))); //yup store tp counts on hits taken too!
             else
-                PDefender->addTP(tpMultiplier * targetTPMultiplier * ((baseTp + 30) * sBlowMult * (1.0f + 0.01f * (float)PDefender->getMod(MOD_STORETP)))); //subtle blow also reduces the "+30" on mob tp gain
+                PDefender->addTP(tpMultiplier * targetTPMultiplier * ((baseTp + 30) * sBlowMult * dAGI * (1.0f + 0.01f * (float)PDefender->getMod(MOD_STORETP)))); //subtle blow also reduces the "+30" on mob tp gain
         }
         else if (PDefender->objtype == TYPE_MOB)
             ((CMobEntity*)PDefender)->PEnmityContainer->UpdateEnmityFromDamage(PChar, 0);
@@ -2455,13 +2509,15 @@ namespace battleutils
         }
 
         if (isCritical) {
-            cRatio += 1.5;
             if (PAttacker->objtype == TYPE_PC) {
                 PAttacker->SetLocalVar("critHit", 1);
             }
 
             if (PDefender->objtype == TYPE_MOB) {
                 PDefender->SetLocalVar("xpBonus", PDefender->GetLocalVar("xpBonus") + 1);
+                cRatio += 1.0;
+            } else {
+                cRatio += 1.5;
             }
         }
 
@@ -2511,7 +2567,8 @@ namespace battleutils
         {
             int16 criticaldamage = PAttacker->getMod(MOD_CRIT_DMG_INCREASE);
             criticaldamage = dsp_cap(criticaldamage, 0, 200);
-            pDIF *= ((100 + criticaldamage) / 100.0f);
+            int16 critBonus = dsp_cap(PAttacker->STR() - PDefender->VIT(), -40, 40);
+            pDIF *= ((100 + criticaldamage + critBonus) / 100.0f);
         }
         if (PAttacker->objtype == TYPE_PC) {
             ShowDebug("Ratio Final: %f\n", cRatio);
@@ -4335,6 +4392,20 @@ namespace battleutils
                 PDefender->addMP(absorbedMP);
         }
 
+        if ( damage > 0 && PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_MANA_WALL)) {
+            int curMP = PDefender->health.mp;
+            int halfDam = damage / 2;
+            int mpDam = halfDam;
+            if (curMP < halfDam) {
+                mpDam = curMP;
+                halfDam = halfDam + (halfDam - curMP) * 2;
+            }
+            if (!PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_MANAFONT))
+                PDefender->addMP(-mpDam);
+            damage = halfDam;
+        }
+
+
         return damage;
     }
 
@@ -4342,10 +4413,13 @@ namespace battleutils
     {
         MODIFIER absorb[8] = { MOD_FIRE_ABSORB, MOD_EARTH_ABSORB, MOD_WATER_ABSORB, MOD_WIND_ABSORB, MOD_ICE_ABSORB, MOD_LTNG_ABSORB, MOD_LIGHT_ABSORB, MOD_DARK_ABSORB };
         MODIFIER nullarray[8] = { MOD_FIRE_NULL, MOD_EARTH_NULL, MOD_WATER_NULL, MOD_WIND_NULL, MOD_ICE_NULL, MOD_LTNG_NULL, MOD_LIGHT_NULL, MOD_DARK_NULL };
+        MODIFIER defArray[8] = { MOD_FIREDEF, MOD_EARTHDEF, MOD_WATERDEF, MOD_WINDDEF, MOD_ICEDEF, MOD_THUNDERDEF, MOD_LIGHTDEF, MOD_DARKDEF };
 
         float resist = 1.0f + floor( 256.0f * ( PDefender->getMod(MOD_UDMGMAGIC) / 100.0f )  ) / 256.0f;
         resist = dsp_max(resist, 0);
         damage *= resist;
+        if (element)
+            damage *= 1.0f - PDefender->getMod(defArray[element]) / 255.0f;
 
         resist = 1.0f + ( floor( 256.0f * ( PDefender->getMod(MOD_DMGMAGIC) / 100.0f ) ) / 256.0f )
                       + ( floor( 256.0f * ( PDefender->getMod(MOD_DMG)      / 100.0f ) ) / 256.0f );
@@ -4367,6 +4441,19 @@ namespace battleutils
             int16 absorbedMP = (float)(damage * PDefender->getMod(MOD_ABSORB_DMG_TO_MP) / 100);
             if (absorbedMP > 0)
                 PDefender->addMP(absorbedMP);
+        }
+
+        if ( damage > 0 && PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_MANA_WALL)) {
+            int curMP = PDefender->health.mp;
+            int halfDam = damage / 2;
+            int mpDam = halfDam;
+            if (curMP < halfDam) {
+                mpDam = curMP;
+                halfDam = halfDam + (halfDam - curMP) * 2;
+            }
+            if (!PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_MANAFONT))
+                PDefender->addMP(-mpDam);
+            damage = halfDam;
         }
 
         //ShowDebug(CL_CYAN"MagicDmgTaken: Element = %d\n" CL_RESET, element);
@@ -4398,6 +4485,19 @@ namespace battleutils
             damage = HandleFanDance(PDefender, damage);
         }
 
+        if ( damage > 0 && PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_MANA_WALL)) {
+            int curMP = PDefender->health.mp;
+            int halfDam = damage / 2;
+            int mpDam = halfDam;
+            if (curMP < halfDam) {
+                mpDam = curMP;
+                halfDam = halfDam + (halfDam - curMP) * 2;
+            }
+            if (!PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_MANAFONT))
+                PDefender->addMP(-mpDam);
+            damage = halfDam;
+        }
+
         return damage;
     }
 
@@ -4425,6 +4525,20 @@ namespace battleutils
                 PDefender->addMP(absorbedMP);
             damage = HandleFanDance(PDefender, damage);
         }
+
+        if ( damage > 0 && PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_MANA_WALL)) {
+            int curMP = PDefender->health.mp;
+            int halfDam = damage / 2;
+            int mpDam = halfDam;
+            if (curMP < halfDam) {
+                mpDam = curMP;
+                halfDam = halfDam + (halfDam - curMP) * 2;
+            }
+            if (!PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_MANAFONT))
+                PDefender->addMP(-mpDam);
+            damage = halfDam;
+        }
+
 
         return damage;
     }

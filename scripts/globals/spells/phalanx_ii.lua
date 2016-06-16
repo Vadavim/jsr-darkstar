@@ -28,6 +28,18 @@ function onSpellCast(caster,target,spell)
 
     final = (enhskill / 25) + merits + 1;
 
+    if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_TELLUS >= 1)) then
+        final = final * 1.25;
+    end
+
+    final, duration = applyEmbolden(caster, final, duration);
+
+    if (target:addStatusEffect(EFFECT_PHALANX,final,0,duration)) then
+        spell:setMsg(230);
+    else
+        spell:setMsg(75);
+    end
+
     if (target:addStatusEffect(EFFECT_PHALANX,final,0,duration)) then
         spell:setMsg(230);
     else

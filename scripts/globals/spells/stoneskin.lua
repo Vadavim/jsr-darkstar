@@ -37,7 +37,15 @@ function onSpellCast(caster,target,spell)
     end
 
     local final = pAbs + pEquipMods;
-    if (target:addStatusEffect(EFFECT_STONESKIN,final,0,duration)) then
+    local subPower = 0
+    if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_TELLUS) >= 1) then
+        final = final * 1.25;
+        subPower = 10;
+    end
+
+    final, duration = applyEmbolden(caster, final, duration);
+
+    if (target:addStatusEffect(EFFECT_STONESKIN,final,0,duration, 0, subPower)) then
         spell:setMsg(230);
     else
         spell:setMsg(MMSG_BUFF_FAIL);

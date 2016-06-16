@@ -26,6 +26,16 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
         bonusacc = bonusacc + params.bonusACC;
     end
 
+    local enemyFoil = target:getStatusEffect(EFFECT_FOIL);
+    if (enemyFoil ~= nil) then
+        if (enemyFoil ~= nil) then
+            bonusacc = bonusacc - enemyFoil:getPower();
+            target:addTP(enemyFoil:getPower() * 5);
+            target:delStatusEffect(EFFECT_FOIL);
+        end
+    end
+
+
     -- get fstr
     local fstr = fSTR(attacker:getStat(MOD_STR),target:getStat(MOD_VIT),attacker:getWeaponDmgRank());
 
@@ -278,6 +288,14 @@ function doMagicWeaponskill(attacker, target, wsID, params, tp, primary)
         bonusacc = bonusacc + math.floor((tp - 1000) / 50);
     end
 
+    local enemyFoil = target:getStatusEffect(EFFECT_FOIL);
+    if (enemyFoil ~= nil) then
+        if (enemyFoil ~= nil) then
+            bonusacc = bonusacc - enemyFoil:getPower();
+            target:addTP(enemyFoil:getPower() * 5);
+            target:delStatusEffect(EFFECT_FOIL);
+        end
+    end
 
 
     local fint = utils.clamp(8 + (attacker:getStat(MOD_INT) - target:getStat(MOD_INT)), -32, 32) * params.int_wsc;
@@ -715,6 +733,15 @@ end;
     bonusacc = bonusacc + attacker:getMod(MOD_WSACC)
     if (params.bonusACC) then
         bonusacc = bonusacc + params.bonusACC;
+    end
+
+    local enemyFoil = target:getStatusEffect(EFFECT_FOIL);
+    if (enemyFoil ~= nil) then
+        if (enemyFoil ~= nil) then
+            bonusacc = bonusacc - enemyFoil:getPower();
+            target:addTP(enemyFoil:getPower() * 5);
+            target:delStatusEffect(EFFECT_FOIL);
+        end
     end
 
 

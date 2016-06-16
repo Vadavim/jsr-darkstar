@@ -1,6 +1,9 @@
 [HP]
  - Mob HP growth scales lower at higher levels
 
+[Enmity]
+ - Status-only moves will also lower enmity when a character is inflicted by them
+
 
 SYSTEM CHANGES
 
@@ -23,6 +26,9 @@ FAMILY CHANGES
 
 [Beasts: Buffalo]
  - +15% XP
+ - EVA (2 -> 3), Dex (2 -> 4), HP (130 -> 115)
+ - Weak against Water (+25%)
+ - Resistant to Earth (-25%)
  - Rabid Dance:
 	When afflicted by Weight: 50% chance of failure.
 	When afflicted by Bind: 100% chance of failure. 
@@ -30,19 +36,91 @@ FAMILY CHANGES
 	When afflicted by Choke or Drown: 25% chance of failure.
 
 [Coeurl]
- - +25% XP
+ - +35% XP
+ - VIT (5 -> 6)
+ - STR (1 -> 3)
+ - All Coeurls have access to Petrifactive Breath, Pounce, and Frenzied Rage
+
+ - Blaster: duration varies with TP (30 to 60 seconds); resisted with MND; preparation time (1.5 -> 3 seconds)
+ - Chaotic Eye: duration variws with TP (60 to 120 seconds); resisted with CHR;
+	- HARD: preparation time (1.5 -> 0.75 seconds) and lowers target's TP on a successful Silence
+
+ - Charged Whisker: preparation time (1.5 -> 3 seconds) 
+ 	- HARD: grants Enthunder to Coeurl
+
+ - Petrifactive Breath: preparation time (1.5 -> 3 seconds)
+ 
+ - Pounce: preparation time (1.5 -> 0 second)
+
+ - Frenzied Rage: duration varies with TP (45 to 90 seconds)
+	- HARD: the Coeurl also gains a Blood Weapon effect
+
 
 [Dhalmel]
  - +15% XP
+ - AGI (4 -> 5), INT (4 -> 5)
+
+ - Cold Stare: duration varies with TP (40 to 80 seconds); resisted with CHR
+	- HARD: preparation time (1.5 -> 0.75), also inflicts Amnesia
+
+ - Whistle: duration varies with TP (40 to 80 seconds)
+	- HARD: removes 2 or more negative status effects
+
+ - Healing Breeze: preparation time (1.5 -> 3 seconds)
+	- HARD: adds a Regain effect for a short period of time
+
+ - Sonic Wave: duration varies with TP (45 to 90 seconds)
+	- HARD: if defense down took effect, dispels a positive status effect on the target
 
 [Gnole]
  - +15% XP
 
 [Manticore]
- - +30% XP
+ - +45% XP
+ - HP (140 -> 120)
+ - Very vulnerable to Earth and Water (+35%)
+ - Will always use Great Whirlwind before Great Sandstorm
+
+ - Riddle: instead inflicts Addle, duration scales with TP (90 to 180 seconds). Int Down, Addle, and Silence on the Manticore all have a chance of negating the effect.
+           If target is already Addled, also inflicts Charm.
+
+ - Great Whirlwind: duration varies with TP (45 to 90 seconds); preparation time (1.5 -> 3 seconds)
+	- HARD: gains Foil for 30 seconds
+
+ - Great Sandstorm: duration varies with TP (90 to 180 seconds); preparation time (1.5 -> 3 seconds)
+	- HARD: gains Stoneskin for 30 seconds
+
+ - Heat Breath: HARD: inflicts Burn (resisted by VIT)
+
+ - Tail Smash: -20% accuracy, but higher damage
+
+ - Tail Swing: +20% accuracy, preparation time (1.5 -> 0.5 seconds); knockback
+	- HARD: refunds 350+ TP
 
 [Opo-opo]
  - +10% XP
+ - Vulnerable to Dark (+25%) and Fire (+25%)
+ - HP (110 -> 95)
+
+ - Claw Storm: poison resisted with STR vs. VIT
+	- HARD: target also receives Disease
+
+ - Magic Fruit: HARD: removes four or more negative status effects and heals an additional amount based on number removed.
+
+ - Eye Scratch: duration varies with TP (90 to 180 seconds); resisted with STR vs. VIT
+
+ - Stone Throw: duration varies with TP (45 to 90 seconds); resisted with STR vs. VIT
+	- HARD: also inflicts Rasp
+
+ - Blank Gaze: HARD: removes all of the target's TP, preparation time (1.5 -> 0.75 seconds)
+
+ - Spinning Claw: HARD: also gives the Opo-Opo Foil for 30 seconds.
+
+[Rabbit]
+ - -10% XP
+ - Whirl Claws: HARD: gives the Rabbit Foil for 30 seconds. 
+ - Dust Cloud: HARD: also inflicts Rasp
+
 
 [Sheep]
  - +10% XP
@@ -55,61 +133,288 @@ FAMILY CHANGES
 
 [Bugard]
  - +20% XP
+ - AGI (3 -> 5)
+ - Weak against Ice and Wind (+25%)
+ - Resistant against Earth and Fire (-25%)
+ - Charmable
+
+ - Awful Eye: resisted by CHR
+	- HARD: if target is affected by STR Down, also lowers TP
+
+ - Scutum: duration varies with TP (60 to 120 seconds)
+	- HARD: gains Foil effect (power 50) for 30 seconds.
+
+ - Tusk: instead hits twice (-20% accuracy)
 
 [Efts]
  - +20% XP
+ - Vulnerable to Lightning (+25%)
+ - HP (115 -> 105)
+
+ - Dispel: prepation time (1.5 -> 3 seconds)
+ 	- HARD: instead steals status effect
+
+ - Toxic Spit: duration varies with TP (90 to 180 seconds); resisted by VIT
+ 	- HARD: also inflicts Disease if target is poisoned
+
+ - Numbing Noise: HARD: also inflicts Paralysis
+
+ - Nimble Snap: HARD: also lowers enmity towards target
+
+[Lizard]
+ - AGI (3 -> 5), STR (2 -> 3)
+ - Strong against Earth (-25%)
+
+ - Blockhead: -10% Accuracy
+
+ - Secretion: duration varies with TP (45 to 90 seconds)
+	- HARD: removes two or more harmful effects
+
+ - Fireball: preparation time (1.5 -> 3 seconds); damage lowered (-50%)
+ 	- HARD: inflicts Burn and bestows Enfire for the Lizard
+
+ - Snowball: preparation time (1.5 -> 3 seconds); damage lowered (-50%)
+ 	- HARD: inflicts Frost and bestows Enfrost for the Lizard
+
+ - Plague Breath: duration varies with TP (45 to 90 seconds); resisted with VIT
+	- HARD: also inflicts Plague
+
+ - Brain Crush: duration varies with TP (45 to 90 seconds); resisted with STR versus VIT
+ 	- HARD: also inflicts Addle for 90 to 180 seconds (depending upon TP)
+
+ - Baleful Gaze: duration varies with TP (20 to 40 seconds); resisted with CHR
+	- HARD: preparation time (1.5 -> 0.75 seconds)
+
+ - Infrasonics: duration varies with tP (60 to 120 seconds)
+	- HARD: also greatly increases target's chance of suffering from a critical hit while affected by Evasion Down effect
 
 [Raptor]
  - +10% XP
+ - Weak against Earth (+25%)
+ - Strong against Lightning (-25%)
+
+ - Foul Breath: duration varies with TP (90 to 180 seconds); resisted with VIT; preparation time (1.5 -> 3 seconds)
+ 	- HARD: instead inflicts Plague 
+
+ - Chomp Rush: duration varies with TP (45 to 180 seconds); resisted with STR vs VIT
+	- HARD: deals extra damage if the target is slowed, diseased, or plagued (bonus stacks)
+
+ - Thunderbolt: prepartion time (1.5 -> 3 seconds) 
+	- HARD: also gives the raptor Enthunder for 60 seconds.
+
+ - Ripper Fang: no longer Slows; preparation time (1.5 -> 0 seconds); now has a chance of critically hitting
+	- HARD: also dispels a status effect on the target
+
+ - Frost Breath: preparation time (1.5 -> 3 seconds); instead inflicts Frost (resisted by VIT)
+	- HARD: also inflicts Paralysis if target is inflicted with Frost.
 
 [Wivre]
  - +30% XP
 
+[Bee]
+ - +10% XP
+ - Has an innate poison attack
+ - Weak to Lightning (+25%), Resist Earth (-25%)
+ - Dex (3 -> 2), Str (1 -> 4), Vit (3 -> 5), Agi (3 -> 1), Int (3 -> 5)
+
+ - Pollen: TP increases amount healed
+	- HARD: adds brief Regain effect (+50 TP per tic)
+
+ - Final Sting: preparation time (1.5 -> 3 seconds)
+
+[Beetle]
+ - AGI (3 -> 5), STR (1 -> 2)
+ - Vulnerable to Blunt / H2H (+25%)
+
+ - Spoil: HARD: inflicts Plague
+ - Rhino Guard: duration varies with TP (45 to 90 seconds)
+	- HARD: gains Wind Spikes for duration
+ - Hi-Freq Field: duration varies with TP (90 to 180 seconds)
+	- HARD: the beetle also gains Enaero
+ - Rhino Attack: HARD: also lowers enmity towards target
+
+[Crawler]
+ - Cocoon: duration varies with TP (35 to 70 seconds) 
+	- HARD: also adds Stone Spikes for the duration
+
+ - Sticky Thread: duration varies with TP (60 to 120 seconds)
+	- Hard: also inflicts Weight
+
+ - Poison Breath: duration varies with TP (45 to 90 seconds); resisted with Vit
+
 [Antlion]
  - +40% XP
- - Very weak to Water
+ - Evasion: (3 -> 4)
+ - Very weak to Water and Wind (+40%)
+ - Weak to Blunt / H2H (+25%)
+ - Sand Pit: HARD: also inflicts Rasp
+ - Sand Blast: duration varies with TP (90 to 180 seconds)
+	- HARD: also inflicts Rasp
+ - Venom Spray: duration varies with TP (30 to 60 seconds)
+ - Mandibular Bite: less accurate (-20%)
+	- HARD: lowers enmity towards target significantly
 
 [Diremite]
  - +15% XP
+ - Vulnerable to Bludgeoning / H2H (+25%)
+ - STR (1 -> 3)
+
+ - Grapple: HARD: inflicts Bind (resisted with STR vs VIT)
+ - Filamented Hold: duration varies with TP (90 to 180 seconds)
+ - Double Claw: strikes twice
+	- HARD: if both hits land, damage is increased
+
+[Fly]
+ - DEF (3 -> 4), ACC (3 -> 2)
+ - Cursed Sphere: damage decreased (-33%), preparation time: 1.5 -> 3 seconds
+	- HARD: inflict Drown
 
 [Scorpion]
- - +25% XP
- - Very weak to water/ice
+ - +35% XP
+ - Weak to water (+25%)
+ - Evasion (3 -> 4)
+ - Weak against bludgeoning / H2H (+25%)
+
+ - Death Scissors: lower acc (-20%)
+	- HARD: can Curse
+
+ - Mandible Bite: HARD: lowers enmity towards target
+
+ - Poison Sting: duration varies with TP (60 to 120 second)
+
+ - Cold Breath: HARD: also inflicts Frost
+
+ - Numbing Breath: duration varies with TP (45 to 90 seconds)
+
+ - Earth Pounder: damage decreased (-25%); variation depends on TP (120 to 240 seconds); resisted by STR vs. VIT
+	- HARD: also petrifies
+
+ - Sharp Strike: HARD: also adds Enstone effect
+
 
 [Spider]
  - +15% XP
+ - Weak against Water and Fire (+25%)
+ - STR (1 -> 2)
+
+ - Spider Web: duration varies with TP (60 to 120 seconds)
+ 	- HARD: also inflicts Weight
+
+ - Sickle Slash: less acurrate (-10%); preparation time (1.5 -> 3 seconds)
+
+ - Acid Spray: duration varies with TP (60 to 120 seconds)
+ 	- HARD: also inflicts Defense Down
+
+
 
 [Flytrap]
- - +20% XP
+ - +10% XP
+ - Weak to Slashing (+25%)
+ 
+- Gloeosuccus: duration varies with TP (90 to 180 seconds)
+	- HARD: drains TP (250 or more)
+
+- Palsy Pollen: duration varies with TP (45 to 90 seconds)
+	- HARD: inflicts poison as well
+
+- Soporific: HARD: gradually lowers target's TP and MP while asleep.
 
 [Funguar]
- - +10% XP
+ - +15% XP
+ - Light vulnerability increased (+33%)
+ - Defense decreased (3 -> 4), Strength decreased (1 -> 4), MND increased (3 -> 2)
+ - Weak to Slashing (+25%)
+
+ - Frog Kick: hits twice (low accuracy); weight/bind lowers accuracy
+
+ - Silence Gas: resisted by VIT; duration varies with TP (30 to 60 seconds)
+ 	- HARD: also inflicts Amnesia
+
+ - Dark Spore: resisted by VIT; duration varies with TP (90 to 180 seconds)
+
+ - Spore: resisted by VIT; duration varies with TP (60 to 120 seconds)
+	- HARD: the Funguar begins to regenerate after using the move
+
+ - Queesyshroom: duration varies with TP (45 to 90 seconds); poison damage increased, but physical damage lowered. +25% accuracy.
+ - Numbshroom: duration varies with TP (90 to 180 seconds); +25% accuracy
+ - Shakeshroom: duration varies with TP (120 to 240 seconds); +25% accuracy
+ 	- HARD: instead inflicts a minor Plague (-1 MP/tic, -20 TP/tic)
 
 [Goobbue]
  - +30% XP
+ - Dexterity decreased (2 -> 4)
+
+ - Blank Gaze (resisted by CHR; power scales with TP)
+	HARD: inflicts Terror if target is already paralyzed
+
+ - Antiphase: resisted by MND; duration scales with TP (35 to 80 seconds)
+ 	HARD: also inflicts Amnesia
+
+ - Beatdown: high damage, low accuracy; resisted by STR vs VIT; duration scales with TP (15 to 45 seconds)
+	HARD: also stuns
+
+ - Blow: duration varies with TP (6 to 12 seconds); resisted by STR vs VIT
+ 	HARD: also inflicts Defense Down (-30%) for a short period of time.
+
+ - Uppercut: HARD: lowers enmity towards target
 
 [Mandragora]
- - Scream: also inflicts Terror for a brief period of time (4 to 10 seconds)
- - Leaf Dagger: Poison DoT doubled
- - Photosynthesis: healing increased slightly (power and duration reduced by Bio and Poison)
- - Wild Oats: Refunds 500 TP
+ - -10% XP
 
+ - AGI (5 -> 3), MND (4 -> 3), INT (4 -> 5), VIT (4 -> 5)
+
+ - Scream: also inflicts Terror for a brief period of time (4 to 10 seconds); resisted by MND
+
+ - Leaf Dagger: Poison DoT doubled
+
+ - Photosynthesis: healing increased slightly 
+
+ - Wild Oats: Refunds 500 TP
+	- HARD: also inflicts Defense Down (-15%)
+
+ - Dream Flower: HARD: gradually lowers target's TP and MP while asleep.
+
+[Sapling]
+ - Weak to Wind (+25%)
+ - Strong against Water (-25%)
+ - Sprout Smack: duration varies with TP (60 to 120 seconds)
+ - Sprout Spin: HARD: also grants Evasion Up (20+ evasion) for 60 seconds
+ - Slumber Powder: HARD: gradually lowers target's TP and MP while asleep
 
 [Morbol]
- - +40% XP
- - Very weak to Fire.
+ - +45% XP
+ - STR (1 -> 3), AGI (3 -> 5), MND (4 -> 3), HP (140 -> 130)
+ - Very weak to Fire (+40%)
+ - Weak to Light and Ice (+25%)
+
+ - Bad Breath: duration varies with TP (45 to 90 seconds), prepare time (1.5 -> 3 seconds); resisted by Vit
+ - Sweet Breath: duration varies with TP (20 to 40 seconds); resisted by Vit
+	- HARD: instead inflicts Charm
+ - Impale: duration varies with tP (90 to 180 seconds); resisted by STR vs. VIT
+	- HARD: ignores shadows and also inflicts poison.
+ - Vampiric Root: does not drain a beneficial status effect
+	- HARD: also inflicts Disease for a short period of time
+
+ - Vampiric Lash: drains up to two beneficial status effect, weaker than Vampiric Root
+	- HARD: also inflicts Bio
 
 [Rafflesia]
  - +40% XP
  - Very weak to Fire
 
 [Sabotender]
- - +40% XP
- - Very weak to Ice
+ - +35% XP
+ - EVA (3 -> 2), ATK (3 -> 4), ACC (3 -> 2), DEF (3 -> 4)
+ - Very weak to Ice and Dark (+40%)
+ - 1000 Needles: prepare time (1.5 -> 4 seconds)
 
 [Treant]
  - +30% XP
- - Very weak to Fire
+ - Evasion (2 -> 3), Dex (2 -> 4), Int (3 -> 5)
+ - Pinecomb Bomb: resisted by MND
+ - Leaftstorm: HARD: lowers hate against those affected
+ - Drill Branch: duration varies with TP (60 to 120 seconds), resisted by STR vs VIT
+ - Entangle: HARD: also inflicts Weight and Slow for 60 seconds
 
 [Fly]
  - +10% XP

@@ -13,6 +13,7 @@ STAT CHANGES
 ABILITY CHANGES
 
 [Warding Circle]
+ - Gain Resist Stun at levels 15, 35, 55, 75
  - Grants the following for the duration:
 	- +10 Magic Evade
 	- +10% bonus to skillchain damage

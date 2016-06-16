@@ -12,6 +12,7 @@ require("scripts/globals/status");
 
 function onEffectGain(target,effect)
     target:addMod(MOD_EARTHRES,effect:getPower());
+    target:addMod(MOD_EARTH_ABSORB,effect:getSubPower());
 end;
 
 -----------------------------------
@@ -27,4 +28,5 @@ end;
 
 function onEffectLose(target,effect)
     target:delMod(MOD_EARTHRES,effect:getPower());
+    target:delMod(MOD_EARTH_ABSORB,effect:getSubPower());
 end;

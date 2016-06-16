@@ -67,3 +67,6 @@ Fire Spikes: increased damage
  - For instance, Burn reduces a target's Fire and Ice resistances/defenses. 
  
  - DoT affected by MAB, MDB, elemental attack, elemental defense, day, and weather.
+
+[Ancient Magic]
+ - Lowers Resistance by 30, Magic Defense by 5, Elemental Defense by 10%, and lasts for 10 seconds (15 for Ancient Magic II).

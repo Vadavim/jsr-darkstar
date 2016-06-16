@@ -3,6 +3,7 @@
 -----------------------------------------
 
 require("scripts/globals/status");
+require("scripts/globals/magic");
 
 -----------------------------------------
 -- OnSpellCast
@@ -26,6 +27,12 @@ function onSpellCast(caster,target,spell)
     if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
         duration = duration * 3;
     end
+
+    if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_SULPOR) >= 1) then
+        power = power * 1.25;
+        mdefBonus = mdefBonus + 10;
+    end
+    power, duration = applyEmbolden(caster, power, duration);
 
     target:addStatusEffect(EFFECT_BARWATER,power,0,duration,0,mdefBonus);
 

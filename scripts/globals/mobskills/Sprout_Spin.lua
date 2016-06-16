@@ -16,10 +16,16 @@ end;
 function onMobWeaponSkill(target, mob, skill)
 
     -- Knockback ----------------------
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
 
     local numhits = 1;
     local accmod = 1;
-    local dmgmod = 2.0;
+    local dmgmod = 2.0 + hard / 4;
+    if (hard > 0) then
+        mob:addStatusEffect(EFFECT_EVASION_BOOST, 20 + hard * 5, 0, 60);
+        mob:setPendingMessage(279, EFFECT_EVASION_BOOST);
+    end
+
     local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES,1,2,3);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_BLUNT,info.hitslanded);
     target:delHP(dmg);

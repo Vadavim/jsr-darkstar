@@ -24,6 +24,6 @@ end;
 -----------------------------------------
 
 function onItemUse(target)
-    target:addStatusEffect(EFFECT_STR_BOOST,7,0,600);
+    target:addStatusEffect(EFFECT_STR_BOOST_II,7,0,600);
     target:addStatusEffect(EFFECT_MEDICINE,0,0,30);
 end;

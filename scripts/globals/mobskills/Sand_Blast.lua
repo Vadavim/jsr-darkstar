@@ -16,7 +16,19 @@ end;
 
 function onMobWeaponSkill(target, mob, skill)
     local typeEffect = EFFECT_BLINDNESS;
-    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 20, 0, 120));
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    local tp = skill:getTP();
+    local duration = 90 * fTP(tp, 1, 1.5, 2) * (1 + hard / 5)
+    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 20 + hard * 5, 0, duration));
+
+    if (hard > 0) then
+        local success = MobStatusEfectMove(mob, target, skill, EFFECT_RASP, (1 + mob:getMainLvl() / 6) * (1 + hard / 5), 0, duration / 2);
+        if (success == 242) then
+            target:setPendingMessage(277, EFFECT_RASP);
+        end
+    end
+
+    enmityStatusCheck(target, mob, skill, 15 + hard * 5);
 
     if (mob:getPool() == 1318 and mob:getLocalVar("SAND_BLAST") == 1) then -- Feeler Anltion
         if (GetMobAction(mob:getID()+6) == 0) then -- Alastor Antlion

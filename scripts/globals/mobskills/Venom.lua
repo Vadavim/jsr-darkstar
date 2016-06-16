@@ -17,10 +17,18 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local typeEffect = EFFECT_POISON;
-            local power = mob:getMainLvl()/6 + 1;
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    local tp = skill:getTP();
+    local duration = 45 * fTP(tp, 1, 1.5, 2) * (1 + hard / 5)
 
-    MobStatusEffectMove(mob, target, typeEffect, power, 3, 60);
+
+    local typeEffect = EFFECT_POISON;
+            local power = (mob:getMainLvl()/6 + 1) * (1 + hard / 4);
+
+    local success = MobStatusEffectMove(mob, target, typeEffect, power, 3, duration);
+    if (success == 242) then
+        target:setPendingMessage(277, EFFECT_DROWN);
+    end
 
     local dmgmod = 1;
     local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*1.5,ELE_WATER,dmgmod,TP_NO_EFFECT);

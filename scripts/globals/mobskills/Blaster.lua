@@ -17,10 +17,15 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    local tp = skill:getTP();
+
+    local duration = 30 * fTP(tp, 1, 1.5, 2) * (1 + hard / 5)
     local typeEffect = EFFECT_PARALYSIS;
 
 
-    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 50, 0, 60));
+    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 50 + hard * 2, 0, duration, MOD_MND));
+    enmityStatusCheck(target, mob, skill, 15 + hard * 5);
 
     return typeEffect;
 end;

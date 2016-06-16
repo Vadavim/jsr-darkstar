@@ -82,8 +82,8 @@ function doDarkKnightBonusDamage(player, damage)
         return damage;
     end
 
-    local missing = player:getMaxHP() - player:getHP();
-    local bonus = (200 - player:getHPP()) / 100;
+    local missing = (player:getMaxHP() - player:getHP()) / 2;
+    local bonus = 1 + (100 - player:getHPP()) / 200;
     if (player:getSubJob() == JOBS.DRK and bonus > 1) then
         bonus = 1 + (bonus - 1) / 2;
     end
@@ -178,6 +178,11 @@ function doEnspell(caster,target,spell,effect)
 
     if (effect==EFFECT_BLOOD_WEAPON) then
         target:addStatusEffect(EFFECT_BLOOD_WEAPON,1,0,30);
+        return;
+    end
+
+    if (effect==EFFECT_SOUL_ENSLAVEMENT) then
+        target:addStatusEffect(EFFECT_SOUL_ENSLAVEMENT,1,0,30);
         return;
     end
 
@@ -698,9 +703,10 @@ end;
         target:handleAfflatusMiseryDamage(dmg);
         target:updateEnmityFromDamage(caster,dmg);
         -- Only add TP if the target is a mob
-        if (target:getObjType() ~= TYPE_PC) then
-            target:addTP(100);
-        end
+--        if (target:getObjType() ~= TYPE_PC) then
+            local dAGI = utils.clamp((caster:getStat(MOD_AGI) - target:getStat(MOD_AGI)) * 0.75, -30.0, 30.0);
+            target:addTP(100 * dAGI * ( 1 + target:getMod(MOD_STORETP) / 100));
+--        end
     end
 
     return dmg;
@@ -1287,6 +1293,13 @@ function doElementalNuke(caster, spell, target, spellParams)
     local resist = applyResistance(caster, spell, target, diff, ELEMENTAL_MAGIC_SKILL, resistBonus);
 
     --get the resisted damage
+    local consume = caster:getStatusEffect(EFFECT_CONSUME_MANA);
+    if (consume ~= nil) then
+        DMG = DMG + consume:getPower();
+        caster:delStatusEffect(EFFECT_CONSUME_MANA);
+    end
+
+
     DMG = DMG * resist;
 
     --add on bonuses (staff/day/weather/jas/mab/etc all go in this function)

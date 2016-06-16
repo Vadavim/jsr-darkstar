@@ -72,6 +72,15 @@ inline int32 CLuaMobSkill::setMsg(lua_State *L)
     return 0;
 }
 
+inline int32 CLuaMobSkill::setActivationTime(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PLuaMobSkill == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, -1) || !lua_isnumber(L, -1));
+
+    m_PLuaMobSkill->setActivationTime(lua_tointeger(L, -1));
+    return 0;
+}
+
 inline int32 CLuaMobSkill::setSkillchain(lua_State *L)
 {
     DSP_DEBUG_BREAK_IF(m_PLuaMobSkill == nullptr);
@@ -129,6 +138,15 @@ inline int32 CLuaMobSkill::getMsg(lua_State *L)
     return 1;
 }
 
+
+inline int32 CLuaMobSkill::getActivationTime(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PLuaMobSkill == nullptr);
+
+    lua_pushinteger(L, m_PLuaMobSkill->getActivationTime());
+    return 1;
+}
+
 inline int32 CLuaMobSkill::getID(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PLuaMobSkill == nullptr);
@@ -181,6 +199,8 @@ Lunar<CLuaMobSkill>::Register_t CLuaMobSkill::methods[] =
     LUNAR_DECLARE_METHOD(CLuaMobSkill,hasMissMsg),
     LUNAR_DECLARE_METHOD(CLuaMobSkill,isAoE),
     LUNAR_DECLARE_METHOD(CLuaMobSkill,isConal),
+    LUNAR_DECLARE_METHOD(CLuaMobSkill,setActivationTime),
+    LUNAR_DECLARE_METHOD(CLuaMobSkill,getActivationTime),
     LUNAR_DECLARE_METHOD(CLuaMobSkill,isSingle),
     LUNAR_DECLARE_METHOD(CLuaMobSkill,getParam),
   LUNAR_DECLARE_METHOD(CLuaMobSkill,getID),

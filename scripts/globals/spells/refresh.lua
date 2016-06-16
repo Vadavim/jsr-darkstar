@@ -33,8 +33,16 @@ function onSpellCast(caster,target,spell)
         return 0;
     end
 
+    local subPower = 0;
+    if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_LUX) >= 1) then
+        duration = duration * 1.33;
+        subPower = 15;
+    end
+
+    mp, duration = applyEmbolden(caster, mp, duration);
+
     target:delStatusEffect(EFFECT_REFRESH);
-    target:addStatusEffect(EFFECT_REFRESH,mp,3,duration);
+    target:addStatusEffect(EFFECT_REFRESH,mp,3,duration, 0, subPower);
 
     return EFFECT_REFRESH;
 end;

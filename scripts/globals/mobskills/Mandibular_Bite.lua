@@ -17,11 +17,17 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+
+
     local numhits = 1;
-    local accmod = 1;
-    local dmgmod = 2.7;
+    local accmod = 0.8;
+    local dmgmod = 2.7 + hard / 4;
     local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_NO_EFFECT);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_PIERCE,info.hitslanded);
     target:delHP(dmg);
+
+    if (hard > 0 and dmg > 0) then mob:lowerEnmity(target, 25 + hard * 5) end;
+
     return dmg;
 end;

@@ -8,6 +8,7 @@ STATS
  - VIT increased
 
 TRAIT CHANGES
+ - Gains Resist Charm at levels 5, 25, 45, and 65
  - Gains Auto-Regain at levels 30, 50, and 70. Regains 5/10/15 TP per 3 seconds.
  - Gain Conserve TP at levels 15, 35, 55, and 75  (chance is 15%, 20%, 25%, and 30% respectively).
 

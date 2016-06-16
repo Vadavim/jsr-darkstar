@@ -27,5 +27,16 @@ function onSpellCast(caster, target, spell)
     spellParams.M100 = 2;
     spellParams.M200 = 2;
 
+    target:addStatusEffect(EFFECT_MAGIC_DEF_DOWN_II, 5, 0, 10);
+    local effect = target:getStatusEffect(EFFECT_MAGIC_DEF_DOWN_II)
+    if (effect ~= nil) then
+        effect:addMod(MOD_EARTHRES, -30);
+        effect:addMod(MOD_EARTHDEF, -25);
+        target:addMod(MOD_EARTHRES, -30);
+        target:addMod(MOD_EARTHDEF, -25);
+    end
+
+
+
     return doElementalNuke(caster, spell, target, spellParams);
 end;

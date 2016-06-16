@@ -4,6 +4,7 @@
 -----------------------------------------
 
 require("scripts/globals/status");
+require("scripts/globals/magic");
 
 -----------------------------------------
 -- OnSpellCast
@@ -22,6 +23,11 @@ function onSpellCast(caster,target,spell)
     end
 
     local power = 150; -- 150/1024
+
+    if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_FLABRA) >= 1) then
+        power = power * 1.25;
+    end
+    power, duration = applyEmbolden(caster, power, duration);
 
     if (target:addStatusEffect(EFFECT_HASTE,power,0,duration) == false) then
         spell:setMsg(75);

@@ -15,6 +15,8 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    local tp = skill:getTP();
 
     local potency = skill:getParam();
 
@@ -22,7 +24,15 @@ function onMobWeaponSkill(target, mob, skill)
         potency = 9;
     end
 
+    potency = (potency + tp / 500) * (1 + hard / 4);
+
     potency = potency - math.random(0, potency/4);
+
+    if (hard > 0) then
+        local amount = purgeNegative(target, 3 + hard);
+        potency = potency + amount;
+    end
+
 
     skill:setMsg(MSG_SELF_HEAL);
 

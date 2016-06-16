@@ -46,7 +46,16 @@ function onSpellCast(caster,target,spell)
         target:delStatusEffect(EFFECT_REGEN);
     end
 
-    if (target:addStatusEffect(EFFECT_REGEN,hp,3,duration,0,0,0)) then
+    local subPower = 0
+    if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_LUX) >= 1) then
+        hp = hp * 1.25;
+        duration = duration * 1.33;
+        subPower = 10;
+    end
+    hp = hp * (1  + target:getMod(MOD_CURE_POTENCY_RCVD) / 100);
+    hp, duration = applyEmbolden(caster, hp, duration);
+
+    if (target:addStatusEffect(EFFECT_REGEN,hp,3,duration,0,subPower,0)) then
         spell:setMsg(230);
     else
         spell:setMsg(75); -- no effect

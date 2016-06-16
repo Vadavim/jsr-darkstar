@@ -5,7 +5,6 @@
 -- Contains variable-ized definitions of things like core enums for use in lua scripts.
 ------------------------------------
 
-
 ------------------------------------
 -- Job IDs
 ------------------------------------
@@ -766,6 +765,7 @@ EFFECT_SKILLCHAINMASK = 0x7C00
 EFFECTFLAG_NONE            = 0x0000
 EFFECTFLAG_DISPELABLE      = 0x0001
 EFFECTFLAG_ERASABLE        = 0x0002
+EFFECTFLAG_ERASBLE        = 0x0002
 EFFECTFLAG_ATTACK          = 0x0004
 EFFECTFLAG_DAMAGE          = 0x0010
 EFFECTFLAG_DEATH           = 0x0020

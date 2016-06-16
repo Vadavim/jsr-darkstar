@@ -1,7 +1,7 @@
 -----------------------------------------
 -- ID: 5355
 -- Item: Elixir Vitae
--- Item Effect: Instantly restores 3% of HP and MP
+-- Item Effect: Instantly restores 25% of HP and MP
 -----------------------------------------
 
 require("scripts/globals/settings");

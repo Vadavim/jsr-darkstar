@@ -46,8 +46,10 @@ function onUseAbility(player, target, ability)
             totalDamage = totalDamage + damage;
             
             -- Gain TP for one hit.
-            target:addTP(10);
-            player:addTP(5);
+            local dAGI = utils.clamp((player:getStat(MOD_AGI) - target:getStat(MOD_AGI)) * 0.75, -30, 30);
+            local tpMult = utils.clamp((player:getStat(MOD_INT) - target:getStat(MOD_MND)) * 0.75, -30, 30);
+            target:addTP(100 * dAGI);
+            player:addTP(50 * tpMult);
         end
     end
     totalDamage = math.floor(totalDamage * 0.66);

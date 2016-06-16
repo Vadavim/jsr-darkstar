@@ -52,6 +52,8 @@ public:
     int32 isConal(lua_State*);
     int32 isSingle(lua_State*);
     int32 hasMissMsg(lua_State*);
+    int32 getActivationTime(lua_State*);
+    int32 setActivationTime(lua_State*);
     int32 setMsg(lua_State*);
     int32 getMsg(lua_State*);
     int32 getTotalTargets(lua_State*);

@@ -13,6 +13,7 @@
 function onEffectGain(target,effect)
     target:addMod(MOD_REFRESH_DOWN, math.ceil(effect:getPower() / 2));
     target:addMod(MOD_REGAIN_DOWN, effect:getPower()*10);
+    target:addMod(MOD_CURE_POTENCY_RCVD, -50);
 end;
 
 -----------------------------------
@@ -29,4 +30,5 @@ end;
 function onEffectLose(target,effect)
     target:delMod(MOD_REFRESH_DOWN, math.ceil(effect:getPower() / 2));
     target:delMod(MOD_REGAIN_DOWN, effect:getPower()*10);
+    target:delMod(MOD_CURE_POTENCY_RCVD, -50);
 end;

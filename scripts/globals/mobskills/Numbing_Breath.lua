@@ -16,8 +16,16 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    local tp = skill:getTP();
+    local duration = 45 * fTP(tp, 1, 1.5, 2) * (1 + hard / 5)
+
+
     local typeEffect = EFFECT_PARALYSIS;
-    MobStatusEffectMove(mob, target, typeEffect, 20, 0, 60);
+    local success = MobStatusEffectMove(mob, target, typeEffect, 20 + hard * 5, 0, duration);
+    if (success == 242) then
+        target:setPendingMessage(277, EFFECT_PARALYSIS);
+    end
 
     local dmgmod = MobBreathMove(mob, target, 0.2, 1.875, ELE_ICE, 500);
     local dmg = MobFinalAdjustments(dmgmod,mob,skill,target,MOBSKILL_BREATH,MOBPARAM_ICE,MOBPARAM_IGNORE_SHADOWS);
