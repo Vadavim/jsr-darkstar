@@ -25,5 +25,15 @@ end;
 function onSpellCast(caster,target,spell)
     caster:spawnPet(PET_DIABOLOS);
 
+    local enspellPower = 1 + caster:getMainLvl() / 2;
+    local pet = caster:getPet();
+    if (pet ~= nill) then
+        local refreshBuff = 1;
+        if (pet:getMainLvl() > 60) then refreshBuff = 2 end;
+        pet:addStatusEffect(EFFECT_DIABOLOS_S_FAVOR, refreshBuff, 15, 3000);
+        pet:addStatusEffect(EFFECT_ENDARK,enspellPower,0,3000);
+        doSiphonBuff(caster, pet);
+    end
+
     return 0;
 end;

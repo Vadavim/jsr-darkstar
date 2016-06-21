@@ -9,12 +9,17 @@ SKILL CHANGES
  - B Divine
 
 TRAIT CHANGES
+ - Max MP boost at levels 5 (+10), 15 (+20), 30 (+40), 45 (+60), 60 (+80), and 75 (+100)
+ - Blood Boon at levels 35, 50, 65, and 75 (20% - 35% activation rate)
+ - Auto-Refresh at levels 25, and 60
 
 ABILITY CHANGES
 
 [Astral Flow]
- - Does not consume MP when an Astral Flow move is used. Instead, cancels effet.
- - Power of Astral Flow is based upon MP
+ - Astral flow consumes 25% of the summoner's current MP and adds it as a bonus to damage.
+ - Astral flow's recast time is 15 minutes.
+ - After using Astral Flow, the avatar is dismissed and its favor effect persists for 5 minutes.
+
 
 [Apogee]
  - Instead resets bloodpact timers.
@@ -38,3 +43,11 @@ ABILITY CHANGES
 	- More potent Enspell effect.
 	- +25% Defense
 	- +30 ACC and EVA
+
+
+[Avatar Perpetuation]
+ - Avatar perpetuation costs have been decreased by 1 MP
+ - Spirits no longer have perpetuation. Instead, they cost an additional (Level * 1.5) MP to cast. 
+	- Spirits have HP degeneration and will eventually die.
+	- Summoners may rest while a spirit is out.
+

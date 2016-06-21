@@ -4,28 +4,31 @@
 
 require("scripts/globals/settings");
 require("scripts/globals/status");
+require("scripts/globals/magic");
 require("scripts/globals/monstertpmoves");
 
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
+    ability:setRecast(15);
     return 0,0;
 end;
 
-function onPetAbility(target, pet, skill)
-	local base = 14+target:getMainLvl()+skill:getTP()/8;
-    local owner = pet:getMaster();
-    local bonus = owner:getMod(MOD_CHR) / 3 + owner:getMod(MOD_SUMMONING) / 3;
-    
-	if(pet:getMainLvl()>30) then
-		base = 44 + 3*(pet:getMainLvl()-30) + skill:getTP()/8 * (pet:getMainLvl()*0.075 - 1) + bonus;
-	end
-    base = base + bonus;
+function onPetAbility(target, pet, skill, master)
+    local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP() + pet:getMod(MOD_TP_BONUS);
 
-    if (target:getHP()+base > target:getMaxHP()) then
-        base = target:getMaxHP() - target:getHP(); --cap it
-    end
+    local power = 8 + level + chr + summoning * 2 + target:getStat(MOD_VIT) / 4;
+    if (power > 48) then power = 48 + (power - 48) / (1 + power * 0.01) end;
+    power = power + tp * 0.012;
+    power = power * (1 + master:getMod(MOD_CURE_POTENCY) / 100) * (1 + target:getMod(MOD_CURE_POTENCY_RCVD) / 100);
+
     skill:setMsg(MSG_SELF_HEAL);
-    target:addHP(base);
-    return base;
+    target:addHP(power);
+
+    local diff = (target:getMaxHP() - target:getHP());
+    if (power > diff) then
+        power = diff;
+    end
+
+    return power;
 end

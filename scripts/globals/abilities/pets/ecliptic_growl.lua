@@ -10,19 +10,16 @@ require("scripts/globals/utils");
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
+    ability:setRecast(35);
     return 0,0;
 end;
 
-function onPetAbility(target, pet, skill)
+function onPetAbility(target, pet, master)
+    local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP() + pet:getMod(MOD_TP_BONUS);
 	local moon = VanadielMoonPhase();
-    
-    local duration = 300;
-    local owner = pet:getMaster();
-    local durBonus = (owner:getMod(MOD_CHR) / 2 + owner:getMod(MOD_SUMMONING)) * 3;
-    if (durBonus > 300) then
-        durBonus = 300;
-    end
-    duration = (duration + durBonus) * (1 + skill:getTP() / 1000);
+
+	local duration = utils.clamp(240 + (chr + summoning) * 6, 240, 480) + tp / 10;
+
 	local buffvalue = 0;
 	if moon > 90 then
 		buffvalue = 18;

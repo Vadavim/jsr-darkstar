@@ -30,6 +30,7 @@ function onSpellCast(caster,target,spell)
     if (pet ~= nill) then
         pet:addStatusEffect(EFFECT_TITAN_S_FAVOR, 1, 15, 3000);
         pet:addStatusEffect(EFFECT_ENSTONE,enspellPower,0,3000);
+        doSiphonBuff(caster, pet);
     end
 
     return 0;

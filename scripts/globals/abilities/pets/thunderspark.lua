@@ -11,32 +11,22 @@ require("scripts/globals/monstertpmoves");
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
+    ability:setRecast(35);
     return 0,0;
 end;
 
-function onPetAbility(target, pet, skill)
-    local numhits = 1;
-    local accmod = 1;
-    local dmgmod = 2;
-    local dmgmodsubsequent = 1; -- ??
+function onPetAbility(target, pet, skill, master)
+    local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP() + pet:getMod(MOD_TP_BONUS);
+    local damage = avatarMagicalMove(target, pet, skill, ELE_THUNDER, 40 + level, 2.5, 0.05);
 
-    local totaldamage = 0;
-    local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,dmgmodsubsequent,TP_NO_EFFECT,1,2,3);
-    --get resist multiplier (1x if no resist)
-    local resist = applyPlayerResistance(pet,-1,target,pet:getStat(MOD_INT)-target:getStat(MOD_INT),ELEMENTAL_MAGIC_SKILL, ELE_THUNDER);
-    --get the resisted damage
-    damage.dmg = damage.dmg*resist;
-    --add on bonuses (staff/day/weather/jas/mab/etc all go in this function)
-    damage.dmg = mobAddBonuses(pet,spell,target,damage.dmg,1);
-    local tp = skill:getTP();
-    if tp < 1000 then
-        tp = 1000;
+    local duration = utils.clamp(45 + chr + summoning, 45, 90);
+    duration = duration + tp / 35;
+
+    local success = MobStatusEffectMove(pet, target, EFFECT_PARALYSIS, 35, 0, duration);
+    if (success == 242) then
+        target:setPendingMessage(277, EFFECT_POISON);
     end
-    damage.dmg = damage.dmg * tp / 1000;
-    totaldamage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_BLUNT,numhits);
-    target:addStatusEffect(EFFECT_PARALYSIS, 15 + math.floor(tp / 300), 0, 60);
-    target:delHP(totaldamage);
-    target:updateEnmityFromDamage(pet,totaldamage);
 
-    return totaldamage;
+
+    return damage;
 end

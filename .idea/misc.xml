@@ -4,7 +4,22 @@
   <component name="CidrRootsConfiguration">
     <sourceRoots />
     <libraryRoots />
-    <excludeRoots />
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/.vs" />
+      <file path="$PROJECT_DIR$/conf" />
+      <file path="$PROJECT_DIR$/database_backup" />
+      <file path="$PROJECT_DIR$/documentation" />
+      <file path="$PROJECT_DIR$/icons" />
+      <file path="$PROJECT_DIR$/jsr-notes" />
+      <file path="$PROJECT_DIR$/lib" />
+      <file path="$PROJECT_DIR$/lib64" />
+      <file path="$PROJECT_DIR$/log" />
+      <file path="$PROJECT_DIR$/m4" />
+      <file path="$PROJECT_DIR$/migrations" />
+      <file path="$PROJECT_DIR$/navmeshes" />
+      <file path="$PROJECT_DIR$/sql" />
+      <file path="$PROJECT_DIR$/win32" />
+    </excludeRoots>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />

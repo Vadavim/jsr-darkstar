@@ -14,12 +14,14 @@ end;
 
 function onPetAbility(target, pet, skill)
     local numhits = 1;
-    local accmod = 1;
+    local accmod = 1.15;
     local dmgmod = 12;
     local dmgmodsubsequent = 0;
+    skill:setSkillchain(120); -- Impulse Drive: Gravitation / Induration
+    pet:addTP(300 + skill:getTP()); -- add tp for using physical skill
     local totaldamage = 0;
     local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,dmgmodsubsequent,TP_NO_EFFECT,1,2,3);
-    totaldamage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_SLASH,numhits);
+    totaldamage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_BLUNT,numhits);
     target:delHP(totaldamage);
     target:updateEnmityFromDamage(pet,totaldamage);
 

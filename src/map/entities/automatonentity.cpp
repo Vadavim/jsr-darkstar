@@ -34,6 +34,11 @@ CAutomatonEntity::CAutomatonEntity()
     : CPetEntity(PETTYPE_AUTOMATON)
 {
     PAI->SetController(nullptr);
+    m_universalDelay = 10;
+    m_enhanceDelay = 100;
+    m_enfeebleDelay = 100;
+    m_nukeDelay = 100;
+    m_healDelay = 100;
 }
 
 CAutomatonEntity::~CAutomatonEntity()

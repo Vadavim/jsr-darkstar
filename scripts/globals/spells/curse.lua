@@ -18,7 +18,7 @@ function onSpellCast(caster,target,spell)
     -- Pull base stats.
     dINT = (caster:getStat(MOD_INT) - target:getStat(MOD_INT));
 
-    power = 50;
+    power = 25;
 
     -- Duration, including resistance.  Unconfirmed.
     duration = 300 * applyResistanceEffect(caster,spell,target,dINT,35,0,EFFECT_CURSE_I);

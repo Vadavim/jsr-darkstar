@@ -37,6 +37,18 @@
 
 class CBattleEntity;
 
+struct maneuverList {
+    uint8 fire = 0;
+    uint8 earth = 0;
+    uint8 wind = 0;
+    uint8 thunder = 0;
+    uint8 ice = 0;
+    uint8 water = 0;
+    uint8 light = 0;
+    uint8 dark = 0;
+    uint8 total = 0;
+};
+
 class CStatusEffectContainer
 {
 public:
@@ -88,6 +100,7 @@ public:
 
     uint8 GetActiveManeuvers();
     uint8 GetActiveRunes();
+    maneuverList GetManeuverList();
     void GetRuneTypes(EFFECT &type1, EFFECT &type2, EFFECT &type3);
     void RemoveOldestManeuver();
     void RemoveAllManeuvers();

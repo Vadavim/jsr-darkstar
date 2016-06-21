@@ -5209,6 +5209,10 @@ inline int32 CLuaBaseEntity::setPetMod(lua_State* L)
 inline int32 CLuaBaseEntity::getMobMod(lua_State *L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    if (m_PBaseEntity->objtype == TYPE_PET) {
+        lua_pushinteger(L, 0);
+        return 1;
+    }
     DSP_DEBUG_BREAK_IF(!(m_PBaseEntity->objtype & TYPE_MOB));
 
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
@@ -7719,6 +7723,7 @@ inline int32 CLuaBaseEntity::injectActionPacket(lua_State* L)
     target.animation = anim;
     target.param = 10;
     target.messageID = 185;
+
     target.speceffect = speceffect;
     target.reaction = reaction;
 
@@ -7727,6 +7732,39 @@ inline int32 CLuaBaseEntity::injectActionPacket(lua_State* L)
     return 0;
 }
 
+
+inline int32 CLuaBaseEntity::insertSpellRecast(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+    PChar->insertSpellRecast((uint16)lua_tointeger(L, 1), (uint16)lua_tointeger(L, 2));
+
+//    action_t action;
+//
+//    action.id = PChar->id;
+//
+//    action.actiontype = ACTION_MAGIC_FINISH;
+//    action.actionid = (uint16)lua_tointeger(L, 1);
+//    action.recast = 60;
+//    action.spellgroup = SPELLGROUP_SUMMONING;
+//
+//
+//    actionList_t& list = action.getNewActionList();
+//    list.ActionTargetID = PChar->id;
+//    actionTarget_t& target = list.getNewActionTarget();
+//    target.animation = 550;
+//    target.param = 0;
+//    target.messageID = 0;
+//    target.speceffect = SPECEFFECT_NONE;
+//    target.reaction = REACTION_NONE;
+//
+////    PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CActionPacket(action));
+//    PChar->pushPacket(new CActionPacket(action));
+
+    return 0;
+}
 /************************************************************************
 *                                                                       *
 * Used to manipulate the mob's flags for testing.                       *
@@ -11475,6 +11513,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNewestRune),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRuneTypes),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,delStatusEffectsByFlagExceptCam),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,insertSpellRecast),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addRecastRange),
     {nullptr,nullptr}
 };

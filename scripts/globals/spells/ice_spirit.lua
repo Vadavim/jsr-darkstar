@@ -24,7 +24,7 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-    caster:spawnPet(PET_ICE_SPIRIT);
-
+    summonSpirit(caster, PET_ICE_SPIRIT);
     return 0;
 end;
+

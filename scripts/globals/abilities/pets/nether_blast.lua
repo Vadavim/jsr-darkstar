@@ -6,6 +6,7 @@ require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/monstertpmoves");
 require("scripts/globals/magic");
+require("scripts/globals/summon");
 
 ---------------------------------------------------
 
@@ -13,15 +14,16 @@ function onAbilityCheck(player, target, ability)
     return 0,0;
 end;
 
-function onPetAbility(target, pet, skill)
-    local level = pet:getMainLvl();
-    local damage = (5 * level +  10);
-    damage = MobMagicalMove(pet,target,skill,damage,ELE_DARK,1,TP_NO_EFFECT,0);
-    damage = mobAddBonuses(pet, nil, target, damage.dmg, ELE_DARK);
-    damage = AvatarFinalAdjustments(damage,pet,skill,target,MOBSKILL_MAGICAL,MOBPARAM_NONE,1);
+function onPetAbility(target, pet, skill, master)
+    local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP() + pet:getMod(MOD_TP_BONUS);
+    local resist = applyPlayerResistance(pet,-1,target,
+        pet:getStat(MOD_INT) - target:getStat(MOD_INT), 0, ELE_DARK);
 
-    target:delHP(damage);
-    target:updateEnmityFromDamage(pet,damage);
+    if (resist >= 0.25) then
+        local power = 5 + (level + chr + summoning) / 3;
+        target:addStatusEffect(EFFECT_BIO, power, 0, 45, 0, (60 + tp / 50) * resist);
+        target:setPendingMessage(277, EFFECT_BIO);
+    end
 
-    return damage;
+    return avatarMagicalMove(target, pet, skill, ELE_DARK, 300, 2.5, 0.11);
 end

@@ -1,10 +1,16 @@
 GENERAL
- - WARD buff durations affected by summoning skill mod and CHA mod.
+ - WARD buff durations affected by summoning skill mod and CHR mod.
+ - CHR influences avatar's damage, accuracy, and other effects
+ - Not all RAGE / WARD abilities have the same recast time
+ - Physcal RAGE bloodpacts do not spend TP (and instead give a bonus).
+ - A- Weapon Skill
+ - C+ Evasion and Defense
+
 
 AVATAR's FAVOR
  - Avatar's favor is automatically given to all party members when avatar is summoned.
  - Gives the following bonuses based on the avatar's element:
-	- -25% ELEMENT damage received
+	- -10% ELEMENT damage received
 	- +10% ELEMENT attack and accuracy
 	- +40 ELEMENT resistance
  - Also gives special bonus depending upon avatar. May be different than retail.
@@ -18,29 +24,42 @@ CARBUNCLE
 
 
 [POISON NAILS]
- - Incresed Poison to (1 + Level / 5)/tic.
- - TP increases poison damage (+100% at 100 TP, +150% at 150 TP, etc.)
- - Duration affected by summoning skill / charisma mod
+ - Recast: 20 seconds
+ - Poison DoT: 1 + Level / 5 + (CHRMOD + SMNMOD) / 6
+ - Poison is resisted by VIT; affected by Water Resistance / Attack / Defense
+ - Duration: 30 + CHRMOD + SMNMOD, max of 90
 
 [Healing Ruby]
- - Reduced casting time to 1 second (down from 3 seconds)
- - TP has a greater effect on healing.
- - CHA and Summoning mods increases amount healed.
+ - Recast: 15 seconds
+ - Reduced casting time to 1 seconds (down from 3 seconds)
+ - Heals 5 + level * 0.65 + CHRMOD + SMNMOD * 2 + TP * 0.012 + target's VIT / 4
+ - Influenced by summoner's Cure Potency and target's Cure Potency Received
+ - Soft Cap of 40 (not counting TP)
 
 [Healing Ruby II]
+ - Recast: 40 seconds
+ - No longer an AoE
  - TP has a greater effect on healing.
- - CHA and Summoning mods increases amount healed.
+ - Reduced casting time to 1 seconds (down from 3 seconds)
+ - Heals 60 + level * 6 + CHRMOD * 2 + SMNMOD * 4 + TP * 0.15 + target's VIT / 2
+ - Influenced by summoner's Cure Potency and target's Cure Potency Received
+ - Soft Cap of 680 (not counting TP)
 
 [Glittering Ruby]
- - Increase buff duration to 300 seconds
- - Increase power of buff based on tp
+ - Recast: 30 seconds
+ - Duration: 300 + CHRMOD * 3 + SMNMOD * 6, max of 600 seconds
+ - Power: 12 + tp / 200
+ - Buffs two random stats (buff stacks with other stat buffs)
 
 [Shining Ruby]
- - Duration is increased by 2 seconds per TP.
- - Magic damage is reduced by 15% (up from 4%)
+ - Recast: 45 seconds
+ - Boosts Defense and Magic Defense by +15% for duration
+ - Duration: 300 + CHRMOD * 3 + SMNMOD * 6, max of 600 seconds
+ - TP Bonus: +1 second per 10 TP (does not count against max)
+
 
 [Meteorite]
- - Increased damage contribution by TP.
+ - Increased damage contribution by TP. Summoner's CHR and Summoning Skill Modifier contributes to damage.
 
 
 SHIVA
@@ -48,32 +67,135 @@ SHIVA
 [Shiva's Favor]
  - Grants +10 MATT
 
+[Axe Kick]
+ - Recast: 20 seconds
+ - +15% accuracy
+
+[Blizzard II]
+ - Gained at Level 18
+ - Recast: 25 seconds
+
+[Frost Armor]
+ - Recast: 35 seconds
+ - Duration: 180 + (CHRMOD + SMNMOD) * 6; max of 360
+ - Power: 1 + Level / 3 + (CHRMOD + SMNMOD) / 4
+ - TP Bonus: +1 second per 10 TP (does not count against maximum duration)
+
+[Sleepga]
+ - Duration: 45 + CHRMOD + SMNMOD; max of 90
+ - TP Bonus: +1 second per 50 TP (does not count against maximum duration)
+
+[Double Slap]
+ - Recast: 35 seconds
+ - +15% accuracy
+
+[Blizzard IV]
+ - Recast: 48 seconds
+
+[Heavenly Strike]
+ - Does not require merits to gain (each merit gives +80 TP bonus).
+
 IFRIT
 
 [Ifrit's Favor]
  - Grants +10% Double Attack
 
+[Punch]
+ - Recast: 20 seconds
+
+[Fire II]
+ - Gained at Level 18
+ - Recast: 25 seconds
+
 [Burning Strike]
- - Inflicts Burn for 30 to 90 seconds (at 300% TP).
- - Damage is 2 + (level / 4)/tic. Lowers target's Intelligence.
+ - Recast: 30 seconds
+ - Inflicts Burn for 60 seconds.
+ - +15% accuracy
+ - Damage is 1 + (level / 5)/tic. 
+
+[Double Punch]
+ - Recast: 35 seconds
 
 [Crimson Howl]
- - Base duration is 90 seconds. Increased by CHR/Summoning mod.
- - +1% attack bonus per 300 TP
+ - Recast: 45 seconds
+ - Power: 10 + level / 20
+ - Also grants a +200 TP bonus for duration
+ - Duration: 60 + CHRMOD + SMNMOD; max of 180 seconds
+ - TP Bonus: +1 second per 20 TP (does not count against maximum duration)
+
+[Fire IV]
+ - Recast: 48 seconds
+
+
+[Flaming Crush]
+ - +15% accuracy
+
+
+
+[Meteor Strike]
+ - Does not require merits to gain (each merit gives +80 TP bonus).
 
 TITAN
 
 [Titan's Favor]
  - Grants 10 + (Level / 2) DEF
 
+[Stone II]
+ - Gained at Level 18
+ - Recast: 25 seconds
+
+[Megalith Throw]
+ - Recast: 30 seconds
+ - +15% accuracy
+ - Instead lowers target's Defense by 10%; resisted by STR vs VIT
+ - Duration: 30 + CHR + SMNMOD, max of 90
+
+[Earthen Ward]
+ - Duration: 900 seconds
+ - Power: 50 + (level + CHRMOD + SMNMOD) * 2
+ - TP Bonus: increases power by (tp / 500) * level
+
+[Mountain Buster]
+ - +15% accuracy
+
+[Stone IV]
+ - Recast: 48 seconds
+
+[Geocrush]
+ - Does not require merits to gain (each merit gives +80 TP bonus).
+
 GARUDA
 
 [Garuda's Favor]
  - Grants +20 EVA and +10% Ranged Attack
 
+[Claw]
+ - Recast: 20 seconds
+ - +15% accuracy
+
+[Aero II]
+ - Gained at Level 18
+ - Recast: 25 seconds
+
+[Aerial Armor]
+ - Duration: 900 + (CHRMOD + SMNMOD) * 30, max of 1800 seconds
+ - Power: 3 shadows + 1 shadow per 1000 TP
+
+[Hastega]
+ - Recast: 45 seconds
+ - Duration: 180 + (CHRMOD + SMNDMOD) * 3; max of 360 seconds
+ - Power: 150
+ - TP Bonus: +1 second per 10 TP (does not count against maximum duration)
+
 [Whispering Wind]
  - Instead grants a powerful regen. Power scales with TP.
  - Base duration is 90 seconds. Increased by chr / summoning mod.
+
+[Wind Blade]
+ - Does not require merits to gain (each merit gives +80 TP bonus).
+
+[Aero IV]
+ - Recast: 48 seconds
 
 FENRIR
 
@@ -81,29 +203,42 @@ FENRIR
  - Grants +20 MEVA and +30 Subtle Blow
 
 [Moonlight Charge]
- - Blind is -20 ACC and lasts for 60 seconds.
- - Duration increased with chr / summoning mod.
- - Blind effect increased to up to -60 ACC at 300% TP.
+ - Recast: 25 seconds
+ - +15% accuracy
+ - Power: -25 accuracy
+ - Duration: 90 + (CHRMOD + SMNMOD) * 2; max of 180 seconds
 
 [Crescent Fang]
- - Paralysis potency ranges from 27.5% to 37.5 (at 300% TP).
+ - Recast: 35 seconds
+ - +15% accuracy
+ - Power: 30
+ - Duration: 30 + CHRMOD + SMNMOD; max of 90 seconds
 
 [Ecliptic Growl]
- - Increased base duration to 300 seconds.
+ - Recast: 35 seconds
+ - Duration: 240 + (CHRMOD + SMNDMOD) * 6; max of 480 seconds
  - Max stat buff increased to +18
- - Duration further increased by TP (in additional to chr/summoning mods).
+ - TP Bonus: +1 second per 10 TP (does not count against maximum duration)
 
 [Ecliptic Howl]
- - Increased base duration to 180 seconds.
+ - Recast: 45 seconds
  - Max EVA/ACC possible is +36.
- - Duration further increased by TP (in additional to chr/summoning mods).
+ - Duration: 180 + (CHRMOD + SMNDMOD) * 3; max of 360 seconds
+ - TP Bonus: +1 second per 10 TP (does not count against maximum duration)
 
 [Lunar Cry]
+ - Recast: 25 seconds
+ - Duration: 80 + (CHRMOD + SMNMOD) * 2; max 240 seconds
  - Also inflicts Magic Accuracy Down and Magic Evasion down.
  - Max penalty is -36.
- - Duration affected by TP, CHA, and summoning skill
+ - TP Bonus: increased chance of affecting target (+1 accuracy per 50 TP)
+
+[Lunar Roar]
+ - Gains a bonus based on TP (+1 accuracy pet 50 TP)
 
 [Eclipse Bite]
+ - Recast: 50 seconds
+ - +15% accuracy
  - Now has the Gravitation and Transfixion skillchain attributes.
 
 LEVIATHAN
@@ -111,13 +246,118 @@ LEVIATHAN
 [Leviathan's Favor]
  - Grants +20 MACC
 
+[Barracuda Dive]
+ - +15% accuracy
+ - Recast: 20 seconds
+
+[Water II]
+ - Gained at Level 18
+ - Recast: 25 seconds
+
+[Tail Whip]
+ - Recast: 30 seconds
+ - +15% accuracy to hit
+ - Duration: 30 + CHR + SMNMOD, max of 90
+ - Weight Power: 60
+ - Resisted by STR vs VIT
+
+[Slowga]
+ - Recast: 30 seconds
+ - Duration: 120 + (CHRMOD + SMNMOD) * 3, max of 360
+ - Resisted with MND
+ - Power: 300 + tp / 50
+
 [Spring Water]
- - CHR and Summoning mods increases amount healed.
+ - Recast: 50 seconds
+ - Reduced casting time to 1 seconds (down from 3 seconds)
+ - Heals 47 + level * 3 + CHRMOD * 1.5 + SMNMOD * 3 + TP * 0.10 + target's VIT / 4
+ - Influenced by summoner's Cure Potency and target's Cure Potency Received
+ - Soft Cap of 340 (not counting TP)
+
+[Water IV]
+ - Recast: 48 seconds
+
+[Spinning Dive]
+ - +15% accuracy
+ - Piercing Damage
+
+[Grand Fall]
+ - Does not require merits to gain (each merit gives +80 TP bonus).
 
 RAMUH
 
 [Ramuh's Favor]
  - Grants +25% critical damage and +5% critical hit chance
 
+[Shock Strike]
+ - Recast: 40 Seconds
+ - +15% Accuracy
+
+
+[Thunder II]
+ - Gained at Level 18
+ - Recast: 25 seconds
+
+
 [Thunderspark]
- - Paralysis effect increases with TP
+ - Recast: 35 seconds
+ - Gained at level 24
+ - Paralysis Power: 35
+ - Duration: 45 + CHRMOD + SMNMOD (max of 90 seconds)
+ - TP Bonus: +1 second per 35 TP (does not count against maximum duration)
+
+[Rolling Thunder]
+ - Recast: 45 seconds
+ - Duration: 90 + (CHRMOD + SMNMOD) * 3; max of 180
+ - Power: 1 + (Level + CHRMOD + SMNMOD) / 5
+ - TP Bonus: +1 second per 10 TP (does not count against maximum duration)
+
+[Lightning Armor]
+ - Recast: 50 seconds
+ - Duration: 120 + (CHRMOD + SMNMOD) * 4; max of 240
+ - Power: 1 + (Leve + CHRMOD + SMNMOD) / 5
+ - TP Bonus: +1 second per 10 TP (does not count against maximum duration)
+
+[Thunder IV]
+ - Recast: 48 seconds
+
+[Thunderstorm]
+ - Does not require merits to gain (each merit gives +80 TP bonus).
+
+DIABOLOS
+
+[Camisado]
+ - Recast: 20 seconds
+ - Is a Dark-based attack (affected by resistance, defense, MAB, etc.)
+ - +15% accuracy
+
+[Somnolence]
+ - Recast: 45 seconds
+ - Power: 80
+ - Damage scales with level and TP
+ - Duration: 20 + CHR / 2 + SMNMOD / 2, max of 40 seconds
+
+[Ultimate Terror]
+ - Inflicts Terror
+	- Duration: 3 + (CHRMOD + SMNMOD) / 10, max of 6 seconds. +1 second per 1000 TP
+ - Lowers two of the target's attributes by (12 + tp / 200)
+	- Duration: 60 + chr + summoning, max of 120 seconds. +1 second per 50 TP.
+
+[Noctoshield]
+ - Recast: 45 seconds
+ - Duration: 30 + (CHRMOD + SMNMOD) / 2, max of 60 seconds
+ - Power: 8 + (level + CHRMOD + SMNMOD) / 4
+ - TP Bonus: +1 second per 100 TP (does not count against maximum duration)
+
+[Dream Shround]
+ - Recast: 35 seconds
+ - Duration: 180 + (CHRMOD + SMNMOD) * 6; max of 360 seconds
+ - TP Bonus: +1 second per 10 TP (does not count against maximum duration)
+
+[Nether Blast]
+ - Damage is ~25% than IV spells (like Fire IV).
+	- Inflicts a powerful Bio on target if target does not have Bio / Dia.	
+	- DoT: 5 + (level + CHRMOD + SMNMOD) / 3
+	- Attack Down: -15%
+	- Duration: 60 + tp / 50 seconds
+	

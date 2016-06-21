@@ -618,7 +618,8 @@ public:
     int32 disableSpawn(lua_State* L);
     int32 moveSpawn(lua_State* L);
     int32 grabNPCList(lua_State* L);
-    int32 addRecastRange(lua_State*);
+    int32 insertSpellRecast(lua_State* L);
+    int32 addRecastRange(lua_State* L);
 };
 
 #endif

@@ -124,12 +124,47 @@ FAMILY CHANGES
 
 [Sheep]
  - +10% XP
+ - HP (120 -> 110), STR (1 -> 2), AGI (3 -> 4), MND (4 -> 3), CHR (5 -> 2)
+ - Sheep Song: resisted with MND
+ 	- HARD: drains target's TP and MP while asleep
+
+ - Rage: duration varies with TP (45 to 90 seconds)
+	- HARD: grants a Store TP effect for the duration (+25 or more)
+
+ - Lamb Chop: +20% accuracy
+	- HARD: also lowers enmity towards target
 
 [Ram]
- - +35% XP
+ - +25% XP
+ - AGI (3 -> 4), DEX (3 -> 4), VIT (4 -> 2)
+ - Weak against Water and Wind (+25%)
+ - Resistant to Light and Dark (-25%)
+
+ - Great Bleat: duration varies with TP (60 to 120 seconds); resisted by MND
+	- HARD: also inflicts Inhibit TP
+
+ - Rumble: duration varies with TP (90 to 180 seconds); resisted with STR vs VIT
+	- HARD: the Ram gains Enstone
+
+ - Petribreath: duration varies with TP (20 to 40 seconds); resisted with VIT
+	- HARD: also inflicts Rasp
+
+ - Rage: duration varies with TP (45 to 90 seconds)
+	- HARD: grants a Store TP effect for the duration (+25 or more), STR (1 -> 2)
+
+
+
+
 
 [Tiger]
- - +20% XP
+ - +15% XP
+ - VIT (4 -> 5), INT (3 -> 5)
+ - Resistant to Wind (-25%)
+
+ - Claw Cyclone: HARD: the tiger gains Foil for 30 seconds
+
+ - Roar: duration varies with TP (30 to 60 seconds); resisted with MND
+	- HARD: also inflicts Terror if target is successfully paralyzed
 
 [Bugard]
  - +20% XP

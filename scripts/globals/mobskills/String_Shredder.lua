@@ -13,12 +13,12 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    skill:setSkillchain(16); -- Wasp Sting: Scission
+    skill:setSkillchain(104); -- Spiral Hell: Distortion / Scission
 
     local numhits = 2;
     local accmod = 1;
     local dmgmod = 1;
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_BONUS,1,1.5,2);
+    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_BONUS,1.25,1.8,2.6);
     local dmg = AutomatonFinalAdjustments(target, mob, skill, info.dmg);
     dmg = MobFinalAdjustments(dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_SLASH,info.hitslanded);
     target:delHP(dmg);

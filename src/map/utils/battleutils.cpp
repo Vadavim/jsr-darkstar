@@ -58,6 +58,7 @@
 #include "../entities/battleentity.h"
 #include "../entities/mobentity.h"
 #include "../entities/petentity.h"
+#include "../entities/automatonentity.h"
 #include "../enmity_container.h"
 #include "../items.h"
 #include "../item_container.h"
@@ -1863,6 +1864,17 @@ namespace battleutils
             CMobEntity* PMob = (CMobEntity*)PDefender;
             if (PMob->m_EcoSystem != SYSTEM_UNDEAD && PMob->m_EcoSystem != SYSTEM_BEASTMEN)
                 return 0;
+        } else if (PDefender->objtype == TYPE_PET) {
+            if (((CPetEntity*)PDefender)->getPetType() != PETTYPE_AUTOMATON)
+                return 0;
+
+            CAutomatonEntity* automaton = (CAutomatonEntity*)PDefender;
+            if (automaton->getFrame() == FRAME_VALOREDGE) {
+                return automaton->getHead() == FRAME_VALOREDGE ? 35 : 25;
+            } else {
+                return 0;
+            }
+
         }
         else
             return 0;
@@ -2182,7 +2194,7 @@ namespace battleutils
 
             if (giveTPtoAttacker)
             {
-                float tpDiffBonus = dsp_cap(((float)PAttacker->INT() - (float)PDefender->MND()) * 0.75f, -30, 30);
+                float tpDiffBonus = 1.0f + dsp_cap(((float)PAttacker->INT() - (float)PDefender->MND()) * 0.75f, -30.0f, 30.0f) / 100.f;
                 PAttacker->addTP(tpMultiplier * tpDiffBonus * (baseTp * (1.0f + 0.01f * (float)((PAttacker->getMod(MOD_STORETP) + getStoreTPbonusFromMerit(PAttacker))))));
             }
 
@@ -2190,7 +2202,7 @@ namespace battleutils
             {
                 //account for attacker's subtle blow which reduces the baseTP gain for the defender
                 float sBlowMult = ((100.0f - dsp_cap((float)PAttacker->getMod(MOD_SUBTLE_BLOW), 0.0f, 50.0f)) / 100.0f);
-                float dAGI = dsp_cap(((float)PAttacker->AGI() - (float)PDefender->AGI()) * 0.75f, -30.0f, 30.0f);
+                float dAGI = 1.0f + dsp_cap(((float)PAttacker->AGI() - (float)PDefender->AGI()) * 0.75f, -30.0f, 30.0f) / 100;
 
                 //mobs hit get basetp+30 whereas pcs hit get basetp/3
                 if (PDefender->objtype == TYPE_PC)
@@ -2303,12 +2315,12 @@ namespace battleutils
 
 
             // add tp to attacker
-            float tpDiffBonus = dsp_cap(((float)PChar->INT() - (float)PDefender->MND()) * 0.75f, -30, 30);
+            float tpDiffBonus = 1.0f + dsp_cap(((float)PChar->INT() - (float)PDefender->MND()) * 0.75f, -30.0f, 30.0f) / 100.0f;
             PChar->addTP(((tpDiffBonus * tpMultiplier * baseTp) + bonusTP) * (1.0f + 0.01f * (float)((PChar->getMod(MOD_STORETP) + getStoreTPbonusFromMerit(PChar)))));
 
             //account for attacker's subtle blow which reduces the baseTP gain for the defender
             float sBlowMult = ((100.0f - dsp_cap((float)PChar->getMod(MOD_SUBTLE_BLOW), 0.0f, 50.0f)) / 100.0f);
-            float dAGI = dsp_cap(((float)PChar->AGI() - (float)PDefender->AGI()) * 0.75f, -30.0f, 30.0f);
+            float dAGI = 1.0f + dsp_cap(((float)PChar->AGI() - (float)PDefender->AGI()) * 0.75f, -30.0f, 30.0f) / 100.0f;
 
             //mobs hit get basetp+30 whereas pcs hit get basetp/3
             if (PDefender->objtype == TYPE_PC)
@@ -5240,6 +5252,10 @@ namespace battleutils
             cast = cast * 2.0f;
         }
 
+        if ((PEntity->objtype == TYPE_MOB || PEntity->objtype == TYPE_PET) && PSpell->getSkillType() == SKILL_ENH) {
+            cast = cast * 0.5f;
+        }
+
         if (PSpell->getSpellGroup() == SPELLGROUP_BLACK)
         {
             if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_ALACRITY))
@@ -5316,6 +5332,11 @@ namespace battleutils
             }
             uint16 songcasting = PEntity->getMod(MOD_SONG_SPELLCASTING_TIME);
             cast = cast * (1.0f - ((songcasting > 50 ? 50 : songcasting) / 100.0f));
+        }
+        else if (PSpell->getSpellGroup() == SPELLGROUP_SUMMONING) {
+            if (PEntity->GetLocalVar("siphoned") > 0) {
+                cast = cast * 0.25;
+            }
         }
 
         int16 fastCast = dsp_cap(PEntity->getMod(MOD_FASTCAST), -100, 80);

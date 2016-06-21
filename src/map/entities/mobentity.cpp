@@ -656,8 +656,14 @@ void CMobEntity::OnMobSkillFinished(CMobSkillState& state, action_t& action)
     }
 
     action.id = id;
-    if (objtype == TYPE_PET && static_cast<CPetEntity*>(this)->getPetType() == PETTYPE_JUG_PET &&
-        static_cast<CPetEntity*>(this)->getPetType() == PETTYPE_AUTOMATON)
+//    if (objtype == TYPE_PET && static_cast<CPetEntity*>(this)->getPetType() == PETTYPE_JUG_PET &&
+//        static_cast<CPetEntity*>(this)->getPetType() == PETTYPE_AUTOMATON)
+//        action.actiontype = ACTION_PET_MOBABILITY_FINISH;
+    if (objtype == TYPE_PET && (
+            static_cast<CPetEntity*>(this)->getPetType() == PETTYPE_AVATAR))
+//    if (objtype == TYPE_PET && (
+//        static_cast<CPetEntity*>(this)->getPetType() == PETTYPE_AUTOMATON ||
+//        static_cast<CPetEntity*>(this)->getPetType() == PETTYPE_AVATAR))
         action.actiontype = ACTION_PET_MOBABILITY_FINISH;
     else if (PSkill->getID() < 256)
         action.actiontype = ACTION_WEAPONSKILL_FINISH;
@@ -720,7 +726,7 @@ void CMobEntity::OnMobSkillFinished(CMobSkillState& state, action_t& action)
         // reset the skill's message back to default
         PSkill->setMsg(defaultMessage);
 
-        if (objtype == TYPE_PET && static_cast<CPetEntity*>(this)->getPetType() != PETTYPE_JUG_PET)
+        if (objtype == TYPE_PET && static_cast<CPetEntity*>(this)->getPetType() == PETTYPE_AVATAR)
         {
             target.animation = PSkill->getPetAnimationID();
             target.param = luautils::OnPetAbility(PTarget, this, PSkill, PMaster, &action);

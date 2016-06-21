@@ -140,7 +140,7 @@ namespace attackutils
     {
         if (isFaceing(PDefender->loc.p, PAttacker->loc.p, 40))
         {
-            bool block = (dsprand::GetRandomNumber(100) < battleutils::GetGuardRate(PAttacker, PDefender));
+            bool block = (dsprand::GetRandomNumber(100) < battleutils::GetBlockRate(PAttacker, PDefender));
             if (block)
                 PDefender->SetLocalVar("blocked", 1);
             return block;

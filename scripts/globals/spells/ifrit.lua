@@ -29,6 +29,7 @@ function onSpellCast(caster,target,spell)
     if (pet ~= nill) then
         pet:addStatusEffect(EFFECT_IFRIT_S_FAVOR, 1, 15, 3000);
         pet:addStatusEffect(EFFECT_ENFIRE,enspellPower,0,3000);
+        doSiphonBuff(caster, pet);
     end
 
     return 0;

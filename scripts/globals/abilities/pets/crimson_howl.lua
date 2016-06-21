@@ -10,14 +10,16 @@ require("scripts/globals/utils");
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
+    ability:setRecast(45);
     return 0,0;
 end;
 
-function onPetAbility(target, pet, skill, summoner)
-    local bonusTime = utils.clamp(summoner:getSkillLevel(SKILL_SUM) - 300, 0, 200);
-    local duration = 90 + bonusTime + summoner:getMod(MOD_CHR) * 2;
-    local tp = skill:getTP();
-    target:addStatusEffect(EFFECT_WARCRY,10 + tp / 300,0,duration);
+function onPetAbility(target, pet, skill, master)
+    local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP() + pet:getMod(MOD_TP_BONUS);
+    local duration = utils.clamp(60 + chr + summoning, 60, 180) + tp / 20;
+
+
+    target:addStatusEffect(EFFECT_WARCRY,10 + level / 20,0,duration, 0, 200);
     skill:setMsg(MSG_BUFF);
     return EFFECT_WARCRY;
 end

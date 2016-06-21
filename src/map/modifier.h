@@ -619,6 +619,7 @@ enum MODIFIER
     MOD_CONSERVE_TP               = 702, // Percent chance
     MOD_FENCER               = 703, // Percent chance
     MOD_DAKEN               = 704, // Percent chance
+    MOD_BLOOD_BOON               = 705, // Chance to reduce Blood Pact MP cost
 
     // Weaponskill %damage modifiers
     // The following modifier should not ever be set, but %damage modifiers to weaponskills use the next 255 IDs (this modifier + the WSID)

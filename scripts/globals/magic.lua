@@ -704,7 +704,7 @@ end;
         target:updateEnmityFromDamage(caster,dmg);
         -- Only add TP if the target is a mob
 --        if (target:getObjType() ~= TYPE_PC) then
-            local dAGI = utils.clamp((caster:getStat(MOD_AGI) - target:getStat(MOD_AGI)) * 0.75, -30.0, 30.0);
+            local dAGI = 1.0 + utils.clamp((caster:getStat(MOD_AGI) - target:getStat(MOD_AGI)) * 0.75, -30.0, 30.0) / 100;
             target:addTP(100 * dAGI * ( 1 + target:getMod(MOD_STORETP) / 100));
 --        end
     end

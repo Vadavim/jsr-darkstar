@@ -55,6 +55,9 @@ This file is part of DarkStar-server source code.
 #include "../packets/entity_update.h"
 #include "../packets/pet_sync.h"
 
+#include "../mob_spell_container.h"
+#include "../mob_modifier.h"
+
 struct Pet_t
 {
     look_t		look;		// внешний вид
@@ -570,15 +573,26 @@ namespace petutils
         PPet->m_Weapons[SLOT_RANGED]->setDamage((PPet->GetSkill(SKILL_ARA) / 9) * 2 + 3);
 
         CAutomatonEntity* PAutomaton = (CAutomatonEntity*)PPet;
+
+        PAutomaton->m_universalDelay = 10;
+
+        if (PAutomaton->getHead() == HEAD_STORMWAKER) {
+            PAutomaton->m_nukeDelay = 25;
+            PAutomaton->m_healDelay = 25;
+            PAutomaton->m_enfeebleDelay = 15;
+            PAutomaton->m_enhanceDelay = 30;
+        }
+
+
         switch (PAutomaton->getFrame())
         {
         case FRAME_HARLEQUIN:
             PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(2, PPet->GetMLevel());
-            PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(10, PPet->GetMLevel()));
+            PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(5, PPet->GetMLevel()));
             break;
         case FRAME_VALOREDGE:
             PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(5, PPet->GetMLevel());
-            PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(5, PPet->GetMLevel()));
+            PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(4, PPet->GetMLevel()));
             break;
         case FRAME_SHARPSHOT:
             PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(1, PPet->GetMLevel());
@@ -991,46 +1005,50 @@ namespace petutils
     {
         int16 cost = 0;
         if (id >= 0 && id <= 7)
-        {
-            if (level < 19)
-                cost = 1;
-            else if (level < 38)
-                cost = 2;
-            else if (level < 57)
-                cost = 3;
-            else if (level < 75)
-                cost = 4;
-            else if (level < 81)
-                cost = 5;
-            else if (level < 91)
-                cost = 6;
-            else
-                cost = 7;
-        }
-        else if (id == 8)
+            return 0;
+
+//        if (id >= 0 && id <= 7)
+//        {
+//            if (level < 19)
+//                cost = 1;
+//            else if (level < 38)
+//                cost = 2;
+//            else if (level < 57)
+//                cost = 3;
+//            else if (level < 75)
+//                cost = 4;
+//            else if (level < 81)
+//                cost = 5;
+//            else if (level < 91)
+//                cost = 6;
+//            else
+//                cost = 7;
+//        }
+//        else if (id == 8)
+        if (id == 8)
         {
             if (level < 10)
                 cost = 1;
             else if (level < 18)
-                cost = 2;
+                cost = 1;
             else if (level < 27)
-                cost = 3;
+                cost = 2;
             else if (level < 36)
-                cost = 4;
+                cost = 3;
             else if (level < 45)
-                cost = 5;
+                cost = 4;
             else if (level < 54)
-                cost = 6;
+                cost = 5;
             else if (level < 63)
-                cost = 7;
+                cost = 6;
             else if (level < 72)
-                cost = 8;
+                cost = 7;
             else if (level < 81)
-                cost = 9;
+                cost = 8;
             else if (level < 91)
-                cost = 10;
+                cost = 9;
             else
-                cost = 11;
+                cost = 10;
         }
         else if (id == 9)
         {
@@ -1064,29 +1082,29 @@ namespace petutils
         else if (id <= 16)
         {
             if (level < 10)
-                cost = 3;
+                cost = 2;
             else if (level < 19)
-                cost = 4;
+                cost = 3;
             else if (level < 28)
-                cost = 5;
+                cost = 4;
             else if (level < 38)
-                cost = 6;
+                cost = 5;
             else if (level < 47)
-                cost = 7;
+                cost = 6;
             else if (level < 56)
-                cost = 8;
+                cost = 7;
             else if (level < 65)
-                cost = 9;
+                cost = 8;
             else if (level < 68)
-                cost = 10;
+                cost = 9;
             else if (level < 71)
-                cost = 11;
+                cost = 10;
             else if (level < 74)
-                cost = 12;
+                cost = 11;
             else if (level < 81)
-                cost = 13;
+                cost = 12;
             else if (level < 91)
-                cost = 14;
+                cost = 13;
             else
                 cost = 15;
         }
@@ -1339,12 +1357,29 @@ namespace petutils
                 PPet->SetMLevel(PMaster->GetMLevel());
             }
             else if (PMaster->GetSJob() == JOB_SMN){
-                PPet->SetMLevel(PMaster->GetSLevel());
+                if (PPet->m_EcoSystem == SYSTEM_ELEMENTAL)
+                    PPet->SetMLevel(PMaster->GetMLevel() < 5 ? 1 : PMaster->GetMLevel() - 4);
+                else
+                    PPet->SetMLevel(PMaster->GetSLevel());
             }
             else{ //should never happen
                 ShowDebug("%s summoned an avatar but is not SMN main or SMN sub! Please report. \n", PMaster->GetName());
                 PPet->SetMLevel(1);
             }
+
+
+            PPet->m_SpellListContainer = mobSpellList::GetMobSpellList(PPetData->spellList);
+            // catch all non-defaulted spell chances
+            PPet->defaultMobMod(MOBMOD_MAGIC_COOL, 2);
+            PPet->defaultMobMod(MOBMOD_GA_CHANCE, 35);
+            PPet->defaultMobMod(MOBMOD_NA_CHANCE, 40);
+            PPet->defaultMobMod(MOBMOD_BUFF_CHANCE, 35);
+            PPet->defaultMobMod(MOBMOD_HEAL_CHANCE, 40);
+            PPet->defaultMobMod(MOBMOD_HP_HEAL_CHANCE, 40);
+            RecalculatePetSpellContainer(PPet);
+            PPet->m_HasSpellScript = PPetData->hasSpellScript;
+
+
             LoadAvatarStats(PPet); //follows PC calcs (w/o SJ)
             PPet->setModifier(MOD_DMGPHYS, -50); //-50% PDT
             if (PPet->GetMLevel() >= 70){
@@ -1490,11 +1525,28 @@ namespace petutils
 	}
 
 	void FinalizePetStatistics(CBattleEntity* PMaster, CPetEntity* PPet) {
-		//set C magic evasion
-		PPet->setModifier(MOD_MEVA, battleutils::GetMaxSkill(SKILL_ELE, JOB_RDM, PPet->GetMLevel()));
+		//set C+ magic evasion
+		PPet->setModifier(MOD_MEVA, battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PPet->GetMLevel()));
 		PPet->health.tp = 0;
+
 		PPet->UpdateHealth();
         PMaster->applyPetModifiers(PPet);
 	}
+
+    void RecalculatePetSpellContainer(CPetEntity* PPet)
+    {
+        // clear spell list
+        PPet->SpellContainer->ClearSpells();
+
+        //insert the rest of the spells
+        for (std::vector<MobSpell_t>::iterator it = PPet->m_SpellListContainer->m_spellList.begin(); it != PPet->m_SpellListContainer->m_spellList.end(); ++it)
+        {
+            if (PPet->GetMLevel() >= (*it).min_level && PPet->GetMLevel() <= (*it).max_level)
+            {
+                PPet->SpellContainer->AddSpell((*it).spellId);
+            }
+        }
+    }
+
 
 }; // namespace petutils

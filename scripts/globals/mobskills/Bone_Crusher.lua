@@ -1,11 +1,10 @@
 ---------------------------------------------------
--- Sheep Charge
--- Deals damage to a single target. Additional effect: Knockback
 ---------------------------------------------------
 
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/monstertpmoves");
+require("scripts/globals/magic");
 
 ---------------------------------------------------
 
@@ -14,14 +13,15 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    skill:setSkillchain(55); -- Spinning Slash: Fragmentation
 
-    -- Needs Knockback added
-    local numhits = 1;
+    local numhits = 3;
     local accmod = 1;
-    local dmgmod = 2.2 + hard / 5;
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES);
-    local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_BLUNT,info.hitslanded);
+    local dmgmod = 1;
+    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_BONUS,1,1.5,2);
+    local dmg = AutomatonFinalAdjustments(target, mob, skill, info.dmg);
+    dmg = MobFinalAdjustments(dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_SLASH,info.hitslanded);
     target:delHP(dmg);
+
     return dmg;
 end;

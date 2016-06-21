@@ -28,7 +28,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     if (hard > 0) then
         mob:addStatusEffect(EFFECT_FOIL, 50 + hard * 10, 0, 30);
-        mob:setPendingMessage(279, EFFECT_FOIL);
+        mob:setPendingMessage(280, EFFECT_FOIL);
     end
     return dmg;
 end;

@@ -13,6 +13,7 @@ require("scripts/globals/bcnm");
 
 function onMagicCastingCheck(caster,target,spell)
     local result = 0;
+    if (caster:getMP() < 1 + caster:getMainLvl() * 1.5) then result = MSGBASIC_NOT_ENOUGH_MP end;
     if (caster:hasPet()) then
         result = MSGBASIC_ALREADY_HAS_A_PET;
     elseif (not caster:canUsePet()) then
@@ -24,7 +25,6 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-    caster:spawnPet(PET_EARTH_SPIRIT);
-
+    summonSpirit(caster, PET_EARTH_SPIRIT);
     return 0;
 end;

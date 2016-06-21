@@ -411,9 +411,7 @@ bool CMobController::CanCastSpells()
 {
 
     if (!PMob->SpellContainer->HasSpells())
-    {
         return false;
-    }
 
     // check for spell blockers e.g. silence
     if (PMob->StatusEffectContainer->HasStatusEffect(EFFECT_SILENCE) ||

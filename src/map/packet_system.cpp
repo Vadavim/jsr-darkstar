@@ -314,8 +314,25 @@ void SmallPacket0x00A(map_session_data_t* session, CCharEntity* PChar, CBasicPac
     PChar->pushPacket(new CZoneInPacket(PChar, PChar->m_event.EventID));
     PChar->pushPacket(new CZoneVisitedPacket(PChar));
 
-    if (!PChar->loc.zoning)
+    if (!PChar->loc.zoning) {
         PChar->StatusEffectContainer->DelStatusEffectsByFlag(EFFECTFLAG_ON_ZONE, true);
+        // update magic recasts
+        int8* fmtQuery = "SELECT id, time, recast FROM char_recast WHERE charid = %u AND type = 2;";
+
+        int32 ret = Sql_Query(SqlHandle, fmtQuery, PChar->id);
+        if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0) {
+            while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)  {
+                uint32 recastID = Sql_GetUIntData(SqlHandle, 0);
+                uint32 cast_time = Sql_GetUIntData(SqlHandle, 1);
+                uint32 recast = Sql_GetUIntData(SqlHandle, 2);
+                time_t now = time(nullptr);
+                if (now < cast_time + recast)  {
+                    PChar->insertSpellRecast(recastID, cast_time + recast - now, false);
+                }
+            }
+        }
+    }
+
 
     CTaskMgr::getInstance()->AddTask(new CTaskMgr::CTask("afterZoneIn", server_clock::now() + 500ms, (void*)PChar->id, CTaskMgr::TASK_ONCE, luautils::AfterZoneIn));
     return;
@@ -4579,8 +4596,8 @@ void SmallPacket0x0E8(map_session_data_t* session, CCharEntity* PChar, CBasicPac
     case ANIMATION_NONE:
     {
         if (PChar->PPet == nullptr ||
-            (PChar->PPet->m_EcoSystem != SYSTEM_AVATAR &&
-            PChar->PPet->m_EcoSystem != SYSTEM_ELEMENTAL ) &&
+            (PChar->PPet->m_EcoSystem != SYSTEM_AVATAR) &&
+//                    PChar->PPet->m_EcoSystem != SYSTEM_ELEMENTAL ) &&
             !PChar->PAI->IsEngaged())
         {
             PChar->PAI->ClearStateStack();

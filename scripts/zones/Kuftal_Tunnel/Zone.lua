@@ -45,11 +45,14 @@ end;
 -----------------------------------        
 
 function onZoneIn(player,prevZone)
-    local cs = -1;    
+    local cs = -1;
     if ((player:getXPos() == 0) and (player:getYPos() == 0) and (player:getZPos() == 0)) then    
         player:setPos(20.37,-21.104,275.782,46);
     end    
     return cs;    
+end;
+
+function afterZoneIn(player,prevZone)
 end;
 
 -----------------------------------        

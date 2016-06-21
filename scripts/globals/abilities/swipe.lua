@@ -42,8 +42,8 @@ function onUseAbility(player, target, ability)
     target:updateEnmityFromDamage(player,damage);
     
     -- Gain TP for one hit.
-    local dAGI = utils.clamp((player:getStat(MOD_AGI) - target:getStat(MOD_AGI)) * 0.75, -30, 30);
-    local tpMult = utils.clamp((player:getStat(MOD_INT) - target:getStat(MOD_MND)) * 0.75, -30, 30);
+    local dAGI = 1.0 + utils.clamp((player:getStat(MOD_AGI) - target:getStat(MOD_AGI)) * 0.75, -30, 30) / 100;
+    local tpMult = 1.0 + utils.clamp((player:getStat(MOD_INT) - target:getStat(MOD_MND)) * 0.75, -30, 30) / 100;
     target:addTP(100 * dAGI);
     player:addTP(50 * tpMult);
 

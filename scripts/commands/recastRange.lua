@@ -10,7 +10,8 @@ cmdprops =
 };
 
 function onTrigger(player, start, stop)
-    player:addRecastRange(RECAST_ABILITY, start, stop);
+--    player:addRecast(RECAST_MAGIC, 291, 600);
+    player:insertSpellRecast(start, stop);
 --    for i=start,stop do
 --        player:addRecast(RECAST_ABILITY, i, 60);
 --    end

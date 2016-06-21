@@ -661,7 +661,7 @@ namespace charutils
         PChar->SetMLevel(PChar->jobs.job[PChar->GetMJob()]);
         PChar->SetSLevel(PChar->jobs.job[PChar->GetSJob()]);
 
-        fmtQuery = "SELECT id, time, recast FROM char_recast WHERE charid = %u;";
+        fmtQuery = "SELECT id, time, recast FROM char_recast WHERE charid = %u AND type = 1;";
 
         ret = Sql_Query(SqlHandle, fmtQuery, PChar->id);
         if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
@@ -685,6 +685,29 @@ namespace charutils
                 }
             }
         }
+
+//        // update magic recasts
+//        fmtQuery = "SELECT id, time, recast FROM char_recast WHERE charid = %u AND type = 2;";
+//
+//        ret = Sql_Query(SqlHandle, fmtQuery, PChar->id);
+//        if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
+//        {
+//            while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+//            {
+//                uint32 cast_time = Sql_GetUIntData(SqlHandle, 1);
+//                uint32 recast = Sql_GetUIntData(SqlHandle, 2);
+//                time_t now = time(nullptr);
+//                if (now < cast_time + recast)
+//                {
+//                    PChar->PRecastContainer->Load(RECAST_, Sql_GetUIntData(SqlHandle, 0), (cast_time + recast - now), chargeTime, maxCharges);
+//                }
+//            }
+//        }
+
+
+
+
+
 
         fmtQuery = "SELECT skillid, value, rank "
             "FROM char_skills "

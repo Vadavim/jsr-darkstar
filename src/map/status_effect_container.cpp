@@ -986,6 +986,50 @@ void CStatusEffectContainer::RemoveAllManeuvers()
     }
 }
 
+maneuverList CStatusEffectContainer::GetManeuverList()
+{
+    maneuverList mList;
+    for (uint16 i = 0; i < m_StatusEffectList.size(); ++i)
+    {
+        if (m_StatusEffectList.at(i)->GetStatusID() >= EFFECT_FIRE_MANEUVER &&
+            m_StatusEffectList.at(i)->GetStatusID() <= EFFECT_DARK_MANEUVER)
+        {
+            mList.total += 1;
+            switch (m_StatusEffectList.at(i)->GetStatusID()) {
+                case EFFECT_FIRE_MANEUVER:
+                    mList.fire += 1;
+                    break;
+                case EFFECT_ICE_MANEUVER:
+                    mList.ice += 1;
+                    break;
+                case EFFECT_THUNDER_MANEUVER:
+                    mList.thunder += 1;
+                    break;
+                case EFFECT_EARTH_MANEUVER:
+                    mList.earth += 1;
+                    break;
+                case EFFECT_WATER_MANEUVER:
+                    mList.water += 1;
+                    break;
+                case EFFECT_WIND_MANEUVER:
+                    mList.wind += 1;
+                    break;
+                case EFFECT_DARK_MANEUVER:
+                    mList.dark += 1;
+                    break;
+                case EFFECT_LIGHT_MANEUVER:
+                    mList.light += 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    return mList;
+}
+
+
 uint8 CStatusEffectContainer::GetActiveRunes()
 {
     uint8 count = 0;
@@ -1475,7 +1519,9 @@ void CStatusEffectContainer::CheckRegen(time_point tick)
             {
                 DelStatusEffectSilent(EFFECT_HEALING);
                 m_POwner->addHP(-damage);
-                WakeUp();
+                CStatusEffect* sleepEffect = GetStatusEffect(EFFECT_SLEEP);
+                if (!(sleepEffect == nullptr && sleepEffect->GetSubPower() == 2))
+                    WakeUp();
             }
         }
 

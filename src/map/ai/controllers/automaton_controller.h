@@ -34,9 +34,11 @@ public:
     CAutomatonController(CAutomatonEntity* PPet);
 
 private:
-    bool TrySpellcast();
+    bool TrySpellcast(time_point);
     bool TryTPMove();
     bool TryRangedAttack();
+    bool canCast(uint32 spellid);
+    uint16 getAutomatonWeaponskill();
 
     CAutomatonEntity* PAutomaton;
 
@@ -47,6 +49,10 @@ private:
     time_point m_magicEnhanceRecast;
     time_point m_magicStatusRecast;
     time_point m_LastRangedTime;
+
+
+
+    bool tryStormStorm(uint16 &targId, uint16 &spellId, int magicSkill, time_point tick);
 
     duration m_rangedCooldown {duration::zero()};
     static constexpr int m_RangedAbility {1949};

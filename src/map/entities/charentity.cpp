@@ -1834,3 +1834,32 @@ bool CCharEntity::OnAttackError(CAttackState& state)
     }
     return false;
 }
+
+void CCharEntity::insertSpellRecast(uint16 recastID, uint16 recastTime, bool needUpdate) {
+
+    action_t action;
+    action.id = this->id;
+
+    action.actiontype = ACTION_MAGIC_FINISH;
+    action.actionid = recastID;
+    action.recast = recastTime;
+    action.spellgroup = SPELLGROUP_SUMMONING;
+
+    actionList_t& list = action.getNewActionList();
+    list.ActionTargetID = this->id;
+    actionTarget_t& target = list.getNewActionTarget();
+    target.animation = 550;
+//    target.animation = 0;
+    target.param = 0;
+    target.messageID = 0;
+    target.speceffect = SPECEFFECT_NONE;
+    target.reaction = REACTION_NONE;
+
+//    PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CActionPacket(action));
+    this->pushPacket(new CActionPacket(action));
+    if (needUpdate) {
+        PRecastContainer->Add(RECAST_MAGIC, recastID, recastTime, 0, 0);
+    } else {
+        PRecastContainer->Load(RECAST_MAGIC, recastID, recastTime, 0, 0);
+    }
+}

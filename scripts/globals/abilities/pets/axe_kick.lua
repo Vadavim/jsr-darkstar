@@ -10,13 +10,16 @@ require("scripts/globals/summon");
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
+    ability:setRecast(25);
     return 0,0;
 end;
 
 function onPetAbility(target, pet, skill)
     local numhits = 1;
-    local accmod = 1;
+    local accmod = 1.15;
     local dmgmod = 3.5;
+    skill:setSkillchain(50); -- Frostbite: Induration
+    pet:addTP(100 + skill:getTP()); -- Add TP for using physical skill
 
     local totaldamage = 0;
     local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,0,TP_NO_EFFECT,1,2,3);

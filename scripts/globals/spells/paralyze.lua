@@ -20,7 +20,7 @@ function onSpellCast(caster,target,spell)
         spell:setMsg(75);
     else
         -- Calculate duration.
-        local duration = math.random(20,120);
+        local duration = math.random(60,120);
         
             if (caster:hasStatusEffect(EFFECT_SABOTEUR)) then
         duration = duration * 2;

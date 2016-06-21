@@ -18,7 +18,23 @@ function onPetAbility(target, pet, skill, master)
 
     local duration = utils.clamp(45 + chr + summoning, 45, 90) + tp / 50;
 
-    local success = MobStatusEffectMove(pet, target, EFFECT_SLEEP_I, 1, 0, duration);
+    --get resist multiplier (1x if no resist)
+    local resist = applyPlayerResistance(pet,EFFECT_SLEEP_I,target,
+        pet:getStat(MOD_INT) - target:getStat(MOD_INT), 0, ELE_DARK);
+
+    if (resist > 0.5) then
+        target:addStatusEffect(EFFECT_SLEEP_I, 1, 0, duration * resist, 0, 2);
+        local sleep = target:getStatusEffect(EFFECT_SLEEP_I);
+        if (sleep ~= nil) then
+            local power = 1 + (level + chr + summoning) / 5;
+            target:addMod(MOD_REGEN_DOWN, power);
+            sleep:addMod(MOD_REGEN_DOWN, power);
+        end
+    end
+
+
+
+
 
     return EFFECT_SLEEP_I;
 end;

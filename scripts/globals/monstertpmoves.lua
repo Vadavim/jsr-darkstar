@@ -2,6 +2,7 @@ require("scripts/globals/magic");
 require("scripts/globals/magicburst")
 require("scripts/globals/status")
 require("scripts/globals/utils")
+require("scripts/globals/summon");
 
 -- Foreword: A lot of this is good estimating since the FFXI playerbase has not found all of info for individual moves.
 --            What is known is that they roughly follow player Weaponskill calculations (pDIF, dMOD, ratio, etc) so this is what
@@ -110,9 +111,11 @@ end;
 
 function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mtp000,mtp150,mtp300,offcratiomod)
     local returninfo = {};
+    local master = mob:getMaster();
 
     --get dstr (bias to monsters, so no fSTR)
     local dstr = mob:getStat(MOD_STR) - target:getStat(MOD_VIT);
+    if (master ~= nil) then dstr = dstr + master:getMod(MOD_CHR)  end;
     if (dstr < -10) then
         dstr = -10;
     end
@@ -125,6 +128,7 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     local lvltarget = target:getMainLvl();
     local acc = mob:getACC();
     local eva = target:getEVA();
+    if (master ~= nil) then acc = acc + master:getMod(MOD_CHR) / 2 end;
     if (target:hasStatusEffect(EFFECT_YONIN) and mob:isFacing(target, 23)) then -- Yonin evasion boost if mob is facing target
         eva = eva + target:getStatusEffect(EFFECT_YONIN):getPower();
     end
@@ -173,11 +177,11 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     hitdamage = hitdamage * dmgmod;
 
     if (tpeffect == TP_DMG_VARIES) then
-        hitdamage = hitdamage * MobTPMod(skill:getTP());
+        hitdamage = hitdamage * MobTPMod(skill:getTP() + mob:getMod(MOD_TP_BONUS));
     end
 
     if (tpeffect == TP_CRIT_VARIES) then
-        local critChance = 25 * fTP(skill:getTP(), mtp000, mtp150, mtp300);
+        local critChance = 25 * fTP(skill:getTP() + mob:getMod(MOD_TP_BONUS), mtp000, mtp150, mtp300);
     end
 
 
@@ -216,7 +220,7 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
 
     --apply ftp (assumes 1~3 scalar linear mod)
     if (tpeffect==TP_DMG_BONUS) then
-        hitdamage = hitdamage * fTP(skill:getTP(), mtp000, mtp150, mtp300);
+        hitdamage = hitdamage * fTP(skill:getTP() + mob:getMod(MOD_TP_BONUS), mtp000, mtp150, mtp300);
     end
 
     --Applying pDIF
@@ -362,7 +366,9 @@ end
 function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue)
     returninfo = {};
     --get all the stuff we need
-    local resist = 1;
+    local resist = 1
+    local master = mob:getMaster();
+
 
     local mdefBarBonus = 0;
     if (element > 0 and element <= 6 and target:hasStatusEffect(barSpells[element])) then -- bar- spell magic defense bonus
@@ -374,21 +380,23 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue)
     end
     -- plus 100 forces it to be a number
     local mab = (100 + mob:getMod(MOD_MATT)) / (100 + target:getMod(MOD_MDEF) + mdefBarBonus);
-    
-    if (mab > 1.3) then
-        mab = 1.3;
+
+    if (mab > 2.5) then
+        mab = 2.5;
     end
 
-    if (mab < 0.7) then
-        mab = 0.7;
+    if (mab < 0.3) then
+        mab = 0.3;
     end
+
+    if (master ~= nil) then mab = mab + master:getMod(MOD_CHR) / 400.0 end;
 
     if (tpeffect==TP_DMG_BONUS) then
-        damage = damage * (((skill:getTP() / 10)*tpvalue)/100);
+        damage = damage * ((((skill:getTP() + mob:getMod(MOD_TP_BONUS)) / 10)*tpvalue)/100);
     end
 
     if (tpeffect == TP_DMG_VARIES or tpeffect == TP_MAB_BONUS) then
-        damage = damage * MobTPMod(skill:getTP());
+        damage = damage * MobTPMod(skill:getTP() + mob:getMod(MOD_TP_BONUS));
     end
 
     -- printf("power: %f, bonus: %f", damage, mab);
@@ -403,11 +411,14 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue)
             avatarAccBonus = utils.clamp(master:getSkillLevel(SKILL_SUM) - master:getMaxSkillLevel(mob:getMainLvl(), JOBS.SMN, SUMMONING_SKILL), 0, 200);
         end
     end
+
+    if (master ~= nil) then avatarAccBonus = avatarAccBonus + master:getMod(MOD_CHR) / 2 end;
     resist = applyPlayerResistance(mob,nil,target,mob:getStat(MOD_INT)-target:getStat(MOD_INT),avatarAccBonus,element);
 
     local magicDefense = getElementalDamageReduction(target, element);
 
     finaldmg = finaldmg * resist * magicDefense;
+    finaldmg = mobAddBonuses(mob, skill, target, finaldmg, element);
 
     returninfo.dmg = finaldmg;
 
@@ -429,13 +440,23 @@ function applyPlayerResistance(mob,effect,target,diff,bonus,element)
         magicaccbonus = magicaccbonus + diff;
     end
 
+    if (mob:isPet()) then
+        local master = mob:getMaster();
+        magicaccbonus = magicaccbonus + master:getMod(MOD_CHR);
+        if (master:getMainJob() == JOBS.SMN) then
+            magicaccbonus = magicaccbonus + master:getMod(MOD_SUMMONING) / 2;
+        end
+
+    end
+
+
+
     local foil = target:getStatusEffect(EFFECT_FOIL)
     if (foil ~= nil) then
         magicaccbonus = magicaccbonus - foil:getPower();
         target:addTP(foil:getPower() * 5);
         target:delStatusEffect(EFFECT_FOIL);
     end
-
 
     if (bonus ~= nil) then
         magicaccbonus = magicaccbonus + bonus;
@@ -457,10 +478,10 @@ end;
 
 function mobAddBonuses(caster, spell, target, dmg, ele)
 
-    local magicDefense = getElementalDamageReduction(target, ele);
-    dmg = math.floor(dmg * magicDefense);
+--    local magicDefense = getElementalDamageReduction(target, ele);
+--    dmg = math.floor(dmg * magicDefense);
 
-    dayWeatherBonus = 1.00;
+    local dayWeatherBonus = 1.00;
 
     if caster:getWeather() == singleWeatherStrong[ele] then
         if math.random() < 0.33 then
@@ -490,8 +511,12 @@ function mobAddBonuses(caster, spell, target, dmg, ele)
         end
     end
 
-    if dayWeatherBonus > 1.35 then
-        dayWeatherBonus = 1.35;
+    if dayWeatherBonus > 1.5 then
+        dayWeatherBonus = 1.5;
+    end
+
+    if (ele > 0) then
+        dmg = dmg * (1 + caster:getMod(spellAtt[ele]) / 100);
     end
 
     dmg = math.floor(dmg * dayWeatherBonus);
@@ -505,16 +530,15 @@ function mobAddBonuses(caster, spell, target, dmg, ele)
 
     dmg = math.floor(dmg * burst);
 
-    local mdefBarBonus = 0;
-    if (ele > 0 and ele <= 6 and target:hasStatusEffect(barSpells[ele])) then -- bar- spell magic defense bonus
-        mdefBarBonus = target:getStatusEffect(barSpells[ele]):getSubPower();
-    end
-    mab = (100 + caster:getMod(MOD_MATT)) / (100 + target:getMod(MOD_MDEF) + mdefBarBonus) ;
+--    local mdefBarBonus = 0;
+--    if (ele > 0 and ele <= 6 and target:hasStatusEffect(barSpells[ele])) then -- bar- spell magic defense bonus
+--        mdefBarBonus = target:getStatusEffect(barSpells[ele]):getSubPower();
+--    end
+--    mab = (100 + caster:getMod(MOD_MATT)) / (100 + target:getMod(MOD_MDEF) + mdefBarBonus) ;
+--
+--    dmg = math.floor(dmg * mab);
 
-    dmg = math.floor(dmg * mab);
-
-    magicDmgMod = (256 + target:getMod(MOD_DMGMAGIC)) / 256;
-
+    local magicDmgMod = (256 + target:getMod(MOD_DMGMAGIC)) / 256;
     dmg = math.floor(dmg * magicDmgMod);
 
     -- print(affinityBonus);
@@ -834,6 +858,7 @@ function tpModifier(skill, scale1, scale2)
 end
 
 function enmityStatusCheck(target, mob, skill, amount)
+    if (mob:isMob() == false) then return end;
     if (skill:getMsg() == MSG_ENFEEB_IS) then
         mob:lowerEnmity(target, amount);
     end
@@ -991,14 +1016,75 @@ function MobTPMod(tp)
 end;
 
 function fTP(tp,ftp1,ftp2,ftp3)
-    if (tp<1000) then
-        tp=1000;
+    if tp < 1000 then tp = 1000 end
+    if (tp>=1000 and tp<2000) then
+        return ftp1 + ( ((ftp2-ftp1)/1000) * (tp-1000));
+    elseif (tp>=2000 and tp<=3000) then
+        -- generate a straight line between ftp2 and ftp3 and find point @ tp
+        return ftp2 + ( ((ftp3-ftp2)/1000) * (tp-2000));
+    else
+        print("fTP error: TP value is not between 100-300!");
     end
-    if (tp>=1000 and tp<1500) then
-        return ftp1 + ( ((ftp2-ftp1)/500) * (tp-1000));
-    elseif (tp>=1500 and tp<=3000) then
-        --generate a straight line between ftp2 and ftp3 and find point @ tp
-        return ftp2 + ( ((ftp3-ftp2)/1500) * (tp-1500));
-    end
-    return 1; --no ftp mod
+    return 1; -- no ftp mod
 end;
+
+function avatarMagicalMove(target, pet, skill, element, baseDamage, intMult, tpMult)
+    local master = pet:getMaster();
+    local dINT = pet:getStat(MOD_INT) - target:getStat(MOD_INT) + master:getMod(MOD_CHR) + master:getMod(MOD_SUMMONING) / 2;
+    local tp = skill:getTP()
+    local damage = baseDamage + (tpMult * (tp + pet:getMod(MOD_TP_BONUS))) + (dINT * intMult) ;
+
+    damage = MobMagicalMove(pet,target,skill,damage,element,1,TP_NO_EFFECT,0);
+    damage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_MAGICAL,MOBPARAM_NONE,1);
+
+    target:delHP(damage);
+    target:updateEnmityFromDamage(pet,damage);
+
+    return damage;
+end
+
+
+function doAstralFlow(target, pet, skill, master, element)
+    local dINT = math.floor((pet:getStat(MOD_INT) + master:getMod(MOD_CHR)) - target:getStat(MOD_INT));
+    local favorTypes = {
+        [8] = EFFECT_CARBUNCLE_S_FAVOR, [9] = EFFECT_FENRIR_S_FAVOR, [10] = EFFECT_IFRIT_S_FAVOR,
+        [11] = EFFECT_TITAN_S_FAVOR, [12] = EFFECT_LEVIATHAN_S_FAVOR, [13] = EFFECT_GARUDA_S_FAVOR,
+        [14] = EFFECT_SHIVA_S_FAVOR, [15] = EFFECT_RAMUH_S_FAVOR,
+        [16] = EFFECT_DIABOLOS_S_FAVOR, [20] = EFFECT_CAIT_SITH_S_FAVOR};
+
+    local level = pet:getMainLvl()
+--    local damage = 48 + (level * 8);
+    local mpBonus = master:getMP() * 0.25;
+    master:delMP(mpBonus);
+    local damage = 10 + (level * 5.5) + (mpBonus * 1.5);
+    damage = damage + (dINT * (1 + level * 0.035));
+    damage = MobMagicalMove(pet,target,skill,damage,element,1,TP_DMG_VARIES,0);
+    damage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_MAGICAL,MOBPARAM_NONE,1);
+
+
+    -- add Avatar's Favor for 5 minutes
+    local type = favorTypes[master:getPetID()];
+    local favor = pet:getStatusEffect(type);
+    if (favor ~= nil) then
+        local favorPower = favor:getPower();
+        local party = master:getParty();
+        if (party ~= nil) then
+            for i,member in ipairs(party) do
+                member:addStatusEffect(type, favorPower, 0, 300);
+            end
+        end
+    end
+
+
+    master:delStatusEffect(EFFECT_ASTRAL_FLOW);
+    target:delHP(damage);
+    pet:delHP(99999);
+    target:updateEnmityFromDamage(pet,damage);
+
+    return damage;
+end
+
+function AutomatonFinalAdjustments(target, pet, skill, damage)
+    return damage;
+end
+

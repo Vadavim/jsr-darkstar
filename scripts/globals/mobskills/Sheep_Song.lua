@@ -18,7 +18,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     local typeEffect = EFFECT_SLEEP_I;
 
-    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 1, 0, 20));
+    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 1, 0, 20, MOD_MND));
     if (hard > 0) then
         local effect = target:getStatusEffect(EFFECT_SLEEP_I);
         if (effect ~= nil) then
@@ -28,6 +28,7 @@ function onMobWeaponSkill(target, mob, skill)
             target:addMod(MOD_REFRESH_DOWN, hard * 2);
         end
     end
+
 
     return typeEffect;
 end;

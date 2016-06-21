@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.vs" />
+      <excludeFolder url="file://$MODULE_DIR$/conf" />
+      <excludeFolder url="file://$MODULE_DIR$/database_backup" />
+      <excludeFolder url="file://$MODULE_DIR$/documentation" />
+      <excludeFolder url="file://$MODULE_DIR$/icons" />
+      <excludeFolder url="file://$MODULE_DIR$/jsr-notes" />
+      <excludeFolder url="file://$MODULE_DIR$/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/lib64" />
+      <excludeFolder url="file://$MODULE_DIR$/log" />
+      <excludeFolder url="file://$MODULE_DIR$/m4" />
+      <excludeFolder url="file://$MODULE_DIR$/migrations" />
+      <excludeFolder url="file://$MODULE_DIR$/navmeshes" />
+      <excludeFolder url="file://$MODULE_DIR$/sql" />
+      <excludeFolder url="file://$MODULE_DIR$/win32" />
+    </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="Header Search Paths">

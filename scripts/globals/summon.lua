@@ -15,14 +15,14 @@ function AvatarPhysicalMove(avatar,target,skill,numberofhits,accmod,dmgmod1,dmgm
 
     --Damage = (D+fSTR) * dmgmod * PDIF
     -- printf("str: %f, vit: %f", avatar:getStat(MOD_STR), target:getStat(MOD_VIT));
-    fstr = avatarFSTR(avatar:getStat(MOD_STR), target:getStat(MOD_VIT));
+    local master = avatar:getMaster();
+    fstr = avatarFSTR((avatar:getStat(MOD_STR) + master:getMod(MOD_CHR) + master:getMod(MOD_SUMMONING)), target:getStat(MOD_VIT));
 
     lvluser = avatar:getMainLvl();
     lvltarget = target:getMainLvl();
     --JSR: Charisma affects Avatar accuracy
-    local master = avatar:getMaster();
     local bonusacc = utils.clamp(master:getSkillLevel(SKILL_SUM) - master:getMaxSkillLevel(avatar:getMainLvl(), JOBS.SMN, SUMMONING_SKILL), 0, 200);
-    acc = avatar:getACC() + bonusacc + math.floor(master:getMod(MOD_CHR) / 3);
+    acc = avatar:getACC() + bonusacc + math.floor(master:getMod(MOD_CHR) / 2);
     eva = target:getEVA();
 
     local base = avatar:getWeaponDmg() + fstr;
@@ -333,3 +333,81 @@ function avatarMiniFightCheck(caster)
    end
    return result;
 end;
+
+
+function doSiphonBuff(caster, pet)
+    if (caster:getLocalVar("siphoned") == 0) then return end;
+
+    caster:setLocalVar("siphoned", 0);
+    local siphonTP = caster:getLocalVar("siphonTP");
+    local siphonPet = caster:getLocalVar("siphonID");
+    local level = pet:getMainLvl();
+
+    pet:addTP(siphonTP);
+
+    if (siphonPet >= 0 and siphonPet <= 7) then
+        pet:addMod(MOD_MATT, 15);
+        pet:addMod(MOD_MACC, 15);
+        pet:addMod(MOD_MDEF, 25);
+        pet:addMod(siphonPet + 54, 100);
+        pet:addMod(siphonPet + 15, 35);
+        local statBonus = siphonPet + 8
+        if (statBonus == 15) then statBonus = 14 end;
+        pet:addMod(statBonus, 5 + level / 5);
+
+    elseif (siphonPet == 8) then
+        pet:addMod(MOD_REGEN, 1 + level / 3);
+    elseif (siphonPet == 9) then
+        pet:addMod(MOD_ENMITY, -25);
+        pet:addMod(MOD_STORETP, 25);
+        pet:addMod(MOD_SUBTLE_BLOW, 50);
+    elseif (siphonPet == 10) then
+        pet:addMod(MOD_DOUBLE_ATTACK, 35);
+    elseif (siphonPet == 11) then
+        local stonePower = 50 + pet:getMainLvl() * 10;
+        pet:addStatusEffect(EFFECT_STONESKIN, stonePower, 0, 300000);
+        pet:addMod(MOD_ENMITY, 25);
+        pet:addMod(MOD_DEFP, 20);
+    elseif (siphonPet == 12) then
+        local spikePower = 5 + pet:getMainLvl() / 2;
+        pet:addMod(MOD_MDEF, 30);
+        pet:addMod(MOD_SPIKES, 9);
+        pet:addMod(MOD_SPIKES_DMG, spikePower);
+    elseif (siphonPet == 13) then
+        pet:addMod(MOD_EVASION, 40);
+        pet:addMod(MOD_HASTE_ABILITY, 100);
+    elseif (siphonPet == 14) then
+        pet:addMod(MOD_MATT, 25);
+        pet:addMod(MOD_MACC, 25);
+    elseif (siphonPet == 15) then
+        pet:addMod(MOD_ACC, 15);
+        pet:addMod(MOD_CRITHITRATE, 10);
+    elseif (siphonPet == 16) then
+        pet:addMod(MOD_ATTP, 10);
+    end
+
+    caster:setLocalVar("siphonTP", 0);
+    caster:setLocalVar("siphonID", 0);
+
+end
+
+
+function summonSpirit(caster, petType)
+    local enspellTypes = {EFFECT_ENFIRE, EFFECT_ENBLIZZARD, EFFECT_ENAERO, EFFECT_ENSTONE, EFFECT_ENTHUNDER,
+                            EFFECT_ENWATER, EFFECT_ENLIGHT, EFFECT_ENDARK};
+    caster:spawnPet(petType);
+    local pet = caster:getPet();
+    if (pet ~= nil) then
+        local power = 1 + pet:getMainLvl() / 4;
+        pet:addStatusEffect(enspellTypes[petType + 1],power,0,3000);
+
+        local degen = 1 + pet:getMainLvl() / 2.5;
+        pet:addMod(MOD_REGEN_DOWN, degen);
+        pet:addMod(MOD_REGAIN, 50);
+        pet:addMod(MOD_ATTP, -15);
+        pet:addMod(MOD_MDEF, 35);
+        pet:addMod(MOD_MATT, -45);
+        pet:addMod(MOD_MACC, 15);
+        caster:delMP(pet:getMainLvl() * 2);
+    end
+end

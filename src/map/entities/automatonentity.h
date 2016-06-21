@@ -26,6 +26,16 @@
 
 #include "petentity.h"
 #include <array>
+#include <map>
+
+struct spellTimer {
+	uint32 delay;
+	time_point time;
+    spellTimer(uint32 delayTo) : delay(delayTo) {};
+};
+
+
+
 
 enum AUTOFRAMETYPE
 {
@@ -78,6 +88,20 @@ public:
 
     uint8 getElementMax(uint8 element);
     uint8 getElementCapacity(uint8 element);
+
+	uint8 m_healDelay;
+	uint8 m_enhanceDelay;
+	uint8 m_enfeebleDelay;
+	uint8 m_nukeDelay;
+	uint8 m_universalDelay;
+
+	time_point  m_healTick;
+	time_point  m_enhanceTick;
+	time_point  m_enfeebleTick;
+	time_point  m_nukeTick;
+	time_point  m_universalTick;
+
+	std::map<SKILLTYPE, spellTimer> timers;
 
     void burdenTick();
     void setInitialBurden();

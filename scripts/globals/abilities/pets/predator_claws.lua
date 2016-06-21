@@ -17,6 +17,8 @@ function onPetAbility(target, pet, skill)
     local accmod = 1;
     local dmgmod = 10;
     local dmgmodsubsequent = 2;
+    skill:setSkillchain(42); -- Savage Blade: Fragmentation / Scission
+    pet:addTP(300 + skill:getTP()); -- add tp for using physical skill
     local totaldamage = 0;
     local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,dmgmodsubsequent,TP_NO_EFFECT,1,2,3);
     totaldamage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_SLASH,numhits);

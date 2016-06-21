@@ -334,6 +334,7 @@ public:
 
     virtual bool ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags) override;
     virtual bool CanUseSpell(CSpell*) override;
+    void insertSpellRecast(uint16 recastID, uint16 recastTime, bool needUpdate = true);
 
     virtual void Die() override;
     void Die(duration);
