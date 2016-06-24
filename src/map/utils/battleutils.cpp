@@ -3084,6 +3084,81 @@ namespace battleutils
         return SC_NONE;
     }
 
+    bool canSkillchain(CBattleEntity* PDefender, uint16 wsid) {
+        CWeaponSkill* PWeaponSkill = GetWeaponSkill(wsid);
+        CStatusEffect* PSCEffect = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_SKILLCHAIN, 0);
+        CStatusEffect* PCBEffect = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_CHAINBOUND, 0);
+        SKILLCHAIN_ELEMENT skillchain = SC_NONE;
+
+        std::list<SKILLCHAIN_ELEMENT> skillProperties;
+        skillProperties.push_back((SKILLCHAIN_ELEMENT)PWeaponSkill->getPrimarySkillchain());
+        skillProperties.push_back((SKILLCHAIN_ELEMENT)PWeaponSkill->getSecondarySkillchain());
+        skillProperties.push_back((SKILLCHAIN_ELEMENT)PWeaponSkill->getTertiarySkillchain());
+
+        std::list<SKILLCHAIN_ELEMENT> resonanceProperties;
+
+        // Chainbound active on target
+        if (PCBEffect)
+        {
+            if (PCBEffect->GetStartTime() + 3s < server_clock::now())
+            {
+                //Konzen-Ittai
+                if (PCBEffect->GetPower() > 1)
+                {
+                    resonanceProperties.push_back(SC_LIGHT);
+                    resonanceProperties.push_back(SC_DARKNESS);
+                    resonanceProperties.push_back(SC_GRAVITATION);
+                    resonanceProperties.push_back(SC_FRAGMENTATION);
+                    resonanceProperties.push_back(SC_DISTORTION);
+                    resonanceProperties.push_back(SC_FUSION);
+                }
+                resonanceProperties.push_back(SC_LIQUEFACTION);
+                resonanceProperties.push_back(SC_INDURATION);
+                resonanceProperties.push_back(SC_REVERBERATION);
+                resonanceProperties.push_back(SC_IMPACTION);
+                resonanceProperties.push_back(SC_COMPRESSION);
+
+                skillchain = FormSkillchain(resonanceProperties, skillProperties);
+                return skillchain != SC_NONE;
+            }
+        }
+            // Previous effect exists
+        else if (PSCEffect && PSCEffect->GetTier() == 0)
+        {
+            DSP_DEBUG_BREAK_IF(!PSCEffect->GetPower() && !PSCEffect->GetSubPower());
+            // Previous effect is an opening effect, meaning the power is
+            // actually the ID of the opening weaponskill.  We need all 3
+            // of the possible skillchain properties on the initial link.
+            if (PSCEffect->GetStartTime() + 3s < server_clock::now())
+            {
+                if (PSCEffect->GetPower())
+                {
+                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)g_PWeaponSkillList[PSCEffect->GetPower()]->getPrimarySkillchain());
+                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)g_PWeaponSkillList[PSCEffect->GetPower()]->getSecondarySkillchain());
+                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)g_PWeaponSkillList[PSCEffect->GetPower()]->getTertiarySkillchain());
+                }
+                else
+                {
+                    CBlueSpell* oldSpell = (CBlueSpell*)spell::GetSpell(PSCEffect->GetSubPower());
+                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)oldSpell->getPrimarySkillchain());
+                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)oldSpell->getSecondarySkillchain());
+                }
+                skillchain = FormSkillchain(resonanceProperties, skillProperties);
+                return skillchain != SC_NONE;
+            }
+        }
+        else if (PSCEffect != nullptr)
+        {
+            // Previous effect is not an opening effect, meaning the power is
+            // The skill chain ID resonating.
+            resonanceProperties.push_back((SKILLCHAIN_ELEMENT)PSCEffect->GetPower());
+            skillchain = FormSkillchain(resonanceProperties, skillProperties);
+            return skillchain != SC_NONE;
+        }
+        return false;
+    }
+
+
     SUBEFFECT GetSkillChainEffect(CBattleEntity* PDefender, CWeaponSkill* PWeaponSkill)
     {
         CStatusEffect* PSCEffect = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_SKILLCHAIN, 0);

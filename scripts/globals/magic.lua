@@ -1256,6 +1256,16 @@ function doElementalNuke(caster, spell, target, spellParams)
     local resistBonus = spellParams.resistBonus;
     local mDMG = caster:getMod(MOD_MAGIC_DAMAGE);
 
+    if (caster:isPet()) then
+        local master = caster:getMaster()
+        dINT = dINT + master:getMod(MOD_CHR);
+        if (caster:getSystem() == SYSTEM_ELEMENTAL) then
+            resistBonus = resistBonus + master:getMod(MOD_SUMMONING);
+        end
+
+    end
+
+
     --[[
             Calculate base damage:
             D = mDMG + V + (dINT × M)

@@ -28,13 +28,31 @@
 #include <array>
 #include <map>
 
-struct spellTimer {
-	uint32 delay;
-	time_point time;
-    spellTimer(uint32 delayTo) : delay(delayTo) {};
+
+enum ATTACHMENT {
+    ATTACHMENT_TACTICAL_PROCESSOR   = 8485,
+    ATTACHMENT_SCANNER              = 8483,
+    ATTACHMENT_DAMAGE_GAUGE         = 8643,
+    ATTACHMENT_VIVI_VALVE           = 8649,
+	ATTACHMENT_PERCOLATOR           = 8616,
+	ATTACHMENT_HEATSINK             = 8610,
+	ATTACHMENT_INHIBITOR            = 8451,
+	ATTACHMENT_CONDENSER            = 8614,
+	ATTACHMENT_MANA_BOOSTER         = 8481,
+	ATTACHMENT_REPLICATOR           = 8519,
+	ATTACHMENT_MANA_CONVERTER       = 8674,
+	ATTACHMENT_REACTIVE_SHIELD      = 8454,
+	ATTACHMENT_HEAT_CAPACITOR       = 8456,
+	ATTACHMENT_BARRAGE_TURBINE      = 8520,
+	ATTACHMENT_FLASHBULB            = 8642,
+	ATTACHMENT_ECONOMIZER           = 8678,
+	ATTACHMENT_ERASER               = 8645,
+	ATTACHMENT_DISRUPTOR            = 8680,
+	ATTACHMENT_STROBE               = 8449,
+	ATTACHMENT_STROBE_II            = 8457,
+	ATTACHMENT_SHOCK_ABSORBER       = 8545,
+	ATTACHMENT_SHOCK_ABSORBER_II    = 8553
 };
-
-
 
 
 enum AUTOFRAMETYPE
@@ -92,16 +110,11 @@ public:
 	uint8 m_healDelay;
 	uint8 m_enhanceDelay;
 	uint8 m_enfeebleDelay;
+    uint8 m_statusDelay;
 	uint8 m_nukeDelay;
+	uint8 m_darkDelay;
 	uint8 m_universalDelay;
 
-	time_point  m_healTick;
-	time_point  m_enhanceTick;
-	time_point  m_enfeebleTick;
-	time_point  m_nukeTick;
-	time_point  m_universalTick;
-
-	std::map<SKILLTYPE, spellTimer> timers;
 
     void burdenTick();
     void setInitialBurden();

@@ -18,20 +18,20 @@ end
 
 function onManeuverGain(pet,maneuvers)
     if (maneuvers == 1) then
-        pet:addMod(MOD_MDEF, 10);
+        pet:addMod(MOD_MDEF, 15);
     elseif (maneuvers == 2) then
-        pet:addMod(MOD_MDEF, 10); 
+        pet:addMod(MOD_MDEF, 6);
     elseif (maneuvers == 3) then
-        pet:addMod(MOD_MDEF, 10);
+        pet:addMod(MOD_MDEF, 6);
     end
 end
 
 function onManeuverLose(pet,maneuvers)
     if (maneuvers == 1) then
-        pet:delMod(MOD_MDEF, 10);
+        pet:delMod(MOD_MDEF, 15);
     elseif (maneuvers == 2) then
-        pet:delMod(MOD_MDEF, 10); 
+        pet:delMod(MOD_MDEF, 6);
     elseif (maneuvers == 3) then
-        pet:delMod(MOD_MDEF, 10);
+        pet:delMod(MOD_MDEF, 6);
     end
 end

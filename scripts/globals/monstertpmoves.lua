@@ -90,9 +90,188 @@ MSG_DISAPPEAR_NUM = 231; -- <num> of <target>'s effects disappear!
 
 BOMB_TOSS_HPP = 1;
 
-function MobRangedMove(mob,target,skill,numberofhits,accmod,dmgmod, tpeffect)
+function MobRangedMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mtp000,mtp150,mtp300,offcratiomod)
     -- this will eventually contian ranged attack code
-    return MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod, TP_RANGED);
+    local returninfo = {};
+    local master = mob:getMaster();
+
+    --get dstr (bias to monsters, so no fSTR)
+    local dstr = mob:getStat(MOD_DEX) - target:getStat(MOD_VIT);
+    if (master ~= nil) then dstr = dstr + master:getMod(MOD_CHR)  end;
+    if (dstr < -40) then
+        dstr = -40;
+    end
+
+    if (dstr > 40) then
+        dstr = 40;
+    end
+
+    local lvluser = mob:getMainLvl();
+    local lvltarget = target:getMainLvl();
+    local acc = mob:getRACC();
+    local eva = target:getEVA();
+    if (master ~= nil) then acc = acc + master:getMod(MOD_CHR) / 2 end;
+    if (target:hasStatusEffect(EFFECT_YONIN) and mob:isFacing(target, 23)) then -- Yonin evasion boost if mob is facing target
+    eva = eva + target:getStatusEffect(EFFECT_YONIN):getPower();
+    end
+
+    if (mob:isPet() and tpeffect == TP_NO_EFFECT) then
+        local barrage = mob:getStatusEffect(EFFECT_BARRAGE);
+        if (barrage ~= nil) then
+            numberofhits = numberofhits + barrage:getPower();
+            mob:delStatusEffect(EFFECT_BARRAGE);
+        end
+    end
+
+    local foil = target:getStatusEffect(EFFECT_FOIL)
+    if (foil ~= nil) then
+        acc = acc - foil:getPower();
+        target:addTP(foil:getPower() * 5);
+        target:delStatusEffect(EFFECT_FOIL);
+    end
+
+    --apply WSC
+    local base = mob:getWeaponDmg() + dstr; --todo: change to include WSC
+    if (base < 1) then
+        base = 1;
+    end
+
+    --work out and cap ratio
+    if (offcratiomod == nil) then -- default to attack. Pretty much every physical mobskill will use this, Cannonball being the exception.
+    offcratiomod = mob:getRATT();
+    -- print ("Nothing passed, defaulting to attack");
+    end;
+    local ratio = offcratiomod/target:getStat(MOD_DEF);
+
+    local lvldiff = lvluser - lvltarget;
+    if lvldiff < 0 then
+        lvldiff = 0;
+    end;
+
+    if (not mob:isPet()) then
+        ratio = ratio + lvldiff * 0.05;
+    end
+    ratio = utils.clamp(ratio, 0, 4.5);
+
+    --work out hit rate for mobs (bias towards them)
+    local hitrate = (acc*accmod) - eva + (lvldiff*2) + 75;
+
+    -- printf("acc: %f, eva: %f, hitrate: %f", acc, eva, hitrate);
+    hitrate = utils.clamp(hitrate, 20, 95);
+
+    --work out the base damage for a single hit
+    local hitdamage = base + lvldiff;
+    if (hitdamage < 1) then
+        hitdamage = 1;
+    end
+
+    hitdamage = hitdamage * dmgmod;
+
+    if (tpeffect == TP_DMG_VARIES) then
+        hitdamage = hitdamage * MobTPMod(skill:getTP() + mob:getMod(MOD_TP_BONUS));
+    end
+
+    local critChance = 0;
+    if (tpeffect == TP_CRIT_VARIES) then
+        critChance = 25 * fTP(skill:getTP() + mob:getMod(MOD_TP_BONUS), mtp000, mtp150, mtp300);
+    end
+
+
+    --work out min and max cRatio
+    local maxRatio = 1;
+    local minRatio = 0;
+
+    if (ratio < 0.5) then
+        maxRatio = ratio + 0.5;
+    elseif ((0.5 <= ratio) and (ratio <= 0.7)) then
+        maxRatio = 1;
+    elseif ((0.7 < ratio) and (ratio <= 1.2)) then
+        maxRatio = ratio + 0.3;
+    elseif ((1.2 < ratio) and (ratio <= 1.5)) then
+        maxRatio = (ratio * 0.25) + ratio;
+    elseif ((1.5 < ratio) and (ratio <= 2.625)) then
+        maxRatio = ratio + 0.375;
+    elseif ((2.625 < ratio) and (ratio <= 3.25)) then
+        maxRatio = 3;
+    else
+        maxRatio = ratio;
+    end
+
+
+    if (ratio < 0.38) then
+        minRatio =  0;
+    elseif ((0.38 <= ratio) and (ratio <= 1.25)) then
+        minRatio = ratio * (1176 / 1024) - (448 / 1024);
+    elseif ((1.25 < ratio) and (ratio <= 1.51)) then
+        minRatio = 1;
+    elseif ((1.51 < ratio) and (ratio <= 2.44)) then
+        minRatio = ratio * (1176 / 1024) - (775 / 1024);
+    else
+        minRatio = ratio - 0.375;
+    end
+
+    --apply ftp (assumes 1~3 scalar linear mod)
+    if (tpeffect==TP_DMG_BONUS) then
+        hitdamage = hitdamage * fTP(skill:getTP() + mob:getMod(MOD_TP_BONUS), mtp000, mtp150, mtp300);
+    end
+
+    --Applying pDIF
+    local pdif = 0;
+
+    -- start the hits
+    local hitchance = math.random();
+    local finaldmg = 0;
+    local hitsdone = 1;
+    local hitslanded = 0;
+
+    local chance = math.random();
+
+    -- first hit has a higher chance to land
+    local firstHitChance = hitrate * 1.5 * 1.2;
+
+    firstHitChance = utils.clamp(firstHitChance, 35, 95);
+
+    if ((chance*100) <= firstHitChance) then
+        pdif = math.random((minRatio*1000),(maxRatio*1000)) --generate random PDIF
+        pdif = pdif/1000; --multiplier set.
+        finaldmg = finaldmg + hitdamage * pdif;
+        hitslanded = hitslanded + 1;
+    end
+    while (hitsdone < numberofhits) do
+        chance = math.random();
+        if ((chance*100)<=hitrate) then --it hit
+        pdif = math.random((minRatio*1000),(maxRatio*1000)) --generate random PDIF
+        pdif = pdif/1000; --multiplier set.
+        finaldmg = finaldmg + hitdamage * pdif;
+        hitslanded = hitslanded + 1;
+        end
+        hitsdone = hitsdone + 1;
+    end
+
+    -- printf("final: %f, hits: %f, acc: %f", finaldmg, hitslanded, hitrate);
+    -- printf("ratio: %f, min: %f, max: %f, pdif, %f hitdmg: %f", ratio, minRatio, maxRatio, pdif, hitdamage);
+
+    -- if an attack landed it must do at least 1 damage
+    if (hitslanded >= 1 and finaldmg < 1) then
+        finaldmg = 1;
+    end
+
+    if (critChance + target:getMod(MOD_ENEMYCRITRATE) < math.random(0, 100)) then
+        finaldmg = finaldmg * 1.75;
+    end
+
+
+    -- all hits missed
+    if (hitslanded == 0 or finaldmg == 0) then
+        finaldmg = 0;
+        hitslanded = 0;
+        skill:setMsg(MSG_MISS);
+    end
+
+    returninfo.dmg = finaldmg;
+    returninfo.hitslanded = hitslanded;
+
+    return returninfo;
 end;
 
 -- PHYSICAL MOVE FUNCTION
@@ -116,12 +295,12 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     --get dstr (bias to monsters, so no fSTR)
     local dstr = mob:getStat(MOD_STR) - target:getStat(MOD_VIT);
     if (master ~= nil) then dstr = dstr + master:getMod(MOD_CHR)  end;
-    if (dstr < -10) then
-        dstr = -10;
+    if (dstr < -40) then
+        dstr = -40;
     end
 
-    if (dstr > 10) then
-        dstr = 10;
+    if (dstr > 40) then
+        dstr = 40;
     end
 
     local lvluser = mob:getMainLvl();
@@ -159,7 +338,9 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
         lvldiff = 0;
     end;
 
-    ratio = ratio + lvldiff * 0.05;
+    if (not mob:isPet()) then
+        ratio = ratio + lvldiff * 0.05;
+    end
     ratio = utils.clamp(ratio, 0, 4);
     
     --work out hit rate for mobs (bias towards them)
@@ -180,8 +361,9 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
         hitdamage = hitdamage * MobTPMod(skill:getTP() + mob:getMod(MOD_TP_BONUS));
     end
 
+    local critChance = 0;
     if (tpeffect == TP_CRIT_VARIES) then
-        local critChance = 25 * fTP(skill:getTP() + mob:getMod(MOD_TP_BONUS), mtp000, mtp150, mtp300);
+        critChance = 25 * fTP(skill:getTP() + mob:getMod(MOD_TP_BONUS), mtp000, mtp150, mtp300);
     end
 
 
@@ -237,10 +419,6 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     -- first hit has a higher chance to land
     local firstHitChance = hitrate * 1.5;
 
-    if (tpeffect==TP_RANGED) then
-        firstHitChance = hitrate * 1.2;
-    end
-
     firstHitChance = utils.clamp(firstHitChance, 35, 95);
 
     if ((chance*100) <= firstHitChance) then
@@ -266,6 +444,10 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     -- if an attack landed it must do at least 1 damage
     if (hitslanded >= 1 and finaldmg < 1) then
         finaldmg = 1;
+    end
+
+    if (critChance + target:getMod(MOD_ENEMYCRITRATE) < math.random(0, 100)) then
+        finaldmg = finaldmg * 1.75;
     end
 
     -- all hits missed
@@ -1084,7 +1266,115 @@ function doAstralFlow(target, pet, skill, master, element)
     return damage;
 end
 
+function getEffects(effectList, target, effectTypes)
+    local counter = 0;
+    for i,effectType in ipairs(effectTypes) do
+        local effect = target:getStatusEffect(effectType);
+        if (effect ~= nil) then
+            counter = counter + 1;
+            effectList[counter] = effectType;
+        end
+    end
+
+    return effectList, counter;
+end
+
+function removeNegative(target, times)
+    if (times == nil) then times = 100; end
+    local negatives = {
+        EFFECT_POISON,
+        EFFECT_POISON_II,
+        EFFECT_SILENCE,
+        EFFECT_AMNESIA,
+        EFFECT_ADDLE,
+        EFFECT_CHARM_I,
+        EFFECT_CHARM_II,
+        EFFECT_SLEEP_I,
+        EFFECT_SLEEP_II,
+        EFFECT_BIND,
+        EFFECT_DISEASE,
+        EFFECT_PLAGUE,
+        EFFECT_PARALYSIS,
+        EFFECT_PARALYSIS_II,
+        EFFECT_SLOW,
+        EFFECT_SLOW_II,
+        EFFECT_ATTACK_DOWN,
+        EFFECT_ATTACK_DOWN_II,
+        EFFECT_MAGIC_ATK_DOWN,
+        EFFECT_MAGIC_ATK_DOWN_II,
+        EFFECT_ACCURACY_DOWN,
+        EFFECT_ACCURACY_DOWN_II,
+        EFFECT_MAGIC_ACC_DOWN,
+        EFFECT_MAGIC_ACC_DOWN_II,
+        EFFECT_EVASION_DOWN,
+        EFFECT_EVASION_DOWN_II,
+        EFFECT_MAGIC_EVASION_DOWN,
+        EFFECT_MAGIC_EVASION_DOWN_II,
+        EFFECT_VIT_DOWN,
+        EFFECT_STR_DOWN,
+        EFFECT_AGI_DOWN,
+        EFFECT_INT_DOWN,
+        EFFECT_CHR_DOWN,
+        EFFECT_MND_DOWN,
+        EFFECT_DEX_DOWN,
+        EFFECT_WEIGHT,
+        EFFECT_WEIGHT_II,
+        EFFECT_DIA,
+        EFFECT_BIO,
+        EFFECT_BLINDNESS,
+        EFFECT_REQUIEM,
+        EFFECT_ELEGY,
+        EFFECT_BURN,
+        EFFECT_FROST,
+        EFFECT_CHOKE,
+        EFFECT_RASP,
+        EFFECT_DROWN,
+        EFFECT_SHOCK
+    };
+
+    local removed = 0;
+    local effects, counter = getEffects(negatives, target);
+    while (times > 0) do
+        if (counter == 0) then
+            return removed;
+        end
+
+        local randEffect = effects[math.random(1, counter)];
+        target:delStatusEffect(randEffect);
+        effects.remove(counter);
+        removed = removed + 1;
+        counter = counter - 1;
+        times = times - 1;
+    end
+
+    return removed;
+end
+
 function AutomatonFinalAdjustments(target, pet, skill, damage)
+    local master = pet:getMaster();
+    local dark = master:getEffectsCount(EFFECT_DARK_MANEUVER);
+    local fire = master:getEffectsCount(EFFECT_FIRE_MANEUVER);
+    local light = master:getEffectsCount(EFFECT_LIGHT_MANEUVER);
+    if (pet:hasAttachment(8677) and dark > 0 and damage > 0) then -- Smoke Screen
+        print("Blind");
+        local success = MobStatusEffectMove(pet, target, EFFECT_BLINDNESS, 25, 0, 60);
+        if (success == 242) then
+            target:setPendingMessage(277, EFFECT_BLINDNESS);
+        end
+    end
+
+    if (pet:hasAttachment(8455) and fire > 0 and damage > 0) then -- Flame Holder
+        damage = damage * (1 + fire * 0.15);
+        if (fire == 3) then damage = damage * 1.10 end;
+        master:delStatusEffectSilent(EFFECT_FIRE_MANEUVER);
+        master:delStatusEffectSilent(EFFECT_FIRE_MANEUVER);
+        master:delStatusEffectSilent(EFFECT_FIRE_MANEUVER);
+    end
+
+    if (pet:hasAttachment(8651) and light > 0 and damage > 0) then -- Arcanic Cell
+        pet:addMP(damage * (light * 0.15));
+    end
+
     return damage;
 end
 

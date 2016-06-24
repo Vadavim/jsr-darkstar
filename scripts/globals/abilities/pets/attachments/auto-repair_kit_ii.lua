@@ -1,5 +1,5 @@
------------------------------------
--- Attachment: Auto-repair Kit II
+-----------
+-- Attachment: Auto-repair Kit
 -----------------------------------
 
 require("scripts/globals/status");
@@ -9,37 +9,43 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onEquip(pet)
-    pet:addMod(MOD_HPP, 13)
+    pet:addMod(MOD_HPP, 12)
+    pet:addMod(MOD_REGEN, 2)
 end
 
 function onUnequip(pet)
-    pet:delMod(MOD_HPP, 13)
+    pet:delMod(MOD_HPP, 12)
+    pet:delMod(MOD_REGEN, 2)
 end
 
 function onManeuverGain(pet,maneuvers)
     local bonus = 0
-    local frame = pet:getFrame()
-    if frame == 0x20 or frame == 0x21 then bonus = 2 end
+    local frame = pet:getAutomatonFrame()
+    if frame == 0x20 or frame == 0x21 then bonus = 2 end;
     if (maneuvers == 1) then
-        pet:addMod(MOD_REGEN, 11 + bonus);
+        pet:addMod(MOD_REGEN, 2 + math.floor(pet:getMainLvl() / 7) + bonus);
+        pet:addMod(MOD_HPP, 9);
     elseif (maneuvers == 2) then
-        if frame == 0x22 then bonus = 1 end
-        pet:addMod(MOD_REGEN, 11 + bonus); 
+        pet:addMod(MOD_REGEN, 2 + math.floor(pet:getMainLvl() / 10) + bonus);
+        pet:addMod(MOD_HPP, 6);
     elseif (maneuvers == 3) then
-        pet:addMod(MOD_REGEN, 11 + bonus);
+        pet:addMod(MOD_REGEN, 2 + math.floor(pet:getMainLvl() / 7) + bonus);
+        pet:addMod(MOD_HPP, 9);
     end
 end
 
 function onManeuverLose(pet,maneuvers)
     local bonus = 0
-    local frame = pet:getFrame()
-    if frame == 0x20 or frame == 0x21 then bonus = 2 end
+    local frame = pet:getAutomatonFrame()
+    if frame == 0x20 or frame == 0x21 then bonus = 2 end;
     if (maneuvers == 1) then
-        pet:delMod(MOD_REGEN, 11 + bonus);
+        pet:delMod(MOD_REGEN, 2 + math.floor(pet:getMainLvl() / 7) + bonus);
+        pet:delMod(MOD_HPP, 9);
     elseif (maneuvers == 2) then
-        if frame == 0x22 then bonus = 1 end
-        pet:delMod(MOD_REGEN, 11 + bonus); 
+        pet:delMod(MOD_REGEN, 2 + math.floor(pet:getMainLvl() / 10) + bonus);
+        pet:delMod(MOD_HPP, 6);
     elseif (maneuvers == 3) then
-        pet:delMod(MOD_REGEN, 11 + bonus);
+        pet:delMod(MOD_REGEN, 2 + math.floor(pet:getMainLvl() / 7) + bonus);
+        pet:delMod(MOD_HPP, 9);
     end
 end

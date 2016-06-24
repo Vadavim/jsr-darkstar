@@ -140,7 +140,7 @@ namespace petutils
         FreePetList();
 
         const int8* Query =
-            "SELECT\
+                "SELECT\
                 pet_list.name,\
                 modelid,\
                 minLevel,\
@@ -292,38 +292,38 @@ namespace petutils
         uint8 lvl = PMob->GetMLevel();
         if (lvl > 50){
             switch (rank){
-            case 1:
-                return (float)153 + (lvl - 50)*5.0;
-            case 2:
-                return (float)147 + (lvl - 50)*4.9;
-            case 3:
-                return (float)136 + (lvl - 50)*4.8;
-            case 4:
-                return (float)126 + (lvl - 50)*4.7;
-            case 5:
-                return (float)116 + (lvl - 50)*4.5;
-            case 6:
-                return (float)106 + (lvl - 50)*4.4;
-            case 7:
-                return (float)96 + (lvl - 50)*4.3;
+                case 1:
+                    return (float)153 + (lvl - 50)*5.0;
+                case 2:
+                    return (float)147 + (lvl - 50)*4.9;
+                case 3:
+                    return (float)136 + (lvl - 50)*4.8;
+                case 4:
+                    return (float)126 + (lvl - 50)*4.7;
+                case 5:
+                    return (float)116 + (lvl - 50)*4.5;
+                case 6:
+                    return (float)106 + (lvl - 50)*4.4;
+                case 7:
+                    return (float)96 + (lvl - 50)*4.3;
             }
         }
         else {
             switch (rank){
-            case 1:
-                return (float)6 + (lvl - 1)*3.0;
-            case 2:
-                return (float)5 + (lvl - 1)*2.9;
-            case 3:
-                return (float)5 + (lvl - 1)*2.8;
-            case 4:
-                return (float)4 + (lvl - 1)*2.7;
-            case 5:
-                return (float)4 + (lvl - 1)*2.5;
-            case 6:
-                return (float)3 + (lvl - 1)*2.4;
-            case 7:
-                return (float)3 + (lvl - 1)*2.3;
+                case 1:
+                    return (float)6 + (lvl - 1)*3.0;
+                case 2:
+                    return (float)5 + (lvl - 1)*2.9;
+                case 3:
+                    return (float)5 + (lvl - 1)*2.8;
+                case 4:
+                    return (float)4 + (lvl - 1)*2.7;
+                case 5:
+                    return (float)4 + (lvl - 1)*2.5;
+                case 6:
+                    return (float)3 + (lvl - 1)*2.4;
+                case 7:
+                    return (float)3 + (lvl - 1)*2.3;
             }
         }
         return 0;
@@ -332,13 +332,13 @@ namespace petutils
     {
         switch (rank)
         {
-        case 1: return (5 + ((lvl - 1) * 50) / 100);
-        case 2: return (4 + ((lvl - 1) * 45) / 100);
-        case 3: return (4 + ((lvl - 1) * 40) / 100);
-        case 4: return (3 + ((lvl - 1) * 35) / 100);
-        case 5: return (3 + ((lvl - 1) * 30) / 100);
-        case 6: return (2 + ((lvl - 1) * 25) / 100);
-        case 7: return (2 + ((lvl - 1) * 20) / 100);
+            case 1: return (5 + ((lvl - 1) * 50) / 100);
+            case 2: return (4 + ((lvl - 1) * 45) / 100);
+            case 3: return (4 + ((lvl - 1) * 40) / 100);
+            case 4: return (3 + ((lvl - 1) * 35) / 100);
+            case 5: return (3 + ((lvl - 1) * 30) / 100);
+            case 6: return (2 + ((lvl - 1) * 25) / 100);
+            case 7: return (2 + ((lvl - 1) * 20) / 100);
         }
         return 0;
     }
@@ -376,15 +376,15 @@ namespace petutils
         PMob->health.maxhp = (int16)(17.0 * pow(lvl, growth) * petStats->HPscale);
 
         switch (PMob->GetMJob()){
-        case JOB_PLD:
-        case JOB_WHM:
-        case JOB_BLM:
-        case JOB_RDM:
-        case JOB_DRK:
-        case JOB_BLU:
-        case JOB_SCH:
-            PMob->health.maxmp = (int16)(15.2 * pow(lvl, 1.1075) * petStats->MPscale);
-            break;
+            case JOB_PLD:
+            case JOB_WHM:
+            case JOB_BLM:
+            case JOB_RDM:
+            case JOB_DRK:
+            case JOB_BLU:
+            case JOB_SCH:
+                PMob->health.maxmp = (int16)(15.2 * pow(lvl, 1.1075) * petStats->MPscale);
+                break;
         }
 
         PMob->speed = petStats->speed;
@@ -475,10 +475,10 @@ namespace petutils
         grade = 4;
 
         raceStat = grade::GetHPScale(grade, baseValueColumn) +
-            (grade::GetHPScale(grade, scaleTo60Column) * mainLevelUpTo60) +
-            (grade::GetHPScale(grade, scaleOver30Column) * mainLevelOver30) +
-            (grade::GetHPScale(grade, scaleOver60Column) * mainLevelOver60To75) +
-            (grade::GetHPScale(grade, scaleOver75Column) * mainLevelOver75);
+                   (grade::GetHPScale(grade, scaleTo60Column) * mainLevelUpTo60) +
+                   (grade::GetHPScale(grade, scaleOver30Column) * mainLevelOver30) +
+                   (grade::GetHPScale(grade, scaleOver60Column) * mainLevelOver60To75) +
+                   (grade::GetHPScale(grade, scaleOver75Column) * mainLevelOver75);
 
         // raceStat = (int32)(statScale[grade][baseValueColumn] + statScale[grade][scaleTo60Column] * (mlvl - 1));
 
@@ -486,10 +486,10 @@ namespace petutils
         grade = grade::GetJobGrade(mjob, 0);
 
         jobStat = grade::GetHPScale(grade, baseValueColumn) +
-            (grade::GetHPScale(grade, scaleTo60Column) * mainLevelUpTo60) +
-            (grade::GetHPScale(grade, scaleOver30Column) * mainLevelOver30) +
-            (grade::GetHPScale(grade, scaleOver60Column) * mainLevelOver60To75) +
-            (grade::GetHPScale(grade, scaleOver75Column) * mainLevelOver75);
+                  (grade::GetHPScale(grade, scaleTo60Column) * mainLevelUpTo60) +
+                  (grade::GetHPScale(grade, scaleOver30Column) * mainLevelOver30) +
+                  (grade::GetHPScale(grade, scaleOver60Column) * mainLevelOver60To75) +
+                  (grade::GetHPScale(grade, scaleOver75Column) * mainLevelOver75);
 
         // Расчет бонусных HP
         bonusStat = (mainLevelOver10 + mainLevelOver50andUnder60) * 2;
@@ -509,8 +509,8 @@ namespace petutils
         {
             //Расчет нормального расового бонуса
             raceStat = grade::GetMPScale(grade, 0) +
-                grade::GetMPScale(grade, scaleTo60Column) * mainLevelUpTo60 +
-                grade::GetMPScale(grade, scaleOver60) * mainLevelOver60;
+                       grade::GetMPScale(grade, scaleTo60Column) * mainLevelUpTo60 +
+                       grade::GetMPScale(grade, scaleOver60) * mainLevelOver60;
         }
 
         //Для главной профессии
@@ -518,16 +518,16 @@ namespace petutils
         if (grade > 0)
         {
             jobStat = grade::GetMPScale(grade, 0) +
-                grade::GetMPScale(grade, scaleTo60Column) * mainLevelUpTo60 +
-                grade::GetMPScale(grade, scaleOver60) * mainLevelOver60;
+                      grade::GetMPScale(grade, scaleTo60Column) * mainLevelUpTo60 +
+                      grade::GetMPScale(grade, scaleOver60) * mainLevelOver60;
         }
 
         grade = grade::GetJobGrade(sjob, 1);
         if (grade > 0)
         {
             sJobStat = grade::GetMPScale(grade, 0) +
-                grade::GetMPScale(grade, scaleTo60Column) * mainLevelUpTo60 +
-                grade::GetMPScale(grade, scaleOver60) * mainLevelOver60;
+                       grade::GetMPScale(grade, scaleTo60Column) * mainLevelUpTo60 +
+                       grade::GetMPScale(grade, scaleOver60) * mainLevelOver60;
         }
 
         PPet->health.maxmp = (int16)(raceStat + jobStat + sJobStat) * petStats->MPscale;
@@ -574,34 +574,84 @@ namespace petutils
 
         CAutomatonEntity* PAutomaton = (CAutomatonEntity*)PPet;
 
-        PAutomaton->m_universalDelay = 10;
+        PAutomaton->m_universalDelay = 8;
+        AUTOHEADTYPE head = PAutomaton->getHead();
+        AUTOFRAMETYPE frame = PAutomaton->getFrame();
 
-        if (PAutomaton->getHead() == HEAD_STORMWAKER) {
-            PAutomaton->m_nukeDelay = 25;
-            PAutomaton->m_healDelay = 25;
+        if (frame == FRAME_STORMWAKER && head == HEAD_STORMWAKER ) {
+            PAutomaton->m_universalDelay = 7;
+            PAutomaton->m_nukeDelay = 27;
+            PAutomaton->m_healDelay = 27;
             PAutomaton->m_enfeebleDelay = 15;
+            PAutomaton->m_darkDelay = 60;
             PAutomaton->m_enhanceDelay = 30;
+            PAutomaton->m_statusDelay = 30;
+        } else if (frame == FRAME_STORMWAKER && head == HEAD_SPIRITREAVER) {
+            PAutomaton->m_nukeDelay = 32;
+            PAutomaton->m_healDelay = 60;
+            PAutomaton->m_enfeebleDelay = 15;
+            PAutomaton->m_enhanceDelay = 60;
+            PAutomaton->m_statusDelay = 120;
+            PAutomaton->m_darkDelay = 60;
+        } else if (frame == FRAME_STORMWAKER && head == HEAD_SOULSOOTHER) {
+            PAutomaton->m_universalDelay = 4;
+            PAutomaton->m_nukeDelay = 60;
+            PAutomaton->m_healDelay = 15;
+            PAutomaton->m_enfeebleDelay = 8;
+            PAutomaton->m_enhanceDelay = 15;
+            PAutomaton->m_statusDelay = 15;
         }
 
+        int magicSkill = dsp_cap(battleutils::GetMaxSkill(2, PPet->GetMLevel()), 0, PMaster->GetSkill(SKILL_AMA));
+        PPet->WorkingSkills.enfeebling = magicSkill;
+        PPet->WorkingSkills.elemental = magicSkill;
+        PPet->WorkingSkills.divine  = magicSkill;
+        PPet->WorkingSkills.dark  = magicSkill;
+        PPet->WorkingSkills.healing  = magicSkill;
+        PPet->WorkingSkills.enhancing  = magicSkill;
+        PPet->setModifier(MOD_MATT, -25);
+        PPet->setModifier(MOD_SUBTLE_BLOW, 25 + PPet->GetMLevel() / 5);
 
         switch (PAutomaton->getFrame())
         {
-        case FRAME_HARLEQUIN:
-            PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(2, PPet->GetMLevel());
-            PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(5, PPet->GetMLevel()));
-            break;
-        case FRAME_VALOREDGE:
-            PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(5, PPet->GetMLevel());
-            PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(4, PPet->GetMLevel()));
-            break;
-        case FRAME_SHARPSHOT:
-            PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(1, PPet->GetMLevel());
-            PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(11, PPet->GetMLevel()));
-            break;
-        case FRAME_STORMWAKER:
-            PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(10, PPet->GetMLevel());
-            PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(12, PPet->GetMLevel()));
-            break;
+            case FRAME_HARLEQUIN:
+                PPet->setModifier(MOD_FASTCAST, 50);
+                PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(2, PPet->GetMLevel());
+                if (head == HEAD_SHARPSHOT)
+                    PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(1, PPet->GetMLevel());
+                PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(5, PPet->GetMLevel()));
+
+                if (head == HEAD_VALOREDGE) {
+                    PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(4, PPet->GetMLevel()));
+                    PPet->setModifier(MOD_ATTP, 15);
+                    PPet->setModifier(MOD_ACC, 20);
+                    PPet->setModifier(MOD_STORETP, 20);
+                    PPet->setModifier(MOD_UDMGPHYS, -10);
+                    PPet->setModifier(MOD_UDMGMAGIC, -10);
+                }
+
+
+                PPet->WorkingSkills.enfeebling += PPet->GetMLevel() / 4;
+                PPet->WorkingSkills.enhancing += PPet->GetMLevel() / 4;
+                break;
+            case FRAME_VALOREDGE:
+                PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(5, PPet->GetMLevel());
+                if (head == HEAD_VALOREDGE)
+                    PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(3, PPet->GetMLevel()));
+                else
+                    PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(4, PPet->GetMLevel()));
+                break;
+            case FRAME_SHARPSHOT:
+                PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(1, PPet->GetMLevel());
+                PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(11, PPet->GetMLevel()));
+                break;
+            case FRAME_STORMWAKER:
+                PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(10, PPet->GetMLevel());
+                PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(12, PPet->GetMLevel()));
+                PPet->m_Behaviour |= BEHAVIOUR_STANDBACK;
+                if (head == HEAD_STORMWAKER)
+                    PPet->setModifier(MOD_FASTCAST, 25);
+                break;
         }
     }
 
@@ -643,10 +693,10 @@ namespace petutils
         grade = grade::GetRaceGrades(race, 0);
 
         raceStat = grade::GetHPScale(grade, baseValueColumn) +
-            (grade::GetHPScale(grade, scaleTo60Column) * mainLevelUpTo60) +
-            (grade::GetHPScale(grade, scaleOver30Column) * mainLevelOver30) +
-            (grade::GetHPScale(grade, scaleOver60Column) * mainLevelOver60To75) +
-            (grade::GetHPScale(grade, scaleOver75Column) * mainLevelOver75);
+                   (grade::GetHPScale(grade, scaleTo60Column) * mainLevelUpTo60) +
+                   (grade::GetHPScale(grade, scaleOver30Column) * mainLevelOver30) +
+                   (grade::GetHPScale(grade, scaleOver60Column) * mainLevelOver60To75) +
+                   (grade::GetHPScale(grade, scaleOver75Column) * mainLevelOver75);
 
         // raceStat = (int32)(statScale[grade][baseValueColumn] + statScale[grade][scaleTo60Column] * (mlvl - 1));
 
@@ -654,10 +704,10 @@ namespace petutils
         grade = grade::GetJobGrade(mjob, 0);
 
         jobStat = grade::GetHPScale(grade, baseValueColumn) +
-            (grade::GetHPScale(grade, scaleTo60Column) * mainLevelUpTo60) +
-            (grade::GetHPScale(grade, scaleOver30Column) * mainLevelOver30) +
-            (grade::GetHPScale(grade, scaleOver60Column) * mainLevelOver60To75) +
-            (grade::GetHPScale(grade, scaleOver75Column) * mainLevelOver75);
+                  (grade::GetHPScale(grade, scaleTo60Column) * mainLevelUpTo60) +
+                  (grade::GetHPScale(grade, scaleOver30Column) * mainLevelOver30) +
+                  (grade::GetHPScale(grade, scaleOver60Column) * mainLevelOver60To75) +
+                  (grade::GetHPScale(grade, scaleOver75Column) * mainLevelOver75);
 
         // Расчет бонусных HP
         bonusStat = (mainLevelOver10 + mainLevelOver50andUnder60) * 2;
@@ -681,8 +731,8 @@ namespace petutils
         else{
             //Расчет нормального расового бонуса
             raceStat = grade::GetMPScale(grade, 0) +
-                grade::GetMPScale(grade, scaleTo60Column) * mainLevelUpTo60 +
-                grade::GetMPScale(grade, scaleOver60) * mainLevelOver60;
+                       grade::GetMPScale(grade, scaleTo60Column) * mainLevelUpTo60 +
+                       grade::GetMPScale(grade, scaleOver60) * mainLevelOver60;
         }
 
         //Для главной профессии
@@ -690,8 +740,8 @@ namespace petutils
         if (grade > 0)
         {
             jobStat = grade::GetMPScale(grade, 0) +
-                grade::GetMPScale(grade, scaleTo60Column) * mainLevelUpTo60 +
-                grade::GetMPScale(grade, scaleOver60) * mainLevelOver60;
+                      grade::GetMPScale(grade, scaleTo60Column) * mainLevelUpTo60 +
+                      grade::GetMPScale(grade, scaleOver60) * mainLevelOver60;
         }
 
         PPet->health.maxmp = (int16)(raceStat + jobStat + sJobStat); // результат расчета MP
@@ -800,49 +850,49 @@ namespace petutils
         }
     }
 
- void SpawnAlly(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone) {
+    void SpawnAlly(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone) {
 
-     // check to see if in full party
-     uint16 partySize = PMaster->PAlly.size();
-     if (PMaster->PParty != nullptr)
-     {
-         // party members and their allies count towards party size
-         for (uint8 i = 0; i < PMaster->PParty->members.size(); i++)
-         {
-             CBattleEntity* PPartyMember = PMaster->PParty->members[i];
-             partySize = partySize + 1 + PPartyMember->PAlly.size();
-         }
-     }
-     else
-     {
-         partySize += 1;
-     }
+        // check to see if in full party
+        uint16 partySize = PMaster->PAlly.size();
+        if (PMaster->PParty != nullptr)
+        {
+            // party members and their allies count towards party size
+            for (uint8 i = 0; i < PMaster->PParty->members.size(); i++)
+            {
+                CBattleEntity* PPartyMember = PMaster->PParty->members[i];
+                partySize = partySize + 1 + PPartyMember->PAlly.size();
+            }
+        }
+        else
+        {
+            partySize += 1;
+        }
 
-     if (partySize > 6)
-         return;
-
-
-     // get rid of an ally if max of two has been reached
-     if (PMaster->PAlly.size() > 2) {
-         PMaster->PAlly[1]->Die();
-         PMaster->PAlly.pop_back();
-     }
-
-     // make a new party with ally
-     if (PMaster->PParty == nullptr)
-         PMaster->PParty = new CParty(PMaster);
-
-     CPetEntity* PAlly = LoadAlly(PMaster, PetID, spawningFromZone);
-     PAlly->allegiance = PMaster->allegiance;
-     PMaster->StatusEffectContainer->CopyConfrontationEffect(PAlly);
-     PAlly->PMaster = PMaster;
-     PAlly->Spawn();
-     PMaster->loc.zone->InsertPET(PAlly);
-     PMaster->PParty->ReloadParty();
+        if (partySize > 6)
+            return;
 
 
+        // get rid of an ally if max of two has been reached
+        if (PMaster->PAlly.size() > 2) {
+            PMaster->PAlly[1]->Die();
+            PMaster->PAlly.pop_back();
+        }
 
-}
+        // make a new party with ally
+        if (PMaster->PParty == nullptr)
+            PMaster->PParty = new CParty(PMaster);
+
+        CPetEntity* PAlly = LoadAlly(PMaster, PetID, spawningFromZone);
+        PAlly->allegiance = PMaster->allegiance;
+        PMaster->StatusEffectContainer->CopyConfrontationEffect(PAlly);
+        PAlly->PMaster = PMaster;
+        PAlly->Spawn();
+        PMaster->loc.zone->InsertPET(PAlly);
+        PMaster->PParty->ReloadParty();
+
+
+
+    }
 
     void SpawnMobPet(CBattleEntity* PMaster, uint32 PetID)
     {
@@ -1221,13 +1271,13 @@ namespace petutils
         {
             petType = PETTYPE_AVATAR;
         }
-        //TODO: move this out of modifying the global pet list
+            //TODO: move this out of modifying the global pet list
         else if (PetID == PETID_WYVERN)
         {
             petType = PETTYPE_WYVERN;
 
             const int8* Query =
-                "SELECT\
+                    "SELECT\
                 pet_name.name,\
                 char_pet.wyvernid\
                 FROM pet_name, char_pet\
@@ -1248,39 +1298,39 @@ namespace petutils
                 }
             }
         }
-        /*
-        else if (PetID==PETID_ADVENTURING_FELLOW)
-        {
-        petType = PETTYPE_ADVENTURING_FELLOW;
+            /*
+            else if (PetID==PETID_ADVENTURING_FELLOW)
+            {
+            petType = PETTYPE_ADVENTURING_FELLOW;
 
-        const int8* Query =
-        "SELECT\
-        pet_name.name,\
-        char_pet.adventuringfellowid\
-        FROM pet_name, char_pet\
-        WHERE pet_name.id = char_pet.adventuringfellowid";
+            const int8* Query =
+            "SELECT\
+            pet_name.name,\
+            char_pet.adventuringfellowid\
+            FROM pet_name, char_pet\
+            WHERE pet_name.id = char_pet.adventuringfellowid";
 
-        if ( Sql_Query(SqlHandle, Query) != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
-        {
-        while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
-        {
-        uint16 adventuringfellowid = (uint16)Sql_GetIntData(SqlHandle, 1);
+            if ( Sql_Query(SqlHandle, Query) != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
+            {
+            while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+            {
+            uint16 adventuringfellowid = (uint16)Sql_GetIntData(SqlHandle, 1);
 
-        if (adventuringfellowid != 0)
-        {
-        g_PPetList.at(PetID)->name.clear();
-        g_PPetList.at(PetID)->name.insert(0, Sql_GetData(SqlHandle, 0));
-        }
-        }
-        }
-        }
-        */
+            if (adventuringfellowid != 0)
+            {
+            g_PPetList.at(PetID)->name.clear();
+            g_PPetList.at(PetID)->name.insert(0, Sql_GetData(SqlHandle, 0));
+            }
+            }
+            }
+            }
+            */
         else if (PetID == PETID_CHOCOBO)
         {
             petType = PETTYPE_CHOCOBO;
 
             const int8* Query =
-                "SELECT\
+                    "SELECT\
                 char_pet.chocoboid\
                 FROM char_pet\
                 char_pet.charid = %u";
@@ -1299,7 +1349,7 @@ namespace petutils
                         g_PPetList.at(PetID)->name.clear();
 
                         Query =
-                            "SELECT\
+                                "SELECT\
                             pet_name.name\
                             FROM pet_name\
                             WHERE pet_name.id = %u OR pet_name.id = %u";
@@ -1328,8 +1378,8 @@ namespace petutils
             PPet = ((CCharEntity*)PMaster)->PAutomaton;
             PPet->PAI->SetController(std::make_unique<CAutomatonController>(static_cast<CAutomatonEntity*>(PPet)));
         }
-		else
-			PPet = new CPetEntity(petType);
+        else
+            PPet = new CPetEntity(petType);
 
         PPet->loc = PMaster->loc;
 
@@ -1451,10 +1501,10 @@ namespace petutils
             highestLvl += PChar->PMeritPoints->GetMeritValue(MERIT_BEAST_AFFINITY, PChar);
 
             // And cap it to the master's level.
-			if (highestLvl > PMaster->GetMLevel())
+            if (highestLvl > PMaster->GetMLevel())
             {
-				highestLvl = PMaster->GetMLevel();
-			}
+                highestLvl = PMaster->GetMLevel();
+            }
 
             // Randomize: 0-2 lvls lower, less Monster Gloves(+1/+2) bonus
             highestLvl -= dsprand::GetRandomNumber(3 - dsp_cap(PChar->getMod(MOD_JUG_LEVEL_RANGE), 0, 2));
@@ -1463,29 +1513,29 @@ namespace petutils
             LoadJugStats(PPet, PPetData); //follow monster calcs (w/o SJ)
         }
         else if (PPet->getPetType() == PETTYPE_WYVERN){
-			LoadWyvernStatistics(PMaster, PPet, false);
+            LoadWyvernStatistics(PMaster, PPet, false);
         }
         else if (PPet->getPetType() == PETTYPE_AUTOMATON && PMaster->objtype == TYPE_PC)
         {
             CAutomatonEntity* PAutomaton = (CAutomatonEntity*)PPet;
             switch (PAutomaton->getFrame())
             {
-            case FRAME_HARLEQUIN:
-                PPet->SetMJob(JOB_WAR);
-                PPet->SetSJob(JOB_RDM);
-                break;
-            case FRAME_VALOREDGE:
-                PPet->SetMJob(JOB_PLD);
-                PPet->SetSJob(JOB_WAR);
-                break;
-            case FRAME_SHARPSHOT:
-                PPet->SetMJob(JOB_RNG);
-                PPet->SetSJob(JOB_PUP);
-                break;
-            case FRAME_STORMWAKER:
-                PPet->SetMJob(JOB_RDM);
-                PPet->SetSJob(JOB_WHM);
-                break;
+                case FRAME_HARLEQUIN:
+                    PPet->SetMJob(JOB_WAR);
+                    PPet->SetSJob(JOB_RDM);
+                    break;
+                case FRAME_VALOREDGE:
+                    PPet->SetMJob(JOB_PLD);
+                    PPet->SetSJob(JOB_WAR);
+                    break;
+                case FRAME_SHARPSHOT:
+                    PPet->SetMJob(JOB_RNG);
+                    PPet->SetSJob(JOB_PUP);
+                    break;
+                case FRAME_STORMWAKER:
+                    PPet->SetMJob(JOB_RDM);
+                    PPet->SetSJob(JOB_WHM);
+                    break;
             }
             //TEMP: should be MLevel when unsummoned, and PUP level when summoned
             PPet->SetMLevel(PMaster->GetMLevel());
@@ -1493,45 +1543,48 @@ namespace petutils
             LoadAutomatonStats((CCharEntity*)PMaster, PPet, g_PPetList.at(PetID)); //temp
         }
 
-		FinalizePetStatistics(PMaster, PPet);
-		PPet->status = STATUS_NORMAL;
-		PPet->m_ModelSize += g_PPetList.at(PetID)->size;
-		PPet->m_EcoSystem = g_PPetList.at(PetID)->EcoSystem;
+        FinalizePetStatistics(PMaster, PPet);
+        PPet->status = STATUS_NORMAL;
+        PPet->m_ModelSize += g_PPetList.at(PetID)->size;
+        PPet->m_EcoSystem = g_PPetList.at(PetID)->EcoSystem;
 
         PMaster->PPet = PPet;
     }
 
-	void LoadWyvernStatistics(CBattleEntity* PMaster, CPetEntity* PPet, bool finalize) {
-		//set the wyvern job based on master's SJ
-		if (PMaster->GetSJob() != JOB_NON){
-			PPet->SetSJob(PMaster->GetSJob());
-		}
-		PPet->SetMJob(JOB_DRG);
-		PPet->SetMLevel(PMaster->GetMLevel());
+    void LoadWyvernStatistics(CBattleEntity* PMaster, CPetEntity* PPet, bool finalize) {
+        //set the wyvern job based on master's SJ
+        if (PMaster->GetSJob() != JOB_NON){
+            PPet->SetSJob(PMaster->GetSJob());
+        }
+        PPet->SetMJob(JOB_DRG);
+        PPet->SetMLevel(PMaster->GetMLevel());
 
-		LoadAvatarStats(PPet); //follows PC calcs (w/o SJ)
-		PPet->m_Weapons[SLOT_MAIN]->setDelay(floor(1000.0f*(320.0f / 60.0f))); //320 delay
-		PPet->m_Weapons[SLOT_MAIN]->setDamage(1 + floor(PPet->GetMLevel()*0.9f));
-		//Set A+ weapon skill
-		PPet->setModifier(MOD_ATT, battleutils::GetMaxSkill(SKILL_GAX, JOB_WAR, PPet->GetMLevel()));
-		PPet->setModifier(MOD_ACC, battleutils::GetMaxSkill(SKILL_GAX, JOB_WAR, PPet->GetMLevel()));
-		//Set D evasion and def
-		PPet->setModifier(MOD_EVA, battleutils::GetMaxSkill(SKILL_H2H, JOB_WAR, PPet->GetMLevel()));
-		PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(SKILL_H2H, JOB_WAR, PPet->GetMLevel()));
+        LoadAvatarStats(PPet); //follows PC calcs (w/o SJ)
+        PPet->m_Weapons[SLOT_MAIN]->setDelay(floor(1000.0f*(320.0f / 60.0f))); //320 delay
+        PPet->m_Weapons[SLOT_MAIN]->setDamage(1 + floor(PPet->GetMLevel()*0.9f));
+        //Set A+ weapon skill
+        PPet->setModifier(MOD_ATT, battleutils::GetMaxSkill(SKILL_GAX, JOB_WAR, PPet->GetMLevel()));
+        PPet->setModifier(MOD_ACC, battleutils::GetMaxSkill(SKILL_GAX, JOB_WAR, PPet->GetMLevel()));
+        //Set D evasion and def
+        PPet->setModifier(MOD_EVA, battleutils::GetMaxSkill(SKILL_H2H, JOB_WAR, PPet->GetMLevel()));
+        PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(SKILL_H2H, JOB_WAR, PPet->GetMLevel()));
 
-		if (finalize) {
-			FinalizePetStatistics(PMaster, PPet);
-		}
-	}
+        if (finalize) {
+            FinalizePetStatistics(PMaster, PPet);
+        }
+    }
 
-	void FinalizePetStatistics(CBattleEntity* PMaster, CPetEntity* PPet) {
-		//set C+ magic evasion
-		PPet->setModifier(MOD_MEVA, battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PPet->GetMLevel()));
-		PPet->health.tp = 0;
+    void FinalizePetStatistics(CBattleEntity* PMaster, CPetEntity* PPet) {
+        //set C+ magic evasion
+        PPet->setModifier(MOD_MEVA, battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PPet->GetMLevel()));
+        PPet->health.tp = 0;
+        if (PPet->getPetType() == PETTYPE_AUTOMATON) {
+            PPet->health.mp = PPet->health.maxmp / 4;
+        }
 
-		PPet->UpdateHealth();
+        PPet->UpdateHealth();
         PMaster->applyPetModifiers(PPet);
-	}
+    }
 
     void RecalculatePetSpellContainer(CPetEntity* PPet)
     {

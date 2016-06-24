@@ -561,45 +561,66 @@ uint16 CBattleEntity::ATT()
 
 uint16 CBattleEntity::RATT(uint8 skill, uint16 bonusSkill)
 {
-    auto PWeakness = StatusEffectContainer->GetStatusEffect(EFFECT_WEAKNESS);
-    if (PWeakness && PWeakness->GetPower() >= 2)
-    {
-        return 0;
-    }
-    int32 ATT = 8 + GetSkill(skill) + bonusSkill + m_modStat[MOD_RATT] + battleutils::GetRangedAttackBonuses(this) + (DEX() * 3) / 2;
+    int32 ATT = 0;
+    if (objtype == TYPE_PC) {
+        auto PWeakness = StatusEffectContainer->GetStatusEffect(EFFECT_WEAKNESS);
+        if (PWeakness && PWeakness->GetPower() >= 2) {
+            return 0;
+        }
+        ATT = 8 + GetSkill(skill) + bonusSkill + m_modStat[MOD_RATT] + battleutils::GetRangedAttackBonuses(this) +
+                    (DEX() * 3) / 2;
 
-    if (this->objtype == TYPE_PET && ((CPetEntity*)this)->getPetType() == PETTYPE_AUTOMATON)
-    {
-        return ATT + (ATT * (m_modStat[MOD_ATTP] + ((CCharEntity*)PMaster)->PMeritPoints->GetMeritValue(MERIT_OPTIMIZATION, (CCharEntity*)PMaster)) / 100) +
-            dsp_min((ATT * m_modStat[MOD_FOOD_ATTP] / 100), m_modStat[MOD_FOOD_ATT_CAP]);
+    } else if (objtype == TYPE_PET) {
+        CPetEntity* PPet = (CPetEntity*)this;
+        if (PPet->getPetType() == PETTYPE_AUTOMATON) {
+            ATT = 8 + PPet->PMaster->GetSkill(SKILL_ARA) + m_modStat[MOD_RATT] + (DEX() * 3) / 2 + battleutils::GetRangedAttackBonuses(this);
+            ATT += ((CCharEntity *) PMaster)->PMeritPoints->GetMeritValue(MERIT_OPTIMIZATION, ((CCharEntity*)PMaster));
+        }
+        else {
+            ATT = 8 + m_modStat[MOD_RATT] + (DEX() * 3) / 2 + battleutils::GetRangedAttackBonuses(this);
+        }
+    } else {
+        ATT = 8 + m_modStat[MOD_RATT] + (DEX() * 3) / 2 + battleutils::GetRangedAttackBonuses(this);
     }
-
     return ATT + (ATT * m_modStat[MOD_RATTP] / 100) +
-        dsp_min((ATT * m_modStat[MOD_FOOD_RATTP] / 100), m_modStat[MOD_FOOD_RATT_CAP]);
+           dsp_min((ATT * m_modStat[MOD_FOOD_RATTP] / 100), m_modStat[MOD_FOOD_RATT_CAP]);
 }
 
 uint16 CBattleEntity::RACC(uint8 skill, uint16 bonusSkill)
 {
-    auto PWeakness = StatusEffectContainer->GetStatusEffect(EFFECT_WEAKNESS);
-    if (PWeakness && PWeakness->GetPower() >= 2)
-    {
-        return 0;
-    }
-    int skill_level = GetSkill(skill) + bonusSkill;
-    uint16 acc = skill_level;
-    if (skill_level > 200)
-    {
-        acc = 200 + (skill_level - 200)*0.9;
-    }
-    acc += getMod(MOD_RACC);
-    acc += battleutils::GetRangedAccuracyBonuses(this);
-    acc += (AGI() * 3) / 2;
-    if (this->objtype == TYPE_PET && ((CPetEntity*)this)->getPetType() == PETTYPE_AUTOMATON)
-    {
-        acc += ((CCharEntity*)PMaster)->PMeritPoints->GetMeritValue(MERIT_FINE_TUNING, (CCharEntity*)PMaster);
-    }
+    uint16 acc = 0;
+    if (this->objtype == TYPE_PC) {
+        auto PWeakness = StatusEffectContainer->GetStatusEffect(EFFECT_WEAKNESS);
+        if (PWeakness && PWeakness->GetPower() >= 2) {
+            return 0;
+        }
+        int skill_level = GetSkill(skill) + bonusSkill;
+        acc = skill_level;
+        if (skill_level > 200) {
+            acc = 200 + (skill_level - 200) * 0.9;
+        }
+        acc += battleutils::GetRangedAccuracyBonuses(this);
+        acc += (AGI() * 3) / 2;
 
-    return acc + dsp_min(((100 + getMod(MOD_FOOD_RACCP)) * acc) / 100, getMod(MOD_FOOD_RACC_CAP));
+        return acc + dsp_min(((100 + getMod(MOD_FOOD_RACCP)) * acc) / 100, getMod(MOD_FOOD_RACC_CAP));
+    } else if (this->objtype == TYPE_PET) {
+        CPetEntity* PPet = (CPetEntity*)this;
+        if (PPet->getPetType() == PETTYPE_AUTOMATON) {
+            acc = PPet->PMaster->GetSkill(SKILL_ARA);
+            acc = (acc > 200 ? (((acc - 200)*0.9) + 200) : acc);
+            acc += m_modStat[MOD_RACC];
+            acc += ((CCharEntity *) PMaster)->PMeritPoints->GetMeritValue(MERIT_FINE_TUNING, (CCharEntity *) PMaster);
+        } else {
+            acc = m_modStat[MOD_RACC];
+        }
+
+        acc += battleutils::GetRangedAccuracyBonuses(this);
+        acc += (AGI() * 3) / 2;
+
+    } else {
+        acc = m_modStat[MOD_RACC] + (AGI() * 3) / 2;
+    }
+    return acc;
 }
 
 uint16 CBattleEntity::ACC(uint8 attackNumber, uint8 offsetAccuracy)

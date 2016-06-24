@@ -30,4 +30,5 @@ end;
 
 function onUseAbility(player,target,ability)
     player:spawnPet(PET_AUTOMATON);
+    player:getPet():addHP(9999);
 end;

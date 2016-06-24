@@ -8,6 +8,7 @@
 
 require("scripts/globals/status");
 require("scripts/globals/magic");
+require("scripts/globals/utils");
 
 -----------------------------------
 -- onAbilityCheck
@@ -28,6 +29,8 @@ end;
 
 function onUseAbility(player,target,ability)
 
+--    local pet = target:getPet();
+--    local burden = utils.clamp(15 + (pet:getStat(MOD_CHR) - target:getStat(MOD_CHR)) / 2, 10, 25);
     local burden = 15;
     if (target:getStat(MOD_CHR) < target:getPet():getStat(MOD_CHR)) then
         burden = 20;

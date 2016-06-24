@@ -514,7 +514,9 @@ void CalculateStats(CMobEntity * PMob)
     PMob->addModifier(MOD_DEF, GetBase(PMob,PMob->defRank));
     PMob->addModifier(MOD_EVA, GetEvasion(PMob));
     PMob->addModifier(MOD_ATT, GetBase(PMob,PMob->attRank));
+    PMob->addModifier(MOD_RATT, GetBase(PMob,PMob->attRank));
     PMob->addModifier(MOD_ACC, GetBase(PMob,PMob->accRank));
+    PMob->addModifier(MOD_RACC, GetBase(PMob,PMob->accRank));
 
     //natural magic evasion
     PMob->addModifier(MOD_MEVA, GetMagicEvasion(PMob));

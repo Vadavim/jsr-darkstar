@@ -1520,7 +1520,7 @@ void CStatusEffectContainer::CheckRegen(time_point tick)
                 DelStatusEffectSilent(EFFECT_HEALING);
                 m_POwner->addHP(-damage);
                 CStatusEffect* sleepEffect = GetStatusEffect(EFFECT_SLEEP);
-                if (!(sleepEffect == nullptr && sleepEffect->GetSubPower() == 2))
+                if (!(sleepEffect != nullptr && sleepEffect->GetSubPower() == 2))
                     WakeUp();
             }
         }

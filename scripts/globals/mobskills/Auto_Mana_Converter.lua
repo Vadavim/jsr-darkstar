@@ -1,5 +1,4 @@
 ---------------------------------------------------
--- String Clipper
 ---------------------------------------------------
 
 require("scripts/globals/settings");
@@ -9,17 +8,18 @@ require("scripts/globals/monstertpmoves");
 ---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
-    return 0;
+    return 1;
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    mob:addTP(skill:getTP()); -- Ability doesn't consume TP
+    print("Used!");
 
-    local numhits = 3;
-    local accmod = 1;
-    local dmgmod = 1.8;
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_NO_EFFECT);
-    local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_BLUNT,info.hitslanded);
-    target:delHP(dmg);
+    local mpHeal = mob:getHP() * 0.5;
+    mob:delHP(mpHeal);
+    mob:addMP(mpHeal);
 
-    return dmg;
+    return 0;
+
 end;
+

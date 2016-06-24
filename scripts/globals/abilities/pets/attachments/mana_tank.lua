@@ -9,35 +9,41 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onEquip(pet)
-    pet:addMod(MOD_MPP, 4);
+    pet:addMod(MOD_MPP, 6);
 end
 
 function onUnequip(pet)
-    pet:delMod(MOD_MPP, 4);
+    pet:delMod(MOD_MPP, 6);
 end
 
 function onManeuverGain(pet,maneuvers)
     local bonus = 0
-    local frame = pet:getFrame()
+    local frame = pet:getAutomatonFrame()
     if frame == 0x23 then bonus = 1 end
     if (maneuvers == 1) then
         pet:addMod(MOD_REFRESH, 1 + bonus);
+        pet:addMod(MOD_MPP, 6);
     elseif (maneuvers == 2) then
-        pet:addMod(MOD_REFRESH, 1 + bonus); 
-    elseif (maneuvers == 3) then
         pet:addMod(MOD_REFRESH, 2 + bonus);
+        pet:addMod(MOD_MPP, 3);
+    elseif (maneuvers == 3) then
+        pet:addMod(MOD_REFRESH, 3 + bonus);
+        pet:addMod(MOD_MPP, 6);
     end
 end
 
 function onManeuverLose(pet,maneuvers)
     local bonus = 0
-    local frame = pet:getFrame()
+    local frame = pet:getAutomatonFrame()
     if frame == 0x23 then bonus = 1 end
     if (maneuvers == 1) then
         pet:delMod(MOD_REFRESH, 1 + bonus);
+        pet:delMod(MOD_MPP, 6);
     elseif (maneuvers == 2) then
-        pet:delMod(MOD_REFRESH, 1 + bonus); 
-    elseif (maneuvers == 3) then
         pet:delMod(MOD_REFRESH, 2 + bonus);
+        pet:delMod(MOD_MPP, 3);
+    elseif (maneuvers == 3) then
+        pet:delMod(MOD_REFRESH, 3 + bonus);
+        pet:delMod(MOD_MPP, 6);
     end
 end

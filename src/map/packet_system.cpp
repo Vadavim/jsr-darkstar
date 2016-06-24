@@ -5198,10 +5198,13 @@ void SmallPacket0x102(map_session_data_t* session, CCharEntity* PChar, CBasicPac
             if (RBUFB(data, 0x0C) != 0)
             {
                 puppetutils::setHead(PChar, RBUFB(data, 0x0C));
+                charutils::BuildingCharSkillsTable(PChar);
+                puppetutils::LoadAutomatonStats(PChar);
             }
             else if (RBUFB(data, 0x0D) != 0)
             {
                 puppetutils::setFrame(PChar, RBUFB(data, 0x0D));
+                charutils::BuildingCharSkillsTable(PChar);
                 puppetutils::LoadAutomatonStats(PChar);
             }
             else
@@ -5211,6 +5214,7 @@ void SmallPacket0x102(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                     if (RBUFB(data, i) != 0)
                     {
                         puppetutils::setAttachment(PChar, i - 0x0E, RBUFB(data, i));
+                        puppetutils::LoadAutomatonStats(PChar);
                     }
                 }
             }

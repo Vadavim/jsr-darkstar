@@ -5099,7 +5099,11 @@ inline int32 CLuaBaseEntity::dispelStatusEffect(lua_State *L)
         flag = EFFECTFLAG_DISPELABLE;
     }
 
-    lua_pushinteger(L, ((CBattleEntity*)m_PBaseEntity)->StatusEffectContainer->DispelStatusEffect((EFFECTFLAG)flag));
+    int success = ((CBattleEntity*)m_PBaseEntity)->StatusEffectContainer->DispelStatusEffect((EFFECTFLAG)flag);
+    if (m_PBaseEntity->objtype == TYPE_MOB) {
+        m_PBaseEntity->SetLocalVar("bonusXP", m_PBaseEntity->GetLocalVar("bonusXP") + 5);
+    }
+    lua_pushinteger(L, success);
     return 1;
 }
 
@@ -6840,15 +6844,20 @@ inline int32 CLuaBaseEntity::getRATT(lua_State *L)
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
     DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
 
-    CItemWeapon* weapon = ((CBattleEntity*)m_PBaseEntity)->m_Weapons[SLOT_RANGED];
+
+    CBattleEntity* PEntity = (CBattleEntity*) m_PBaseEntity;
+    CItemWeapon* weapon = PEntity->m_Weapons[SLOT_RANGED];
 
     if (weapon == nullptr)
     {
-        ShowDebug(CL_CYAN"lua::getRATT weapon in ranged slot is NULL!\n" CL_RESET);
-        return 0;
+        if (m_PBaseEntity->objtype == TYPE_PC) {
+            ShowDebug(CL_CYAN"lua::getRATT weapon in ranged slot is NULL!\n" CL_RESET);
+            return 0;
+        }
+        return PEntity->RATT(0);
     }
 
-    lua_pushinteger(L, ((CBattleEntity*)m_PBaseEntity)->RATT(weapon->getSkillType(), weapon->getILvlSkill()));
+    lua_pushinteger(L, (PEntity->RATT(weapon->getSkillType(), weapon->getILvlSkill())));
     return 1;
 }
 
@@ -6857,23 +6866,36 @@ inline int32 CLuaBaseEntity::getRATT(lua_State *L)
 inline int32 CLuaBaseEntity::getRACC(lua_State *L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
 
-    CItemWeapon* weapon = ((CBattleEntity*)m_PBaseEntity)->m_Weapons[SLOT_RANGED];
 
-    if (weapon == nullptr)
-    {
-        ShowDebug(CL_CYAN"lua::getRACC weapon in ranged slot is NULL!\n" CL_RESET);
-        return 0;
+    CBattleEntity* PEntity = (CBattleEntity*) m_PBaseEntity;
+    CItemWeapon* weapon = PEntity->m_Weapons[SLOT_RANGED];
+    if (weapon == nullptr) {
+        if (m_PBaseEntity->objtype == TYPE_PC) {
+            ShowDebug(CL_CYAN"lua::getRACC weapon in ranged slot is NULL!\n" CL_RESET);
+            return 0;
+        }
+
+        return PEntity->RACC(0);
     }
-    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
 
-    int skill = PChar->GetSkill(weapon->getSkillType());
-    int acc = skill;
-    if (skill > 200) { acc = 200 + (skill - 200)*0.9; }
-    acc += PChar->getMod(MOD_RACC);
-    acc += PChar->AGI() / 2;
-    acc = acc + dsp_min(((100 + PChar->getMod(MOD_FOOD_RACCP)) * acc) / 100, PChar->getMod(MOD_FOOD_RACC_CAP));
+    int skill = PEntity->GetSkill(weapon->getSkillType());
+    int acc = PEntity->RACC(skill);
+
+//    if (weapon == nullptr)
+//    {
+//        ShowDebug(CL_CYAN"lua::getRACC weapon in ranged slot is NULL!\n" CL_RESET);
+//        return 0;
+//    }
+//    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+//
+//    int skill = PChar->GetSkill(weapon->getSkillType());
+//    int acc = skill;
+//    if (skill > 200) { acc = 200 + (skill - 200)*0.9; }
+//    acc += PChar->getMod(MOD_RACC);
+//    acc += PChar->AGI() / 2;
+//    acc = acc + dsp_min(((100 + PChar->getMod(MOD_FOOD_RACCP)) * acc) / 100, PChar->getMod(MOD_FOOD_RACC_CAP));
 
     lua_pushinteger(L, acc);
     return 1;
@@ -9425,13 +9447,15 @@ inline int32 CLuaBaseEntity::unlockAttachment(lua_State* L)
 
 inline int32 CLuaBaseEntity::hasAttachment(lua_State* L)
 {
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
     DSP_DEBUG_BREAK_IF(lua_isnil(L, -1) || !lua_isnumber(L, -1));
+    if (m_PBaseEntity->objtype == TYPE_MOB) {
+        lua_pushboolean(L, false);
+        return 0;
+    }
 
     uint16 itemID = lua_tointeger(L, -1);
-
-    CItem* PItem = itemutils::GetItem(itemID);
-    lua_pushboolean(L, puppetutils::HasAttachment((CCharEntity*)m_PBaseEntity, PItem));
+    lua_pushboolean(L, ((CAutomatonEntity*)m_PBaseEntity)->hasAttachment(itemID));
     return 1;
 }
 
@@ -11510,6 +11534,9 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllRunes),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getActiveRunes),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getEffectsCount),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,hasAttachment),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getAutomatonFrame),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getAutomatonHead),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNewestRune),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRuneTypes),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,delStatusEffectsByFlagExceptCam),
