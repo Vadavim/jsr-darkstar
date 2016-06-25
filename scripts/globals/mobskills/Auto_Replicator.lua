@@ -27,6 +27,7 @@ function onMobWeaponSkill(target, mob, skill)
         target:addStatusEffectEx(EFFECT_COPY_IMAGE, EFFECT_COPY_IMAGE_4, 4, 0, 120);
         target:setMod(MOD_UTSUSEMI, 4);
     end
+    skill:setMsg(MSG_BUFF);
 
     master:delStatusEffect(EFFECT_WIND_MANEUVER);
     master:delStatusEffect(EFFECT_WIND_MANEUVER);

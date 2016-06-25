@@ -21,12 +21,13 @@ function onMobWeaponSkill(target, mob, skill)
     end
 
     mob:addStatusEffect(EFFECT_STONESKIN, power, 0, 180);
+    skill:setMsg(MSG_BUFF);
 
 
     master:delStatusEffectSilent(EFFECT_EARTH_MANEUVER);
     master:delStatusEffectSilent(EFFECT_EARTH_MANEUVER);
     master:delStatusEffectSilent(EFFECT_EARTH_MANEUVER);
-    return 0;
+    return EFFECT_STONESKIN;
 
 end;
 

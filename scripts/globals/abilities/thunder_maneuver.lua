@@ -29,7 +29,7 @@ end;
 function onUseAbility(player,target,ability)
 
     local burden = 15;
-    if (target:getStat(MOD_DEX) < target:getPet():getStat(MOD_DEX)) then
+    if (target:getStat(MOD_CHR) < target:getPet():getStat(MOD_DEX)) then
         burden = 20;
     end
 
@@ -52,7 +52,7 @@ function onUseAbility(player,target,ability)
             target:removeOldestManeuver();
         end
 
-        target:addStatusEffect(EFFECT_THUNDER_MANEUVER, bonus, 0, 60);
+        target:addStatusEffect(EFFECT_THUNDER_MANEUVER, bonus, 0, 120);
     end
 
     return EFFECT_THUNDER_MANEUVER;

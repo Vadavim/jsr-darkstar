@@ -21,12 +21,13 @@ function onMobWeaponSkill(target, mob, skill)
     end
 
     mob:addStatusEffect(EFFECT_BLAZE_SPIKES, power, 0, 60);
+    skill:setMsg(MSG_BUFF);
 
 
     master:delStatusEffectSilent(EFFECT_FIRE_MANEUVER);
     master:delStatusEffectSilent(EFFECT_FIRE_MANEUVER);
     master:delStatusEffectSilent(EFFECT_FIRE_MANEUVER);
-    return 0;
+    return EFFECT_BLAZE_SPIKES;
 
 end;
 

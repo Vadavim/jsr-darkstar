@@ -84,9 +84,11 @@ private:
     bool isReady(time_point cooldown, int delay);
     bool combatStormStorm(int magicSkill);
     bool combatStormSoul(int magicSkill);
+    bool combatHarlHarl(int magicSkill);
     bool combatStormSpirit(int magicSkill);
     bool roamStormStorm(int magicSkill);
     bool roamStormSoul(int magicSkill);
+    bool roamHarlHarl(int magicSkill);
 
     duration m_rangedCooldown {duration::zero()};
     static constexpr int m_RangedAbility {1949};
@@ -98,7 +100,7 @@ protected:
 
 bool notHave(CBattleEntity* target, EFFECT effect);
 bool isCaster(CBattleEntity* target);
-CBattleEntity* getLowestHP(CBattleEntity* caster, int threshold);
+CBattleEntity* getLowestHP(CBattleEntity* caster, int threshold, bool useRegen = false);
 CBattleEntity* rankedBuff(CBattleEntity* caster, EFFECT buff, std::map<JOBTYPE, uint16> &ranking);
 CBattleEntity* getByEffect(CBattleEntity* caster, EFFECT effect, bool mageOnly = false);
 CBattleEntity* getByErasable(CBattleEntity* caster);

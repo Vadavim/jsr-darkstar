@@ -29,7 +29,7 @@ end;
 function onUseAbility(player,target,ability)
 
     local burden = 10;
-    if (target:getMP() < target:getPet():getMP()) then
+    if (target:getStat(MOD_CHR) * 5 < target:getPet():getMP()) then
         burden = 15;
     end
 
@@ -43,7 +43,7 @@ function onUseAbility(player,target,ability)
             target:removeOldestManeuver();
         end
 
-        target:addStatusEffect(EFFECT_DARK_MANEUVER, 0, 0, 60);
+        target:addStatusEffect(EFFECT_DARK_MANEUVER, 0, 0, 120);
     end
 
     return EFFECT_DARK_MANEUVER;

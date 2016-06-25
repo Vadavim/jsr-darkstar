@@ -20,11 +20,12 @@ function onMobWeaponSkill(target, mob, skill)
     if (maneuvers == 3) then arrows = arrows + 1; end;
 
     mob:addStatusEffect(EFFECT_BARRAGE, arrows, 0, 120);
+    skill:setMsg(MSG_BUFF);
 
     master:delStatusEffectSilent(maneuverType);
     master:delStatusEffectSilent(maneuverType);
     master:delStatusEffectSilent(maneuverType);
-    return 0;
+    return EFFECT_BARRAGE;
 
 end;
 

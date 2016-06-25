@@ -170,6 +170,12 @@ uint8 CAutomatonEntity::addBurden(uint8 element, uint8 burden)
     else if (element == 5) // Thunder
         burdenMod -= (mList.earth * 2 + mList.dark);
 
+    if (getFrame() == FRAME_HARLEQUIN)
+        burdenMod -= 4;
+
+    if (getHead() == HEAD_HARLEQUIN)
+        burdenMod -= 2;
+
     int finalBurden = (int)burden + burdenMod + (hasAttachment(ATTACHMENT_TACTICAL_PROCESSOR) ? 5 : 0);
     ShowDebug("Burden Mod: %d\n", burdenMod);
     m_Burden[element] += finalBurden < 0 ? 0 : finalBurden;

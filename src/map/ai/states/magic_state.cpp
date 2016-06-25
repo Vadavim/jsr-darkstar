@@ -99,7 +99,7 @@ bool CMagicState::Update(time_point tick)
 
         action_t action;
 
-        if (!PTarget || m_errorMsg || HasMoved() || !CanCastSpell(PTarget))
+        if (!PTarget || m_errorMsg || (HasMoved() && m_PEntity->objtype == TYPE_PC) || !CanCastSpell(PTarget))
         {
             m_interrupted = true;
         }

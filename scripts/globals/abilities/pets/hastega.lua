@@ -16,7 +16,7 @@ end;
 
 function onPetAbility(target, pet, skill, master)
     local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP() + pet:getMod(MOD_TP_BONUS);
-    local duration = utils.clamp(180 + (chr + summoning) * 3, 180, 360);
+    local duration = utils.clamp(300 + (chr + summoning) * 6, 300, 600);
     duration = duration + tp / 10;
 
     -- Garuda's Hastega is a weird exception and uses 153 instead of 15%

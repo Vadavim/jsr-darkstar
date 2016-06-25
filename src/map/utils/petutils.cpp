@@ -600,6 +600,13 @@ namespace petutils
             PAutomaton->m_enfeebleDelay = 8;
             PAutomaton->m_enhanceDelay = 15;
             PAutomaton->m_statusDelay = 15;
+        } else if (frame == FRAME_HARLEQUIN && head == HEAD_HARLEQUIN) {
+            PAutomaton->m_universalDelay = 4;
+            PAutomaton->m_nukeDelay = 60;
+            PAutomaton->m_healDelay = 15;
+            PAutomaton->m_enfeebleDelay = 8;
+            PAutomaton->m_enhanceDelay = 15;
+            PAutomaton->m_statusDelay = 15;
         }
 
         int magicSkill = dsp_cap(battleutils::GetMaxSkill(2, PPet->GetMLevel()), 0, PMaster->GetSkill(SKILL_AMA));
@@ -615,13 +622,17 @@ namespace petutils
         switch (PAutomaton->getFrame())
         {
             case FRAME_HARLEQUIN:
+                PPet->setModifier(MOD_CLEAR_MIND, 5 + PPet->GetMLevel() / 5);
+                PPet->setModifier(MOD_HPHEAL, 10 + PPet->GetMLevel() / 2);
                 PPet->setModifier(MOD_FASTCAST, 50);
+                PPet->setModifier(MOD_SPELLINTERRUPT, 50);
                 PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(2, PPet->GetMLevel());
                 if (head == HEAD_SHARPSHOT)
                     PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(1, PPet->GetMLevel());
                 PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(5, PPet->GetMLevel()));
 
                 if (head == HEAD_VALOREDGE) {
+                    PPet->setModifier(MOD_HPHEAL, 15 + PPet->GetMLevel() / 1.5);
                     PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(4, PPet->GetMLevel()));
                     PPet->setModifier(MOD_ATTP, 15);
                     PPet->setModifier(MOD_ACC, 20);
@@ -635,6 +646,9 @@ namespace petutils
                 PPet->WorkingSkills.enhancing += PPet->GetMLevel() / 4;
                 break;
             case FRAME_VALOREDGE:
+                PPet->setModifier(MOD_CLEAR_MIND, 3 + PPet->GetMLevel() / 6);
+                PPet->setModifier(MOD_HPHEAL, 15 + PPet->GetMLevel() / 1.5);
+                PPet->setModifier(MOD_SPELLINTERRUPT, 50);
                 PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(5, PPet->GetMLevel());
                 if (head == HEAD_VALOREDGE)
                     PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(3, PPet->GetMLevel()));
@@ -642,10 +656,14 @@ namespace petutils
                     PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(4, PPet->GetMLevel()));
                 break;
             case FRAME_SHARPSHOT:
+                PPet->setModifier(MOD_CLEAR_MIND, 3 + PPet->GetMLevel() / 6);
+                PPet->setModifier(MOD_HPHEAL, 8 + PPet->GetMLevel() / 4);
                 PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(1, PPet->GetMLevel());
                 PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(11, PPet->GetMLevel()));
                 break;
             case FRAME_STORMWAKER:
+                PPet->setModifier(MOD_CLEAR_MIND, 8 + PPet->GetMLevel() / 4);
+                PPet->setModifier(MOD_HPHEAL, 8 + PPet->GetMLevel() / 4);
                 PPet->WorkingSkills.evasion = battleutils::GetMaxSkill(10, PPet->GetMLevel());
                 PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(12, PPet->GetMLevel()));
                 PPet->m_Behaviour |= BEHAVIOUR_STANDBACK;

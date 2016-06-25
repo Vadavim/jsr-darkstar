@@ -291,8 +291,8 @@ function finishGov(player,csid,option,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,msg_offset)
             player:delCurrency("valor_point", 20);
             -- Removes refresh if on player
             player:delStatusEffect(EFFECT_REFRESH);
-            player:delStatusEffect(EFFECT_SUBLIMATION_COMPLETE);
-            player:delStatusEffect(EFFECT_SUBLIMATION_ACTIVATED);
+--            player:delStatusEffect(EFFECT_SUBLIMATION_COMPLETE);
+--            player:delStatusEffect(EFFECT_SUBLIMATION_ACTIVATED);
             -- Add refresh
             player:addStatusEffect(EFFECT_REFRESH,1,3,3600, 0, 3);
         end

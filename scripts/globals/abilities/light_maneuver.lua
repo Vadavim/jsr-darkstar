@@ -55,7 +55,7 @@ function onUseAbility(player,target,ability)
             target:removeOldestManeuver();
         end
 
-        target:addStatusEffect(EFFECT_LIGHT_MANEUVER, bonus, 0, 60);
+        target:addStatusEffect(EFFECT_LIGHT_MANEUVER, bonus, 0, 120);
     end
 
     return EFFECT_LIGHT_MANEUVER;

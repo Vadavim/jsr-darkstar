@@ -17,6 +17,7 @@ function onMobWeaponSkill(target, mob, skill)
     if (success == 242) then
         target:setPendingMessage(277, EFFECT_FLASH);
     end
+    skill:setMsg(MSG_NONE);
     return success;
 end;
 

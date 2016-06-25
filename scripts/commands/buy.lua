@@ -49,6 +49,557 @@ function special_stock(stock, points)
     return newStock;
 end
 
+
+function automatonParts(player, points)
+    local stock = {
+        8193,   2500,    --Valoredge Head
+        8225,   5000,    --Valoredge Frame
+        8195,   2500,    --Sharpshot Head
+        8226,   5000,    --Sharpshot Frame
+        8196,   2500,    --Stormwaker Head
+        8227,   5000,    --Stormwaker Frame
+        8197,   8000,    --Soulsoother Head
+        8198,   8000,    --Spiritreaver Head
+    };
+    return stock;
+end
+
+function pupEquipment(player, points)
+    local stock = {
+        18731,   50,    --Automaton Oil
+        18732,   100,    --Automaton Oil +1
+        18733,   200,    --Automaton Oil +2
+        17859,   500,    --Animator
+        17858,   4000,    --Turbo Animator
+        15686,   15000,    --Puppetry Babouches
+        15602,   15000,    --Puppetry Churidars
+        14930,   15000,    --Puppetry Dastanas
+        15267,   15000,    --Puppetry Taj
+        14523,   15000,    --Puppetry Tobe
+        12005,   15000,    --Puppetry Torque
+    };
+    return stock;
+end
+
+
+function fireAttachments(player, points)
+    local stock = {
+        8449,   1000, {ALCH, 0},    --Strobe
+        8450,   1000, {ALCH, 0},    --Tension Spring
+        8451,   2500, {ALCH, 0},    --Inhibitor
+        8452,   2000, {ALCH},       --Tension Spring II
+        8453,   3500, {ALCH},       --Attuner
+        8454,   1000, {ALCH, 0},    --Reactive Shield
+        8455,   4000, {ALCH},       --Flame Holder
+        8455,   5500, {ALCH},       --Heat Capacitor
+        8456,   3000, {ALCH},       --Strobe II
+        8457,   7500, {ALCH},       --Tension Spring III
+    };
+    return special_stock(stock, points);
+end
+
+function iceAttachments(player, points)
+    local stock = {
+        8481,   2000, {ALCH, 0},    --Mana Booster
+        8482,   1000, {ALCH, 0},    --Loudspeaker
+        8483,   1500, {ALCH, 0},    --Scanner
+        8484,   2000, {ALCH, 0},     --Loudspeaker II
+        8485,   2000, {ALCH, 0},     --Tactical Processor
+        8486,   6000, {ALCH},       --Tranquilizer
+        8487,   3500, {ALCH},       --Ice Maker
+        8488,   4500, {ALCH},       --Power Cooler
+        8489,   7500, {ALCH},       --Loudspeaker III
+        8490,   9500, {ALCH},       --Tranquilizer II
+    };
+    return special_stock(stock, points);
+end
+
+function windAttachments(player, points)
+    local stock = {
+        8513,   1000, {ALCH, 0},    --Accelerator
+        8514,   1000, {ALCH, 0},    --Scope
+        8515,   3000, {ALCH},       --Pattern Reader
+        8516,   2000, {ALCH},       --Accelerator II
+        8517,   3500, {ALCH, 0},    --Drum Magazine
+        8518,   5000, {ALCH},    --Turbo Charger
+        8519,   2500, {ALCH, 0},    --Replicator
+        8520,   4500, {ALCH},    --Barrage Turbine
+        8520,   4500, {ALCH},    --Barrage Turbine
+        8521,   9000, {ALCH},    --Turbo Charge II
+        8522,   3500, {ALCH},    --Acellerator III
+        8523,   2500, {ALCH, 0},    --Scope II
+    };
+    return special_stock(stock, points);
+end
+
+
+function earthAttachments(player, points)
+    local stock = {
+        8545,   2000, {ALCH, 0},    --Shock Absorber
+        8546,   1000, {ALCH, 0},    --Armor Plate
+        8547,   2000, {ALCH},       --Analyzer
+        8548,   2000, {ALCH, 0},    --Armor Plate II
+        8549,   3500, {ALCH},       --Equalizer
+        8550,   4500, {ALCH},       --Schurzen
+        8551,   2000, {ALCH, 0},       --Hammermill
+        8552,   3500, {ALCH, 0},       --Barrier Module
+        8553,   6000, {ALCH},       --Shock Absorber II
+        8554,   4500, {ALCH},       --Armor Plate III
+    };
+    return special_stock(stock, points);
+end
+
+
+function thunderAttachments(player, points)
+    local stock = {
+        8577,   1000, {ALCH, 0},    --Stabilizer
+        8578,   2000, {ALCH, 0},    --Volt Gun
+        8579,   3000, {ALCH},       --Heat Seaker
+        8580,   2000, {ALCH, 0},       --Stabilizer II
+        8581,   4500, {ALCH},       --Target Maker
+        8582,   3000, {ALCH, 0},       --Dynamo
+        8583,   4500, {ALCH, 0},       --Coiler
+        8584,   4500, {ALCH},       --Galvanizer
+        8585,   6000, {ALCH},       --Stabilizer III
+        8586,   7500, {ALCH},       --Coiler II
+    };
+    return special_stock(stock, points);
+end
+
+
+function waterAttachments(player, points)
+    local stock = {
+        8609,   1000, {ALCH, 0},    --Mana Jammer
+        8610,   2500, {ALCH, 0},    --Heatsink
+        8611,   2000, {ALCH, 0},    --Stealth screen
+        8612,   2000, {ALCH, 0},    --Mana Jammer II
+        8613,   2500, {ALCH},    --Mana Channeler
+        8614,   4500, {ALCH},    --Condenser
+        8615,   3500, {ALCH},    --Steam Jacket
+        8616,   2500, {ALCH},    --Percolator
+        8617,   4500, {ALCH},    --Mana Jammer III
+        8618,   3500, {ALCH, 0},    --Stealth Screen II
+    };
+    return special_stock(stock, points);
+end
+
+
+function lightAttachments(player, points)
+    local stock = {
+        8641,   1000, {ALCH, 0},    --Auto-Repair Kit
+        8642,   2000, {ALCH, 0},    --Flashbulb
+        8643,   2000, {ALCH, 0},    --Damage Gauge
+        8644,   2000, {ALCH, 0},    --Auto-Repair Kit II
+        8645,   4000, {ALCH, 0},    --Eraser
+        8646,   7000, {ALCH, 0},    --Optic Fiber
+        8648,   2500, {ALCH, 0},    --Vivi Valve
+        8649,   6500, {ALCH},    --Vivi Valve II
+        8650,   6500, {ALCH},    --Auto-Repair Kit III
+        8651,   3000, {ALCH},    --Arcanic Cell
+    };
+    return special_stock(stock, points);
+end
+
+
+function darkAttachments(player, points)
+    local stock = {
+        8673,   1000, {ALCH, 0},    --Mana Tank
+        8674,   2000, {ALCH, 0},    --Mana Converter
+        8675,   2000, {ALCH, 0},    --Mana Conserver
+        8676,   2000, {ALCH, 0},    --Mana Tank II
+        8677,   3000, {ALCH, 0},    --Smoke Screen
+        8678,   4000, {ALCH},    --Economizer
+        8680,   3000, {ALCH},    --Disruptor
+        8681,   7000, {ALCH},    --Mana Tank III
+    };
+    return special_stock(stock, points);
+end
+
+
+function black1(player, points)
+    local stock = {
+        4767,   100,    --Stone
+        4862,   250,    --Blind
+        4828,   200,    --Poison
+        4777,   250,    --Water
+        4866,   350,    --Bind
+        4838,   450,    --Bio
+        4762,   400,    --Aero
+        4857,   1500,    --Blaze Spikes
+        4752,   600,    --Scroll of Fire
+        4853,   2500,    --Drain
+        4797,   700,    --Scroll of Stonega
+        4847,   750,    --Scroll of Shock
+        4757,  800,    --Blizzard
+        4869,   4000,    --Warp
+        4846,   850,    --Rasp
+        4807,   900,    --Waterga
+    };
+    return stock;
+end
+
+function black2(player, points)
+    local stock = {
+        4845,   950,    --Choke
+        4858,   3500,   --Ice Spikes
+        4861,   950,    --Sleep
+        4772,   1000,    --Thunder
+        4844,   1050,    --Frost
+        4792,   1100,    --Aeroga
+        4843,   1150,    --Burn
+        4833,   1150,    --Poisonga
+        4855,   6500,    --Aspir
+        4853,   2500,    --Drain
+        4872,   1200,    --Tractor
+        4768,   1250,    --Scroll of Stone II
+        4848,   1350,     --Drown
+        4782,   1400,    --Firaga
+        4871,   1450,    --Escape
+        4859,   6000,    --Shock Spikes
+    };
+    return stock;
+end
+
+function black3(player, points)
+    local stock = {
+        4778,   1500,    --Water II
+        4881,   1550,   --Sleepga
+        4787,   1600,    --Blizzaga
+        4763,   1700,    --Aero II
+        4839,   1750,    --Bio II
+        4802,   1800,    --Thundaga
+        4753,   1900,    --Fire II
+        4798,   2000,    --Stonega II
+        4870,   10000,    --Warp II
+        4867,   2050,    --Sleep II
+        4758,   2100,    --Blizzard II
+        4829,   2150,    --Poison II
+        4808,   2200,     --Waterga II
+        4860,   4500,    --Stun
+        4773,   2300,    --Thunder II
+        4793,   2400,    --Aeroga II
+    };
+    return stock;
+end
+
+function black4(player, points)
+    local stock = {
+        4814,   5000,    --Freeze
+        4769,   2600,   --Stone III
+        4816,   5400,    --Tornado
+        4782,   2800,    --Firaga II
+        4818,   5800,    --Quake
+        4779,   3000,    --Water III
+        4820,   6200,    --Burst
+        4881,   15000,    --Sleepga II
+        4787,   3300,    --Blizzaga II
+        4822,   6800,    --Flood
+        4764,   3500,    --Aero III
+        4812,   7200,    --Flare
+        4803,   3700,     --Thundaga II
+        4754,   3800,    --Fire III
+        4799,   3900,    --Stonega III
+        4759,   4000,    --Blizzard III
+    };
+    return stock;
+end
+
+function black5(player, points)
+    local stock = {
+        4809,   4100,    --Waterga III
+        4774,   4200,   --Thunder III
+        4794,   4300,    --Aeroga III
+        4770,   4400,    --Stone IV
+        4784,   4500,    --Firaga III
+        4780,   4600,    --Water IV
+        4789,   4700,    --Blizzaga III
+        4765,   4800,    --Aero IV
+        4755,   4900,    --Fire IV
+        4804,   4900,    --Thundaga III
+        4760,   5000,    --Blizzard IV
+        4775,   5100,    --Thunder IV
+    };
+    return stock;
+end
+
+
+function red1(player, points)
+    local stock = {
+        4712,   800,   --Enthunder
+        4711,   900,    --Enstone
+        4710,   1000,    --Enaero
+        4824,   1050,    --Gravity
+        4709,   1100,    --Enblizzard
+        4708,   1200,    --Enfire
+        4713,   1350,    --Enwater
+        4868,   8000,    --Dispel
+        4912,   1750,    --Distract
+        4717,   10000,  --Refresh
+        4914,   1850,     --Frazzle
+        5104,   1950,    --Flurry
+    };
+    return stock;
+end
+
+function red2(player, points)
+    local stock = {
+        4726,   5000,   --Enthunder II
+        4725,   6000,    --Enstone II
+        4724,   7000,    --Enaero II
+        4723,   8000,    --Enblizzard II
+        4722,   9000,    --Enfire II
+        4727,   10000,    --Enwater II
+        5106,   11000,    --Inundation
+    };
+    return stock;
+end
+
+function sch1(player, points)
+    local stock = {
+        6045,   2500,   --Geohelix
+        6042,   3000,   --Hydrohelix
+        6046,   3500,    --Anemohelix
+        6041,   4000,    --Pyrohelix
+        6044,   4500,    --Cryohelix
+        6043,   5000,    --Ionohelix
+        6048,   6000,    --Noctohelix
+        6047,   7000,    --Luminohelix
+    };
+    return stock;
+end
+
+function sch2(player, points)
+    local stock = {
+        6053,   10000,   --Sandstorm
+        6050,   10000,   --Rainstorm
+        6054,   10000,    --Windstorm
+        6049,   10000,    --Firestorm
+        6052,   10000,    --Hailstorm
+        6058,   20000,    --Klimaform
+        6051,   10000,    --Thunderstorm
+        6056,   10000,    --Voidstorm
+        6055,   10000,    --Aurorastorm
+    };
+    return stock;
+end
+
+function smn1(player, points)
+    local stock = {
+        4896,   5000,   --Fire Spirit
+        4897,   5000,   --Ice Spirit
+        4898,   5000,   --Air Spirit
+        4899,   5000,   --Earth Spirit
+        4900,   5000,   --Thunder Spirit
+        4901,   5000,   --Water Spirit
+        4902,   15000,   --Light Spirit
+        4903,   15000,   --Dark Spirit
+    };
+    return stock;
+end
+
+function nin1(player, points)
+    local stock = {
+        4961,   4000,   --Tonko Ichi
+        4946,   10000,   --Utsusemi Ichi
+        4928,   1000,   --Katon Ichi
+        4931,   1000,   --Hyoton Ichi
+        4934,   1000,   --Huton Ichi
+        4937,   1000,   --Doton Ichi
+        4940,   1000,   --Raiton Ichi
+        4943,   15000,   --Suiton Ichi
+        4955,   5000,   --Kurayami Ichi
+        4952,   6000,   --Hojo Ichi
+        4958,   7000,   --Dokumori Ichi
+        4949,   8000,   --Jubaku Ichi
+        4962,   8000,   --Tonko Ni
+        4947,   15000,   --Utsusemi Ni
+    };
+    return stock;
+end
+
+function nin2(player, points)
+    local stock = {
+        4929,   8000,   --Katon Ni
+        4932,   8000,   --Hyoton Ni
+        4935,   8000,   --Huton Ni
+        4938,   8000,   --Doton Ni
+        4941,   8000,   --Raiton Ni
+        4944,   8000,   --Suiton Ni
+        4956,   12000,   --Kurayami Ni
+        4953,   15000,   --Hojo Ni
+    };
+    return stock;
+end
+
+function tools(player, points)
+    local stock = {
+        5314,   3000,   --Shihei
+        5867,   5000,   --Inoshi
+        5868,   5000,   --Shikan
+        5869,   5000,   --Cho
+        5870,   5000,   --Trump Card Case
+        18259,  100,   --Angon
+        18258,  100,   --Tomahawk
+    };
+    return stock;
+end
+
+function dark1(player, points)
+    local stock = {
+        4879,   2500,   --Absorb Mnd
+        4880,   3000,    --Absorb Chr
+        4876,   3500,    --Absorb Vit
+        4877,   4000,    --Absorb Agi
+        4878,   4500,    --Absorb Int
+        4874,   5000,    --Absorb Str
+        4883,   9000,    --Absorb TP
+        4886,   12500,    --Absorb Acc
+        4854,   12500,    --Drain II
+        4885,   15000,    --Dread Spikes
+    };
+    return stock;
+end
+
+function bard1(player, points)
+    local stock = {
+        4997,   100,    --Minne
+        5002,   200,    --Minuet
+        4986,   300,    --Paeon
+        4976,   400,    --Requiem
+        5014,   500,    --Pastoral
+        5068,   550,    --Light Threnody
+        5007,   600,    --Sword Madrigal
+        5069,   650,    --Dark Threnody
+        5011,   700,    --Sheepfoe Mambo
+        5065,   750,    --Earth Threnody
+        4987,   800,    --Paeon II
+        5071,   850,    --Foe Lullaby
+        5067,   850,    --Water Threnody
+        4977,   900,    --Requiem II
+        5064,   950,    --Wind Threnody
+        5017,   1000,    --Operetta
+    };
+    return stock;
+end
+
+function bard2(player, points)
+    local stock = {
+        5062,   1050,    --Fire Threnody
+        4998,   1100,    --Minne II
+        5038,   1150,    --Enchanting Etude
+        5063,   1150,    --Ice Threnody
+        5003,   1200,    --Minuet II
+        5066,   1250,    --Lightning Threnody
+        5037,   1300,    --Spirited Etude
+        4994,   5000,    --Ballad
+        5036,   1400,    --Learned Etude
+        4984,   2800,    --Horde Lullaby
+        5035,   1500,    --Quick Etude
+        5027,   1550,    --Advancing March
+        5034,   1600,    --Vivacious Etude
+        5009,   1650,    --Prelude
+        5033,   1700,    --Dextrous Etude
+        5013,   1750,    --Aubade
+    };
+    return stock;
+end
+
+function bard3(player, points)
+    local stock = {
+        5070,   8000,    --Magic Finale
+        5032,   1850,    --Sinewy Etude
+        4988,   1900,    --Paeon III
+        5052,   1950,    --Light Carol
+        4978,   2000,    --Requiem III
+        5075,   2050,    --Mazurka
+        5049,   2100,    --Earth Carol
+        5028,   4200,    --Battlefield Elegy
+        5051,   2200,    --Water Carol
+        4999,   2250,    --Minne III
+        5048,   2300,    --Wind Carol
+        5004,   2350,    --Minuet III
+        5046,   2400,    --Fire Carol
+        4989,   2450,    --Paeon IV
+        5047,   2500,    --Ice Carol
+        4979,   2550,    --Requiem IV
+    };
+    return stock;
+end
+
+function bard4(player, points)
+    local stock = {
+        5050,   2600,    --Lightning Carol
+        5023,   2650,    --Gavotte
+        5053,   2700,    --Dark Carol
+        5008,   2800,    --Blade Madrigal
+        5020,   3000,    --Capriccio
+        4995,   15000,    --Ballad II
+        5016,   3200,    --Fantasia
+        4980,   3300,    --Requiem V
+        5030,   15000,    --Carnage Elegy
+        5028,   3600,    --Victory March
+        5000,   3700,    --Minne IV
+        5045,   3800,    --Bewitching Etude
+        5005,   3900,    --Minuet IV
+        5044,   4000,    --Logical Etude
+        4990,   4100,    --Paeon V
+        5043,   4200,    --Sage Etude
+    };
+    return stock;
+end
+
+function bard5(player, points)
+    local stock = {
+        4981,   4300,    --Requiem VI
+        5042,   4400,    --Swift Etude
+        5018,   4500,    --Operetta
+        5041,   4600,    --Vital Etude
+        5010,   4700,    --Archer's Prelude
+        5072,   4800,    --Hymnus
+        5040,   4900,    --Uncanny Etude
+        5073,   5000,    --Chocobo Mazurka
+        5022,   5100,    --Warding Round
+        5039,   5200,    --Herculean Etude
+        5074,   10000,    --Virelai
+    };
+    return stock;
+end
+
+function dice1(player, points)
+    local stock = {
+        5493,   500,    --Corsair Die
+        5489,   800,    --Ninja Die
+        5487,   1100,    --Ranger Die
+        5484,   1400,    --Dark Knight Die
+        5492,   1700,    --Blue Mage Die
+        5479,   2000,    --White Mage Die
+        5490,   2300,    --Dragoon Die
+        5486,   2600,    --Bard Die
+        5478,   3100,    --Monk Die
+        5485,   3400,    --Beastmaster Die
+        5488,   3700,    --Samurai Die
+        5491,   4000,    --Summoner Die
+        5482,   4300,    --Thief Die
+        5481,   4600,    --Red Mage Die
+        5477,   4900,    --Warrior Die
+        5494,   5200,    --Puppetmaster Die
+    };
+    return stock;
+end
+
+function dice2(player, points)
+    local stock = {
+        5483,   5500,    --Paladin Die
+        5480,   5800,    --Black Mage Die
+        5495,   6100,    --Dancer Die
+        5496,   6400,    --Scholar Die
+        6368,   6700,    --Geomancer Die
+        6369,   7000,    --Rune Fencer Die
+    };
+    return stock;
+end
+
+
 function white1(player, points)
     local stock = {
         4609,   100,    --Cure
@@ -130,7 +681,6 @@ function white4(player, points)
         4732,   20000,  --Teleport Mea
         4632,   2600,   --Dia II
         4657,   2600,   --Shell II
-        4717,   10000,  --Refresh
         4793,   2600,   --Shellra II
         4728,   35000,  --Teleport Yhoat
     };
@@ -1181,6 +1731,26 @@ funcs = {
     ["jugs2"] = jugs,
     ["treats"] = treats,
     ["boomerangs"] = boomerangs,
+    ["dice1"] = dice1,
+    ["dice2"] = dice2,
+    ["sch1"] = sch1,
+    ["sch2"] = sch2,
+    ["red1"] = red1,
+    ["red2"] = red2,
+    ["dark1"] = dark1,
+    ["nin1"] = nin1,
+    ["nin2"] = nin2,
+    ["tools"] = tools,
+    ["bard1"] = bard1,
+    ["bard2"] = bard2,
+    ["bard3"] = bard3,
+    ["bard4"] = bard4,
+    ["bard5"] = bard5,
+    ["black1"] = black1,
+    ["black2"] = black2,
+    ["black3"] = black3,
+    ["black4"] = black4,
+    ["black5"] = black5,
     ["white1"] = white1,
     ["white2"] = white2,
     ["white3"] = white3,
@@ -1189,6 +1759,16 @@ funcs = {
     ["white6"] = white6,
     ["white7"] = white7,
     ["white8"] = white8,
+    ["darkAttachments"] = darkAttachments,
+    ["lightAttachments"] = lightAttachments,
+    ["fireAttachments"] = fireAttachments,
+    ["thunderAttachments"] = thunderAttachments,
+    ["waterAttachments"] = waterAttachments,
+    ["earthAttachments"] = earthAttachments,
+    ["windAttachments"] = windAttachments,
+    ["iceAttachments"] = iceAttachments,
+    ["automatonParts"] = automatonParts,
+    ["puppetmasterEquipment"] = pupEquipment,
 };
 
 function getGuildPoints(player)

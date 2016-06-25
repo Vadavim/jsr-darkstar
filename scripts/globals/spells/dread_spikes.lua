@@ -17,6 +17,8 @@ function onSpellCast(caster,target,spell)
     local power = 0;
     local typeEffect = EFFECT_DREAD_SPIKES;
     local drainAmount = target:getMaxHP() / 2;
+    if (caster:isMob()) then drainAmount = drainAmount / 2 end;
+    if (caster:isNM()) then drainAmount = drainAmount / 2 end;
 
     if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
         duration = duration * 3;

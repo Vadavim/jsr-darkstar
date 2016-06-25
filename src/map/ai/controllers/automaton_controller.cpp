@@ -93,22 +93,14 @@ void CAutomatonController::DoRoamTick(time_point tick) {
 
     if (head == HEAD_STORMWAKER && frame == FRAME_STORMWAKER && roamStormStorm(skill)) {
         success = true;
+    } else if (head == HEAD_SOULSOOTHER && frame == FRAME_STORMWAKER && roamStormSoul(skill)) {
+        success = true;
+    } else if (head == HEAD_HARLEQUIN && frame == FRAME_HARLEQUIN && roamHarlHarl(skill)) {
+        success = true;
     }
 
     if (success) {
         CSpell* spell = spell::GetSpell(spellid);
-//        if (useStatusRecast)
-//            m_statusTick = m_Tick;
-//        else if (useEnfeebleRecast)
-//            m_enfeebleTick = m_Tick;
-//        else if (spell->getSkillType() == SKILL_HEA)
-//            m_healTick = m_Tick;
-//        else if (spell->getSkillType() == SKILL_ELE)
-//            m_nukeTick = m_Tick;
-//        else if (spell->getSkillType() == SKILL_ENH)
-//            m_enhanceTick = m_Tick;
-//        else
-//            m_enfeebleTick = m_Tick;
         m_universalTick = m_Tick;
         Cast(targid, spellid);
     }
@@ -144,7 +136,6 @@ void CAutomatonController::DoCombatTick(time_point tick)
         return;
     }
     else if (TrySpecialSkill()) {
-        ShowDebug("Chosen!\n");
         return;
     }
     else if (TryTPMove()) {
@@ -174,27 +165,112 @@ bool CAutomatonController::TrySpellcast(time_point tick) {
         success = true;
     } else if (frame == FRAME_STORMWAKER && head == HEAD_SPIRITREAVER && combatStormSpirit(skill)) {
         success = true;
+    } else if (frame == FRAME_STORMWAKER && head == HEAD_SOULSOOTHER && combatStormSoul(skill)) {
+        success = true;
+    } else if (frame == FRAME_HARLEQUIN && head == HEAD_HARLEQUIN && combatHarlHarl(skill)) {
+        success = true;
     }
 
     if (success) {
         CSpell* spell = spell::GetSpell(spellid);
-//        if (useStatusRecast)
-//            m_statusTick = m_Tick;
-//        else if (spell->getSkillType() == SKILL_HEA)
-//            m_healTick = m_Tick;
-//        else if (spell->getSkillType() == SKILL_ELE)
-//            m_nukeTick = m_Tick;
-//        else if (spell->getSkillType() == SKILL_ENH)
-//            m_enhanceTick = m_Tick;
-//        else if (spell->getSkillType() == SKILL_DRK)
-//            m_darkTick = m_Tick;
-//        else
-//            m_enfeebleTick = m_Tick;
         m_universalTick = m_Tick;
         Cast(targid, spellid);
     }
     return success;
 
+}
+
+
+bool CAutomatonController::combatHarlHarl(int mS) {
+    int sDia =        mS < 96 ? 23 : 24; // Dia I or Dia II
+//    int sSlow =       mS < 42 ? 0 : 56;
+//    int sParalyze =   mS < 21 ? 0 : 58;
+    int sSilence =   mS < 57 ? 0 : 59;
+    int sPoison =     mS < 18 ? 0 : mS < 141 ? 220 : 221;
+    int sRegen = mS < 60 ? 0 : mS < 100 ? 108 : mS < 180 ? 110 : mS < 240 ? 111 : 477;
+    int sHaste = mS < 100 ? 0 : 57;
+    int sGain = mS < 80 ? 0 : 486; // Gain Strength
+    int sDistract = mS < 96 ? 0 : mS < 190 ? 841 : 842; // Distract I and II
+
+
+    CBattleEntity* master = PAutomaton->PMaster;
+    CBattleEntity* target = PAutomaton->GetBattleTarget();
+    int manaMod = PAutomaton->hasAttachment(ATTACHMENT_MANA_BOOSTER) ? -1 * (2 + mList.ice * 2) : 0;
+
+
+    // try regen next
+    if (isReady(m_enhanceTick, PAutomaton->m_enhanceDelay + manaMod)) {
+        if (canCast(sRegen) && notHave(master, EFFECT_REGEN) && master->GetHPP() <= 85)
+            return choose(master, sRegen, m_healTick);
+        if (canCast(sRegen) && notHave(PAutomaton, EFFECT_REGEN) && PAutomaton->GetHPP() <= 85)
+            return choose(PAutomaton, sRegen, m_healTick);
+    }
+
+
+    // try to enfeeble
+    if (isReady(m_enfeebleTick, PAutomaton->m_enfeebleDelay + manaMod) && PTarget != nullptr) {
+        bool b75 = (PTarget->GetHPP() >= 75);
+        bool b50 = (PTarget->GetHPP() >= 50);
+        bool b25 = (PTarget->GetHPP() >= 25);
+
+        if (b25 && isCaster(PTarget) && canCast(sSilence) && notHave(PTarget, EFFECT_SILENCE))
+            return choose(target, sSilence, m_enfeebleTick);
+
+        if (b50 && canCast(sDia) && mList.light >= 1 && notHave(PTarget, EFFECT_DIA) && notHave(PTarget, EFFECT_BIO))
+            return choose(target, sDia, m_enfeebleTick);
+
+        if (b50 && canCast(sPoison) && mList.water >= 1 && notHave(PTarget, EFFECT_POISON))
+            return choose(target, sPoison, m_enfeebleTick);
+
+        if (b50 && canCast(sDistract) && mList.ice >= 1 && notHave(PTarget, EFFECT_EVASION_DOWN))
+            return choose(target, sDistract, m_enfeebleTick);
+
+    }
+
+    if (isReady(m_enhanceTick, PAutomaton->m_enhanceDelay + manaMod)) {
+        if (canCast(sHaste) && notHave(master, EFFECT_HASTE))
+            return choose(master, sHaste, m_enhanceTick);
+        if (canCast(sHaste) && notHave(PAutomaton, EFFECT_HASTE))
+            return choose(PAutomaton, sHaste, m_enhanceTick);
+        if (canCast(sGain) && notHave(master, EFFECT_STR_BOOST))
+            return choose(master, sGain, m_enhanceTick);
+        if (canCast(sGain) && notHave(PAutomaton, EFFECT_STR_BOOST))
+            return choose(PAutomaton, sGain, m_enhanceTick);
+    }
+
+    return false;
+}
+
+
+bool CAutomatonController::roamHarlHarl(int mS) {
+
+    int sRegen = mS < 60 ? 0 : mS < 100 ? 108 : mS < 180 ? 110 : mS < 240 ? 111 : 477;
+    int sHaste = mS < 100 ? 0 : 57;
+    int sGain = mS < 80 ? 0 : 486; // Gain Strength
+    CBattleEntity* master = PAutomaton->PMaster;
+    int manaMod = PAutomaton->hasAttachment(ATTACHMENT_MANA_BOOSTER) ? -1 * (2 + mList.ice * 2) : 0;
+
+    // try regen next
+    if (isReady(m_enhanceTick, PAutomaton->m_enhanceDelay + manaMod)) {
+        if (canCast(sRegen) && notHave(master, EFFECT_REGEN) && master->GetHPP() <= 85)
+            return choose(master, sRegen, m_healTick);
+        if (canCast(sRegen) && notHave(PAutomaton, EFFECT_REGEN) && PAutomaton->GetHPP() <= 85)
+            return choose(PAutomaton, sRegen, m_healTick);
+    }
+
+    if (isReady(m_enhanceTick, PAutomaton->m_enhanceDelay + manaMod)) {
+        if (canCast(sHaste) && notHave(master, EFFECT_HASTE))
+            return choose(master, sHaste, m_enhanceTick);
+        if (canCast(sHaste) && notHave(PAutomaton, EFFECT_HASTE))
+            return choose(PAutomaton, sHaste, m_enhanceTick);
+        if (canCast(sGain) && notHave(master, EFFECT_STR_BOOST))
+            return choose(master, sGain, m_enhanceTick);
+        if (canCast(sGain) && notHave(PAutomaton, EFFECT_STR_BOOST))
+            return choose(PAutomaton, sGain, m_enhanceTick);
+    }
+
+
+    return false;
 }
 
 
@@ -419,7 +495,7 @@ bool CAutomatonController::roamStormSoul(int mS) {
 
     // try regen next
     if (isReady(m_enhanceTick, PAutomaton->m_enhanceDelay + manaMod)) {
-        CBattleEntity* lowestTarget = getLowestHP(PAutomaton, 85);
+        CBattleEntity* lowestTarget = getLowestHP(PAutomaton, 85, true);
         if (lowestTarget != nullptr && canCast(sRegen))
             return choose(lowestTarget, sRegen, m_enhanceTick);
     }
@@ -534,7 +610,7 @@ bool CAutomatonController::combatStormSoul(int mS) {
 
     // try regen next
     if (isReady(m_enhanceTick, PAutomaton->m_enhanceDelay + manaMod)) {
-        CBattleEntity* lowestTarget = getLowestHP(PAutomaton, 85);
+        CBattleEntity* lowestTarget = getLowestHP(PAutomaton, 85, true);
         if (lowestTarget != nullptr && canCast(sRegen))
             return choose(lowestTarget, sRegen, m_enhanceTick);
     }
@@ -892,6 +968,7 @@ bool CAutomatonController::TrySpecialSkill() {
 
     if (success) {
         m_lastSkillTick = m_Tick;
+        ShowDebug("Success with: %d\n", m_Tick);
         MobSkill(targid, spellid);
         return true;
     }
@@ -996,46 +1073,6 @@ bool CAutomatonController::TryTPMove() {
         //load the skills that the automaton has access to with it's skill
         SKILLTYPE skilltype = SKILL_AME;
 
-//        if (PAutomaton->getFrame() == FRAME_SHARPSHOT)
-//        {
-//            skilltype = SKILL_ARA;
-//        }
-//
-//
-//        for (auto skillid : FamilySkills)
-//        {
-//            auto PSkill = battleutils::GetMobSkill(skillid);
-//            if (PSkill && PAutomaton->PMaster && PAutomaton->PMaster->GetSkill(skilltype) > PSkill->getParam() && PSkill->getParam() != -1)
-//            {
-//                existingSkills[PSkill->getID()] = true;
-//                validSkills.push_back(PSkill);
-//            }
-//        }
-//
-//        uint16 currentSkill = 0;
-//        int8 currentManeuvers = -1;
-//        maneuverList mList = PAutomaton->PMaster->StatusEffectContainer->GetManeuverList();
-//
-//
-//        for (auto PSkill : validSkills)
-//        {
-//            int8 maneuvers = luautils::OnMobAutomatonSkillCheck(PTarget, PAutomaton, PSkill);
-//            ShowDebug("found maneuvers: %d\n", maneuvers);
-//            ShowDebug("found maneuvers: %d\n", maneuvers);
-//            if ( maneuvers > -1 && (maneuvers > currentManeuvers || (maneuvers == currentManeuvers && PSkill->getParam() > currentSkill)))
-//            {
-//                currentManeuvers = maneuvers;
-//                currentSkill = PSkill->getParam();
-//                ShowDebug("Found valid maneuver: %d\n", currentManeuvers);
-//            }
-//        }
-//
-//
-//        // No WS was chosen (waiting on master's TP to skillchain probably)
-//        if (currentManeuvers == -1)
-//        {
-//            return false;
-//        }
         uint16 skillID = getAutomatonWeaponskill();
         if (skillID > 0) {
             MobSkill(PTarget->targid, skillID);
@@ -1082,16 +1119,23 @@ CBattleEntity* rankedBuff(CBattleEntity* caster, EFFECT buff, std::map<JOBTYPE, 
 }
 
 
-CBattleEntity* getLowestHP(CBattleEntity* caster, int threshold) {
+CBattleEntity* getLowestHP(CBattleEntity* caster, int threshold, bool useRegen) {
     int lowest = threshold;
     CBattleEntity* curTarget = nullptr;
     std::vector<CBattleEntity*> party = getWholeParty(caster);
     for (CBattleEntity* member : party) {
-        if ((member->objtype == TYPE_PET && member->GetHPP() <= threshold && caster->GetBattleTarget()->GetBattleTarget() == member)
-                || (member->GetHPP() <= threshold)) {
-            lowest = member->GetHPP();
-            curTarget = member;
+        if (member->GetHPP() <= lowest) {
+//        if ((member->objtype == TYPE_PET && member->GetHPP() <= lowest && caster->GetBattleTarget()->GetBattleTarget() == member)
+//                || (member->GetHPP() <= lowest)) {
+            if (useRegen && notHave(member, EFFECT_REGEN)) {
+                lowest = member->GetHPP();
+                curTarget = member;
+            } else if (!useRegen) {
+                lowest = member->GetHPP();
+                curTarget = member;
+            }
         }
+
     }
 
     return curTarget;
@@ -1133,9 +1177,9 @@ std::vector<CBattleEntity*> getWholeParty(CBattleEntity* caster, bool includeCas
     if (includeCaster)
         party.push_back(caster);
 
-    if (caster->objtype == TYPE_PET && caster->PMaster != nullptr) {
+    if (caster->PMaster != nullptr) {
         if (distance(caster->loc.p, caster->PMaster->loc.p) <= 20.0f)
-            party.push_back(caster);
+            party.push_back(caster->PMaster);
         caster = caster->PMaster;
     }
 
@@ -1164,6 +1208,5 @@ std::vector<CBattleEntity*> getWholeParty(CBattleEntity* caster, bool includeCas
             }
         }
     }
-
     return party;
 }

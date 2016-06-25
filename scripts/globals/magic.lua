@@ -1334,23 +1334,31 @@ end
 
 function doNinjutsuNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus,mabBonus)
     mabBonus = mabBonus or 0;
+    local skill = caster:getSkillLevel(SKILL_NIN) + caster:getMod(MOD_NINJUTSU); -- JSR: Ninjitsu mod counts as double
+    local bonusacc = 0;
+
+    if (M == 0.5) then
+        V = V * (1 + utils.clamp((skill - 50) * 0.005, 0, 5));
+    elseif (M == 1) then
+        V = V * (1 + utils.clamp((skill - 150) * 0.005, 0, 5));
+    elseif (M == 1.5) then
+        bonusacc = bonusacc + 20;
+        V = V * 1.3 * (1 + utils.clamp((skill - 200) * 0.005, 0, 8));
+    end
+
     M = M * 2;
-    V = V * 1.25;
     if (caster:getLocalVar("critHit") ~= 0) then
         caster:setLocalVar("critHit", 0);
-        print("crit");
         mabBonus = mabBonus + 20;
     end
 
     if (caster:getLocalVar("parried") ~= 0) then
         caster:setLocalVar("parried", 0);
-        print("parry");
         mabBonus = mabBonus + 20;
     end
 
     if (caster:getLocalVar("usedWeaponskill") ~= 0) then
         caster:setLocalVar("usedWeaponskill", 0);
-        print("weaponskill");
         mabBonus = mabBonus + 20;
     end
 
@@ -1359,7 +1367,7 @@ function doNinjutsuNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resis
     if (caster:hasStatusEffect(EFFECT_INNIN) and caster:isBehind(target, 23)) then -- Innin mag atk bonus from behind, guesstimating angle at 23 degrees
         mabBonus = mabBonus + caster:getStatusEffect(EFFECT_INNIN):getPower();
     end
-    return doNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus,NINJUTSU_SKILL,MOD_INT,mabBonus);
+    return doNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus + bonusacc,NINJUTSU_SKILL,MOD_INT,mabBonus);
 end
 
 function doNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus,skill,modStat,mabBonus)
