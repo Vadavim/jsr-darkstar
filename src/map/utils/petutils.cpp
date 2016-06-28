@@ -1270,6 +1270,40 @@ namespace petutils
         return PPet;
     }
 
+    void ReloadAlly(CPetEntity* PPet)
+    {
+        CBattleEntity* PMaster = PPet->PMaster;
+        Pet_t* PPetData = g_PPetList.at(PPet->m_PetID);
+        if (PMaster == nullptr)
+            return;
+
+        PPet->SetMLevel(PMaster->GetMLevel());
+        PPet->SetSLevel(PMaster->GetMLevel() / 2);
+        LoadJugStats(PPet, PPetData);
+
+        for (int i = SKILL_DIV; i <= SKILL_BLU; i++) {
+            uint16 maxSkill = battleutils::GetMaxSkill((SKILLTYPE)i, PPet->GetMJob(), PPet->GetMLevel());
+            if (maxSkill != 0) {
+                PPet->WorkingSkills.skill[i] = maxSkill;
+            }
+            else //if the mob is WAR/BLM and can cast spell
+            {
+                // set skill as high as main level, so their spells won't get resisted
+                uint16 maxSubSkill = battleutils::GetMaxSkill((SKILLTYPE)i, PPet->GetSJob(), PPet->GetMLevel());
+
+                if (maxSubSkill != 0)
+                {
+                    PPet->WorkingSkills.skill[i] = maxSubSkill;
+                }
+            }
+        }
+
+        PPet->setModifier(MOD_MEVA, battleutils::GetMaxSkill(SKILL_ELE, JOB_RDM, PPet->GetMLevel()));
+        PPet->health.tp = 0;
+        PPet->UpdateHealth();
+
+    }
+
 
     void LoadPet(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone)
     {

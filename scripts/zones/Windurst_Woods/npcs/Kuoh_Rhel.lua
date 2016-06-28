@@ -49,8 +49,8 @@ function onTrigger(player,npc)
     
     
     -- Uncomment once conquest tally in place
-    --elseif (IAS == QUEST_COMPLETED) then
-        --player:startEvent(0x00F0); -- new dialog between repeats
+    elseif (IAS == QUEST_COMPLETED) then
+        player:startEvent(0x00F0); -- new dialog between repeats
         
     elseif (IAS == QUEST_COMPLETED) then
         player:startEvent(0x00EA);    -- start repeat
@@ -83,6 +83,33 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+local function chocoReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 2500,
+        ["xp"] = 800,
+        ["guild"] = {COOK, 300},
+    };
+    jsrReward(player, reward);
+end
+
+local function stewReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 1000,
+        ["xp"] = 350,
+        ["guild"] = {COOK, 125},
+    };
+    if (firstTime == true) then
+        reward = {
+            ["gil"] = 3000,
+            ["xp"] = 1250,
+            ["guild"] = {COOK, 450},
+        };
+    end
+
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -94,8 +121,7 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x00e7) then                        -- finish Quest
         player:completeQuest(WINDURST,CHOCOBILIOUS);
         player:addFame(WINDURST,220);
-        player:addGil(GIL_RATE*1500);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*1500);
+        chocoReward(player);
         player:tradeComplete();
         player:setVar("ChocobiliousQuest",0)
         player:needToZone(true); 
@@ -107,9 +133,16 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x00EF) then
         player:completeQuest(WINDURST,IN_A_STEW);    -- finish Quest
         player:setVar("IASvar",0);
-        player:addFame(WINDURST,50);
-        player:addGil(GIL_RATE*900);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*900);
+
+        local IAS = player:getQuestStatus(WINDURST,IN_A_STEW);
+        if (IAS == QUEST_ACCEPTED) then
+            stewReward(player, true);
+            player:addFame(WINDURST,50);
+        else
+            stewReward(player, false);
+            player:addFame(WINDURST,15);
+        end
+
         player:delKeyItem(RANPIMONPIS_SPECIAL_STEW);
     elseif (csid == 0x0EA and option == 1) then        -- start repeat
         player:setVar("IASvar",3);

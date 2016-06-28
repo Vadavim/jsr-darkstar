@@ -71,7 +71,8 @@ namespace petutils
     void	FreePetList();
 
     void	SpawnPet(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone);
-    void	SpawnAlly(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone);
+	void	SpawnAlly(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone);
+	void ReloadAlly(CPetEntity* PPet);
     void  SpawnMobPet(CBattleEntity* PMaster, uint32 PetID);
     void  DetachPet(CBattleEntity* PMaster);
     void  DespawnPet(CBattleEntity* PMaster);

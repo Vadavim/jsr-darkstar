@@ -8,3 +8,14 @@ Duration: 300 -> 600 seconds
 
 [Banish Spells]
  - Damage increased significantly
+
+[Bar Status Spells]
+ - Duration: 180 + Enhancing * 2
+ - Power: 1 + Enhancing / 10
+ - Soft Caps at power 10, where it becomes +1 Power every 20 Enhancing thereafter.
+ - White Mage's Bar Spell Effect merit increases power by +1 per point.
+
+
+[Inundation] (Red Mage Spell)
+ - Instead inflicts Chainbound on target (if successfull) for 15 seconds, causing the next weaponskill to skillchain.
+ - Recast is 300 seconds.

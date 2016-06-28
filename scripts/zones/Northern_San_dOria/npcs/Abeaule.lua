@@ -73,6 +73,7 @@ end;
 -- onEventFinish
 -----------------------------------
 function traderReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 500,
         ["xp"] = 400,
@@ -84,6 +85,7 @@ function traderReward(player)
 end
 
 function medicineReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 4500,
         ["xp"] = 1000,

@@ -370,7 +370,10 @@ bool CMobController::TryCastSpell()
     }
 
     int chosenSpellId = -1;
-    m_LastMagicTime = m_Tick - std::chrono::milliseconds(dsprand::GetRandomNumber(PMob->getBigMobMod(MOBMOD_MAGIC_COOL) / 2));
+    float castMod = dsp_cap((1.0f - PMob->getMod(MOD_FASTCAST) / 100.0f), 0.5, 1.5) *
+            (1.0f - PMob->getMod(MOD_UFASTCAST) / 100.0f);
+    m_LastMagicTime = m_Tick - std::chrono::milliseconds(dsprand::GetRandomNumber(
+            ((int)(PMob->getBigMobMod(MOBMOD_MAGIC_COOL) * castMod * 0.5))));
 
     if (PMob->m_HasSpellScript)
     {
@@ -917,9 +920,11 @@ void CMobController::Disengage()
     }
 
     // JSR: reset monster's level if it scaled
-    if (PMob->getMobMod(MOBMOD_SCALE_LEVEL)) {
+    int scale = PMob->getMobMod(MOBMOD_SCALE_LEVEL);
+    if (scale) {
         PMob->SetMLevel(PMob->getMobMod(MOBMOD_SCALE_LEVEL));
         mobutils::CalculateStats(PMob);
+        PMob->setMobMod(MOBMOD_SCALE_LEVEL, scale);
     }
 
     PMob->delRageMode();
@@ -950,7 +955,8 @@ bool CMobController::Engage(uint16 targid)
         }
 
         // JSR: scale monster's level to highest level attacker
-        if (PMob->getMobMod(MOBMOD_SCALE_LEVEL)) {
+        int scale = PMob->getMobMod(MOBMOD_SCALE_LEVEL);
+        if (scale) {
             CBattleEntity* attacker = (CBattleEntity*)PMob->GetEntity(targid, TYPE_MOB | TYPE_PC | TYPE_PET);
             if (attacker->objtype == TYPE_PET)
                 attacker = ((CPetEntity*)attacker)->PMaster;
@@ -969,6 +975,7 @@ bool CMobController::Engage(uint16 targid)
                 // keep track of missing HP (due to a first hit)
                 mobutils::CalculateStats(PMob);
                 PMob->addHP(-missingHP);
+                PMob->setMobMod(MOBMOD_SCALE_LEVEL, scale);
             }
         }
     }
@@ -1064,6 +1071,8 @@ bool CMobController::IsSpellReady(float currentDistance)
         // Mobs use ranged attacks quicker when standing back
         bonusTime = PMob->getBigMobMod(MOBMOD_STANDBACK_COOL);
     }
+    float castMod = dsp_cap((1.0f - PMob->getMod(MOD_FASTCAST) / 100.0f), 0.5, 1.5) *
+                    (1.0f - PMob->getMod(MOD_UFASTCAST) / 100.0f);
 
-    return (m_Tick >= m_LastMagicTime + std::chrono::milliseconds(PMob->getBigMobMod(MOBMOD_MAGIC_COOL) - bonusTime));
+    return (m_Tick >= m_LastMagicTime + std::chrono::milliseconds(((int)(PMob->getBigMobMod(MOBMOD_MAGIC_COOL) * castMod)) - bonusTime));
 }

@@ -30,6 +30,10 @@ STRATAGEM CHANGES
 [Immanence]
  - Gained at level 65.
 
+
+[Sublimation]
+ - Stacks with Refresh.
+
 [Helices]
  - Deal increased damage based on Int
 

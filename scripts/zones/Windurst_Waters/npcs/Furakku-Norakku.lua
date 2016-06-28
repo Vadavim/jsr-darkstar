@@ -75,6 +75,26 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function earlyBirdReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 2000,
+        ["xp"] = 800,
+        ["beast"] = 2,
+    };
+    jsrReward(player, reward);
+end
+
+local function chasingReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 4500,
+        ["xp"] = 1250,
+        ["beast"] = 2,
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -85,8 +105,7 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x0190) then
         player:needToZone(true);
         player:addTitle(SAVIOR_OF_KNOWLEDGE);
-        player:addGil(GIL_RATE*1500);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*1500);
+        earlyBirdReward(player);
         player:setVar("EARLY_BIRD_TRACK_BOOK",0);
         player:addFame(WINDURST,120);
         player:completeQuest(WINDURST,EARLY_BIRD_CATCHES_THE_BOOKWORM);
@@ -95,8 +114,7 @@ function onEventFinish(player,csid,option)
         player:messageSpecial(KEYITEM_OBTAINED,OVERDUE_BOOK_NOTIFICATION);
     elseif (csid == 0x019a) then
         player:needToZone(true);
-        player:addGil(GIL_RATE*2800);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*2800);
+        chasingReward(player);
         player:addTitle(SAVIOR_OF_KNOWLEDGE);
         player:delKeyItem(OVERDUE_BOOK_NOTIFICATION);
         player:delKeyItem(A_SONG_OF_LOVE);

@@ -160,6 +160,25 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+local function foodThoughtReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 1000,
+        ["gil"] = 2000,
+        ["guild"] = {COOK, 200},
+    };
+    jsrReward(player, reward);
+end
+
+local function ribbonReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 8000,
+        ["gil"] = 15000,
+        ["scyld"] = 150,
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -215,6 +234,7 @@ function onEventFinish(player,csid,option)
         player:setVar("BlueRibbonBluesProg",0);
         player:addFame(WINDURST,140);
         player:addTitle(GHOSTIE_BUSTER);
+        ribbonReward(player);
         player:needToZone(true);
     elseif (csid == 0x0396) then    --diablos start
                player:addKeyItem(VIAL_OF_DREAM_INCENSE);

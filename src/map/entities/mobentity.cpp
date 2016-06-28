@@ -575,8 +575,15 @@ void CMobEntity::Spawn()
     if (m_Type == MOBTYPE_NORMAL && !(m_roamFlags & ROAMFLAG_EVENT) && !(m_roamFlags & ROAMFLAG_STEALTH)
             &&  dsprand::GetRandomNumber(0, 100) <= 5) {
         m_flags |= 131072;
-        health.maxhp *= 1.5;
-        health.hp = health.maxhp;
+        health.modhp *= 1.5;
+
+        this->UpdateHealth();
+
+        this->health.tp = 0;
+        this->health.hp = this->GetMaxHP();
+        this->health.mp = this->GetMaxMP();
+
+
         addModifier(MOD_ATTP, 20);
         addModifier(MOD_DEFP, 20);
         addModifier(MOD_MACC, 20);

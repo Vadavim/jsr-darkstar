@@ -1,6 +1,7 @@
 SKILL CHANGES
 
-Dagger: B+
+Dagger: A-
+Sword: B
 Club: B
 Staff: B
 Evasion: B
@@ -16,41 +17,103 @@ TRAIT CHANGES
 ABILITY CHANGES
 
 [Marcato]
- - Gained at level 40
- - Recast increased to 3 minutes.
- - Duration of listed effects is 3 minute unless otherwise noted.
- - Consumes songs on you to generate powerful buffs for yourself.
-	- Carols: Grants Enspell and -50% elemental damage reduction matching element.
-	- Paeon: Heals HP depending upon level of spell and Chr.
-	- Etude: Grants a large bonus to associated stat.
-	- Madrigal: Grants a large ACC bonus to self
-	- Mambo: Grants 2/4 shadows (for Sheep / Dragonfoe Mambo)
-	- March: Grants +20 / +30 Double Attack (for Advancing / Victory March)
-	- Ballad: Heals MP depending upon level of spell and Chr.
-	- Minne: Grants physical damage reduction depending upon of spell (10% to 20%)
-	- Minuet: Grants a large Attack bonus to self.
-	- Status Resistance Songs: Grants high resistance to all status effect.
-	- Increases RACC by +40 and RATK by 40%.
+ - Gained at level 30
+ - Recast Time: 600 -> 300 Seconds
+ - Only affects the following songs:
+	- Status Resistance Songs (+50% resistance)
+	- Carol Songs (+50% resistance)
+	- Requiem (+100% DoT, -50% Duration)
+	- Elegy (+33% Power, -50% Duration)
+	- Threnody (+50% Power and DoT)
+	- Paeon (+50% Healing)
+	- Etude (+50% Power)
+	- Lullaby (+40 Magic Accuracy)
+ - Using a weaponskill resets recast.
 
 [Tenuto]
- - Gained at level 60
+ - Gained at Level 45
+ - Recast is 5 minutes
+ - For one minute, you gain +50% effect from songs (does not affect allies).
+
+[Troubadour]
+ - Gained at Level 55
+
+
+
+
 
 
 BARD SONG CHANGES
  - Most buff songs now last for 10 minutes and have a recast of 5 minutes.
- - The potency of Madrigal/March/Minuet has been reduced.
+ - Players that sub Bard can still have two songs active (however, they still cannot equip an instrument)
+
+
+[Soul Voice]
+ - Reduces the duration of songs that last 10 minutes to 2 minutes (otherwise, just enhances the effect).
+
+[Status Restance Songs / Carols]
+ - A Bard may have one Carol or Status Resistance song in effect without counting against the maximum of two songs.
+
+
+[Elegy]
+ - Duration: 180 seconds
+ - Power: -(50 + tier * 2) (power reduced significantly)
+ - Also lowers casting and ranged attack speed by (power / 10)%.
+
+[Madrigal]
+ - Accuracy Formula: (tier * 5) + (Singing + Instrument Skills) / 20
+ - Soft caps at (tier * 15) Accuracy. Afterwards, +1 Accuracy every 40 combined skill.
+ - Also increases Ranged Accuracy by the same amount.
+ - Also adds Magic Accuracy equal to (power * 0.75)
+
+[March]
+ - haste Formula: (5 * tier) + (Singing + Instrument Skills) / 8
+ - Soft caps at -(tier * 38) Delay. Afterwards, -1 Delay every 16 combined skill.
+ - Also gives Snap Shot (% delay reduction of ranged attacks) equal to 1/6th the power.
+ - Also gives Fast Cast equal to (power / 6).
+ - Instrument Bonus: -12 Delay per +1 March effect (down from -16)
+
+[Mambo]
+ - Evasion Formula: (tier * 5) + (Singing + Instrument Skills) / 20
+ - Soft caps at (tier * 15) Evasion. Afterwards, +1 Evasion every 40 combined skill.
+ - Also increases Magic Evasion by (power * 0.5).
+
+[Minuet]
+ - Defense Formula: (tier * 3) + (Singing + Instrument Skills) / 10
+ - Soft caps at (tier * 12) Attack. Afterwards, +1 Attack every 20 combined skill
+ - Instrument Bonus adds tier * bonus additional Attack.
+ - Also increases Ranged Attack by same amount
+ - Also adds Magic Attack Bonus equal to (power / 3)
+
+[Minne]
+ - Defense Formula: (tier * 5) + (Singing + Instrument Skills) / 4
+ - Soft caps at (tier * 25) defense. Afterwards, +1 Defense every 8 combined skill
+ - Instrument Bonus adds (tier * 3) * bonus additional Defense.
+ - Also lowers magic damage by (power / 5)%.
 
 
 [Requiem]
  - The damage per tic has been greatly increased.
- - (2 * Requiem Level) + CHR / 3.
+ - Duration is 30 + tier * 10
+ - Dot: (2 * tier) + CHR / 10.
+ - Instrument Bonus: Adds (1 + Bonus * Tier * 0.5) additional DoT
+ - Magic Attack/Defense, Light Attack/Deffense, Day, and Weather affect DoT.
 
 
-[Elegy]
- - The amount of slow from elegies has been halved.
+[Threnody]
+ - Also deals DoT (1 + CHR / 6). 
+ - Magic Attack/Defense, Element Attack/Deffense, Day, and Weather affect DoT corresponding to element of threnody.
+
+
+[Hymnus]
+ - Grants Reraise (or Reraise II with Angel Lyre)
+ - With Marcato, acts as Reraise II (or Reraise III with Angel Lyre).
+ - With Soul Voice, acts as Reraise III (or Reraise IV with Angel Lyre).
 
 [Paeon]
- - Healing amount doubled, and grants a large amount of HPP
+ - Paeon does not count against the max of two Bard songs, however only one Paeon may be in effect
+ - Paeon requires TP to use (100 + tier * 50) TP. 
+ - Duration is two minutes.
 
 
 

@@ -35,6 +35,10 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
         end
     end
 
+    if (attacker:isPC() and attacker:getMainJob() == 10) then
+        attacker:resetRecast(RECAST_ABILITY, 48);
+    end
+
 
     -- get fstr
     local fstr = fSTR(attacker:getStat(MOD_STR),target:getStat(MOD_VIT),attacker:getWeaponDmgRank());
@@ -252,7 +256,6 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
         local boostEffect = attacker:getStatusEffect(EFFECT_BOOST);
         local bSubPower = boostEffect:getSubPower();
         bSubPower = (bSubPower * (1 + bSubPower / 500)) * (0.01 + 0.008 * attacker:getMainLvl());
-        print(bSubPower);
         finaldmg = finaldmg + bSubPower;
         attacker:delStatusEffect(EFFECT_BOOST);
     end
@@ -267,16 +270,19 @@ end;
 -- params: ftp100, ftp200, ftp300, wsc_str, wsc_dex, wsc_vit, wsc_agi, wsc_int, wsc_mnd, wsc_chr,
 --         ele (ELE_FIRE), skill (SKILL_STF), includemab = true
 
-function applyResistanceWeaponskill(attacker, target, params, element, skill)
+function applyResistanceWeaponskill(attacker, target, params, tp, element, skill)
 
     local bonusTP = params.bonusTP or 0
     local bonusfTP, bonusacc = handleWSGorgetBelt(attacker);
-    bonusacc = bonusacc + attacker:getMod(MOD_WSACC) + 20; --JSR: magic weaponskills more accurate
+    bonusacc = bonusacc + attacker:getMod(MOD_WSACC) + 20 + (20 * (tp - 1000) / 2000); --JSR: magic weaponskills more accurate
     local p = applyResistanceAbility(attacker,target,element,skill, bonusacc);
     return p;
 end
 
 function doMagicWeaponskill(attacker, target, wsID, params, tp, primary)
+    if (attacker:isPC() and attacker:getMainJob() == 10) then
+        attacker:resetRecast(RECAST_ABILITY, 48);
+    end
 
     local bonusTP = params.bonusTP or 0
     local bonusfTP, bonusacc = handleWSGorgetBelt(attacker);

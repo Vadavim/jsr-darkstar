@@ -2459,6 +2459,14 @@ inline int32 CLuaBaseEntity::levelRestriction(lua_State* L)
                     petutils::DespawnPet(PChar);
                 }
             }
+            if (PChar->PAlly.size() > 0)
+            {
+                for (auto ally : PChar->PAlly)
+                {
+                    petutils::ReloadAlly((CPetEntity*)ally);
+                }
+            }
+
         }
     }
     lua_pushinteger(L, PChar->m_LevelRestriction);
@@ -4878,10 +4886,10 @@ inline int32 CLuaBaseEntity::addBardSong(lua_State *L)
     {
         CCharEntity* PCaster = (CCharEntity*)PEntity->m_PBaseEntity;
         CItemWeapon* PItem = (CItemWeapon*)PCaster->getEquip(SLOT_RANGED);
-        if (PItem == nullptr || PItem->getID() == 65535 || !(PItem->getSkillType() == SKILL_STR || PItem->getSkillType() == SKILL_WND))
-        {
-            maxSongs = 1;
-        }
+//        if (PItem == nullptr || PItem->getID() == 65535 || !(PItem->getSkillType() == SKILL_STR || PItem->getSkillType() == SKILL_WND))
+//        {
+//            maxSongs = 1;
+//        }
         maxSongs += PCaster->getMod(MOD_MAXIMUM_SONGS_BONUS);
     }
     lua_pushboolean(L, ((CBattleEntity*)m_PBaseEntity)->StatusEffectContainer->ApplyBardEffect(PEffect, maxSongs));
@@ -11053,6 +11061,189 @@ inline int32 CLuaBaseEntity::removeAllRunes(lua_State* L)
     return 0;
 }
 
+int32 CLuaBaseEntity::getAugmentCount(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    if (m_PBaseEntity->objtype != TYPE_PC) {
+        lua_pushinteger(L, 0);
+        return 1;
+    }
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+    uint32 augType = lua_tointeger(L, 1);
+    int count = 0;
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+    CItemArmor* PItem = nullptr;
+
+    for (uint8 slotID = 0; slotID < 16; ++slotID)
+    {
+        PItem = PChar->getEquip((SLOTTYPE)slotID);
+
+        if ((PItem != nullptr))
+        {
+            for (int i = 0; i < 3; i++) {
+                uint16 augment = PItem->getAugment(i);
+                uint16 augmentid = unpackBitsBE((uint8 *) (&augment), 0, 11);
+                uint8 augmentVal = unpackBitsBE((uint8 *) (&augment), 11, 5);
+                if (augmentid == augType)
+                    count += augmentVal;
+            }
+        }
+    }
+
+    lua_pushinteger(L, count);
+
+    return 1;
+}
+
+
+inline int32 CLuaBaseEntity::addLimitPoints(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+    int exp = lua_tointeger(L, 1);
+    PChar->PMeritPoints->AddLimitPoints(exp);
+
+    return 0;
+}
+
+inline int32 CLuaBaseEntity::setSpawner(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L,1) || !lua_isuserdata(L,1));
+
+    CLuaBaseEntity* PLuaBaseEntity = Lunar<CLuaBaseEntity>::check(L,1);
+    CMobEntity* PMob = (CMobEntity*)m_PBaseEntity;
+    CBattleEntity* PSpawner = (CBattleEntity*)PLuaBaseEntity->GetBaseEntity();
+    PMob->m_PSpawner = PSpawner;
+
+    return 0;
+}
+
+inline int32 CLuaBaseEntity::getSpawner(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC)
+
+    if(((CMobEntity*)m_PBaseEntity)->m_PSpawner != nullptr)
+    {
+        //uint32 petid = (uint32);
+
+        CBaseEntity* PSpawner = ((CMobEntity*)m_PBaseEntity)->m_PSpawner;
+
+        lua_getglobal(L, CLuaBaseEntity::className);
+        lua_pushstring(L,"new");
+        lua_gettable(L,-2);
+        lua_insert(L,-2);
+        lua_pushlightuserdata(L,(void*)PSpawner);
+        lua_pcall(L,2,1,0);
+        return 1;
+    }
+    lua_pushnil(L);
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::applyConfrontationToParty(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 2) || !lua_isnumber(L, 2));
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+    int32 power = lua_tointeger(L,1);
+    int32 duration = lua_tointeger(L,2);
+
+    CStatusEffect * PEffect = nullptr;
+
+
+    CStatusEffect * PLevelRestriction = nullptr;
+
+
+
+    if (PEntity->PParty != nullptr)
+    {
+        for (auto member : PEntity->PParty->members)
+        {
+            PEffect = new CStatusEffect( EFFECT_CONFRONTATION, (uint16)EFFECT_CONFRONTATION,
+                                         (uint16)power, 0, (uint16)duration, 0, 0, 0);
+            PLevelRestriction = new CStatusEffect(EFFECT_LEVEL_RESTRICTION, (uint16)EFFECT_LEVEL_RESTRICTION,
+                                                  (uint16)power, 0, (uint16)duration, 0, 0, 0);
+            member->StatusEffectContainer->AddStatusEffect(PEffect, true);
+            member->StatusEffectContainer->AddStatusEffect(PLevelRestriction, true);
+            if (member->PAlly.size() > 0)
+            {
+                for (auto ally : member->PAlly)
+                {
+                    PEffect = new CStatusEffect( EFFECT_CONFRONTATION, (uint16)EFFECT_CONFRONTATION,
+                                                 (uint16)power, 0, (uint16)duration, 0, 0, 0);
+                    ally->StatusEffectContainer->AddStatusEffect(PEffect, true);
+                }
+            }
+        }
+    }
+    else
+    {
+        PEffect = new CStatusEffect( EFFECT_CONFRONTATION, (uint16)EFFECT_CONFRONTATION,
+                                     (uint16)power, 0, (uint16)duration, 0, 0, 0);
+        PLevelRestriction = new CStatusEffect(EFFECT_LEVEL_RESTRICTION, (uint16)EFFECT_LEVEL_RESTRICTION,
+                                              (uint16)power, 0, (uint16)duration, 0, 0, 0);
+        PEntity->StatusEffectContainer->AddStatusEffect(PEffect, true);
+        PEntity->StatusEffectContainer->AddStatusEffect(PLevelRestriction, true);
+        if (PEntity->PAlly.size() > 0)
+        {
+            for (auto ally : PEntity->PAlly)
+            {
+                PEffect = new CStatusEffect( EFFECT_CONFRONTATION, (uint16)EFFECT_CONFRONTATION,
+                                             (uint16)power, 0, (uint16)duration, 0, 0, 0);
+                ally->StatusEffectContainer->AddStatusEffect(PEffect, true);
+            }
+        }
+    }
+
+
+    return 0;
+}
+
+inline int32 CLuaBaseEntity::removeConfrontationFromParty(lua_State*)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+
+    if (PEntity->PParty != nullptr)
+    {
+        for (auto member : PEntity->PParty->members)
+        {
+            member->StatusEffectContainer->DelStatusEffect(EFFECT_CONFRONTATION);
+            member->StatusEffectContainer->DelStatusEffect(EFFECT_LEVEL_RESTRICTION);
+            if (member->PAlly.size() > 0)
+            {
+                for (auto ally : member->PAlly)
+                {
+                    ally->StatusEffectContainer->DelStatusEffect(EFFECT_CONFRONTATION);
+                }
+            }
+        }
+    }
+    else
+    {
+        PEntity->StatusEffectContainer->DelStatusEffect(EFFECT_CONFRONTATION);
+        PEntity->StatusEffectContainer->DelStatusEffect(EFFECT_LEVEL_RESTRICTION);
+        if (PEntity->PAlly.size() > 0)
+        {
+            for (auto ally : PEntity->PAlly)
+            {
+                ally->StatusEffectContainer->DelStatusEffect(EFFECT_CONFRONTATION);
+            }
+        }
+    }
+
+    return 0;
+}
+
+
+
 //==========================================================//
 
 const int8 CLuaBaseEntity::className[] = "CBaseEntity";
@@ -11542,5 +11733,11 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,delStatusEffectsByFlagExceptCam),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,insertSpellRecast),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addRecastRange),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getAugmentCount),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,addLimitPoints),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getSpawner),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,setSpawner),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,applyConfrontationToParty),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeConfrontationFromParty),
     {nullptr,nullptr}
 };

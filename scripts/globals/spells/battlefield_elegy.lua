@@ -12,8 +12,8 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-    local duration = 600;
-    local power = 256;
+    local duration = 180;
+    local power = 150;
 
     local pCHR = caster:getStat(MOD_CHR);
     local mCHR = target:getStat(MOD_CHR);
@@ -27,9 +27,10 @@ function onSpellCast(caster,target,spell)
         power = power + iBoost*10;
         
         if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
-            power = power * 2;
-        elseif (caster:hasStatusEffect(EFFECT_MARCATO)) then
             power = power * 1.5;
+        elseif (caster:hasStatusEffect(EFFECT_MARCATO)) then
+            power = power * 1.33;
+            duration = duration * 0.5;
         end
         caster:delStatusEffect(EFFECT_MARCATO);
         

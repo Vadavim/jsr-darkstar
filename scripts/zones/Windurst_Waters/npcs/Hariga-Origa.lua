@@ -73,6 +73,27 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function glyphReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 1000,
+        ["xp"] = 500,
+        ["beast"] = 2,
+    };
+    jsrReward(player, reward);
+end
+
+local function smudgeReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 10000,
+        ["xp"] = 2500,
+        ["beast"] = 2,
+    };
+    jsrReward(player, reward);
+end
+
+
 function onEventFinish(player,csid,option)
 -- printf("CSID: %u",csid);
 -- printf("RESULT: %u",option);
@@ -89,13 +110,13 @@ function onEventFinish(player,csid,option)
             player:messageSpecial(KEYITEM_OBTAINED,MAP_OF_THE_HORUTOTO_RUINS);
         end
         player:addFame(WINDURST,120);
+        glyphReward(player);
         player:completeQuest(WINDURST,GLYPH_HANGER);
     elseif (csid == 0x019d and option == 0) then
         player:addQuest(WINDURST,A_SMUDGE_ON_ONE_S_RECORD);
     elseif (csid == 0x01a1) then
         player:needToZone(true);
-        player:addGil(GIL_RATE*3000);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*3000);
+        smudgeReward(player);
         if (player:hasKeyItem(MAP_OF_FEIYIN) == false) then
             player:addKeyItem(MAP_OF_FEIYIN);
             player:messageSpecial(KEYITEM_OBTAINED,MAP_OF_FEIYIN);

@@ -3,6 +3,7 @@
 --  EFFECT_BARPOISON
 --
 -----------------------------------
+require("scripts/globals/status");
 
 -----------------------------------
 -- onEffectGain Action

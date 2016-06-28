@@ -55,6 +55,15 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+local function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 500,
+        ["gil"] = 1000,
+        ["augment"] = {12316, 1, 4, 773, 14}
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -65,8 +74,7 @@ function onEventFinish(player,csid,option)
         player:tradeComplete(trade);
         player:completeQuest(WINDURST,TO_CATCH_A_FALLIHG_STAR);
         player:addFame(WINDURST,75);
-        player:addItem(12316);
-        player:messageSpecial(ITEM_OBTAINED,12316);
+        questReward(player);
         player:setVar("QuestCatchAFallingStar_prog",2);
     end
 end;

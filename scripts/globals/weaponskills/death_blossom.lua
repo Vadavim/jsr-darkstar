@@ -15,6 +15,12 @@
 require("scripts/globals/status");
 require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
+require("scripts/globals/magic");
+
+local enspellElements = {[9] = ELE_FIRE, [10] = ELE_EARTH, [11] = ELE_WATER, [12] = ELE_WIND, [13] = ELE_ICE, [14] = ELE_THUNDER};
+local enspellTypes = {[9] = EFFECT_ENFIRE_II, [10] = EFFECT_ENSTONE_II, [11] = EFFECT_ENWATER_II,
+    [12] = EFFECT_ENAERO_II, [13] = EFFECT_ENBLIZZARD_II, [14] = EFFECT_ENTHUNDER_II};
+local statuses = {EFFECT_POISON, EFFECT_POISON_II, EFFECT_SLOW, EFFECT_BLINDNESS, EFFECT_BIO, EFFECT_PARALYSIS, EFFECT_DISEASE, EFFECT_PLAGUE};
 -----------------------------------
 function onUseWeaponSkill(player, target, wsID, tp, primary)
     local params = {};
@@ -22,8 +28,8 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     -- ftp damage mods (for Damage Varies with TP; lines are calculated in the function
     params.ftp100 = 1.125; params.ftp200 = 1.125; params.ftp300 = 1.125;
     -- wscs are in % so 0.2=20%
-    params.str_wsc = 0.3; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.0; 
-    params.mnd_wsc = 0.5; params.chr_wsc = 0.0;
+    params.str_wsc = 0.6; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.6;
+    params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
     -- critical mods, again in % (ONLY USE FOR critICAL HIT VARIES WITH TP)
     params.crit100 = 0.0; params.crit200=0.0; params.crit300=0.0;
     params.canCrit = false;
@@ -33,16 +39,90 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.atkmulti = 1;
     
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.ftp100 = 4.0; params.ftp200 = 4.0; params.ftp300 = 4.0;
+        params.ftp100 = 1.0; params.ftp200 = 1.3; params.ftp300 = 1.6;
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    local enspell = player:getMod(MOD_ENSPELL)
+
     if (damage > 0) then
-        local duration = (tp/1000 * 20) - 5;
-        if (target:hasStatusEffect(EFFECT_MAGIC_EVASION_DOWN) == false) then
-            target:addStatusEffect(EFFECT_MAGIC_EVASION_DOWN, 10, 0, duration);
+        local duration = ((tp/1000) * 30);
+        local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_DARK, SKILL_SWD);
+        if (target:hasStatusEffect(EFFECT_MAGIC_EVASION_DOWN_II) == false and resist >= 0.25) then
+            target:addStatusEffect(EFFECT_MAGIC_EVASION_DOWN_II, 20, 0, duration * resist);
+            target:setPendingMessage(278, EFFECT_MAGIC_EVASION_DOWN);
         end
+
+        local enspellEffect = player:getStatusEffect(enspellTypes[enspell]);
+        if (enspell >= 9 and enspell <= 14 and enspellEffect ~= nil) then
+            local enspellElement = enspellElements[enspell];
+            local subPower = enspellEffect:getSubPower() + 1;
+            resist = applyResistanceWeaponskill(player, target, params, tp, enspellElement, SKILL_SWD);
+            if (enspellElement == ELE_WATER and resist >= 0.25) then
+                if (target:hasStatusEffect(EFFECT_POISON_II) == false) then
+                    target:addStatusEffect(EFFECT_POISON_II, subPower, 0, duration * resist);
+                    target:setPendingMessage(277, EFFECT_POISON_II);
+                end
+            elseif (enspellElement == ELE_FIRE and resist >= 0.25) then
+                if (target:hasStatusEffect(EFFECT_PLAGUE) == false) then
+                    target:addStatusEffect(EFFECT_PLAGUE, subPower / 4, 0, duration * resist);
+                    target:setPendingMessage(277, EFFECT_PLAGUE);
+                end
+            elseif (enspellElement == ELE_ICE and resist >= 0.25) then
+                if (target:hasStatusEffect(EFFECT_PARALYSIS_II) == false) then
+                    target:addStatusEffect(EFFECT_PARALYSIS_II, subPower / 2, 0, duration * resist);
+                    target:setPendingMessage(277, EFFECT_PARALYSIS_II);
+                end
+            elseif (enspellElement == ELE_EARTH and resist >= 0.25) then
+                if (target:hasStatusEffect(EFFECT_SLOW_II) == false) then
+                    target:addStatusEffect(EFFECT_SLOW_II, subPower * 6, 0, duration * resist);
+                    target:setPendingMessage(277, EFFECT_SLOW_II);
+                end
+            elseif (enspellElement == ELE_WIND and resist >= 0.25) then
+                if (target:hasStatusEffect(EFFECT_EVASION_DOWN_II) == false) then
+                    target:addStatusEffect(EFFECT_EVASION_DOWN_II, subPower, 0, duration * resist);
+                    target:setPendingMessage(278, EFFECT_EVASION_DOWN_II);
+                end
+            elseif (enspellElement == ELE_THUNDER and resist >= 0.25) then
+                if (target:hasStatusEffect(EFFECT_CRIT_HIT_EVASION_DOWN) == false) then
+                    target:addStatusEffect(EFFECT_CRIT_HIT_EVASION_DOWN, subPower / 2, 0, duration * resist);
+                    target:setPendingMessage(278, EFFECT_CRIT_HIT_EVASION_DOWN);
+                end
+            end
+
+            -- Reset power of Enspell II
+            local enspellDuration = enspellEffect:getDuration();
+            local enspellStartTime = enspellEffect:getStartTime();
+            local enspellTick = enspellEffect:getTick();
+            local enspellPower = enspellEffect:getPower();
+            local enspellTier = enspellEffect:getTier();
+            local enspellEffectId = enspellEffect:getType();
+            local enspellSubId = enspellEffect:getSubType();
+            player:delStatusEffectSilent(enspellTypes[enspell]);
+            player:addStatusEffect(enspellEffectId, enspellPower, enspellTick, enspellDuration,
+                enspellSubId, 0, enspellTier);
+            local newEffect = player:getStatusEffect(enspellEffectId);
+            newEffect:setStartTime(enspellStartTime);
+
+        end
+
     end
+
+    if (enspell >= 9 and enspell <= 14) then
+        local params = {}; params.bonusmab = 0; params.includemab = false;
+        damage = addBonusesAbility(player, enspellElements[enspell], target, damage, params, 1.0);
+    end
+
+    local bonusMult = 1.0;
+    for i=1,8 do
+        if (target:hasStatusEffect(statuses[i])) then bonusMult = bonusMult + 0.1 end;
+    end
+
+    damage = damage * bonusMult;
+
+
+
+
 
 
     if ((player:getEquipID(SLOT_MAIN) == 18995) and (player:getMainJob() == JOBS.RDM)) then

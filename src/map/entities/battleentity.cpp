@@ -1672,6 +1672,7 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                 ((CCharEntity*)PEntity)->loc.zone->PushPacket(PEntity, CHAR_INRANGE_SELF, new CActionPacket(actionRanged));
             }));
         }
+
     }
 
     PAI->EventHandler.triggerListener("ATTACK", this, PTarget, &action);

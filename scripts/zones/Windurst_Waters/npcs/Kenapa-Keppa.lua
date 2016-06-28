@@ -158,6 +158,16 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function overnightReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 2000,
+        ["gil"] = 3000,
+        ["augment"] = {12590, 1, 9, 551, 2},
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -225,9 +235,8 @@ function onEventFinish(player,csid,option)
         player:setVar("Kenapa_Overnight_Hour_var",0);
         player:setVar("Kenapa_Overnight_var",256);
     elseif (csid == 0x015c) then
-        player:addItem(12590);
         player:delKeyItem(SMALL_BAG);
-        player:messageSpecial(ITEM_OBTAINED,12590); 
+        overnightReward(player);
         player:completeQuest(WINDURST,OVERNIGHT_DELIVERY);
         player:addFame(WINDURST,100);
         player:needToZone(true);

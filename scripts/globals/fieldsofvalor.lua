@@ -363,27 +363,35 @@ function finishFov(player, csid, option, r1, r2, r3, r4, r5, msg_offset)
         writeRegime(player, r5, msg_accept, msg_jobs, fov_repeat);
         
     elseif (option == FOV_MENU_ELITE_INTRO) then -- Want elite, 100tabs
-        -- giveEliteRegime(player, ELITE_TRAINING_CHAPTER_7, 100);
+         giveEliteRegime(player, ELITE_TRAINING_INTRODUCTION, 100);
 
     elseif (option == FOV_MENU_ELITE_CHAP1) then -- Want elite, 150tabs
+    giveEliteRegime(player, ELITE_TRAINING_CHAPTER_1, 150);
         -- local tabs = player:getVar("tabs");
         -- local newtabs = tabs-150;
         -- player:setVar("tabs", newtabs);
 
     elseif (option == FOV_MENU_ELITE_CHAP2) then -- Want elite, 200tabs
+    giveEliteRegime(player, ELITE_TRAINING_CHAPTER_2, 200);
         -- local tabs = player:getVar("tabs");
         -- local newtabs = tabs-200;
         -- player:setVar("tabs", newtabs);
 
     elseif (option == FOV_MENU_ELITE_CHAP3) then -- Want elite, 250tabs
+    giveEliteRegime(player, ELITE_TRAINING_CHAPTER_3, 250);
 
     elseif (option == FOV_MENU_ELITE_CHAP4) then -- Want elite, 300tabs
+    giveEliteRegime(player, ELITE_TRAINING_CHAPTER_4, 300);
 
     elseif (option == FOV_MENU_ELITE_CHAP5) then -- Want elite, 350tabs
+    giveEliteRegime(player, ELITE_TRAINING_CHAPTER_5, 350);
 
     elseif (option == FOV_MENU_ELITE_CHAP6) then -- Want elite, 400tabs
+    giveEliteRegime(player, ELITE_TRAINING_CHAPTER_6, 400);
+
 
     elseif (option == FOV_MENU_ELITE_CHAP7) then -- Want elite, 450tabs
+    giveEliteRegime(player, ELITE_TRAINING_CHAPTER_7, 450);
 
     else
         -- print("opt is "..option);
@@ -470,8 +478,8 @@ function checkRegime(player, mob, rid, index)
 
                         -- Award gil and tabs once per day.
                         if (player:getVar("fov_LastReward") < VanadielEpoch) then
-                           player:messageBasic(FOV_MSG_GET_GIL, reward / 2);
-                           player:addGil(reward / 2);
+                           player:messageBasic(FOV_MSG_GET_GIL, reward);
+                           player:addGil(reward);
                            player:addCurrency("valor_point", tabs);
                            player:messageBasic(FOV_MSG_GET_TABS, tabs, player:getCurrency("valor_point")); -- Careful about order.
                            if (REGIME_WAIT == 1) then
@@ -480,7 +488,7 @@ function checkRegime(player, mob, rid, index)
                         end
 
                         -- TODO: display msgs (based on zone annoyingly, so will need player:getZoneID() then a lookup)
-                        player:addExp(reward);
+                        player:addExp(reward / 2);
                         if (k1 ~= 0) then player:setVar("fov_numkilled1", 0); end
                         if (k2 ~= 0) then player:setVar("fov_numkilled2", 0); end
                         if (k3 ~= 0) then player:setVar("fov_numkilled3", 0); end

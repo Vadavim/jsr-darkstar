@@ -3,6 +3,7 @@
 -----------------------------------------
 
 require("scripts/globals/status");
+require("scripts/globals/magic");
 
 -----------------------------------------
 -- OnSpellCast
@@ -13,24 +14,6 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-    local meritBonus = caster:getMerit(MERIT_BAR_SPELL_EFFECT);    
-    --printf("Barspell: Merit Bonus +%d", meritBonus);
-    
-    local enhanceSkill = caster:getSkillLevel(34);
-
-    local power = 15 + 0.02 * enhanceSkill + meritBonus;
-
-    local duration = 150;
-
-    if (enhanceSkill > 180) then
-        duration = 150 + 0.8 * (enhanceSkill - 180);
-    end
-
-    if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
-        duration = duration * 3;
-    end
-
-    target:addStatusEffect(EFFECT_BARPETRIFY,power,0,duration);
-
-    return EFFECT_BARPETRIFY;
+    return doBarStatus(caster, target, spell, EFFECT_BARPETRIFY);
 end;
+

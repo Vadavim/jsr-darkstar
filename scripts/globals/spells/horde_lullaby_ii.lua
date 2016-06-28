@@ -16,6 +16,10 @@ function onSpellCast(caster,target,spell)
     local pCHR = caster:getStat(MOD_CHR);
     local mCHR = target:getStat(MOD_CHR);
     local dCHR = (pCHR - mCHR);
+    if (caster:hasStatusEffect(EFFECT_MARCATO)) then
+        dCHR = dCHR + 40;
+        caster:delStatusEffect(EFFECT_MARCATO);
+    end
     local resm = applyResistanceEffect(caster,spell,target,dCHR,SINGING_SKILL,0,EFFECT_LULLABY);
 
     if (resm < 0.5) then

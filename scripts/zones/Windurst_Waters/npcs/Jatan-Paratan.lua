@@ -20,7 +20,7 @@ require("scripts/globals/keyitems");
 
 function onTrade(player,npc,trade)
     wonderingstatus = player:getQuestStatus(WINDURST,WONDERING_MINSTREL);
-    if (wonderingstatus == 1 and trade:hasItemQty(718,1) == true and trade:getItemCount() == 1 and player:getVar("QuestWonderingMin_var") == 1) then
+    if (wonderingstatus == 1 and trade:hasItemQty(701,1) == true and trade:getItemCount() == 1 and player:getVar("QuestWonderingMin_var") == 1) then
         player:startEvent(0x027e);                 -- WONDERING_MINSTREL: Quest Finish
     end
 end;
@@ -75,6 +75,17 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 2000,
+        ["xp"] = 3000,
+        ["guild"] = {WOOD, 400},
+        ["augment"] = {17349, 23, 4, 31, 4}, -- Faerie Piccolo: +5 Accuracy and Evasion
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -86,8 +97,7 @@ function onEventFinish(player,csid,option)
         else
             player:tradeComplete(trade);
             player:completeQuest(WINDURST,WONDERING_MINSTREL)
-            player:addItem(17349);
-            player:messageSpecial(ITEM_OBTAINED,17349);
+            questReward(player);
             player:addFame(WINDURST,75);
             player:addTitle(DOWN_PIPER_PIPEUPPERER);
             player:needToZone(true);

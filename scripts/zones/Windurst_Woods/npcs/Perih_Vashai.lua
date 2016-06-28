@@ -114,6 +114,15 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+local function fangedReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 3500,
+        ["xp"] = 2000,
+        ["guild"] = {LEAT, 400},
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -129,6 +138,7 @@ function onEventFinish(player,csid,option)
             player:setVar("TheFangedOneCS",0);
             player:addTitle(THE_FANGED_ONE);
             player:addItem(13117);
+            fangedReward(player);
             player:messageSpecial(ITEM_OBTAINED,13117);
             player:unlockJob(11);
             player:messageSpecial(PERIH_VASHAI_DIALOG);

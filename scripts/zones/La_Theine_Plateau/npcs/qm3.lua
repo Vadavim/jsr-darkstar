@@ -46,6 +46,15 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+local function rainbowReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 3500,
+        ["gil"] = 2500,
+        ["augment"] = {17127, 12, 4, 8, 4, 9, 4}, -- Oak Staff +1: Pet: +5 Int, Str, and Dex
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -56,6 +65,7 @@ function onEventFinish(player,csid,option)
         player:addTitle(RAINBOW_WEAVER);
         player:unlockJob(15);
         player:addSpell(296);
+        rainbowReward(player);
         player:messageSpecial(UNLOCK_SUMMONER);
         player:messageSpecial(UNLOCK_CARBUNCLE);
         player:setVar("ICanHearARainbow",0);

@@ -23,7 +23,7 @@ function onTrade(player,npc,trade)
     
     -- Rock Racketeer
     if (RRvar == 6) then
-        if (trade:hasItemQty(598,1) == true and trade:getItemCount() == 1) then  -- Sharp Stone
+        if (player:getFreeSlotsCount() >= 2 and trade:hasItemQty(598,1) == true and trade:getItemCount() == 1) then  -- Sharp Stone
             player:startEvent(0x0066,2100); -- finish quest
         end
     
@@ -42,7 +42,7 @@ function onTrigger(player,npc)
     -- Rock Racketeer
     if (RockRacketeer == QUEST_ACCEPTED and RRvar == 3) then 
         player:startEvent(0x0064);                                     -- talk about lost stone
-    elseif (RockRacketeer == QUEST_ACCEPTED and RRvar == 4) then  
+    elseif (RockRacketeer == QUEST_ACCEPTED and RRvar == 4) then
         player:startEvent(0x0065,0,598);                            -- send player to Palborough Mines
         
     -- standard dialog
@@ -63,6 +63,18 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+local function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 4000,
+        ["xp"] = 1250,
+        ["item"] = 4769, -- Scroll of Stone II
+        ["item2"] = 4769, -- Scroll of Stone II
+        ["guild"] = {SMIT, 350},
+        ["augment"] = {13330, 17, 2, 181, 4, 180, 4}, -- Tourmaline Earring: +3 HP/MP, +5 Resist Petrify and Silence
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -76,7 +88,7 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x0066) then
         player:tradeComplete();
         player:addFame(WINDURST,30);
-        player:addGil(GIL_RATE*2100);
+        questReward(player);
         player:completeQuest(WINDURST,ROCK_RACKETTER);
         player:setVar("rockracketeer_sold",0); -- finish cleanup of vars
     

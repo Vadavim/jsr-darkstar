@@ -29,7 +29,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
 
-    local resist = applyResistanceWeaponskill(player, target, params, ELE_EARTH, SKILL_GSD);
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_EARTH, SKILL_GSD);
     if (damage > 0 and resist > 0.25) then
         local duration = (tp/1000 * 6);
         target:addStatusEffect(EFFECT_PETRIFICATION, 1, 0, duration * resist);

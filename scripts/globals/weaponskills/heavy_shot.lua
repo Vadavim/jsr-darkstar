@@ -33,7 +33,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
 
     -- add Weight
-    local resist = applyResistanceWeaponskill(player, target, params, ELE_EARTH, SKILL_MRK);
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_WIND, SKILL_MRK);
     if (damage > 0 and resist > 0.125) then
         local duration = (60 * (tp / 1000) * (1 + (tp - 1000) / 2000));
         target:addStatusEffect(EFFECT_WEIGHT, 50, 0, duration * resist,FLAG_ERASABLE);

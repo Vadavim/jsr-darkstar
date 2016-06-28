@@ -113,7 +113,7 @@ end;
 -- onEventFinish
 -----------------------------------
 
-function seamstressReward(player, firstTime)
+local function seamstressReward(player, firstTime)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 250,
@@ -121,7 +121,7 @@ function seamstressReward(player, firstTime)
         ["augment"] = {12696, 1, 4, 771, 4, 769, 4}, -- Leather Gloves (+5 HP, +5 Earth and Ice Res)
     };
 
-    if (firstTime) then
+    if (firstTime == true) then
         reward = {
             ["gil"] = 800,
             ["guild"] = {LEAT, 200},
@@ -132,7 +132,7 @@ function seamstressReward(player, firstTime)
     jsrReward(player, reward);
 end
 
-function lizardReward(player, firstTime)
+local function lizardReward(player, firstTime)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 350,
@@ -140,7 +140,7 @@ function lizardReward(player, firstTime)
         ["augment"] = {12697, 1, 5, 771, 8, 769, 8}, -- Lizard Gloves (+6 HP, +15 Earth and Ice Res)
     };
 
-    if (firstTime) then
+    if (firstTime == true) then
         reward = {
             ["gil"] = 1200,
             ["guild"] = {LEAT, 250},

@@ -18,6 +18,8 @@ function onTrigger(player,npc)
     if (player:hasStatusEffect(EFFECT_CONFRONTATION)) then
         player:delStatusEffect(EFFECT_CONFRONTATION);
     end;
+
+
 end;
 
 -----------------------------------

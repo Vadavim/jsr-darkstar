@@ -76,6 +76,33 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function questReward(player, type, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {};
+    if (type == 0) then
+        reward = {
+            ["gil"] = 250,
+            ["xp"] = 200,
+            ["guild"] = {ALCH, 50},
+        };
+    else
+        reward = {
+            ["gil"] = 350,
+            ["xp"] = 250,
+            ["guild"] = {BONE, 50},
+        };
+    end
+
+    if (firstTime == true) then
+        reward = {
+            ["gil"] = 1000,
+            ["xp"] = 800,
+        };
+    end
+
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -94,11 +121,18 @@ function onEventFinish(player,csid,option)
         end
         
         if (option == 1) then
-            player:addGil(GIL_RATE*150);
-            player:messageSpecial(GIL_OBTAINED,GIL_RATE*150);
+            if (PayingLipService == QUEST_ACCEPTED) then
+                questReward(player, 0, true);
+            else
+                questReward(player, 0, false);
+            end
+
         else
-            player:addGil(GIL_RATE*200);
-            player:messageSpecial(GIL_OBTAINED,GIL_RATE*200);        
+            if (PayingLipService == QUEST_ACCEPTED) then
+                questReward(player, 1, true);
+            else
+                questReward(player, 1, false);
+            end
         end
         player:tradeComplete();
         

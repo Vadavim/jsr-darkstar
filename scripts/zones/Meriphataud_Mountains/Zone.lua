@@ -16,6 +16,7 @@ require("scripts/globals/chocobo_digging");
 -----------------------------------
 -- Chocobo Digging vars
 -----------------------------------
+
 local itemMap = {
                     -- itemid, abundance, requirement
                     { 646, 4, DIGREQ_NONE },

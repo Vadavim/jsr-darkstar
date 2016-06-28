@@ -135,6 +135,45 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function allNewReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 800,
+        ["xp"] = 500,
+        ["guild"] = {ALCH, 100},
+    };
+    jsrReward(player, reward);
+end
+
+local function planBReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 2500,
+        ["xp"] = 1000,
+        ["item"] = 4792, -- Scroll of Aeroga
+        ["guild"] = {WEAV, 250},
+    };
+    jsrReward(player, reward);
+end
+
+local function allNew3000Reward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 1000,
+        ["xp"] = 500,
+        ["guild"] = {BONE, 100},
+    };
+
+    if (firstTime == true) then
+        reward = {
+            ["gil"] = 3000,
+            ["xp"] = 1500,
+            ["guild"] = {BONE, 300},
+        };
+    end
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -146,7 +185,7 @@ function onEventFinish(player,csid,option)
       player:tradeComplete();
       player:addFame(WINDURST,80);
       player:addTitle(CARDIAN_TUTOR);
-      player:addGil(GIL_RATE*200);
+      allNewReward(player);
       player:completeQuest(WINDURST,THE_ALL_NEW_C_2000);
         
     -- Start LPB
@@ -155,12 +194,12 @@ function onEventFinish(player,csid,option)
         
     -- Finish LPB
     elseif (csid == 0x013A) then
-        if (player:getFreeSlotsCount() == 0) then 
+        if (player:getFreeSlotsCount() < 2) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,12749); -- Scentless Armlets
         else
         player:tradeComplete();
         player:addFame(WINDURST,30);
-        player:addGil(GIL_RATE*700);
+        planBReward(player);
         player:addItem(12749);
         player:messageSpecial(ITEM_OBTAINED,12749); -- Scentless Armlets
         player:completeQuest(WINDURST,LEGENDARY_PLAN_B);
@@ -175,7 +214,12 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x0291) then
         player:tradeComplete();
         player:addFame(WINDURST,10);
-        player:addGil(GIL_RATE*600);
+        if (THE_ALL_NEW_C_3000 == QUEST_ACCEPTED) then
+            allNew3000Reward(player, true);
+        else
+            allNew3000Reward(player, false);
+        end
+
         player:completeQuest(WINDURST,THE_ALL_NEW_C_3000);
         
     end

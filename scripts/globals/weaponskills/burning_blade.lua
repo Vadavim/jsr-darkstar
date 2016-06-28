@@ -34,8 +34,8 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
 
     -- add Burn
-    local resist = applyResistanceWeaponskill(player, target, params, ELE_FIRE, SKILL_SWD);
-    if (damage > 0 and resist > 0.125)then
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_FIRE, SKILL_SWD);
+    if (damage > 0 and resist > 0.125 and not target:hasStatusEffect(EFFECT_DROWN))then
         local DOT = math.floor(player:getMainLvl()/3) + 1;
 
         local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;

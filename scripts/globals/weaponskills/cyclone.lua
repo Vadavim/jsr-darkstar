@@ -28,8 +28,10 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.includemab = true;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.dex_wsc = 0.4; params.int_wsc = 0.4;
+        params.dex_wsc = 0.6; params.int_wsc = 0.6;
     end
+
+    player:addStatusEffect(EFFECT_BLINK, 2, 0, 60);
 
     local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, params, tp, primary);
     return tpHits, extraHits, criticalHit, damage;

@@ -108,6 +108,25 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function amendsReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 500,
+        ["gil"] = 2000,
+        ["beast"] = 2,
+    };
+    jsrReward(player, reward);
+end
+
+local function wonderReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 1000,
+        ["augment"] = {12750, 9, 9, 796, 4},
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -132,7 +151,7 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x0112 and option == 1) then
             player:addQuest(WINDURST,MAKING_AMENDS);
     elseif (csid == 0x0115) then
-            player:addGil(GIL_RATE*1500);
+            amendsReward(player);
             player:completeQuest(WINDURST,MAKING_AMENDS);
             player:addFame(WINDURST,75);
             player:addTitle(QUICK_FIXER);
@@ -160,8 +179,7 @@ function onEventFinish(player,csid,option)
             player:tradeComplete();
             player:addGil(GIL_RATE*4800);
             player:messageSpecial(GIL_OBTAINED, 4800);
-            player:addItem(12750); -- New Moon Armlets
-            player:messageSpecial(ITEM_OBTAINED, 12750); -- New Moon Armlets
+            wonderReward(player);
             player:addFame(WINDURST,150);
             player:addTitle(DOCTOR_SHANTOTTOS_GUINEA_PIG);
             player:completeQuest(WINDURST,WONDER_WANDS);

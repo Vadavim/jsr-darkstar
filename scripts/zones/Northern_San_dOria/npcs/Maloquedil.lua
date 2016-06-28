@@ -77,14 +77,14 @@ end;
 -- onEventFinish
 -----------------------------------
 
-function wardingVampiresReward(player, firstTime)
+local function wardingVampiresReward(player, firstTime)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 1200,
         ["guild"] = {COOK, 50},
         ["item"] = 4258 -- Red Drop
     };
-    if (firstTime) then
+    if (firstTime == true) then
         reward = {
             ["gil"] = 2500,
             ["guild"] = {COOK, 250},

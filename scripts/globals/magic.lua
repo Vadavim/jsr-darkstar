@@ -1192,7 +1192,7 @@ function handleThrenody(caster, target, spell, basePower, baseDuration, modifier
     local duration = baseDuration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
 
     -- JSR: handle DoT
-    local DoT = 1 + caster:getStat(MOD_CHR) / 8;
+    local DoT = 1 + caster:getStat(MOD_CHR) / 6;
     local element = modifier - 53;
     local params = {};
     params.bonusmab = 0; params.includemab = true;
@@ -1486,5 +1486,477 @@ function outputMagicHitRateInfo()
         end
     end
 end;
+
+function doCarol(caster, target, spell, element)
+    local sLvl = caster:getSkillLevel(SKILL_SNG); -- Gets skill level of Singing
+    local iType = caster:getWeaponSkillType(SLOT_RANGED);
+    local iLvl = 0;
+    if (iType == SKILL_WND or iType == SKILL_STR) then
+        iLvl = caster:getWeaponSkillLevel(SLOT_RANGED);
+    end
+
+    local power = 20;
+
+    if (sLvl+iLvl > 200) then
+        power = power + math.floor((sLvl+iLvl-200) / 10);
+    end
+
+    if (power >= 40) then
+        power = 40;
+    end
+
+    local iBoost = caster:getMod(MOD_CAROL_EFFECT) + caster:getMod(MOD_ALL_SONGS_EFFECT);
+    power = power + iBoost*5;
+
+    local duration = 600;
+    if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
+        power = power * 2;
+        duration = 120;
+    elseif (caster:hasStatusEffect(EFFECT_MARCATO)) then
+        power = power * 1.5;
+        caster:delStatusEffect(EFFECT_MARCATO);
+    end
+
+    duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
+
+    if (caster:hasStatusEffect(EFFECT_TROUBADOUR)) then
+        duration = duration * 2;
+    end
+
+    if not (target:addBardSong(caster,EFFECT_CAROL,power,0,duration,caster:getID(), element, 1)) then
+        spell:setMsg(75);
+    end
+
+    return EFFECT_CAROL;
+end
+
+
+-- Bard Stuff
+function doMadrigal(caster, target, spell, tier)
+    local sLvl = caster:getSkillLevel(SKILL_SNG); -- Gets skill level of Singing
+    local iType = caster:getWeaponSkillType(SLOT_RANGED);
+    local iLvl = 0;
+    if (iType == SKILL_WND or iType == SKILL_STR) then
+        iLvl = caster:getWeaponSkillLevel(SLOT_RANGED);
+    end
+
+    local power = 5 * tier + math.floor((sLvl+iLvl) / 20);
+
+    if (power >= 15 * tier) then
+        power = 15 * tier + (power - 15 * tier) / 2;
+    end
+
+    local iBoost = caster:getMod(MOD_MADRIGAL_EFFECT) + caster:getMod(MOD_ALL_SONGS_EFFECT);
+    if (iBoost > 0) then
+        power = power + 1 + (iBoost-1)*3;
+    end
+
+    power =  power + caster:getMerit(MERIT_MADRIGAL_EFFECT);
+
+    local duration = 600;
+    if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
+        power = power * 2;
+        duration = 120;
+    end
+
+    duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
+
+    if (caster:hasStatusEffect(EFFECT_TROUBADOUR)) then
+        duration = duration * 2;
+    end
+
+    if not (target:addBardSong(caster,EFFECT_MADRIGAL,power,0,duration,caster:getID(), 0, tier)) then
+        spell:setMsg(75);
+    end
+
+    return EFFECT_MADRIGAL;
+end
+
+-- Bar Stuff
+
+function doBarStatus(caster, target, spell, effect)
+    local meritBonus = caster:getMerit(MERIT_BAR_SPELL_EFFECT);
+    --printf("Barspell: Merit Bonus +%d", meritBonus);
+
+    local enhanceSkill = caster:getSkillLevel(34);
+
+    local duration = 180 + enhanceSkill * 2;
+
+    local power = 1 + 0.1 * enhanceSkill;
+    if (power > 10) then
+        power = 10 + (power - 10) / 2;
+    end
+
+    power = power + meritBonus / 2;
+
+    if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
+        duration = duration * 3;
+    end
+
+    power, duration = applyEmbolden(caster, power, duration);
+
+    target:addStatusEffect(effect,power,0,duration);
+
+    return effect;
+end
+
+
+
+-- Bard Stuff
+function doMarch(caster, target, spell, tier)
+    local sLvl = caster:getSkillLevel(SKILL_SNG); -- Gets skill level of Singing
+    local iType = caster:getWeaponSkillType(SLOT_RANGED);
+    local iLvl = 0;
+    if (iType == SKILL_WND or iType == SKILL_STR) then
+        iLvl = caster:getWeaponSkillLevel(SLOT_RANGED);
+    end
+
+    local power = (5 * tier) + math.floor(sLvl + iLvl) / 8;
+    if (power >= 38 * tier) then
+        power = 38 * tier + (power - 38 * tier) / 2;
+    end
+
+
+    local iBoost = caster:getMod(MOD_MARCH_EFFECT) + caster:getMod(MOD_ALL_SONGS_EFFECT);
+    power = power + iBoost*12;
+
+    local duration = 600;
+    if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
+        power = power * 2;
+        duration = 120;
+    end
+
+    if ((caster:getID() == target:getID()) and caster:hasStatusEffect(EFFECT_TENUTO)) then
+        power = power * 1.5;
+    end
+
+    duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
+
+    if (caster:hasStatusEffect(EFFECT_TROUBADOUR)) then
+        duration = duration * 2;
+    end
+
+    if not (target:addBardSong(caster,EFFECT_MARCH,power,0,duration,caster:getID(), 0, tier)) then
+        spell:setMsg(75);
+    end
+
+    return EFFECT_MARCH;
+end
+
+
+function doMambo(caster, target, spell, tier)
+    local sLvl = caster:getSkillLevel(SKILL_SNG); -- Gets skill level of Singing
+    local iType = caster:getWeaponSkillType(SLOT_RANGED);
+    local iLvl = 0;
+    if (iType == SKILL_WND or iType == SKILL_STR) then
+        iLvl = caster:getWeaponSkillLevel(SLOT_RANGED);
+    end
+
+    -- Since nobody knows the evasion values for mambo, I'll just make shit up! (aka - same as madrigal)
+    local power = 5 * tier + math.floor((sLvl+iLvl) / 20);
+
+    if (power >= 15 * tier) then
+        power = 15 * tier + (power - 15 * tier) / 2;
+    end
+
+    local iBoost = caster:getMod(MOD_MAMBO_EFFECT) + caster:getMod(MOD_ALL_SONGS_EFFECT);
+    if (iBoost > 0) then
+        power = power + 1 + (iBoost-1)*4;
+    end
+
+    local duration = 600;
+    if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
+        power = power * 2;
+        duration = 120;
+    end
+
+    if ((caster:getID() == target:getID()) and caster:hasStatusEffect(EFFECT_TENUTO)) then
+        power = power * 1.5;
+    end
+
+    duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
+
+    if (caster:hasStatusEffect(EFFECT_TROUBADOUR)) then
+        duration = duration * 2;
+    end
+
+    if not (target:addBardSong(caster,EFFECT_MAMBO,power,0,duration,caster:getID(), 0, tier)) then
+        spell:setMsg(75);
+    end
+
+    return EFFECT_MAMBO;
+end
+
+function doRequiem(caster, target, spell, tier)
+    local effect = EFFECT_REQUIEM;
+    local duration = 30 + tier * 10;
+
+    local pCHR = caster:getStat(MOD_CHR);
+    local power = tier * 2 + math.floor(pCHR * 0.1);
+    local mCHR = target:getStat(MOD_CHR);
+    local dCHR = (pCHR - mCHR);
+    local resm = applyResistance(caster,spell,target,dCHR,SINGING_SKILL,0);
+    if (resm < 0.5) then
+        spell:setMsg(85);--resist message
+        return 1;
+    end
+
+    local iBoost = caster:getMod(MOD_REQUIEM_EFFECT) + caster:getMod(MOD_ALL_SONGS_EFFECT);
+    power = power + 1 + (iBoost * tier * 0.5);
+
+    if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
+        power = power * 2;
+    elseif (caster:hasStatusEffect(EFFECT_MARCATO)) then
+        power = power * 2;
+        duration = duration * 0.5;
+    end
+    caster:delStatusEffect(EFFECT_MARCATO);
+
+    -- apply weather / element / mab / etc.
+    local params = {}; params.bonusmab = 0; params.includemab = true;
+    power = addBonusesAbility(caster, 7, target, power, params, 1.0);
+
+    duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
+
+    if (caster:hasStatusEffect(EFFECT_TROUBADOUR)) then
+        duration = duration * 2;
+    end
+
+
+    target:delStatusEffectSilent(effect);
+    target:addStatusEffect(effect,power,0,duration);
+
+    return effect;
+end
+
+
+function doMinuet(caster, target, spell, tier)
+    local sLvl = caster:getSkillLevel(SKILL_SNG); -- Gets skill level of Singing
+    local iType = caster:getWeaponSkillType(SLOT_RANGED);
+    local iLvl = 0;
+    if (iType == SKILL_WND or iType == SKILL_STR) then
+        iLvl = caster:getWeaponSkillLevel(SLOT_RANGED);
+    end
+
+    local power = (tier * 3) + math.floor((sLvl + iLvl)/10);
+
+    if (power >= tier * 12) then
+        power = tier * 12 + (power - tier * 12) / 2;
+    end
+
+
+    local iBoost = caster:getMod(MOD_MINUET_EFFECT) + caster:getMod(MOD_ALL_SONGS_EFFECT);
+    if (iBoost > 0) then
+        power = power + iBoost * tier;
+    end
+
+    power =  power + caster:getMerit(MERIT_MINUET_EFFECT);
+
+    local duration = 600;
+    if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
+        power = power * 2;
+        duration = 120;
+    end
+
+    if ((caster:getID() == target:getID()) and caster:hasStatusEffect(EFFECT_TENUTO)) then
+        power = power * 1.5;
+    end
+
+    duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
+
+    if (caster:hasStatusEffect(EFFECT_TROUBADOUR)) then
+        duration = duration * 2;
+    end
+
+    if not (target:addBardSong(caster,EFFECT_MINUET,power,0,duration,caster:getID(), 0, tier)) then
+        spell:setMsg(75);
+    end
+
+    return EFFECT_MINUET;
+end
+
+
+
+function doMinne(caster, target, spell, tier)
+    local sLvl = caster:getSkillLevel(SKILL_SNG); -- Gets skill level of Singing
+    local iType = caster:getWeaponSkillType(SLOT_RANGED);
+    local iLvl = 0;
+    if (iType == SKILL_WND or iType == SKILL_STR) then
+        iLvl = caster:getWeaponSkillLevel(SLOT_RANGED);
+    end
+
+    local power = (tier * 5) + math.floor((sLvl + iLvl)/4);
+
+    if (power >= tier * 25) then
+        power = tier * 25 + (power - tier * 25) / 2;
+    end
+
+    local iBoost = caster:getMod(MOD_MINNE_EFFECT) + caster:getMod(MOD_ALL_SONGS_EFFECT);
+    if (iBoost > 0) then
+        power = power + iBoost * tier * 3;
+    end
+
+    power =  power + caster:getMerit(MERIT_MINNE_EFFECT);
+
+    local duration = 600;
+    if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
+        power = power * 2;
+        duration = 120;
+    end
+
+    if ((caster:getID() == target:getID()) and caster:hasStatusEffect(EFFECT_TENUTO)) then
+        power = power * 1.5;
+    end
+
+    duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
+
+    if (caster:hasStatusEffect(EFFECT_TROUBADOUR)) then
+        duration = duration * 2;
+    end
+
+    if not (target:addBardSong(caster,EFFECT_MINNE,power,0,duration,caster:getID(), 0, tier)) then
+        spell:setMsg(75);
+    end
+
+    return EFFECT_MINNE;
+end
+
+
+
+function checkPaeon(caster, tier)
+    local cost = 100 + tier * 50;
+    if (caster:getTP() < cost) then
+        return 1;
+    else
+        return 0;
+    end
+end
+
+function doPaeon(caster, target, spell, tier)
+    local sLvl = caster:getSkillLevel(SKILL_SNG); -- Gets skill level of Singing
+    local iType = caster:getWeaponSkillType(SLOT_RANGED);
+    local iLvl = 0;
+    if (iType == SKILL_WND or iType == SKILL_STR) then
+        iLvl = caster:getWeaponSkillLevel(SLOT_RANGED);
+    end
+
+    local power = tier;
+    if (sLvl+iLvl > 50 + tier * 50) then power = power + 1; end
+    caster:delTP(100 + tier * 50);
+
+    local iBoost = caster:getMod(MOD_PAEON_EFFECT) + caster:getMod(MOD_ALL_SONGS_EFFECT);
+    power = power + iBoost;
+
+    local duration = 120;
+
+    if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
+        power = power * 2;
+    elseif (caster:hasStatusEffect(EFFECT_MARCATO)) then
+        power = power * 1.5;
+        caster:delStatusEffect(EFFECT_MARCATO);
+    end
+
+    if ((caster:getID() == target:getID()) and caster:hasStatusEffect(EFFECT_TENUTO)) then
+        power = power * 1.5;
+    end
+
+    duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
+
+    if (caster:hasStatusEffect(EFFECT_TROUBADOUR)) then
+        duration = duration * 2;
+    end
+
+    if not (target:addBardSong(caster,EFFECT_PAEON,power,0,duration,caster:getID(), 0, tier)) then
+        spell:setMsg(75);
+    end
+
+    return EFFECT_PAEON;
+end
+
+
+function checkEtude(caster, tier)
+    local cost = 100;
+    print(caster:getTP() < cost);
+    if (tier == 2) then cost = 150 end;
+    if (caster:getTP() < cost) then
+        return 1;
+    else
+        return 0;
+    end
+end
+
+function doEtude(caster, target, spell, stat, tier)
+    local sLvl = caster:getSkillLevel(SKILL_SNG); -- Gets skill level of Singing
+    local iType = caster:getWeaponSkillType(SLOT_RANGED);
+    local iLvl = 0;
+    if (iType == SKILL_WND or iType == SKILL_STR) then
+        iLvl = caster:getWeaponSkillLevel(SLOT_RANGED);
+    end
+
+    local power = 0;
+    local cost = 0;
+
+    if (tier == 1) then
+        cost = 100;
+        if (sLvl+iLvl <= 181) then
+            power = 3;
+        elseif ((sLvl+iLvl >= 182) and (sLvl+iLvl <= 235)) then
+            power = 4;
+        elseif ((sLvl+iLvl >= 236) and (sLvl+iLvl <= 288)) then
+            power = 5;
+        elseif ((sLvl+iLvl >= 289) and (sLvl+iLvl <= 342)) then
+            power = 6;
+        elseif ((sLvl+iLvl >= 343) and (sLvl+iLvl <= 396)) then
+            power = 7;
+        elseif ((sLvl+iLvl >= 397) and (sLvl+iLvl <= 449)) then
+            power = 8;
+        elseif (sLvl+iLvl >= 450) then
+            power = 9;
+        end
+    elseif (tier == 2) then
+        cost = 150;
+        if (sLvl+iLvl <= 416) then
+            power = 12;
+        elseif ((sLvl+iLvl >= 417) and (sLvl+iLvl <= 445)) then
+            power = 13;
+        elseif ((sLvl+iLvl >= 446) and (sLvl+iLvl <= 474)) then
+            power = 14;
+        elseif (sLvl+iLvl >= 475) then
+            power = 15;
+        end
+    end
+
+    caster:delTP(cost);
+
+    local iBoost = caster:getMod(MOD_ETUDE_EFFECT) + caster:getMod(MOD_ALL_SONGS_EFFECT);
+    power = power + iBoost;
+
+    local duration = 600;
+    if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
+        power = power * 2;
+        duration = 120;
+    elseif (caster:hasStatusEffect(EFFECT_MARCATO)) then
+        power = power * 1.5;
+        caster:delStatusEffect(EFFECT_MARCATO);
+    end
+
+
+    if ((caster:getID() == target:getID()) and caster:hasStatusEffect(EFFECT_TENUTO)) then
+        power = power * 1.5;
+    end
+
+    duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
+
+    if (caster:hasStatusEffect(EFFECT_TROUBADOUR)) then
+        duration = duration * 2;
+    end
+
+    if not (target:addBardSong(caster,EFFECT_ETUDE,power,0,duration,caster:getID(), stat, tier)) then
+        spell:setMsg(75);
+    end
+
+    return EFFECT_ETUDE;
+
+end
 
 -- outputMagicHitRateInfo();

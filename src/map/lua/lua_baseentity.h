@@ -620,6 +620,12 @@ public:
     int32 grabNPCList(lua_State* L);
     int32 insertSpellRecast(lua_State* L);
     int32 addRecastRange(lua_State* L);
+    int32 getAugmentCount(lua_State* L);
+    int32 addLimitPoints(lua_State* L);
+    int32 getSpawner(lua_State* L);
+    int32 setSpawner(lua_State* L);
+    int32 applyConfrontationToParty(lua_State* L);
+    int32 removeConfrontationFromParty(lua_State* L);
 };
 
 #endif

@@ -31,13 +31,14 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.ftp100 = 5; params.ftp200 = 5; params.ftp300 = 5;
+        params.ftp100 = 2; params.ftp200 = 3; params.ftp300 = 4;
         params.chr_wsc = 0.7;
     end
 
-    local chance = tp-1000 > math.random()*150;
-    if (damage > 0 and chance) and (target:hasStatusEffect(EFFECT_WEIGHT) == false) then
-        target:addStatusEffect(EFFECT_WEIGHT, 50, 0, 60);
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_WIND, SKILL_DAG);
+    if (resist >= 0.5) and (target:hasStatusEffect(EFFECT_WEIGHT_II) == false) then
+        target:addStatusEffect(EFFECT_WEIGHT, 30, 0, 60);
+        target:setPendingMessage(278, EFFECT_WEIGHT_II);
     end
 
     if ((player:getEquipID(SLOT_MAIN) == 19000) and (player:getMainJob() == JOBS.BRD)) then

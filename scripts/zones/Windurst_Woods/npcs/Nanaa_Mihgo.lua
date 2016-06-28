@@ -171,6 +171,23 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+local function AmigoReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 400,
+        ["xp"] = 250,
+        ["guild"] = {WEAV, 50},
+    };
+    if (firstTime == true) then
+        reward = {
+            ["gil"] = 1200,
+            ["xp"] = 1000,
+            ["guild"] = {WEAV, 200},
+        };
+    end
+
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
 -- printf("CSID: %u",csid);
@@ -180,15 +197,15 @@ function onEventFinish(player,csid,option)
         player:addQuest(WINDURST,MIHGO_S_AMIGO);
     elseif (csid == 0x0058) then
         player:tradeComplete();
-        player:addGil(GIL_RATE*200);
         player:addTitle(CAT_BURGLAR_GROUPIE);
+        AmigoReward(player, true);
         player:needToZone(true);
         player:addFame(NORG,60);
         player:completeQuest(WINDURST,MIHGO_S_AMIGO);
     elseif (csid == 0x01ee) then
         player:tradeComplete();
+        AmigoReward(player, false);
         player:addTitle(CAT_BURGLAR_GROUPIE);
-        player:addGil(GIL_RATE*200);
         player:addFame(NORG,30);
     elseif (csid == 0x01f0) then
         player:addQuest(WINDURST,THE_TENSHODO_SHOWDOWN);

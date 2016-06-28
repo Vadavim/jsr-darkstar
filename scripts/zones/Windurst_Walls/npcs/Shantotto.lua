@@ -128,6 +128,7 @@ end;
 -----------------------------------
 
 function cursesReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 800,
         ["xp"] = 300,
@@ -139,6 +140,7 @@ function cursesReward(player)
 end
 
 function cursesReward2(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 1500,
         ["xp"] = 600,
@@ -150,6 +152,7 @@ function cursesReward2(player)
 end
 
 function golemReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 5500,
         ["xp"] = 1400,

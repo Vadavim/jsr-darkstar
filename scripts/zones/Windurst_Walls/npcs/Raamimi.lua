@@ -14,7 +14,16 @@ require("scripts/globals/quests");
 -----------------------------------
 
 function onTrade(player,npc,trade)
-end; 
+--    local ToBee = player:getQuestStatus(WINDURST,TO_BEE_OR_NOT_TO_BEE);
+--    if (ToBee ~= QUEST_AVAILABLE) then
+--        local count = trade:getItemCount();
+--        local honey = trade:hasItemQty(4370,4);
+--        if (count == 4 and honey) then
+--        end
+--
+--    end
+
+end;
 
 -----------------------------------
 -- onTrigger Action
@@ -57,6 +66,15 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+
+function questReward(player)
+    local reward = {
+        ["gil"] = 1250,
+        ["xp"] = 350,
+        ["guild"] = {COOK, 250},
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
 printf("CSID: %u",csid);

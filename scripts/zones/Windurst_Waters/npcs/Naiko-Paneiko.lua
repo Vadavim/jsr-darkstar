@@ -89,6 +89,14 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+local function headlinesReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 1000,
+        ["gil"] = 2500,
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -98,8 +106,7 @@ function onEventFinish(player,csid,option)
         player:addQuest(WINDURST,MAKING_HEADLINES);
     elseif (csid == 0x029e or csid == 0x02a2) then
         player:addTitle(EDITORS_HATCHET_MAN);
-        player:addGil(GIL_RATE*560);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*560);    
+        headlinesReward(player);
         player:delKeyItem(WINDURST_WOODS_SCOOP);
         player:delKeyItem(WINDURST_WALLS_SCOOP);
         player:delKeyItem(WINDURST_WATERS_SCOOP);

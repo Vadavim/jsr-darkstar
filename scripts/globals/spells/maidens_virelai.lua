@@ -22,7 +22,34 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    spell:setMsg(137);
+    local duration = 90;
+    local pCHR = caster:getStat(MOD_CHR);
+    local mCHR = target:getStat(MOD_CHR);
+    local dCHR = (pCHR - mCHR);
+
+    if (caster:hasStatusEffect(EFFECT_MARCATO)) then
+        dCHR = dCHR + 40;
+        caster:delStatusEffect(EFFECT_MARCATO);
+    end
+
+
+
+    local resm = applyResistanceEffect(caster,spell,target,dCHR,SINGING_SKILL,0,EFFECT_CHARM_I);
+
+    if (resm < 0.5) then
+        spell:setMsg(85);--resist message
+    else
+        local iBoost = caster:getMod(MOD_VIRELAI) + caster:getMod(MOD_ALL_SONGS_EFFECT);
+
+        duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
+
+        if (target:addStatusEffect(EFFECT_CHARM_I,1,0,duration)) then
+            spell:setMsg(237);
+        else
+            spell:setMsg(75);
+        end
+    end
 
     return EFFECT_CHARM;
 end;
+

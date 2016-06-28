@@ -10,6 +10,7 @@ require("scripts/globals/status");
 
 function onEffectGain(target,effect)
     target:addMod(MOD_EVA, effect:getPower());
+    target:addMod(MOD_MEVA, math.floor(effect:getPower() * 0.5));
 end;
 
 -----------------------------------
@@ -25,4 +26,5 @@ end;
 
 function onEffectLose(target,effect)
     target:delMod(MOD_EVA, effect:getPower());
+    target:delMod(MOD_MEVA, math.floor(effect:getPower() * 0.5));
 end;

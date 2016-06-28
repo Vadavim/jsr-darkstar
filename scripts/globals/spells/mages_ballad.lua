@@ -19,15 +19,17 @@ function onSpellCast(caster,target,spell)
 
     local iBoost = caster:getMod(MOD_BALLAD_EFFECT) + caster:getMod(MOD_ALL_SONGS_EFFECT);
     power = power + iBoost;
-    
+
+    local duration = 600;
     if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
         power = power * 2;
-    elseif (caster:hasStatusEffect(EFFECT_MARCATO)) then
+        duration = 120;
+    end
+
+    if ((caster:getID() == target:getID()) and caster:hasStatusEffect(EFFECT_TENUTO)) then
         power = power * 1.5;
     end
-    caster:delStatusEffect(EFFECT_MARCATO);
-    
-    local duration = 600;
+
     duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
     
     if (caster:hasStatusEffect(EFFECT_TROUBADOUR)) then

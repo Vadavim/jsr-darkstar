@@ -153,11 +153,35 @@ end;
 -- onEventFinish
 -----------------------------------
 
-function starReward(player)
+local function starReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 800,
-        ["xp"] = 200,
+        ["gil"] = 1200,
+        ["xp"] = 650,
         ["guild"] = {GOLD, 150},
+    };
+    jsrReward(player, reward);
+end
+
+local function blastReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 6000,
+        ["xp"] = 1500,
+        ["guild"] = {BONE, 250},
+        ["scyld"] = 50,
+        ["augment"] = {17030, 1, 7, 1064, 9, 25, 5}, -- Great Club +1: +8 HP, +50% Brainshaker Damage, +6 Attack
+    };
+    jsrReward(player, reward);
+end
+
+local function puppetMasterReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 8000,
+        ["xp"] = 5000,
+        ["scyld"] = 100,
+        ["augment"] = {17532, 96, 9, 97, 9, 100, 9}, -- Kukulcan Staff: Pet: +10 Attack, Acc, M. Acc
     };
     jsrReward(player, reward);
 end
@@ -191,14 +215,13 @@ function onEventFinish(player,csid,option)
         player:tradeComplete();
         player:setVar("BlastFromThePast_Prog",0);
         player:completeQuest(WINDURST,BLAST_FROM_THE_PAST);
-        player:addItem(17030);
-        player:messageSpecial(ITEM_OBTAINED,17030);
+        blastReward(player);
         player:addTitle(FOSSILIZED_SEA_FARER);
         player:addFame(WINDURST,30);
         player:needToZone(true);
     elseif (csid == 0x0194) then
         if (player:getFreeSlotsCount() ~= 0) then
-            player:addItem(17532);
+            puppetMasterReward(player);
             player:messageSpecial(ITEM_OBTAINED,17532);
             player:completeQuest(WINDURST,THE_PUPPET_MASTER);
             player:setVar("ThePuppetMasterProgress",0);

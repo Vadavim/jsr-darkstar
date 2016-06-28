@@ -74,11 +74,11 @@ end;
 -- onEventFinish
 -----------------------------------
 
-function questReward(player)
+local function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 1200,
-        ["xp"] = 350,
+        ["gil"] = 1600,
+        ["xp"] = 500,
         ["guild"] = {BONE, 100},
     };
     jsrReward(player, reward);

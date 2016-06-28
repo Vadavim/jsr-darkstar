@@ -39,32 +39,10 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     tpHits = tpHits + tpHits2;
     extraHits = extraHits + extraHits2;
 
---    -- add Rasp
---    local resist = applyResistanceWeaponskill(player, target, params, ELE_EARTH, SKILL_ARC);
---    if (damage > 0 and resist > 0.125) then
---        local DOT = math.floor(player:getMainLvl()/5) + 1;
---        if (isEarthArrow) then
---            DOT = math.floor(DOT * 1.5);
---        end
---
---        local duration = 30 * (tp / 1000) * (1 + tp / 3000);
---
---        -- Remove Shock
---        if (target:getStatusEffect(EFFECT_SHOCK) ~= nil) then
---            target:delStatusEffect(EFFECT_SHOCK);
---        end;
---
---        target:addStatusEffect(EFFECT_RASP, DOT, 3, duration * resist,FLAG_ERASABLE);
---        target:setPendingMessage(277, EFFECT_RASP);
---    end
-
     local distance = player:checkDistance(target)
     distance = utils.clamp(distance, 0, 100);
     damage= math.floor(damage * ((100 - distance) / 100));
 
---    if (isEarthArrow) then
---        damage = math.floor(damage * 1.33);
---    end
 
     return tpHits, extraHits, criticalHit, damage;
 

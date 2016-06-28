@@ -123,7 +123,7 @@ void CParty::DisbandParty(bool playerInitiated)
         for (uint8 i = 0; i < members.size(); ++i)
         {
             CCharEntity* PChar = (CCharEntity*)members.at(i);
-            PChar->clearAllies();
+//            PChar->clearAllies();
             PChar->PParty = nullptr;
             PChar->PLatentEffectContainer->CheckLatentsPartyJobs();
             PChar->PLatentEffectContainer->CheckLatentsPartyMembers(members.size());
@@ -235,7 +235,8 @@ void CParty::RemoveMember(CBattleEntity* PEntity)
     DSP_DEBUG_BREAK_IF(PEntity->PParty != this);
     for (auto member : PEntity->PParty->members)
 	    {
-	    	member->clearAllies();
+            if (member != nullptr && member != PEntity)
+                member->clearAllies();
 	    }
 
     if (m_PLeader == PEntity)
@@ -332,7 +333,7 @@ void CParty::DelMember(CBattleEntity* PEntity)
                 if (m_PartyType == PARTY_PCS)
                 {
                     CCharEntity* PChar = (CCharEntity*)PEntity;
-                    PChar->clearAllies();
+//                    PChar->clearAllies();
 
                     if (m_PQuaterMaster == PChar)
                     {
@@ -423,8 +424,8 @@ void CParty::PopMember(CBattleEntity* PEntity)
 void CParty::RemovePartyLeader(CBattleEntity* PEntity)
 {
     DSP_DEBUG_BREAK_IF(members.empty());
-    for (auto member : PEntity->PParty->members)
-        member->clearAllies();
+//    for (auto member : PEntity->PParty->members)
+//        member->clearAllies();
 
     int ret = Sql_Query(SqlHandle, "SELECT charname FROM accounts_sessions JOIN chars ON accounts_sessions.charid = chars.charid \
                                     JOIN accounts_parties ON accounts_parties.charid = chars.charid WHERE partyid = %u AND NOT partyflag & %d \
@@ -485,8 +486,8 @@ void CParty::AddMember(CBattleEntity* PEntity)
         DSP_DEBUG_BREAK_IF(PEntity->objtype != TYPE_PC);
 
         CCharEntity* PChar = (CCharEntity*)PEntity;
-        for (auto PMember : members)
-            PMember->clearAllies();
+//        for (auto PMember : members)
+//            PMember->clearAllies();
 
         uint32 allianceid = 0;
         if (m_PAlliance)

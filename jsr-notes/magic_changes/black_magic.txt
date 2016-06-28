@@ -47,6 +47,12 @@ Duration: 60 -> 90 seconds
 [Enspell / Enspell II]
  - 
 Duration: 180 -> 300 Seconds
+ - Enspell II spells also grant the following with each hit (stacks up to 25 times):
+	- +1 [Element] ACC
+	- +1 [Element] ATT
+	- +4 [Weak Element] Resistance
+	- -1% [Weak Element] Damage received
+	- +10 TP Bonus with weaponskills
 
 
 
@@ -67,6 +73,7 @@ Fire Spikes: increased damage
  - For instance, Burn reduces a target's Fire and Ice resistances/defenses. 
  
  - DoT affected by MAB, MDB, elemental attack, elemental defense, day, and weather.
+
 
 [Ancient Magic]
  - Lowers Resistance by 30, Magic Defense by 5, Elemental Defense by 10%, and lasts for 10 seconds (15 for Ancient Magic II).

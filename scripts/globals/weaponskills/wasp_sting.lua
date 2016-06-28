@@ -31,13 +31,20 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         params.dex_wsc = 1.0;
     end
 
+    local hasSneak = player:hasStatusEffect(EFFECT_SNEAK_ATTACK);
+    player:addTP(tp * 0.35);
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    local power = 1 + player:getStat(MOD_DEX) / 5;
+    if (hasSneak) then
+        power = power * 1.5;
+    end
 
-    if (damage > 0) then
-        local duration = (tp/1000 * 15) + 75;
-        if (target:hasStatusEffect(EFFECT_POISON) == false) then
-            target:addStatusEffect(EFFECT_POISON, 1, 0, duration);
-        end
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_WATER, SKILL_DAG);
+    local duration = 60 * tp / 1000;
+
+    if (damage > 0 and resist > 0.25) then
+        target:addStatusEffect(EFFECT_POISON_II, power, 3, duration * resist);
+        target:setPendingMessage(278, EFFECT_POISON_II);
     end
     return tpHits, extraHits, criticalHit, damage;
 

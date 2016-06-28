@@ -1148,10 +1148,36 @@ namespace battleutils
                 Action->addEffectMessage = 163;
                 Action->addEffectParam = CalculateEnspellDamage(PAttacker, PDefender, 2, enspell - 9);
 
+                // handle Enspell Increase
+                std::vector<EFFECT> enspellEffects = {EFFECT_ENFIRE_II, EFFECT_ENBLIZZARD_II, EFFECT_ENAERO_II,
+                                    EFFECT_ENSTONE_II, EFFECT_ENTHUNDER_II, EFFECT_ENWATER_II};
+                std::vector<int> enValues = {0, 3, 5, 2, 1, 4};
+                int enValue = enValues[enspell - 9];
+
+                CStatusEffect* enspellEffect = PAttacker->StatusEffectContainer->GetStatusEffect(enspellEffects[enValue]);
+                if (enspellEffect != nullptr) {
+                    int subPower = enspellEffect->GetSubPower();
+                    if (subPower < 25) {
+                        int weakEle = enValue + 1 > 5 ? 0 : enValue + 1;
+                        PAttacker->addModifier(15 + weakEle, 3); // +4 Elemental Defense
+                        PAttacker->addModifier(54 + weakEle, 4); // +4 Elemental Resistance
+                        PAttacker->addModifier(40 + enValue, 1); // +1 Elemental Accuracy
+                        PAttacker->addModifier(32 + enValue, 1); // +1 Elemental Attack
+                        PAttacker->addModifier(MOD_TP_BONUS, 10); // +10 TP Bonus
+                        enspellEffect->addMod(15 + weakEle, 3); // +4 Elemental Defense
+                        enspellEffect->addMod(54 + weakEle, 4); // +4 Elemental Resistance
+                        enspellEffect->addMod(40 + enValue, 1); // +1 Elemental Accuracy
+                        enspellEffect->addMod(32 + enValue , 1); // +1 Elemental Attack
+                        enspellEffect->addMod(MOD_TP_BONUS, 10); // +10 TP Bonus
+                        enspellEffect->SetSubPower(subPower + 1);
+                    }
+                }
+
                 if (Action->addEffectParam < 0)
                 {
                     Action->addEffectParam = -Action->addEffectParam;
                     Action->addEffectMessage = 384;
+
                 }
 
                 PDefender->addHP(-Action->addEffectParam);

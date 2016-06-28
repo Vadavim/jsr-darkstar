@@ -89,6 +89,24 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function wildcardReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 3500,
+        ["gil"] = 16000,
+    };
+    jsrReward(player, reward);
+end
+
+local function cryingOnionsReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 4000,
+        ["gil"] = 9000,
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -102,6 +120,7 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x0308) then
         player:completeQuest(WINDURST,CRYING_OVER_ONIONS);
         player:addFame(WINDURST,120);
+        cryingOnionsReward(player);
         player:setVar("CryingOverOnions",0);
         player:needToZone(true);
     elseif (csid == 0x030c) then
@@ -110,6 +129,7 @@ function onEventFinish(player,csid,option)
         player:completeQuest(WINDURST,WILD_CARD);
         player:addFame(WINDURST,135);
         player:addTitle(DREAM_DWELLER);
+        wildcardReward(player);
         player:setVar("WildCard",0);
         player:needToZone(true);
     elseif (csid == 0x003b) then  -- Show Off Hat

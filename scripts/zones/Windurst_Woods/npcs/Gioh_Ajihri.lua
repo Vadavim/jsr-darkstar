@@ -69,6 +69,25 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function questReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 1250,
+        ["xp"] = 400,
+        ["guild"] = {GOLD, 100},
+    };
+    if (firstTime == true) then
+        reward = {
+            ["gil"] = 3500,
+            ["xp"] = 1500,
+            ["augment"] = {17154, 29, 3, 777, 14, 770, 14}, -- Wrapped Bow: +4 RATK, -15 Ice Res, +15 Wind Res
+            ["guild"] = {GOLD, 300},
+        };
+    end
+
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -85,13 +104,11 @@ function onEventFinish(player,csid,option)
         if (TwinstoneBonding == QUEST_ACCEPTED) then
             player:completeQuest(WINDURST,TWINSTONE_BONDING);
             player:addFame(WINDURST,80);
-            player:addItem(17154);
-            player:messageSpecial(ITEM_OBTAINED,17154);
+            questReward(player, true);
             player:addTitle(BOND_FIXER);
         else
+            questReward(player, false);
             player:addFame(WINDURST,10);
-            player:addGil(GIL_RATE*900);
-            player:messageSpecial(GIL_OBTAINED,GIL_RATE*900);
         end
     elseif (csid == 0x01e8) then
         player:setVar("GiohAijhriSpokenTo",1);

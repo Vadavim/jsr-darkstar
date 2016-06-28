@@ -61,27 +61,25 @@ end;
 -----------------------------------
 
 --JSR QUEST: Fear of the Dark
-function reward(player, firstTime)
-    local gil, points, xp = 0, 0, 0;
-    if (firstTime) then
-        gil = 800;
-        points = 250;
-        xp = 400;
-        player:addItem( 13454, 1, 9, 5, 52, 1);
-        player:messageSpecial(ITEM_OBTAINED,13454); --Copper Ring (+6 MP, +2 HMP)
-    else
-        player:addItem(4128);
-        player:messageSpecial(ITEM_OBTAINED,4128); --Ether
-        gil = 200;
-        points = 50;
-        xp = 50;
-    end
+local function questReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 200,
+        ["guild"] = {ALCH, 50},
+        ["item"] = 4128 -- Ether
+    };
 
-    player:messageSpecial(GIL_OBTAINED,gil);
-    player:addGil(gil);
-    player:addExp(xp);
-    player:SayToPlayer("Received " .. tostring(points) .. " Alchemy points.");
-    player:addCurrency("guild_alchemy", points);
+    if (firstTime == true) then
+        reward = {
+            ["gil"] = 800,
+            ["xp"] = 400,
+            ["guild"] = {ALCH, 250},
+            ["augment"] = {13454, 9, 5, 52, 1},
+            ["item"] = 4128 -- Ether
+        };
+    end
+    jsrReward(player, reward);
+
 end
 
 function onEventFinish(player,csid,option)
@@ -96,9 +94,9 @@ function onEventFinish(player,csid,option)
         if (player:getQuestStatus(SANDORIA,FEAR_OF_THE_DARK) == QUEST_ACCEPTED) then
             player:addFame(SANDORIA,30);
             player:completeQuest(SANDORIA,FEAR_OF_THE_DARK);
-            reward(player, true);
+            questReward(player, true);
         else
-            reward(player, false);
+            questReward(player, false);
             player:addFame(SANDORIA,5);
         end
     end

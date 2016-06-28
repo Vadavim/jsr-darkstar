@@ -18,6 +18,7 @@ require("scripts/globals/keyitems");
 -----------------------------------
 
 function cornetteReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 350,
         ["xp"] = 150,
@@ -27,6 +28,7 @@ function cornetteReward(player)
 end
 
 function fourLeafReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 225,
         ["xp"] = 100,
@@ -36,6 +38,7 @@ function fourLeafReward(player)
 end
 
 function sulfurReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 900,
         ["xp"] = 350,
@@ -45,6 +48,7 @@ function sulfurReward(player)
 end
 
 function threeLeafReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 3000,
         ["xp"] = 650,
@@ -54,6 +58,7 @@ function threeLeafReward(player)
 end
 
 function snobbyReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 9000,
         ["xp"] = 1500,

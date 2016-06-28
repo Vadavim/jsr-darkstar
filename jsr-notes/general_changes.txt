@@ -40,6 +40,10 @@ STATUS EFFECTS
  - Curse: instead decreases all attributes and status resistances.
 
 
+[Death]
+ - Weakness lasts for 300 seconds, or 240 seconds with Raise II, or 180 seconds with Raise III, or 120 seconds with Arise.
+
+
 EXPERIENCE POINTS
 
  - The permonster XP cap has been raised significantly.

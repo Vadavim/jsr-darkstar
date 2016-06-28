@@ -32,8 +32,8 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, params, tp, primary);
 
     -- add Shock
-    local resist = applyResistanceWeaponskill(player, target, params, ELE_THUNDER, SKILL_POL);
-    if (damage > 0 and resist > 0.125) then
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_THUNDER, SKILL_POL);
+    if (damage > 0 and resist > 0.125 and not target:hasStatusEffect(EFFECT_RASP)) then
         local DOT = math.floor(player:getMainLvl()/3) + 1;
         local duration = 30 * (tp / 1000) * (1 + (tp - 1000) / 2000);
 

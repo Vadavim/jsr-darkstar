@@ -36,7 +36,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
-	local resist = applyResistanceWeaponskill(player, target, params, ELE_WIND, SKILL_GAX);
+	local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_WIND, SKILL_GAX);
     if (damage > 0 and resist >= 0.125) then
         local duration = (tp/1000 * 70) + 60;
         if(target:addStatusEffect(EFFECT_DEFENSE_DOWN, 25, 0, duration * resist)) then

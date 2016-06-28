@@ -206,6 +206,53 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function truthJusticeReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 200,
+        ["gil"] = 500,
+    };
+    jsrReward(player, reward);
+end
+
+local function knowOnionsReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 800,
+        ["gil"] = 2000,
+    };
+    jsrReward(player, reward);
+end
+
+local function inspectorReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 1200,
+        ["gil"] = 3000,
+        ["augment"] = {13204, 1, 9},
+    };
+    jsrReward(player, reward);
+end
+
+local function onionRingsReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 2000,
+        ["gil"] = 6000,
+        ["augment"] = {17029, 1, 9, 1064, 9}, -- Augmented Bouncer Club
+    };
+    jsrReward(player, reward);
+end
+
+local function promiseReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 5000,
+        ["gil"] = 12000,
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -220,6 +267,7 @@ function onEventFinish(player,csid,option)
             player:addFame(WINDURST,75);
             player:addTitle(STAR_ONION_BRIGADE_MEMBER);
             player:tradeComplete();
+            truthJusticeReward(player);
             player:addItem(13093);
             player:messageSpecial(ITEM_OBTAINED,13093);
             player:needToZone(true);
@@ -248,6 +296,7 @@ function onEventFinish(player,csid,option)
         player:addTitle(SOB_SUPER_HERO);    
         player:setVar("KnowOnesOnions",0);
         player:setVar("KnowOnesOnionsTime",0);
+        knowOnionsReward(player);
         player:needToZone(true);
     elseif (csid == 0x019d and option == 0) then
         player:addQuest(WINDURST,INSPECTOR_S_GADGET);
@@ -258,7 +307,7 @@ function onEventFinish(player,csid,option)
             player:completeQuest(WINDURST,INSPECTOR_S_GADGET);
             player:addFame(WINDURST,90);
             player:addTitle(FAKEMOUSTACHED_INVESTIGATOR);    
-            player:addItem(13204);
+            inspectorReward(player);
             player:messageSpecial(ITEM_OBTAINED,13204);
             player:needToZone(true);
         else
@@ -279,6 +328,7 @@ function onEventFinish(player,csid,option)
         player:completeQuest(WINDURST,ONION_RINGS);
         player:addFame(WINDURST,100);
         player:addTitle(STAR_ONION_BRIGADIER);
+        onionRingsReward(player);
         player:delKeyItem(OLD_RING);
         player:setVar("OnionRingsTime",0);
         player:needToZone(true);
@@ -291,7 +341,6 @@ function onEventFinish(player,csid,option)
             
             if (FreeSlots >= 1) then
                 player:setVar("OnionRings",0);
-                player:addItem(17029);
                 player:messageSpecial(ITEM_OBTAINED,17029);
             else
                 player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,17029);
@@ -308,6 +357,7 @@ function onEventFinish(player,csid,option)
         
         if (FreeSlots >= 1) then
             player:completeQuest(WINDURST,THE_PROMISE);
+            promiseReward(player);
             player:addFame(WINDURST,150);
             player:delKeyItem(INVISIBLE_MAN_STICKER);
             player:addItem(13135);

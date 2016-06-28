@@ -145,6 +145,42 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function waterReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 300,
+        ["gil"] = 1000,
+        ["guild"] = {BONE, 300},
+    };
+    if (firstTime == true) then
+        local reward = {
+            ["xp"] = 1000,
+            ["item"] = 4778,
+            ["item2"] = 4807,
+            ["gil"] = 3500,
+            ["guild"] = {BONE, 1000},
+        };
+    end
+
+    jsrReward(player, reward);
+end
+
+local function turmoilReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 1000,
+        ["gil"] = 4500,
+    };
+    if (firstTime == true) then
+        local reward = {
+            ["xp"] = 3000,
+            ["gil"] = 9000,
+        };
+    end
+
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -191,15 +227,13 @@ function onEventFinish(player,csid,option)
         player:messageSpecial(KEYITEM_OBTAINED,267);
         player:addKeyItem(267); -- Rhinostery Certificate
     elseif (csid == 0x0317 and turmoil == QUEST_ACCEPTED) then -- Completes Toraimarai turmoil - first time
-        player:addGil(GIL_RATE*4500);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*4500);
+        turmoilReward(player, true);
         player:completeQuest(WINDURST,TORAIMARAI_TURMOIL);
         player:addFame(WINDURST,100);
         player:addTitle(CERTIFIED_RHINOSTERY_VENTURER);
         player:tradeComplete();
     elseif (csid == 0x0317 and turmoil == 2) then -- Completes Toraimarai turmoil - repeats
-        player:addGil(GIL_RATE*4500);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*4500);
+        turmoilReward(player, false);
         player:addFame(WINDURST,50);
         player:tradeComplete();
     elseif (csid == 0x0160 and option == 0 or csid == 0x0162) then
@@ -213,9 +247,14 @@ function onEventFinish(player,csid,option)
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,504);
         end
     elseif (csid == 0x0163) then
-        player:addGil(GIL_RATE*900);
         player:completeQuest(WINDURST,WATER_WAY_TO_GO);
         player:addFame(WINDURST,40);
+        if (player:getQuestStatus(WINDURST, WATER_WAY_TO_GO) == QUEST_ACCEPTED) then
+            waterReward(player, true);
+        else
+            waterReward(player, false);
+        end
+
         player:tradeComplete();        
         player:needToZone(true);
     elseif (csid == 0x0368) then    

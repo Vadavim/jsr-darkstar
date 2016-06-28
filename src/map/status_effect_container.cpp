@@ -768,10 +768,42 @@ bool CStatusEffectContainer::ApplyBardEffect(CStatusEffect* PStatusEffect, uint8
 
     uint8 numOfEffects = 0;
     CStatusEffect* oldestSong = nullptr;
+    EFFECT pEffect = PStatusEffect->GetStatusID();
+    if (pEffect == EFFECT_ETUDE) {
+        DelStatusEffectSilent(EFFECT_ETUDE);
+        AddStatusEffect(PStatusEffect);
+        return true;
+    }
+
+    if (pEffect == EFFECT_PAEON) {
+        DelStatusEffectSilent(EFFECT_PAEON);
+        AddStatusEffect(PStatusEffect);
+        return true;
+    }
+
+    if (pEffect == EFFECT_CAROL || (pEffect >= EFFECT_AUBADE && pEffect <= EFFECT_ARIA)) {
+        DelStatusEffectSilent(EFFECT_CAROL);
+        DelStatusEffectSilent(EFFECT_AUBADE);
+        DelStatusEffectSilent(EFFECT_PASTORAL);
+        DelStatusEffectSilent(EFFECT_FANTASIA);
+        DelStatusEffectSilent(EFFECT_CAPRICCIO);
+        DelStatusEffectSilent(EFFECT_GAVOTTE);
+        DelStatusEffectSilent(EFFECT_FUGUE);
+        DelStatusEffectSilent(EFFECT_RHAPSODY);
+        DelStatusEffectSilent(EFFECT_ROUND);
+        DelStatusEffectSilent(EFFECT_SERENADE);
+        DelStatusEffectSilent(EFFECT_HUM);
+        AddStatusEffect(PStatusEffect);
+        return true;
+    }
+
+
     for (uint16 i = 0; i < m_StatusEffectList.size(); ++i)
     {
-        if (m_StatusEffectList.at(i)->GetStatusID() >= EFFECT_REQUIEM &&
-            m_StatusEffectList.at(i)->GetStatusID() <= EFFECT_NOCTURNE) //is a brd effect
+        EFFECT sEffect = m_StatusEffectList.at(i)->GetStatusID();
+        if (sEffect >= EFFECT_REQUIEM && sEffect <= EFFECT_NOCTURNE && sEffect != EFFECT_ETUDE
+                && (sEffect < EFFECT_AUBADE || sEffect > EFFECT_ARIA)
+                && sEffect != EFFECT_ETUDE && sEffect != EFFECT_CAROL && sEffect != EFFECT_PAEON) //is a brd effect
         {
             if (m_StatusEffectList.at(i)->GetTier() == PStatusEffect->GetTier() &&
                 m_StatusEffectList.at(i)->GetStatusID() == PStatusEffect->GetStatusID()) {//same tier/type, overwrite

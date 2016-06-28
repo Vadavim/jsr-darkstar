@@ -32,3 +32,18 @@
  - Modifiers: STR 40%, MND 80%
  - fTP: 1.65 (1000), 3.5 (2000), 5.5 (3000) 
 
+[Death Blossom]
+ - Exclusive to Red Mages (must be unlocked)
+ - Inflicts Magic Evasion Down II (stacks with Frazzle, is Dark Element and can be resisted)
+ - Deals bonus +10% extra damage for each of the following status effects on the target:
+	- Blind, Poison, Slow, Bio, Paralysis, Disease, Plague
+ - If Enspell II is active, damage is aligned with enspell element. 
+ - Resets the Subpower (number of hits, max of 25) of the Enspell II after use, and inflicts a status effect based on enspell:
+	- Enfire II: Plague (Subpower / 4)
+	- Enstone II: Slow II (-Subpower * 6, stacks with Slow)
+	- Enwater II: Poison II (-Subpower HP/tic, stacks with Poison)
+	- Enaero II: Evasion Down II (-Subpower Evasion, stacks with Evasion Down)
+	- Enblizzard II: Paralysis II (Subpower / 2% chance, stacks with Paralysis)
+	- Enthunder II: Crit Hit Evasion Down (+Subpower / 2% chance of being critically hit) 
+
+

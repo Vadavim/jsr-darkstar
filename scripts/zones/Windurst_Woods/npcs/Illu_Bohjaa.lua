@@ -16,6 +16,25 @@ require("scripts/zones/Windurst_Woods/TextIDs");
 -- onTrade Action
 -----------------------------------
 
+local function questReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 600,
+        ["xp"] = 200,
+        ["item"] = 4259, -- Clear Drop
+    };
+
+    if (firstTime == true) then
+        reward = {
+            ["gil"] = 1500,
+            ["xp"] = 800,
+            ["item"] = 4259, -- Clear Drop
+        };
+    end
+
+    jsrReward(player, reward);
+end
+
 function onTrade(player,npc,trade)
 
 CrepyCrawlies = player:getQuestStatus(WINDURST,CREEPY_CRAWLIES);
@@ -33,6 +52,12 @@ CrepyCrawlies = player:getQuestStatus(WINDURST,CREEPY_CRAWLIES);
             end
 
             player:tradeComplete();
+            if (CrepyCrawlies == QUEST_ACCEPTED) then
+                questReward(player, true);
+            else
+                questReward(player, false);
+            end
+
             player:addGil(GIL_RATE*600);
             player:completeQuest(WINDURST,CREEPY_CRAWLIES);
             player:addTitle(CRAWLER_CULLER);

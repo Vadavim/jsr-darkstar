@@ -133,6 +133,24 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function cryReward(player, firstTime)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 2500,
+        ["xp"] = 1000,
+        ["guild"] = {ALCH, 200},
+    };
+    if (firstTime == true) then
+        reward = {
+            ["gil"] = 9000,
+            ["xp"] = 3000,
+            ["guild"] = {ALCH, 600},
+        };
+    end
+
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -161,6 +179,18 @@ function onEventFinish(player,csid,option)
         player:setVar("MissionStatus_orb4",1);
         player:setVar("MissionStatus_orb5",1);
         player:setVar("MissionStatus_orb6",1);
+    elseif (csid == 0x0145) then
+        local CanCardiansCry = player:getQuestStatus(WINDURST,CAN_CARDIANS_CRY);
+        if (CanCardiansCry == QUEST_ACCEPTED) then
+            player:addFame(WINDURST,50);
+            player:addTitle(DELIVERER_OF_TEARFUL_NEWS);
+            player:completeQuest(WINDURST,CAN_CARDIANS_CRY);
+            cryReward(player, true);
+        else
+            player:addFame(WINDURST,10);
+            cryReward(player, false);
+        end
+
     elseif (csid == 0x008f or csid == 0x0091) then
         
         finishMissionTimeline(player,1,csid,option);

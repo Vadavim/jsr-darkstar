@@ -52,6 +52,15 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 800,
+        ["guild"] = {COOK, 350},
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -62,6 +71,7 @@ function onEventFinish(player,csid,option)
         player:addKeyItem(SUPER_SOUP_POT);
         player:messageSpecial(KEYITEM_OBTAINED,SUPER_SOUP_POT);
         player:addFame(WINDURST,30);
+        questReward(player);
         player:tradeComplete();
     end
 end;

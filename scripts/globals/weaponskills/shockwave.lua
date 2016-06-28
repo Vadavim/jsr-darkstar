@@ -32,7 +32,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         target:addStatusEffect(EFFECT_STUN, 1, 0, duration);
     end
 
-    local resist = applyResistanceWeaponskill(player, target, params, ELE_EARTH, SKILL_GSD);
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_EARTH, SKILL_GSD);
     if (damage > 0 and resist > 0.125) then
         local duration2 = (tp/1000 * 60);
         target:addStatusEffect(EFFECT_WEIGHT, 50, 0, duration2 * resist);

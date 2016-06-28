@@ -31,6 +31,7 @@ end;
 -----------------------------------
 
 function oneReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 150,
         ["xp"] = 50,
@@ -39,6 +40,7 @@ function oneReward(player)
 end
 
 function twoReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 400,
         ["xp"] = 100,
@@ -47,6 +49,7 @@ function twoReward(player)
 end
 
 function threeReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 750,
         ["xp"] = 200,
@@ -55,6 +58,7 @@ function threeReward(player)
 end
 
 function fourReward(player)
+    require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 1500,
         ["xp"] = 400,

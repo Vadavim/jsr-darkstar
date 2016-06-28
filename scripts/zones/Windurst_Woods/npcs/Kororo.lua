@@ -70,6 +70,16 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+local function questReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["gil"] = 1000,
+        ["xp"] = 400,
+        ["guild"] = {GOLD, 100},
+        ["augment"] = {13330, 17, 2, 181, 4, 180, 4}, -- Tourmaline Earring: +3 HP/MP, +5 Resist Petrify and Silence
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -87,8 +97,7 @@ function onEventFinish(player,csid,option)
         if (player:getFreeSlotsCount() == 0) then 
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,13330); -- Tourmaline Earring
         else
-            player:addItem(13330);
-            player:messageSpecial(ITEM_OBTAINED, 13330); -- Tourmaline Earring
+            questReward(player);
             player:addFame(WINDURST,30);
             player:completeQuest(WINDURST,A_GREETING_CARDIAN);
             player:needToZone(true); -- zone before starting Legendary Plan B

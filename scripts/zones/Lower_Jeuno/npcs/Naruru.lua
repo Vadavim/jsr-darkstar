@@ -69,6 +69,16 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+local function prideReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 2000,
+        ["gil"] = 5000,
+        ["augment"] = {13519, 1, 5, 768, 9},
+        ["guild"] = {GOLD, 300},
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -84,10 +94,7 @@ function onEventFinish(player,csid,option)
             player:addTitle(MERCY_ERRAND_RUNNER);
             player:delKeyItem(SUPER_SOUP_POT);
             player:setVar("CooksPrideVar",0);
-            player:addGil(GIL_RATE*3000);
-            player:messageSpecial(GIL_OBTAINED,GIL_RATE*3000);
-            player:addItem(13446);
-            player:messageSpecial(ITEM_OBTAINED,13446); -- Mythril Ring
+            prideReward(player)
             player:addFame(JEUNO, 30);
             player:completeQuest(JEUNO,COOK_S_PRIDE);
         end

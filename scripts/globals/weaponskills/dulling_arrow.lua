@@ -30,7 +30,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         params.str_wsc = 0.0; params.agi_wsc = 0.5; params.mnd_wsc = 0.5;
     end
 
-    local resist = applyResistanceWeaponskill(player, target, params, ELE_FIRE, SKILL_ARC);
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_FIRE, SKILL_ARC);
     local duration = 60 * (tp / 1000) * (1 + (tp - 1000) / 2000);
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
     if (damage > 0 and resist > 0.125) then
@@ -39,7 +39,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         end
     end
 
-    local resist = applyResistanceWeaponskill(player, target, params, ELE_DARK, SKILL_ARC);
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_DARK, SKILL_ARC);
     if (damage > 0 and resist > 0.125) then
         target:delStatusEffect(EFFECT_ATTACK_BOOST);
         target:delStatusEffect(EFFECT_STR_BOOST);

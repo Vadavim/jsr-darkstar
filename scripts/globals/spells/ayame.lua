@@ -14,9 +14,9 @@ function onMagicCastingCheck(caster,target,spell)
 	if (not caster:canUsePet()) then
 		return MSGBASIC_CANT_BE_USED_IN_AREA;
     end
---    if not (caster:isUniqueAlly(76)) then
---        return MSGBASIC_EFFECT_ALREADY_ACTIVE;
---    end
+    if not (caster:isUniqueAlly(73)) then
+        return MSGBASIC_EFFECT_ALREADY_ACTIVE;
+    end
 	return 0;
 end;
 

@@ -34,7 +34,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     if (damage > 0) then
         local duration = (tp/1000 * 40) * (1 + (tp - 1000) / 2000);
-        local resist = applyResistanceWeaponskill(player, target, params, ELE_ICE, SKILL_MRK);
+        local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_ICE, SKILL_MRK);
         if (resist > 0.125) then
             target:addStatusEffect(EFFECT_PARALYSIS, 35, 0, duration * resist);
         end

@@ -59,14 +59,14 @@ end;
 -- onEventFinish
 -----------------------------------
 
-function questReward(player, firstTime)
+local function questReward(player, firstTime)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 3200,
         ["xp"] = 300,
         ["guild"] = {BONE, 6300},
     };
-    if (firstTime) then
+    if (firstTime == true) then
         reward = {
             ["gil"] = 6000,
             ["xp"] = 1000,

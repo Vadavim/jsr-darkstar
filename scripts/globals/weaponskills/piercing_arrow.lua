@@ -39,7 +39,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
     -- dispels beneficial defense spells
-    local resist = applyResistanceWeaponskill(player, target, params, ELE_LIGHT, SKILL_ARC);
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_LIGHT, SKILL_ARC);
     if (damage > 0 and resist > 0.125) then
         target:delStatusEffect(EFFECT_PROTECT);
         target:delStatusEffect(EFFECT_SHELL);

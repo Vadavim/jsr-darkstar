@@ -91,6 +91,16 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function amensReward(player)
+    require("scripts/globals/jsr_utils");
+    local reward = {
+        ["xp"] = 1500,
+        ["gil"] = 9000,
+        ["beast"] = 4,
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -100,6 +110,7 @@ function onEventFinish(player,csid,option)
         player:needToZone(true);
         player:delKeyItem(BROKEN_WAND);
         player:addTitle(HAKKURURINKURUS_BENEFACTOR);
+        amensReward(player);
         player:addGil(GIL_RATE*6000);
         player:messageSpecial(GIL_OBTAINED,GIL_RATE*6000);
         player:addFame(WINDURST,150);

@@ -10,6 +10,7 @@ require("scripts/globals/titles");
 -----------------------------------
 
 function onMobSpawn(mob)
+    mob:setMobMod(MOBMOD_SCALE_LEVEL, mob:getMainLvl());
 end;
 
 -----------------------------------
