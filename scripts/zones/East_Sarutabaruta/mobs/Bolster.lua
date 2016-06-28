@@ -19,10 +19,11 @@ function onMobDeath(mob, player, isKiller)
         if (player ~= nil) then
             player:removeConfrontationFromParty();
         end
+        player:setLocalVar("killedFoVNM", 1);
 
         local party = player:getParty();
-        player:addLimitPoints(300);
-        player:addExp(300);
+--        player:addLimitPoints(300);
+--        player:addExp(300);
         if (party ~= nil) then
             for i,member in ipairs(party) do
                 member:addLimitPoints(300);

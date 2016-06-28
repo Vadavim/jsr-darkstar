@@ -138,6 +138,7 @@ namespace luautils
 
     int32 getAbility(lua_State*);
     int32 getSpell(lua_State*);
+    int32 getItem(lua_State*);
 
     int32 SpawnMob(lua_State*);													// Spawn Mob By Mob Id - NMs, BCNM...
     int32 DespawnMob(lua_State*);												// Despawn (Fade Out) Mob By Id

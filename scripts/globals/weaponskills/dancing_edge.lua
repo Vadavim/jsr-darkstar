@@ -33,6 +33,10 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    if (damage > 0) then
+        player:addStatusEffect(EFFECT_ENMITY_DOWN, 15, 0, 60 * (tp / 1000));
+    end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

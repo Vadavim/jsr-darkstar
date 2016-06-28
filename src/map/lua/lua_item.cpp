@@ -141,6 +141,19 @@ inline int32 CLuaItem::getName(lua_State* L)
     return 1;
 }
 
+inline int32 CLuaItem::getLevel(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PLuaItem == nullptr);
+    if (!m_PLuaItem->isType(ITEM_WEAPON) && !m_PLuaItem->isType(ITEM_ARMOR)) {
+        lua_pushinteger(L, 0);
+        return 1;
+    }
+
+    CItemWeapon* PArmor = (CItemWeapon*)m_PLuaItem;
+    lua_pushinteger(L, PArmor->getReqLvl());
+    return 1;
+}
+
 inline int32 CLuaItem::getMod(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PLuaItem == nullptr);
@@ -233,6 +246,7 @@ Lunar<CLuaItem>::Register_t CLuaItem::methods[] =
     LUNAR_DECLARE_METHOD(CLuaItem,isSubType),
     LUNAR_DECLARE_METHOD(CLuaItem,getName),
     LUNAR_DECLARE_METHOD(CLuaItem,getMod),
+    LUNAR_DECLARE_METHOD(CLuaItem,getLevel),
     LUNAR_DECLARE_METHOD(CLuaItem,addMod),
     LUNAR_DECLARE_METHOD(CLuaItem,delMod),
     LUNAR_DECLARE_METHOD(CLuaItem,getAugment),

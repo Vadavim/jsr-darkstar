@@ -16,6 +16,7 @@ function onTrigger(player,npc)
         player:delStatusEffect(EFFECT_CONFRONTATION);
         player:delStatusEffect(EFFECT_LEVEL_RESTRICTION);
     end;
+    rewardElite(player, npc, {16450});
 
 --    if player:getLocalVar("bolsterKill") == 1 then
 --        local items = {
@@ -41,8 +42,16 @@ function onTrade(player,npc,trade)
 --        local mobs = {17252657};
 --    end
 
-    local mobs = {17252815};
-    startConfrontation(player, 10, 600, mobs);
+--    local item = getItem(20685); -- iron sword
+tradeElite(player, npc, trade, 1, {17252815});
+--local id = trade:getItem(0);
+--local item = getItem(id);
+--    local augmented = pickAugments(item);
+--player:tradeComplete();
+--player:addItem(id, 1, augmented[1], augmented[2], augmented[3], augmented[4], augmented[5], augmented[6], augmented[7], augmented[8]);
+
+--    local mobs = {17252815};
+--    startConfrontation(player, 10, 600, mobs);
 
 end;    
     

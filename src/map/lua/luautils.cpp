@@ -150,6 +150,7 @@ namespace luautils
 
         lua_register(LuaHandle, "getAbility", luautils::getAbility);
         lua_register(LuaHandle, "getSpell", luautils::getSpell);
+        lua_register(LuaHandle, "getItem", luautils::getItem);
 
         Lunar<CLuaAbility>::Register(LuaHandle);
         Lunar<CLuaAction>::Register(LuaHandle);
@@ -4367,6 +4368,23 @@ namespace luautils
             lua_pushlightuserdata(L, (void*)PAbility);
             lua_pcall(L, 2, 1, 0);
 
+            return 1;
+        }
+        return 0;
+    }
+
+    int32 getItem(lua_State* L)
+    {
+        if (!lua_isnil(L, 1) && lua_isnumber(L, 1))
+        {
+            CItem* PItem = itemutils::GetItem(lua_tointeger(L, 1));
+
+            lua_getglobal(L, CLuaItem::className);
+            lua_pushstring(L, "new");
+            lua_gettable(L, -2);
+            lua_insert(L, -2);
+            lua_pushlightuserdata(L, PItem);
+            lua_pcall(L, 2, 1, 0);
             return 1;
         }
         return 0;
