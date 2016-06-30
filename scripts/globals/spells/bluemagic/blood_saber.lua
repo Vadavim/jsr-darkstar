@@ -44,7 +44,8 @@ function onSpellCast(caster,target,spell)
     if (dmg < 0) then
         dmg = 0
     end
-    
+    if (target:getFamily() == 172 or target:getFamily() == 369) then dmg = dmg * 1.5; end;
+
     if (target:isUndead()) then
         spell:setMsg(75); 
         return dmg;

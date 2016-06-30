@@ -16,6 +16,12 @@ function onMobSkillCheck(target,mob,skill)
     if (target:getCurrentRegion() == REGION_TAVNAZIA) then
         return 0;
     end
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    if (hard > 0) then
+        skill:setActivationTime(500);
+    else
+        skill:setActivationTime(1500);
+    end
 
     return 1;
 end;

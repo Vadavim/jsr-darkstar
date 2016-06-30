@@ -23,8 +23,9 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
 
-    local dmgmod = 1;
+    local dmgmod = 1 + hard / 5;
     local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*2.6,ELE_DARK,dmgmod,TP_MAB_BONUS,1);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_MAGICAL,MOBPARAM_DARK,MOBPARAM_1_SHADOW);
 

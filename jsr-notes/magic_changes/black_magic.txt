@@ -68,7 +68,7 @@ Fire Spikes: increased damage
  
  - DoT: 1 + INT / 5
  
- - Each effect reduces the target's elemental resistances (-10) and defenses (-5%) based on the element and the element that it is strong against.
+ - Each effect reduces the target's elemental resistances (-15) and defenses (-10%) based on the element and the element that it is strong against.
  
  - For instance, Burn reduces a target's Fire and Ice resistances/defenses. 
  

@@ -19,7 +19,7 @@ function onMobWeaponSkill(target, mob, skill)
     enmityStatusCheck(target, mob, skill, 30 + hard * 5);
 
     if (hard > 0) then
-        local success = MobStatusEfectMove(mob, target, skill, EFFECT_RASP, (1 + mob:getMainLvl() / 4) * (1 + hard / 5), 0, 60);
+        local success = MobStatusEffectMove(mob, target, EFFECT_RASP, (1 + mob:getMainLvl() / 4) * (1 + hard / 5), 0, 60);
         if (success == 242) then
             target:setPendingMessage(277, EFFECT_RASP);
         end

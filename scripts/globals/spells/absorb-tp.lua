@@ -18,14 +18,15 @@ end;
 function onSpellCast(caster,target,spell)
 
     local cap = 1200
-    local dmg = math.random(100, 1200);
+    local dmg = math.random(400, 1200);
     
     --get resist multiplier (1x if no resist)
     local resist = applyResistance(caster, spell, target, 
-      caster:getStat(MOD_INT)-target:getStat(MOD_INT), DARK_MAGIC_SKILL, 1.0);
+      caster:getStat(MOD_INT)-target:getStat(MOD_INT) + target:getTP() / 50, DARK_MAGIC_SKILL, 1.0);
 
     --get the resisted damage
     dmg = dmg * resist;
+    if (target:getFamily() == 172 or target:getFamily() == 369) then dmg = dmg * 1.5; end;
 
     --add on bonuses (staff/day/weather/jas/mab/etc all go in this function)
     dmg = addBonuses(caster, spell, target, dmg);

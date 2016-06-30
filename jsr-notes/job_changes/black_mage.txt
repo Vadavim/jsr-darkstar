@@ -16,9 +16,9 @@ ABILITY CHANGES
 
 
 [Subtle Sorcery]
- - Gained at level 45 (instead of 96)
- - When active, gives a -50 penalty to Fastcast and a -25 penalty to magic attack
- - Conserve MP +35, Enmity -20, MACC +20
+ - Gained at level 30 (instead of 96)
+ - When active, gives a -50 penalty to Fastcast, +25 Conserve MP, and -15 Enmity.
+ - In addition, (all) Area of Effect spells become single target and cost 25% less MP.
 
 [Manawell]
  - Gained at level 55

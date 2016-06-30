@@ -1977,6 +1977,7 @@ MOBMOD_CHARMABLE      = 64
 MOBMOD_NO_MOVE        = 65
 MOBMOD_SCALE_LEVEL        = 66
 MOBMOD_HARD_MODE        = 67
+MOBMOD_NO_XP        = 68
 
 ------------------------------------
 -- Skills

@@ -31,6 +31,7 @@ function onSpellCast(caster,target,spell)
     if (void ~= nil) then
         dmg = dmg * (1 + void:getPower() / 100);
     end
+    if (target:getFamily() == 172 or target:getFamily() == 369) then dmg = dmg * 1.5; end;
 
     if (dmg < 0) then
         dmg = 0

@@ -5,6 +5,7 @@
     
 require("scripts/globals/settings");    
 require("scripts/globals/fieldsofvalor");
+require("scripts/zones/East_Sarutabaruta/TextIDs");
 require("scripts/globals/jsr_utils");
 
 -----------------------------------    

@@ -46,6 +46,23 @@ INT_BASED = 1;
 CHR_BASED = 2;
 MND_BASED = 3;
 
+local strongSystem = {
+    [SYSTEM_PLANTOID] = SYSTEM_BEAST, [SYSTEM_BEAST] = SYSTEM_LIZARD, [SYSTEM_LIZARD] = SYSTEM_VERMIN,
+    [SYSTEM_VERMIN] = SYSTEM_PLANTOID, [SYSTEM_AQUAN] = SYSTEM_AMORPH, [SYSTEM_AMORPH] = SYSTEM_BIRD,
+    [SYSTEM_BIRD] = SYSTEM_AQUAN, [SYSTEM_UNDEAD] = SYSTEM_ARCANA, [SYSTEM_ARCANA] = SYSTEM_UNDEAD,
+    [SYSTEM_DRAGON] = SYSTEM_DEMON, [SYSTEM_DEMON] = SYSTEM_DRAGON, [SYSTEM_BEASTMEN] = SYSTEM_BEASTMEN,
+    [SYSTEM_LUMINION] = SYSTEM_LUMORIAN, [SYSTEM_LUMORIAN] = SYSTEM_LUMINION
+}
+
+
+local weakSystem = {
+    [SYSTEM_PLANTOID] = SYSTEM_VERMIN, [SYSTEM_BEAST] = SYSTEM_PLANTOID, [SYSTEM_LIZARD] = SYSTEM_BEAST,
+    [SYSTEM_VERMIN] = SYSTEM_LIZARD, [SYSTEM_AQUAN] = SYSTEM_BIRD, [SYSTEM_AMORPH] = SYSTEM_AQUAN,
+    [SYSTEM_BIRD] = SYSTEM_AMORPH, [SYSTEM_UNDEAD] = SYSTEM_UNDEAD, [SYSTEM_ARCANA] = SYSTEM_ARCANA,
+    [SYSTEM_DRAGON] = SYSTEM_DRAGON, [SYSTEM_DEMON] = SYSTEM_DEMON,
+    [SYSTEM_LUMINION] = SYSTEM_LUMINION, [SYSTEM_LUMORIAN] = SYSTEM_LUMORIAN
+}
+
 -- Get the damage for a blue magic physical spell.
 -- caster - The entity casting the spell.
 -- target - The target of the spell.
@@ -129,6 +146,14 @@ function BluePhysicalSpell(caster, target, spell, params)
     -- print(params.offcratiomod)
     local cratio = BluecRatio(params.offcratiomod / target:getStat(MOD_DEF), caster:getMainLvl(), target:getMainLvl());
     local hitrate = BlueGetHitRate(caster,target,true);
+    local system = target:getSystem();
+    local spellSystem = spell:getBase();
+    if (strongSystem[spellSystem] == system) then
+        hitrate = hitrate + 10;
+    elseif (weakSystem[spellSystem] == system) then
+        hitrate = hitrate - 10;
+    end
+
 
     -- print("Hit rate "..hitrate);
     -- print("pdifmin "..cratio[1].." pdifmax "..cratio[2]);
@@ -159,7 +184,8 @@ function BluePhysicalSpell(caster, target, spell, params)
             hitslanded = hitslanded + 1;
 
             -- increment target's TP (100TP per hit landed)
-            target:addTP(100);
+            local dAGI = 1.0 + utils.clamp((caster:getStat(MOD_AGI) - target:getStat(MOD_AGI)) * 0.75, -30.0, 30.0) / 100;
+            target:addTP(100 * dAGI * ( 1 + target:getMod(MOD_STORETP) / 100));
         end
 
         hitsdone = hitsdone + 1;
@@ -186,17 +212,13 @@ function BlueMagicalSpell(caster, target, spell, params, statMod)
         ST = ST * (2 + caster:getTP() / 2000)
     end
 
+    local accBonus = 0;
+
     local convergenceBonus = 1.0;
     if (caster:hasStatusEffect(EFFECT_CONVERGENCE)) then
         convergenceEffect = getStatusEffect(EFFECT_CONVERGENCE);
-        local convLvl = convergenceEffect:getPower();
-        if (convLvl == 1) then
-            convergenceBonus = 1.05;
-        elseif (convLvl == 2) then
-            convergenceBonus = 1.1;
-        elseif (convLvl == 3) then
-            convergenceBonus = 1.15;
-        end
+        local convergenceBonus = convergenceBonus + convergenceEffect:getPower() / 100;
+        accBonus = accBonus + convergenceEffect:getPower();
     end
 
     local statBonus = 0;
@@ -213,13 +235,20 @@ function BlueMagicalSpell(caster, target, spell, params, statMod)
     end
 
     D =(((D + ST) * params.multiplier * convergenceBonus) + statBonus);
+    local dAGI = 1.0 + utils.clamp((caster:getStat(MOD_AGI) - target:getStat(MOD_AGI)) * 0.75, -30.0, 30.0) / 100;
+    target:addTP(100 * dAGI * ( 1 + target:getMod(MOD_STORETP) / 100));
 
     -- At this point according to wiki we apply standard magic attack calculations
+    if (strongSystem[spellSystem] == system) then
+        accBonus = accBonus + 10;
+    elseif (weakSystem[spellSystem] == system) then
+        accBonus = accBonus - 10;
+    end
 
     local magicAttack = 1.0;
     local multTargetReduction = 1.0; -- TODO: Make this dynamically change, temp static till implemented.
     magicAttack = math.floor(D * multTargetReduction);
-    magicAttack = math.floor(magicAttack * applyResistance(caster,spell,target,dStat,BLUE_SKILL,0));
+    magicAttack = math.floor(magicAttack * applyResistance(caster,spell,target,dStat,BLUE_SKILL,accBonus));
     dmg = math.floor(addBonuses(caster, spell, target, magicAttack));
 
     caster:delStatusEffectSilent(EFFECT_BURST_AFFINITY);
@@ -231,8 +260,19 @@ function BlueFinalAdjustments(caster, target, spell, dmg, params)
     if (dmg < 0) then
         dmg = 0;
     end
+    if (caster:isSpellAoE(spell:getID()) and not (caster:hasStatusEffect(EFFECT_CONVERGENCE) or caster:hasStatusEffect(EFFECT_SUBTLE_SORCERY)))  then
+        if (target:getModelSize() > 1) then dmg = dmg * 1.25; end
+        if (target:getFamily() == 47) then dmg = dmg * 1.33; end
+    end
 
+    local system = target:getSystem();
+    local spellSystem = spell:getBase();
     dmg = dmg * BLUE_POWER;
+    if (strongSystem[spellSystem] == system) then
+        dmg = dmg * 1.15;
+    elseif (weakSystem[spellSystem] == system) then
+        dmg = dmg * 0.85;
+    end
 
     dmg = dmg - target:getMod(MOD_PHALANX);
     if (dmg < 0) then

@@ -626,6 +626,7 @@ public:
     int32 setSpawner(lua_State* L);
     int32 applyConfrontationToParty(lua_State* L);
     int32 removeConfrontationFromParty(lua_State* L);
+    int32 getModelSize(lua_State* L);
 };
 
 #endif

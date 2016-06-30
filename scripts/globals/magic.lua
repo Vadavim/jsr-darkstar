@@ -61,6 +61,25 @@ require("scripts/globals/settings");
     blmAMIIMerit = {MERIT_FLARE_II, MERIT_QUAKE_II, MERIT_FLOOD_II, MERIT_TORNADO_II, MERIT_FREEZE_II, MERIT_BURST_II};
     barSpells = {EFFECT_BARFIRE, EFFECT_BARSTONE, EFFECT_BARWATER, EFFECT_BARAERO, EFFECT_BARBLIZZARD, EFFECT_BARTHUNDER};
 
+
+
+local strongSystem = {
+    [SYSTEM_PLANTOID] = SYSTEM_BEAST, [SYSTEM_BEAST] = SYSTEM_LIZARD, [SYSTEM_LIZARD] = SYSTEM_VERMIN,
+    [SYSTEM_VERMIN] = SYSTEM_PLANTOID, [SYSTEM_AQUAN] = SYSTEM_AMORPH, [SYSTEM_AMORPH] = SYSTEM_BIRD,
+    [SYSTEM_BIRD] = SYSTEM_AQUAN, [SYSTEM_UNDEAD] = SYSTEM_ARCANA, [SYSTEM_ARCANA] = SYSTEM_UNDEAD,
+    [SYSTEM_DRAGON] = SYSTEM_DEMON, [SYSTEM_DEMON] = SYSTEM_DRAGON, [SYSTEM_BEASTMEN] = SYSTEM_BEASTMEN,
+    [SYSTEM_LUMINION] = SYSTEM_LUMORIAN, [SYSTEM_LUMORIAN] = SYSTEM_LUMINION
+}
+
+
+local weakSystem = {
+    [SYSTEM_PLANTOID] = SYSTEM_VERMIN, [SYSTEM_BEAST] = SYSTEM_PLANTOID, [SYSTEM_LIZARD] = SYSTEM_BEAST,
+    [SYSTEM_VERMIN] = SYSTEM_LIZARD, [SYSTEM_AQUAN] = SYSTEM_BIRD, [SYSTEM_AMORPH] = SYSTEM_AQUAN,
+    [SYSTEM_BIRD] = SYSTEM_AMORPH, [SYSTEM_UNDEAD] = SYSTEM_UNDEAD, [SYSTEM_ARCANA] = SYSTEM_ARCANA,
+    [SYSTEM_DRAGON] = SYSTEM_DRAGON, [SYSTEM_DEMON] = SYSTEM_DEMON,
+    [SYSTEM_LUMINION] = SYSTEM_LUMINION, [SYSTEM_LUMORIAN] = SYSTEM_LUMORIAN
+}
+
 -- USED FOR DAMAGING MAGICAL SPELLS (Stages 1 and 2 in Calculating Magic Damage on wiki)
 --Calculates magic damage using the standard magic damage calc.
 --Does NOT handle resistance.
@@ -369,6 +388,16 @@ function applyResistanceEffect(player,spell,target,diff,skill,bonus,effect)
     local percentBonus = 0;
     local magicaccbonus = getSpellBonusAcc(player, target, spell);
 
+    if (skill == SKILL_BLU) then
+        local system = target:getSystem();
+        local spellSystem = spell:getBase();
+        if (strongSystem[spellSystem] == system) then
+            magicaccbonus = magicaccbonus + 10;
+        elseif (weakSystem[spellSystem] == system) then
+            magicaccbonus = magicaccbonus - 10;
+        end
+    end
+
     if (diff > 10) then
         magicaccbonus = magicaccbonus + 10 + (diff - 10)/2;
     else
@@ -647,6 +676,7 @@ end;
 
  function finalMagicAdjustments(caster,target,spell,dmg)
     --Handles target's HP adjustment and returns UNSIGNED dmg (absorb message is set in this function)
+    if (caster:isMob()) then dmg = dmg * 0.75; end
 
     -- handle multiple targets
     if (caster:isSpellAoE(spell:getID())) then
@@ -658,6 +688,11 @@ end;
         elseif (total > 1) then
             -- -ga spells on 2 to 9 targets = 0.9 - 0.05T where T = number of targets
             dmg = dmg * (0.9 - 0.05 * total);
+        end
+
+        if (not target:hasStatusEffect(EFFECT_SUBTLE_SORCERY)) then
+            if (target:getModelSize() > 1) then dmg = dmg * 1.25; end
+            if (target:getFamily() == 47) then dmg = dmg * 1.33; end
         end
 
         -- kill shadows

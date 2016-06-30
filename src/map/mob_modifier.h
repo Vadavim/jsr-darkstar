@@ -98,7 +98,8 @@ enum MOBMODIFIER : int
     MOBMOD_SCALE_LEVEL            = 66,  // Mob's level scales with person who engaged
     MOBMOD_HARD_MODE            = 67,  // Mob's level scales with person who engaged
     MOBMOD_ENSPELL            = 68,  // Mob's level scales with person who engaged
-    MOBMOD_POISON_ATTACK            = 69  // Mob's level scales with person who engaged
+    MOBMOD_POISON_ATTACK            = 69,  // Mob's level scales with person who engaged
+    MOBMOD_NO_XP           = 70 //
 };
 
 #endif

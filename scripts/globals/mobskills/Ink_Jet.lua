@@ -16,12 +16,17 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     local typeEffect = EFFECT_BLINDNESS;
+    local duration = 80 * (skill:getTP() / 1000);
 
-    MobStatusEffectMove(mob, target, typeEffect, 20, 0, 180);
+    local success = MobStatusEffectMove(mob, target, typeEffect, 20 + hard * 3, 0, duration);
+    if (success == 242) then
+        target:setPendingMessage(277, EFFECT_BLINDNESS);
+    end
 
-    local dmgmod = 1;
-    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*2.5,ELE_DARK,dmgmod,TP_NO_EFFECT);
+    local dmgmod = 1 + hard / 5;
+    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*2.5,ELE_WATER,dmgmod,TP_DMG_VARIES);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_MAGICAL,MOBPARAM_DARK,MOBPARAM_IGNORE_SHADOWS);
 
     target:delHP(dmg);

@@ -14,10 +14,10 @@ require("scripts/globals/magic");
 function onEffectGain(target,effect)
     target:addMod(MOD_REGEN_DOWN, effect:getPower());
     target:addMod(MOD_MND, -getElementalDebuffStatDownFromDOT(effect:getPower()));
-    target:addMod(MOD_THUNDERRES, -10);
-    target:addMod(MOD_THUNDERDEF, -10);
-    target:addMod(MOD_WATERRES, -10);
-    target:addMod(MOD_WATERDEF, -10);
+    target:addMod(MOD_THUNDERRES, -15);
+    target:addMod(MOD_THUNDERDEF, -20);
+    target:addMod(MOD_WATERRES, -15);
+    target:addMod(MOD_WATERDEF, -20);
 end;
 
 -----------------------------------
@@ -34,8 +34,8 @@ end;
 function onEffectLose(target,effect)
     target:delMod(MOD_REGEN_DOWN, effect:getPower());
     target:delMod(MOD_MND, -getElementalDebuffStatDownFromDOT(effect:getPower()));
-    target:delMod(MOD_THUNDERRES, -10);
-    target:delMod(MOD_THUNDERDEF, -10);
-    target:delMod(MOD_WATERRES, -10);
-    target:delMod(MOD_WATERDEF, -10);
+    target:delMod(MOD_THUNDERRES, -15);
+    target:delMod(MOD_THUNDERDEF, -20);
+    target:delMod(MOD_WATERRES, -15);
+    target:delMod(MOD_WATERDEF, -20);
 end;

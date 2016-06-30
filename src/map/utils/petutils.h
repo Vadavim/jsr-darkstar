@@ -81,6 +81,7 @@ namespace petutils
     int16 PerpetuationCost(uint32 id, uint8 level);
     void  Familiar(CBattleEntity* PPet);
     void  LoadPet(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone);
+	void  ReloadAutomaton(CCharEntity* PMaster, CPetEntity* PPet);
     CPetEntity* LoadAlly(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone);
     void  LoadWyvernStatistics(CBattleEntity* PMaster, CPetEntity* PPet, bool finalize);
     void  FinalizePetStatistics(CBattleEntity* PMaster, CPetEntity* PPet);

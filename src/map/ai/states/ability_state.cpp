@@ -77,6 +77,9 @@ CAbility* CAbilityState::GetAbility()
 void CAbilityState::ApplyEnmity()
 {
     auto PTarget = GetTarget();
+    // mobs can't generate enmity
+    if (m_PEntity->objtype == TYPE_MOB)
+        return;
     if (m_PAbility->getValidTarget() & TARGET_ENEMY &&
         PTarget->allegiance != m_PEntity->allegiance)
     {
@@ -126,6 +129,8 @@ bool CAbilityState::Update(time_point tick)
 
 bool CAbilityState::CanUseAbility()
 {
+    if (m_PEntity->objtype == TYPE_MOB || m_PEntity->objtype == TYPE_PET)
+        return true;
     if (m_PEntity->objtype == TYPE_PC)
     {
         auto PAbility = GetAbility();

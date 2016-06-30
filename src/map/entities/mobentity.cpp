@@ -33,6 +33,7 @@
 #include "../ai/states/attack_state.h"
 #include "../ai/states/weaponskill_state.h"
 #include "../ai/states/mobskill_state.h"
+#include "../ai/states/ability_state.h"
 #include "../entities/charentity.h"
 #include "../packets/action.h"
 #include "../packets/entity_update.h"
@@ -813,7 +814,7 @@ void CMobEntity::DropItems()
             blueutils::TryLearningSpells(PChar, this);
             m_UsedSkillIds.clear();
 
-            if (m_giveExp)
+            if (m_giveExp && !getMobMod(MOBMOD_NO_XP))
             {
                 charutils::DistributeExperiencePoints(PChar, this);
             }
@@ -1046,5 +1047,49 @@ bool CMobEntity::OnAttack(CAttackState& state, action_t& action)
     else
     {
         return CBattleEntity::OnAttack(state, action);
+    }
+}
+
+void CMobEntity::OnAbility(CAbilityState& state, action_t& action)
+{
+    auto PAbility = state.GetAbility();
+    auto PTarget = static_cast<CBattleEntity*>(state.GetTarget());
+
+    std::unique_ptr<CMessageBasicPacket> errMsg;
+    if (IsValidTarget(PTarget->targid, PAbility->getValidTarget(), errMsg))
+    {
+        if (this != PTarget && distance(this->loc.p, PTarget->loc.p) > PAbility->getRange())
+        {
+            return;
+        }
+        if (battleutils::IsParalyzed(this)) {
+            // display paralyzed
+            loc.zone->PushPacket(this, CHAR_INRANGE_SELF, new CMessageBasicPacket(this, PTarget, 0, 0, MSGBASIC_IS_PARALYZED));
+            return;
+        }
+
+        action.id = this->id;
+        action.actiontype = PAbility->getActionType();
+        //#TODO: unoffset this
+        action.actionid = PAbility->getID() + 16;
+        actionList_t& actionList = action.getNewActionList();
+        actionList.ActionTargetID = PTarget->id;
+        actionTarget_t& actionTarget = actionList.getNewActionTarget();
+        actionTarget.reaction = REACTION_NONE;
+        actionTarget.speceffect = SPECEFFECT_RECOIL;
+        actionTarget.animation = PAbility->getAnimationID();
+        actionTarget.param = 0;
+        auto prevMsg = actionTarget.messageID;
+
+        int32 value = luautils::OnUseAbility(this, PTarget, PAbility, &action);
+        if (prevMsg == actionTarget.messageID) actionTarget.messageID = PAbility->getMessage();
+        if (actionTarget.messageID == 0) actionTarget.messageID = MSGBASIC_USES_JA;
+        actionTarget.param = value;
+
+        if (value < 0)
+        {
+            actionTarget.messageID = ability::GetAbsorbMessage(actionTarget.messageID);
+            actionTarget.param = -value;
+        }
     }
 }

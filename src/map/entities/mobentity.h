@@ -174,6 +174,7 @@ public:
     virtual bool OnAttack(CAttackState&, action_t&);
     virtual bool CanAttack(CBattleEntity* PTarget, std::unique_ptr<CMessageBasicPacket>& errMsg) override;
     virtual void OnCastFinished(CMagicState&, action_t&);
+    virtual void OnAbility(CAbilityState&, action_t&) override;
 
     virtual void OnDisengage(CAttackState&) override;
     virtual void OnDeathTimer() override;

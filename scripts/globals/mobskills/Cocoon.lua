@@ -23,9 +23,15 @@ function onMobWeaponSkill(target, mob, skill)
     local typeEffect = EFFECT_DEFENSE_BOOST;
 
     skill:setMsg(MobBuffMove(mob, typeEffect, 50 + hard * 3, 0, duration));
+    local effect = mob:getStatusEffect(EFFECT_DEFENSE_BOOST);
+    if (effect ~= niil) then
+        effect:addMod(MOD_FIREDEF, -60);
+        target:addMod(MOD_FIREDEF, -60);
+        effect:addMod(MOD_EARTHDEF, 60);
+        target:addMod(MOD_EARTHDEF, 60);
+    end
 
     if (hard > 0 ) then
-        local effect = mob:getStatusEffect(EFFECT_DEFENSE_BOOST);
         if (effect ~= nil) then
             local power = 1 + (mob:getMainLvl() / 4) * (1 + hard / 5);
             effect:addMod(MOD_SPIKES, 8);

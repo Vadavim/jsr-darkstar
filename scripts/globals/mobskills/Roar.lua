@@ -30,7 +30,7 @@ function onMobWeaponSkill(target, mob, skill)
     enmityStatusCheck(target, mob, skill, 15 + hard * 5);
 
     if (hard > 0 and skill:getMsg() == 242) then
-        local success2 = MobStatusEffectMove(mob, target, skill, EFFECT_TERROR, 1, 0, 10 + hard * 2, MOD_MND);
+        local success2 = MobStatusEffectMove(mob, target, EFFECT_TERROR, 1, 0, 10 + hard * 2, MOD_MND);
         if (success2 == 242) then
             target:setPendingMessage(277, EFFECT_TERROR);
         end

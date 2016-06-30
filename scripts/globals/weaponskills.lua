@@ -40,6 +40,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
     end
 
 
+
     -- get fstr
     local fstr = fSTR(attacker:getStat(MOD_STR),target:getStat(MOD_VIT),attacker:getWeaponDmgRank());
 
@@ -232,6 +233,10 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
         attacker:delStatusEffect(EFFECT_FOIL);
     end
 
+    if (isAoEWeaponskill(wsID)) then
+        if (target:getModelSize() > 1) then finaldmg = finaldmg * 1.25; end;
+        if (target:getFamily() == 47) then dmg = dmg * 1.33; end
+    end
 
     finaldmg = target:physicalDmgTaken(finaldmg);
 
@@ -275,6 +280,7 @@ function applyResistanceWeaponskill(attacker, target, params, tp, element, skill
     local bonusTP = params.bonusTP or 0
     local bonusfTP, bonusacc = handleWSGorgetBelt(attacker);
     bonusacc = bonusacc + attacker:getMod(MOD_WSACC) + 20 + (20 * (tp - 1000) / 2000); --JSR: magic weaponskills more accurate
+    if (params.additionalEffectAcc ~= nil) then bonusacc = bonusacc + params.additionalEffectAcc end;
     local p = applyResistanceAbility(attacker,target,element,skill, bonusacc);
     return p;
 end
@@ -323,7 +329,11 @@ function doMagicWeaponskill(attacker, target, wsID, params, tp, primary)
     end
     
     dmg = dmg * ftp;
-    
+
+    if (isAoEWeaponskill(wsID)) then
+        if (target:getModelSize() > 1) then finaldmg = finaldmg * 1.25; end;
+        if (target:getFamily() == 47) then dmg = dmg * 1.33; end
+    end
 --    dmg = addBonusesAbility(attacker, params.ele, target, dmg, params);
     --JSR: magical weaponskills are more affected by weather, day, MAT, MDEF, and elemental weaknesses / resistances
     dmg = addBonusesWeaponskill(attacker, params.ele, target, dmg, params);
@@ -897,6 +907,10 @@ end;
     end
     -- print("Landed " .. hitslanded .. "/" .. numHits .. " hits with hitrate " .. hitrate .. "!");
 
+    if (isAoEWeaponskill(wsID)) then
+        if (target:getModelSize() > 1) then finaldmg = finaldmg * 1.25; end;
+        if (target:getFamily() == 47) then dmg = dmg * 1.33; end
+    end
     finaldmg = target:rangedDmgTaken(finaldmg);
     finaldmg = finaldmg * target:getMod(MOD_PIERCERES) / 1000;
 

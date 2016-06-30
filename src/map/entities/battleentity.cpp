@@ -1343,10 +1343,15 @@ void CBattleEntity::clearAllies()
     if (PAlly.size() == 0)
         return;
 
+    std::vector<CBattleEntity*> allies;
+
     for (auto ally : PAlly)
     {
-        ally->Die();
+        allies.push_back(ally);
     }
+    for (auto ally : allies)
+        ally->Die();
+    allies.clear();
     PAlly.clear();
 }
 

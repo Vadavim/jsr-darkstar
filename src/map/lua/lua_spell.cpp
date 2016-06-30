@@ -207,6 +207,14 @@ inline int32 CLuaSpell::getFlag(lua_State *L)
     return 1;
 }
 
+inline int32 CLuaSpell::getBase(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PLuaSpell == nullptr);
+    lua_pushinteger(L, m_PLuaSpell->getBase());
+    return 1;
+}
+
+
 /************************************************************************
 *																		*
 *  Инициализация методов в lua											*
@@ -233,5 +241,6 @@ Lunar<CLuaSpell>::Register_t CLuaSpell::methods[] =
     LUNAR_DECLARE_METHOD(CLuaSpell,getSpellGroup),
     LUNAR_DECLARE_METHOD(CLuaSpell,getFlag),
     LUNAR_DECLARE_METHOD(CLuaSpell,castTime),
+    LUNAR_DECLARE_METHOD(CLuaSpell,getBase),
     {nullptr,nullptr}
 };

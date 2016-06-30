@@ -27,7 +27,7 @@ function onMobWeaponSkill(target, mob, skill)
     skill:setMsg(MobPhysicalDrainMove(mob, target, skill, MOBDRAIN_HP, dmg));
 
     if (hard > 0) then
-        local success = MobStatusEffectMove(mob, target, skill, EFFECT_DISEASE, 1, 3, 20 * hard);
+        local success = MobStatusEffectMove(mob, target, EFFECT_DISEASE, 1, 3, 20 * hard);
         if (success == 242) then
             target:setPendingMessage(277, EFFECT_DISEASE);
         end

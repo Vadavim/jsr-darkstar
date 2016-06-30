@@ -433,6 +433,7 @@ namespace petutils
 
     }
 
+
     void LoadAutomatonStats(CCharEntity* PMaster, CPetEntity* PPet, Pet_t* petStats)
     {
         PPet->WorkingSkills.automaton_melee = PMaster->GetSkill(SKILL_AME);
@@ -671,6 +672,13 @@ namespace petutils
                     PPet->setModifier(MOD_FASTCAST, 25);
                 break;
         }
+    }
+
+
+    void ReloadAutomaton(CCharEntity* PMaster, CPetEntity* PPet) {
+        PPet->SetMLevel(PMaster->GetMLevel());
+        PPet->SetSLevel(PMaster->GetMLevel() / 2);
+        LoadAutomatonStats(PMaster, PPet, g_PPetList.at(PPet->m_PetID)); //temp
     }
 
     void LoadAvatarStats(CPetEntity* PPet)
@@ -1231,7 +1239,9 @@ namespace petutils
         PPet->SetSLevel(PMaster->GetMLevel() / 2);
         LoadJugStats(PPet, PPetData);
         PPet->loc = PMaster->loc;
-        PPet->loc.p = nearPosition(PMaster->loc.p, CPetController::PetRoamDistance, M_PI);
+        float randCirc = dsprand::GetRandomNumber(0.0f, 2.0f);
+        float randDist = dsprand::GetRandomNumber(1.0f, 2.0f);
+        PPet->loc.p = nearPosition(PMaster->loc.p, CPetController::PetRoamDistance * randDist, M_PI * randCirc);
 
         PPet->look = g_PPetList.at(PetID)->look;
         PPet->name = g_PPetList.at(PetID)->name;

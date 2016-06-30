@@ -47,7 +47,8 @@ function onSpellCast(caster,target,spell)
     end
 
     dmg = dmg * BLUE_POWER;
-    
+    if (target:getFamily() == 172 or target:getFamily() == 369) then dmg = dmg * 1.5; end;
+
     if (target:isUndead()) then
         spell:setMsg(75); -- No effect
         return dmg;

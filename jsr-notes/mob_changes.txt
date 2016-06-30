@@ -7,6 +7,9 @@
 
 SYSTEM CHANGES
 
+[Large Monsters]
+ - Large Monsters take +25% damage from AoE spells, weaponskills, and abilities.
+
 [Lizards]
  - Receives a 10% Slow when affected by Frost. Stacks with other slow effects.
 
@@ -270,6 +273,7 @@ FAMILY CHANGES
 
 [Crawler]
  - Cocoon: duration varies with TP (35 to 70 seconds) 
+	- While active, takes +25% damage from Fire and -25% damage from Earth.
 	- HARD: also adds Stone Spikes for the duration
 
  - Sticky Thread: duration varies with TP (60 to 120 seconds)
@@ -451,26 +455,113 @@ FAMILY CHANGES
  - Drill Branch: duration varies with TP (60 to 120 seconds), resisted by STR vs VIT
  - Entangle: HARD: also inflicts Weight and Slow for 60 seconds
 
-[Fly]
- - +10% XP
+[Crab]
+ - Metallic Body: HARD: Also boosts attack for duration of Stoneskin.
+ - Bubble Shower: HARD: Also inflicts Drown
+ - Bubble Curtain: duration varies with TP (60 to 180 seconds)
+	- HARD: Also grants Deluge Spikes effect for duration of Shell
+
+[Pugil]
+ - EVA 3 -> 4
+ - Screwdriver: HARD: also lowers target's enmity towards Pugil
+ - Water Wall: Will not use if Water Shield is active. While active, takes +25% damage from Lightning and -25% damagefrom Fire.
+ 	- HARD: also grants Deluge Spikes for duration.
+ - Water Shield: Will not use if Water Wall is active. While active, takes +25% damage from Lightning and -25% damage from Fire.
+	- HARD: also boosts Magic Evasion.
+ - Intimidate: HARD: activation time (1.5 -> 0.75 seconds) and reduces target's TP.
+ - Splash Breath: HARD: also inflicts Drown.
+
+[Sea Monk
+ - +25% XP
+ - Whirlwind: HARD: also gains Blinks shadows after use
+ - Ink Jet: changed to Water element (was Dark). Duration varies with TP (80 to 240 seconds).
+ - Tentacle: HARD: also inflicts Poison
+ - Cross Attack: HARD: also inflicts Poison
+ - Regeneration: Duration varies with TP (45 to 135 seconds). 
+	- HARD: also recovers TP while regenerating.
+ - Hard Membrane: while under effect, takes +25% damage from Ice
+
+[Uraganite]
+ - +35% XP
+ - Weak against Earth and (+25%)
+ - Weak against Blunt / H2H (+25%).
+ - Strong against Dark (-25%).
+ - Suctorial Tentacle: HARD: also drains TP from target
+ - Gas Shell: Activation Time (1.5 -> 3.0) seconds 
+ 	- HARD: can also inflict Plague if target is poisoned
+ - Venom Shell: Activation Time (1.5 -> 3.0) seconds.
+ - Painful Whip: HARD: deals significantly more damage against Poisoned targets.
+
 
 [Hecteyes]
  - +30% XP
- - Very weak to Blind / Dark
+ - Weak against Piercing (+25% damage)
+ - Very weak to Blindness
+ - Weak against light and thunder (+25%) 
+ - Catharsis: HARD: also removes 2 or more negative status effects.
+ - Death Ray: HARD: also inflicts Bio
+ - Hex Eye: HARD: also Curses target.
+ - Petro Gaze: HARD: gaze is near-instant
+
 
 [Leech]
  - +15% XP
- - Weak to Drain/Aspir
+ - Weak against Fire (+25%)
+ - Weak against Piercing (+25%).
+ - Weak to Drain/Aspir/Absorb Spells (+50%)
+
+ - Suction: HARD: also steals a status effect from the target
+ - Brain Drain: deals +50% damage if target already has INT Down 
+ 	- HARD: also inflicts a potent Magic Defense down (-30% or worse)
+
+ - MP Drainkiss: HARD: also heals HP based on amount drained
+	
+ - Sand Breath: duration of Blind varies with TP (80 to 240 seconds)
+	- HARD: also inflicts Rasp
+
+ - Acid Mist: duration varies with TP (40 to 120 seconds). Activation time (1.5 -> 3 seconds)
+	- HARD: also lowers target's Defense by 30% or more while afflicted by Attack Down.
+
+ - Absorbing Kiss: can be used by all Leeches now.
+	- Refunds 50% of TP used.
+	- Drains (10 + level / 5) from a random attribute. 
+ 	- HARD: also inflicts a negative status effect and grants the leech a beneficial status effect based on attribute drained.
+
 
 [Slime]
  - +20% XP
- - Weak to Slash/Blunt/Piercing after receiving Ice damage.
+ - EVA: 3 -> 4, STR 1 -> 3
+ - While afflicted with Frost, resistance to Slash / Pierce reduced significantly, and becomes vulnerable to Blunt (+25%).
 
-[Slug]
- - +20% XP
+ - Fluid Toss: Consumes 10% of current HP when used. Regains 50% of TP used if used against a target that is far away. 
+ 	- HARD: also inflicts Poison
+ - Fluid Spread: HARD: also inflicts Poison
+ - Epoxy Spread: can be used by all slimes
+	- HARD: significantly reduces enmity against those affected by Bind and knocks them back.
 
-[Apkallu]
- - +20% XP
+[Worm]
+ - +10% XP
+ - DEF: 3 -> 4, ACC: 3 -> 2
+ - Full-Force Blow: HARD: significantly reduces hate against target
+
+ - Tremors: also gains Enstone.
+  - HARD: also inflicts Weight for 60 seconds
+
+ - Sandspin: HARD: also inflicts Rasp
+
+ - Sound Vacuum: refunds 50% of TP used
+ 	- HARD: becomes conal
+
+ - Gastric Bomb: HARD: also inflicts Poison
+
+ - MP Absorption: HARD: also drains target's Magic Attack
+
+
+
+[Bat Trio]
+ - Very weak against Light (+50%)
+ - Weak against Fire (+25%)
+ - Takes extra damage from AoE (+33%)
 
 [Cockatrice]
  - +25% XP

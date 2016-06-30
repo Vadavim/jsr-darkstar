@@ -17,11 +17,23 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     local typeEffect = EFFECT_ACCURACY_DOWN;
 
-    MobStatusEffectMove(mob, target, typeEffect, 50, 0, 120);
+    local success = MobStatusEffectMove(mob, target, typeEffect, 25, 0, 120);
+    if (success == 242) then
+        target:setPendingMessage(278, EFFECT_ACCURACY_DOWN);
+    end
 
-    local dmgmod = 1;
+    if (hard > 0) then
+        local success2 = MobStatusEffectMove(mob, target, EFFECT_RASP, (1 + mob:getMainLvl() / 5) * (1 + hard / 5), 0, 60);
+        if (success2 == 242) then
+            target:setPendingMessage(278, EFFECT_ACCURACY_DOWN);
+        end
+    end
+
+
+    local dmgmod = 1 + hard / 6;
     local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*2.3,ELE_EARTH,dmgmod,TP_MAB_BONUS,1);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_MAGICAL,MOBPARAM_EARTH,MOBPARAM_IGNORE_SHADOWS);
     target:delHP(dmg);

@@ -21,4 +21,12 @@ Max DOT: 8 -> 20
 Duration: 120  seconds
 Max DOT: 17 -> 30
 
+[Absorb Stat Spells]
+ - Absorb amount scales with Dark Magic skill. Absorbed stat does not decay over time.
+ - Duration: 60 -> 180 seconds.
+
+[Absorb TP]
+ - Absorbs 400 to 1200 TP.
+ - Gains an accuracy bonus based on target's current TP (+1 for every 50 TP).
+
 

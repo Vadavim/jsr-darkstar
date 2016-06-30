@@ -488,16 +488,40 @@ function applyPflugMask(effect)
     effect:addMod(MOD_DEATHRES, pflugRes(lux) / 5);
 end;
 
-function startConfrontation(player, power, duration, mobs)
+function startConfrontation(player, power, duration, mobs, hardmode)
     local mob = nil;
     player:applyConfrontationToParty(power, duration);
     for k,v in pairs(mobs) do
         mob = SpawnMob(v);
+        mob:setSpawner(player);
+        mob:updateClaim(player);
         mob:setPos( player:getXPos(), player:getYPos(), player:getZPos(), player:getRotPos(), player:getZoneID() );
         mob:addStatusEffect(EFFECT_CONFRONTATION, power, 0, duration);
+        if (hardmode == false) then
+            mob:setMobMod(MOBMOD_HARD_MODE, 1);
+        else
+            mob:addMod(MOD_DEFP, 10);
+            mob:addMod(MOD_ATTP, 10);
+            mob:addMod(MOD_EVA, 20);
+            mob:addMod(MOD_ACC, 20);
+            mob:addMod(MOD_MEVA, 20);
+            mob:addMod(MOD_MATT, 15);
+            mob:addMod(MOD_MACC, 20);
+            mob:addMod(MOD_STORETP, 35);
+            mob:addMod(MOD_MDEF, 10);
+            mob:addMod(MOD_HASTE_MAGIC, 100);
+            mob:setMobMod(MOBMOD_HARD_MODE, 2);
+        end
+
+        local partySize = player:getPartySize(0);
+        if (partySize > 1) then
+            mob:addMod(MOD_HPP, (15 * (partySize - 1)));
+        end
+        printf("Party size is: %d\n", partySize);
+
+
+
         --DespawnMob(mob, 25);
-        mob:updateClaim(player);
-        mob:setSpawner(player);
     end
 end;
 
@@ -582,31 +606,6 @@ end
 
 
 
-function reduced_healing_factor(target)
-    local factor = 1.0;
-    if (target:getStatusEffect(EFFECT_POISON) ~= nil) then
-        factor = factor * 0.75;
-    end
-
-    if (target:getStatusEffect(EFFECT_BIO) ~= nil) then
-        factor = factor * 0.75;
-    end
-
-    if (target:getStatusEffect(EFFECT_DISEASE) ~= nil) then
-        factor = factor * 0.66;
-    end
-
-    if (target:getStatusEffect(EFFECT_PLAGUE) ~= nil) then
-        factor = factor * 0.66;
-    end
-
-    if (target:getStatusEffect(EFFECT_RASP) ~= nil) then
-        factor = factor * 0.75;
-    end
-
-
-    return factor;
-end
 
 local augRes = {AUGMENT_WINDRES, AUGMENT_EARTHRES, AUGMENT_FIRERES, AUGMENT_WATERRES, AUGMENT_THUNDERRES, AUGMENT_ICERES, AUGMENT_LIGHTRES, AUGMENT_DARKRES}
 local augResNeg = {AUGMENT_WINDRESNEG, AUGMENT_EARTHRESNEG, AUGMENT_FIRERESNEG, AUGMENT_WATERRESNEG, AUGMENT_THUNDERRESNEG, AUGMENT_ICERESNEG, AUGMENT_LIGHTRESNEG, AUGMENT_DARKRESNEG }
@@ -1439,14 +1438,14 @@ function tradeElite(player, npc, trade, tier, monsters)
         npc:setLocalVar("trader", player:getID());
         npc:setLocalVar("traded", 0);
         player:tradeComplete();
-        startConfrontation(player, 10, 600, monsters);
+        startConfrontation(player, 10, 600, monsters, false);
 
     -- hard mode
     elseif (count == 2 + tier and beastSeals == true and gil == tier * 1200 and thirdSlot ~= 0) then
         npc:setLocalVar("trader", player:getID());
         npc:setLocalVar("traded", thirdSlot);
         player:tradeComplete();
-        startConfrontation(player, 10, 600, monsters);
+        startConfrontation(player, 10, 600, monsters, true);
 end
 
 end

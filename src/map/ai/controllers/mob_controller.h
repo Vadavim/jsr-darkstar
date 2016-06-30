@@ -39,7 +39,7 @@ public:
     virtual void Reset() override;
 
     virtual bool MobSkill(uint16 targid, uint16 wsid);
-    virtual void Ability(uint16 targid, uint16 abilityid) override {}
+    virtual void Ability(uint16 targid, uint16 abilityid) override;
     bool MobSkill(int list = 0);
     bool TryCastSpell();
     bool TrySpecialSkill();

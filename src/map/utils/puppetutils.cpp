@@ -434,21 +434,21 @@ uint16 getSkillCap(CCharEntity* PChar, SKILLTYPE skill)
     return getSkillCap(PChar, skill, PChar->PAutomaton->GetMLevel());
 }
 
-void LoadAutomatonStats(CCharEntity* PChar)
+void LoadAutomatonStats(CCharEntity* PChar, bool zoning)
 {
     switch (PChar->PAutomaton->getFrame())
     {
         case FRAME_HARLEQUIN:
-            petutils::LoadPet(PChar, PETID_HARLEQUINFRAME, false);
+            petutils::LoadPet(PChar, PETID_HARLEQUINFRAME, zoning);
             break;
         case FRAME_VALOREDGE:
-            petutils::LoadPet(PChar, PETID_VALOREDGEFRAME, false);
+            petutils::LoadPet(PChar, PETID_VALOREDGEFRAME, zoning);
             break;
         case FRAME_SHARPSHOT:
-            petutils::LoadPet(PChar, PETID_SHARPSHOTFRAME, false);
+            petutils::LoadPet(PChar, PETID_SHARPSHOTFRAME, zoning);
             break;
         case FRAME_STORMWAKER:
-            petutils::LoadPet(PChar, PETID_STORMWAKERFRAME, false);
+            petutils::LoadPet(PChar, PETID_STORMWAKERFRAME, zoning);
             break;
     }
     PChar->PPet = nullptr; //already saved as PAutomaton, don't need it twice unless it's summoned

@@ -14,7 +14,7 @@ function onEffectGain(target,effect)
 target:addMod(MOD_DEFP,25);
 target:addMod(MOD_RATTP,-25);
 target:addMod(MOD_ATTP,-25);
-target:addMod(MOD_UDMGPHYS,-20);
+target:addMod(MOD_UDMGPHYS,effect:getSubPower());
 end;
 
 -----------------------------------
@@ -32,5 +32,5 @@ function onEffectLose(target,effect)
 target:delMod(MOD_DEFP,25);
 target:delMod(MOD_ATTP,-25);
 target:delMod(MOD_RATTP,-25);
-target:delMod(MOD_UDMGPHYS,-20);
+target:delMod(MOD_UDMGPHYS,effect:getSubPower());
 end;

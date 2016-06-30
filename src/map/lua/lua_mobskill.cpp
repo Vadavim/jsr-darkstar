@@ -81,6 +81,24 @@ inline int32 CLuaMobSkill::setActivationTime(lua_State *L)
     return 0;
 }
 
+inline int32 CLuaMobSkill::setAoE(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PLuaMobSkill == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, -1) || !lua_isnumber(L, -1));
+
+    m_PLuaMobSkill->setAoe(lua_tointeger(L, -1));
+    return 0;
+}
+
+inline int32 CLuaMobSkill::setKnockback(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PLuaMobSkill == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, -1) || !lua_isnumber(L, -1));
+
+    m_PLuaMobSkill->setKnockback(lua_tointeger(L, -1));
+    return 0;
+}
+
 inline int32 CLuaMobSkill::setSkillchain(lua_State *L)
 {
     DSP_DEBUG_BREAK_IF(m_PLuaMobSkill == nullptr);
@@ -208,5 +226,7 @@ Lunar<CLuaMobSkill>::Register_t CLuaMobSkill::methods[] =
     LUNAR_DECLARE_METHOD(CLuaMobSkill,getTP),
     LUNAR_DECLARE_METHOD(CLuaMobSkill,getHPP),
     LUNAR_DECLARE_METHOD(CLuaMobSkill,setSkillchain),
+    LUNAR_DECLARE_METHOD(CLuaMobSkill,setAoE),
+    LUNAR_DECLARE_METHOD(CLuaMobSkill,setKnockback),
     {nullptr,nullptr}
 };

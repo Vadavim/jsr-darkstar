@@ -22,12 +22,12 @@ function onMobWeaponSkill(target, mob, skill)
 
     skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 1, 0, 30));
     if (hard > 0) then
-        local success = MobStatusEfectMove(mob, target, skill, EFFECT_WEIGHT, 50 + hard * 5, 0, 60);
+        local success = MobStatusEffectMove(mob, target, EFFECT_WEIGHT, 50 + hard * 5, 0, 60);
         if (success == 242) then
             target:setPendingMessage(277, EFFECT_WEIGHT);
         end
 
-        local success2 = MobStatusEfectMove(mob, target, skill, EFFECT_SLOW, 150 + hard * 25, 0, 60);
+        local success2 = MobStatusEffectMove(mob, target, EFFECT_SLOW, 150 + hard * 25, 0, 60);
         if (success2 == 242) then
             target:setPendingMessage(277, EFFECT_SLOW);
         end

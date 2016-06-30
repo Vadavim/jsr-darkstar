@@ -14,7 +14,11 @@ cmdprops =
 
 
 function onTrigger(player, amount, target)
-    testPick();
+--    testPick();
+    local targ = player:getCursorTarget();
+    if (targ ~= nil) then
+        targ:useJobAbility(amount, targ);
+        end
 --    blastReward(player);
 --    print(player:aetAugmentCount(1064));
 --    print(player:getSkillLevel(SKILL_ELE));

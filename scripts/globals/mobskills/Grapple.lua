@@ -24,7 +24,7 @@ function onMobWeaponSkill(target, mob, skill)
     target:delHP(dmg);
 
     if (hard > 0) then
-        local success = MobPhysicalStatusEfectMove(mob, target, skill, EFFECT_BIND, 1, 0, 10 + hard * 5, MOD_STR);
+        local success = MobPhysicalStatusEffectMove(mob, target, skill, EFFECT_BIND, 1, 0, 10 + hard * 5, MOD_STR);
         if (success == 242) then
             target:setPendingMessage(277, EFFECT_BIND);
         end

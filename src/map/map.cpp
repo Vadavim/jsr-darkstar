@@ -795,6 +795,7 @@ int32 map_cleanup(time_point tick, CTaskMgr::CTask* PTask)
             {
                 if (PChar != nullptr)
                 {
+                    PChar->clearAllies();
                     if (map_session_data->shuttingDown == 0)
                     {
                         //[Alliance] fix to stop server crashing:

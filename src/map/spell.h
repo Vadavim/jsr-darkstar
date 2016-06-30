@@ -62,7 +62,8 @@ enum SPELLAOE
     SPELLAOE_RADIAL_MANI    = 3,  //AOE when under SCH stratagem Manifestation
     SPELLAOE_RADIAL_ACCE    = 4,  //AOE when under SCH stratagem Accession
     SPELLAOE_PIANISSIMO     = 5,  //Single target when under BRD JA Pianissimo
-    SPELLAOE_DIFFUSION      = 6   //AOE when under Diffusion
+    SPELLAOE_DIFFUSION      = 6,   //AOE when under Diffusion
+    SPELLAOE_CONVERGENCE    = 7   //AoE to Single when under Convergence
 };
 
 enum SPELLFLAG

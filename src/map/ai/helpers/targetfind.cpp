@@ -252,8 +252,10 @@ void CTargetFind::addAllInParty(CBattleEntity* PTarget, bool withPet)
     {
         addEntity(PMember, withPet);
         if (!PMember->PAlly.empty()) {
-            for (CBattleEntity* PAlly : PMember->PAlly)
+            for (CBattleEntity* PAlly : PMember->PAlly) {
+                ShowDebug("Adding ally\n");
                 addEntity(PAlly, false);
+            }
         }
     });
 

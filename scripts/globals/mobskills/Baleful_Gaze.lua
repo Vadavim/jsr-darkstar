@@ -35,5 +35,6 @@ function onMobWeaponSkill(target, mob, skill)
     skill:setMsg(MobGazeMove(mob, target, typeEffect, 1, 0, duration, MOD_CHR));
     enmityStatusCheck(target, mob, skill, 15 + hard * 5);
 
+
     return typeEffect;
 end;

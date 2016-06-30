@@ -14,7 +14,7 @@ function onMagicCastingCheck(caster,target,spell)
 	if (not caster:canUsePet()) then
 		return MSGBASIC_CANT_BE_USED_IN_AREA;
     end
-    if not (caster:isUniqueAlly(74)) then
+    if not (caster:isUniqueAlly(73)) then
         return MSGBASIC_EFFECT_ALREADY_ACTIVE;
 	end
 
@@ -25,7 +25,7 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-	caster:spawnAlly(74);
+	caster:spawnAlly(73);
 --	caster:spawnAlly(76);
 --    ally = caster:getRecentAlly();
 --    ally:addMod(MOD_ENMITY, -25);

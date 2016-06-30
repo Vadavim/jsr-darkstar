@@ -2453,6 +2453,8 @@ inline int32 CLuaBaseEntity::levelRestriction(lua_State* L)
                 if (PPet->getPetType() == PETTYPE_WYVERN)
                 {
                     petutils::LoadWyvernStatistics(PChar, PPet, true);
+                } else if (PPet->getPetType() == PETTYPE_AUTOMATON) {
+                    petutils::ReloadAutomaton(PChar, PPet);
                 }
                 else
                 {
@@ -4512,13 +4514,36 @@ inline int32 CLuaBaseEntity::getPartySize(lua_State* L)
     uint8 allianceparty = (uint8)lua_tonumber(L, 1);
     uint8 partysize = 1;
 
-    if (((CBattleEntity*)m_PBaseEntity)->PParty != nullptr)
-    {
-        if (allianceparty == 0)
-            partysize = ((CBattleEntity*)m_PBaseEntity)->PParty->members.size();
-        else if (((CBattleEntity*)m_PBaseEntity)->PParty->m_PAlliance != nullptr)
-            partysize = ((CBattleEntity*)m_PBaseEntity)->PParty->m_PAlliance->partyList.at(allianceparty)->members.size();
+    if (m_PBaseEntity->objtype == TYPE_MOB) {
+
+        if (((CBattleEntity *) m_PBaseEntity)->PParty != nullptr) {
+            if (allianceparty == 0)
+                partysize = ((CBattleEntity *) m_PBaseEntity)->PParty->members.size();
+            else if (((CBattleEntity *) m_PBaseEntity)->PParty->m_PAlliance != nullptr)
+                partysize = ((CBattleEntity *) m_PBaseEntity)->PParty->m_PAlliance->partyList.at(
+                        allianceparty)->members.size();
+        }
+    } else {
+        CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+        if (PEntity->objtype == TYPE_PET && PEntity->PMaster != nullptr)
+            PEntity = PEntity->PMaster;
+
+        partysize += PEntity->PAlly.size();
+
+        if (allianceparty == 0 && PEntity->PParty != nullptr && !PEntity->PParty->members.empty()) {
+            for (CBattleEntity* PMember : PEntity->PParty->members) {
+                if (PMember == PEntity)
+                    continue;
+                partysize += 1;
+                partysize += PMember->PAlly.size();
+            }
+        }
+        else if (PEntity->PParty != nullptr && PEntity->PParty->m_PAlliance != nullptr)
+            partysize = ((CBattleEntity *) m_PBaseEntity)->PParty->m_PAlliance->partyList.at(
+                    allianceparty)->members.size();
     }
+
+
 
     lua_pushnumber(L, partysize);
     return 1;
@@ -6315,7 +6340,11 @@ inline int32 CLuaBaseEntity::getSystem(lua_State* L)
 inline int32 CLuaBaseEntity::getFamily(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_MOB);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+    if (m_PBaseEntity->objtype != TYPE_MOB) {
+        lua_pushinteger(L, 0);
+        return 1;
+    }
 
     uint16 family = ((CMobEntity*)m_PBaseEntity)->m_Family;
 
@@ -7726,7 +7755,8 @@ inline int32 CLuaBaseEntity::injectActionPacket(lua_State* L)
     Action.actionid = 1;
 
     // If you use ACTION_MOBABILITY_FINISH, the first param = anim, the second param = skill id.
-    if (actiontype == ACTION_MOBABILITY_FINISH || actiontype == ACTION_PET_MOBABILITY_FINISH)
+    if (actiontype == ACTION_MOBABILITY_FINISH || actiontype == ACTION_PET_MOBABILITY_FINISH ||
+                ((actiontype == ACTION_WEAPONSKILL_FINISH || actiontype == ACTION_JOBABILITY_FINISH || actiontype == ACTION_MAGIC_FINISH) && PChar->GetEntity(PChar->m_TargID) != nullptr))
     {
         CBattleEntity* PTarget = (CBattleEntity*)PChar->GetEntity(PChar->m_TargID);
         if (PTarget == nullptr)
@@ -11158,6 +11188,7 @@ inline int32 CLuaBaseEntity::applyConfrontationToParty(lua_State* L)
 
 
     CStatusEffect * PLevelRestriction = nullptr;
+    PEntity->health.tp = 500;
 
 
 
@@ -11171,6 +11202,7 @@ inline int32 CLuaBaseEntity::applyConfrontationToParty(lua_State* L)
                                                   (uint16)power, 0, (uint16)duration, 0, 0, 0);
             member->StatusEffectContainer->AddStatusEffect(PEffect, true);
             member->StatusEffectContainer->AddStatusEffect(PLevelRestriction, true);
+            member->health.tp = 500;
             if (member->PAlly.size() > 0)
             {
                 for (auto ally : member->PAlly)
@@ -11178,6 +11210,7 @@ inline int32 CLuaBaseEntity::applyConfrontationToParty(lua_State* L)
                     PEffect = new CStatusEffect( EFFECT_CONFRONTATION, (uint16)EFFECT_CONFRONTATION,
                                                  (uint16)power, 0, (uint16)duration, 0, 0, 0);
                     ally->StatusEffectContainer->AddStatusEffect(PEffect, true);
+                    ally->health.tp = 500;
                 }
             }
         }
@@ -11190,6 +11223,7 @@ inline int32 CLuaBaseEntity::applyConfrontationToParty(lua_State* L)
                                               (uint16)power, 0, (uint16)duration, 0, 0, 0);
         PEntity->StatusEffectContainer->AddStatusEffect(PEffect, true);
         PEntity->StatusEffectContainer->AddStatusEffect(PLevelRestriction, true);
+        PEntity->health.tp = 500;
         if (PEntity->PAlly.size() > 0)
         {
             for (auto ally : PEntity->PAlly)
@@ -11197,6 +11231,7 @@ inline int32 CLuaBaseEntity::applyConfrontationToParty(lua_State* L)
                 PEffect = new CStatusEffect( EFFECT_CONFRONTATION, (uint16)EFFECT_CONFRONTATION,
                                              (uint16)power, 0, (uint16)duration, 0, 0, 0);
                 ally->StatusEffectContainer->AddStatusEffect(PEffect, true);
+                ally->health.tp = 500;
             }
         }
     }
@@ -11243,6 +11278,13 @@ inline int32 CLuaBaseEntity::removeConfrontationFromParty(lua_State*)
 }
 
 
+inline int32 CLuaBaseEntity::getModelSize(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+    lua_pushinteger(L, ((CBattleEntity*)m_PBaseEntity)->m_ModelSize);
+    return 1;
+}
 
 //==========================================================//
 
@@ -11739,5 +11781,6 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setSpawner),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,applyConfrontationToParty),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeConfrontationFromParty),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getModelSize),
     {nullptr,nullptr}
 };

@@ -17,9 +17,11 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    local power = (3 + mob:getMainLvl() / 4) * (hard / 4);
     local typeEffect = EFFECT_POISON;
-
-    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 12, 0, 120));
+    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 12, 0, 180));
+    enmityStatusCheck(target, mob, skill, 15 + hard * 5);
 
     return typeEffect;
 end;

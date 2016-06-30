@@ -253,6 +253,10 @@ void CMagicState::SpendCost()
             cost *= (dsprand::GetRandomNumber(4.f, 12.f) / 16.0f);
         }
 
+        if ((m_PSpell->getAOE() == 1 || m_PSpell->getAOE() == 2) && m_PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_SUBTLE_SORCERY)) {
+            cost *= 0.75f;
+        }
+
         m_PEntity->addMP(-cost);
     }
 }

@@ -114,6 +114,7 @@ public:
 
     uint16 GetConfrontationEffect(); // gets confrontation number (bcnm, confrontation, campaign, reive mark)
     void CopyConfrontationEffect(CBattleEntity* PEntity); // copies confrontation status (pet summoning, etc)
+//    void removeHighLevelEffect(uint8 level);
 
     template<typename F, typename... Args>
     void ForEachEffect(F func, Args&&... args)

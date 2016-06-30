@@ -4884,6 +4884,10 @@ namespace battleutils
 
     uint8 GetSpellAoEType(CBattleEntity* PCaster, CSpell* PSpell)
     {
+        if (PSpell->getSpellGroup() == SPELLGROUP_BLUE && (PSpell->getAOE() == SPELLAOE_CONAL || PSpell->getAOE() == SPELLAOE_RADIAL)
+                    && PSpell->getElement() != 0 && PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_CONVERGENCE))
+            return SPELLAOE_NONE;
+
         if (PSpell->getAOE() == SPELLAOE_RADIAL_ACCE) // Divine Veil goes here because -na spells have AoE w/ Accession
             if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_ACCESSION) || (PCaster->objtype == TYPE_PC &&
                 charutils::hasTrait((CCharEntity*)PCaster, TRAIT_DIVINE_VEIL) && PSpell->isNa() &&
@@ -5436,8 +5440,13 @@ namespace battleutils
         }
         else if (PSpell->getSpellGroup() == SPELLGROUP_SUMMONING) {
             if (PEntity->GetLocalVar("siphoned") > 0) {
-                cast = cast * 0.25;
+                cast = cast * 0.25f;
             }
+        }
+        else if (PSpell->getSpellGroup() == SPELLGROUP_BLUE) {
+            if ((PSpell->getAOE() == SPELLAOE_CONAL || PSpell->getAOE() == SPELLAOE_RADIAL)
+                && PSpell->getElement() != 0 && PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_CONVERGENCE))
+                cast= cast * 0.5f;
         }
 
         int16 fastCast = dsp_cap(PEntity->getMod(MOD_FASTCAST), -100, 80);

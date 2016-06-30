@@ -73,11 +73,4 @@ CCharHealthPacket::CCharHealthPacket(CBattleEntity* PChar)
     WBUFB(data, (0x21) ) = PChar->GetMLevel();
     WBUFB(data, (0x22) ) = PChar->GetSJob();
     WBUFB(data, (0x23) ) = PChar->GetSLevel();
-
-
-    printf("Ally HP: %d \n", PChar->health.hp);
-
-    printf("Ally targid: %d \n", PChar->targid);
-    printf("Ally id: %d \n", PChar->id);
-
 }

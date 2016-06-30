@@ -22,6 +22,8 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
+    local subPower = 15;
+    if (player:getMainJob() ~= 1) then subPower = 10; end;
     player:delStatusEffect(EFFECT_BERSERK);
-    player:addStatusEffect(EFFECT_DEFENDER,1,0,180);
+    player:addStatusEffect(EFFECT_DEFENDER,1,0,180, 0, subPower);
 end;

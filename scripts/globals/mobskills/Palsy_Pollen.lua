@@ -27,7 +27,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     if (hard > 0) then
         local power = 1 + (mob:getMainLvl() / 5) * (1 + hard / 4);
-        local success = MobStatusEffectMove(mob, target, skill, typeEffect, power, 3, duration);
+        local success = MobStatusEffectMove(mob, target, typeEffect, power, 3, duration);
         if (success == 242) then
             target:setPendingMessage(277, EFFECT_POISON);
         end

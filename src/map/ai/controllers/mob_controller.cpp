@@ -517,6 +517,8 @@ void CMobController::DoCombatTick(time_point tick)
     else if (m_Tick >= m_LastMobSkillTime && dsprand::GetRandomNumber(100) < PMob->TPUseChance() && MobSkill())
     {
         return;
+    } else if (PMob->objtype == TYPE_PET && ((CPetEntity*)PMob)->getPetType() == PETTYPE_ALLY && MobSkill()) {
+        return;
     }
 
     Move();
@@ -1075,4 +1077,12 @@ bool CMobController::IsSpellReady(float currentDistance)
                     (1.0f - PMob->getMod(MOD_UFASTCAST) / 100.0f);
 
     return (m_Tick >= m_LastMagicTime + std::chrono::milliseconds(((int)(PMob->getBigMobMod(MOBMOD_MAGIC_COOL) * castMod)) - bonusTime));
+}
+
+void CMobController::Ability(uint16 targid, uint16 abilityid)
+{
+    if (PMob->PAI->CanChangeState())
+    {
+        PMob->PAI->Internal_Ability(targid, abilityid);
+    }
 }

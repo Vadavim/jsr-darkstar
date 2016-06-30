@@ -191,6 +191,27 @@ uint8 CStatusEffectContainer::GetEffectsCount(EFFECT ID)
     return count;
 }
 
+//void CStatusEffectContainer::removeHighLevelEffects(uint8 level) {
+//    for (uint16 i = 0; i < m_StatusEffectList.size(); ++i)
+//    {
+//        int power = m_StatusEffectList.at(i)->GetPower();
+//        int id = m_StatusEffectList.at(i)->GetStatusID();
+//        if (id == EFFECT_PROTECT)
+//        {
+//            if ((power >= 175 && level < 65) || (power >= 120 && level < 54) || (power >= 75 && level < 37
+//                        || power >= 40 && level < 17))
+//                RemoveStatusEffect(i);
+//
+//        } else if (id == EFFECT_SHELL) {
+//            if ((power >= 24 && level < 67) || (power >= 22 && level < 57) || (power >= 19 && level < 40
+//                                                                                 || power >= 14 && level < 20))
+//                RemoveStatusEffect(i);
+//        } else if (id == EFFECT_REFRESH && (power > 2 && level < 35)) {
+//                RemoveStatusEffect(i);
+//        } else if (id >= EFFECT_BARAERO && (power > 2 && level < 35)) {
+//    }
+//}
+
 bool CStatusEffectContainer::CanGainStatusEffect(EFFECT statusEffect, uint16 power)
 {
     // check for immunities first

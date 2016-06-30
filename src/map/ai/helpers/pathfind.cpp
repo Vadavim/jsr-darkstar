@@ -141,7 +141,8 @@ bool CPathFind::PathAround(const position_t& point, float distanceFromPoint, uin
 
     // save for sliding logic
     m_originalPoint = point;
-    m_distanceFromPoint = 1;
+//    m_distanceFromPoint = 1;
+    m_distanceFromPoint = distanceFromPoint;
 
     // Don't clear path so
     // original point / distance are kept

@@ -22,7 +22,7 @@ ABILITY CHANGES
  - [Defender] (Main ony): gives a temporary VIT bonus.
 
 [Defender]
- - Also reduces physical damage by 20% (10% when used by a subjob).
+ - Also reduces physical damage by 15% (10% when used by a subjob).
  - Cancels and is cancelled by Berserk
 
 [Warcry]

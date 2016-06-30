@@ -22,7 +22,8 @@ function onSpellCast(caster,target,spell)
     else        
         local dINT = caster:getStat(MOD_INT) - target:getStat(MOD_INT);
         local resist = applyResistance(caster,spell,target,dINT,37,0);
-        local power = 8 + caster:getSkill(SKILL_DRK) / 20;
+        local power = 8 + caster:getSkillLevel(SKILL_DRK) / 20;
+        if (target:getFamily() == 172 or target:getFamily() == 369) then power = power * 1.5; end;
         local duration = 180;
         local void = caster:getStatusEffect(EFFECT_NETHER_VOID);
         if (void ~= nil) then

@@ -14,4 +14,24 @@ ABILITY CHANGES
  - Gained at level 60
  - Instead resets Burst Affinity and Chain Affinity.
 
+[Convergence
+ - Gained at level 30
+ - Halves casting time when of AoE spells in addition to normal effect.
+
+
+[Chain Affinity]
+ - Gained at level 35
+
+
+MAGIC CHANGES
+
+- Family Bonus:
+ - When using a spell against a family that is weak against the spell's family, the spell does +15% damage and has +20 accuracy. 
+ - Likewise, when using a spell against a family that is strong against the spell's family, the spell does -15% damage and has -20 accuracy.
+	- The exception are Dragons, Undead, Arcana, and Demons. Such spells receive the penalty if the family is the same as the spell's family.
+ - Beastmen are weak against beastmen spells.
+
+
+
+
 

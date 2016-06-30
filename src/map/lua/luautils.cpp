@@ -121,6 +121,7 @@ namespace luautils
         lua_register(LuaHandle, "VanadielTime", luautils::VanadielTime);
         lua_register(LuaHandle, "VanadielTOTD", luautils::VanadielTOTD);
         lua_register(LuaHandle, "VanadielHour", luautils::VanadielHour);
+        lua_register(LuaHandle, "isAoEWeaponskill", luautils::isAoEWeaponskill);
         lua_register(LuaHandle, "VanadielMinute", luautils::VanadielMinute);
         lua_register(LuaHandle, "VanadielDayOfTheMonth", luautils::VanadielDayOfTheMonth);
         lua_register(LuaHandle, "VanadielDayOfTheYear", luautils::VanadielDayOfTheYear);
@@ -4385,6 +4386,17 @@ namespace luautils
             lua_insert(L, -2);
             lua_pushlightuserdata(L, PItem);
             lua_pcall(L, 2, 1, 0);
+            return 1;
+        }
+        return 0;
+    }
+
+    int32 isAoEWeaponskill(lua_State* L)
+    {
+        if (!lua_isnil(L, 1) && lua_isnumber(L, 1))
+        {
+            CWeaponSkill* PWeaponskill = battleutils::GetWeaponSkill(lua_tointeger(L, 1));
+            lua_pushboolean(L, PWeaponskill->isAoE());
             return 1;
         }
         return 0;

@@ -29,17 +29,31 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
     params.atkmulti = 1.0;
 
+    local merit = player:getMerit(MERIT_EXENTERATOR);
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.agi_wsc = 0.7 + (player:getMerit(MERIT_EXENTERATOR) / 100);
+        params.agi_wsc = 0.7 + (merit / 100);
     end
 
+    local hasTrick = player:hasStatusEffect(EFFECT_TRICK_ATTACK);
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
 
     if (damage > 0) then
-        local duration=(tp/1000*30)+90;
-        if (target:hasStatusEffect(EFFECT_ACCURACY_DOWN) == false) then
-            target:addStatusEffect(EFFECT_ACCURACY_DOWN, 20, 0,duration);
+        local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_EARTH, SKILL_DAG);
+        if (damage > 0 and resist >= 0.25) then
+            local power = 20 + merit / 2;
+            local duration = 60 * (tp / 1000);
+            if (hasTrick) then
+                duration = duration * 1.33;
+                power = power * 1.33;
+                params.additionalEffectAcc = 20;
+            end
+
+
+            if(target:addStatusEffect(EFFECT_ACCURACY_DOWN, 20 + merit / 2, 0, duration * resist)) then
+                target:setPendingMessage(278, EFFECT_ACCURACY_DOWN);
+            end
         end
+
     end
     return tpHits, extraHits, criticalHit, damage;
 end
