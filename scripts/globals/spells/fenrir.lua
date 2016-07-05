@@ -26,7 +26,7 @@ function onSpellCast(caster,target,spell)
 	caster:spawnPet(PET_FENRIR);
     local enspellPower = 1 + caster:getMainLvl() / 2;
     local pet = caster:getPet();
-    if (pet ~= nill) then
+    if (pet ~= nil) then
         pet:addStatusEffect(EFFECT_FENRIR_S_FAVOR, 1, 15, 3000);
         pet:addStatusEffect(EFFECT_ENDARK,enspellPower,0,3000);
         doSiphonBuff(caster, pet);

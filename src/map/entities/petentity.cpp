@@ -230,6 +230,8 @@ void CPetEntity::OnAbility(CAbilityState& state, action_t& action)
 
 bool CPetEntity::ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags)
 {
+    if (m_Behaviour & BEHAVIOUR_NOHELP)
+        return false;
     if (targetFlags & TARGET_PLAYER && PInitiator->allegiance == allegiance)
     {
         return true; // allow pets to be targetted!

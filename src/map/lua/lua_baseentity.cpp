@@ -7747,6 +7747,7 @@ inline int32 CLuaBaseEntity::injectActionPacket(lua_State* L)
         case 11: actiontype = ACTION_MOBABILITY_FINISH; break;
         case 13: actiontype = ACTION_PET_MOBABILITY_FINISH; break;
         case 14: actiontype = ACTION_DANCE; break;
+        case 15: actiontype = ACTION_RUNE; break;
     }
 
     action_t Action;
@@ -7755,8 +7756,9 @@ inline int32 CLuaBaseEntity::injectActionPacket(lua_State* L)
     Action.actionid = 1;
 
     // If you use ACTION_MOBABILITY_FINISH, the first param = anim, the second param = skill id.
-    if (actiontype == ACTION_MOBABILITY_FINISH || actiontype == ACTION_PET_MOBABILITY_FINISH ||
-                ((actiontype == ACTION_WEAPONSKILL_FINISH || actiontype == ACTION_JOBABILITY_FINISH || actiontype == ACTION_MAGIC_FINISH) && PChar->GetEntity(PChar->m_TargID) != nullptr))
+//    if (actiontype == ACTION_MOBABILITY_FINISH || actiontype == ACTION_PET_MOBABILITY_FINISH ||
+//                ((actiontype == ACTION_WEAPONSKILL_FINISH || actiontype == ACTION_JOBABILITY_FINISH || actiontype == ACTION_MAGIC_FINISH) && PChar->GetEntity(PChar->m_TargID) != nullptr))
+    if (actiontype == ACTION_MOBABILITY_FINISH || actiontype == ACTION_PET_MOBABILITY_FINISH)
     {
         CBattleEntity* PTarget = (CBattleEntity*)PChar->GetEntity(PChar->m_TargID);
         if (PTarget == nullptr)
@@ -7779,6 +7781,11 @@ inline int32 CLuaBaseEntity::injectActionPacket(lua_State* L)
     Action.actiontype = actiontype;
     actionList_t& list = Action.getNewActionList();
     list.ActionTargetID = PChar->id;
+    CBattleEntity* PTarget = (CBattleEntity*)PChar->GetEntity(PChar->m_TargID);
+
+    if (PTarget != nullptr)
+        list.ActionTargetID = PTarget->id;
+
     actionTarget_t& target = list.getNewActionTarget();
     target.animation = anim;
     target.param = 10;

@@ -585,6 +585,8 @@ void CMobEntity::Spawn()
         this->health.mp = this->GetMaxMP();
 
 
+        addMobMod(MOBMOD_GIL_MAX, this->GetMLevel() * 10);
+        addMobMod(MOBMOD_GIL_MIN, this->GetMLevel() * 5);
         addModifier(MOD_ATTP, 20);
         addModifier(MOD_DEFP, 20);
         addModifier(MOD_MACC, 20);
@@ -822,6 +824,8 @@ void CMobEntity::DropItems()
             DropList_t* DropList = itemutils::GetDropList(m_DropID);
             //ShowDebug(CL_CYAN"DropID: %u dropping with TH Level: %u\n" CL_RESET, PMob->m_DropID, PMob->m_THLvl);
 
+            int lDif = this->GetMLevel() - PChar->GetMLevel();
+            double dropBonus = lDif < 0 ? 0 : ((double)dsp_cap(lDif * lDif, 0, 100) * 2) / 100.0f;
             if (DropList != nullptr && !getMobMod(MOBMOD_NO_DROPS) && DropList->size())
             {
                 for (uint8 i = 0; i < DropList->size(); ++i)
@@ -830,9 +834,11 @@ void CMobEntity::DropItems()
                     uint8 tries = 0;
                     uint8 maxTries = 1 + (m_THLvl > 2 ? 2 : m_THLvl);
                     uint8 bonus = (m_THLvl > 2 ? (m_THLvl - 2) * 10 : 0);
+                    ShowDebug("Before Bonus: %d\nAfter Bonus: %d\n", DropList->at(i).DropRate,
+                              DropList->at(i).DropRate * (1.0f + dropBonus));
                     while (tries < maxTries)
                     {
-                        if (dsprand::GetRandomNumber(1000) < DropList->at(i).DropRate * map_config.drop_rate_multiplier + bonus)
+                        if (dsprand::GetRandomNumber(1000) < DropList->at(i).DropRate * map_config.drop_rate_multiplier * (1.0f + dropBonus)  + bonus)
                         {
                             PChar->PTreasurePool->AddItem(DropList->at(i).ItemID, this);
                             break;
@@ -860,10 +866,13 @@ void CMobEntity::DropItems()
 
             if (validZone && charutils::GetRealExp(PChar->GetMLevel(), GetMLevel()) > 0)
             {
+
+                int baseChance = lDif < 0 ? 20 : dsp_cap(20 + (lDif * lDif) / 2, 20, 80);
+                ShowDebug("Base chance: %d\n", baseChance);
                 if (((PChar->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) && conquest::GetInfluenceGraphics(PChar->loc.zone->GetRegionID()) < 64) ||
                     (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_SANCTION) && PChar->loc.zone->GetRegionID() >= 28 && PChar->loc.zone->GetRegionID() <= 32) ||
                     (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_SIGIL) && PChar->loc.zone->GetRegionID() >= 33 && PChar->loc.zone->GetRegionID() <= 40)) &&
-                    m_Element > 0 && dsprand::GetRandomNumber(100) < 20) // Need to move to CRYSTAL_CHANCE constant
+                    m_Element > 0 && dsprand::GetRandomNumber(100) < baseChance) // Need to move to CRYSTAL_CHANCE constant
                 {
                     PChar->PTreasurePool->AddItem(4095 + m_Element, this);
                 }
@@ -872,7 +881,7 @@ void CMobEntity::DropItems()
                 // Item element matches day/weather element, not mob crystal. Lv80+ xp mobs can drop Avatarite.
                 // Wiki's have conflicting info on mob lv required for Geodes. One says 50 the other 75. I think 50 is correct.
 
-                if (dsprand::GetRandomNumber(100) < 20 && PChar->PTreasurePool->CanAddSeal() && !getMobMod(MOBMOD_NO_DROPS))
+                if (dsprand::GetRandomNumber(100) < baseChance && PChar->PTreasurePool->CanAddSeal() && !getMobMod(MOBMOD_NO_DROPS))
                 {
                     //RULES: Only 1 kind may drop per mob
                     if (GetMLevel() >= 75 && luautils::IsExpansionEnabled("ABYSSEA")) //all 4 types

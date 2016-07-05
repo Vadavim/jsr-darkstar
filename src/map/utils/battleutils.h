@@ -238,6 +238,8 @@ namespace battleutils
     int32               GetMeritValue(CBattleEntity*, MERIT_TYPE);
 
     int32               GetScaledItemModifier(CBattleEntity*, CItemArmor*, MODIFIER);
+    bool HandleBattuta(CBattleEntity* PAttacker, CBattleEntity* PDefender, actionTarget_t* Action, int32 damage);
+    int handleElementalDamage (CBattleEntity* PAttacker, CBattleEntity* PDefender, int damage, int element, bool isSpikes);
 };
 
 #endif

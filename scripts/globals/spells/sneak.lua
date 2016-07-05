@@ -28,6 +28,9 @@ function onSpellCast(caster,target,spell)
         if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
             duration = duration * 3;
         end
+        if (caster:hasStatusEffect(EFFECT_PERPETUANCE)) then
+            duration = duration * 2;
+        end
 
         if (target:getEquipID(SLOT_BACK) == 13692) then -- skulker's cape
             duration = duration * 1.5;

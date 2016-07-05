@@ -42,8 +42,9 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         params.ftp100 = 1.0; params.ftp200 = 1.3; params.ftp300 = 1.6;
     end
 
-    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
     local enspell = player:getMod(MOD_ENSPELL)
+    if (enspell ~= 0) then params.ele = enspellElements[enspell] end;
+    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
 
     if (damage > 0) then
         local duration = ((tp/1000) * 30);

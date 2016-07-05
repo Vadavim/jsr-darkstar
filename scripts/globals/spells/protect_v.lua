@@ -18,6 +18,9 @@ function onSpellCast(caster,target,spell)
     local duration = 1800;
 
     duration = calculateDurationForLvl(duration, 76, target:getMainLvl());
+    if (caster:hasStatusEffect(EFFECT_PERPETUANCE)) then
+        duration = duration * 2;
+    end
 
     local typeEffect = EFFECT_PROTECT;
     if (target:addStatusEffect(typeEffect, power, 0, duration)) then

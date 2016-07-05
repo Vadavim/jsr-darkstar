@@ -614,12 +614,15 @@ enum MODIFIER
     MOD_RAPTURE_AMOUNT            = 568, // Bonus amount added to Rapture effect
     MOD_EBULLIENCE_AMOUNT         = 569, // Bonus amount added to Ebullience effect
     MOD_AQUAVEIL_COUNT            = 832, // Modifies the amount of hits that Aquaveil absorbs before being removed
-    MOD_ELEMENTAL_CELERITY        = 700,  // Improves black-magic casting time (modId = 700)
-    MOD_OCCULT_ACUMEN        = 701,  // Grants TP when casting spells
-    MOD_CONSERVE_TP               = 702, // Percent chance
-    MOD_FENCER               = 703, // Percent chance
-    MOD_DAKEN               = 704, // Percent chance
-    MOD_BLOOD_BOON               = 705, // Chance to reduce Blood Pact MP cost
+
+    MOD_ELEMENTAL_CELERITY        = 840,  // Improves black-magic casting time (modId = 700)
+    MOD_OCCULT_ACUMEN        = 841,  // Grants TP when casting spells
+    MOD_CONSERVE_TP               = 842, // Percent chance
+    MOD_FENCER               = 843, // Percent chance
+    MOD_DAKEN               = 844, // Percent chance
+    MOD_BLOOD_BOON               = 845, // Chance to reduce Blood Pact MP cost
+    MOD_CARDINAL_CHANT               = 846, // Chance to reduce Blood Pact MP cost
+    MOD_ABSORB_MAGDMG_TO_MP      = 847, // Absorbs a percentage of physical damage taken to MP.
 
     // Weaponskill %damage modifiers
     // The following modifier should not ever be set, but %damage modifiers to weaponskills use the next 255 IDs (this modifier + the WSID)

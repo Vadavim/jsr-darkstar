@@ -22,7 +22,7 @@ function onSpellCast(caster,target,spell)
 
     -- calculate raw damage
     local dmg = calculateMagicDamage(35,1,caster,spell,target,ELEMENTAL_MAGIC_SKILL,MOD_INT,false);
-    dmg = dmg + caster:getMod(MOD_HELIX_EFFECT) + math.floor(caster:getStat(MOD_INT ) / 3);
+    dmg = dmg + caster:getMod(MOD_HELIX_EFFECT);
     -- get resist multiplier (1x if no resist)
     local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT)-target:getStat(MOD_INT),ELEMENTAL_MAGIC_SKILL,merit*3);
     -- get the resisted damage
@@ -39,7 +39,7 @@ function onSpellCast(caster,target,spell)
 
     local duration = getHelixDuration(caster) + caster:getMod(MOD_HELIX_DURATION);
 
-    duration = duration * (resist/2);
+    duration = duration * resist;
 
     if (dot > 0) then
         target:addStatusEffect(EFFECT_HELIX,dot,3,duration);

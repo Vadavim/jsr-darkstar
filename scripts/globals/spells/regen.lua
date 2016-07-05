@@ -47,6 +47,23 @@ function onSpellCast(caster,target,spell)
         target:delStatusEffect(EFFECT_REGEN);
     end
 
+    if (caster:hasStatusEffect(EFFECT_LIGHT_ARTS) and caster:getMainJob() == JOBS.SCH) then
+        hp = hp * 1.33;
+        duration = duration * 1.2;
+    end
+
+    if (caster:hasStatusEffect(EFFECT_DIVINE_SEAL)) then
+        hp = hp * 2;
+    end
+
+    if (caster:hasStatusEffect(EFFECT_RAPTURE)) then
+        hp = hp * 1.5;
+    end
+
+    if (caster:hasStatusEffect(EFFECT_PERPETUANCE)) then
+        duration = duration * 2;
+    end
+
 
     local subPower = 0
     if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_LUX) >= 1) then

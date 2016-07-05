@@ -33,7 +33,7 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    player:addStatusEffect(EFFECT_ALTRUISM,player:getMerit(MERIT_ALTRUISM),0,60);
+    player:addStatusEffect(EFFECT_ALTRUISM,25 + player:getMerit(MERIT_ALTRUISM),0,60);
 
     return EFFECT_ALTRUISM;
 end;

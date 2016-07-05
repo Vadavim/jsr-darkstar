@@ -33,7 +33,7 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    player:addStatusEffect(EFFECT_FOCALIZATION,player:getMerit(MERIT_FOCALIZATION),0,60);
+    player:addStatusEffect(EFFECT_FOCALIZATION,25 + player:getMerit(MERIT_FOCALIZATION),0,60);
 
     return EFFECT_FOCALIZATION;
 end;

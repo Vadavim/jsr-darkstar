@@ -28,6 +28,14 @@ function onSpellCast(caster,target,spell)
         duration = duration * 3;
     end
 
+    if (caster:hasStatusEffect(EFFECT_PERPETUANCE)) then
+        duration = duration * 2;
+    end
+
+    if (caster:hasStatusEffect(EFFECT_RAPTURE)) then
+        power = power * 1.5;
+    end
+
     if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_SULPOR) >= 1) then
         power = power * 1.25;
         mdefBonus = mdefBonus + 10;

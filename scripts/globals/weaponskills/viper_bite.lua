@@ -60,7 +60,6 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     if (damage > 0 and poison2 ~= nil) then
         bonusDamage = bonusDamage + (poison2:getPower() * poison2:getLastTick()) * bonusMult;
         print(poison2:getLastTick());
-        print("Remaining duration: %u", poison2:getLastTick());
         target:delStatusEffect(EFFECT_POISON_II);
     end
 
@@ -68,7 +67,6 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     if (damage > 0 and bio ~= nil) then
         bonusDamage = bonusDamage + (bio:getPower() * bio:getLastTick()) * bonusMult;
         print(bio:getLastTick());
-        print("Remaining duration: %u", bio:getLastTick());
         target:delStatusEffect(EFFECT_BIO);
     end
 
@@ -77,6 +75,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     end
 
 
+    target:delHP(bonusDamage);
     local damage = damage + bonusDamage;
 
 --    local bio = target:getStatusEffect(EFFECT_BIO);

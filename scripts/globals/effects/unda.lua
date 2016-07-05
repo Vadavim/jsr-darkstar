@@ -25,12 +25,12 @@ function onEffectGain(target,effect)
     
     effect:addMod(strongATT,10);
     effect:addMod(strongACC,10);
-    effect:addMod(strongDEF,25);
+    effect:addMod(strongDEF,10);
     effect:addMod(strongRES,effect:getPower() / 2 + 20);
     effect:addMod(weakATT,-5);
     effect:addMod(weakACC,-5);
     effect:addMod(weakRES,-20);
-    effect:addMod(weakDEF,-12);
+    effect:addMod(weakDEF,-10);
     
 end;
 

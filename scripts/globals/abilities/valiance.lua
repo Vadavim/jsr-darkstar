@@ -19,8 +19,10 @@ end;
 -- onUseAbility
 -----------------------------------
 
-function onUseAbility(player,target,ability)
+function onUseAbility(player,target,ability, action)
+    getRuneSpecEffect(player, target, ability, action);
     if (target:hasStatusEffect(EFFECT_VALLATION)) then
+        target:delStatusEffect(EFFECT_VALIANCE);
         return;
     end
     local power = createRuneMask(player);

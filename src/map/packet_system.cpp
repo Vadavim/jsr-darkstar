@@ -2651,6 +2651,8 @@ void SmallPacket0x05E(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                 PChar->petZoningInfo.petTP = PPet->health.tp;
                 PChar->petZoningInfo.respawnPet = true;
                 PChar->petZoningInfo.petType = PPet->getPetType();
+                if (PPet->m_PetID == 75)
+                    PChar->petZoningInfo.respawnPet = false;
                 petutils::DespawnPet(PChar);
                 break;
 
@@ -3925,8 +3927,17 @@ void SmallPacket0x0BE(map_session_data_t* session, CCharEntity* PChar, CBasicPac
             {
                 switch (operation)
                 {
-                case 0: PChar->PMeritPoints->LowerMerit(merit); break;
-                case 1: PChar->PMeritPoints->RaiseMerit(merit); break;
+                case 0:
+
+                        PChar->PMeritPoints->LowerMerit(merit);
+                        PChar->PMeritPoints->SetMeritPoints(PChar->PMeritPoints->GetMeritPoints() + PChar->PMeritPoints->GetMerit(merit)->next);
+                        break;
+                case 1:
+                    if (merit == MERIT_MAX_MERIT) {
+                        charutils::AddItem(PChar, LOC_INVENTORY, 2957, 10);
+                        PChar->PMeritPoints->SetMeritPoints(PChar->PMeritPoints->GetMeritPoints() - PChar->PMeritPoints->GetMerit(merit)->next);
+                    } else
+                        PChar->PMeritPoints->RaiseMerit(merit); break;
                 }
                 PChar->pushPacket(new CMenuMeritPacket(PChar));
                 PChar->pushPacket(new CMeritPointsCategoriesPacket(PChar, merit));

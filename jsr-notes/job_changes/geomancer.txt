@@ -1,60 +1,76 @@
 SKILL CHANGES
+ - A- Club skill
+ - B- Enfeebling skill
+ - C+ Dark skill
+ - A+ Geomancy (no Handbell skill)
 
 TRAIT CHANGES
 
+ - Additional level of Clear Mind at 75
+ - Cardinal Chant, gained at levels 5, 25, 45, and 65: 
+				[1]		[2]		[3]		[4]		[Ra Bonus]
+[North] MP Refund		10%		13%		16%		19%		+5%
+[East]  Magic Attack		+5		+7		+9		+11		+4
+[South] Magic Accuracy		+8		+11		+14		+17		+6
+[West] Magic Burst Bonus	+10%		+15%		+20%		+25%		+8%
+
+
+
+LUOPAN CHANGES
+ - Geo Spells no longer exist.
+ - Indi spells summon a stationary Luopan that buffs / debuffs within radius (9.5 Yalms).
+ - You must be on a mob's hate list for it to be debuffed. Debuffs cannot be resisted.
+ - Luopans slowly lose HP. This rate increases over time.
+ - You may cast multiple Indi spells, stacking their effects, but doing so increases the Luopan's degen rate.
+ - When you cast an Indi spell with a Luopan already active, and doing so moves it to your current location.
+ - Indi spells have long (8 minute) recast times.
+ - Elemental magic heals your Luopan for 15% of the damage caused (7.5% for GEO as a sub).
+
+
 ABILITY CHANGES
 
-[Elemental Runes]
- - Gains access to the Rune Fencer's elemental runes. 
- - These runes are on different recast timers.
- - Has the same limits on how many runes may be harboured based on Geomancer level.
-
-[No more pets!]
-They're gone! Instead, all Geo/Indi spells are centered on you.
-The Geo spells are buffs centered on you.
-The Indi spells are instead debuffs centered on you. They apply the penalty associated with the stat they would normally buff.
-
-[Required Runes]
-To cast Indi/Geo spells, and -ra spells, you need to harbour at least one rune of the associated element.
-For each additional rune you harbour of the associated element, 15% of the mana cost is refunded.
-Because of this, some Geo spells that inflict penalties to creatures have been removed.
-
-The casting time of the Indi/Geo spells has been reduced.
-
-You are not limited by the number of Indi/Geo spells you can maintain. Instead,
-each of these spells has a very long recast time (30 minutes).
-
-When you cast an elemental nuke, there is a chance you will reset indi/geo spells of the associated element.
-The chance depends upon the MP cost of the spell and your level.
-
-[Lasting Emanation]
- - Instead doubles the duration of your next Indi/Geo spell.
-
-[Full Circle]
- - Consumes active Geo spells to restore an amount of HP and MP depending upon remaining duration.
-
-[Life Cycle]
- - Consumes 33% of your Maximum HP to try and reset Indi/Geo spell recasts.
-
-[Dematerialize]
- - Gained at level 30.
- - Grants self -50 enmity for 1 minute.
+[Bolster]
+ - Instead fully restores Luopan's HP (if it exists) and prevents it from receiving degeneration for 3 minutes.
+ 	- During this time, effect of Indi spells increased by 33%.
+	- Does not stack with Ecliptic Attrition.
 
 [Collimated Fervor]
- - Grants 5% TP regen/tic for 1 minute.
- - Grants additional effects based on harbored runes.
+ - Gained at level 35
+ - Increases effect of next Cardinal Chant by +150%.
 
-[Ecliptic Attrition]
- - Instead halves the duration of your next Indi/Geo spell but enhances its effect.
+[Dematerialize]
+ - Gained at level 40
+ - Prevents damage (but not degeneration).
+
+[Life Cycle]
+ - Gained at level 45
+
+[Theurgic Focus]
+ - Gained at level 50
+ - Increased the potency of your next -ra spell by 33% and adds an Elemental Debuff effect to it (Burn, Shock, etc.).
 
 [Blaze of Glory]
- - Completely refunds MP cost of next Indi/Geo spell, but costs HP instead.
- - Recast reduced to 5 minutes.
+ - Gained at level 55
+ - Also reduces Luopan's Max HP by 50%.
 
 
 
-[Drain Enhancement]
- - For each Tenebrae rune, increases Drain / Aspir amount by 50%.
+[Mending Halation] 
+ - Gained at level 65
+ - HP Recovery: (MP Spent * 3) * (Luopan's HP Percentage).
+
+[Radial Arcana]
+ - Gained at level 70
+ - MP Recovery: MP Spent * (Luopan's HP Percentage) * 0.5.
+
+[Entrust]
+ - Gained at level 75
+ - Sacrifices 33% of current HP and converts it into a Stoneskin for ally (other than self) in range. 
+ - Stoneskin equals 150% of the amount of HP converted.
+
+
+
+
 
 
 

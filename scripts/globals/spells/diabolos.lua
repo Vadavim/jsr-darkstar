@@ -27,7 +27,7 @@ function onSpellCast(caster,target,spell)
 
     local enspellPower = 1 + caster:getMainLvl() / 2;
     local pet = caster:getPet();
-    if (pet ~= nill) then
+    if (pet ~= nil) then
         local refreshBuff = 1;
         if (pet:getMainLvl() > 60) then refreshBuff = 2 end;
         pet:addStatusEffect(EFFECT_DIABOLOS_S_FAVOR, refreshBuff, 15, 3000);

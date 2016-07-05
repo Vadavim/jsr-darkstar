@@ -26,7 +26,6 @@ end;
 
 function onSpellCast(caster,target,spell)
 	caster:spawnAlly(73);
---	caster:spawnAlly(76);
 --    ally = caster:getRecentAlly();
 --    ally:addMod(MOD_ENMITY, -25);
 --    ally:addMod(MOD_HPHEAL, caster:getMainLvl());

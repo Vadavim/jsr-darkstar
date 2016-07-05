@@ -27,6 +27,14 @@ function onSpellCast(caster,target,spell)
         power = 15;
     end
 
+    if (caster:hasStatusEffect(EFFECT_DARK_ARTS) and caster:getMainJob() == JOBS.SCH) then
+        power = power * 1.33;
+        duration = duration * 2;
+    end
+    if (caster:hasStatusEffect(EFFECT_EBULLIENCE)) then
+        power = power * 1.5;
+    end
+
     local params = {}; params.bonusmab = 0; params.includemab = true;
     power = addBonusesAbility(caster, ELE_WATER, target, power, param, 1.0);
 

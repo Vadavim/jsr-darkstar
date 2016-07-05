@@ -36,6 +36,14 @@ function onSpellCast(caster,target,spell)
         final = 35;
     end
 
+    if (caster:hasStatusEffect(EFFECT_PERPETUANCE)) then
+        duration = duration * 2;
+    end
+
+    if (caster:hasStatusEffect(EFFECT_RAPTURE)) then
+        final = final * 1.5;
+    end
+
     if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_TELLUS) >= 1) then
         final = final * 1.25;
     end

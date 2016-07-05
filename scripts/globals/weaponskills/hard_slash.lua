@@ -30,15 +30,21 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.ignored200 = 0.25;
     params.ignored300 = 0.50;
 
+    local system = target:getSystem();
+    if (system == SYSTEM_ARCANA) then
+        params.ftp100 = params.ftp100 * 1.33; params.ftp200 = params.ftp200 * 1.33; params.ftp300 = params.ftp300 * 1.33;
+    end
+
+    if (target:getMod(MOD_IMPACTRES) < 1000) then
+        params.ftp100 = params.ftp100 * 1.33; params.ftp200 = params.ftp200 * 1.33; params.ftp300 = params.ftp300 * 1.33;
+    end
+
+
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
         params.str_wsc = 1.0;
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
 
-    local system = target:getSystem();
-    if (system == SYSTEM_ARCANA) then
-        damage = math.floor(damage * 1.33);
-    end
     return tpHits, extraHits, criticalHit, damage;
 end

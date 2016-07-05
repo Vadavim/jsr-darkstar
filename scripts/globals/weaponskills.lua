@@ -14,6 +14,7 @@ require("scripts/globals/magic");
 require("scripts/globals/magicburst");
 
 
+local runeElements = {ELE_FIRE, ELE_ICE, ELE_WIND, ELE_EARTH, ELE_THUNDER, ELE_WATER, ELE_LIGHT, ELE_DARK};
 -- params contains: ftp100, ftp200, ftp300, str_wsc, dex_wsc, vit_wsc, int_wsc, mnd_wsc, canCrit, crit100, crit200, crit300, acc100, acc200, acc300, ignoresDef, ignore100, ignore200, ignore300, atkmulti
 function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
 
@@ -236,6 +237,11 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
     if (isAoEWeaponskill(wsID)) then
         if (target:getModelSize() > 1) then finaldmg = finaldmg * 1.25; end;
         if (target:getFamily() == 47) then dmg = dmg * 1.33; end
+    end
+
+
+    if (params.ele ~= nil and params.ele > 0) then
+        dmg = addBonusesWeaponskill(attacker, params.ele, target, dmg, params);
     end
 
     finaldmg = target:physicalDmgTaken(finaldmg);

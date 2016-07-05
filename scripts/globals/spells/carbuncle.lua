@@ -25,7 +25,7 @@ function onSpellCast(caster,target,spell)
     local power = math.floor(1 + caster:getMainLvl() / 8);
     local enspellPower = 1 + caster:getMainLvl() / 2.5;
     local pet = caster:getPet();
-    if (pet ~= nill) then
+    if (pet ~= nil) then
         pet:addStatusEffect(EFFECT_CARBUNCLE_S_FAVOR, power, 15, 3000);
         pet:addStatusEffect(EFFECT_ENLIGHT,enspellPower,0,3000);
         doSiphonBuff(caster, pet);

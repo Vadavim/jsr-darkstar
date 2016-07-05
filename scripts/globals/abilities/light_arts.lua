@@ -41,6 +41,7 @@ function onUseAbility(player,target,ability)
     if (player:getMainJob() == JOBS.SCH and player:getMainLvl() >= 20) then
         regenbonus = 3 * math.floor((player:getMainLvl() - 10) / 10);
     end
+    local regenbonus = 0;
 
     player:addStatusEffect(EFFECT_LIGHT_ARTS,effectbonus,0,7200,0,regenbonus);
 

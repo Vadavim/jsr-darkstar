@@ -30,16 +30,19 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
     params.atkmulti = 1;
 
+    player:addTP(tp * 0.45);
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.str_wsc = 0.6; params.vit_wsc = 0.6;
+        params.str_wsc = 0.2; params.vit_wsc = 0.2;
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
 
-    if (damage > 0) then
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_WATER, SKILL_GAX);
+    if (damage > 0 and resist >= 0.25) then
         local duration = (tp/1000 * 60) + 120;
         if (target:hasStatusEffect(EFFECT_ATTACK_DOWN) == false) then
             target:addStatusEffect(EFFECT_ATTACK_DOWN, 25, 0, duration);
+            target:setPendingMessage(278, EFFECT_ATTACK_DOWN);
         end
     end
     return tpHits, extraHits, criticalHit, damage;

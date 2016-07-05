@@ -3,6 +3,7 @@
 --
 
 require("scripts/globals/status")
+require("scripts/globals/jsr_utils")
 ------------------------------------
 -- Mog Locker constants
 ------------------------------------
@@ -14,11 +15,64 @@ MOGLOCKER_ACCESS_TYPE_ALLAREAS = 1
 MOGLOCKER_PLAYERVAR_ACCESS_TYPE = "mog-locker-access-type"
 MOGLOCKER_PLAYERVAR_EXPIRY_TIMESTAMP = "mog-locker-expiry-timestamp"
 
-function makeCluster(player, crystal, cluster)
+local function makeCluster(player, crystal, cluster)
     if (crystal > 0) then
         player:addItem(cluster, crystal);
         player:messageSpecial(ITEM_OBTAINED,cluster, 1);
     end
+end
+
+local crystals = {
+    [4096] = {AUGMENT_STAT_STR, AUGMENT_FIRERES}, -- Fire
+    [4097] = {AUGMENT_STAT_INT, AUGMENT_ICERES}, -- Ice
+    [4098] = {AUGMENT_STAT_AGI, AUGMENT_WINDRES}, -- Wind
+    [4099] = {AUGMENT_STAT_VIT, AUGMENT_EARTHRES}, -- Earth
+    [4100] = {AUGMENT_STAT_DEX, AUGMENT_THUNDERRES}, -- Lightning
+    [4101] = {AUGMENT_STAT_MND, AUGMENT_WATERRES}, -- Water
+    [4102] = {AUGMENT_STAT_CHR, AUGMENT_LIGHTRES}, -- Light
+    [4103] = {AUGMENT_MP, AUGMENT_DARKRES} -- Dark
+};
+
+local function crystalEnchant(player, npc, trade)
+    local augmented = (trade:getItemSubId(2) == 4);
+    if (augmented) then
+        return false;
+    end
+    local id = trade:getItem(2);
+    local crystal = trade:getItem(1);
+    local crystalAmount = trade:getSlotQty(1);
+
+    if (not (crystal >= 4096 and crystal <= 4103) or id == 0) then
+        return false
+    end
+
+    local item = getItem(id);
+    local level = item:getLevel();
+
+    local buffTier = 0;
+    if (crystalAmount == 4) then buffTier = 1;
+    elseif (crystalAmount == 8) then buffTier = 2;
+    elseif (crystalAmount == 12) then buffTier = 3;
+    end
+
+    if (buffTier == 0 or level < (buffTier - 1) * 30) then
+        return false;
+    end
+
+    local buffOne = crystals[crystal];
+    local buffTwo = crystals[crystal];
+
+    local augments = {buffOne, buffTier, buffTwo, buffTier * 3};
+    if (crystal == 4103) then
+        augments[2] = 4 * (buffTier * (buffTier / 2));
+    elseif (crystal == 4102) then
+        augments[5] = AUGMENT_HP;
+        augments[6] = 6 * (buffTier * (buffTier / 2));
+    end
+
+    player:tradeComplete();
+    player:addItem(id, 1, augments[1], augments[2], augments[3], augments[4], augments[5], augments[6]);
+    return true;
 end
 
 
@@ -35,6 +89,12 @@ function moogleTrade(player,npc,trade)
             end
         end
     end
+
+    if (crystalEnchant(player, npc, trade) == true) then
+        return true;
+    end
+
+
 
     local count = trade:getItemCount();
     local free = player:getFreeSlotsCount();

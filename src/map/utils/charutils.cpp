@@ -2605,7 +2605,7 @@ namespace charutils
 
         PChar->delModifier(MOD_MEVA, PChar->m_magicEvasion);
 
-        PChar->m_magicEvasion = battleutils::GetMaxSkill(SKILL_ELE, JOB_RDM, PChar->GetMLevel());
+        PChar->m_magicEvasion = battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PChar->GetMLevel());
         PChar->addModifier(MOD_MEVA, PChar->m_magicEvasion);
     }
 
@@ -3033,6 +3033,11 @@ namespace charutils
             gil += dsp_cap(gBonus, 1, map_config.max_gil_bonus);
         }
 
+
+        int lDif = PMob->GetMLevel() - PChar->GetMLevel();
+        double gilBonus = lDif < 0 ? 0 : ((double)dsp_cap(lDif * lDif, 0, 100) * 2) / 100.0f;
+        gil = (gil * (1 + gilBonus));
+
         // Distribute gil to player/party/alliance
         if (PChar->PParty != nullptr)
         {
@@ -3354,7 +3359,9 @@ namespace charutils
                     uint16 Pzone = PMember->getZone();
                     if (PMob->m_Type == MOBTYPE_NORMAL && ((Pzone > 0 && Pzone < 39) || (Pzone > 42 && Pzone < 134) || (Pzone > 135 && Pzone < 185) || (Pzone > 188 && Pzone < 255)))
                     {
-                        if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) && PMob->m_Element > 0 && dsprand::GetRandomNumber(100) < 20 &&
+                        int lDif = PMob->GetMLevel() - PMember->GetMLevel();
+                        int baseChance = lDif < 0 ? 20 : dsp_cap(20 + (lDif * lDif) / 2, 20, 80);
+                        if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) && PMob->m_Element > 0 && dsprand::GetRandomNumber(100) < baseChance &&
                             PMember->loc.zone == PMob->loc.zone) // Need to move to SIGNET_CHANCE constant
                         {
                             PMember->PTreasurePool->AddItem(4095 + PMob->m_Element, PMob);
@@ -3378,6 +3385,9 @@ namespace charutils
                         PMember->systemList.clear();
                     }
 
+                    if (PMob->GetMLevel() > PMember->GetMLevel() + 3) {
+                    }
+
                     if (sBonus > 0) {
                         exp *= 1.0f + (float)sBonus / 100.0f;
                         int8 bonusString[40];
@@ -3389,7 +3399,7 @@ namespace charutils
                         PMember->pushPacket(new CChatMessagePacket(MESSAGE_SAY, bonusString));
                     } else if (sBonusXP > 0) {
                         int8 bonusString[40];
-                        sprintf(bonusString, "Bonux XP: +%d", sBonusXP);
+                        sprintf(bonusString, "Bonus XP: +%d", sBonusXP);
                         PMember->pushPacket(new CChatMessagePacket(MESSAGE_SAY, bonusString));
                     }
 

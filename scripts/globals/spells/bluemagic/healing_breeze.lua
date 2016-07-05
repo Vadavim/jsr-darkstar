@@ -31,37 +31,30 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    local minCure = 60;
-    local divisor = 0.6666;
-    local constant = -45;
-    local power = getCurePowerOld(caster);
+    local mnd = caster:getStat(MOD_MND);
+    local vit = target:getStat(MOD_VIT);
+    local blue = caster:getSkillLevel(SKILL_BLU);
+    local healing = caster:getSkillLevel(SKILL_HEA);
 
-    if (power > 459) then
-        divisor = 6.5;
-        constant = 144.6666;
-    elseif (power > 219) then
-        divisor =  2;
-        constant = 65;
-    end
+    local power = 40 + blue * 0.35 + vit * 0.25 + mnd * 0.5;
+    if (power > 120) then power = 120 + (power - 120) / 3 end;
+    power = power * (1 + master:getMod(MOD_CURE_POTENCY) / 100) * (1 + target:getMod(MOD_CURE_POTENCY_RCVD) / 100);
+    if (caster:getSubJob() == JOBS.SCH) then healing = healing / 2 end;
+    power = power + healing * 0.25;
+    power = getCureFinal(caster, spell, power, 60, true);
 
-    local final = getCureFinal(caster,spell,getBaseCureOld(power,divisor,constant),minCure,true);
     local diff = (target:getMaxHP() - target:getHP());
+    if (power > diff) then
+        power = diff;
+    end
+    target:addHP(power);
 
-    final = final + (final * (target:getMod(MOD_CURE_POTENCY_RCVD)/100));
-    
     if (target:getAllegiance() == caster:getAllegiance() and (target:getObjType() == TYPE_PC or target:getObjType() == TYPE_MOB)) then
-        --Applying server mods....
-        final = final * CURE_POWER;
+        caster:updateEnmityFromCure(target,power);
     end
-    
-    if (final > diff) then
-        final = diff;
-    end
-    
-    target:addHP(final);
-    target:wakeUp();
-    caster:updateEnmityFromCure(target,final);
     spell:setMsg(7);
-    
-    return final;
+
+    target:wakeUp();
+    return power;
+
 end;

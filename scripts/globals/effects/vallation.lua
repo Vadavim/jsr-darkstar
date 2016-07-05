@@ -30,7 +30,8 @@ function onEffectGain(target,effect)
     effect:addMod(MOD_WINDDEF, vallationDefense(flabra));
     effect:addMod(MOD_LIGHTDEF, vallationDefense(lux));
     effect:addMod(MOD_DARKDEF, vallationDefense(tenebrae));
-    
+    effect:addMod(MOD_ABSORB_MAGDMG_TO_MP, 20);
+
 end;
 
 -----------------------------------

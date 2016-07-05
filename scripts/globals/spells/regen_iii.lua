@@ -20,7 +20,7 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    local hp = 20;
+    local hp = 25;
     local meritBonus = caster:getMerit(MERIT_REGEN_EFFECT);
 
     --printf("Regen III: Merit Bonus = Extra +%d", meritBonus);    
@@ -42,6 +42,25 @@ function onSpellCast(caster,target,spell)
         target:delStatusEffect(EFFECT_REGEN);
     end
 
+
+    if (caster:hasStatusEffect(EFFECT_LIGHT_ARTS) and caster:getMainJob() == JOBS.SCH) then
+        hp = hp * 1.33;
+        duration = duration * 1.2;
+    end
+
+    if (caster:hasStatusEffect(EFFECT_DIVINE_SEAL)) then
+        hp = hp * 2;
+    end
+
+    if (caster:hasStatusEffect(EFFECT_RAPTURE)) then
+        hp = hp * 1.5;
+    end
+
+    if (caster:hasStatusEffect(EFFECT_PERPETUANCE)) then
+        duration = duration * 2;
+    end
+
+
     local subPower = 0
     if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_LUX) >= 1) then
         hp = hp * 1.25;
@@ -50,6 +69,9 @@ function onSpellCast(caster,target,spell)
     end
     hp = hp * (1  + target:getMod(MOD_CURE_POTENCY_RCVD) / 100);
     hp, duration = applyEmbolden(caster, hp, duration);
+
+
+
 
     if (target:addStatusEffect(EFFECT_REGEN,hp,3,duration,0,subPower,0)) then
         spell:setMsg(230);

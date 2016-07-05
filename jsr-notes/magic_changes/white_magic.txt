@@ -19,3 +19,8 @@ Duration: 300 -> 600 seconds
 [Inundation] (Red Mage Spell)
  - Instead inflicts Chainbound on target (if successfull) for 15 seconds, causing the next weaponskill to skillchain.
  - Recast is 300 seconds.
+
+[Regen Spells]
+ - MP Cost reduced by 33%
+ - Regen II: +2 HoT
+ - Regen III: +5 HoT

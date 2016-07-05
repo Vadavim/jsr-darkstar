@@ -9,6 +9,10 @@ TRAIT CHANGES
 
 ABILITY CHANGES
 
+
+[Modus Veritas]
+ - Works on NMs again, and has a much higher magic accuracy.
+
 STRATAGEM CHANGES
  - Max Charges and recast are as follows:
 	- Level 10: 1 (4:00)
@@ -21,23 +25,59 @@ STRATAGEM CHANGES
 [Penury / Parsimony]
  - Stacks with 10% reduction from Light/Dark arts.
 
+[Rapture]
+ - Also increases potency of the following spells:
+	- Regen (+50% HoT)
+	- Barspells (+50% potency)
+	- Blink (+1 shadow)
+	- Stoneskin (+50% potency)
+	- Phalanx (+50% potency)
+
+
+[Manifestation]
+ - Works with all elemental spells (including helix spells)
+
 [Ebullience]
- - Also significantly enhances the potency of enfeebling spells.
+ - Also increases the potency of the following spells:
+	- Poison (+50% DoT)
+	- Bio (+50% DoT)
+	- Enspells (+50% potency)
+	- Elemental Debuffs (+50% potency, including stat reduction)
+ 	- Drain / Aspir (+50% potency)
+
+
+[Altruism / Focalization]
+ - Gained at level 45
+ - Grants +25 MACC (+3 per merit point)
+
+[Tranquility / Equanimity]
+ - Gained at level 65
+ - Reduces enmity by -35% (-3% per permit).
 
 [Perpetuance]
- - Gained at level 65.
+ - Gained at level 75.
 
 [Immanence]
- - Gained at level 65.
+ - Gained at level 75.
+ - Can only start a skillchain, not close it (maybe one day I'll fix this).
+ - Grants +35% magic burst bonus to spell damage.
 
 
 [Sublimation]
  - Stacks with Refresh.
 
-[Helices]
- - Deal increased damage based on Int
+
 
 [Storm Spells]
  - Duration: 180 -> 300 Seconds
  - +30 seconds per point in Stormsurge
 
+
+
+
+[Light Arts]
+ - While under Light Arts, Regen spells receive a +33% bonus to potency and a +20% bonus duration (SCH main job only).
+	- This replaces their original bonus to Regen spells.
+
+[Dark Arts]
+ - While under Dark Arts, Poison and Bio spells receive a +33% bonus to potency anda +100% bonus to duration (SCH main job only).

@@ -33,7 +33,7 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    player:addStatusEffect(EFFECT_EQUANIMITY,player:getMerit(MERIT_EQUANIMITY),0,60);
+    player:addStatusEffect(EFFECT_EQUANIMITY,35 + player:getMerit(MERIT_EQUANIMITY),0,60);
 
     return EFFECT_EQUANIMITY;
 end;

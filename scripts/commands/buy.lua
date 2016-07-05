@@ -953,7 +953,7 @@ local function swords(player, points)
         16532,  2500,   --gladius → strider sword
         17739,  2800,   --steel kilij  → tulwar +1
         16537,  3200,   --mithril sword
-        15416,  4800,   --junior msk. tuck → tck +2
+        16516,  4800,   --junior msk. tuck → tck +2
         17701,  4800,   --shotel → falchion +1
         16558,  5200,   --falchion
         16822,  5600,   --crimson blade

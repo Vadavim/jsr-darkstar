@@ -374,6 +374,9 @@ namespace petutils
         }
 
         PMob->health.maxhp = (int16)(17.0 * pow(lvl, growth) * petStats->HPscale);
+        if (PMob->m_PetID == 75) {
+            PMob->health.maxhp = 10 + lvl * 10;
+        };
 
         switch (PMob->GetMJob()){
             case JOB_PLD:

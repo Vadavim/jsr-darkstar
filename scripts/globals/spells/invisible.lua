@@ -20,6 +20,9 @@ function onSpellCast(caster,target,spell)
 
         -- last 7-9 minutes
         local duration = math.random(420, 540);
+        if (caster:hasStatusEffect(EFFECT_PERPETUANCE)) then
+            duration = duration * 2;
+        end
 
         if (target:getMainLvl() < 25) then
             duration = duration * target:getMainLvl() / 25; -- level adjustment

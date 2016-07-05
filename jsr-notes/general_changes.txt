@@ -15,7 +15,10 @@ RANGED ATTACKS
 
 
 DEFENSE
+ - Parry is checked before Evasion
  - Max Parry Rate: 25% -> 35%
+ - Parrying chance is higher in general
+ -  AGI increases Parry by more (+1% for every 4 AGI above target's DEX, or -1% for every 4 AGI below target's DEX)
  - Max Guard Rate: 25% -> 45%
  - Mobs gain less of a damage bonus against players when they are higher level than the player (~15% less)
 
@@ -43,6 +46,12 @@ STATUS EFFECTS
 [Death]
  - Weakness lasts for 300 seconds, or 240 seconds with Raise II, or 180 seconds with Raise III, or 120 seconds with Arise.
 
+
+MERIT POINTS
+ - Most merit categories require fewer points
+ - When you lower a merit, you get refunded its value in points
+ - The Max Merit Points merit does not increase maximum merit points. 
+	- Instead, when you purchase it, 10 High Kingdred Crests are placed into your inventory.
 
 EXPERIENCE POINTS
 

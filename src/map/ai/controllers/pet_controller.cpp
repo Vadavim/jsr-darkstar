@@ -33,7 +33,8 @@ CPetController::CPetController(CPetEntity* _PPet) :
     CMobController(_PPet), PPet(_PPet)
 {
     //#TODO: this probably will have to depend on pet type (automaton does WS on its own..)
-    SetWeaponSkillEnabled(_PPet->getPetType() == PETTYPE_ALLY);
+    SetWeaponSkillEnabled(false);
+//    SetWeaponSkillEnabled(_PPet->getPetType() == PETTYPE_ALLY);
 }
 
 void CPetController::Tick(time_point tick)

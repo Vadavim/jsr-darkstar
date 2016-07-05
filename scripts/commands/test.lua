@@ -15,10 +15,23 @@ cmdprops =
 
 function onTrigger(player, amount, target)
 --    testPick();
-    local targ = player:getCursorTarget();
-    if (targ ~= nil) then
-        targ:useJobAbility(amount, targ);
-        end
+--    player:spawnPet(73);
+--print(player:checkDistance(player:getPet()));
+--print(player:getRotPos());
+--    local targ = player:getCursorTarget();
+--    if (targ ~= nil) then
+--        targ:setModelId(amount);
+--    end
+
+print(player:getMod(MOD_MEVA));
+
+
+
+
+
+
+----        targ:useJobAbility(amount, targ);
+--        end
 --    blastReward(player);
 --    print(player:aetAugmentCount(1064));
 --    print(player:getSkillLevel(SKILL_ELE));

@@ -149,10 +149,10 @@ namespace battleutils
     void LoadWeaponSkillsList()
     {
         const int8* fmtQuery = "SELECT weaponskillid, name, jobs, type, skilllevel, element, animation, "
-                            "animationTime, `range`, aoe, primary_sc, secondary_sc, tertiary_sc, main_only "
-							"FROM weapon_skills "
-							"WHERE weaponskillid < %u "
-							"ORDER BY type, skilllevel ASC";
+                "animationTime, `range`, aoe, primary_sc, secondary_sc, tertiary_sc, main_only "
+                "FROM weapon_skills "
+                "WHERE weaponskillid < %u "
+                "ORDER BY type, skilllevel ASC";
 
         int32 ret = Sql_Query(SqlHandle, fmtQuery, MAX_WEAPONSKILL_ID);
 
@@ -453,69 +453,69 @@ namespace battleutils
             case JOB_BST: id = 484; break;
             case JOB_BRD: id = 440; break;
             case JOB_RNG:
-                          if(familyId == 270 || familyId == 360)
-                          {
-                              // Yagudo has it's own version
-                              id = 865;
-                          }
-                          else if(familyId == 3)
-                          {
-                              // Aern
-                              id = 1389;
-                          }
-                          else if(familyId == 169 || familyId == 358)
-                          {
-                              // Kindred has it's own version
-                              id = 895;
-                          }
-                          else if (familyId == 133 || familyId == 327)
-                          {
-                              // Goblin
-                              id = 479;
-                          }
-                          else if (familyId == 25)
-                          {
-                              // Antica
-                              id = 480;
-                          }
-                          else if (familyId == 189 || familyId == 334)
-                          {
-                              // Orc
-                              id = 481;
-                          }
-                          else if (familyId == 115 || familyId == 359 || familyId == 221
-                                  || familyId == 222 || familyId == 223)
-                          {
-                              // Fomor / Shadow
-                              id = 482;
-                          }
-                          else if (familyId == 328 || familyId >= 126 && familyId <= 130)
-                          {
-                              // Giga
-                              id = 483;
-                          }
-                          else if(familyId == 337 || familyId == 200 || familyId == 201
-                                  || familyId == 202)
-                          {
-                              // Quadav has it's own version
-                              id = 866;
-                          }
-                          else if(familyId == 171)
-                          {
-                              // Lamiae
-                              id = 1675;
-                          }
-                          else if(familyId == 246)
-                          {
-                              // Troll
-                              id = 1996;
-                          }
-                          else
-                          {
-                              // Defaulting to crappy goblin animation
-                              id = 479;
-                          }
-                          break;
+                if(familyId == 270 || familyId == 360)
+                {
+                    // Yagudo has it's own version
+                    id = 865;
+                }
+                else if(familyId == 3)
+                {
+                    // Aern
+                    id = 1389;
+                }
+                else if(familyId == 169 || familyId == 358)
+                {
+                    // Kindred has it's own version
+                    id = 895;
+                }
+                else if (familyId == 133 || familyId == 327)
+                {
+                    // Goblin
+                    id = 479;
+                }
+                else if (familyId == 25)
+                {
+                    // Antica
+                    id = 480;
+                }
+                else if (familyId == 189 || familyId == 334)
+                {
+                    // Orc
+                    id = 481;
+                }
+                else if (familyId == 115 || familyId == 359 || familyId == 221
+                         || familyId == 222 || familyId == 223)
+                {
+                    // Fomor / Shadow
+                    id = 482;
+                }
+                else if (familyId == 328 || familyId >= 126 && familyId <= 130)
+                {
+                    // Giga
+                    id = 483;
+                }
+                else if(familyId == 337 || familyId == 200 || familyId == 201
+                        || familyId == 202)
+                {
+                    // Quadav has it's own version
+                    id = 866;
+                }
+                else if(familyId == 171)
+                {
+                    // Lamiae
+                    id = 1675;
+                }
+                else if(familyId == 246)
+                {
+                    // Troll
+                    id = 1996;
+                }
+                else
+                {
+                    // Defaulting to crappy goblin animation
+                    id = 479;
+                }
+                break;
             case JOB_SAM: id = 474; break;
             case JOB_NIN: id = 475; break;
             case JOB_DRG: id = 476; break;
@@ -582,92 +582,100 @@ namespace battleutils
             damage += PAttacker->getMod(MOD_ENSPELL_DMG_BONUS);
         }
 
-        //matching day 10% bonus, matching weather 10% or 25% for double weather
-        float dBonus = 1.0;
-        float resist = 1.0;
-        uint32 WeekDay = CVanaTime::getInstance()->getWeekday();
-        WEATHER weather = GetWeather(PAttacker, false);
-
-        DAYTYPE strongDay[8] = { FIRESDAY, EARTHSDAY, WATERSDAY, WINDSDAY, ICEDAY, LIGHTNINGDAY, LIGHTSDAY, DARKSDAY };
-        DAYTYPE weakDay[8] = { WATERSDAY, WINDSDAY, LIGHTNINGDAY, ICEDAY, FIRESDAY, EARTHSDAY, DARKSDAY, LIGHTSDAY };
-        WEATHER strongWeatherSingle[8] = { WEATHER_HOT_SPELL, WEATHER_DUST_STORM, WEATHER_RAIN, WEATHER_WIND, WEATHER_SNOW, WEATHER_THUNDER, WEATHER_AURORAS, WEATHER_GLOOM };
-        WEATHER strongWeatherDouble[8] = { WEATHER_HEAT_WAVE, WEATHER_SAND_STORM, WEATHER_SQUALL, WEATHER_GALES, WEATHER_BLIZZARDS, WEATHER_THUNDERSTORMS, WEATHER_STELLAR_GLARE, WEATHER_DARKNESS };
-        WEATHER weakWeatherSingle[8] = { WEATHER_RAIN, WEATHER_WIND, WEATHER_THUNDER, WEATHER_SNOW, WEATHER_HOT_SPELL, WEATHER_DUST_STORM, WEATHER_GLOOM, WEATHER_AURORAS };
-        WEATHER weakWeatherDouble[8] = { WEATHER_SQUALL, WEATHER_GALES, WEATHER_THUNDERSTORMS, WEATHER_BLIZZARDS, WEATHER_HEAT_WAVE, WEATHER_SAND_STORM, WEATHER_DARKNESS, WEATHER_STELLAR_GLARE };
-        uint32 obi[8] = { 15435, 15438, 15440, 15437, 15436, 15439, 15441, 15442 };
-        MODIFIER resistarray[8] = { MOD_FIRERES, MOD_EARTHRES, MOD_WATERRES, MOD_WINDRES, MOD_ICERES, MOD_THUNDERRES, MOD_LIGHTRES, MOD_DARKRES };
-        bool obiBonus = false;
-
-        double half = (double)(PDefender->getMod(resistarray[element])) / (100.0 + PDefender->GetMLevel() * 5);
-        double quart = pow(half, 2);
-        double eighth = pow(half, 3);
-        double sixteenth = pow(half, 4);
-        double resvar = dsprand::GetRandomNumber(1.);
-
-        // Determine resist based on which thresholds have been crossed.
-        if (resvar <= sixteenth)
-            resist = 0.0625;
-        else if (resvar <= eighth)
-            resist = 0.125;
-        else if (resvar <= quart)
-            resist = 0.25;
-        else if (resvar <= half)
-            resist = 0.5;
-
-        if (PAttacker->objtype == TYPE_PC)
-        {
-            CItemArmor* waist = ((CCharEntity*)PAttacker)->getEquip(SLOT_WAIST);
-            if (waist && waist->getID() == obi[element])
-            {
-                obiBonus = true;
-            }
-        }
-        else
-        {
-            // mobs random multiplier
-            dBonus += dsprand::GetRandomNumber(100) / 1000.0f;
-        }
-        if (WeekDay == strongDay[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
-            dBonus += 0.1;
-        else if (WeekDay == weakDay[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
-            dBonus -= 0.1;
-        if (weather == strongWeatherSingle[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
-            dBonus += 0.1;
-        else if (weather == strongWeatherDouble[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
-            dBonus += 0.25;
-        else if (weather == weakWeatherSingle[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
-            dBonus -= 0.1;
-        else if (weather == weakWeatherDouble[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
-            dBonus -= 0.25;
-
-        // randomize it a little
-        dBonus += dsprand::GetRandomNumber(150) / 1000.0f;
-        damage = (damage * (float)resist);
-        damage = (damage * (float)dBonus);
-
-
-        // calculate matt / mdef
-        float matb = 1.0 + (float)PAttacker->getMod(MOD_MATT) / 100.0;
-        float mdef = 1.0 + (float)PDefender->getMod(MOD_MDEF) / 100.0;
-        damage *= matb * mdef;
-
-        // calculate elemental attack / defense
-        uint32 eleAttack[8] = { MOD_FIREATT, MOD_EARTHATT, MOD_WATERATT, MOD_WINDATT, ICEDAY, MOD_THUNDERATT, MOD_LIGHTATT, MOD_DARKATT };
-        float eleAttackRatio = 1.0 + (float)PAttacker->getMod(eleAttack[element]) / 100.0;
-        damage *= eleAttackRatio;
-
-        // take damage
-        damage = MagicDmgTaken(PDefender, damage, (ELEMENT)(element + 1));
-
-        if (damage > 0)
-        {
-            damage = dsp_max(damage - PDefender->getMod(MOD_PHALANX), 0);
-            damage = HandleStoneskin(PDefender, damage);
-        }
-        damage = dsp_cap(damage, -99999, 99999);
+        damage = handleElementalDamage(PAttacker, PDefender, damage, element, false);
+//        //matching day 10% bonus, matching weather 10% or 25% for double weather
+//        float dBonus = 1.0;
+//        float resist = 1.0;
+//        uint32 WeekDay = CVanaTime::getInstance()->getWeekday();
+//        WEATHER weather = GetWeather(PAttacker, false);
+//
+//        DAYTYPE strongDay[8] = { FIRESDAY, EARTHSDAY, WATERSDAY, WINDSDAY, ICEDAY, LIGHTNINGDAY, LIGHTSDAY, DARKSDAY };
+//        DAYTYPE weakDay[8] = { WATERSDAY, WINDSDAY, LIGHTNINGDAY, ICEDAY, FIRESDAY, EARTHSDAY, DARKSDAY, LIGHTSDAY };
+//        WEATHER strongWeatherSingle[8] = { WEATHER_HOT_SPELL, WEATHER_DUST_STORM, WEATHER_RAIN, WEATHER_WIND, WEATHER_SNOW, WEATHER_THUNDER, WEATHER_AURORAS, WEATHER_GLOOM };
+//        WEATHER strongWeatherDouble[8] = { WEATHER_HEAT_WAVE, WEATHER_SAND_STORM, WEATHER_SQUALL, WEATHER_GALES, WEATHER_BLIZZARDS, WEATHER_THUNDERSTORMS, WEATHER_STELLAR_GLARE, WEATHER_DARKNESS };
+//        WEATHER weakWeatherSingle[8] = { WEATHER_RAIN, WEATHER_WIND, WEATHER_THUNDER, WEATHER_SNOW, WEATHER_HOT_SPELL, WEATHER_DUST_STORM, WEATHER_GLOOM, WEATHER_AURORAS };
+//        WEATHER weakWeatherDouble[8] = { WEATHER_SQUALL, WEATHER_GALES, WEATHER_THUNDERSTORMS, WEATHER_BLIZZARDS, WEATHER_HEAT_WAVE, WEATHER_SAND_STORM, WEATHER_DARKNESS, WEATHER_STELLAR_GLARE };
+//        uint32 obi[8] = { 15435, 15438, 15440, 15437, 15436, 15439, 15441, 15442 };
+//        MODIFIER resistarray[8] = { MOD_FIRERES, MOD_EARTHRES, MOD_WATERRES, MOD_WINDRES, MOD_ICERES, MOD_THUNDERRES, MOD_LIGHTRES, MOD_DARKRES };
+//        MODIFIER accarray[8] = { MOD_FIREACC, MOD_EARTHACC, MOD_WATERACC, MOD_WINDACC, MOD_ICEACC, MOD_THUNDERACC, MOD_LIGHTACC, MOD_DARKACC };
+//        bool obiBonus = false;
+//        double defenderSkill = PDefender->getMod(resistarray[element]) + PDefender->getMod(MOD_MEVA);
+//        double attackerSkill = GetMaxSkill(3, PAttacker->GetMLevel()) + PAttacker->getMod(MOD_MACC) + PAttacker->getMod(accarray[element]);
+//        double dInt = ((double)PAttacker->INT() - (double)PDefender->INT()) / 2;
+//        double levelDiff = dsp_cap(PAttacker->GetMLevel() - PDefender->GetMLevel(), -10, 10) * 2;
+//        double p = dsp_cap(0.75f + (attackerSkill + dInt - defenderSkill) / 200.0f + levelDiff / 100.0f, 0.05f, 0.95f);
+////        double half = (double)(PDefender->getMod(resistarray[element]) + PDefender->getMod(MOD_MEVA)) / (100.0 + PAttacker->GetMLevel() * 5);
+//        double half = 1 - p;
+//        double quart = pow(half, 2);
+//        double eighth = pow(half, 3);
+//        double sixteenth = pow(half, 4);
+//        double resvar = dsprand::GetRandomNumber(1.);
+//
+//        // Determine resist based on which thresholds have been crossed.
+//        if (resvar <= sixteenth)
+//            resist = 0.0625;
+//        else if (resvar <= eighth)
+//            resist = 0.125;
+//        else if (resvar <= quart)
+//            resist = 0.25;
+//        else if (resvar <= half)
+//            resist = 0.5;
+//
+//        if (PAttacker->objtype == TYPE_PC)
+//        {
+//            CItemArmor* waist = ((CCharEntity*)PAttacker)->getEquip(SLOT_WAIST);
+//            if (waist && waist->getID() == obi[element])
+//            {
+//                obiBonus = true;
+//            }
+//        }
+//        else
+//        {
+//            // mobs random multiplier
+//            dBonus += dsprand::GetRandomNumber(100) / 1000.0f;
+//        }
+//        if (WeekDay == strongDay[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
+//            dBonus += 0.1;
+//        else if (WeekDay == weakDay[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
+//            dBonus -= 0.1;
+//        if (weather == strongWeatherSingle[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
+//            dBonus += 0.1;
+//        else if (weather == strongWeatherDouble[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
+//            dBonus += 0.25;
+//        else if (weather == weakWeatherSingle[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
+//            dBonus -= 0.1;
+//        else if (weather == weakWeatherDouble[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
+//            dBonus -= 0.25;
+//
+//        // randomize it a little
+//        dBonus += dsprand::GetRandomNumber(150) / 1000.0f;
+//        damage = (damage * (float)resist);
+//        damage = (damage * (float)dBonus);
+//
+//
+//        // calculate matt / mdef
+//        float matb = 1.0 + (float)PAttacker->getMod(MOD_MATT) / 100.0;
+//        float mdef = 1.0 + (float)PDefender->getMod(MOD_MDEF) / 100.0;
+//        damage *= matb * mdef;
+//
+//        // calculate elemental attack / defense
+//        uint32 eleAttack[8] = { MOD_FIREATT, MOD_EARTHATT, MOD_WATERATT, MOD_WINDATT, ICEDAY, MOD_THUNDERATT, MOD_LIGHTATT, MOD_DARKATT };
+//        float eleAttackRatio = 1.0 + (float)PAttacker->getMod(eleAttack[element]) / 100.0;
+//        damage *= eleAttackRatio;
+//
+//        // take damage
+//        damage = MagicDmgTaken(PDefender, damage, (ELEMENT)(element + 1));
+//
+//        if (damage > 0)
+//        {
+//            damage = dsp_max(damage - PDefender->getMod(MOD_PHALANX), 0);
+//            damage = HandleStoneskin(PDefender, damage);
+//        }
+//        damage = dsp_cap(damage, -99999, 99999);
 
         return damage;
     }
+
 
     /************************************************************************
     *                                                                       *
@@ -701,52 +709,53 @@ namespace battleutils
                 damage = damageTaken;
                 break;
             case SPIKE_BLAZE:
-                ele = ELEMENT_FIRE;
+                ele = 1;
                 break;
             case SPIKE_ICE:
-                ele = ELEMENT_ICE;
+                ele = 6;
                 break;
             case SPIKE_SHOCK:
-                ele = ELEMENT_THUNDER;
+                ele = 7;
                 break;
             case SPIKE_DELUGE:
-                ele = ELEMENT_WATER;
+                ele = 4;
                 break;
             case SPIKE_STONE:
-                ele = ELEMENT_EARTH;
+                ele = 3;
                 break;
             case SPIKE_WIND:
-                ele = ELEMENT_WIND;
+                ele = 5;
                 break;
             default:
                 break;
         }
 
         if (ele != 0) {
+            damage = handleElementalDamage(PAttacker, PDefender, damage, ele - 1, true);
 
-            // elemental attack / defense bonus
-            damage *= matb * mdef;
-            float eleAttackRatio = 1.0 + (float)PDefender->getMod(eleAttack[ele]) / 100.0;
-            damage *= eleAttackRatio;
-            float dBonus = 1.0;
-
-            // day / weather bonus
-            if (WeekDay == strongDay[ele])
-                dBonus += 0.1;
-            else if (WeekDay == weakDay[ele])
-                dBonus -= 0.1;
-            if (weather == strongWeatherSingle[ele])
-                dBonus += 0.1;
-            else if (weather == strongWeatherDouble[ele])
-                dBonus += 0.25;
-            else if (weather == weakWeatherSingle[ele])
-                dBonus -= 0.1;
-            else if (weather == weakWeatherDouble[ele])
-                dBonus -= 0.25;
-
-            // randomize it a little
-            dBonus += dsprand::GetRandomNumber(150) / 1000.0f;
-            damage *= dBonus;
+//            // elemental attack / defense bonus
+//            damage *= matb * mdef;
+//            float eleAttackRatio = 1.0 + (float)PDefender->getMod(eleAttack[ele]) / 100.0;
+//            damage *= eleAttackRatio;
+//            float dBonus = 1.0;
+//
+//            // day / weather bonus
+//            if (WeekDay == strongDay[ele])
+//                dBonus += 0.1;
+//            else if (WeekDay == weakDay[ele])
+//                dBonus -= 0.1;
+//            if (weather == strongWeatherSingle[ele])
+//                dBonus += 0.1;
+//            else if (weather == strongWeatherDouble[ele])
+//                dBonus += 0.25;
+//            else if (weather == weakWeatherSingle[ele])
+//                dBonus -= 0.1;
+//            else if (weather == weakWeatherDouble[ele])
+//                dBonus -= 0.25;
+//
+//            // randomize it a little
+//            dBonus += dsprand::GetRandomNumber(150) / 1000.0f;
+//            damage *= dBonus;
 
 
         }
@@ -816,7 +825,7 @@ namespace battleutils
             }
         }
 
-        // Handle spikes from spells or auto-spikes (scripted) effects
+            // Handle spikes from spells or auto-spikes (scripted) effects
         else if (Action->spikesEffect > 0)
         {
             // check if spikes are handled in mobs script
@@ -837,6 +846,8 @@ namespace battleutils
                 case SPIKE_WIND:
                 case SPIKE_STONE:
                 case SPIKE_SHOCK:
+
+
                     PAttacker->addHP(-Action->spikesParam);
                     break;
 
@@ -908,7 +919,7 @@ namespace battleutils
             return true;
         }
 
-        // Deal with spikesEffect effect gear
+            // Deal with spikesEffect effect gear
         else if (PDefender->getMod(MOD_ITEM_SPIKES_TYPE) > 0)
         {
             if (PDefender->objtype == TYPE_PC)
@@ -1092,8 +1103,8 @@ namespace battleutils
             if ((PDefender->m_EcoSystem != SYSTEM_UNDEAD) || (daze == EFFECT_HASTE_DAZE))
             {
                 PDefender->StatusEffectContainer->AddStatusEffect(new CStatusEffect(daze,
-                    0, power,
-                    0, 10, PAttacker->id), true);
+                                                                                    0, power,
+                                                                                    0, 10, PAttacker->id), true);
             }
         }
 
@@ -1111,7 +1122,7 @@ namespace battleutils
 //            poisonPower /= (1 + (waterRes * 0.01));
             if (dsprand::GetRandomNumber(0.0, 100.0) < chance) {
                 PDefender->StatusEffectContainer->AddStatusEffect(
-                    new CStatusEffect(EFFECT_POISON, EFFECT_POISON, poisonPower, 3, poisonDuration));
+                        new CStatusEffect(EFFECT_POISON, EFFECT_POISON, poisonPower, 3, poisonDuration));
 //                Action->addEffectMessage = 278;
 //                Action->messageID = EFFECT_POISON;
                 Action->additionalEffect = SUBEFFECT_POISON;
@@ -1125,7 +1136,7 @@ namespace battleutils
         if (PAttacker->getMod(MOD_ENSPELL) > 0)
         {
             SUBEFFECT subeffects[8] = { SUBEFFECT_LIGHT_DAMAGE, SUBEFFECT_DARKNESS_DAMAGE, SUBEFFECT_FIRE_DAMAGE, SUBEFFECT_EARTH_DAMAGE,
-                SUBEFFECT_WATER_DAMAGE, SUBEFFECT_WIND_DAMAGE, SUBEFFECT_ICE_DAMAGE, SUBEFFECT_LIGHTNING_DAMAGE };
+                                        SUBEFFECT_WATER_DAMAGE, SUBEFFECT_WIND_DAMAGE, SUBEFFECT_ICE_DAMAGE, SUBEFFECT_LIGHTNING_DAMAGE };
             int16 enspell = PAttacker->getMod(MOD_ENSPELL);
 
             if (enspell > 0 && enspell <= 6)
@@ -1150,7 +1161,7 @@ namespace battleutils
 
                 // handle Enspell Increase
                 std::vector<EFFECT> enspellEffects = {EFFECT_ENFIRE_II, EFFECT_ENBLIZZARD_II, EFFECT_ENAERO_II,
-                                    EFFECT_ENSTONE_II, EFFECT_ENTHUNDER_II, EFFECT_ENWATER_II};
+                                                      EFFECT_ENSTONE_II, EFFECT_ENTHUNDER_II, EFFECT_ENWATER_II};
                 std::vector<int> enValues = {0, 3, 5, 2, 1, 4};
                 int enValue = enValues[enspell - 9];
 
@@ -1236,7 +1247,7 @@ namespace battleutils
                 PDefender->addHP(-Action->addEffectParam);
             }
         }
-        //check weapon for additional effects
+            //check weapon for additional effects
         else if (PAttacker->objtype == TYPE_PC && battleutils::GetScaledItemModifier(PAttacker, weapon, MOD_ADDITIONAL_EFFECT) > 0 &&
                  luautils::OnAdditionalEffect(PAttacker, PDefender, weapon, Action, finaldamage) == 0 && Action->additionalEffect)
         {
@@ -1803,7 +1814,7 @@ namespace battleutils
             if (cap == 0)
             {
                 cap = GetMaxSkill((SKILLTYPE)PSpell->getSkillType(), PChar->GetSJob(),
-                    PChar->GetMLevel()); // This may need to be re-investigated in the future...
+                                  PChar->GetMLevel()); // This may need to be re-investigated in the future...
             }
 
             if (skill > cap)
@@ -1935,7 +1946,7 @@ namespace battleutils
     {
         CItemWeapon* PWeapon = GetEntityWeapon(PDefender, SLOT_MAIN);
         if ((PWeapon != nullptr && PWeapon->getID() != 0 && PWeapon->getID() != 65535 &&
-            PWeapon->getSkillType() != SKILL_H2H) && PDefender->PAI->IsEngaged())
+             PWeapon->getSkillType() != SKILL_H2H) && PDefender->PAI->IsEngaged())
         {
             JOBTYPE job = PDefender->GetMJob();
 
@@ -1951,7 +1962,6 @@ namespace battleutils
                 // {(Parry Skill x .125) + ([Player Agi - Enemy Dex] x .125)} x Diff
 
                 float skill = PDefender->GetSkill(SKILL_PAR) + PDefender->getMod(MOD_PARRY) + PWeapon->getILvlParry();
-
                 float diff = 1.0f + (((float)PDefender->GetMLevel() - PAttacker->GetMLevel()) / 15.0f);
 
                 if (PWeapon->isTwoHanded())
@@ -1966,7 +1976,10 @@ namespace battleutils
                 float dex = PAttacker->DEX();
                 float agi = PDefender->AGI();
 
-                uint8 parryRate = dsp_cap((skill * 0.1f + (agi - dex) * 0.125f + 10.0f) * diff, 5, 35);
+                int cap = PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_BATTUTA) ? 56 : 35;
+                int bonus = PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_BATTUTA) ? 30 : 0;
+
+                uint8 parryRate = dsp_cap((skill * 0.125f + (agi - dex) * 0.25f + 10.0f) * diff + bonus, 5, cap);
 
                 // Issekigan grants parry rate bonus. From best available data, if you already capped out at 25% parry it grants another 25% bonus for ~50% parry rate
                 if (PDefender->objtype == TYPE_PC && PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_ISSEKIGAN)) {
@@ -2101,7 +2114,7 @@ namespace battleutils
                         // Subpower is the remaining damage that can be reflected. When it reaches 0 the effect ends
                         // Set Reprisal spike damage
                         PDefender->setModifier(MOD_SPIKES_DMG, dsp_cap((int32)(blockedDamage * (reprisalEffect->GetPower())) / 100,
-                            0, reprisalEffect->GetSubPower()));
+                                                                       0, reprisalEffect->GetSubPower()));
                     }
                 }
 
@@ -2264,12 +2277,12 @@ namespace battleutils
             damage = dsp_max(damage - PDefender->getMod(MOD_PHALANX), 0);
             damage = HandleStoneskin(PDefender, damage);
         }
-        
+
         if (!isRanged)
         {
             damage = getOverWhelmDamageBonus(PChar, PDefender, (uint16)damage);
         }
-        
+
         HandleAfflatusMiseryDamage(PDefender, damage);
         damage = dsp_cap(damage, -99999, 99999);
 
@@ -2375,7 +2388,7 @@ namespace battleutils
         int32 hitrate = 75;
 
         if (PAttacker->objtype == TYPE_PC && ((PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK) && (abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) < 23 || PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_HIDE))) ||
-            (charutils::hasTrait((CCharEntity*)PAttacker, TRAIT_ASSASSIN) && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK) && battleutils::getAvailableTrickAttackChar(PAttacker, PDefender))))
+                                              (charutils::hasTrait((CCharEntity*)PAttacker, TRAIT_ASSASSIN) && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK) && battleutils::getAvailableTrickAttackChar(PAttacker, PDefender))))
         {
             hitrate = 100; //attack with SA active or TA/Assassin cannot miss
         }
@@ -2455,7 +2468,7 @@ namespace battleutils
             }
         }
         else if (PAttacker->objtype == TYPE_PC && PAttacker->GetMJob() == JOB_THF && charutils::hasTrait((CCharEntity*)PAttacker, TRAIT_ASSASSIN) && (!ignoreSneakTrickAttack) &&
-            PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK))
+                 PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK))
         {
             CBattleEntity* taChar = battleutils::getAvailableTrickAttackChar(PAttacker, PDefender);
             if (taChar != nullptr) crithitrate = 100;
@@ -2607,9 +2620,6 @@ namespace battleutils
             criticaldamage = dsp_cap(criticaldamage, 0, 200);
             int16 critBonus = dsp_cap(PAttacker->STR() - PDefender->VIT(), -40, 40);
             pDIF *= ((100 + criticaldamage + critBonus) / 100.0f);
-        }
-        if (PAttacker->objtype == TYPE_PC) {
-            ShowDebug("Ratio Final: %f\n", cRatio);
         }
         pDIF *= GetKillerRatio(PAttacker, PDefender);
 
@@ -2956,7 +2966,8 @@ namespace battleutils
             case SYSTEM_UNDEAD:		KillerEffect = PDefender->getMod(MOD_UNDEAD_KILLER);   break;
             case SYSTEM_VERMIN:		KillerEffect = PDefender->getMod(MOD_VERMIN_KILLER);   break;
         }
-        return (dsprand::GetRandomNumber(100) < KillerEffect);
+
+        return (dsprand::GetRandomNumber(100) < KillerEffect + PDefender->GetLocalVar("doubtEffect"));
     }
 
     /****************************************************************
@@ -2998,23 +3009,23 @@ namespace battleutils
         DSP_DEBUG_BREAK_IF(skillchain < SC_NONE || skillchain > SC_DARKNESS_II);
 
         static const uint8 effects[] = {
-            SUBEFFECT_NONE,          // SC_NONE
-            SUBEFFECT_TRANSFIXION,   // SC_TRANSFIXION
-            SUBEFFECT_COMPRESSION,   // SC_COMPRESSION
-            SUBEFFECT_LIQUEFACATION, // SC_LIQUEFACTION
-            SUBEFFECT_SCISSION,      // SC_SCISSION
-            SUBEFFECT_REVERBERATION, // SC_REVERBERATION
-            SUBEFFECT_DETONATION,    // SC_DETONATION
-            SUBEFFECT_INDURATION,    // SC_INDURATION
-            SUBEFFECT_IMPACTION,     // SC_IMPACTION
-            SUBEFFECT_GRAVITATION,   // SC_GRAVITATION
-            SUBEFFECT_DISTORTION,    // SC_DISTORTION
-            SUBEFFECT_FUSION,        // SC_FUSION
-            SUBEFFECT_FRAGMENTATION, // SC_FRAGMENTATION
-            SUBEFFECT_LIGHT,         // SC_LIGHT
-            SUBEFFECT_DARKNESS,      // SC_DARKNESS
-            SUBEFFECT_LIGHT,         // SC_LIGHT_II
-            SUBEFFECT_DARKNESS,      // SC_DARKNESS_II
+                SUBEFFECT_NONE,          // SC_NONE
+                SUBEFFECT_TRANSFIXION,   // SC_TRANSFIXION
+                SUBEFFECT_COMPRESSION,   // SC_COMPRESSION
+                SUBEFFECT_LIQUEFACATION, // SC_LIQUEFACTION
+                SUBEFFECT_SCISSION,      // SC_SCISSION
+                SUBEFFECT_REVERBERATION, // SC_REVERBERATION
+                SUBEFFECT_DETONATION,    // SC_DETONATION
+                SUBEFFECT_INDURATION,    // SC_INDURATION
+                SUBEFFECT_IMPACTION,     // SC_IMPACTION
+                SUBEFFECT_GRAVITATION,   // SC_GRAVITATION
+                SUBEFFECT_DISTORTION,    // SC_DISTORTION
+                SUBEFFECT_FUSION,        // SC_FUSION
+                SUBEFFECT_FRAGMENTATION, // SC_FRAGMENTATION
+                SUBEFFECT_LIGHT,         // SC_LIGHT
+                SUBEFFECT_DARKNESS,      // SC_DARKNESS
+                SUBEFFECT_LIGHT,         // SC_LIGHT_II
+                SUBEFFECT_DARKNESS,      // SC_DARKNESS_II
         };
 
         return effects[skillchain];
@@ -3025,73 +3036,73 @@ namespace battleutils
         DSP_DEBUG_BREAK_IF(skillchain < SC_NONE || skillchain > SC_DARKNESS_II);
 
         static const uint8 tiers[] = {
-            0, // SC_NONE
-            1, // SC_TRANSFIXION
-            1, // SC_COMPRESSION
-            1, // SC_LIQUEFACTION
-            1, // SC_SCISSION
-            1, // SC_REVERBERATION
-            1, // SC_DETONATION
-            1, // SC_INDURATION
-            1, // SC_IMPACTION
-            2, // SC_GRAVITATION
-            2, // SC_DISTORTION
-            2, // SC_FUSION
-            2, // SC_FRAGMENTATION
-            3, // SC_LIGHT
-            3, // SC_DARKNESS
-            4, // SC_LIGHT_II
-            4, // SC_DARKNESS_II
+                0, // SC_NONE
+                1, // SC_TRANSFIXION
+                1, // SC_COMPRESSION
+                1, // SC_LIQUEFACTION
+                1, // SC_SCISSION
+                1, // SC_REVERBERATION
+                1, // SC_DETONATION
+                1, // SC_INDURATION
+                1, // SC_IMPACTION
+                2, // SC_GRAVITATION
+                2, // SC_DISTORTION
+                2, // SC_FUSION
+                2, // SC_FRAGMENTATION
+                3, // SC_LIGHT
+                3, // SC_DARKNESS
+                4, // SC_LIGHT_II
+                4, // SC_DARKNESS_II
         };
 
         return tiers[skillchain];
     }
 
     static const std::map<std::pair<SKILLCHAIN_ELEMENT, SKILLCHAIN_ELEMENT>, SKILLCHAIN_ELEMENT> skillchain_map = {
-        // Level 3 Pairs
-        {{SC_LIGHT, SC_LIGHT},SC_LIGHT_II},
-        {{SC_DARKNESS, SC_DARKNESS}, SC_DARKNESS_II},
+            // Level 3 Pairs
+            {{SC_LIGHT, SC_LIGHT},SC_LIGHT_II},
+            {{SC_DARKNESS, SC_DARKNESS}, SC_DARKNESS_II},
 
-        // Level 2 Pairs
-        {{SC_GRAVITATION, SC_DISTORTION}, SC_DARKNESS},
-        {{SC_GRAVITATION, SC_FRAGMENTATION}, SC_FRAGMENTATION},
+            // Level 2 Pairs
+            {{SC_GRAVITATION, SC_DISTORTION}, SC_DARKNESS},
+            {{SC_GRAVITATION, SC_FRAGMENTATION}, SC_FRAGMENTATION},
 
-        {{SC_DISTORTION, SC_GRAVITATION}, SC_DARKNESS},
-        {{SC_DISTORTION, SC_FUSION}, SC_FUSION},
+            {{SC_DISTORTION, SC_GRAVITATION}, SC_DARKNESS},
+            {{SC_DISTORTION, SC_FUSION}, SC_FUSION},
 
-        {{SC_FUSION, SC_GRAVITATION}, SC_GRAVITATION},
-        {{SC_FUSION, SC_FRAGMENTATION}, SC_LIGHT},
+            {{SC_FUSION, SC_GRAVITATION}, SC_GRAVITATION},
+            {{SC_FUSION, SC_FRAGMENTATION}, SC_LIGHT},
 
-        {{SC_FRAGMENTATION, SC_DISTORTION}, SC_DISTORTION},
-        {{SC_FRAGMENTATION, SC_FUSION}, SC_LIGHT},
+            {{SC_FRAGMENTATION, SC_DISTORTION}, SC_DISTORTION},
+            {{SC_FRAGMENTATION, SC_FUSION}, SC_LIGHT},
 
             // Level 1 Pairs
-        {{SC_TRANSFIXION, SC_COMPRESSION}, SC_COMPRESSION},
-        {{SC_TRANSFIXION, SC_SCISSION}, SC_DISTORTION},
-        {{SC_TRANSFIXION, SC_REVERBERATION}, SC_REVERBERATION},
+            {{SC_TRANSFIXION, SC_COMPRESSION}, SC_COMPRESSION},
+            {{SC_TRANSFIXION, SC_SCISSION}, SC_DISTORTION},
+            {{SC_TRANSFIXION, SC_REVERBERATION}, SC_REVERBERATION},
 
-        {{SC_COMPRESSION, SC_TRANSFIXION}, SC_TRANSFIXION},
-        {{SC_COMPRESSION, SC_DETONATION}, SC_DETONATION},
+            {{SC_COMPRESSION, SC_TRANSFIXION}, SC_TRANSFIXION},
+            {{SC_COMPRESSION, SC_DETONATION}, SC_DETONATION},
 
-        {{SC_LIQUEFACTION, SC_SCISSION}, SC_SCISSION},
-        {{SC_LIQUEFACTION, SC_IMPACTION}, SC_FUSION},
+            {{SC_LIQUEFACTION, SC_SCISSION}, SC_SCISSION},
+            {{SC_LIQUEFACTION, SC_IMPACTION}, SC_FUSION},
 
-        {{SC_SCISSION, SC_LIQUEFACTION}, SC_LIQUEFACTION},
-        {{SC_SCISSION, SC_REVERBERATION}, SC_REVERBERATION},
-        {{SC_SCISSION, SC_DETONATION}, SC_DETONATION},
+            {{SC_SCISSION, SC_LIQUEFACTION}, SC_LIQUEFACTION},
+            {{SC_SCISSION, SC_REVERBERATION}, SC_REVERBERATION},
+            {{SC_SCISSION, SC_DETONATION}, SC_DETONATION},
 
-        {{SC_REVERBERATION, SC_INDURATION}, SC_INDURATION},
-        {{SC_REVERBERATION, SC_IMPACTION}, SC_IMPACTION},
+            {{SC_REVERBERATION, SC_INDURATION}, SC_INDURATION},
+            {{SC_REVERBERATION, SC_IMPACTION}, SC_IMPACTION},
 
-        {{SC_DETONATION, SC_COMPRESSION}, SC_GRAVITATION},
-        {{SC_DETONATION, SC_SCISSION}, SC_SCISSION},
+            {{SC_DETONATION, SC_COMPRESSION}, SC_GRAVITATION},
+            {{SC_DETONATION, SC_SCISSION}, SC_SCISSION},
 
-        {{SC_INDURATION, SC_COMPRESSION}, SC_COMPRESSION},
-        {{SC_INDURATION, SC_REVERBERATION}, SC_FRAGMENTATION},
-        {{SC_INDURATION, SC_IMPACTION}, SC_IMPACTION},
+            {{SC_INDURATION, SC_COMPRESSION}, SC_COMPRESSION},
+            {{SC_INDURATION, SC_REVERBERATION}, SC_FRAGMENTATION},
+            {{SC_INDURATION, SC_IMPACTION}, SC_IMPACTION},
 
-        {{SC_IMPACTION, SC_LIQUEFACTION}, SC_LIQUEFACTION},
-        {{SC_IMPACTION, SC_DETONATION}, SC_DETONATION}
+            {{SC_IMPACTION, SC_LIQUEFACTION}, SC_LIQUEFACTION},
+            {{SC_IMPACTION, SC_DETONATION}, SC_DETONATION}
     };
 
     SKILLCHAIN_ELEMENT FormSkillchain(const std::list<SKILLCHAIN_ELEMENT>& resonance, const std::list<SKILLCHAIN_ELEMENT>& skill)
@@ -3234,7 +3245,7 @@ namespace battleutils
                 PSCEffect = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_SKILLCHAIN, 0);
 
             }
-            // Previous effect exists
+                // Previous effect exists
             else if (PSCEffect && PSCEffect->GetTier() == 0)
             {
                 DSP_DEBUG_BREAK_IF(!PSCEffect->GetPower() && !PSCEffect->GetSubPower());
@@ -3335,7 +3346,7 @@ namespace battleutils
                 PDefender->StatusEffectContainer->DelStatusEffect(EFFECT_CHAINBOUND);
                 PSCEffect = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_SKILLCHAIN, 0);
             }
-            // Previous effect exists
+                // Previous effect exists
             else if (PSCEffect && PSCEffect->GetTier() == 0)
             {
                 DSP_DEBUG_BREAK_IF(!PSCEffect->GetPower() && !PSCEffect->GetSubPower());
@@ -3391,27 +3402,27 @@ namespace battleutils
     int16 GetSkillchainMinimumResistance(SKILLCHAIN_ELEMENT element, CBattleEntity* PDefender, ELEMENT* appliedEle)
     {
         static const uint16 resistances[][4] =
-        {
-            {MOD_NONE,       MOD_NONE, MOD_NONE, MOD_NONE}, // SC_NONE
-            {MOD_LIGHTDEF,   MOD_NONE, MOD_NONE, MOD_NONE}, // SC_TRANSFIXION
-            {MOD_DARKDEF,    MOD_NONE, MOD_NONE, MOD_NONE}, // SC_COMPRESSION
-            {MOD_FIREDEF,    MOD_NONE, MOD_NONE, MOD_NONE}, // SC_LIQUEFACTION
-            {MOD_EARTHDEF,   MOD_NONE, MOD_NONE, MOD_NONE}, // SC_SCISSION
-            {MOD_WATERDEF,   MOD_NONE, MOD_NONE, MOD_NONE}, // SC_REVERBERATION
-            {MOD_WINDDEF,    MOD_NONE, MOD_NONE, MOD_NONE}, // SC_DETONATION
-            {MOD_ICEDEF,     MOD_NONE, MOD_NONE, MOD_NONE}, // SC_INDURATION
-            {MOD_THUNDERDEF, MOD_NONE, MOD_NONE, MOD_NONE}, // SC_IMPACTION
+                {
+                        {MOD_NONE,       MOD_NONE, MOD_NONE, MOD_NONE}, // SC_NONE
+                        {MOD_LIGHTDEF,   MOD_NONE, MOD_NONE, MOD_NONE}, // SC_TRANSFIXION
+                        {MOD_DARKDEF,    MOD_NONE, MOD_NONE, MOD_NONE}, // SC_COMPRESSION
+                        {MOD_FIREDEF,    MOD_NONE, MOD_NONE, MOD_NONE}, // SC_LIQUEFACTION
+                        {MOD_EARTHDEF,   MOD_NONE, MOD_NONE, MOD_NONE}, // SC_SCISSION
+                        {MOD_WATERDEF,   MOD_NONE, MOD_NONE, MOD_NONE}, // SC_REVERBERATION
+                        {MOD_WINDDEF,    MOD_NONE, MOD_NONE, MOD_NONE}, // SC_DETONATION
+                        {MOD_ICEDEF,     MOD_NONE, MOD_NONE, MOD_NONE}, // SC_INDURATION
+                        {MOD_THUNDERDEF, MOD_NONE, MOD_NONE, MOD_NONE}, // SC_IMPACTION
 
-            { MOD_EARTHDEF, MOD_DARKDEF, MOD_NONE, MOD_NONE }, // SC_GRAVITATION
-            { MOD_ICEDEF, MOD_WATERDEF, MOD_NONE, MOD_NONE }, // SC_DISTORTION
-            {MOD_FIREDEF,  MOD_LIGHTDEF,   MOD_NONE, MOD_NONE}, // SC_FUSION
-            {MOD_WINDDEF,  MOD_THUNDERDEF, MOD_NONE, MOD_NONE}, // SC_FRAGMENTATION
+                        { MOD_EARTHDEF, MOD_DARKDEF, MOD_NONE, MOD_NONE }, // SC_GRAVITATION
+                        { MOD_ICEDEF, MOD_WATERDEF, MOD_NONE, MOD_NONE }, // SC_DISTORTION
+                        {MOD_FIREDEF,  MOD_LIGHTDEF,   MOD_NONE, MOD_NONE}, // SC_FUSION
+                        {MOD_WINDDEF,  MOD_THUNDERDEF, MOD_NONE, MOD_NONE}, // SC_FRAGMENTATION
 
-            {MOD_FIREDEF, MOD_WINDDEF,  MOD_THUNDERDEF, MOD_LIGHTDEF}, // SC_LIGHT
-            {MOD_ICEDEF,  MOD_EARTHDEF, MOD_WATERDEF,   MOD_DARKDEF},  // SC_DARKNESS
-            {MOD_FIREDEF, MOD_WINDDEF,  MOD_THUNDERDEF, MOD_LIGHTDEF}, // SC_LIGHT
-            {MOD_ICEDEF,  MOD_EARTHDEF, MOD_WATERDEF,   MOD_DARKDEF},  // SC_DARKNESS_II
-        };
+                        {MOD_FIREDEF, MOD_WINDDEF,  MOD_THUNDERDEF, MOD_LIGHTDEF}, // SC_LIGHT
+                        {MOD_ICEDEF,  MOD_EARTHDEF, MOD_WATERDEF,   MOD_DARKDEF},  // SC_DARKNESS
+                        {MOD_FIREDEF, MOD_WINDDEF,  MOD_THUNDERDEF, MOD_LIGHTDEF}, // SC_LIGHT
+                        {MOD_ICEDEF,  MOD_EARTHDEF, MOD_WATERDEF,   MOD_DARKDEF},  // SC_DARKNESS_II
+                };
 
         uint16 defMod = MOD_NONE;
 
@@ -3518,9 +3529,9 @@ namespace battleutils
         //            TODO:     × (1 + Staff Affinity)
 
         int32 damage = floor((double)(abs(lastSkillDamage))
-            * g_SkillChainDamageModifiers[chainLevel][chainCount] / 1000
-            * (100 + PAttacker->getMod(MOD_SKILLCHAINBONUS)) / 100
-            * (100 + PAttacker->getMod(MOD_SKILLCHAINDMG)) / 100);
+                             * g_SkillChainDamageModifiers[chainLevel][chainCount] / 1000
+                             * (100 + PAttacker->getMod(MOD_SKILLCHAINBONUS)) / 100
+                             * (100 + PAttacker->getMod(MOD_SKILLCHAINDMG)) / 100);
 
         damage = damage * (256 - resistance) / 256;
         damage = MagicDmgTaken(PDefender, damage, appliedEle);
@@ -3558,14 +3569,14 @@ namespace battleutils
                     PDefender->updatemask |= UPDATE_HP;
                 }
             }
-            break;
+                break;
 
             case TYPE_MOB:
             {
                 ((CMobEntity*)PDefender)->PEnmityContainer->UpdateEnmityFromDamage(PAttacker, (uint16)damage);
                 PDefender->SetLocalVar("xpBonus", PDefender->GetLocalVar("xpBonus") + 10);
             }
-            break;
+                break;
         }
 
         return damage;
@@ -4270,7 +4281,7 @@ namespace battleutils
             //Bind uncharmable mobs for 5 seconds
             if ( ((CMobEntity*)PVictim)->getMobMod(MOBMOD_CHARMABLE) == 0 ||  PVictim->PMaster != nullptr) {
                 PVictim->StatusEffectContainer->AddStatusEffect(
-                    new CStatusEffect(EFFECT_BIND, EFFECT_BIND, 1, 0, dsprand::GetRandomNumber(1, 5)));
+                        new CStatusEffect(EFFECT_BIND, EFFECT_BIND, 1, 0, dsprand::GetRandomNumber(1, 5)));
                 return;
             }
 
@@ -4491,7 +4502,7 @@ namespace battleutils
         damage *= resist;
 
         resist = 1.0f + ( floor( 256.0f * ( PDefender->getMod(MOD_DMGBREATH) / 100.0f ) ) / 256.0f )
-                      + ( floor( 256.0f * ( PDefender->getMod(MOD_DMG)       / 100.0f ) ) / 256.0f );
+                 + ( floor( 256.0f * ( PDefender->getMod(MOD_DMG)       / 100.0f ) ) / 256.0f );
         resist = dsp_cap(resist, 0.5f, 1.5f); //assuming if its floored at .5f its capped at 1.5f but who's stacking +dmgtaken equip anyway???
         damage *= resist;
 
@@ -4535,7 +4546,7 @@ namespace battleutils
             damage *= 1.0f - PDefender->getMod(defArray[element]) / 255.0f;
 
         resist = 1.0f + ( floor( 256.0f * ( PDefender->getMod(MOD_DMGMAGIC) / 100.0f ) ) / 256.0f )
-                      + ( floor( 256.0f * ( PDefender->getMod(MOD_DMG)      / 100.0f ) ) / 256.0f );
+                 + ( floor( 256.0f * ( PDefender->getMod(MOD_DMG)      / 100.0f ) ) / 256.0f );
         resist = dsp_cap(resist, 0.5f, 1.5f); //assuming if its floored at .5f its capped at 1.5f but who's stacking +dmgtaken equip anyway???
         resist = resist + ( floor( 256.0f * ( PDefender->getMod(MOD_DMGMAGIC_II) / 100.0f ) ) / 256.0f );
         resist = dsp_cap(resist, 0.125f, 1.5f); //Total cap with MDT-% II included is 87.5%
@@ -4543,15 +4554,22 @@ namespace battleutils
 
         if (dsprand::GetRandomNumber(100) < PDefender->getMod(MOD_ABSORB_DMG_CHANCE) ||
             (element && dsprand::GetRandomNumber(100) < PDefender->getMod(absorb[element - 1])) ||
-            dsprand::GetRandomNumber(100) < PDefender->getMod(MOD_MAGIC_ABSORB))
-            damage = -damage;
+            dsprand::GetRandomNumber(100) < PDefender->getMod(MOD_MAGIC_ABSORB)) {
+
+            if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_LIEMENT)) {
+                PDefender->addMP(damage * 0.35 * ((float)PDefender->getMod(absorb[element - 1]) / 100.0f));
+                damage = -(((float)damage) * ((float)PDefender->getMod(absorb[element - 1]) / 100.0f));
+
+            } else
+                damage = -damage;
+        }
         else if ((element && dsprand::GetRandomNumber(100) < PDefender->getMod(nullarray[element - 1])) ||
-            dsprand::GetRandomNumber(100) < PDefender->getMod(MOD_MAGIC_NULL))
+                 dsprand::GetRandomNumber(100) < PDefender->getMod(MOD_MAGIC_NULL))
             damage = 0;
         else
         {
             damage = HandleSevereDamage(PDefender, damage);
-            int16 absorbedMP = (float)(damage * PDefender->getMod(MOD_ABSORB_DMG_TO_MP) / 100);
+            int16 absorbedMP = (float)(damage * (PDefender->getMod(MOD_ABSORB_DMG_TO_MP) + PDefender->getMod(MOD_ABSORB_MAGDMG_TO_MP)) / 100);
             if (absorbedMP > 0)
                 PDefender->addMP(absorbedMP);
         }
@@ -4580,7 +4598,7 @@ namespace battleutils
         damage *= resist;
 
         resist = 1.0f + ( floor( 256.0f * ( PDefender->getMod(MOD_DMGPHYS) / 100.0f ) ) / 256.0f )
-                      + ( floor( 256.0f * ( PDefender->getMod(MOD_DMG)     / 100.0f ) ) / 256.0f );
+                 + ( floor( 256.0f * ( PDefender->getMod(MOD_DMG)     / 100.0f ) ) / 256.0f );
         resist = dsp_cap(resist, 0.5f, 1.5f); //assuming if its floored at .5f its capped at 1.5f but who's stacking +dmgtaken equip anyway???
         damage *= resist;
 
@@ -4621,7 +4639,7 @@ namespace battleutils
         damage *= resist;
 
         resist = 1.0f + ( floor( 256.0f * ( PDefender->getMod(MOD_DMGRANGE) / 100.0f ) ) / 256.0f )
-                      + ( floor( 256.0f * ( PDefender->getMod(MOD_DMG)      / 100.0f ) ) / 256.0f );
+                 + ( floor( 256.0f * ( PDefender->getMod(MOD_DMG)      / 100.0f ) ) / 256.0f );
         resist = dsp_cap(resist, 0.5f, 1.5f); //assuming if its floored at .5f its capped at 1.5f but who's stacking +dmgtaken equip anyway???
         damage *= resist;
 
@@ -4658,7 +4676,7 @@ namespace battleutils
 
     void HandleIssekiganEnmityBonus(CBattleEntity* PDefender, CBattleEntity* PAttacker) {
         if (PAttacker->objtype == TYPE_MOB &&
-             PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_ISSEKIGAN)) {
+            PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_ISSEKIGAN)) {
             // Issekigan is Known to Grant 300 CE per parry, but unknown how it effects VE (per bgwiki). So VE is left alone for now.
             static_cast<CMobEntity*>(PAttacker)->PEnmityContainer->UpdateEnmity(PDefender, 300, 0, false);
         }
@@ -4885,34 +4903,34 @@ namespace battleutils
     uint8 GetSpellAoEType(CBattleEntity* PCaster, CSpell* PSpell)
     {
         if (PSpell->getSpellGroup() == SPELLGROUP_BLUE && (PSpell->getAOE() == SPELLAOE_CONAL || PSpell->getAOE() == SPELLAOE_RADIAL)
-                    && PSpell->getElement() != 0 && PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_CONVERGENCE))
+            && PSpell->getElement() != 0 && PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_CONVERGENCE))
             return SPELLAOE_NONE;
 
         if (PSpell->getAOE() == SPELLAOE_RADIAL_ACCE) // Divine Veil goes here because -na spells have AoE w/ Accession
-            if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_ACCESSION) || (PCaster->objtype == TYPE_PC &&
-                charutils::hasTrait((CCharEntity*)PCaster, TRAIT_DIVINE_VEIL) && PSpell->isNa() &&
-                (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_DIVINE_SEAL) || PCaster->getMod(MOD_AOE_NA) == 1)))
-                return SPELLAOE_RADIAL;
-            else
-                return SPELLAOE_NONE;
+        if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_ACCESSION) || (PCaster->objtype == TYPE_PC &&
+                                                                                  charutils::hasTrait((CCharEntity*)PCaster, TRAIT_DIVINE_VEIL) && PSpell->isNa() &&
+                                                                                  (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_DIVINE_SEAL) || PCaster->getMod(MOD_AOE_NA) == 1)))
+            return SPELLAOE_RADIAL;
+        else
+            return SPELLAOE_NONE;
         if (PSpell->getAOE() == SPELLAOE_RADIAL_MANI)
-            if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_MANIFESTATION))
-                return SPELLAOE_RADIAL;
-            else
-                return SPELLAOE_NONE;
+        if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_MANIFESTATION))
+            return SPELLAOE_RADIAL;
+        else
+            return SPELLAOE_NONE;
         if (PSpell->getAOE() == SPELLAOE_PIANISSIMO)
-            if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_PIANISSIMO))
-            {
-                PCaster->StatusEffectContainer->DelStatusEffect(EFFECT_PIANISSIMO);
-                return SPELLAOE_NONE;
-            }
-            else
-                return SPELLAOE_RADIAL;
+        if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_PIANISSIMO))
+        {
+            PCaster->StatusEffectContainer->DelStatusEffect(EFFECT_PIANISSIMO);
+            return SPELLAOE_NONE;
+        }
+        else
+            return SPELLAOE_RADIAL;
         if (PSpell->getAOE() == SPELLAOE_DIFFUSION)
-            if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_DIFFUSION))
-                return SPELLAOE_RADIAL;
-            else
-                return SPELLAOE_NONE;
+        if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_DIFFUSION))
+            return SPELLAOE_RADIAL;
+        else
+            return SPELLAOE_NONE;
 
         return PSpell->getAOE();
     }
@@ -5101,7 +5119,7 @@ namespace battleutils
         {
             PEntity->ForAlliance(drawInFunc);
         }
-        // no party present or draw-in is set to target only
+            // no party present or draw-in is set to target only
         else
         {
             drawInFunc(PEntity);
@@ -5324,7 +5342,7 @@ namespace battleutils
         }
 
         if (PTarget->m_OwnerID.id == 0 || PTarget->m_OwnerID.id == PMaster->id || PTarget->objtype == TYPE_PC ||
-                PTarget->objtype == TYPE_PET)
+            PTarget->objtype == TYPE_PET)
         {
             return true;
         }
@@ -5332,11 +5350,11 @@ namespace battleutils
         bool found = false;
 
         PMaster->ForAlliance([&PTarget, &found](CBattleEntity* PChar){
-                if (PChar->id == PTarget->m_OwnerID.id)
-                {
-                    found = true;
-                }
-                });
+            if (PChar->id == PTarget->m_OwnerID.id)
+            {
+                found = true;
+            }
+        });
 
         return found;
     }
@@ -5501,7 +5519,7 @@ namespace battleutils
             }
             if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_PARSIMONY))
             {
-                cost /= 2;
+                cost = (cost * 2) / 5;
                 applyArts = false;
             }
             else if (applyArts)
@@ -5518,7 +5536,7 @@ namespace battleutils
             }
             if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_PENURY))
             {
-                cost /= 2;
+                cost = (cost * 2) / 5;
                 applyArts = false;
             }
             else if (applyArts)
@@ -5549,7 +5567,7 @@ namespace battleutils
         int16 haste = PEntity->getMod(MOD_HASTE_MAGIC) + PEntity->getMod(MOD_HASTE_GEAR);
 
         recast *= ((float)(1024 - haste) / 1024);
-		
+
         if (PSpell->getSpellGroup() == SPELLGROUP_SONG)
         {
             if (PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_NIGHTINGALE))
@@ -5694,7 +5712,7 @@ namespace battleutils
             CItemWeapon* mainHand = PChar->m_Weapons[SLOT_MAIN];
             uint8 offHand = PChar->equip[SLOT_SUB];
             if (offHand == 0 && damslot != SLOT_RANGED &&
-                    mainHand != nullptr && !(mainHand->isTwoHanded())) {
+                mainHand != nullptr && !(mainHand->isTwoHanded())) {
                 tp += PChar->getMod(MOD_FENCER);
             }
 
@@ -5802,5 +5820,183 @@ namespace battleutils
             return PItem->getModifier(mod);
         }
     }
-};
 
+
+
+
+bool HandleBattuta(CBattleEntity* PAttacker, CBattleEntity* PDefender, actionTarget_t* Action, int32 damage)
+{
+    int ignis = PDefender->StatusEffectContainer->GetEffectsCount(EFFECT_IGNIS);
+    int gelus = PDefender->StatusEffectContainer->GetEffectsCount(EFFECT_GELUS);
+    int flabra = PDefender->StatusEffectContainer->GetEffectsCount(EFFECT_FLABRA);
+    int tellus = PDefender->StatusEffectContainer->GetEffectsCount(EFFECT_TELLUS);
+    int sulpor = PDefender->StatusEffectContainer->GetEffectsCount(EFFECT_SULPOR);
+    int unda = PDefender->StatusEffectContainer->GetEffectsCount(EFFECT_UNDA);
+    int lux = PDefender->StatusEffectContainer->GetEffectsCount(EFFECT_LUX);
+    int tenebrae = PDefender->StatusEffectContainer->GetEffectsCount(EFFECT_TENEBRAE);
+    std::vector<int> counts = {ignis, gelus, flabra, tellus, sulpor, unda, lux, tenebrae};
+    int pos = 0;
+    int highest = 0;
+    for (int i = 0; i < counts.size(); i++) {
+        if (counts.at(i) > highest) {
+            highest = counts.at(i);
+            pos = i;
+        }
+    }
+
+    if (highest == 1) {
+        EFFECT recent = PDefender->StatusEffectContainer->GetNewestRune();
+        if (recent == EFFECT_IGNIS) pos = 0;
+        else if (recent == EFFECT_GELUS) pos = 1;
+        else if (recent == EFFECT_FLABRA) pos = 2;
+        else if (recent == EFFECT_TELLUS) pos = 3;
+        else if (recent == EFFECT_SULPOR) pos = 4;
+        else if (recent == EFFECT_UNDA) pos = 5;
+        else if (recent == EFFECT_LUX) pos = 6;
+        else if (recent == EFFECT_TENEBRAE) pos = 7;
+    };
+
+    int element = 0;
+    if (pos == 0) {
+        Action->spikesEffect = (SUBEFFECT) 1;
+        element = 1;
+    }
+    else if (pos == 1) {
+        Action->spikesEffect = (SUBEFFECT) 2;
+        element = 6;
+    }
+    else if (pos == 2) {
+        Action->spikesEffect = (SUBEFFECT) 7;
+        element = 5;
+    }
+    else if (pos == 3) {
+        Action->spikesEffect = (SUBEFFECT) 8;
+        element = 3;
+    }
+    else if (pos == 4) {
+        Action->spikesEffect = (SUBEFFECT) 5;
+        element = 7;
+    }
+    else if (pos == 5) {
+        Action->spikesEffect = (SUBEFFECT) 9;
+        element = 4;
+    }
+    else if (pos == 6) {
+        Action->spikesEffect = (SUBEFFECT) 6;
+        element = 8;
+    }
+    else if (pos == 7) {
+        Action->spikesEffect = (SUBEFFECT) 10;
+        element = 9;
+    }
+    int dmg = (int)(((float)(PDefender->GetMLevel() / 2.0f)) * (0.5f + ((float)highest) / 2.0f));
+    dmg = handleElementalDamage(PAttacker, PDefender, dmg, element - 1, true);
+
+    Action->spikesMessage = 44;
+    Action->spikesParam = dmg;
+    PAttacker->addHP(-Action->spikesParam);
+
+
+    if (((CMobEntity*)PDefender)->m_HiPCLvl < PAttacker->GetMLevel())
+    {
+        ((CMobEntity*)PDefender)->m_HiPCLvl = PAttacker->GetMLevel();
+    }
+    return true;
+}
+
+
+int handleElementalDamage (CBattleEntity* PAttacker, CBattleEntity* PDefender, int damage, int element, bool isSpikes) {
+    float dBonus = 1.0;
+    float resist = 1.0;
+    uint32 WeekDay = CVanaTime::getInstance()->getWeekday();
+    WEATHER weather = GetWeather(PAttacker, false);
+
+    DAYTYPE strongDay[8] = { FIRESDAY, EARTHSDAY, WATERSDAY, WINDSDAY, ICEDAY, LIGHTNINGDAY, LIGHTSDAY, DARKSDAY };
+    DAYTYPE weakDay[8] = { WATERSDAY, WINDSDAY, LIGHTNINGDAY, ICEDAY, FIRESDAY, EARTHSDAY, DARKSDAY, LIGHTSDAY };
+    WEATHER strongWeatherSingle[8] = { WEATHER_HOT_SPELL, WEATHER_DUST_STORM, WEATHER_RAIN, WEATHER_WIND, WEATHER_SNOW, WEATHER_THUNDER, WEATHER_AURORAS, WEATHER_GLOOM };
+    WEATHER strongWeatherDouble[8] = { WEATHER_HEAT_WAVE, WEATHER_SAND_STORM, WEATHER_SQUALL, WEATHER_GALES, WEATHER_BLIZZARDS, WEATHER_THUNDERSTORMS, WEATHER_STELLAR_GLARE, WEATHER_DARKNESS };
+    WEATHER weakWeatherSingle[8] = { WEATHER_RAIN, WEATHER_WIND, WEATHER_THUNDER, WEATHER_SNOW, WEATHER_HOT_SPELL, WEATHER_DUST_STORM, WEATHER_GLOOM, WEATHER_AURORAS };
+    WEATHER weakWeatherDouble[8] = { WEATHER_SQUALL, WEATHER_GALES, WEATHER_THUNDERSTORMS, WEATHER_BLIZZARDS, WEATHER_HEAT_WAVE, WEATHER_SAND_STORM, WEATHER_DARKNESS, WEATHER_STELLAR_GLARE };
+    uint32 obi[8] = { 15435, 15438, 15440, 15437, 15436, 15439, 15441, 15442 };
+    MODIFIER resistarray[8] = { MOD_FIRERES, MOD_EARTHRES, MOD_WATERRES, MOD_WINDRES, MOD_ICERES, MOD_THUNDERRES, MOD_LIGHTRES, MOD_DARKRES };
+    uint32 eleAttack[8] = { MOD_FIREATT, MOD_EARTHATT, MOD_WATERATT, MOD_WINDATT, ICEDAY, MOD_THUNDERATT, MOD_LIGHTATT, MOD_DARKATT };
+    MODIFIER accarray[8] = { MOD_FIREACC, MOD_EARTHACC, MOD_WATERACC, MOD_WINDACC, MOD_ICEACC, MOD_THUNDERACC, MOD_LIGHTACC, MOD_DARKACC };
+    bool obiBonus = false;
+    double defenderSkill = PDefender->getMod(resistarray[element]) + PDefender->getMod(MOD_MEVA);
+    double attackerSkill = GetMaxSkill(3, PAttacker->GetMLevel()) + PAttacker->getMod(MOD_MACC) + PAttacker->getMod(accarray[element]);
+    double dInt = ((double)PAttacker->INT() - (double)PDefender->INT()) / 2;
+    double levelDiff = dsp_cap(PAttacker->GetMLevel() - PDefender->GetMLevel(), -10, 10) * 2;
+    double p = dsp_cap(0.75f + (attackerSkill + dInt - defenderSkill) / 200.0f + levelDiff / 100.0f, 0.05f, 0.95f);
+    if (isSpikes)
+        p = dsp_cap(0.80f + (defenderSkill - dInt - attackerSkill) / 200.0f - levelDiff / 100.0f, 0.05f, 0.95f);
+    double half = 1 - p;
+    double quart = pow(half, 2);
+    double eighth = pow(half, 3);
+    double sixteenth = pow(half, 4);
+    double resvar = dsprand::GetRandomNumber(1.);
+
+    // Determine resist based on which thresholds have been crossed.
+    if (resvar <= sixteenth)
+        resist = 0.0625;
+    else if (resvar <= eighth)
+        resist = 0.125;
+    else if (resvar <= quart)
+        resist = 0.25;
+    else if (resvar <= half)
+        resist = 0.5;
+
+    if (PAttacker->objtype == TYPE_PC)
+    {
+        CItemArmor* waist = ((CCharEntity*)PAttacker)->getEquip(SLOT_WAIST);
+        if (waist && waist->getID() == obi[element])
+        {
+            obiBonus = true;
+        }
+    }
+    else
+    {
+    // mobs random multiplier
+        dBonus += dsprand::GetRandomNumber(100) / 1000.0f;
+    }
+    if (WeekDay == strongDay[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
+        dBonus += 0.1;
+    else if (WeekDay == weakDay[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
+        dBonus -= 0.1;
+    if (weather == strongWeatherSingle[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
+        dBonus += 0.1;
+    else if (weather == strongWeatherDouble[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
+        dBonus += 0.25;
+    else if (weather == weakWeatherSingle[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
+        dBonus -= 0.1;
+    else if (weather == weakWeatherDouble[element] && (obiBonus || dsprand::GetRandomNumber(100) < 99))
+        dBonus -= 0.25;
+
+    // randomize it a little
+    dBonus += dsprand::GetRandomNumber(150) / 1000.0f;
+    damage = (damage * (float)resist);
+    damage = (damage * (float)dBonus);
+
+
+    // calculate matt / mdef
+    float matb = 1.0 + (float)PAttacker->getMod(MOD_MATT) / 100.0;
+    float mdef = 1.0 + (float)PDefender->getMod(MOD_MDEF) / 100.0;
+    damage *= matb * mdef;
+
+    // calculate elemental attack / defense
+    float eleAttackRatio = 1.0 + (float)PAttacker->getMod(eleAttack[element]) / 100.0;
+    damage *= eleAttackRatio;
+
+    // take damage
+    damage = MagicDmgTaken(PDefender, damage, (ELEMENT)(element + 1));
+
+    if (damage > 0)
+    {
+        damage = dsp_max(damage - PDefender->getMod(MOD_PHALANX), 0);
+        damage = HandleStoneskin(PDefender, damage);
+    }
+    damage = dsp_cap(damage, -99999, 99999);
+
+    return damage;
+}
+
+};

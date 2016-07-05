@@ -33,8 +33,10 @@
 
 [Sickle Moon]
  - +33% damage against plantoids.
- - Can crit (10% at 1000, 25% at 2000, 50% at 3000)
- - On a crit, lowers target's critical evasion by 10% for 40 to 240 seconds (depending upon TP).
+ - Modifiers: STR 60%, AGI 60%
+ - Has inherent +25 accuracy with both hits
+ - Can crit (20% at 1000, 60% at 2000, 100% at 3000)
+ - On a crit, lowers target's critical evasion by 12% for 40 to 240 seconds (depending upon TP).
 
 [Spinning Slash]
  - Modifiers: STR 60%
@@ -46,8 +48,21 @@
  - Petrification can be resisted (Earth-based).
 
 [Herculean Slash]
- - Gained at skill level 250
+ - Gained at skill level 245
+ - Modifiers: VIT 80%, INT 80%
  - fTP changed to 2 (1000), 3.5 (2000), 6 (3000)
  - Instead inflicts Slow (-250 delay). Duration varies with TP (60 at 1000 to 180 at 3000).
  - Resistance against Slow is based off of Ice instead of Earth.
- - Stacks with normal Slow.
+
+[Resolution]
+ - Gained at skill level 260
+ - fTP changed to 2 (1000), 3.5 (2000), 6 (3000)
+ - Instead inflicts Slow (-250 delay). Duration varies with TP (60 at 1000 to 180 at 3000).
+ - Resistance against Slow is based off of Ice instead of Earth.
+
+[Dimidiation]
+ - Rune Fencer exclusive weaponskill, gained at level 260 after being unlocked
+ - fTP is 2.0 (1000), 3.0 (2000), 4.0 (3000)
+ - Two-hit attack
+ - When two or more runes of same type are active, Dimidiation gains the element of the dominant rune type.
+ - Inflicts Flash for 8 seconds (can be resisted).

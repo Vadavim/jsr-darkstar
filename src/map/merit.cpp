@@ -39,16 +39,16 @@
 
 static uint8 upgrade[10][16] =
 {
-    {1,1,1,2,2,2,3,3,3,4,4,4,5,5,5},             // HP-MP
-    {1,1,2,2,3,3,4,4,5,5,6,6,7,7,8},   // Attributes
-    {1,2,3,3,3,3,3,3},                           // Combat Skills
-    {1,2,3,3,3,3,3,3},                           // Defensive Skills
-    {1,2,3,3,3,3,3,3},                           // Magic Skills
-    {1,2,3,4,5},                                 // Others
-    {1,2,3,4,5},                                 // Job Group 1
-    {3,4,5,5,5},                                 // Job Group 2
+    {1,1,1,2,2,2,2,2,2,2,2,2,2,2,2},             // HP-MP
+    {1,1,1,2,2,2,2,2,2,2,2,2,2,2,2},   // Attributes
+    {1,1,2,2,3,3,3,3},                           // Combat Skills
+    {1,1,2,2,3,3,3,3},                           // Defensive Skills
+    {1,1,2,2,3,3,3,3},                           // Magic Skills
+    {1,2,3,3,3},                                 // Others
+    {1,2,3,3,3},                                 // Job Group 1
+    {2,3,4,4,4},                                 // Job Group 2
     {4,6,8,12,16},                            // Weapon Skills
-    {1,3,5,7,9,12,15,18,21,24,27,30,33,36,39}    // Max merits
+    {5,5,5,5,9,12,15,18,21,24,27,30,33,36,39}    // Max merits
 };
 #define MAX_LIMIT_POINTS  10000         // количество опыта для получения одного merit
 
@@ -96,7 +96,7 @@ static const MeritCategoryInfo_t meritCatInfo[] =
     {7,60,1},  //MCATEGORY_ATTRIBUTES
     {19,112,2}, //MCATEGORY_COMBAT
     {14,80,4}, //MCATEGORY_MAGIC
-    {5,10,5},  //MCATEGORY_OTHERS
+    {6,15,5},  //MCATEGORY_OTHERS
 
     {5,10,6},  //MCATEGORY_WAR_1
     {5,10,6},  //MCATEGORY_MNK_1

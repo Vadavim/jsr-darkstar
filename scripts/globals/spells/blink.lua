@@ -23,6 +23,15 @@ function onSpellCast(caster,target,spell)
     local shadows = 2;
     shadows, duration = applyEmbolden(caster, shadows, duration);
 
+    if (caster:hasStatusEffect(EFFECT_PERPETUANCE)) then
+        duration = duration * 2;
+    end
+
+    if (caster:hasStatusEffect(EFFECT_RAPTURE)) then
+        shadows = shadows + 1;
+    end
+
+
     if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_FLABRA) >= 1) then
         shadows = shadows + 1;
         subPower = subPower + 10;

@@ -19,8 +19,8 @@ end;
 -- onUseAbility
 -----------------------------------
 
-function onUseAbility(player,target,ability)
-
+function onUseAbility(player,target,ability, action)
+    getRuneSpecEffect(player, target, ability, action);
     local power = createRuneMask(player);
     target:addStatusEffect(EFFECT_PFLUG,power,0,120);
 end;

@@ -16,6 +16,7 @@
 -----------------------------------
 require("scripts/globals/status");
 require("scripts/globals/settings");
+require("scripts/globals/magic");
 require("scripts/globals/weaponskills");
 -----------------------------------
 
@@ -31,15 +32,18 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.atkmulti = 1;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.str_wsc = 0.6; params.vit_wsc = 0.6;
+        params.str_wsc = 0.3; params.vit_wsc = 0.3;
     end
 
+    player:addTP(tp * 0.45);
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
 
-    if (damage > 0) then
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_ICE, SKILL_GAX);
+    if (damage > 0 and resist >= 0.25) then
         local duration = (tp/1000 * 60) + 120;
         if (target:hasStatusEffect(EFFECT_EVASION_DOWN) == false) then
-            target:addStatusEffect(EFFECT_EVASION_DOWN, 40, 0, duration);
+            target:addStatusEffect(EFFECT_EVASION_DOWN, 40, 0, duration * resist);
+            target:setPendingMessage(278, EFFECT_EVASION_DOWN);
         end
     end
     return tpHits, extraHits, criticalHit, damage;

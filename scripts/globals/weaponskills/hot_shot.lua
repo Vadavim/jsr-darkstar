@@ -30,13 +30,13 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         params.ftp200 = 3.5; params.ftp300 = 7.5;
         params.agi_wsc = 0.7;
     end
+    local system = target:getSystem();
+    if (system == SYSTEM_PLANTOID) then
+        params.ftp100 = params.ftp100 * 1.33; params.ftp200 = params.ftp200 * 1.33; params.ftp300 = params.ftp300 * 1.33;
+    end
 
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, wsID, params, tp, primary);
 
-    local system = target:getSystem();
-    if (system == SYSTEM_PLANTOID) then
-        damage = math.floor(damage * 1.33);
-    end
     return tpHits, extraHits, criticalHit, damage;
 
 end

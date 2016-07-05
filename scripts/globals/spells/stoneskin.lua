@@ -36,7 +36,18 @@ function onSpellCast(caster,target,spell)
         duration = duration * 3;
     end
 
+    if (caster:hasStatusEffect(EFFECT_PERPETUANCE)) then
+        duration = duration * 2;
+    end
+
+
     local final = pAbs + pEquipMods;
+
+
+    if (caster:hasStatusEffect(EFFECT_RAPTURE)) then
+        final = final * 1.5;
+    end
+
     local subPower = 0
     if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_TELLUS) >= 1) then
         final = final * 1.25;

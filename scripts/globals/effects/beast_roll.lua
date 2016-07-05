@@ -28,5 +28,5 @@ end;
 
 function onEffectLose(target,effect)
     target:delPetMod(MOD_ATTP, effect:getPower());
-    target:addPetMod(MOD_DEFP, effect:getPower());
+    target:delPetMod(MOD_DEFP, effect:getPower());
 end;

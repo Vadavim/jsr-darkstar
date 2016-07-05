@@ -36,6 +36,9 @@ function onSpellCast(caster,target,spell)
     if (dmg < 0) then
         dmg = 0
     end
+    if (caster:hasStatusEffect(EFFECT_EBULLIENCE)) then
+        dmg = dmg * 1.5;
+    end
 
     dmg = dmg * DARK_POWER;
     

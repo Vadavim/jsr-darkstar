@@ -33,7 +33,7 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    player:addStatusEffect(EFFECT_TRANQUILITY,player:getMerit(MERIT_TRANQUILITY),0,60);
+    player:addStatusEffect(EFFECT_TRANQUILITY,35 + player:getMerit(MERIT_TRANQUILITY),0,60);
 
     return EFFECT_TRANQUILITY;
 end;

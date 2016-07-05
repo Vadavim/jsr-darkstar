@@ -1460,6 +1460,15 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
             actionTarget.reaction = REACTION_EVADE;
             actionTarget.speceffect = SPECEFFECT_NONE;
         }
+        else if (attack.IsParried())
+        {
+            actionTarget.messageID = 70;
+            actionTarget.reaction = REACTION_PARRY;
+            actionTarget.speceffect = SPECEFFECT_NONE;
+
+            battleutils::HandleTacticalParry(PTarget);
+            battleutils::HandleIssekiganEnmityBonus(PTarget, this);
+        }
         else if ((dsprand::GetRandomNumber(100) < attack.GetHitRate() || attackRound.GetSATAOccured()) &&
                  !PTarget->StatusEffectContainer->HasStatusEffect(EFFECT_ALL_MISS))
         {
@@ -1470,15 +1479,6 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                 actionTarget.reaction = REACTION_EVADE;
                 attack.SetEvaded(true);
                 PTarget->loc.zone->PushPacket(PTarget, CHAR_INRANGE_SELF, new CMessageBasicPacket(PTarget, PTarget, 0, 1, 31));
-            }
-            else if (attack.IsParried())
-            {
-                actionTarget.messageID = 70;
-                actionTarget.reaction = REACTION_PARRY;
-                actionTarget.speceffect = SPECEFFECT_NONE;
-
-                battleutils::HandleTacticalParry(PTarget);
-                battleutils::HandleIssekiganEnmityBonus(PTarget, this);
             }
             else if (attack.CheckAnticipated() || attack.CheckCounter())
             {
@@ -1621,6 +1621,9 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
         {
             battleutils::HandleEnspell(this, PTarget, &actionTarget, attack.IsFirstSwing(), (CItemWeapon*)this->m_Weapons[attack.GetWeaponSlot()], attack.GetDamage());
             battleutils::HandleSpikesDamage(this, PTarget, &actionTarget, attack.GetDamage());
+        }
+        else if (actionTarget.reaction == REACTION_PARRY && PTarget->StatusEffectContainer->HasStatusEffect(EFFECT_BATTUTA)) {
+            battleutils::HandleBattuta(this, PTarget, &actionTarget, attack.GetDamage());
         }
 
         if (actionTarget.speceffect == SPECEFFECT_HIT && actionTarget.param > 0)

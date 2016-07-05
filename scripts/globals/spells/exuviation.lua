@@ -18,28 +18,31 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-    local minCure = 60;
+    local mnd = caster:getStat(MOD_MND);
+    local vit = target:getStat(MOD_VIT);
+    local blue = caster:getSkillLevel(SKILL_BLU);
+    local healing = caster:getSkillLevel(SKILL_HEA);
 
-    local divisor = 1;
-    local constant = 40;
-    local power = getCurePowerOld(caster);
-    if (power > 99) then
-        divisor = 57;
-        constant = 79.125;
-    elseif (power > 59) then
-        divisor =  2;
-        constant = 55;
+    local power = 250 + blue * 0.50 + vit * 2.0 + mnd * 0.5;
+    if (power > 250) then power = 250 + (power - 250) / 3 end;
+    power = power * (1 + master:getMod(MOD_CURE_POTENCY) / 100) * (1 + target:getMod(MOD_CURE_POTENCY_RCVD) / 100);
+    if (caster:getSubJob() == JOBS.SCH) then healing = healing / 2 end;
+    power = power + healing * 0.5;
+    local erased = caster:eraseStatusEffect();
+    if (erased > 0) then
+        power = power * 1.33;
     end
+    power = getCureFinal(caster, spell, power, 250, true);
 
-    local final = getCureFinal(caster,spell,getBaseCureOld(power,divisor,constant),minCure,true);
 
-    final = final + (final * (target:getMod(MOD_CURE_POTENCY_RCVD)/100));
     local diff = (target:getMaxHP() - target:getHP());
-    if (final > diff) then
-        final = diff;
+    if (power > diff) then
+        power = diff;
     end
-    caster:eraseStatusEffect();
-    target:addHP(final);
-    caster:updateEnmityFromCure(target,final);
-    return final;
+    target:addHP(power);
+
+    if (target:getAllegiance() == caster:getAllegiance() and (target:getObjType() == TYPE_PC or target:getObjType() == TYPE_MOB)) then
+        caster:updateEnmityFromCure(target,power);
+    end
+    return power;
 end;

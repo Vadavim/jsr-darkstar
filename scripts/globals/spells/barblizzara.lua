@@ -23,6 +23,13 @@ function onSpellCast(caster,target,spell)
     if (enhanceSkill > 180) then
         duration = 150 + 0.8 * (enhanceSkill - 180);
     end
+    if (caster:hasStatusEffect(EFFECT_PERPETUANCE)) then
+        duration = duration * 2;
+    end
+
+    if (caster:hasStatusEffect(EFFECT_RAPTURE)) then
+        power = power * 1.5;
+    end
 
     if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
         duration = duration * 3;

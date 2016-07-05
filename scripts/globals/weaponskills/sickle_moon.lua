@@ -20,26 +20,28 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     -- wscs are in % so 0.2=20%
     params.str_wsc = 0.2; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.2; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
     -- critical mods, again in % (ONLY USE FOR CRITICAL HIT VARIES WITH TP)
-    params.crit100 = 0.1; params.crit200=0.25; params.crit300=0.5;
+    params.crit100 = 0.2; params.crit200=0.6; params.crit300=1.0;
     params.canCrit = true;
     -- accuracy mods (ONLY USE FOR ACCURACY VARIES WITH TP) , should be the acc at those %s NOT the penalty values. Leave 0 if acc doesnt vary with tp.
     params.acc100 = 0; params.acc200=0; params.acc300=0;
     -- attack multiplier (only some WSes use this, this varies the actual ratio value, see Tachi: Kasha) 1 is default.
     params.atkmulti = 1;
+    params.bonusACC = 25;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.str_wsc = 0.4; params.agi_wsc = 0.4;
+        params.str_wsc = 0.6; params.agi_wsc = 0.6;
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
-
+    local system = target:getSystem();
     if (system == SYSTEM_PLANTOID) then
-        damage = math.floor(damage * 1.33);
+        params.ftp100 = params.ftp100 * 1.33; params.ftp200 = params.ftp200 * 1.33; params.ftp300 = params.ftp300 * 1.33;
     end
+
 
     if (criticalHit) then
         local duration = 40 * (tp / 1000) * (1 + (tp - 1000) / 2000);
-        target:addStatusEffect(EFFECT_CRIT_HIT_EVASION_DOWN,10,0,duration);
+        target:addStatusEffect(EFFECT_CRIT_HIT_EVASION_DOWN,12,0,duration);
         target:setPendingMessage(277, EFFECT_CRIT_HIT_EVASION_DOWN);
     end
 

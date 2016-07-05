@@ -13,6 +13,7 @@ require("scripts/globals/jsr_utils");
 
 function onEffectGain(target,effect)
     applyValianceMask(effect);
+    effect:addMod(MOD_ABSORB_MAGDMG_TO_MP, 20);
 end;
 
 -----------------------------------

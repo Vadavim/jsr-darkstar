@@ -5,6 +5,7 @@
 --  @pos 400.000 -21.5 560.000 106
 -----------------------------------
 package.loaded["scripts/zones/North_Gustaberg/TextIDs"] = nil;
+package.loaded["scripts/globals/jsr_utils"] = nil;
 -----------------------------------
 
 -----------------------------------
@@ -12,6 +13,7 @@ package.loaded["scripts/zones/North_Gustaberg/TextIDs"] = nil;
 -----------------------------------
 
 function onTrade(player,npc,trade)
+    tradeElite(player, npc, trade, 1.5, {17211863});
 end;
 
 -----------------------------------
@@ -19,7 +21,12 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    player:startEvent(0x07d1);
+    if (player:hasStatusEffect(EFFECT_CONFRONTATION) or player:hasStatusEffect(EFFECT_LEVEL_RESTRICTION)) then
+        player:delStatusEffect(EFFECT_CONFRONTATION);
+        player:delStatusEffect(EFFECT_LEVEL_RESTRICTION);
+    end;
+
+    rewardElite(player, npc, itemReward10);
 end;
 
 -----------------------------------

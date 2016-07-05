@@ -342,6 +342,37 @@ EFEEBLING SPELLS
  - Stat Bonus: VIT +2, HP +20
  - Duration: 120 seconds
 
+-------
+HEALING SPELLS
+
+[Pollen]
+ - Formula: 12 + (BLUE * 0.3) + (VIT * 0.25) + (MND * 0.5).
+	- Soft caps at 45. Afterwards, healing potency increases at 1/3rd the normal rate.
+	- Healing Skill increases potency (and does not count against cap).
+
+[Wild Carrot]
+ - Formula: 100 + (BLUE * 0.45) + (VIT * 0.5) + (MND * 0.75).
+	- Soft caps at 220. Afterwards, healing potency increases at 1/3rd the normal rate.
+	- Healing Skill increases potency (and does not count against cap).
+
+[Healing Breeze]
+ - Formula: 40 + (BLUE * 0.35) + (VIT * 0.25) + (MND * 0.5).
+	- Soft caps at 120. Afterwards, healing potency increases at 1/3rd the normal rate.
+	- Healing Skill increases potency (and does not count against cap).
+
+[Magic Fruit]
+ - Formula: 210 + (BLUE * 0.65) + (VIT * 0.75) + (MND * 1.0).
+	- Soft caps at 460. Afterwards, healing potency increases at 1/3rd the normal rate.
+	- Healing Skill increases potency (and does not count against cap).
+
+[Exuviation]
+ - Formula: 50 + (BLUE * 0.50) + (VIT * 2) + (MND * 0.5).
+	- Soft caps at 250. Afterwards, healing potency increases at 1/3rd the normal rate.
+	- Healing Skill increases potency (and does not count against cap).
+	- Successfully erasing a status effect increases amount healed by 33%.
+
+
+
 
 
 -------

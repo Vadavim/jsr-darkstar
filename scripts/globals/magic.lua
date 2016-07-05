@@ -217,6 +217,11 @@ function doEnspell(caster,target,spell,effect)
         potency = 5 + math.floor((5*magicskill)/100);
     end
 
+    if (caster:hasStatusEffect(EFFECT_EBULLIENCE)) then
+        potency = potency * 1.5;
+    end
+
+
     if (target:addStatusEffect(effect,potency,0,duration)) then
         spell:setMsg(230);
     else
@@ -270,7 +275,6 @@ function getCureFinal(caster,spell,basecure,minCure,isBlueMagic)
     if (isBlueMagic == false) then --rapture doesn't affect BLU cures as they're not white magic
         if (caster:hasStatusEffect(EFFECT_RAPTURE)) then
             rapture = 1.5 + caster:getMod(MOD_RAPTURE_AMOUNT)/100;
-            caster:delStatusEffectSilent(EFFECT_RAPTURE);
         end
     end
 
@@ -495,9 +499,9 @@ end
 function calculateMagicHitRate(magicacc, magiceva, percentBonus, casterLvl, targetLvl)
     local p = 0;
     --add a scaling bonus or penalty based on difference of targets level from caster
-    local levelDiff = utils.clamp(casterLvl - targetLvl, -5, 5);
+    local levelDiff = utils.clamp(casterLvl - targetLvl, -10, 10);
 
-    p = 70 - 0.5 * (magiceva - magicacc) + levelDiff * 3 + percentBonus;
+    p = 60 - 0.5 * (magiceva - magicacc) + levelDiff * 2 + percentBonus;
 
     -- printf("P: %f, macc: %f, meva: %f, bonus: %d%%, leveldiff: %d", p, magicacc, magiceva, percentBonus, levelDiff);
 
@@ -776,6 +780,11 @@ end;
 
 function adjustForTarget(target,dmg,ele)
     if (dmg > 0 and math.random(0,99) < target:getMod(absorbMod[ele])) then
+        if (target:hasStatusEffect(EFFECT_LIEMENT)) then
+            target:addMP(dmg * 0.35 * (target:getMod(absorbMod[ele]) / 100));
+            return -(dmg * (target:getMod(absorbMod[ele]) / 100));
+        end
+
         return -dmg;
     end
     if (math.random(0,99) < target:getMod(nullMod[ele])) then
@@ -812,6 +821,10 @@ function calculateMagicBurst(caster, spell, target)
             burst = 1.0;
         end
 
+        if (caster:hasStatusEffect(EFFECT_IMMANENCE)) then
+            burst = burst + 0.35;
+        end
+
         --add burst bonus for BLM AMII spells
         if (spell:getID() == 205 or spell:getID() == 207 or spell:getID() == 209 or spell:getID() == 211 or spell:getID() == 213 or spell:getID() == 215) then
             if (caster:getMerit(blmAMIIMerit[spell:getElement()]) ~= 0) then -- no bonus if the caster has zero merit investment - don't want to give them a negative bonus
@@ -846,9 +859,6 @@ function addBonuses(caster, spell, target, dmg, bonusmab)
     local magicDefense = getElementalDamageReduction(target, ele);
     dmg = math.floor(dmg * magicDefense);
 
-    if (isHelixSpell(spell)) then
-        dmg = math.floor(dmg * affinityBonus * magicDefense);
-    end
     local dayWeatherBonus = 1.00;
     local weather = caster:getWeather();
 
@@ -936,7 +946,6 @@ function addBonuses(caster, spell, target, dmg, bonusmab)
 
     if (caster:hasStatusEffect(EFFECT_EBULLIENCE)) then
         dmg = dmg * 1.2 + caster:getMod(MOD_EBULLIENCE_AMOUNT)/100;
-        caster:delStatusEffectSilent(EFFECT_EBULLIENCE);
     end
 
     dmg = math.floor(dmg);
@@ -1115,6 +1124,15 @@ function addBonusesAbility(caster, ele, target, dmg, params, dChance)
     end
 
     dmg = math.floor(dmg * mab);
+
+    if (params.magicburst == true and params.ability ~= nil) then
+        local burst = calculateMagicBurstAbility(caster, target, ele);
+        if (burst > 1) then
+            params.ability:setMsg(379);
+            dmg = dmg * burst;
+        end
+    end
+
 
     -- print(affinityBonus);
     -- print(speciesReduction);
@@ -1297,7 +1315,6 @@ function doElementalNuke(caster, spell, target, spellParams)
         if (caster:getSystem() == SYSTEM_ELEMENTAL) then
             resistBonus = resistBonus + master:getMod(MOD_SUMMONING);
         end
-
     end
 
 
@@ -1333,9 +1350,83 @@ function doElementalNuke(caster, spell, target, spellParams)
         DMG = math.floor(DMG + mDMG + V + ((dINT - 200) * M));
     end
 
+
+    --add on bonuses (staff/day/weather/jas/mab/etc all go in this function)
+    local mabBonus = 0;
+    local maccBonus = 0;
+    local burstBonus = 0;
+    local returnBonus = 0;
+    local card = caster:getMod(MOD_CARDINAL_CHANT);
+    if (card > 0) then
+        local isRa = spell:getID() >= 828 and spell:getID() <= 839;
+
+        local baseMab = 3 + card * 2;
+        local baseMacc = 5 + card * 3;
+        local baseReturn = 7 + card * 3;
+        local baseBurst = 5 + card * 5;
+        if (isRa) then
+            baseMab = baseMab + 4;
+            baseMacc = baseMacc + 6;
+            baseReturn = baseReturn + 5;
+            baseBurst = baseBurst + 8;
+            if (caster:hasStatusEffect(EFFECT_THEURGIC_FOCUS)) then
+                DMG = DMG * 1.5;
+                caster:delStatusEffect(EFFECT_THEURGIC_FOCUS);
+            end
+
+        end;
+
+        local rot = caster:getRotPos();
+
+        if (rot >= 0 and rot <= 64) then
+            maccBonus = ((rot) / 64) * baseMacc;
+            mabBonus = ((64 - rot) / 64) * baseMab;
+        elseif (rot >= 64 and rot <= 128) then
+            burstBonus = ((rot - 64) / 64) * baseBurst;
+            maccBonus = ((128 - rot) / 64) * baseMacc;
+        elseif (rot >= 128 and rot <= 192) then
+            returnBonus = ((rot - 128) / 64) * baseReturn;
+            burstBonus = ((192 - rot) / 64) * baseBurst;
+        elseif (rot >= 192 and rot <= 255) then
+            mabBonus = ((rot - 192) / 64) * baseMab;
+            returnBonus = ((255 - rot) / 64) * baseReturn;
+        end
+
+        if (caster:hasStatusEffect(EFFECT_COLLIMATED_FERVOR)) then
+            mabBonus = mabBonus * 2.5;
+            maccBonus = maccBonus * 2.5;
+            burstBonus = burstBonus * 2.5;
+            returnBonus = returnBonus * 2.5;
+            caster:delStatusEffect(EFFECT_COLLIMATED_FERVOR);
+        end
+
+        if (caster:hasStatusEffect(EFFECT_IMMANENCE) and spell:getElement() ~= 0) then
+            local element = spell:getElement();
+            if (element == 1) then
+                target:pushSkillchain(33); -- Burning Blade = Liquifaction
+            elseif (element == 2) then
+                target:pushSkillchain(32); -- Fast Blade: Scission
+            elseif (element == 3) then
+                target:pushSkillchain(18); -- Shadowstitch: Reverberation
+            elseif (element == 4) then
+                target:pushSkillchain(4); -- Backhand Blow = Detonation
+            elseif (element == 5) then
+                target:pushSkillchain(50); -- Frostbite = Induration
+            elseif (element == 6) then
+                target:pushSkillchain(83); -- Armor Break: Impaction
+            end
+        end
+
+
+
+        caster:addMP(spell:getMPCost() * (returnBonus / 100));
+
+    end
+
+
     --get resist multiplier (1x if no resist)
     local diff = caster:getStat(MOD_INT) - target:getStat(MOD_INT);
-    local resist = applyResistance(caster, spell, target, diff, ELEMENTAL_MAGIC_SKILL, resistBonus);
+    local resist = applyResistance(caster, spell, target, diff, ELEMENTAL_MAGIC_SKILL, resistBonus + maccBonus);
 
     --get the resisted damage
     local consume = caster:getStatusEffect(EFFECT_CONSUME_MANA);
@@ -1347,8 +1438,9 @@ function doElementalNuke(caster, spell, target, spellParams)
 
     DMG = DMG * resist;
 
-    --add on bonuses (staff/day/weather/jas/mab/etc all go in this function)
-    DMG = addBonuses(caster, spell, target, DMG);
+
+    caster:addMod(MOD_MAG_BURST_BONUS, burstBonus);
+    DMG = addBonuses(caster, spell, target, DMG, mabBonus);
 
     --add in target adjustment
     local ele = spell:getElement();
@@ -1359,6 +1451,18 @@ function doElementalNuke(caster, spell, target, spellParams)
 
     DMG = doDarkKnightBonusDamage(caster, DMG);
     doOccultAcumen(caster, spell);
+
+    local pet = caster:getPet();
+    if (pet ~= nil and pet:getLocalVar("isLuopan") == 1 and DMG > 0) then
+        local heal = DMG * 0.15;
+        if (caster:getMainJob() ~= JOBS.GEO) then heal = heal / 2; end;
+        pet:addHP(heal);
+    end
+
+    --end
+
+
+    caster:delMod(MOD_MAG_BURST_BONUS, burstBonus);
 
     return DMG;
 end
@@ -1623,6 +1727,14 @@ function doBarStatus(caster, target, spell, effect)
     end
 
     power = power + meritBonus / 2;
+
+    if (caster:hasStatusEffect(EFFECT_PERPETUANCE)) then
+        duration = duration * 2;
+    end
+
+    if (caster:hasStatusEffect(EFFECT_RAPTURE)) then
+        power = power * 1.5;
+    end
 
     if (caster:hasStatusEffect(EFFECT_COMPOSURE) == true and caster:getID() == target:getID()) then
         duration = duration * 3;
@@ -1993,5 +2105,85 @@ function doEtude(caster, target, spell, stat, tier)
     return EFFECT_ETUDE;
 
 end
+
+function checkLuopan(caster, target, spell, spellName)
+    if (not caster:canUsePet()) then
+        return MSGBASIC_CANT_BE_USED_IN_AREA;
+    end
+
+    local pet = caster:getPet();
+    if (pet ~= nil) then
+        if (pet:getLocalVar(spellName) > 0) then
+            return MSGBASIC_EFFECT_ALREADY_ACTIVE;
+        end
+        if (pet:getLocalVar("isLuopan") == 0) then
+            return MSGBASIC_ALREADY_HAS_A_PET;
+        end
+
+    end
+    return 0;
+end
+
+function doLuopan(caster, target, spell, spellName, degenBase, degenDivider)
+    local pet = caster:getPet();
+    if (pet == nil) then
+        caster:spawnPet(75);
+        pet = caster:getPet();
+        pet:addStatusEffect(EFFECT_VOIDWATCHER, 1, 3, 30000);
+        pet:setLocalVar("isLuopan", 1);
+    end
+
+    pet:setLocalVar("indiCount", pet:getLocalVar("indiCount") + 1);
+    pet:setLocalVar("indiDegen", pet:getLocalVar("indiDegen") + degenBase + pet:getMainLvl() / degenDivider);
+    local degen = degenBase + pet:getMainLvl() / degenDivider;
+    local bonus = 0;
+    if (caster:hasStatusEffect(EFFECT_BLAZE_OF_GLORY)) then
+        bonus = 50;
+        caster:delStatusEffect(EFFECT_BLAZE_OF_GLORY);
+        pet:delHP(pet:getHP() / 2);
+        pet:addMod(MOD_HPP, -50);
+    end
+
+    pet:setLocalVar("mpSpent", pet:getLocalVar("mpSpent") + spell:getMPCost());
+    pet:setLocalVar(spellName, 1 + bonus);
+end
+
+
+
+function calculateMagicBurstAbility(caster, target, element)
+
+    local burst = 1.0;
+
+    local skillchainTier, skillchainCount = FormMagicBurst(element, target);
+    --JSR: higher magic burst damage from skillchain
+    if (skillchainTier > 0) then
+        if (skillchainCount == 1) then
+            burst = 1.6;
+        elseif (skillchainCount == 2) then
+            burst = 1.7;
+        elseif (skillchainCount == 3) then
+            burst = 1.8;
+        elseif (skillchainCount == 4) then
+            burst = 1.9;
+        elseif (skillchainCount == 5) then
+            burst = 2.0;
+        else
+            -- Something strange is going on if this occurs.
+            burst = 1.0;
+        end
+    end
+
+    -- Add in Magic Burst Bonus Modifier
+    if (burst > 1) then
+        burst = burst + (caster:getMod(MOD_MAG_BURST_BONUS) / 100);
+        target:setLocalVar("xpBonus", target:getLocalVar("xpBonus") + 10);
+        --JSR: casters gain MP based on magic burst (TEMP DISABLED)
+        --        local burstMP = math.floor(burst * spell:getMPCost());
+        --        caster:doMagicBurstMP(burstMP);
+    end
+
+    return burst;
+end;
+
 
 -- outputMagicHitRateInfo();

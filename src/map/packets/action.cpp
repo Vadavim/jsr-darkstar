@@ -77,6 +77,7 @@ CActionPacket::CActionPacket(action_t& action)
     }
     break;
     case ACTION_DANCE:
+    case ACTION_RUNE:
     case ACTION_JOBABILITY_FINISH:
     {
         packBitsBE(data, action.actionid, 86, 10);
@@ -218,6 +219,13 @@ CActionPacket::CActionPacket(action_t& action)
             ref<uint8>(0x0E) = 0x1B;
         }
         break;
+        case SPELLGROUP_GEOMANCY:
+        {
+            ref<uint8>(0x0C) = 0xD8;
+            ref<uint8>(0x0D) = 0x5C;
+            ref<uint8>(0x0E) = 0x1B;
+        }
+        break;
         }
     }
     break;
@@ -277,6 +285,14 @@ CActionPacket::CActionPacket(action_t& action)
             ref<uint8>(0x0E) = 0x1B;
         }
         break;
+        case SPELLGROUP_GEOMANCY:
+        {
+            ref<uint8>(0x0C) = 0xDC;
+            ref<uint8>(0x0D) = 0x5C;
+            ref<uint8>(0x0E) = 0x1B;
+        }
+            break;
+
         }
         ActionType = ACTION_MAGIC_START;
     }

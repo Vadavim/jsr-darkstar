@@ -20,3 +20,4 @@ ABILITY CHANGES
 
 [Divine Seal]
  - Recast reduced to 3 minutes.
+ - Also increases potency of Regens by +100%.
