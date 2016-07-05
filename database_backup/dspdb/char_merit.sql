@@ -19,8 +19,12 @@ CREATE TABLE IF NOT EXISTS `char_merit` (
   KEY `char_merits_charid_index` (`charid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table dspdb.char_merit: ~0 rows (approximately)
+-- Dumping data for table dspdb.char_merit: ~3 rows (approximately)
 /*!40000 ALTER TABLE `char_merit` DISABLE KEYS */;
+INSERT INTO `char_merit` (`charid`, `meritid`, `upgrades`) VALUES
+	(21828, 128, 1),
+	(21828, 388, 4),
+	(21828, 392, 5);
 /*!40000 ALTER TABLE `char_merit` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

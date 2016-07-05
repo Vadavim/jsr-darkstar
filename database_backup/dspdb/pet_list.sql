@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS `pet_list` (
   `time` int(10) unsigned NOT NULL DEFAULT '0',
   `element` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`petid`)
-) ENGINE=MyISAM AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.pet_list: 74 rows
+-- Dumping data for table dspdb.pet_list: 77 rows
 /*!40000 ALTER TABLE `pet_list` DISABLE KEYS */;
 INSERT INTO `pet_list` (`petid`, `name`, `poolid`, `minLevel`, `maxLevel`, `time`, `element`) VALUES
 	(0, 'FireSpirit', 1341, 1, 99, 0, 1),
@@ -98,7 +98,10 @@ INSERT INTO `pet_list` (`petid`, `name`, `poolid`, `minLevel`, `maxLevel`, `time
 	(70, 'ValoredgeFrame', 5125, 1, 99, 0, 0),
 	(71, 'SharpshotFrame', 5126, 1, 99, 0, 0),
 	(72, 'StormwakerFrame', 5127, 1, 99, 0, 0),
-	(73, 'Ally_Volker', 7000, 1, 99, 0, 0);
+	(73, 'Volker', 7000, 1, 99, 0, 0),
+	(74, 'Ayame', 7001, 1, 99, 0, 0),
+	(75, 'Luopan', 6999, 1, 99, 0, 0),
+	(76, 'Storm', 6999, 1, 99, 0, 0);
 /*!40000 ALTER TABLE `pet_list` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

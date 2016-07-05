@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `item_armor` (
   PRIMARY KEY (`itemId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=37 PACK_KEYS=1 CHECKSUM=1;
 
--- Dumping data for table dspdb.item_armor: 12,909 rows
+-- Dumping data for table dspdb.item_armor: 12,910 rows
 /*!40000 ALTER TABLE `item_armor` DISABLE KEYS */;
 INSERT INTO `item_armor` (`itemId`, `name`, `level`, `ilevel`, `jobs`, `MId`, `shieldSize`, `scriptType`, `slot`, `rslot`) VALUES
 	(10240, 'hexed_haubert', 99, 0, 8641, 0, 0, 0, 32, 0),
@@ -12936,7 +12936,8 @@ INSERT INTO `item_armor` (`itemId`, `name`, `level`, `ilevel`, `jobs`, `MId`, `s
 	(28668, 'matamata_shield_+1', 99, 101, 2385, 0, 1, 0, 2, 0),
 	(28669, 'butznar_shield_+1', 99, 101, 193, 0, 3, 0, 2, 0),
 	(28670, 'leafkin_shield', 1, 0, 4194303, 0, 1, 0, 2, 0),
-	(28671, 'butznar_shield', 99, 100, 193, 0, 3, 0, 2, 0);
+	(28671, 'butznar_shield', 99, 100, 193, 0, 3, 0, 2, 0),
+	(2783, 'evolith', 99, 10, 0, 0, 0, 0, 0, 6);
 /*!40000 ALTER TABLE `item_armor` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

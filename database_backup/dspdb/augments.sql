@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `augments` (
   `type` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.augments: 2,293 rows
+-- Dumping data for table dspdb.augments: 2,305 rows
 /*!40000 ALTER TABLE `augments` DISABLE KEYS */;
 INSERT INTO `augments` (`augmentId`, `multiplier`, `modId`, `value`, `type`) VALUES
 	(1, 0, 2, 1, 0),
@@ -89,7 +89,7 @@ INSERT INTO `augments` (`augmentId`, `multiplier`, `modId`, `value`, `type`) VAL
 	(58, 0, 29, -1, 0),
 	(59, 0, 0, 0, 0),
 	(60, 0, 0, 0, 0),
-	(61, 0, 0, 0, 0),
+	(61, 0, 240, 1, 0),
 	(62, 0, 25, 33, 0),
 	(63, 0, 26, 33, 0),
 	(64, 0, 30, 33, 0),
@@ -2314,7 +2314,19 @@ INSERT INTO `augments` (`augmentId`, `multiplier`, `modId`, `value`, `type`) VAL
 	(2044, 0, 0, 0, 0),
 	(2045, 0, 0, 0, 0),
 	(2046, 0, 0, 0, 0),
-	(2047, 0, 0, 0, 0);
+	(2047, 0, 0, 0, 0),
+	(61, 0, 242, 1, 0),
+	(61, 0, 243, 1, 0),
+	(61, 0, 244, 1, 0),
+	(61, 0, 245, 1, 0),
+	(61, 0, 241, 1, 0),
+	(61, 0, 247, 1, 0),
+	(61, 0, 248, 1, 0),
+	(61, 0, 249, 1, 0),
+	(61, 0, 250, 1, 0),
+	(61, 0, 251, 1, 0),
+	(61, 0, 246, 1, 0),
+	(61, 0, 252, 1, 0);
 /*!40000 ALTER TABLE `augments` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

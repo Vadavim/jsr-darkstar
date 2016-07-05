@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `mob_skill_lists` (
   PRIMARY KEY (`skill_list_id`,`mob_skill_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.mob_skill_lists: 2,235 rows
+-- Dumping data for table dspdb.mob_skill_lists: 2,240 rows
 /*!40000 ALTER TABLE `mob_skill_lists` DISABLE KEYS */;
 INSERT INTO `mob_skill_lists` (`skill_list_name`, `skill_list_id`, `mob_skill_id`) VALUES
 	('Adamantoise', 2, 804),
@@ -2255,7 +2255,12 @@ INSERT INTO `mob_skill_lists` (`skill_list_name`, `skill_list_id`, `mob_skill_id
 	('Coeurl', 71, 480),
 	('Coeurl', 71, 481),
 	('Coeurl', 71, 482),
-	('Coeurl', 71, 483);
+	('Coeurl', 71, 483),
+	('Leech', 172, 326),
+	('Leech', 369, 326),
+	('Slime', 228, 1319),
+	('Slime', 229, 1319),
+	('Slime', 230, 1319);
 /*!40000 ALTER TABLE `mob_skill_lists` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

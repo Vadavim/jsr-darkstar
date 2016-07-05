@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `char_jobs` (
 -- Dumping data for table dspdb.char_jobs: 1 rows
 /*!40000 ALTER TABLE `char_jobs` DISABLE KEYS */;
 INSERT INTO `char_jobs` (`charid`, `unlocked`, `genkai`, `war`, `mnk`, `whm`, `blm`, `rdm`, `thf`, `pld`, `drk`, `bst`, `brd`, `rng`, `sam`, `nin`, `drg`, `smn`, `blu`, `cor`, `pup`, `dnc`, `sch`, `geo`, `run`) VALUES
-	(21828, 6291454, 50, 25, 8, 75, 75, 75, 75, 75, 75, 75, 99, 75, 75, 75, 75, 75, 75, 75, 75, 75, 90, 0, 75);
+	(21828, 8388606, 50, 75, 75, 37, 51, 75, 75, 75, 75, 75, 99, 75, 75, 75, 75, 75, 75, 75, 15, 75, 75, 75, 75);
 /*!40000 ALTER TABLE `char_jobs` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

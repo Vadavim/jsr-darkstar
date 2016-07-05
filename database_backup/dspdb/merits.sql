@@ -70,7 +70,7 @@ INSERT INTO `merits` (`meritid`, `name`, `upgrade`, `value`, `jobs`, `upgradeid`
 	(282, 'handbell', 8, 2, 1048576, 4, 3),
 	(320, 'enmity_increase', 5, 1, 1048575, 5, 4),
 	(322, 'enmity_decrease', 5, 1, 1048575, 5, 4),
-	(324, 'crit_hit_rate', 5, 1, 1048575, 5, 4),
+	(324, 'crit_hit_rate', 5, 1, 4194303, 5, 4),
 	(326, 'enemy_crit_rate', 5, 1, 1048575, 5, 4),
 	(328, 'spell_interuption_rate', 5, 2, 1048575, 5, 4),
 	(384, 'beserk_recast', 5, 10, 1, 6, 5),
@@ -277,10 +277,10 @@ INSERT INTO `merits` (`meritid`, `name`, `upgrade`, `value`, `jobs`, `upgradeid`
 	(3202, 'fan_dance', 5, 5, 262144, 7, 49),
 	(3204, 'no_foot_rise', 5, 1, 262144, 7, 49),
 	(3206, 'closed_position', 5, 3, 262144, 7, 49),
-	(3264, 'altruism', 5, 5, 524288, 7, 50),
-	(3266, 'focalization', 5, 5, 524288, 7, 50),
-	(3268, 'tranquility', 5, 10, 524288, 7, 50),
-	(3270, 'enquanimity', 5, 10, 524288, 7, 50),
+	(3264, 'altruism', 5, 3, 524288, 7, 50),
+	(3266, 'focalization', 5, 3, 524288, 7, 50),
+	(3268, 'tranquility', 5, 3, 524288, 7, 50),
+	(3270, 'enquanimity', 5, 3, 524288, 7, 50),
 	(3272, 'enlightenment', 5, 5, 524288, 7, 50),
 	(3274, 'stormsurge', 5, 1, 524288, 7, 50);
 /*!40000 ALTER TABLE `merits` ENABLE KEYS */;

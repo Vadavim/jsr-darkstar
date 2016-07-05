@@ -18,14 +18,14 @@ CREATE TABLE IF NOT EXISTS `char_vars` (
   PRIMARY KEY (`charid`,`varname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.char_vars: 5 rows
+-- Dumping data for table dspdb.char_vars: 6 rows
 /*!40000 ALTER TABLE `char_vars` DISABLE KEYS */;
 INSERT INTO `char_vars` (`charid`, `varname`, `value`) VALUES
 	(21828, 'HpTeleportMask1b', 32),
 	(21828, 'characterLimbusKey', 22746),
 	(21828, 'LimbusID', 1292),
 	(21828, 'Scorpio_ConquestWeek', 1467554400),
-	(21828, 'GodMode', 1);
+	(21828, 'PlayerMainJob', 4);
 /*!40000 ALTER TABLE `char_vars` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
