@@ -16,6 +16,9 @@ end;
 
 function onSpellCast(caster,target,spell)
     -- doDivineNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus)
-    local dmg = doDivineNuke(125,1,caster,spell,target,false,0);
+    local dmg = doDivineNuke(80 + caster:getMainLvl() * 3,4,caster,spell,target,false,35);
+    if (caster:getMainJob() == JOBS.PLD) then
+        caster:addStatusEffect(EFFECT_ENLIGHT, 5 + caster:getMainLvl() / 1.5, 0, 45);
+    end
     return dmg;
 end;

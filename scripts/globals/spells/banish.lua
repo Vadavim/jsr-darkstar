@@ -16,6 +16,10 @@ end;
 
 function onSpellCast(caster,target,spell)
     --doDivineBanishNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus)
-    local dmg = doDivineBanishNuke(40,1,caster,spell,target,false,1.0);
+    local dmg = doDivineBanishNuke(40,2.5,caster,spell,target,false,20);
+    if (caster:getMainJob() == JOBS.PLD) then
+        caster:addStatusEffect(EFFECT_ENLIGHT, 3 + caster:getMainLvl() / 3, 0, 45);
+    end
+
     return dmg;
 end;

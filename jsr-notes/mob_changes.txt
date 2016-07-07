@@ -563,99 +563,230 @@ FAMILY CHANGES
  - Weak against Fire (+25%)
  - Takes extra damage from AoE (+33%)
 
-[Cockatrice]
- - +25% XP
+ - Sonic Boom: duration varies with TP (60 to 120 seconds).
+	- HARD: also stuns and grants Bat Trio Enaero for 60 seconds.
 
-[Greater Bird]
- - +25% XP
+ - Jet Stream: HARD: if all three hits land, +33% damage
+
+
+[Birds]
+ - Weak against Lightning (+25%)
+ - DEX 3 -> 1, STR 1 -> 3, MND 3 -> 4
+ - Wing Cutter: Activation Time 1.5 -> 3 seconds 
+	- HARD: has knockback
+
+ - Helldive: HARD: also lowers enmity towards target
+
+[Cockatrice]
+ - +35% XP
+ - Baleful Gaze: HARD: activates instantly
+ - Hammer Beak: HARD: also stuns on hit
+ - Poison Pick: Duration varies with TP (60 to 120 seconds). 
+	- HARD: also inflicts Disease
+
+ - Sound Blast: Duration varies with TP (90 to 180 seconds). Int Down scales with level.
+	- If target already has Int Down, deals damage equal to 33% of target's current HP.
+
+ -Sound Vacuum: refunds 50% of TP used
+	- HARD: also lowers TP on a successful silence
+
+[Giant Bat]
+ - Very vulnerable to Light (+50%)
+ - Blood Drain: HARD: also drains target's TP
+ - Ultrasonics: duration varies with TP (90 to 180 seconds)
+ 	- HARD: also increases target's chance of being critically hit by 10% or more while affected by Evasion Down.
+
+
 
 [Hippogryph]
- - +45% XP
-
-[Sea Monk]
- - +35% XP
- - Very weak to Lightning
- - Vulnerable to Slow
-
-[Ruszor]
- - +25% XP
-
-[Uragnite]
  - +40% XP
- - Weak to Blunt
- - Very weak to Wind
+ - Weak Against Earth (+25%) and Piercing (+25%)
 
-[Corse]
- - +40% XP
- - Weak to Light / Blunt
+ - Fantod: lasts for 45 to 90 seconds (depending upon TP). Grants an attack boost and a TP bonus during this time.
+	- HARD: refunds 50% of TP used
+ - Jettatura: HARD: faster activation time
+ - Choke Breath: instead inflicts Choke; resisted with VIT
+	- HARD: also inflicts Silence and Paralysis
+ - Nihility Song: Dispel effect can be resisted and is Wind-based 
+	- HARD: refunds 50% of the TP used
+ - Back Heel: HARD: also stuns target on a hit
 
-[Fomor]
- - +15% XP
- - Very weak to Light
+[Rocs]
+ - +30% XP
+ - HP: 130 -> 110
+
+ - Feather Barrier: HARD: also grants Foil effect for 30 seconds.
+ - Giding Spike: HARD: also binds the target
+ - Trple Attack: HARD: if all three hits land, +33% damage.
 
 [Doomed]
- - +40% XP
+ - +45% XP
+ - Abyss Blast: HARD: also inflicts Bio
+ - Acid Breath: HARD: also inflicts Poison
+ - Whip Tongue: HARD: also dispels a status effect on the target
+ - Undead Mold: duration varies with TP (120 to 240 seconds)
+	- HARD: instead inflicts Plague
+
+
+[Corse]
+ - +55% XP
+ - Danse Macabre: duration varies with TP (30 to 60 seconds)
+	- HARD: also removes some of the target's TP
+ - Silence Seal: HARD: refunds 50% of TP spent
+ - Envoutement: HARD: also dispels a status effect on the target on a successful Curse
+
+[Fomor]
+ - +30% XP
+ - HP: 110 -> 90
+ - Aegis Schism: duration varies with TP (40 to 80 seconds)
+ - Barbed Crescent: duration varies with TP (60 to 120 seconds)
+
+
 
 [Ghost]
  - +40% XP
- - Very weak to Light / Fire
+ - HP: 105 -> 90
+ - Terror Touch: HARD: also inflicts Terror if Attack Down is successfully inflicted.
+ - Fear Touch: HARD: also dispels a status effect if Slow is successfully inflicted.
+ - Dark Sphere: HARD: also inflicts Bio
+ - Ectosmash: HARD: the ghost gains Blink shadows
 
 [Hound]
  - +25% XP
+ - Methane Breath: HARD: also inflicts Burn
+ - Rot Gas: HARD: instead inflicts Plague
+ - Dirty Claw: HARD: also inflicts Poison
+ - Shadow Claw: HARD: can also inflict Curse.
 
-[Qutrub]
- - +30% XP
+[Shadows]
+ - +15% XP
+
+[Skeletons]
+ - +25% XP
+ - Horror Cloud: duration scales with TP (80 to 160 seconds) 
+ 	- HARD: also inflicts terror
+ - Hell Slash: HARD: lowers enmity towards target on a hit
+
+[Vampyr]
+ - +45% XP
+
 
 [Bomb]
  - +30% XP
- - Very weak to water.
+ - ATT: 3 -> 4
+ - Strong against Fire (-75%), Light, and Ice (-50%)
+ - Has innate Enfire
+ - Very weak against Water (+33%).
+ - Weak against Dark (+25%)
+ - Only uses Self-Destruct at 50% HP or less.
+ - Neutral towards other elements
 
 [Cardian]
  - Weak to Slashing.
- - Very weak to Dark.
+ - HP: 105 -> 85
+ - Very weak to Dark (+33%)
+ - Weak to Fire (+25%)
 
 [Cluster]
  - +30% XP
+ - ATT: 3 -> 4
+ - Strong against Fire (-75%), Light, and Ice (-50%)
+ - Has innate Enfire
+ - Very weak against Water (+33%).
+ - Weak against Dark (+25%)
+ - Only uses Self-Destruct at 50% HP or less.
+ - Neutral towards other elements
+ - Circle of Flames: is instead of a magical move (fire-based)
+	- HARD: grants Blaze Spikes to Cluster
 
 [Doll]
+ - +30% XP
+ - Vulnerable to Blunt and H2H (+25%)
+ - HP: 105 -> 95
+ - Vulnerable to Earth (+25%).
+ 
+ - Meltdown: only used at 25% HP or lower
+ - Gravity Field: HARD: also inflicts Weight
+ - Blitzstrahl: also inflicts Shock
+
+[Evil Weapon]
  - +20% XP
- - Vulnerable to Blunt
+ - Vulnerable to Earth / Light
+ - Smite of Rate: HARD: also inflicts Amnesia
+ - Whirl of Rage:
+
+[Snoll]
+ - +30% XP
+ - ATT: 3 -> 4
+ - Strong against ice (-75%) and water (-50%).
+ - Very weak against fire (+33%).
+ - Has innate Enblizzard
+ - Very weak against Water (+33%).
+ - Only uses Hypothermal Combustion at 50% HP or less.
+
+ - Cold Wave: HARD: also inflicts Paralysis
 
 [Elemental]
  - +40% XP
  - Very weak to opposing element.
 
-[Evil Weapon]
- - +20% XP
- - Vulnerable to Earth / Light
+
 
 [Golem]
- - +30% xP
- - Vulnerable to Blunt / Wind
+ - +40% xP
+ - Vulnerable to Blunt, Earth, Lightning, and Wind (+25%).
+ - Crystal Weapon: HARD: gains powerful Enspell based on element for 60 seconds
 
 [Magic Pot]
- - +20% XP
- - Vulnerable to Silence
- - Very vulnerable to random element.
+ - +25% XP
+ - Vulnerable to Earth (+25%).
+ - Double Ray: HARD: refunds 33% of TP spent.
+ - Mysterious Light: HARD: inflicts Flash
+ - Mind Drain: HARD: on a successful drain, also lowers target's Magic Defense and raises pot's Magic Defense
 
-[Snoll]
- - Very weak to fire.
- - +30% XP
+
+[Wyvern]
+ - +45% XP
+ - Very weak against Dark (+33%)
+ - Weak against Water (+25%)
+ - Dispelling Wind: can be resisted (Wind resist)
+	- HARD: removes two negative status effects from self
+ - Dread Shriek: HARD: if target is already paralyzed, removes 33% of its current HP.
+ - Wind Wall: HARD: gains Wind Spikes effect for duration
 
 [Ahriman]
  - +30% XP
+ - Vulnerable to Pierce, and Light (+25%)
+ - Resistant to all other elements except Wind.
+ 
+ - Airy Shield: HARD: also grants Wind Spikes
+ - Magic Shield: HARD: refunds 50% of TP spent
+ - Eyes on Me: HARD: lowers enmity towards target
+ - Mind Break: HARD: also inflicts Magic Acc / Atk / Def down.
+ - Hypnosis: HARD: also gradually lowers MP / TP of affected targets.
+ - Binding Wave: HARD: also knocks targets back
 
 [Dark Kindred]
  - +30% XP
+ - HP: 110 -> 95
+ - Very vulnerable to light (+33%)
+ - Demonic Howl: duration varies with TP (80 to 140 seconds)
+ 	- HARD: also inflicts Terror
+ - Soul Drain: HARD: also drains 50% of target's TP
 
-[Imp]
- - +30% XP
+[Tauri]
+ - +45% XP
+ - EVA: 3 -> 4
+ - Very weak against Light (+33%)
+ - Unblessed Armor: duration varies with TP (80 to 160 seconds).
+	- during effect, receives +100% damage from Light (which works out to +50% after Shell's reduction)
+	- HARD: gains Death spikes effect for duration (deals dark damage)
+ - Triclip: HARD: if all three hits land, +33% damage
+ - Frightful Roar: duration varies with TP (80 to 160 seconds)
+	- HARD: also inflicts Terror
 
-[Soulflayer]
- - +40% XP
 
-[Taurus]
- - +40% XP
+
 
 [Wyvern]
  - +30% XP
@@ -684,17 +815,39 @@ FAMILY CHANGES
 [Zdei]
  - +35% XP
 
-[BEASTMAN NOTES]
- - Magic casting beastman give an additional +10% XP
+
 
 [Antica]
  - +15% XP
+ - HP: 116 -> 100
+ - Weak against Water (+25%)
+ - Resist Lightning and Fire (-25%)
+ - Jamming Wave: HARD: also inflicts Amnesia
+ - Sand Veil: duration varies with TP (30 to 60 seconds)
+	- Does not use while Sand Shield is active (and vice versa)
+ 	- HARD: also grants Foil for 30 seconds
+ - Sand Shield: duration varies with TP (60 to 120 seconds). Only +30% Defense boost.
+	- Vulnerable to Wind and Water (+25%) while affected.
+	- HARD: also grants Stone spikes
+ - Spike Ball: duration varies with TP (120 to 240 seconds)
 
 [Bugbear]
- - +30% XP
+ - +35% XP
+ - EVA: 3 -> 4
+ - Weak against Earth (+25%)
+ - Heavy Whisk: HARD: lowers enmity towards target
+ - Heavy Blow: highly variable damage, has accuracy penalty.
+	- HARD: inflicts Weight on a hit.
 
 [Gigas]
  - +30% XP
+ - Vulnerable to Earth (+25%)
+ - EVA: 3 -> 4, ATT: 3 -> 2, ACC: 3 -> 4
+ - Power Attack: HARD: grants Attack Boost to Gigas
+ - Lightning Roar: HARD: also grants Enthunder to Gigas
+ - Impact Roar: HARD: also Stuns
+ - Grand Slam: HARD: also has Knockback
+
 
 [Lamiae]
  - +40% XP

@@ -17,10 +17,15 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local dmgmod = 1;
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    local dmgmod = 1 + hard / 10;
     local accmod = 1;
-    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*4,ELE_THUNDER,dmgmod,TP_NO_EFFECT);
+    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*4,ELE_THUNDER,dmgmod,TP_DMG_VARIES);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_MAGICAL,MOBPARAM_THUNDER,MOBPARAM_IGNORE_SHADOWS);
     target:delHP(dmg);
+    if (hard > 0) then
+        mob:addTP(skill:getTP() * 0.33);
+    end
+
     return dmg;
 end;

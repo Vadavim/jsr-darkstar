@@ -52,8 +52,8 @@ ABILITY CHANGES
  - Gained at level 60 (no longer requires merit)
  - Instead increases double attack rate by 25% (+2% per merit point) for duration
  - During this time, the warrior may swap weapons without losing TP.
- - [Berserk]: reduces recast to 3 minutes
- - [Defender]: Grants +40 Shield and Parry skill. Also significantly increases TP gained from parrying or blocking.
+ - [Berserk]: reduces recast to 3 minutes (-4 seconds per merit)
+ - [Defender]: Grants +40 (+4 per merit point) Shield and Parry skill. Also significantly increases TP gained from parrying or blocking.
 
 [Blood Rage]
  - Gained at level 70

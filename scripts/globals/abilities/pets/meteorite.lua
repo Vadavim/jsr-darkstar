@@ -14,8 +14,8 @@ function onAbilityCheck(player, target, ability)
 end;
 
 function onPetAbility(target, pet, skill, owner)
-    local dint = pet:getStat(MOD_INT) - target:getStat(MOD_INT) + owner:getMod(MOD_CHR) + owner:getMod(MOD_SUMMONING);
-    local dmg = 500 + dint*1.5 + skill:getTP()/5 + pet:getMod(MOD_TP_BONUS) / 5;
+    local dint = pet:getStat(MOD_INT) - target:getStat(MOD_INT) + owner:getMod(MOD_CHR) + owner:getMod(MOD_SUMMONING) / 2;
+    local dmg = 200 + dint*1.5 + skill:getTP()/5 + pet:getMod(MOD_TP_BONUS) / 5;
     local magicDefense = getElementalDamageReduction(target, ELE_LIGHT);
     local mat = (1 + pet:getMod(MOD_MATT) / 100) * (1 + target:getMod(MOD_MDEF));
     dmg = mobAddBonuses(pet, skill, target, dmg, ELE_LIGHT) * mat * magicDefense;

@@ -7,6 +7,7 @@ Divine: A+
 Enhancing: B
 Healing: B
 
+
 [Traits]
  - Crit Defense at levels 25, 45, and 65 respectively. Each level lower chance of being critically hit by 1%.
  - Auto Refresh at levels 35 and 70
@@ -19,7 +20,8 @@ Healing: B
 
 [Shield Bash]
  - Adds STR to damage
- - Adds Chainbound effect for 10 seconds (next weaponskill triggers a skillchain).
+ - Each merit in Shield Bash Recast increases base damage by 12 and the chance to stun by 3%.
+
 
 
 [Holy Circle
@@ -34,7 +36,15 @@ Healing: B
 
 [Cover]
  - Changed to:
-	- Target gets 50% physical damage reduction and reduced enmity.
+	- Target gets 50% physical damage reduction and reduced enmity (-50) for 20 seconds.
+		- Each merit point increases the duration by 4 seconds.
+
+
+[Rampart]
+ - Instead grants +10% Defense and reduced magic damage by 80% for one minute.
+	- Every three seconds, the magic damage reducton is reduced by 4%.
+	- Every merit point in Rampart recast also increases magic damage reduction by 2%.
+ 	- Iron Will: each merit point grants +5 resistance against status effects for the duration (in addition to spell interruption resistance).
 
 [Fealty]
  - Recast time reduced to 3 minutes.
@@ -44,12 +54,22 @@ Healing: B
 
 [Divine Emblem]
  - Gained at level 25.
- - Also grants +50 Light Magic Attack.
 
 [Palisade]
  - Gained at level 70
 
 [Intervene]
  - Gained at level 45
- - Recast time is 10 minutes (shares recast with 2hour)
- - Inflicts -40 ACC, -25% Attack, -40 EVA, and -40MEVA for 30 seconds.
+ - Recast time is 8 minutes.
+ - Inflicts -60 ACC and -30% Attack for 30 seconds.
+
+ -------
+
+MAGIC
+
+[Banish / Holy]
+ - Casting Banish or Holy bestows an Enlight effect on the paladin (main job only) for 45 seconds.
+	- The damage scales with level and also grants an accuracy bonus equal to 1/3rd the damage caused.
+
+[Cure Spells]
+ - Paladins generate additional enmity with cure spells (main job only).

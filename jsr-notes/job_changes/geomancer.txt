@@ -31,7 +31,7 @@ ABILITY CHANGES
 
 [Bolster]
  - Instead fully restores Luopan's HP (if it exists) and prevents it from receiving degeneration for 3 minutes.
- 	- During this time, effect of Indi spells increased by 33%.
+ 	- Does not grant a bonus to Indi spells.
 	- Does not stack with Ecliptic Attrition.
 
 [Collimated Fervor]

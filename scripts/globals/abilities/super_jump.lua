@@ -26,5 +26,12 @@ function onUseAbility(player,target,ability)
         local enmityShed = 100
         target:lowerEnmity(player, enmityShed);
     end
-    target:addStatusEffect(EFFECT_CHAINBOUND,1,0,15);
+
+    if (player:hasStatusEffect(EFFECT_SPIRIT_SURGE) or player:hasStatusEffect(EFFECT_FLY_HIGH)) then
+        target:addStatusEffect(EFFECT_CHAINBOUND,1,0,15);
+        player:delStatusEffect(EFFECT_FLY_HIGH);
+    end
+
+    player:addStatusEffectEx(EFFECT_COPY_IMAGE, EFFECT_COPY_IMAGE, 1, 0, 5);
+    player:setMod(MOD_UTSUSEMI, 1);
 end;

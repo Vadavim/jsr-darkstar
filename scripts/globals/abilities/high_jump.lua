@@ -15,6 +15,7 @@ require("scripts/globals/weaponskills");
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
+    if (player:hasStatusEffect(EFFECT_FLY_HIGH)) then ability:setRecast(ability:getRecast() / 2) end;
     return 0,0;
 end;
 
@@ -51,8 +52,9 @@ function onUseAbility(player,target,ability,action)
 
     if (tpHits + extraHits > 0) then
         -- Under Spirit Surge, High Jump reduces TP of target
-        if (player:hasStatusEffect(EFFECT_SPIRIT_SURGE) == true) then
-            target:delTP(damage * 0.2)
+        if (player:hasStatusEffect(EFFECT_SPIRIT_SURGE) == true or player:hasStatusEffect(EFFECT_FLY_HIGH)) then
+            target:delTP(500);
+            player:delStatusEffect(EFFECT_FLY_HIGH);
         end
         if (criticalHit) then
             action:speceffect(target:getID(), 38)
@@ -62,6 +64,8 @@ function onUseAbility(player,target,ability,action)
         ability:setMsg(MSGBASIC_USES_BUT_MISSES)
         action:speceffect(target:getID(), 0)
     end
+    player:addStatusEffectEx(EFFECT_COPY_IMAGE, EFFECT_COPY_IMAGE, 1, 0, 5);
+    player:setMod(MOD_UTSUSEMI, 1);
 
     return damage;
 end;

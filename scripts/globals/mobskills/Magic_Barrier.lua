@@ -16,6 +16,11 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    if (hard > 0) then
+        mob:addTP(skill:getTP() * 0.5);
+    end
+
     local typeEffect = EFFECT_MAGIC_SHIELD;
 
     skill:setMsg(MobBuffMove(mob, typeEffect, 1, 0, 60));

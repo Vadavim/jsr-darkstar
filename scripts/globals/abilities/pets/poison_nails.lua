@@ -38,7 +38,7 @@ function onPetAbility(target, pet, skill, master)
 --        if (duration > 90) then duration = 90 end;
         local power = 1 + level / 5 + (chr + summoning) / 6;
         local params = {}; params.bonusmab = 0; params.includemab = true;
-        power = addBonusesAbility(caster, ELE_WATER, target, power, params, 1.0);
+        power = addBonusesAbility(pet, ELE_WATER, target, power, params, 1.0);
 
         local success = MobStatusEffectMove(pet, target, EFFECT_POISON, power, 0, duration, MOD_STR);
         if (success == 242) then

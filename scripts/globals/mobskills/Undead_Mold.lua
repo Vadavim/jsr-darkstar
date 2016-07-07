@@ -17,12 +17,20 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     local typeEffect = EFFECT_DISEASE;
+    if (hard > 0) then
+        typeEffect = EFFECT_PLAGUE;
+    end
+    local duration = 120 * fTP(skill:getTP(), 1, 1.5, 2) * (1 + hard / 5)
 
-    MobStatusEffectMove(mob, target, typeEffect, 1, 0, 180);
+    local success = MobStatusEffectMove(mob, target, typeEffect, 2 + hard, 0, duration);
+    if (success == 242) then
+        target:setPendingMessage(277, typeEffect);
+    end
 
-    local dmgmod = 1;
-    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*2.5,ELE_DARK,dmgmod,TP_NO_EFFECT);
+    local dmgmod = 1 + hard / 10;
+    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*1.5,ELE_DARK,dmgmod,TP_DMG_VARIES);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_MAGICAL,MOBPARAM_DARK,MOBPARAM_IGNORE_SHADOWS);
     target:delHP(dmg);
     return dmg;

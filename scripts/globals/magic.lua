@@ -503,7 +503,7 @@ function calculateMagicHitRate(magicacc, magiceva, percentBonus, casterLvl, targ
 
     p = 60 - 0.5 * (magiceva - magicacc) + levelDiff * 2 + percentBonus;
 
-    -- printf("P: %f, macc: %f, meva: %f, bonus: %d%%, leveldiff: %d", p, magicacc, magiceva, percentBonus, levelDiff);
+     printf("P: %f, macc: %f, meva: %f, bonus: %d%%, leveldiff: %d", p, magicacc, magiceva, percentBonus, levelDiff);
 
     return utils.clamp(p, 5, 95);
 end
@@ -519,10 +519,10 @@ function getMagicResist(magicHitRate)
     local quart = ((1 - p)^2);
     local eighth = ((1 - p)^3);
     local sixteenth = ((1 - p)^4);
-    -- print("HALF: "..half);
-    -- print("QUART: "..quart);
-    -- print("EIGHTH: "..eighth);
-    -- print("SIXTEENTH: "..sixteenth);
+     print("HALF: "..half);
+     print("QUART: "..quart);
+     print("EIGHTH: "..eighth);
+     print("SIXTEENTH: "..sixteenth);
 
     local resvar = math.random();
 
@@ -1468,7 +1468,18 @@ function doElementalNuke(caster, spell, target, spellParams)
 end
 
 function doDivineNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus)
-    return doNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus,DIVINE_MAGIC_SKILL,MOD_MND);
+    if (caster:hasStatusEffect(EFFECT_DIVINE_EMBLEM)) then
+        V = V * 1.5;
+        M = M * 1.5;
+        resistBonus = resistBonus + 50;
+    end
+
+    local dmg =  doNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus,DIVINE_MAGIC_SKILL,MOD_MND);
+    if (caster:hasStatusEffect(EFFECT_DIVINE_EMBLEM)) then
+        target:updateEnmityFromDamage(caster,dmg * 0.5);
+        caster:delStatusEffect(EFFECT_DIVINE_EMBLEM);
+    end
+
 end
 
 function doNinjutsuNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus,mabBonus)

@@ -14,8 +14,9 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
+    local merits = player:getMerit(MERIT_WARRIORS_CHARGE);
     if (player:hasStatusEffect(EFFECT_BERSERK)) then
-        ability:setRecast(180);
+        ability:setRecast(180 - merits * 2);
     end
 
     return 0,0;
@@ -30,7 +31,7 @@ function onUseAbility(player,target,ability)
     local subPower = 0;
 
     if (player:hasStatusEffect(EFFECT_DEFENDER)) then
-        subPower = 40;
+        subPower = 40 + merits * 2;
     end
     player:addStatusEffect(EFFECT_WARRIOR_S_CHARGE,25 + merits,0,60, 0, subPower);
 end;

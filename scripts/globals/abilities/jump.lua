@@ -22,6 +22,7 @@ function onAbilityCheck(player,target,ability)
             player:SayToPlayer("Jump has been reset!");
         end
     end
+    if (player:hasStatusEffect(EFFECT_FLY_HIGH)) then ability:setRecast(ability:getRecast() / 2) end;
     return 0,0;
 end;
 
@@ -49,10 +50,11 @@ function onUseAbility(player,target,ability,action)
 
     if (tpHits + extraHits > 0) then
         -- Under Spirit Surge, Jump also decreases target defence by 20% for 60 seconds
-        if (player:hasStatusEffect(EFFECT_SPIRIT_SURGE) == true) then
+        if (player:hasStatusEffect(EFFECT_SPIRIT_SURGE) == true or (player:hasStatusEffect(EFFECT_FLY_HIGH))) then
             if (target:hasStatusEffect(EFFECT_DEFENSE_DOWN) == false) then
                 target:addStatusEffect(EFFECT_DEFENSE_DOWN, 20, 0, 60);
             end
+            player:delStatusEffect(EFFECT_FLY_HIGH);
         end
         if (criticalHit) then
             action:speceffect(target:getID(), 38)
@@ -63,6 +65,8 @@ function onUseAbility(player,target,ability,action)
         action:speceffect(target:getID(), 0)
     end
 
+    player:addStatusEffectEx(EFFECT_COPY_IMAGE, EFFECT_COPY_IMAGE, 1, 0, 5);
+    player:setMod(MOD_UTSUSEMI, 1);
 
     return damage;
 end;

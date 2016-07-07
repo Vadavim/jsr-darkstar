@@ -16,5 +16,5 @@ end;
 
 function onPetAbility(target, pet, skill, master)
     local merits = master:getMerit(MERIT_HEAVENLY_STRIKE);
-    return avatarMagicalMove(target, pet, skill, ELE_ICE, 512 + merits * 5, 3.0, 0.16);
+    return avatarMagicalMove(target, pet, skill, ELE_ICE, 512 + merits * 5, 4.0, 0.24);
 end

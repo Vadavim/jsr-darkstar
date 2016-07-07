@@ -25,5 +25,5 @@ function onPetAbility(target, pet, skill, master)
         target:setPendingMessage(277, EFFECT_BIO);
     end
 
-    return avatarMagicalMove(target, pet, skill, ELE_DARK, 300, 2.5, 0.11);
+    return avatarMagicalMove(target, pet, skill, ELE_DARK, 200, 2.5, 0.11);
 end

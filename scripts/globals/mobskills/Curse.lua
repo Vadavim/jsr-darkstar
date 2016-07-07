@@ -20,6 +20,7 @@ function onMobWeaponSkill(target, mob, skill)
     local typeEffect = EFFECT_CURSE_I;
 
     skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 25, 0, 480));
+    enmityStatusCheck(target, mob, skill, 15 + hard * 5);
 
     return typeEffect;
 end;

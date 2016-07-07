@@ -234,7 +234,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
         attacker:delStatusEffect(EFFECT_FOIL);
     end
 
-    if (isAoEWeaponskill(wsID)) then
+    if (wsID ~= 0 and isAoEWeaponskill(wsID)) then
         if (target:getModelSize() > 1) then finaldmg = finaldmg * 1.25; end;
         if (target:getFamily() == 47) then dmg = dmg * 1.33; end
     end
@@ -336,7 +336,7 @@ function doMagicWeaponskill(attacker, target, wsID, params, tp, primary)
     
     dmg = dmg * ftp;
 
-    if (isAoEWeaponskill(wsID)) then
+    if (wsID ~= 0 and isAoEWeaponskill(wsID)) then
         if (target:getModelSize() > 1) then finaldmg = finaldmg * 1.25; end;
         if (target:getFamily() == 47) then dmg = dmg * 1.33; end
     end

@@ -14,8 +14,9 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
 
-    local power = 40;
+    local power = 40 + hard * 15;
     local duration = 300;
 
     local typeEffect = EFFECT_PROTECT;

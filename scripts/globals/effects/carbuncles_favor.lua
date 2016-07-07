@@ -27,10 +27,13 @@ function onEffectTick(target,effect)
     end
     local owner = target:getMaster();
 
-    local party = owner:getParty();
+    local party = owner:getParty(true, true);
     if (party ~= nil) then
         for i,member in ipairs(party) do
-            member:addStatusEffect(EFFECT_CARBUNCLE_S_FAVOR, effect:getPower(), 0, 16);
+            if (member:getID() ~= target:getID()) then
+                member:addStatusEffect(EFFECT_CARBUNCLE_S_FAVOR, effect:getPower(), 0, 16);
+            end
+
         end
     end
 end;

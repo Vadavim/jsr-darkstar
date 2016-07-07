@@ -9815,10 +9815,13 @@ inline int32 CLuaBaseEntity::getParty(lua_State* L)
     {
         size = 1;
     }
+    bool includeAllies = lua_isnil(L, 1) ? false : lua_toboolean(L, 1);
+    bool includePets = lua_isnil(L, 2) ? false : lua_toboolean(L, 2);
 
+    // JSR: include allies and pets (if the booleans are set to true)
     lua_createtable(L, size, 0);
     int i = 1;
-    ((CBattleEntity*)m_PBaseEntity)->ForParty([this, &L, &i](CBattleEntity* member)
+    ((CBattleEntity*)m_PBaseEntity)->ForParty([this, &L, &i, &includeAllies, &includePets](CBattleEntity* member)
     {
         lua_getglobal(L, CLuaBaseEntity::className);
         lua_pushstring(L, "new");
@@ -9828,10 +9831,64 @@ inline int32 CLuaBaseEntity::getParty(lua_State* L)
         lua_pcall(L, 2, 1, 0);
 
         lua_rawseti(L, -2, i++);
+
+        if (includePets && member->PPet != nullptr) {
+            lua_getglobal(L, CLuaBaseEntity::className);
+            lua_pushstring(L, "new");
+            lua_gettable(L, -2);
+            lua_insert(L, -2);
+            lua_pushlightuserdata(L, (void*)member->PPet);
+            lua_pcall(L, 2, 1, 0);
+
+            lua_rawseti(L, -2, i++);
+        }
+
+        if (includeAllies && member->PAlly.size() != 0) {
+            for (CBattleEntity* ally : member->PAlly) {
+                lua_getglobal(L, CLuaBaseEntity::className);
+                lua_pushstring(L, "new");
+                lua_gettable(L, -2);
+                lua_insert(L, -2);
+                lua_pushlightuserdata(L, (void*)ally);
+                lua_pcall(L, 2, 1, 0);
+
+                lua_rawseti(L, -2, i++);
+            }
+        }
+
+
     });
 
     return 1;
 }
+
+
+inline int32 CLuaBaseEntity::getTargetsWithinArea(lua_State* L) {
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+    CBattleEntity* PEntity = (CBattleEntity*) m_PBaseEntity;
+
+    float radius = (float)lua_tonumber(L, 1);
+    uint16 flags = lua_isnil(L, 2)? 0 : lua_tointeger(L, 2);
+
+    PEntity->PAI->TargetFind->reset();
+//    PEntity->PAI->TargetFind->findWithinArea(PEntity, AOERADIUS_TARGET, radius, 16);
+    PEntity->PAI->TargetFind->addNearby(PEntity, radius, flags);
+    uint16 size = PEntity->PAI->TargetFind->m_targets.size();
+    lua_createtable(L, size, 0);
+    int i = 1;
+
+
+    for (auto PTarget : PEntity->PAI->TargetFind->m_targets) {
+        lua_getglobal(L, CLuaBaseEntity::className);
+        lua_pushstring(L, "new");
+        lua_gettable(L, -2);
+        lua_insert(L, -2);
+        lua_pushlightuserdata(L, (void*)PTarget);
+        lua_pcall(L, 2, 1, 0);
+        lua_rawseti(L, -2, i++);
+    };
+    return true;
+};
 
 inline int32 CLuaBaseEntity::getAlliance(lua_State* L)
 {
@@ -11789,5 +11846,6 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,applyConfrontationToParty),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeConfrontationFromParty),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getModelSize),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getTargetsWithinArea),
     {nullptr,nullptr}
 };

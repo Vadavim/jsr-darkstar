@@ -17,8 +17,32 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    if (hard > 0) then
+        mob:addTP(skill:getTP() * 0.5);
+    end
 
-    local dispel =  target:dispelStatusEffect(bit.bor(EFFECTFLAG_DISPELABLE, EFFECTFLAG_FOOD));
+    if (mob:hasStatusEffect(EFFECT_SILENCE) and math.random(0, 100) > 50) then
+        skill:setMsg(MSG_NO_EFFECT);
+        return 0;
+    end;
+
+    if (mob:hasStatusEffect(EFFECT_CHOKE) and math.random(0, 100) > 70) then
+        skill:setMsg(MSG_NO_EFFECT);
+        return 0;
+    end;
+
+    if (mob:hasStatusEffect(EFFECT_DROWN) and math.random(0, 100) > 70) then
+        skill:setMsg(MSG_NO_EFFECT);
+        return 0;
+    end;
+
+    local resist = applyPlayerResistance(mob,0,target,mob:getStat(MOD_INT)-target:getStat(MOD_INT),0,ELE_WIND);
+    local dispel = EFFECT_NONE;
+    if (resist >= 0.5) then
+        dispel =  target:dispelStatusEffect(bit.bor(EFFECTFLAG_DISPELABLE, EFFECTFLAG_FOOD));
+    end
+
 
     if (dispel == EFFECT_NONE) then
         -- no effect

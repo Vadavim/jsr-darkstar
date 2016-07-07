@@ -14,7 +14,7 @@ function onAbilityCheck(player, target, ability)
     return 0,0;
 end;
 
-function onPetAbility(target, pet, skill)
+function onPetAbility(target, pet, skill, master)
     local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP();
 	local numhits = 3;
 	local accmod = 1.15;
@@ -31,7 +31,7 @@ function onPetAbility(target, pet, skill)
     --get the resisted damage
     local params = {}; params.bonusmab = 0; params.includemab = true;
 
-    local totaldamage = damage.dmg * resist * addBonusesAbility(pet, ELE_FIRE, target, damage.dmg, 0.77);
+    local totaldamage = damage.dmg * resist * addBonusesAbility(pet, ELE_FIRE, target, damage.dmg, params, 0.77);
 
 
 

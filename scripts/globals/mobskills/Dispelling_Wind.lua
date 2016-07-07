@@ -18,9 +18,23 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
 
-    local dis1 = target:dispelStatusEffect();
-    local dis2 = target:dispelStatusEffect();
+    local resist = applyPlayerResistance(mob,0,target,mob:getStat(MOD_INT)-target:getStat(MOD_INT),0,ELE_WIND);
+    local dis1 = EFFECT_NONE;
+    local dis2 = EFFECT_NONE;
+
+    if (resist >= 0.5) then
+        dis1 = target:dispelStatusEffect();
+        dis2 = target:dispelStatusEffect();
+    end
+
+    if (hard > 0) then
+        removeNegative(mob, 2);
+    end
+
+
+
 
 
     if (dis1 ~= EFFECT_NONE and dis2 ~= EFFECT_NONE) then

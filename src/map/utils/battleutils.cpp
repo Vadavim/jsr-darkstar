@@ -2426,7 +2426,7 @@ namespace battleutils
 
             if (PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_ENLIGHT))
             {
-                hitrate += PAttacker->getMod(MOD_ENSPELL_DMG);
+                hitrate += PAttacker->getMod(MOD_ENSPELL_DMG / 3);
             }
 
             hitrate = dsp_cap(hitrate, 20, 95);
@@ -2555,7 +2555,7 @@ namespace battleutils
         {
             if (PAttacker->GetMLevel() > PDefender->GetMLevel())
             {
-                cRatio += 0.04f * (PAttacker->GetMLevel() - PDefender->GetMLevel()) * (ratio < 1 ? ratio : 1);
+                cRatio += 0.05f * ((double)(PAttacker->GetMLevel() - PDefender->GetMLevel())) * (ratio < 1 ? ratio : 1);
             }
         }
 
@@ -4730,7 +4730,10 @@ namespace battleutils
     {
         float reductionPercent = 0.f;
 
-        if (PEntity->objtype == TYPE_PC && charutils::hasTrait((CCharEntity*)PEntity, TRAIT_TRANQUIL_HEART))
+        if (PEntity->objtype == TYPE_PC && PEntity->GetMJob() == JOB_PLD) {
+            return -1;
+        }
+        else if (PEntity->objtype == TYPE_PC && charutils::hasTrait((CCharEntity*)PEntity, TRAIT_TRANQUIL_HEART))
         {
             int16 healingSkill = PEntity->GetSkill(SKILL_HEA);
             reductionPercent = ((healingSkill / 10) * .5);
@@ -5299,6 +5302,9 @@ namespace battleutils
             if (level >= PTrait->getLevel() && PTrait->getLevel() > 0)
             {
                 bool add = true;
+                if (PEntity->objtype == TYPE_MOB && PTrait->getID() >= 1584 && PTrait->getID() <= 1599)
+                    continue;
+
 
                 for (uint8 j = 0; j < PEntity->TraitList.size(); ++j)
                 {

@@ -26,12 +26,13 @@ end;
 -----------------------------------
 
 function onUseAbility(player, target, ability)
+    local merit = player:getMerit(MERIT_SHIELD_BASH_RECAST);
 
     local shieldSize = player:getShieldSize();
     local damage = 0;
 
     local chance = 90;
-    damage = player:getMod(MOD_SHIELD_BASH);
+    damage = player:getMod(MOD_SHIELD_BASH) + player:getStat(MOD_STR) + merit * 2;
 
     if (shieldSize == 1 or shieldSize == 5) then
         damage = 25 + damage;
@@ -50,7 +51,7 @@ function onUseAbility(player, target, ability)
         damage = math.floor(damage);
     end
 
-    chance = chance + (player:getMainLvl() - target:getMainLvl())*5;
+    chance = chance + (player:getMainLvl() - target:getMainLvl())*2 + merit / 3;
 
     if (math.random()*100 < chance) then
         target:addStatusEffect(EFFECT_STUN,1,0,6);
@@ -58,11 +59,11 @@ function onUseAbility(player, target, ability)
 
     -- randomize damage
     local ratio = player:getStat(MOD_ATT)/target:getStat(MOD_DEF);
-    if (ratio > 1.3) then
-        ratio = 1.3;
+    if (ratio > 1.5) then
+        ratio = 1.5;
     end
-    if (ratio < 0.2) then
-        ratio = 0.2;
+    if (ratio < 0.5) then
+        ratio = 0.5;
     end
 
     local pdif = (math.random(ratio*0.8*1000, ratio*1.2*1000));

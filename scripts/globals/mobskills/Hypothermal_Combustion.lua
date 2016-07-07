@@ -13,7 +13,7 @@ require("scripts/globals/monstertpmoves");
 ---------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
-    if (mob:isMobType(MOBTYPE_NOTORIOUS)) then
+    if (mob:isMobType(MOBTYPE_NOTORIOUS) or mob:getHPP() > 50) then
         return 1;
     end
     return 0;
@@ -23,7 +23,7 @@ function onMobWeaponSkill(target, mob, skill)
     local dmgmod = 1;
         local BOMB_TOSS_HPP = skill:getHPP() / 100;
 
-    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*20*BOMB_TOSS_HPP,ELE_ICE,dmgmod,TP_MAB_BONUS,1);
+    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*16*BOMB_TOSS_HPP,ELE_ICE,dmgmod,TP_MAB_BONUS,1);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_MAGICAL,MOBPARAM_FIRE,MOBPARAM_IGNORE_SHADOWS);
     mob:setHP(0);
     target:delHP(dmg);

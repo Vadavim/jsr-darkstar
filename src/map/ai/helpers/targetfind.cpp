@@ -235,6 +235,51 @@ void CTargetFind::addAllInZone(CBattleEntity* PTarget, bool withPet)
 	});
 }
 
+void CTargetFind::addNearby(CBattleEntity* PTarget, float radius, uint16 flags)
+{
+    m_radius = radius;
+    m_PRadiusAround = &(m_PBattleEntity->loc.p);
+    if (flags & 1) {
+        zoneutils::GetZone(PTarget->getZone())->ForEachCharInstance(PTarget, [&](CCharEntity *PChar) {
+            if (PChar && isWithinArea(&(PChar->loc.p)) && !PChar->isDead()) {
+                m_targets.push_back(PChar);
+            }
+            if (flags & 2 && PChar->PPet != nullptr && isWithinArea(&(PChar->PPet->loc.p)) && !PChar->PPet->isDead()
+                    && PChar->PPet->m_EcoSystem != SYSTEM_ELEMENTAL) {
+                m_targets.push_back(PChar->PPet);
+            }
+            if (flags & 4 && !PChar->PAlly.empty()) {
+                for (CBattleEntity* ally : PChar->PAlly) {
+                    if (isWithinArea(&(ally->loc.p))) {
+                        m_targets.push_back(ally);
+                    }
+                }
+            }
+        });
+    }
+    if (flags & 16) {
+        if (PTarget->objtype == TYPE_PET) {
+            zoneutils::GetZone(PTarget->getZone())->ForEachMobInstance(PTarget, [&](CMobEntity *PMob) {
+                if (PMob && isWithinArea(&(PMob->loc.p)) && PMob->PEnmityContainer->HasTargetID(PTarget->PMaster->id)) {
+                    m_targets.push_back(PMob);
+                }
+            });
+        } else {
+            zoneutils::GetZone(PTarget->getZone())->ForEachMobInstance(PTarget, [&](CMobEntity *PMob) {
+                if (PMob && isWithinArea(&(PMob->loc.p)) && PMob->PEnmityContainer->HasTargetID(PTarget->id)) {
+                    m_targets.push_back(PMob);
+                }
+            });
+        }
+    } else if (flags & 8) {
+        zoneutils::GetZone(PTarget->getZone())->ForEachMobInstance(PTarget, [&](CMobEntity *PMob) {
+            if (PMob && isWithinArea(&(PMob->loc.p))) {
+                m_targets.push_back(PMob);
+            }
+        });
+    }
+}
+
 void CTargetFind::addAllInAlliance(CBattleEntity* PTarget, bool withPet)
 {
     CParty* party = nullptr;
@@ -490,3 +535,4 @@ CBattleEntity* CTargetFind::getValidTarget(uint16 actionTargetID, uint16 validTa
 
     return nullptr;
 }
+

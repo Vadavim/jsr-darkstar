@@ -15,15 +15,21 @@ cmdprops =
 
 function onTrigger(player, amount, target)
 --    testPick();
---    player:spawnPet(73);
+--    player:spawnPet(73);7
 --print(player:checkDistance(player:getPet()));
 --print(player:getRotPos());
---    local targ = player:getCursorTarget();
---    if (targ ~= nil) then
---        targ:setModelId(amount);
---    end
+    local targ = player:getCursorTarget();
+    if (targ ~= nil) then
+--        player:SayToPlayer("Attack: " .. tostring(targ:getStat(MOD_ATT)) .. ", Defense: " .. tostring(targ:getStat(MOD_DEF)));
+--        targ:useMobAbility(amount);
+        targ:setModelId(amount);
+    end
+--local area = player:getTargetsWithinArea(10.0, 16);
+--for i,member in ipairs(area) do
+--    print(member:getID());
+--end
 
-print(player:getMod(MOD_MEVA));
+
 
 
 

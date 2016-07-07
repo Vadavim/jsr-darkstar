@@ -15,25 +15,52 @@ STATS
  - Jump Recast Merit adds +3% chance per point.
 
 [Super Jump]
- - Adds Chainbound effect to target for 15 seconds (next weaponskill causes a skillchain)
+ - Gained at level 45
+ - SPIRIT SURGE: Adds Chainbound effect to target for 15 seconds (next weaponskill causes a skillchain)
 
 [Ancient Circle]
  - Grants the following for the duration:
 	- +40 Ice, Thunder, and Fire Resistance
- - Merit: Ancient Circle Recast also adds +5 to resistances and +1 to dragon killer effect per point.
+	- +8 Ice, Thunder, and Fire Accuracy
+	- +8% Ice, Thunder, and Fire Attack
+ - Merit: Ancient Circle Recast also adds +5 to resistances, +1 to magic acc/attack, and +1 to dragon killer effect per point.
 
 [Spirit Link]
  - Merit: Spirit Link Recast also increases HP regen by +2 per merit
+ - Removes an erasable status effect.
 
 [Deep Breathing]
- - Gained at Level 60 and does not require a merit to use (merits add directly to effect)
+ - Gained at Level 40 and does not require a merit to use (merits add directly to effect)
+
+[Spirit Jump]
+ - Gained at level 55
+ - Shares recast with Jump.
+ - Damage is magical (Light-based). Modifier: 50% MND. fTP: 1.0.
+ - Lowers enmity towards target by 15%.
+	- SPIRIT SURGE: lowers target's Magic Defense by 20% for 60 seconds.
+
+[Soul Jump]
+ - Gained at level 65
+ - Shares recast with Jump.
+ - Damage is magical (Light-based). Modifier: 100% MND. fTP: 1.0.
+ - Lowers enmity towards target by 15%.
+	- SPIRIT SURGE: heals the most damaged party member by an amount equal to damage inflicted.
+
+[Fy High]
+ - Gained at level 70
+ - Instead treats the next jump as if you had Spirit Surge (triggering its additional effect) and reduces the recast of the jump by half.
+ - Recast is 6 minutes.
+
+
+[Offensive Breaths]
+ - Offensive wyverns consume TP to deal bonus damage with their breath attacks (+1% damage per 20 TP).
 
 
 [Healing Breath IV]
  - Gained at level 70
 
 [Smiting / Healing Breath]
- - Gained at level 60
+ - Gained at level 50
  - Consumed 25% of Dragoon's TP and gives 4x the amount to the Wyvern before activating the breath.
- - Recast is 5 minutes
+ - Recast is 6 minutes
 

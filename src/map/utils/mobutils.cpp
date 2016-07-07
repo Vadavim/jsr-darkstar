@@ -85,7 +85,7 @@ uint16 GetWeaponDamage(CMobEntity* PMob)
 
 uint16 GetMagicEvasion(CMobEntity* PMob)
 {
-    uint8 mEvaRank = 2; // JSR: Base M.EVA is 2 instead of 3
+    uint8 mEvaRank = 3; // JSR: Base M.EVA is 2 instead of 3
 
     return GetBase(PMob, mEvaRank);
 }

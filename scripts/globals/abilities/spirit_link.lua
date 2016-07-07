@@ -71,7 +71,8 @@ function onUseAbility(player,target,ability)
     pet:delStatusEffect(EFFECT_POISON);
     pet:delStatusEffect(EFFECT_BLIND);
     pet:delStatusEffect(EFFECT_PARALYSIS);
-    
+    pet:eraseStatusEffect();
+
     if (math.random(1,2) == 1) then
         pet:delStatusEffect(EFFECT_DOOM);
     end

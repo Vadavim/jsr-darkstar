@@ -825,7 +825,7 @@ void CMobEntity::DropItems()
             //ShowDebug(CL_CYAN"DropID: %u dropping with TH Level: %u\n" CL_RESET, PMob->m_DropID, PMob->m_THLvl);
 
             int lDif = this->GetMLevel() - PChar->GetMLevel();
-            double dropBonus = lDif < 0 ? 0 : ((double)dsp_cap(lDif * lDif, 0, 100) * 2) / 100.0f;
+            double dropBonus = lDif < 0 ? 0 : ((double)dsp_cap(lDif * lDif, 0.0f, 100.0f) * 2.0f) / 100.0f;
             if (DropList != nullptr && !getMobMod(MOBMOD_NO_DROPS) && DropList->size())
             {
                 for (uint8 i = 0; i < DropList->size(); ++i)
@@ -834,7 +834,8 @@ void CMobEntity::DropItems()
                     uint8 tries = 0;
                     uint8 maxTries = 1 + (m_THLvl > 2 ? 2 : m_THLvl);
                     uint8 bonus = (m_THLvl > 2 ? (m_THLvl - 2) * 10 : 0);
-                    ShowDebug("Before Bonus: %d\nAfter Bonus: %d\n", DropList->at(i).DropRate,
+                    ShowDebug("Drop bonus: %f\n", dropBonus);
+                    ShowDebug("Before Bonus: %d\nAfter Bonus: %f\n", DropList->at(i).DropRate,
                               DropList->at(i).DropRate * (1.0f + dropBonus));
                     while (tries < maxTries)
                     {

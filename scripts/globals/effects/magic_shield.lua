@@ -11,7 +11,10 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onEffectGain(target,effect)
-    if (effect:getPower() == 3) then -- arcane stomp
+    if (effect:getPower() == 4) then
+        target:addMod(MOD_DEFP, 10);
+        target:addMod(MOD_UDMGMAGIC, effect:getSubPower());
+    elseif (effect:getPower() == 3) then -- arcane stomp
         target:addMod(MOD_FIRE_ABSORB, 100);
         target:addMod(MOD_EARTH_ABSORB, 100);
         target:addMod(MOD_WATER_ABSORB, 100);
@@ -32,6 +35,15 @@ end;
 -----------------------------------
 
 function onEffectTick(target,effect)
+    if (effect:getPower() == 4 and effect:getSubPower > 0) then
+        target:delMod(MOD_UDMGMAGIC, -4);
+        effect:setSubPower(effect:getSubPower() - 4);
+    end
+
+    if (effect:getSubPower() == 0) then
+        target:delStatusEffect(EFFECT_MAGIC_SHIELD);
+    end
+
 end;
 
 -----------------------------------
@@ -39,7 +51,10 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
-    if (effect:getPower() == 3) then -- arcane stomp
+    if (effect:getPower() == 4) then
+        target:delMod(MOD_DEFP, 10);
+        target:delMod(MOD_UDMGMAGIC, -effect:getSubPower());
+    elseif (effect:getPower() == 3) then -- arcane stomp
         target:delMod(MOD_FIRE_ABSORB, 100);
         target:delMod(MOD_EARTH_ABSORB, 100);
         target:delMod(MOD_WATER_ABSORB, 100);

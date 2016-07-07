@@ -148,9 +148,12 @@ function MobRangedMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mtp0
         lvldiff = 0;
     end;
 
-    if (not mob:isPet()) then
+    if (ratio < 1) then
+        ratio = ratio + lvldiff * (0.05 * ratio);
+    else
         ratio = ratio + lvldiff * 0.05;
     end
+
     ratio = utils.clamp(ratio, 0, 4.5);
 
     --work out hit rate for mobs (bias towards them)
@@ -298,6 +301,7 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     if (dstr < -40) then
         dstr = -40;
     end
+    printf("Dstr: %d", dstr);
 
     if (dstr > 40) then
         dstr = 40;
@@ -339,8 +343,13 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     end;
 
     if (not mob:isPet()) then
-        ratio = ratio + lvldiff * 0.05;
+        if (ratio < 1) then
+            ratio = ratio + lvldiff * (0.05 * ratio);
+        else
+            ratio = ratio + lvldiff * 0.05;
+        end
     end
+    printf("Ratio is: %f", ratio);
     ratio = utils.clamp(ratio, 0, 4);
     
     --work out hit rate for mobs (bias towards them)
@@ -550,6 +559,13 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue)
     --get all the stuff we need
     local resist = 1
     local master = mob:getMaster();
+    if (not mob:isPet() and mob:isMob()) then
+        damage = damage * 1.33;
+        local damBonus = (mob:getStat(MOD_INT) - target:getStat(MOD_INT)) * (1 + mob:getMainLvl() / 40);
+        damage = damage + damBonus;
+
+    end
+
 
 
     local mdefBarBonus = 0;
@@ -571,7 +587,11 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue)
         mab = 0.3;
     end
 
-    if (master ~= nil) then mab = mab + master:getMod(MOD_CHR) / 400.0 end;
+    local dInt = mob:getStat(MOD_INT) - target:getStat(MOD_INT);
+    if (master ~= nil) then
+        mab = mab + master:getMod(MOD_CHR) / 400.0
+        dInt = dInt + master:getMod(MOD_CHR);
+    end;
 
     if (tpeffect==TP_DMG_BONUS) then
         damage = damage * ((((skill:getTP() + mob:getMod(MOD_TP_BONUS)) / 10)*tpvalue)/100);
@@ -585,17 +605,26 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue)
     -- resistence is added last
     local finaldmg = damage * mab * dmgmod;
 
+    local lvldiff = mob:getMainLvl() - target:getMainLvl();
+    if lvldiff < 0 then
+        lvldiff = 0;
+    end;
+
+    if (not mob:isPet()) then
+        finaldmg = finaldmg * utils.clamp(1 + lvldiff * 0.05, 1, 2);
+    end
+
     -- get resistence
     local avatarAccBonus = 0;
     if (mob:isPet() and mob:getMaster() ~= nil) then
         local master = mob:getMaster();
         if (master:getPetID() >= 0 and master:getPetID() <= 20) then -- check to ensure pet is avatar
             avatarAccBonus = utils.clamp(master:getSkillLevel(SKILL_SUM) - master:getMaxSkillLevel(mob:getMainLvl(), JOBS.SMN, SUMMONING_SKILL), 0, 200);
+            avatarAccBonus = avatarAccBonus + skill:getTP() / 50;
         end
     end
 
-    if (master ~= nil) then avatarAccBonus = avatarAccBonus + master:getMod(MOD_CHR) / 2 end;
-    resist = applyPlayerResistance(mob,nil,target,mob:getStat(MOD_INT)-target:getStat(MOD_INT),avatarAccBonus,element);
+    resist = applyPlayerResistance(mob,nil,target,dInt,avatarAccBonus,element);
 
     local magicDefense = getElementalDamageReduction(target, element);
 
@@ -697,13 +726,14 @@ function mobAddBonuses(caster, spell, target, dmg, ele)
         dayWeatherBonus = 1.5;
     end
 
+
     if (ele > 0) then
         dmg = dmg * (1 + caster:getMod(spellAtt[ele]) / 100);
     end
 
     dmg = math.floor(dmg * dayWeatherBonus);
 
-    burst = calculateMobMagicBurst(caster, ele, target);
+    local burst = calculateMobMagicBurst(caster, ele, target);
 
     -- not sure what to do for this yet
     -- if (burst > 1.0) then
@@ -1406,3 +1436,31 @@ function AutomatonFinalAdjustments(target, pet, skill, damage)
     return damage;
 end
 
+
+function elementalBreathCalc(pet, target, skill, action, element)
+    require("scripts/globals/ability");
+    local master = pet:getMaster()
+    ---------- Deep Breathing ----------
+    -- 0 for none
+    -- 1 for first merit
+    -- 0.25 for each merit after the first
+    -- TODO: 0.1 per merit for augmented AF2 (10663 *w/ augment*)
+    local deep = 1;
+    if (pet:hasStatusEffect(EFFECT_MAGIC_ATK_BOOST) == true) then
+        deep = 1 + (50 + (master:getMerit(MERIT_DEEP_BREATHING))*5) / 100;
+        pet:delStatusEffect(EFFECT_MAGIC_ATK_BOOST);
+    end
+
+    local gear = master:getMod(MOD_WYVERN_BREATH)/256; -- Master gear that enhances breath
+
+    local tpBonus = 1 + (pet:getTP() / 1200);
+    pet:setTP(0)
+
+
+    local dmgmod = MobBreathMove(pet, target, 0.185, pet:getMainLvl()*15, element); -- Works out to (hp/6) + 15, as desired
+    dmgmod = dmgmod * deep * (1 + gear / 100) * tpBonus;
+
+    local dmg = AbilityFinalAdjustments(dmgmod,pet,skill,target,MOBSKILL_MAGICAL,MOBPARAM_NONE,MOBPARAM_IGNORE_SHADOWS);
+    target:delHP(dmg);
+    return dmg;
+end

@@ -24,6 +24,16 @@ function onEffectTick(target,effect)
     if (master == nil) then
         return;
     end
+
+    local poison = target:getLocalVar("indiPoison");
+    local torpor = target:getLocalVar("indiTorpor");
+    local slip = target:getLocalVar("indiSlip");
+    local languor = target:getLocalVar("indiLanguor");
+    local slow = target:getLocalVar("indiSlow");
+    local vex = target:getLocalVar("indiVex");
+    local paralysis = target:getLocalVar("indiParalysis");
+
+
     local regen = target:getLocalVar("indiRegen");
     local str = target:getLocalVar("indiStr");
     local vit = target:getLocalVar("indiVit");
@@ -55,14 +65,15 @@ function onEffectTick(target,effect)
     -- Take damage over time
     local damage = 1 + math.random(degen / 2, degen);
     damage = damage * 1.5;
-    if (master:hasStatusEffect(EFFECT_ECLIPTIC_ATTRITION)) then
-        damage = damage * 2;
-    elseif (master:hasStatusEffect(EFFECT_LASTING_EMANATION)) then
-        damage = damage * 0.5;
-        if (damage < 1) then damage = 1; end;
-    end
+
 
     if (not master:hasStatusEffect(EFFECT_BOLSTER)) then
+        if (master:hasStatusEffect(EFFECT_ECLIPTIC_ATTRITION)) then
+            damage = damage * 2;
+        elseif (master:hasStatusEffect(EFFECT_LASTING_EMANATION)) then
+            damage = damage * 0.5;
+            if (damage < 1) then damage = 1; end;
+        end
         target:delHP(damage);
     end
 
@@ -76,91 +87,117 @@ function onEffectTick(target,effect)
     if (master:hasStatusEffect(EFFECT_BOLSTER)) then
         mult = mult * 1.33;
     elseif (master:hasStatusEffect(EFFECT_ECLIPTIC_ATTRITION))
-        then mult = 1.33;
+    then mult = 1.33;
     end;
 
 
 
 
     local skill = master:getSkillLevel(SKILL_GEO);
-    if (party ~= nil) then
-        for i,member in ipairs(party) do
-            if (target:checkDistance(member) <= 9.5) then
+    local nearbyMobs = target:getTargetsWithinArea(9.5, 16);
+    for i,member in ipairs(nearbyMobs) do
+        if (poison > 0) then
+            member:addStatusEffect(EFFECT_POISON_II, (1 + skill * 0.1) * mult * (1 + (poison - 1) / 100), 0, 6);
+        end;
 
-                if (regen > 0) then
-                    member:addStatusEffect(EFFECT_REGEN_II, (1 + skill * 0.04) * mult * (1 + (regen - 1) / 100), 0, 6);
-                end;
+        if (paralysis > 0) then
+            member:addStatusEffect(EFFECT_PARALYSIS_II, (skill * 0.05) * mult * (1 + (paralysis - 1) / 100), 0, 6);
+        end;
 
-                if (str > 0) then
-                    member:addStatusEffect(EFFECT_STR_BOOST_II, (4 + skill * 0.035) * mult * (1 + (str - 1) / 100), 0, 6);
-                end;
+        if (slip > 0) then
+            member:addStatusEffect(EFFECT_ACCURACY_DOWN_II, 5 + (skill * 0.05) * mult * (1 + (slip - 1) / 100), 0, 6);
+        end;
 
-                if (vit > 0) then
-                    member:addStatusEffect(EFFECT_VIT_BOOST_II, (4 + skill * 0.035) * mult * (1 + (vit - 1) / 100), 0, 6);
-                end;
+        if (torpor > 0) then
+            member:addStatusEffect(EFFECT_EVASION_DOWN_II, 5 + (skill * 0.05) * mult * (1 + (torpor - 1) / 100), 0, 6);
+        end;
 
-                if (dex > 0) then
-                    member:addStatusEffect(EFFECT_DEX_BOOST_II, (4 + skill * 0.035) * mult * (1 + (dex - 1) / 100), 0, 6);
-                end;
+        if (languor > 0) then
+            member:addStatusEffect(EFFECT_EVASION_DOWN_II, 5 + (skill * 0.05) * mult * (1 + (languor - 1) / 100), 0, 6);
+        end;
 
-                if (agi > 0) then
-                    member:addStatusEffect(EFFECT_AGI_BOOST_II, (4 + skill * 0.035) * mult * (1 + (agi - 1) / 100), 0, 6);
-                end;
+        if (slow > 0) then
+            member:addStatusEffect(EFFECT_SLOW_II, 50 + (skill * 0.3) * mult * (1 + (slow - 1) / 100), 0, 6);
+        end;
 
-                if (int > 0) then
-                    member:addStatusEffect(EFFECT_INT_BOOST_II, (4 + skill * 0.035) * mult * (1 + (int - 1) / 100), 0, 6);
-                end;
-
-                if (chr > 0) then
-                    member:addStatusEffect(EFFECT_CHR_BOOST_II, (4 + skill * 0.035) * mult * (1 + (chr - 1) / 100), 0, 6);
-                end;
-
-                if (mnd > 0) then
-                    member:addStatusEffect(EFFECT_MND_BOOST_II, (4 + skill * 0.035) * mult * (1 + (mnd - 1) / 100), 0, 6);
-                end;
-
-                if (precision > 0) then
-                    member:addStatusEffect(EFFECT_ACCURACY_BOOST_II, (8 + skill * 0.025) * mult * (1 + (precision - 1) / 100), 0, 6);
-                end;
-
-                if (barrier > 0) then
-                    member:addStatusEffect(EFFECT_DEFENSE_BOOST_II, (6 + skill * 0.025) * mult * (1 + (barrier - 1) / 100), 0, 6);
-                end;
-
-                if (voidance > 0) then
-                    member:addStatusEffect(EFFECT_EVASION_BOOST_II, (8 + skill * 0.025) * mult * (1 + (voidance - 1) / 100), 0, 6);
-                end;
-
-                if (fend > 0) then
-                    member:addStatusEffect(EFFECT_MAGIC_DEF_BOOST_II, (6 + skill * 0.025) * mult * (1 + (fend - 1) / 100), 0, 6);
-                end;
-
-                if (fury > 0) then
-                    member:addStatusEffect(EFFECT_ATTACK_BOOST_II, (5 + skill * 0.025) * mult * (1 + (fury - 1) / 100), 0, 6);
-                end;
-
-                if (acumen > 0) then
-                    member:addStatusEffect(EFFECT_MAGIC_ATK_BOOST_II, (8 + skill * 0.025) * mult * (1 + (acumen - 1) / 100), 0, 6);
-                end;
-
-                if (focus > 0) then
-                    member:addStatusEffect(EFFECT_MAGIC_ACC_BOOST_II, (6 + skill * 0.025) * mult * (1 + (focus - 1) / 100), 0, 6);
-                end;
-
-                if (attunement > 0) then
-                    member:addStatusEffect(EFFECT_MAGIC_EVASION_BOOST_II, (10 + skill * 0.025) * mult * (1 + (attunement - 1) / 100), 0, 6);
-                end;
-
-                if (refresh > 0) then
-                    member:addStatusEffect(EFFECT_REFRESH_II, (1 + skill * 0.005) * mult * (1 + (refresh - 1) / 100), 0, 6);
-                end;
-
-
-
-            end
-
-        end
+        if (vex > 0) then
+            member:addStatusEffect(EFFECT_MAGIC_ACC_DOWN_II, 1 + (skill * 0.1) * mult * (1 + (vex - 1) / 100), 0, 6);
+        end;
     end
+
+
+    local nearbyChars = target:getTargetsWithinArea(9.5, 7);
+    for i,member in ipairs(nearbyChars) do
+        if (regen > 0) then
+            member:addStatusEffect(EFFECT_REGEN_II, (1 + skill * 0.04) * mult * (1 + (regen - 1) / 100), 0, 6);
+        end;
+
+        if (str > 0) then
+            member:addStatusEffect(EFFECT_STR_BOOST_II, (4 + skill * 0.035) * mult * (1 + (str - 1) / 100), 0, 6);
+        end;
+
+        if (vit > 0) then
+            member:addStatusEffect(EFFECT_VIT_BOOST_II, (4 + skill * 0.035) * mult * (1 + (vit - 1) / 100), 0, 6);
+        end;
+
+        if (dex > 0) then
+            member:addStatusEffect(EFFECT_DEX_BOOST_II, (4 + skill * 0.035) * mult * (1 + (dex - 1) / 100), 0, 6);
+        end;
+
+        if (agi > 0) then
+            member:addStatusEffect(EFFECT_AGI_BOOST_II, (4 + skill * 0.035) * mult * (1 + (agi - 1) / 100), 0, 6);
+        end;
+
+        if (int > 0) then
+            member:addStatusEffect(EFFECT_INT_BOOST_II, (4 + skill * 0.035) * mult * (1 + (int - 1) / 100), 0, 6);
+        end;
+
+        if (chr > 0) then
+            member:addStatusEffect(EFFECT_CHR_BOOST_II, (4 + skill * 0.035) * mult * (1 + (chr - 1) / 100), 0, 6);
+        end;
+
+        if (mnd > 0) then
+            member:addStatusEffect(EFFECT_MND_BOOST_II, (4 + skill * 0.035) * mult * (1 + (mnd - 1) / 100), 0, 6);
+        end;
+
+        if (precision > 0) then
+            member:addStatusEffect(EFFECT_ACCURACY_BOOST_II, (8 + skill * 0.025) * mult * (1 + (precision - 1) / 100), 0, 6);
+        end;
+
+        if (barrier > 0) then
+            member:addStatusEffect(EFFECT_DEFENSE_BOOST_II, (6 + skill * 0.025) * mult * (1 + (barrier - 1) / 100), 0, 6);
+        end;
+
+        if (voidance > 0) then
+            member:addStatusEffect(EFFECT_EVASION_BOOST_II, (8 + skill * 0.025) * mult * (1 + (voidance - 1) / 100), 0, 6);
+        end;
+
+        if (fend > 0) then
+            member:addStatusEffect(EFFECT_MAGIC_DEF_BOOST_II, (6 + skill * 0.025) * mult * (1 + (fend - 1) / 100), 0, 6);
+        end;
+
+        if (fury > 0) then
+            member:addStatusEffect(EFFECT_ATTACK_BOOST_II, (5 + skill * 0.025) * mult * (1 + (fury - 1) / 100), 0, 6);
+        end;
+
+        if (acumen > 0) then
+            member:addStatusEffect(EFFECT_MAGIC_ATK_BOOST_II, (8 + skill * 0.025) * mult * (1 + (acumen - 1) / 100), 0, 6);
+        end;
+
+        if (focus > 0) then
+            member:addStatusEffect(EFFECT_MAGIC_ACC_BOOST_II, (6 + skill * 0.025) * mult * (1 + (focus - 1) / 100), 0, 6);
+        end;
+
+        if (attunement > 0) then
+            member:addStatusEffect(EFFECT_MAGIC_EVASION_BOOST_II, (10 + skill * 0.025) * mult * (1 + (attunement - 1) / 100), 0, 6);
+        end;
+
+        if (refresh > 0) then
+            member:addStatusEffect(EFFECT_REFRESH_II, (1 + skill * 0.005) * mult * (1 + (refresh - 1) / 100), 0, 6);
+        end;
+
+    end
+
 
 
 end;

@@ -26,7 +26,7 @@ function AvatarPhysicalMove(avatar,target,skill,numberofhits,accmod,dmgmod1,dmgm
     eva = target:getEVA();
 
     local base = avatar:getWeaponDmg() + fstr;
-    local ratio = avatar:getStat(MOD_ATT)/target:getStat(MOD_DEF);
+    local ratio = (avatar:getStat(MOD_ATT) + master:getMod(MOD_SUMMONING))/target:getStat(MOD_DEF);
 
     lvldiff = lvluser - lvltarget;
 
@@ -411,3 +411,27 @@ function summonSpirit(caster, petType)
         caster:delMP(pet:getMainLvl() * 2);
     end
 end
+
+function healingBreathCalc(pet, target, skill, action, tier)
+    local master = pet:getMaster()
+    local deep = 1;
+    if (pet:hasStatusEffect(EFFECT_MAGIC_ATK_BOOST) == true) then
+        deep = 1 + (50 + (master:getMerit(MERIT_DEEP_BREATHING))*5) / 100;
+        pet:delStatusEffect(EFFECT_MAGIC_ATK_BOOST);
+    end
+
+    local gear = master:getMod(MOD_WYVERN_BREATH); -- Master gear that enhances breath
+    local tpBonus = 1 + (pet:getTP() / 3000);
+    pet:setTP(0)
+
+    local base = (tier * 40) + pet:getHP() * (0.08 + tier / 20);
+    base = base * deep * tpBonus * (1 + gear / 100);
+    if (target:getHP() + base > target:getMaxHP()) then
+        base = target:getMaxHP() - target:getHP();
+    end
+
+    skill:setMsg(MSGBASIC_USES_RECOVERS_HP);
+    target:addHP(base);
+    return base;
+end
+

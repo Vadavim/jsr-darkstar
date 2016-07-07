@@ -16,6 +16,8 @@ RANGED ATTACKS
 
 DEFENSE
  - Parry is checked before Evasion
+ - With a shield equipped, DEF is instead increased by 3/4th of VIT.
+ - DEF mitigates more damage against monsters that are higher level than you.
  - Max Parry Rate: 25% -> 35%
  - Parrying chance is higher in general
  -  AGI increases Parry by more (+1% for every 4 AGI above target's DEX, or -1% for every 4 AGI below target's DEX)

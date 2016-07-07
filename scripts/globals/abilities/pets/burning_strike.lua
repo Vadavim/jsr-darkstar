@@ -32,7 +32,7 @@ function onPetAbility(target, pet, skill, master)
     --get the resisted damage
     local params = {}; params.bonusmab = 0; params.includemab = true;
 
-    totaldamage = damage.dmg * resist * addBonusesAbility(pet, ELE_FIRE, target, damage.dmg, 0.77);
+    local totaldamage = damage.dmg * resist * addBonusesAbility(pet, ELE_FIRE, target, damage.dmg, params, 0.77);
 
 
 

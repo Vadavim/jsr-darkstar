@@ -16,6 +16,6 @@ end;
 
 function onSpellCast(caster,target,spell)
     --doDivineBanishNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus)
-    local dmg = doDivineBanishNuke(480,1,caster,spell,target,false,1.0);
+    local dmg = doDivineBanishNuke(480,6,caster,spell,target,false,35);
     return dmg;
 end;

@@ -23,7 +23,7 @@ end;
 function onSpellCast(caster,target,spell)
 	caster:spawnPet(PET_CARBUNCLE);
     local power = math.floor(1 + caster:getMainLvl() / 8);
-    local enspellPower = 1 + caster:getMainLvl() / 2.5;
+    local enspellPower = 1 + caster:getMainLvl() / 2;
     local pet = caster:getPet();
     if (pet ~= nil) then
         pet:addStatusEffect(EFFECT_CARBUNCLE_S_FAVOR, power, 15, 3000);

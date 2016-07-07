@@ -17,11 +17,17 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     local numhits = 1;
     local accmod = 1;
-    local dmgmod = 2.5;
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_NO_EFFECT);
+    local dmgmod = 2.5 + hard / 6;
+    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_RANGED,MOBPARAM_BLUNT,info.hitslanded);
+    if (hard > 0) then
+        mob:addStatusEffect(EFFECT_BLINK, 1 + hard, 0, 30);
+        target:setPendingMessage(280, EFFECT_BLINK);
+    end
+
     target:delHP(dmg);
     return dmg;
 end;

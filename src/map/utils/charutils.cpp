@@ -1572,7 +1572,8 @@ namespace charutils
                 {
                     PChar->look.sub = 0;
                     PChar->m_Weapons[SLOT_SUB] = itemutils::GetUnarmedItem();			// << equips "nothing" in the sub slot to prevent multi attack exploit
-                    PChar->health.tp = 0;
+                    if (!PChar->StatusEffectContainer->HasStatusEffect(EFFECT_WARRIORS_CHARGE))
+                        PChar->health.tp = 0;
                     BuildingCharWeaponSkills(PChar);
                     UpdateWeaponStyle(PChar, equipSlotID, nullptr);
                 }
@@ -1594,7 +1595,8 @@ namespace charutils
                         PChar->look.ranged = 0;
                     }
                     PChar->m_Weapons[SLOT_RANGED] = nullptr;
-                    PChar->health.tp = 0;
+                    if (!PChar->StatusEffectContainer->HasStatusEffect(EFFECT_WARRIORS_CHARGE))
+                        PChar->health.tp = 0;
                     BuildingCharWeaponSkills(PChar);
                     UpdateWeaponStyle(PChar, equipSlotID, nullptr);
                 }
@@ -1621,7 +1623,8 @@ namespace charutils
                         CheckUnarmedWeapon(PChar);
                     }
 
-                    PChar->health.tp = 0;
+                    if (!PChar->StatusEffectContainer->HasStatusEffect(EFFECT_WARRIORS_CHARGE))
+                        PChar->health.tp = 0;
                     BuildingCharWeaponSkills(PChar);
                     UpdateWeaponStyle(PChar, equipSlotID, nullptr);
                 }
@@ -2102,7 +2105,8 @@ namespace charutils
         }
         if (equipSlotID == SLOT_MAIN || equipSlotID == SLOT_RANGED || equipSlotID == SLOT_SUB)
         {
-            PChar->health.tp = 0;
+            if (!PChar->StatusEffectContainer->HasStatusEffect(EFFECT_WARRIORS_CHARGE))
+                PChar->health.tp = 0;
             /*// fixes logging in with no h2h
             if(PChar->m_Weapons[SLOT_MAIN]->getDmgType() == DAMAGE_NONE && PChar->GetMJob() == JOB_MNK){
             PChar->m_Weapons[SLOT_MAIN] = itemutils::GetUnarmedH2HItem();
@@ -3148,6 +3152,7 @@ namespace charutils
                     // special bonus xp
                     uint32 sBonusXP = PMob->GetLocalVar("xpBonus");
                     sBonusXP = sBonusXP > exp / 2 ? exp / 2 : sBonusXP;
+                    exp = exp + sBonusXP;
                     if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) && (region >= 0 && region <= 22))
                     {
                         switch (pcinzone)

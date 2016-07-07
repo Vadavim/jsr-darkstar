@@ -685,6 +685,8 @@ uint16 CBattleEntity::DEF()
         return VIT() / 2 + 1;
     }
     int32 DEF = 8 + m_modStat[MOD_DEF] + VIT() / 2;
+    if (objtype == TYPE_PC && m_Weapons[SLOT_SUB]->getShieldSize() > 0)
+        DEF += VIT() / 4;
 
     return DEF + (DEF * m_modStat[MOD_DEFP] / 100) +
         dsp_min((DEF * m_modStat[MOD_FOOD_DEFP] / 100), m_modStat[MOD_FOOD_DEF_CAP]);
@@ -1151,6 +1153,9 @@ void CBattleEntity::Die()
 
 void CBattleEntity::OnDeathTimer()
 {}
+
+
+
 
 void CBattleEntity::OnCastFinished(CMagicState& state, action_t& action)
 {

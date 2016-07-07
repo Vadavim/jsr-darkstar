@@ -17,17 +17,20 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     local numhits = math.random(2,3);
     local accmod = 1;
-    local dmgmod = 1;
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_NO_EFFECT);
+    local dmgmod = 0.7 + hard / 10;
+    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_SLASH,info.hitslanded);
 
     local typeEffect = EFFECT_POISON;
     local power = mob:getMainLvl()/4 + 3;
 
-    MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, power, 3, 60);
+    local success = MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, power * (1 + hard / 5), 3, 60 + hard * 15);
+    if (success == 242) then
+        target:setPendingMessage(277, typeEffect);
+    end
 
     target:delHP(dmg);
     return dmg;
