@@ -97,11 +97,16 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
 
     local critrate = 0;
     local nativecrit = 0;
-    
+
+    local flourisheffect = attacker:getStatusEffect(EFFECT_BUILDING_FLOURISH);
+    if (flourisheffect ~= nil) then
+        attacker:addTP(tp * flourisheffect:getPower() * 0.12);
+    end
+
+
     if (params.canCrit) then -- work out critical hit ratios, by +1ing
         critrate = fTP(tp,params.crit100,params.crit200,params.crit300);
         -- add on native crit hit rate (guesstimated, it actually follows an exponential curve)
-        local flourisheffect = attacker:getStatusEffect(EFFECT_BUILDING_FLOURISH);
         if flourisheffect ~= nil and flourisheffect:getPower() > 1 then
             critrate = critrate + (10 + flourisheffect:getSubPower()/2)/100;
         end
@@ -235,13 +240,13 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
     end
 
     if (wsID ~= 0 and isAoEWeaponskill(wsID)) then
-        if (target:getModelSize() > 1) then finaldmg = finaldmg * 1.25; end;
-        if (target:getFamily() == 47) then dmg = dmg * 1.33; end
+        if (target:getModelSize() >= 1) then finaldmg = finaldmg * 1.25; end;
+        if (target:getFamily() == 47) then finaldmg = finaldmg * 1.33; end
     end
 
 
     if (params.ele ~= nil and params.ele > 0) then
-        dmg = addBonusesWeaponskill(attacker, params.ele, target, dmg, params);
+        finaldmg = addBonusesWeaponskill(attacker, params.ele, target, finaldmg, params);
     end
 
     finaldmg = target:physicalDmgTaken(finaldmg);
@@ -337,7 +342,7 @@ function doMagicWeaponskill(attacker, target, wsID, params, tp, primary)
     dmg = dmg * ftp;
 
     if (wsID ~= 0 and isAoEWeaponskill(wsID)) then
-        if (target:getModelSize() > 1) then finaldmg = finaldmg * 1.25; end;
+        if (target:getModelSize() >= 1) then dmg = dmg * 1.25; end;
         if (target:getFamily() == 47) then dmg = dmg * 1.33; end
     end
 --    dmg = addBonusesAbility(attacker, params.ele, target, dmg, params);
@@ -914,8 +919,8 @@ end;
     -- print("Landed " .. hitslanded .. "/" .. numHits .. " hits with hitrate " .. hitrate .. "!");
 
     if (isAoEWeaponskill(wsID)) then
-        if (target:getModelSize() > 1) then finaldmg = finaldmg * 1.25; end;
-        if (target:getFamily() == 47) then dmg = dmg * 1.33; end
+        if (target:getModelSize() >= 1) then finaldmg = finaldmg * 1.25; end;
+        if (target:getFamily() == 47) then finaldmg = finaldmg * 1.33; end
     end
     finaldmg = target:rangedDmgTaken(finaldmg);
     finaldmg = finaldmg * target:getMod(MOD_PIERCERES) / 1000;

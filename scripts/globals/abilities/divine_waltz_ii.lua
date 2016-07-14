@@ -8,19 +8,24 @@
 
 require("scripts/globals/settings");
 require("scripts/globals/status");
+require("scripts/globals/jsr_ability");
 
 -----------------------------------
 -- onAbilityCheck
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
+    local tpCost = 800;
+    if (player:hasStatusEffect(EFFECT_CONTRADANCE)) then
+        tpCost = tpCost / 2;
+    end
     if (target:getHP() == 0) then
         return MSGBASIC_CANNOT_ON_THAT_TARG,0;
     elseif (player:hasStatusEffect(EFFECT_SABER_DANCE)) then
         return MSGBASIC_UNABLE_TO_USE_JA2, 0;
     elseif (player:hasStatusEffect(EFFECT_TRANCE)) then
         return 0,0;
-    elseif (player:getTP() < 800) then
+    elseif (player:getTP() < tpCost) then
         return MSGBASIC_NOT_ENOUGH_TP,0;
     else
         -- Apply waltz recast modifiers
@@ -62,6 +67,17 @@ function onUseAbility(player,target,ability)
 
     -- Apply waltz modifiers
     cure = math.floor(cure * (1.0 + (player:getMod(MOD_WALTZ_POTENTCY)/100)));
+
+    local tpCost = 800;
+    if (player:hasStatusEffect(EFFECT_CONTRADANCE)) then
+        cure = cure * 1.5;
+        tpCost = tpCost / 2;
+        player:delStatusEffect(EFFECT_CONTRADANCE);
+    end
+
+    if (not player:hasStatusEffect(EFFECT_TRANCE) and player:getID() == target:getID()) then
+        player:delTP(doConserveTP(player, tpCost));
+    end;
 
     -- Cap the final amount to max HP.
     if ((target:getMaxHP() - target:getHP()) < cure) then

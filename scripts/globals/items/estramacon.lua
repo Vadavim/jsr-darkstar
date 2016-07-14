@@ -11,20 +11,5 @@ require("scripts/globals/magic");
 -- onAdditionalEffect Action
 -----------------------------------
 function onAdditionalEffect(player,target,damage)
-    local chance = 5;
-
-    if (math.random(0,99) >= chance) then
-        return 0,0,0;
-    else
-        local TpDrain = math.random(10,30);
-
-        if (TpDrain > target:getTP()) then
-            TpDrain = target:getTP();
-        end
-
-        target:addTP(-TpDrain);
-        player:addTP(TpDrain);
-
-        return SUBEFFECT_TP_DRAIN, MSGBASIC_ADD_EFFECT_TP_DRAIN, TpDrain;
-    end
+    return weaponDrain(player, target, damage, 50, DRAIN_TP, 10, 50)
 end;

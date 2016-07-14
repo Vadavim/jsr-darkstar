@@ -8,12 +8,17 @@
  
 require("scripts/globals/settings");
 require("scripts/globals/status");
+require("scripts/globals/jsr_ability");
 
 -----------------------------------
 -- onAbilityCheck
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
+    local tpCost = 200;
+    if (player:hasStatusEffect(EFFECT_CONTRADANCE)) then
+        tpCost = tpCost / 2;
+    end
     if (target:getHP() == 0) then
         return MSGBASIC_CANNOT_ON_THAT_TARG,0;
     elseif (player:hasStatusEffect(EFFECT_SABER_DANCE)) then
@@ -40,12 +45,19 @@ end;
 
 function onUseAbility(player,target,ability)
     -- Only remove TP if the player doesn't have Trance.
-    if not player:hasStatusEffect(EFFECT_TRANCE) then
-        local amount = 200 - player:getMod(MOD_CHR) * 2;
-        player:delTP(amount);
-    end;
 
     local effect = target:healingWaltz();
+
+    local tpCost = 200;
+    if (player:hasStatusEffect(EFFECT_CONTRADANCE)) then
+        tpCost = tpCost / 2;
+        player:delStatusEffect(EFFECT_CONTRADANCE);
+    end
+
+    if (not player:hasStatusEffect(EFFECT_TRANCE) and player:getID == target:getID()) then
+        player:delTP(doConserveTP(player, tpCost));
+    end;
+
 
     if (effect == EFFECT_NONE) then
         ability:setMsg(283); -- no effect

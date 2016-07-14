@@ -216,6 +216,7 @@
     <ClInclude Include="..\..\src\common\zlib.h" />
     <ClInclude Include="..\..\src\map\ability.h" />
     <ClInclude Include="..\..\src\map\ai\ai_container.h" />
+    <ClInclude Include="..\..\src\map\ai\controllers\ally_controller.h" />
     <ClInclude Include="..\..\src\map\ai\controllers\automaton_controller.h" />
     <ClInclude Include="..\..\src\map\ai\controllers\mob_controller.h" />
     <ClInclude Include="..\..\src\map\ai\controllers\controller.h" />
@@ -223,6 +224,7 @@
     <ClInclude Include="..\..\src\map\ai\controllers\player_charm_controller.h" />
     <ClInclude Include="..\..\src\map\ai\controllers\player_controller.h" />
     <ClInclude Include="..\..\src\map\ai\helpers\action_queue.h" />
+    <ClInclude Include="..\..\src\map\ai\helpers\ai_utils.h" />
     <ClInclude Include="..\..\src\map\ai\helpers\event_handler.h" />
     <ClInclude Include="..\..\src\map\ai\helpers\pathfind.h" />
     <ClInclude Include="..\..\src\map\ai\helpers\targetfind.h" />
@@ -458,6 +460,7 @@
     <ClCompile Include="..\..\src\common\zlib.cpp" />
     <ClCompile Include="..\..\src\map\ability.cpp" />
     <ClCompile Include="..\..\src\map\ai\ai_container.cpp" />
+    <ClCompile Include="..\..\src\map\ai\controllers\ally_controller.cpp" />
     <ClCompile Include="..\..\src\map\ai\controllers\automaton_controller.cpp" />
     <ClCompile Include="..\..\src\map\ai\controllers\mob_controller.cpp" />
     <ClCompile Include="..\..\src\map\ai\controllers\controller.cpp" />
@@ -465,6 +468,7 @@
     <ClCompile Include="..\..\src\map\ai\controllers\player_charm_controller.cpp" />
     <ClCompile Include="..\..\src\map\ai\controllers\player_controller.cpp" />
     <ClCompile Include="..\..\src\map\ai\helpers\action_queue.cpp" />
+    <ClCompile Include="..\..\src\map\ai\helpers\ai_utils.cpp" />
     <ClCompile Include="..\..\src\map\ai\helpers\event_handler.cpp" />
     <ClCompile Include="..\..\src\map\ai\helpers\pathfind.cpp" />
     <ClCompile Include="..\..\src\map\ai\helpers\targetfind.cpp" />

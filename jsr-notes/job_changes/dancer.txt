@@ -11,6 +11,7 @@ TRAIT CHANGES
  - Gains Resist Charm at levels 5, 25, 45, and 65
  - Gains Auto-Regain at levels 30, 50, and 70. Regains 5/10/15 TP per 3 seconds.
  - Gain Conserve TP at levels 15, 35, 55, and 75  (chance is 15%, 20%, 25%, and 30% respectively).
+	- Conserve TP also reduces TP cost of dances
 
 
 ABILITY CHANGES
@@ -19,11 +20,19 @@ ABILITY CHANGES
 NOTE: fix Waltz Recast modifier
 
 [Steps]
- - Steps only require 5% TP
+ - Steps only require 80 TP (instead of 100)
+ - The duration of a step is 90 seconds. The duration is reset whenever the step is reapplied.
 
-[Grand Pas]
- - Gained at level 65
- - Instead consumes all TP to give Regain effect to self over three minutes.
+[Feather Step]
+ - Gained at level 55. 
+ - Increase target's chance to be critically hit by 4% (+2% for every level thereafter, max of +12%).
+
+[Contradance]
+ - Gained at level 35
+ - Reduces TP cost of next waltz by 50% and increases potency by 50%
+ - Healing Waltz becomes an AoE
+
+
 
 [No Foot Rise]
  - Gained at Level 65, doesn't require a merit.
@@ -32,8 +41,11 @@ NOTE: fix Waltz Recast modifier
  - No longer requires merit point to use
  - +5 bonus to Parrying per merit point (in addition to other effects)
 
-[Waltzes]
- - Charisma from equipment/effects reduce the TP cost of Waltzes
+[Curing Waltzes]
+ - TP cost reduced (200 for Curing Waltz I, and +100 TP for every tier above it).
+
+[Divine Waltz II]
+ - Gained at level 65
 
 
 SAMBA CHANGES
@@ -43,6 +55,7 @@ SAMBA CHANGES
  
 [Aspir Sambas]
  - Aspir samba drains MP whether or not mob as MP.
+ - Always deals damage to target's MP (a significant amount).
  - Duration increased to 3 minutes.
 
 [Haste Samba]
@@ -53,7 +66,6 @@ FLOURISH CHANGES
 [Desperate Flourish]
  - Much higher chance to weigh down target now.
  - Lowers enmity
- - Also inflicts -10 EVA.
 
 [Violent Flourish]
  - Gained at Level 35
@@ -68,31 +80,27 @@ FLOURISH CHANGES
 FLOURISHES II CHANGES
 
 [Reverse Flourish]
- - ##No longer shares recast with other flourishes, but recast increased to 4 minutes.
- - ##TP return also increased greatly.
  - Instead grants Regain effect (50 TP per tic)
  - Recast time: 30 -> 5 seconds
 
 [Building Flourish]
- - Only consumes up to two finishing moves (effect still scales with three finishing moves)
- - Bestows Presto effect on self
+ - Reduces TP cost of weaponskill by 12% per finishing move.
  
 
 FLOURISHES III
 
 [Climactic Flourish]
- - Gained at level 45
- - Instead increases critical hit rate by +4% per finishing move spent.
- - Lasts for one minute.
+ - Gained at level 55
+ - Consumes a single finishing move, deals damage. Consumes Dazes to drastically increase damage dealt.
  - Recast is 30  seconds.
 
 [Striking Flourish]
- - Gained at level 55
- - Instead increases Attack by 12% for 5 minutes.
- - Recast is 30 seconds.
+ - Gained at level 45
+ - Instead attempts to dispel a status effect on the target. On a successful dispel, deal increased damage.
+ - Recast is 20 seconds.
 
 [Ternary Flourish]
  - Gained at level 70
- - Instead grants 6% Triple Attack chance for 5 minutes.
- - Recast is 30 seconds.
+ - Instead grants 10% triple attack for 30 seconds per finishing move consumed.
+ - Recast is 10 seconds.
 

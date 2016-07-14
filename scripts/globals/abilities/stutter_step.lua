@@ -10,6 +10,7 @@
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/weaponskills");
+require("scripts/globals/jsr_ability");
 
 -----------------------------------
 -- onAbilityCheck
@@ -21,7 +22,7 @@ function onAbilityCheck(player,target,ability)
     else
         if (player:hasStatusEffect(EFFECT_TRANCE)) then
             return 0,0;
-        elseif (player:getTP() < 50) then
+        elseif (player:getTP() < 80) then
             return MSGBASIC_NOT_ENOUGH_TP,0;
         else
             return 0,0;
@@ -36,7 +37,7 @@ end;
 function onUseAbility(player,target,ability,action)
     -- Only remove TP if the player doesn't have Trance.
     if not player:hasStatusEffect(EFFECT_TRANCE) then
-        player:delTP(50);
+        player:delTP(doConserveTP(player, 80));
     end;
     
     local hit = 3;
@@ -52,11 +53,11 @@ function onUseAbility(player,target,ability,action)
                 local duration = target:getStatusEffect(EFFECT_WEAKENED_DAZE_1):getDuration();
                 target:delStatusEffectSilent(EFFECT_WEAKENED_DAZE_1);
                 if (player:hasStatusEffect(EFFECT_PRESTO)) then
-                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_3,1,0,duration+30);
+                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_3,1,0,90);
                     daze = 3;
                     effect = 3;
                 else
-                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_2,1,0,duration+30);
+                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_2,1,0,90);
                     daze = 2;
                     effect = 2;
                 end
@@ -65,11 +66,11 @@ function onUseAbility(player,target,ability,action)
                 local duration = target:getStatusEffect(EFFECT_WEAKENED_DAZE_2):getDuration();
                 target:delStatusEffectSilent(EFFECT_WEAKENED_DAZE_2);
                 if (player:hasStatusEffect(EFFECT_PRESTO)) then
-                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_4,1,0,duration+30);
+                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_4,1,0,90);
                     daze = 3;
                     effect = 4;
                 else
-                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_3,1,0,duration+30);
+                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_3,1,0,90);
                     daze = 2;
                     effect = 3;
                 end
@@ -78,11 +79,11 @@ function onUseAbility(player,target,ability,action)
                 local duration = target:getStatusEffect(EFFECT_WEAKENED_DAZE_3):getDuration();
                 target:delStatusEffectSilent(EFFECT_WEAKENED_DAZE_3);
                 if (player:hasStatusEffect(EFFECT_PRESTO)) then
-                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_5,1,0,duration+30);
+                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_5,1,0,90);
                     daze = 3;
                     effect = 5;
                 else
-                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_4,1,0,duration+30);
+                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_4,1,0,90);
                     daze = 2;
                     effect = 4;
                 end
@@ -95,23 +96,23 @@ function onUseAbility(player,target,ability,action)
                 else
                     daze = 2;
                 end
-                target:addStatusEffect(EFFECT_WEAKENED_DAZE_2,1,0,duration+30);
+                target:addStatusEffect(EFFECT_WEAKENED_DAZE_2,1,0,90);
                 effect = 5;
 
             elseif (target:hasStatusEffect(EFFECT_WEAKENED_DAZE_5)) then
                 local duration = target:getStatusEffect(EFFECT_WEAKENED_DAZE_5):getDuration();
                 target:delStatusEffectSilent(EFFECT_WEAKENED_DAZE_5);
-                target:addStatusEffect(EFFECT_WEAKENED_DAZE_3,1,0,duration+30);
+                target:addStatusEffect(EFFECT_WEAKENED_DAZE_3,1,0,90);
                 daze = 1;
                 effect = 5;
 
             else
                 if (player:hasStatusEffect(EFFECT_PRESTO)) then
-                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_2,1,0,60);
+                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_2,1,0,90);
                     daze = 3;
                     effect = 2;
                 else
-                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_1,1,0,60);
+                    target:addStatusEffect(EFFECT_WEAKENED_DAZE_1,1,0,90);
                     daze = 2;
                     effect = 1;
                 end
@@ -120,34 +121,34 @@ function onUseAbility(player,target,ability,action)
             if (target:hasStatusEffect(EFFECT_WEAKENED_DAZE_1)) then
                 local duration = target:getStatusEffect(EFFECT_WEAKENED_DAZE_1):getDuration();
                 target:delStatusEffectSilent(EFFECT_WEAKENED_DAZE_1);
-                target:addStatusEffect(EFFECT_WEAKENED_DAZE_2,1,0,duration+30);
+                target:addStatusEffect(EFFECT_WEAKENED_DAZE_2,1,0,90);
                 effect = 2;
 
             elseif (target:hasStatusEffect(EFFECT_WEAKENED_DAZE_2)) then
                 local duration = target:getStatusEffect(EFFECT_WEAKENED_DAZE_2):getDuration();
                 target:delStatusEffectSilent(EFFECT_WEAKENED_DAZE_2);
-                target:addStatusEffect(EFFECT_WEAKENED_DAZE_3,1,0,duration+30);
+                target:addStatusEffect(EFFECT_WEAKENED_DAZE_3,1,0,90);
                 effect = 3;
 
             elseif (target:hasStatusEffect(EFFECT_WEAKENED_DAZE_3)) then
                 local duration = target:getStatusEffect(EFFECT_WEAKENED_DAZE_3):getDuration();
                 target:delStatusEffectSilent(EFFECT_WEAKENED_DAZE_3);
-                target:addStatusEffect(EFFECT_WEAKENED_DAZE_4,1,0,duration+30);
+                target:addStatusEffect(EFFECT_WEAKENED_DAZE_4,1,0,90);
                 effect = 4;
 
             elseif (target:hasStatusEffect(EFFECT_WEAKENED_DAZE_4)) then
                 local duration = target:getStatusEffect(EFFECT_WEAKENED_DAZE_4):getDuration();
                 target:delStatusEffectSilent(EFFECT_WEAKENED_DAZE_4);
-                target:addStatusEffect(EFFECT_WEAKENED_DAZE_5,1,0,duration+30);
+                target:addStatusEffect(EFFECT_WEAKENED_DAZE_5,1,0,90);
                 effect = 5;
 
             elseif (target:hasStatusEffect(EFFECT_WEAKENED_DAZE_5)) then
                 local duration = target:getStatusEffect(EFFECT_WEAKENED_DAZE_5):getDuration();
                 target:delStatusEffectSilent(EFFECT_WEAKENED_DAZE_5);
-                target:addStatusEffect(EFFECT_WEAKENED_DAZE_5,1,0,duration+30);
+                target:addStatusEffect(EFFECT_WEAKENED_DAZE_5,1,0,90);
                 effect = 5;
             else
-                target:addStatusEffect(EFFECT_WEAKENED_DAZE_1,1,0,60);
+                target:addStatusEffect(EFFECT_WEAKENED_DAZE_1,1,0,90);
                 effect = 1;
             end;
         end

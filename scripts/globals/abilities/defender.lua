@@ -22,6 +22,7 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
+    print("USED");
     local subPower = 15;
     if (player:getMainJob() ~= 1) then subPower = 10; end;
     player:delStatusEffect(EFFECT_BERSERK);

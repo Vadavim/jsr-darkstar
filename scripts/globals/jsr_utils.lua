@@ -1614,6 +1614,7 @@ function rewardTemporaryItem(player)
         5322, -- Healing Powder
         5832, -- Healing Mist
         5833, -- Mana Mist
+        5990, -- Instant Stoneskin
         4255, -- Mana Powder
         5393, -- Monarch's Drink
         4174, -- Vile Elixir
@@ -1628,7 +1629,7 @@ function rewardTemporaryItem(player)
     if (rand <= 15) then
        item = statPotions[math.random(1,6)];
     else
-        item = boostItems[math.random(1,18)];
+        item = boostItems[math.random(1,19)];
     end
 
     player:addTempItem(item);

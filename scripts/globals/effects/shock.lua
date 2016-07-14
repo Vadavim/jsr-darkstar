@@ -18,6 +18,7 @@ function onEffectGain(target,effect)
     target:addMod(MOD_THUNDERDEF, -20);
     target:addMod(MOD_WATERRES, -15);
     target:addMod(MOD_WATERDEF, -20);
+    target:addMod(MOD_REGAIN_DOWN, 2);
 end;
 
 -----------------------------------
@@ -32,6 +33,7 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
+    target:delMod(MOD_REGAIN_DOWN, 2);
     target:delMod(MOD_REGEN_DOWN, effect:getPower());
     target:delMod(MOD_MND, -getElementalDebuffStatDownFromDOT(effect:getPower()));
     target:delMod(MOD_THUNDERRES, -15);

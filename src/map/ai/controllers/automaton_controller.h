@@ -36,6 +36,16 @@ public:
     CAutomatonController(CAutomatonEntity* PPet);
 
 private:
+
+//    bool notHave(CBattleEntity* target, EFFECT effect);
+//    bool isCaster(CBattleEntity* target);
+//    CBattleEntity* getLowestHP(CBattleEntity* caster, int threshold, bool useRegen = false);
+//    CBattleEntity* rankedBuff(CBattleEntity* caster, EFFECT buff, std::map<JOBTYPE, uint16> &ranking);
+//    CBattleEntity* getByEffect(CBattleEntity* caster, EFFECT effect, bool mageOnly = false);
+//    CBattleEntity* getByErasable(CBattleEntity* caster);
+//    std::vector<CBattleEntity*> getWholeParty(CBattleEntity* caster, bool includeCaster = true, bool includePets = true);
+
+
     bool TrySpellcast(time_point);
     bool TryTPMove();
     bool TrySpecialSkill();
@@ -90,19 +100,14 @@ private:
     bool roamStormSoul(int magicSkill);
     bool roamHarlHarl(int magicSkill);
 
+
     duration m_rangedCooldown {duration::zero()};
     static constexpr int m_RangedAbility {1949};
 protected:
     virtual void DoCombatTick(time_point tick) override;
     virtual void DoRoamTick(time_point tick) override;
 
+
 };
 
-bool notHave(CBattleEntity* target, EFFECT effect);
-bool isCaster(CBattleEntity* target);
-CBattleEntity* getLowestHP(CBattleEntity* caster, int threshold, bool useRegen = false);
-CBattleEntity* rankedBuff(CBattleEntity* caster, EFFECT buff, std::map<JOBTYPE, uint16> &ranking);
-CBattleEntity* getByEffect(CBattleEntity* caster, EFFECT effect, bool mageOnly = false);
-CBattleEntity* getByErasable(CBattleEntity* caster);
-std::vector<CBattleEntity*> getWholeParty(CBattleEntity* caster, bool includeCaster = true, bool includePets = true);
 #endif

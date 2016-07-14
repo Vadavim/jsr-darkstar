@@ -29,25 +29,28 @@
 #include "../../utils/battleutils.h"
 #include "../../mob_spell_container.h"
 #include "../ai_container.h"
+#include "../helpers/ai_utils.h"
 #include "../states/magic_state.h"
 #include "../states/mobskill_state.h"
 #include "../../spell.h"
 #include "../../../common/utils.h"
+#include "../helpers/ai_utils.h"
+using namespace aiutils;
 
 
-std::map<JOBTYPE, uint16> rankingsHaste = {
-        {JOB_NIN, 30}, {JOB_DNC, 29}, {JOB_WAR, 28}, {JOB_MNK, 27}, {JOB_DRG, 26}, {JOB_SAM, 25}, {JOB_DRK, 24},
-        {JOB_RUN, 23}, {JOB_PLD, 22}, {JOB_THF, 21}, {JOB_PUP, 20}, {JOB_BST, 19}, {JOB_BLU, 18},
-        {JOB_COR, 17}, {JOB_RNG, 16}
-};
-
-std::map<JOBTYPE, uint16> rankingsRefresh = {
-        {JOB_WHM, 30}, {JOB_BLM, 29}, {JOB_SCH, 28}, {JOB_GEO, 27}, {JOB_BLU, 26}, {JOB_PLD, 25}, {JOB_DRK, 24}
-};
-
-std::map<JOBTYPE, uint16> rankingsFlurry = {
-        {JOB_RNG, 10}, {JOB_COR, 9}
-};
+//std::map<JOBTYPE, uint16> rankingsHaste = {
+//        {JOB_NIN, 30}, {JOB_DNC, 29}, {JOB_WAR, 28}, {JOB_MNK, 27}, {JOB_DRG, 26}, {JOB_SAM, 25}, {JOB_DRK, 24},
+//        {JOB_RUN, 23}, {JOB_PLD, 22}, {JOB_THF, 21}, {JOB_PUP, 20}, {JOB_BST, 19}, {JOB_BLU, 18},
+//        {JOB_COR, 17}, {JOB_RNG, 16}
+//};
+//
+//std::map<JOBTYPE, uint16> rankingsRefresh = {
+//        {JOB_WHM, 30}, {JOB_BLM, 29}, {JOB_SCH, 28}, {JOB_GEO, 27}, {JOB_BLU, 26}, {JOB_PLD, 25}, {JOB_DRK, 24}
+//};
+//
+//std::map<JOBTYPE, uint16> rankingsFlurry = {
+//        {JOB_RNG, 10}, {JOB_COR, 9}
+//};
 
 
 CAutomatonController::CAutomatonController(CAutomatonEntity* PPet) : CPetController(PPet),
@@ -126,6 +129,10 @@ void CAutomatonController::DoRoamTick(time_point tick) {
 void CAutomatonController::DoCombatTick(time_point tick)
 {
     PTarget = static_cast<CBattleEntity*>(PAutomaton->GetEntity(PAutomaton->GetBattleTargetID()));
+    if (PAutomaton->PMaster == nullptr || PAutomaton->PMaster->isDead()) {
+        PAutomaton->Die();
+        return;
+    }
 
     if (TryDeaggro()) {
         Disengage();
@@ -283,7 +290,7 @@ bool CAutomatonController::roamStormStorm(int mS) {
     int sPhalanx = mS < 99 ? 0 : 106;
     int sProtect = mS < 24 ? 0 : mS < 70 ? 43 : mS < 120 ? 44 : mS < 190 ? 45 : mS < 240 ? 46 : 47;
     int sShell = mS < 36 ? 0 : mS < 80 ? 48 : mS < 140 ? 49 : mS < 190 ? 50 : mS < 240 ? 51 : 52;
-    int sErase = mS < 99 ? 0 : 106;
+    int sErase = mS < 99 ? 0 : 143;
     CBattleEntity* master = PAutomaton->PMaster;
 
     if (isReady(m_healTick, PAutomaton->m_healDelay)) {
@@ -358,7 +365,7 @@ bool CAutomatonController::combatStormStorm(int mS) {
     int sBlizzard = mS < 75 ? 0 : mS < 178 ? 149 : mS < 256 ? 150 : mS < 286 ? 151 : 152;
     int sThunder = mS < 90 ? 0 : mS < 203 ? 164 : mS < 261 ? 165 : mS < 291 ? 166 : 167;
     int sStoneskin = mS < 105 ? 0 : 54;
-    int sErase = mS < 99 ? 0 : 106;
+    int sErase = mS < 99 ? 0 : 143;
 
     CBattleEntity* master = PAutomaton->PMaster;
     CBattleEntity* target = PAutomaton->GetBattleTarget();
@@ -466,7 +473,7 @@ bool CAutomatonController::roamStormSoul(int mS) {
     int primaryCure = mS < 12 ? 0 : mS < 45 ? 1 : mS < 81 ? 2 : mS < 147 ? 3 : mS < 207 ? 4 : 5;
     int sProtect = mS < 24 ? 0 : mS < 70 ? 125 : mS < 120 ? 126 : mS < 190 ? 127 : mS < 240 ? 128 : 129;
     int sShell = mS < 36 ? 0 : mS < 80 ? 130 : mS < 140 ? 131 : mS < 190 ? 132 : mS < 240 ? 133 : 134;
-    int sErase = mS < 99 ? 0 : 106;
+    int sErase = mS < 99 ? 0 : 143;
     int sPoisona = mS < 27 ? 0 : 14;
     int sParalyna = mS < 36 ? 0 : 15;
     int sBlindna = mS < 45 ? 0 : 16;
@@ -837,17 +844,6 @@ bool CAutomatonController::choose(CBattleEntity* target, uint16 spellID, time_po
     return true;
 }
 
-bool notHave(CBattleEntity* target, EFFECT effect) {
-    return !target->StatusEffectContainer->HasStatusEffect(effect);
-}
-
-
-bool isCaster(CBattleEntity* target) {
-    if (target->objtype != TYPE_MOB)
-        return false;
-
-    return ((CMobEntity*)target)->SpellContainer->HasSpells();
-}
 
 
 
@@ -1102,111 +1098,122 @@ bool CAutomatonController::canCast(uint32 spellId) {
 // utilities
 
 
-
-CBattleEntity* rankedBuff(CBattleEntity* caster, EFFECT buff, std::map<JOBTYPE, uint16> &ranking) {
-    int highest = 0;
-    CBattleEntity* curTarget = nullptr;
-    std::vector<CBattleEntity*> party = getWholeParty(caster);
-    for (CBattleEntity* member : party) {
-        int jobRanking = ranking.find(member->GetMJob()) == ranking.end() ? 0 : ranking[member->GetMJob()];
-        if (jobRanking > highest && notHave(member, buff)) {
-            highest = jobRanking;
-            curTarget = member;
-        }
-    }
-
-    return curTarget;
-}
-
-
-CBattleEntity* getLowestHP(CBattleEntity* caster, int threshold, bool useRegen) {
-    int lowest = threshold;
-    CBattleEntity* curTarget = nullptr;
-    std::vector<CBattleEntity*> party = getWholeParty(caster);
-    for (CBattleEntity* member : party) {
-        if (member->GetHPP() <= lowest) {
-//        if ((member->objtype == TYPE_PET && member->GetHPP() <= lowest && caster->GetBattleTarget()->GetBattleTarget() == member)
-//                || (member->GetHPP() <= lowest)) {
-            if (useRegen && notHave(member, EFFECT_REGEN)) {
-                lowest = member->GetHPP();
-                curTarget = member;
-            } else if (!useRegen) {
-                lowest = member->GetHPP();
-                curTarget = member;
-            }
-        }
-
-    }
-
-    return curTarget;
-}
-
-CBattleEntity* getByEffect(CBattleEntity* caster, EFFECT effect, bool mageOnly) {
-
-    std::vector<CBattleEntity*> party = getWholeParty(caster);
-    for (CBattleEntity* member : party) {
-        if (mageOnly) {
-            JOBTYPE  job = member->GetMJob();
-            if (!(job == JOB_WHM || job == JOB_NIN || job == JOB_GEO || job == JOB_BLU || job == JOB_BRD
-                        || job == JOB_BLM || job == JOB_SCH || job == JOB_PLD || job == JOB_DRK || job == JOB_RUN
-                        || job == JOB_RDM || job == JOB_SMN))
-                continue;
-        }
-
-        if (member->StatusEffectContainer->HasStatusEffect(effect))
-            return member;
-    }
-
-    return nullptr;
-}
-
-CBattleEntity* getByErasable(CBattleEntity* caster) {
-
-    std::vector<CBattleEntity*> party = getWholeParty(caster);
-    for (CBattleEntity* member : party)
-        if (member->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_ERASABLE))
-            return member;
-
-    return nullptr;
-}
-
-std::vector<CBattleEntity*> getWholeParty(CBattleEntity* caster, bool includeCaster, bool includePets) {
-    std::vector<CBattleEntity* > party;
-    float currentDistance = 100.f;
-    CBattleEntity* origin = caster;
-    if (includeCaster)
-        party.push_back(caster);
-
-    if (caster->PMaster != nullptr) {
-        if (distance(caster->loc.p, caster->PMaster->loc.p) <= 20.0f)
-            party.push_back(caster->PMaster);
-        caster = caster->PMaster;
-    }
-
-    // iterate over allies
-    if (!caster->PAlly.empty()) {
-        for (CBattleEntity* PAlly : caster->PAlly) {
-            if (distance(origin->loc.p, PAlly->loc.p) <= 20.0f)
-                party.push_back(PAlly);
-        }
-    }
-
-    // iterate over party and their allies
-    if (caster->PParty != nullptr && !caster->PParty->members.empty()) {
-        for (CBattleEntity* PMember : caster->PParty->members) {
-            if (distance(origin->loc.p, PMember->loc.p) <= 20.0f)
-                party.push_back(PMember);
-
-            if (includePets && PMember->PPet != nullptr && distance(origin->loc.p, PMember->PPet->loc.p) <= 20.0f)
-                party.push_back(PMember->PPet);
-
-            if (!PMember->PAlly.empty()) {
-                for (CBattleEntity* PAlly : PMember->PAlly) {
-                    if (distance(origin->loc.p, PAlly->loc.p) <= 20.0f)
-                        party.push_back(PAlly);
-                }
-            }
-        }
-    }
-    return party;
-}
+//bool CAutomatonController::notHave(CBattleEntity* target, EFFECT effect) {
+//    return !target->StatusEffectContainer->HasStatusEffect(effect);
+//}
+//
+//
+//bool CAutomatonController::isCaster(CBattleEntity* target) {
+//    if (target->objtype != TYPE_MOB)
+//        return false;
+//
+//    return ((CMobEntity*)target)->SpellContainer->HasSpells();
+//}
+//
+//CBattleEntity* CAutomatonController::rankedBuff(CBattleEntity* caster, EFFECT buff, std::map<JOBTYPE, uint16> &ranking) {
+//    int highest = 0;
+//    CBattleEntity* curTarget = nullptr;
+//    std::vector<CBattleEntity*> party = getWholeParty(caster);
+//    for (CBattleEntity* member : party) {
+//        int jobRanking = ranking.find(member->GetMJob()) == ranking.end() ? 0 : ranking[member->GetMJob()];
+//        if (jobRanking > highest && notHave(member, buff)) {
+//            highest = jobRanking;
+//            curTarget = member;
+//        }
+//    }
+//
+//    return curTarget;
+//}
+//
+//
+//CBattleEntity* CAutomatonController::getLowestHP(CBattleEntity* caster, int threshold, bool useRegen) {
+//    int lowest = threshold;
+//    CBattleEntity* curTarget = nullptr;
+//    std::vector<CBattleEntity*> party = getWholeParty(caster);
+//    for (CBattleEntity* member : party) {
+//        if (member->GetHPP() <= lowest) {
+////        if ((member->objtype == TYPE_PET && member->GetHPP() <= lowest && caster->GetBattleTarget()->GetBattleTarget() == member)
+////                || (member->GetHPP() <= lowest)) {
+//            if (useRegen && notHave(member, EFFECT_REGEN)) {
+//                lowest = member->GetHPP();
+//                curTarget = member;
+//            } else if (!useRegen) {
+//                lowest = member->GetHPP();
+//                curTarget = member;
+//            }
+//        }
+//
+//    }
+//
+//    return curTarget;
+//}
+//
+//CBattleEntity* CAutomatonController::getByEffect(CBattleEntity* caster, EFFECT effect, bool mageOnly) {
+//
+//    std::vector<CBattleEntity*> party = getWholeParty(caster);
+//    for (CBattleEntity* member : party) {
+//        if (mageOnly) {
+//            JOBTYPE  job = member->GetMJob();
+//            if (!(job == JOB_WHM || job == JOB_NIN || job == JOB_GEO || job == JOB_BLU || job == JOB_BRD
+//                        || job == JOB_BLM || job == JOB_SCH || job == JOB_PLD || job == JOB_DRK || job == JOB_RUN
+//                        || job == JOB_RDM || job == JOB_SMN))
+//                continue;
+//        }
+//
+//        if (member->StatusEffectContainer->HasStatusEffect(effect))
+//            return member;
+//    }
+//
+//    return nullptr;
+//}
+//
+//CBattleEntity* CAutomatonController::getByErasable(CBattleEntity* caster) {
+//
+//    std::vector<CBattleEntity*> party = getWholeParty(caster);
+//    for (CBattleEntity* member : party)
+//        if (member->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_ERASABLE))
+//            return member;
+//
+//    return nullptr;
+//}
+//
+//std::vector<CBattleEntity*> CAutomatonController::getWholeParty(CBattleEntity* caster, bool includeCaster, bool includePets) {
+//    std::vector<CBattleEntity* > party;
+//    float currentDistance = 100.f;
+//    CBattleEntity* origin = caster;
+//    if (includeCaster)
+//        party.push_back(caster);
+//
+//    if (caster->PMaster != nullptr) {
+//        if (distance(caster->loc.p, caster->PMaster->loc.p) <= 20.0f)
+//            party.push_back(caster->PMaster);
+//        caster = caster->PMaster;
+//    }
+//
+//    // iterate over allies
+//    if (!caster->PAlly.empty()) {
+//        for (CBattleEntity* PAlly : caster->PAlly) {
+//            if (distance(origin->loc.p, PAlly->loc.p) <= 20.0f)
+//                party.push_back(PAlly);
+//        }
+//    }
+//
+//    // iterate over party and their allies
+//    if (caster->PParty != nullptr && !caster->PParty->members.empty()) {
+//        for (CBattleEntity* PMember : caster->PParty->members) {
+//            if (distance(origin->loc.p, PMember->loc.p) <= 20.0f)
+//                party.push_back(PMember);
+//
+//            if (includePets && PMember->PPet != nullptr && distance(origin->loc.p, PMember->PPet->loc.p) <= 20.0f)
+//                party.push_back(PMember->PPet);
+//
+//            if (!PMember->PAlly.empty()) {
+//                for (CBattleEntity* PAlly : PMember->PAlly) {
+//                    if (distance(origin->loc.p, PAlly->loc.p) <= 20.0f)
+//                        party.push_back(PAlly);
+//                }
+//            }
+//        }
+//    }
+//    return party;
+//}

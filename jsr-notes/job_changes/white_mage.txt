@@ -19,5 +19,11 @@ ABILITY CHANGES
  - Allows next -na spell to grant a large amount of status resistance for 5 minutes.
 
 [Divine Seal]
- - Recast reduced to 3 minutes.
  - Also increases potency of Regens by +100%.
+
+[Afflatus Misery]
+ - Heals MP equal to 1/5th of damage received
+ - Gains TP based on damage received: (1.2 - level / 100) * damage TP.
+ - Accuracy bonus from Afflatus Misery also applies to Banish / Holy spells.
+ - Banish and Holy spells heal most injured party member by 33% of damage dealt.
+	- Can only heal allies (not self)

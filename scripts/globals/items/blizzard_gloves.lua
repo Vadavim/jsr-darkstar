@@ -16,6 +16,6 @@ end;
 -----------------------------------------
 
 function onItemUse(target)
-    local effect = EFFECT_ENBLIZZARD;
-    doEnspell(target,target,nil,effect);
+    target:delEffect(EFFECT_ENBLIZZARD);
+    target:addEffect(EFFECT_ENBLIZZARD, 8, 0, 120);
 end;

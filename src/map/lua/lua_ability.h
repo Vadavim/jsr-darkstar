@@ -56,6 +56,7 @@ public:
     int32 setAnimation(lua_State*);
     int32 setRecast(lua_State*);
     int32 setCE(lua_State*);
+    int32 setAOE(lua_State*);
     int32 setVE(lua_State*);
     int32 setRange(lua_State*);
 };

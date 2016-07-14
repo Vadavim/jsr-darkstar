@@ -6,6 +6,9 @@ require("scripts/globals/settings");
 
     MMSG_BUFF_FAIL = 75;
 
+DRAIN_HP = 0;
+DRAIN_MP = 1;
+DRAIN_TP = 2;
     DIVINE_MAGIC_SKILL     = 32;
     HEALING_MAGIC_SKILL    = 33;
     ENHANCING_MAGIC_SKILL  = 34;
@@ -79,6 +82,26 @@ local weakSystem = {
     [SYSTEM_DRAGON] = SYSTEM_DRAGON, [SYSTEM_DEMON] = SYSTEM_DEMON,
     [SYSTEM_LUMINION] = SYSTEM_LUMINION, [SYSTEM_LUMORIAN] = SYSTEM_LUMORIAN
 }
+
+
+local subEffectTable = {
+    [EFFECT_POISON] = SUBEFFECT_POISON,
+    [EFFECT_PARALYSIS] = SUBEFFECT_PARALYSIS,
+    [EFFECT_BLINDNESS] = SUBEFFECT_BLIND,
+    [EFFECT_SILENCE] = SUBEFFECT_SILENCE,
+    [EFFECT_SLOW] = SUBEFFECT_EVASION_DOWN,
+    [EFFECT_EVASION_DOWN] = SUBEFFECT_EVASION_DOWN,
+    [EFFECT_AMNESIA] = SUBEFFECT_AMNESIA,
+    [EFFECT_ATTACK_DOWN] = SUBEFFECT_ATTACK_DOWN,
+    [EFFECT_CHOKE] = SUBEFFECT_CHOKE,
+    [EFFECT_CURSE_I] = SUBEFFECT_CURSE,
+    [EFFECT_KO] = SUBEFFECT_DEATH,
+    [EFFECT_PETRIFICATION] = SUBEFFECT_PETRIFY, [EFFECT_DISEASE] = SUBEFFECT_PLAGUE, [EFFECT_PLAGUE] = SUBEFFECT_PLAGUE,
+    [EFFECT_SLEEP_I] = SUBEFFECT_SLEEP, [EFFECT_STUN] = SUBEFFECT_STUN, [EFFECT_WEIGHT] = SUBEFFECT_EVASION_DOWN,
+    [EFFECT_BIND] = SUBEFFECT_EVASION_DOWN, [EFFECT_DEFENSE_DOWN] = SUBEFFECT_DEFENSE_DOWN, [EFFECT_SILENCE] = SUBEFFECT_SILENCE,
+};
+
+
 
 -- USED FOR DAMAGING MAGICAL SPELLS (Stages 1 and 2 in Calculating Magic Damage on wiki)
 --Calculates magic damage using the standard magic damage calc.
@@ -436,8 +459,8 @@ function applyResistanceAddEffect(player,target,element,bonus)
 end;
 
 function applyResistanceItemEffect(player,target,element,bonus)
-    local diff = (player:getStat(MOD_CHR) - target:getStat(MOD_CHR)) * 2;
-    bonus = bonus + math.max(0, diff);
+    local diff = (player:getStat(MOD_CHR) - target:getStat(MOD_CHR));
+    bonus = bonus + math.max(0, diff) + 10;
 
     local p = getMagicHitRate(player, target, 0, element, 0, bonus);
 
@@ -503,7 +526,7 @@ function calculateMagicHitRate(magicacc, magiceva, percentBonus, casterLvl, targ
 
     p = 60 - 0.5 * (magiceva - magicacc) + levelDiff * 2 + percentBonus;
 
-     printf("P: %f, macc: %f, meva: %f, bonus: %d%%, leveldiff: %d", p, magicacc, magiceva, percentBonus, levelDiff);
+--     printf("P: %f, macc: %f, meva: %f, bonus: %d%%, leveldiff: %d", p, magicacc, magiceva, percentBonus, levelDiff);
 
     return utils.clamp(p, 5, 95);
 end
@@ -519,10 +542,10 @@ function getMagicResist(magicHitRate)
     local quart = ((1 - p)^2);
     local eighth = ((1 - p)^3);
     local sixteenth = ((1 - p)^4);
-     print("HALF: "..half);
-     print("QUART: "..quart);
-     print("EIGHTH: "..eighth);
-     print("SIXTEENTH: "..sixteenth);
+--     print("HALF: "..half);
+--     print("QUART: "..quart);
+--     print("EIGHTH: "..eighth);
+--     print("SIXTEENTH: "..sixteenth);
 
     local resvar = math.random();
 
@@ -670,6 +693,24 @@ function handleAfflatusMisery(caster, spell, dmg)
 
         dmg = math.floor(dmg * boost);
 
+        local party = caster:getParty(true, false);
+        local mostInjured = 100;
+        local target = nil;
+        if (party ~= nil) then
+            for i,member in ipairs(party) do
+                if (not (target ~= nil and target:getID() == caster:getID())) then
+                    if (member:getHPP() < mostInjured) then
+                        mostInjured = member:getHPP();
+                        target = member;
+                    end
+                end
+            end
+        end
+        if (target ~= nil) then
+            target:addHP(dmg * 0.33);
+        end
+
+
         -- printf("AFFLATUS MISERY: Damage boosted by %f to %d", boost, dmg);
 
         --Afflatus Mod is Used Up...
@@ -695,7 +736,7 @@ end;
         end
 
         if (not target:hasStatusEffect(EFFECT_SUBTLE_SORCERY)) then
-            if (target:getModelSize() > 1) then dmg = dmg * 1.25; end
+            if (target:getModelSize() >= 1) then dmg = dmg * 1.25; end
             if (target:getFamily() == 47) then dmg = dmg * 1.33; end
         end
 
@@ -1560,9 +1601,28 @@ function doDivineBanishNuke(V,M,caster,spell,target,hasMultipleTargetReduction,r
     local skill = DIVINE_MAGIC_SKILL;
     local modStat = MOD_MND;
 
+
+    if (caster:hasStatusEffect(EFFECT_DIVINE_EMBLEM)) then
+        V = V * 1.5;
+        M = M * 1.5;
+        resistBonus = resistBonus + 50;
+    end
+
+
+
+
     --calculate raw damage
     local dmg = calculateMagicDamage(V,M,caster,spell,target,skill,modStat,hasMultipleTargetReduction);
+
+
+
+
     --get resist multiplier (1x if no resist)
+    local misery = caster:getStatusEffect(EFFECT_AFFLATUS_MISERY);
+    if (misery ~= nil) then
+        resistBonus = resistBonus + misery:getSubPower();
+    end
+
     local resist = applyResistance(caster,spell,target,caster:getStat(modStat)-target:getStat(modStat),skill,resistBonus);
     --get the resisted damage
     dmg = dmg*resist;
@@ -1572,9 +1632,19 @@ function doDivineBanishNuke(V,M,caster,spell,target,hasMultipleTargetReduction,r
     --add in target adjustment
     dmg = adjustForTarget(target,dmg,spell:getElement());
     --handling afflatus misery
-    dmg = handleAfflatusMisery(caster, spell, dmg);
+    if (spell:getID() ~= 21) then
+        dmg = handleAfflatusMisery(caster, spell, dmg);
+    end
+
     --add in final adjustments
     dmg = finalMagicAdjustments(caster,target,spell,dmg);
+
+    if (caster:hasStatusEffect(EFFECT_DIVINE_EMBLEM)) then
+        target:updateEnmityFromDamage(caster,dmg * 0.5);
+        caster:delStatusEffect(EFFECT_DIVINE_EMBLEM);
+    end
+
+
     return dmg;
 end
 
@@ -2198,3 +2268,113 @@ end;
 
 
 -- outputMagicHitRateInfo();
+
+
+
+function weaponElementalDamage(player, target, damage, chance, element, eleMin, eleMax)
+    if (math.random(0,99) <= chance + player:getMod(MOD_CHR)) then
+        return 0,0,0;
+    else
+        local dmg = math.random(eleMin,eleMax);
+        local params = {};
+        params.bonusmab = 0;
+        params.includemab = true;
+        dmg = addBonusesAbility(player, element, target, dmg, params);
+        dmg = dmg * applyResistanceItemEffect(player,target,element,25);
+        dmg = adjustForTarget(target,dmg,element);
+        dmg = finalMagicNonSpellAdjustments(player,target,element,dmg);
+
+        local message = MSGBASIC_ADD_EFFECT_DMG;
+        if (dmg < 0) then
+            message = MSGBASIC_ADD_EFFECT_HEAL;
+        end
+        local subeffect = SUBEFFECT_NONE;
+        if (element == ELE_FIRE) then subeffect = SUBEFFECT_FIRE_DAMAGE;
+        elseif (element == ELE_WATER) then subeffect = SUBEFFECT_WATER_DAMAGE;
+        elseif (element == ELE_ICE) then subeffect = SUBEFFECT_ICE_DAMAGE;
+        elseif (element == ELE_WIND) then subeffect = SUBEFFECT_WIND_DMAAGE;
+        elseif (element == ELE_EARTH) then subeffect = SUBEFFECT_EARTH_DAMAGE;
+        elseif (element == ELE_THUNDER) then subeffect = SUBEFFECT_THUNDER_DAMAGE;
+        elseif (element == ELE_LIGHT) then subeffect = SUBEFFECT_LIGHT_DAMAGE;
+        elseif (element == ELE_DARK) then subeffect = SUBEFFECT_DARK_DAMAGE;
+        end
+
+        return subeffect,message,dmg;
+    end
+end
+
+
+function weaponDrain(player, target, damage, chance, drainType, eleMin, eleMax)
+    if (math.random(0,99) >= chance + player:getMod(MOD_CHR) * 1.5 or target:isUndead()) then
+        return 0,0,0;
+    end
+
+    local drain = math.random(eleMin,eleMax);
+    local params = {};
+    params.bonusmab = 0;
+    params.includemab = false;
+    -- drain = addBonusesAbility(player, ELE_DARK, target, drain, params);
+    drain = drain * applyResistanceItemEffect(player,target,ELE_DARK,35);
+    drain = adjustForTarget(target,drain,ELE_DARK);
+    drain = finalMagicNonSpellAdjustments(player,target,ELE_DARK,drain);
+
+    if (drainType == DRAIN_HP) then
+        if (drain > target:getHP()) then
+            drain = target:getHP();
+            target:addHP(-drain);
+        end
+        return SUBEFFECT_HP_DRAIN, MSGBASIC_ADD_EFFECT_HP_DRAIN, player:addHP(drain);
+    elseif (drainType == DRAIN_MP) then
+        if (drain > target:getMP()) then
+            drain = target:getMP();
+            target:addMP(-drain);
+        end
+        return SUBEFFECT_MP_DRAIN, MSGBASIC_ADD_EFFECT_MP_DRAIN, player:addMP(drain);
+    elseif (drainType == DRAIN_TP) then
+        if (drain > target:getTP()) then
+            drain = target:getTP();
+            target:addTP(-drain);
+        end
+        return SUBEFFECT_TP_DRAIN, MSGBASIC_ADD_EFFECT_TP_DRAIN, player:addTP(drain);
+    end
+end
+
+function weaponStatus(player, target, chance, element, effect, power, duration, subPower)
+    if (math.random(0,99) >= chance + player:getMod(MOD_CHR) * 1.5 or target:hasStatusEffect(effect)) then
+        return 0,0,0;
+    end
+
+    local effectRes = getEffectResistance(target, effect);
+    local resist = applyResistanceItemEffect(player,target,element,-effectRes);
+    if (subPower == nil) then subPower = 0 end;
+    if (resist >= 0.25) then
+        target:addStatusEffect(effect, power, 3, duration * resist, 0, subPower);
+
+        local subEffect = subEffectTable[effect];
+        if (subEffect == nil) then subEffect = SUBEFFECT_NONE end;
+
+        return subEffect, MSGBASIC_ADD_EFFECT_STATUS, effect;
+    end
+    return 0,0,0;
+
+end
+
+function weaponDispel(player, target, chance, element)
+    if (math.random(0,99) >= chance + player:getMod(MOD_CHR) * 1.5 or target:hasStatusEffect(effect)) then
+        return 0,0,0;
+    end
+
+    local resist = applyResistanceItemEffect(player,target,element,0);
+    if (resist >= 0.5) then
+        local dispel = target:dispelStatusEffect();
+        if (dispel == EFFECT_NONE) then
+            return 0,0,0;
+        end
+        return SUBEFFECT_DISPEL, MSGBASIC_ADD_EFFECT_DISPEL, dispel;
+    end
+    return 0,0,0;
+
+end
+
+
+

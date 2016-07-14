@@ -695,6 +695,7 @@ EFFECT_FISHY_INTUITION          = 578
 EFFECT_COMMITMENT               = 579
 EFFECT_HASTE_II                 = 580
 EFFECT_FLURRY_II                = 581
+EFFECT_CONTRADANCE              = 582
 EFFECT_APOGEE                   = 583
 
 EFFECT_CONSUME_MANA             = 599

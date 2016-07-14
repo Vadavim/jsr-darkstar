@@ -3384,7 +3384,7 @@ namespace charutils
                     int sBonus = PMember->GetLocalVar("systemBonus");
                     if (!sExists && PMember->systemList.size() > 0) {
                         PMember->systemList.push_back(PMob->m_EcoSystem);
-                        sBonus = sBonus > 40 ? sBonus : sBonus + 4;
+                        sBonus = sBonus + 4 > 20 ? 20 : sBonus + 4;
                     } else if (sExists){
                         sBonus = (sBonus - 2) < 0 ? 0 : sBonus - 2;
                         PMember->systemList.clear();

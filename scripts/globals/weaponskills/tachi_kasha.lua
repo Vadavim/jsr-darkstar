@@ -17,6 +17,7 @@
 require("scripts/globals/status");
 require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
+require("scripts/globals/magic");
 -----------------------------------
 
 function onUseWeaponSkill(player, target, wsID, tp, primary)
@@ -29,17 +30,21 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.canCrit = false;
     params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
     params.atkmulti = 1.5;
+    params.ele = ELE_ICE;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.ftp100 = 1.5625; params.ftp200 = 2.6875; params.ftp300 = 4.125;
+        params.ftp100 = 1.5625; params.ftp200 = 3; params.ftp300 = 5.5;
         params.str_wsc = 0.75;
         params.atkmulti = 1.65
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
 
-    if (damage > 0 and target:hasStatusEffect(EFFECT_PARALYSIS) == false) then
-        target:addStatusEffect(EFFECT_PARALYSIS, 25, 0, 60);
+    local duration = fTP(tp, 60, 180, 360);
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_ICE, SKILL_GKT);
+    if (damage > 0 and resist >= 0.25) then
+        target:addStatusEffect(EFFECT_PARALYSIS, 25, 0, duration * resist);
+        target:setPendingMessage(277, EFFECT_PARALYSIS);
     end
     return tpHits, extraHits, criticalHit, damage;
 

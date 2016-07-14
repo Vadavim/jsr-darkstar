@@ -15,6 +15,7 @@
 require("scripts/globals/status");
 require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
+require("scripts/globals/magic");
 -----------------------------------
 
 function onUseWeaponSkill(player, target, wsID, tp, primary)
@@ -27,9 +28,10 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.canCrit = false;
     params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
     params.atkmulti = 1.375;
+    params.ele = ELE_ICE;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.str_wsc = 0.7 + (player:getMerit(MERIT_TACHI_SHOHA) / 100);
+        params.str_wsc = 0.6;
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);

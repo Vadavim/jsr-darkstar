@@ -13,16 +13,30 @@ cmdprops =
 };
 
 
-function onTrigger(player, amount, target)
+function onTrigger(player, amount)
 --    testPick();
 --    player:spawnPet(73);7
 --print(player:checkDistance(player:getPet()));
 --print(player:getRotPos());
-    local targ = player:getCursorTarget();
-    if (targ ~= nil) then
+    local target = player:getCursorTarget();
+    if (target ~= nil) then
+        if (target:hasStatusEffect(EFFECT_DEFENDER)) then
+            print("have");
+        end
+
+--        target:addTP(1000);
+
 --        player:SayToPlayer("Attack: " .. tostring(targ:getStat(MOD_ATT)) .. ", Defense: " .. tostring(targ:getStat(MOD_DEF)));
 --        targ:useMobAbility(amount);
-        targ:setModelId(amount);
+--        targ:setMobMod(MOBMOD_ADD_EFFECT,1);
+--        targ:setModelId(amount);
+--        player:SayToPlayer("Skill: " .. tostring(targ:getSkillLevel(SKILL_HEA)));
+--player:SayToPlayer("STR: " .. tostring(targ:getStat(MOD_STR))
+--    .. ", VIT: " .. tostring(targ:getStat(MOD_VIT))
+--        .. ", DEX: " .. tostring(targ:getStat(MOD_DEX))
+--        .. ", INT: " .. tostring(targ:getStat(MOD_INT))
+--        .. ", MND: " .. tostring(targ:getStat(MOD_MND))
+--);
     end
 --local area = player:getTargetsWithinArea(10.0, 16);
 --for i,member in ipairs(area) do

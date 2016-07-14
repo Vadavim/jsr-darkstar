@@ -30,7 +30,8 @@ ABILITY CHANGES
  - Also steals the target's TP (up to 100).
 
 [Flee]
- - Duration is doubled when main job is Thief.
+ - Duration is instead 90 seconds.
+	- When used, removes the following status effects: Weight, Slow, Bind, and Evasion Down.
 
 [Hide]
  - Gained at level 10 instead of 45.

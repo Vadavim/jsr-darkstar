@@ -73,6 +73,8 @@ Fire Spikes: increased damage
  - For instance, Burn reduces a target's Fire and Ice resistances/defenses. 
  
  - DoT affected by MAB, MDB, elemental attack, elemental defense, day, and weather.
+ - Rasp: also inflicts MP damage over time (equal to 75% of DoT)
+ - Shock: also lowers target's TP over time (-20 TP a tic).
 
 
 [Ancient Magic]

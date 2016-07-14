@@ -17,5 +17,5 @@ end;
 
 function onItemUse(target)
     target:delStatusEffect(EFFECT_FLEE);
-    target:addStatusEffect(EFFECT_FLEE,100,0,30);
+    target:addStatusEffect(EFFECT_FLEE,100,0,120);
 end;

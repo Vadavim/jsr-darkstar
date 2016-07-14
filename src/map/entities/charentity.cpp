@@ -565,12 +565,14 @@ bool CCharEntity::CanAttack(CBattleEntity* PTarget, std::unique_ptr<CMessageBasi
     {
         errMsg = std::make_unique<CMessageBasicPacket>(this, PTarget, 0, 0, MSGBASIC_ALREADY_CLAIMED);
 
+        ShowDebug("Not mob owner!\n");
         PAI->Disengage();
         return false;
     }
     else if (dist > 30)
     {
         errMsg = std::make_unique<CMessageBasicPacket>(this, PTarget, 0, 0, MSGBASIC_LOSE_SIGHT);
+        ShowDebug("Not close enough!\n");
         PAI->Disengage();
         return false;
     }

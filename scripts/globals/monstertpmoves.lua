@@ -554,7 +554,7 @@ end
 -- TP_DMG_BONUS and TP=100, tpvalue = 2, assume V=150  --> damage is now 150*(TP*2)/100 = 300
 -- TP_DMG_BONUS and TP=200, tpvalue = 2, assume V=150  --> damage is now 150*(TP*2)/100 = 600
 
-function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue)
+function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue, mtp000, mtp150, mtp300)
     returninfo = {};
     --get all the stuff we need
     local resist = 1
@@ -593,8 +593,12 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue)
         dInt = dInt + master:getMod(MOD_CHR);
     end;
 
+--    if (tpeffect==TP_DMG_BONUS) then
+--        damage = damage * ((((skill:getTP() + mob:getMod(MOD_TP_BONUS)) / 10)*tpvalue)/100);
+--    end
+
     if (tpeffect==TP_DMG_BONUS) then
-        damage = damage * ((((skill:getTP() + mob:getMod(MOD_TP_BONUS)) / 10)*tpvalue)/100);
+        damage = damage * fTP(skill:getTP() + mob:getMod(MOD_TP_BONUS), mtp000, mtp150, mtp300);
     end
 
     if (tpeffect == TP_DMG_VARIES or tpeffect == TP_MAB_BONUS) then
@@ -618,9 +622,12 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue)
     local avatarAccBonus = 0;
     if (mob:isPet() and mob:getMaster() ~= nil) then
         local master = mob:getMaster();
-        if (master:getPetID() >= 0 and master:getPetID() <= 20) then -- check to ensure pet is avatar
-            avatarAccBonus = utils.clamp(master:getSkillLevel(SKILL_SUM) - master:getMaxSkillLevel(mob:getMainLvl(), JOBS.SMN, SUMMONING_SKILL), 0, 200);
-            avatarAccBonus = avatarAccBonus + skill:getTP() / 50;
+        local petID = master:getPetID();
+        if (petID ~= nil) then
+            if (master:getPetID() >= 0 and master:getPetID() <= 20) then -- check to ensure pet is avatar
+                avatarAccBonus = utils.clamp(master:getSkillLevel(SKILL_SUM) - master:getMaxSkillLevel(mob:getMainLvl(), JOBS.SMN, SUMMONING_SKILL), 0, 200);
+                avatarAccBonus = avatarAccBonus + skill:getTP() / 50;
+            end
         end
     end
 

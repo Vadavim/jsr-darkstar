@@ -98,12 +98,12 @@ function onUseAbility(player,target,ability)
 --    power = utils.clamp(power, 0, player:getMaxMP() - player:getMP()); -- cap MP drained at the max MP - current MP
 
 --    spirit:delMP(power);
-    player:setLocalVar("siphoned", 1);
-    player:setLocalVar("siphonID", petID);
-    player:setLocalVar("siphonTP", weatherDayBonus * pet:getTP());
+--    player:setLocalVar("siphoned", 1);
+--    player:setLocalVar("siphonID", petID);
+--    player:setLocalVar("siphonTP", weatherDayBonus * pet:getTP());
     pet:delHP(999999);
-    print(spiritRecast);
-    player:insertSpellRecast(spiritRecast, 960);
+--    print(spiritRecast);
+--    player:insertSpellRecast(spiritRecast, 960);
 --    player:addRecast(RECAST_MAGIC, spiritRecast, 3600);
 
     return player:addMP(power);

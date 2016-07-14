@@ -30,39 +30,58 @@ local crystals = {
     [4100] = {AUGMENT_STAT_DEX, AUGMENT_THUNDERRES}, -- Lightning
     [4101] = {AUGMENT_STAT_MND, AUGMENT_WATERRES}, -- Water
     [4102] = {AUGMENT_STAT_CHR, AUGMENT_LIGHTRES}, -- Light
-    [4103] = {AUGMENT_MP, AUGMENT_DARKRES} -- Dark
+    [4103] = {AUGMENT_MP, AUGMENT_DARKRES}, -- Dark
+    [4238] = {AUGMENT_STAT_STR, AUGMENT_FIRERES}, -- Fire
+    [4239] = {AUGMENT_STAT_INT, AUGMENT_ICERES}, -- Ice
+    [4240] = {AUGMENT_STAT_AGI, AUGMENT_WINDRES}, -- Wind
+    [4241] = {AUGMENT_STAT_VIT, AUGMENT_EARTHRES}, -- Earth
+    [4242] = {AUGMENT_STAT_DEX, AUGMENT_THUNDERRES}, -- Lightning
+    [4243] = {AUGMENT_STAT_MND, AUGMENT_WATERRES}, -- Water
+    [4244] = {AUGMENT_STAT_CHR, AUGMENT_LIGHTRES}, -- Light
+    [4245] = {AUGMENT_MP, AUGMENT_DARKRES}, -- Dark
+
 };
+
 
 local function crystalEnchant(player, npc, trade)
     local augmented = (trade:getItemSubId(2) == 4);
     if (augmented) then
         return false;
     end
-    local id = trade:getItem(2);
-    local crystal = trade:getItem(1);
-    local crystalAmount = trade:getSlotQty(1);
+    local id = trade:getItem(1);
+    local crystal = trade:getItem(0);
+    local crystalAmount = trade:getSlotQty(0);
 
-    if (not (crystal >= 4096 and crystal <= 4103) or id == 0) then
+    local isSecondTier = id >= 4238 and id <= 4245;
+
+    if (not (isSecondTier or (crystal >= 4096 and crystal <= 4103)) or id == 0) then
         return false
     end
+
 
     local item = getItem(id);
     local level = item:getLevel();
 
     local buffTier = 0;
-    if (crystalAmount == 4) then buffTier = 1;
-    elseif (crystalAmount == 8) then buffTier = 2;
-    elseif (crystalAmount == 12) then buffTier = 3;
+    if (crystalAmount == 4) then
+        buffTier = 1;
+        if (isSecondTier) then
+            buffTier = 2;
+        end
+
+--    elseif (crystalAmount == 8) then buffTier = 2;
+--    elseif (crystalAmount == 12) then buffTier = 3;
     end
 
-    if (buffTier == 0 or level < (buffTier - 1) * 30) then
+
+    if (buffTier == 0 or level < (buffTier - 1) * 35) then
         return false;
     end
 
-    local buffOne = crystals[crystal];
-    local buffTwo = crystals[crystal];
+    local buffOne = crystals[crystal][1];
+    local buffTwo = crystals[crystal][2];
 
-    local augments = {buffOne, buffTier, buffTwo, buffTier * 3};
+    local augments = {buffOne, buffTier - 1, buffTwo, buffTier * 3 - 1};
     if (crystal == 4103) then
         augments[2] = 4 * (buffTier * (buffTier / 2));
     elseif (crystal == 4102) then

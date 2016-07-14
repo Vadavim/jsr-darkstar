@@ -58,8 +58,15 @@ enum PETID
     PETID_VALOREDGEFRAME     = 70,
     PETID_SHARPSHOTFRAME     = 71,
     PETID_STORMWAKERFRAME    = 72,
-	PETID_ADVENTURING_FELLOW = 81,
-	PETID_CHOCOBO            = 80
+	PETID_VOLKER            = 73,
+	PETID_AYAME            = 74,
+	PETID_LUOPAN            = 75,
+	PETID_STORM           = 76,
+	PETID_CHERUKIKI           = 77,
+	PETID_INGRID           = 78,
+	PETID_CURILLA           = 79,
+	PETID_ADVENTURING_FELLOW = 230,
+	PETID_CHOCOBO            = 230
 };
 
 

@@ -87,8 +87,13 @@ void CAbilityState::ApplyEnmity()
             !(m_PAbility->getCE() == 0 && m_PAbility->getVE() == 0))
         {
             CMobEntity* mob = (CMobEntity*)PTarget;
-            mob->m_OwnerID.id = m_PEntity->id;
-            mob->m_OwnerID.targid = m_PEntity->targid;
+            if (m_PEntity->objtype == TYPE_PET && m_PEntity->PMaster != nullptr) {
+                mob->m_OwnerID.id = m_PEntity->PMaster->id;
+                mob->m_OwnerID.targid = m_PEntity->PMaster->targid;
+            } else {
+                mob->m_OwnerID.id = m_PEntity->id;
+                mob->m_OwnerID.targid = m_PEntity->targid;
+            }
             mob->updatemask |= UPDATE_STATUS;
             mob->PEnmityContainer->UpdateEnmity(m_PEntity, m_PAbility->getCE(), m_PAbility->getVE());
         }

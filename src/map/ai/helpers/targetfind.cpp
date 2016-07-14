@@ -298,7 +298,6 @@ void CTargetFind::addAllInParty(CBattleEntity* PTarget, bool withPet)
         addEntity(PMember, withPet);
         if (!PMember->PAlly.empty()) {
             for (CBattleEntity* PAlly : PMember->PAlly) {
-                ShowDebug("Adding ally\n");
                 addEntity(PAlly, false);
             }
         }
@@ -420,7 +419,8 @@ bool CTargetFind::validEntity(CBattleEntity* PTarget)
             }
 
         }
-        else if (m_findType == FIND_MONSTER_MONSTER || m_findType == FIND_PLAYER_PLAYER){
+        else if ((m_findType == FIND_MONSTER_MONSTER || m_findType == FIND_PLAYER_PLAYER) &&
+                ((CPetEntity*)PTarget)->getPetType() != PETTYPE_ALLY){
             return false;
         }
     }

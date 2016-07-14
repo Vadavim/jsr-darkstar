@@ -14,10 +14,10 @@ end
 
 
 function onMobFight(mob, target)
---    if (mob:getHPP() <= 35 and mob:getLocalVar("Defender") == 0) then
---        mob:useJobAbility(ABILITY_DEFENDER, mob);
---        mob:setLocalVar("Defender", 1);
---    end
+    if (mob:getHPP() <= 35 and mob:getLocalVar("Defender") == 0) then
+        mob:useJobAbility(ABILITY_DEFENDER, mob);
+        mob:setLocalVar("Defender", 1);
+    end
 end
 
 function onMobDeath(mob, player, isKiller)

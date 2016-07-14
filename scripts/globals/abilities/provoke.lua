@@ -21,6 +21,12 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
+
+    if (player:isPet()) then
+        target:addEnmity(player, 200, 800);
+    end
+
+
     if (player:getMainJob() ~= 1) then
         return;
     end
@@ -39,4 +45,5 @@ function onUseAbility(player,target,ability)
             target:setPendingMessage(277, EFFECT_STUN);
         end
     end
+
 end;

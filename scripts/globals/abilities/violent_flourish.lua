@@ -79,14 +79,14 @@ function onUseAbility(player,target,ability,action)
     
     if (math.random() <= hitrate or isSneakValid) then
         hit = 3;
-        dmg = base * pdif;
+        local dmg = base * pdif;
         
-        local bonus = 50 - target:getMod(MOD_STUNRES) + player:getMod(MOD_VFLOURISH_MACC);
+        local bonus = 20 - target:getMod(MOD_STUNRES) + player:getMod(MOD_VFLOURISH_MACC);
         local spell = getSpell(252);
         local resist = applyResistance(player,spell,target,0,player:getWeaponSkillType(SLOT_MAIN),bonus);
         
-        if resist > 0.125 then
-            target:addStatusEffect(EFFECT_STUN, 1, 0, 3);
+        if resist > 0.5 then
+            target:addStatusEffect(EFFECT_STUN, 1, 0, 4 * resist);
         else
             ability:setMsg(110);
         end

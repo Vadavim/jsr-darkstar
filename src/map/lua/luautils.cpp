@@ -2701,6 +2701,9 @@ namespace luautils
     int32 OnMobDeath(CBaseEntity* PMob, CBaseEntity* PKiller)
     {
         DSP_DEBUG_BREAK_IF(PMob == nullptr);
+//        if (PKiller->objtype == TYPE_PET) {
+//            PKiller = (CBaseEntity*)(((CBattleEntity*)PKiller)->PMaster);
+//        }
 
         CCharEntity* PChar = dynamic_cast<CCharEntity*>(PKiller);
 
@@ -3498,7 +3501,7 @@ namespace luautils
     int32 OnUseAbility(CBattleEntity* PUser, CBattleEntity* PTarget, CAbility* PAbility, action_t* action)
     {
         std::string path = "scripts/globals/abilities/%s.lua";
-        if (PUser->objtype == TYPE_PET) path = "scripts/globals/abilities/pets/%s.lua";
+        if (PUser->objtype == TYPE_PET && ((CPetEntity*)PUser)->getPetType() != PETTYPE_ALLY) path = "scripts/globals/abilities/pets/%s.lua";
         lua_prepscript(path.c_str(), PAbility->getName());
 
         if (prepFile(File, "onUseAbility"))

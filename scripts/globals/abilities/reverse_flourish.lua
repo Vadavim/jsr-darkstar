@@ -65,11 +65,11 @@ function onUseAbility(player,target,ability)
     elseif (player:hasStatusEffect(EFFECT_FINISHING_MOVE_5)) then
         TPGain = 9.5 * 5 + STM * 5 ^ 2 + Merits;
     end;
-    
-    TPGain = TPGain * 10;
-    local duration = TPGain * 2;
 
-    player:delStatusEffect(EFFECT_REGAIN);
+    local duration = TPGain;
+    TPGain = TPGain * 10;
+
+    player:delStatusEffectSilent(EFFECT_REGAIN);
     player:addStatusEffect(EFFECT_REGAIN, 5, 3, duration);
     ability:setMsg(230);
 

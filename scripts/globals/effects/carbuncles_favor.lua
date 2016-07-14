@@ -33,7 +33,6 @@ function onEffectTick(target,effect)
             if (member:getID() ~= target:getID()) then
                 member:addStatusEffect(EFFECT_CARBUNCLE_S_FAVOR, effect:getPower(), 0, 16);
             end
-
         end
     end
 end;

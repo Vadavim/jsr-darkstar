@@ -14,6 +14,7 @@
 require("scripts/globals/status");
 require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
+ require("scripts/globals/magic");
 -----------------------------------
 
 function onUseWeaponSkill(player, target, wsID, tp, primary)
@@ -26,13 +27,34 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.canCrit = false;
     params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
     params.atkmulti = 1;
+    params.ele = ELE_THUNDER;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.ftp100 = .5; params.ftp200 = .75; params.ftp300 = 1;
+        params.ftp100 = 2; params.ftp200 = 5; params.ftp300 = 8;
         params.str_wsc = 0.6;
+        params.int_wsc = 0.6;
     end
 
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_THUNDER, SKILL_GKT);
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    if (damage > 0 and resist > 0.125 and not target:hasStatusEffect(EFFECT_RASP))then
+        local DOT = math.floor(player:getMainLvl()/4) + 1;
+
+        local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
+        DOT = addBonusesAbility(player, ELE_THUNDER, target, DOT, mParams, 1.0);
+
+        local duration = (60 * (tp / 1000) * (1 + (tp - 1000) / 2000));
+
+        -- Remove Frost
+        if (target:getStatusEffect(EFFECT_DROWN) ~= nil) then
+            target:delStatusEffect(EFFECT_DROWN);
+        end;
+
+        target:addStatusEffect(EFFECT_SHOCK, DOT, 3, duration * resist,FLAG_ERASABLE);
+        target:setPendingMessage(278, EFFECT_SHOCK);
+    end
+
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

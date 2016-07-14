@@ -805,6 +805,13 @@ void CMobEntity::OnMobSkillFinished(CMobSkillState& state, action_t& action)
 void CMobEntity::DropItems()
 {
     CCharEntity* PChar = (CCharEntity*)GetEntity(m_OwnerID.targid, TYPE_PC);
+    if (PChar == nullptr) {
+        ShowDebug("Doesn't exist?\n");
+        CPetEntity* PPet = (CPetEntity*)GetEntity(m_OwnerID.targid, TYPE_PET);
+        if (PPet != nullptr && PPet->PMaster != nullptr && PPet->PMaster->objtype == TYPE_PC)
+            PChar = (CCharEntity*)PPet->PMaster;
+    }
+    ShowDebug("Ran\n");
 
     if (PChar != nullptr && PChar->id == m_OwnerID.id)
     {

@@ -19,7 +19,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     local success = MobStatusEffectMove(mob, target, typeEffect, 1, 0, 30 + hard * 5);
     if (success == 242) then
-        target:setPendingMessage(277, EFFECT_BInD);
+        target:setPendingMessage(277, EFFECT_BIND);
     end
 
     local dmgmod = 1 + hard / 10;

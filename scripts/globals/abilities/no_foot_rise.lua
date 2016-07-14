@@ -14,6 +14,7 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
+    ability:setRecast(0);
     if (player:hasStatusEffect(EFFECT_FINISHING_MOVE_5)) then
         return 561,0;
     else
@@ -27,7 +28,8 @@ end;
 
 function onUseAbility(player,target,ability)
     
-    local moves = player:getMerit(MERIT_NO_FOOT_RISE) + 1;
+--    local moves = player:getMerit(MERIT_NO_FOOT_RISE) + 1;
+    local moves = 5;
     if (player:hasStatusEffect(EFFECT_FINISHING_MOVE_1)) then
         if (moves > 4) then
             moves = 4;

@@ -857,6 +857,12 @@
     <ClInclude Include="..\..\src\map\ai\controllers\automaton_controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\map\ai\helpers\ai_utils.h">
+      <Filter>Header Files\ai\helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\map\ai\controllers\ally_controller.h">
+      <Filter>Header Files\ai\controllers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\map\ability.cpp">
@@ -1569,6 +1575,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\map\ai\controllers\automaton_controller.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\map\ai\helpers\ai_utils.cpp">
+      <Filter>Source Files\ai\helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\map\ai\controllers\ally_controller.cpp">
+      <Filter>Source Files\ai\controllers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

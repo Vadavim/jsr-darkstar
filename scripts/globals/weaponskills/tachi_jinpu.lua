@@ -1,37 +1,60 @@
------------------------------------
--- Tachi Jinpu
+ -- ---------------------------------
+-- Tachi Goten
 -- Great Katana weapon skill
--- Skill level: 150
--- Two-hit attack. Deals Physical and wind elemental damage to enemy. Additonal Effect Damage varies with TP.
--- Will stack with Sneak Attack and Souleater.
--- Aligned with the Breeze Gorget & Shadow Gorget.
--- Aligned with the Breeze Belt & Shadow Belt.
--- Element: Wind
--- Modifiers: STR:30%
+-- Skill Level: 70
+-- Deals lightning elemental damage to enemy. Damage varies with TP.
+-- Will stack with Sneak Attack.
+-- Aligned with the Light Gorget / Thunder Gorget.
+-- Aligned with the Light Belt / Thunder Belt.
+-- Element: Thunder
+-- Modifiers: STR:60%
 -- 100%TP    200%TP    300%TP
 -- .5         .75      1.00
 -----------------------------------
-require("scripts/globals/magic");
 require("scripts/globals/status");
 require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
+ require("scripts/globals/magic");
 -----------------------------------
 
 function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local params = {};
-    params.ftp100 = 1; params.ftp200 = 1; params.ftp300 = 1;
-    params.str_wsc = 0.4; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
+    params.numHits = 2;
+    params.ftp100 = 1.0; params.ftp200 = 1.0; params.ftp300 = 1.0;
+    params.str_wsc = 0.3; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
+    params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
+    params.canCrit = false;
+    params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
+    params.atkmulti = 1;
     params.ele = ELE_WIND;
-    params.skill = SKILL_GKT;
-    params.includemab = true;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.ftp100 = 0.5; params.ftp200 = 0.75; params.ftp300 = 1;
-        params.str_wsc = 0.3;
+        params.ftp100 = 1; params.ftp200 = 2.5; params.ftp300 = 4;
+        params.str_wsc = 0.6;
+        params.int_wsc = 0.6;
     end
 
-    local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, params, tp, primary);
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_WIND, SKILL_GKT);
+    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    if (damage > 0 and resist > 0.125 and not target:hasStatusEffect(EFFECT_FROST))then
+        local DOT = math.floor(player:getMainLvl()/4) + 1;
+
+        local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
+        DOT = addBonusesAbility(player, ELE_WIND, target, DOT, mParams, 1.0);
+
+        local duration = (60 * (tp / 1000) * (1 + (tp - 1000) / 2000));
+
+        -- Remove Frost
+        if (target:getStatusEffect(EFFECT_RASP) ~= nil) then
+            target:delStatusEffect(EFFECT_RASP);
+        end;
+
+        target:addStatusEffect(EFFECT_CHOKE, DOT, 3, duration * resist,FLAG_ERASABLE);
+        target:setPendingMessage(278, EFFECT_CHOKE);
+    end
+
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

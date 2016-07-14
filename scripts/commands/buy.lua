@@ -855,76 +855,263 @@ local function greataxes(player, points)
     return stock;
 end
 
-local function knuckles(player, points)
+
+local function knuckles2(player, points)
     local stock = {
-        16690,  150,    --Cesti +1 >Cougar Bag
-        16640,  250,    --Bronze Knuckles +1 > Snic Knuckles
-        16441,  380,    --Brass Bag +1
-        16398,  525,    --Burning Cesti
-        16701,  800,    --Strike Baghnakhs
-        16437,  1000,   --Metal Knuckles +1
-        16700,  1350,   --Poison Cesti +1
-        16703,  1900,   --Impact Knuckles
-        16439,  2300,   --Poison Claws +1
-        17487,  2800,   --Corrosive Claws
-        16696,  3400,   --Patas +1
-        17472,  4200,   --Cross Counters
+        16389,  4000,    --Coeurl Cesti
+        16413,  4400,    --Darksteel Claws
+        16394,  4600,    --Darksteel Knuckles
+        18362,  4900,    --Sainti
+        16420,  5000,    --Bone Patas
+        16418,  5400,    --Venom Claws
+        16414,  5800,    --Cermet Claws
+        18750,  6200,    --Black Adargas
+        16404,  6450,    --Venom Katars
+        18743,  6800,    --Darksteel Sainti
+        16416,  7200,    --Dragon Claws
+        16395,  8400,    --Diamond Knuckles
+        16423,  9800,    --Manoples
     };
     return stock;
 end
 
-local function spears(player, points)
+
+local function knucklesEx2(player, points)
     local stock = {
-        16862,  150,    --Harpoon +1
-        16859,  250,    --Bronze Spear +1 > Wind Spear
-        16864,  380,    --Brass Spear +1
-        16863,  700,    --Cruel Spear
-        16865,  1000,   --Spear +1
-        18090,  1350,   --Military Spear
-        16853,  1700,   --Lizard Piercer
-        16876,  2100,   --Lance +1
-        16891,  2500,   --Obelisk Lance +1
-        16867,  2900,   --Orc Piercer
-        16837,  3400,   --Trident
-        16877,  4200,   --Mythril Lance +1
+        17473,  6200, {LEAT},    --Torama Cesti
+        16697,  6200, {SMIT},    --Darksteel Claws +1
+        16698,  6400, {SMIT},    --Darksteel Knuckles +1
+        18363,  6800, {GOLD},    --Sainti +1
+        17477,  6800, {BONE},    --Bone Patas +1
+        16425,  7200, {ALCH},    --Venom Claws +1
+        17488,  7500, {ALCH},    --Cermet Claws +1
+        18751,  8200, {SMIT},    --Black Adargas +1
+        17483,  8800, {ALCH},    --Venom Katars +1
+        18744,  8800, {SMIT},    --Darksteel Sainti +1
+        17485,  9200, {BONE},    --Dragon Claws +1
+        17480,  9800, {SMIT},    --Diamond Knuckles +1
+        17518,  11000, {SMIT},    --Manoples +1
+        18361,  13000, {ALCH},    --Ponderous Manoples
+        16396,  20000, {SMIT},    --Koenig's Knuckles [UPGRADE]
+    };
+    return special_stock(stock, points);
+end
+
+
+local function knuckles(player, points)
+    local stock = {
+        16405,  100,    --Cat Baghnakhs
+        16385,  100,    --Cesti
+        16390,  150,    --Bronze Knuckles
+        16391,  200,    --Brass Knuckles
+        16407,  250,    --Brass Baghnakhs
+        16386,  325,    --Lizard Cesti
+        16392,  800,    --Metal Knuckles
+        16406,  1000,    --Baghnakhs
+        16411,  1500,    --Claws
+        16399,  1800,    --Katars
+        16417,  2300,    --Poison Claws
+        16393,  2650,    --Mythril Knuckles
+        16403,  2900,    --Poison Katars
+        16430,  3300,    --Acid Claws
+        16412,  3300,    --Mythril Claws
+        16419,  4000,    --Patas
     };
     return stock;
 end
+
+
+local function knucklesEx(player, points)
+    local stock = {
+        17476,  200, {BONE},    --Cat Baghnakhs +1
+        16690,  200, {LEAT},    --Cesti +1
+        16440,  280, {SMIT},    --Bronze Knuckles +1
+        16689,  350, {GOLD},    --Brass Knuckles +1
+        16441,  420, {GOLD},    --Brass Baghnakhs +1
+        16398,  580, {LEAT},    --Burning Cesti
+        16438,  1000, {ALCH},    --Silence Baghnakhs +1
+        16437,  1200, {SMIT},    --Metal Knuckles +1
+        16444,  1400, {SMIT},    --Baghnakhs +1
+        16700,  2000, {ALCH},    --Poison Cesti +1
+        16445,  2200, {SMIT},    --Claws +1
+        16695,  2600, {SMIT},    --Katars +1
+        16439,  3000, {ALCH},    --Poison Claws +1
+        16446,  3800, {SMIT},    --Mythril Knuckles +1
+        18354,  5000, {LEAT},    --Adargas +1
+        16696,  5000, {SMIT},    --Patas +1
+    };
+    return special_stock(stock, points);
+end
+
+
+local function polearms2(player, points)
+    local stock = {
+        16888,  5000,    --Battle Fork
+        18094,  6800,    --Couse +1
+        16846,  7800,    --Bloody Lance
+        16849,  9000,    --Cermet Lance
+        18083,  10000,    --Barchha +1
+        16840,  14000,    --Ox Tongue
+    };
+    return stock;
+end
+
+local function polearmsEx2(player, points)
+    local stock = {
+        16880,  7000, {WOOD},    --Holy Lance +1
+        18119,  9000, {WOOD, 8000},    --Dark Mezraq +1
+        16881,  10000, {WOOD, 8500},    --Carnage Lance
+        16879,  14000, {WOOD, 10000},    --Cermet Lance +1
+        18116,  30000, {WOOD, 10000},    --Engetsuto +1
+        18105,  40000, {WOOD, 10000},    --Orichalcum Lance
+    };
+    return special_stock(stock, points);
+end
+
+
+local function polearms(player, points)
+    local stock = {
+        16832,  100,    --Harpoon
+        16833,  200,    --Bronze Spear
+        16834,  350,    --Brass Spear
+        16835,  725,    --Spear
+        16845,  1250,    --Lance
+        16836,  1700,    --Halberd
+        16890,  2800,    --Obelisk Lance
+        16847,  3600,    --Mythril Lance
+    };
+    return stock;
+end
+
+local function polearmsEx(player, points)
+    local stock = {
+        16862,  200, {WOOD},    --Harpoon +1
+        16589,  350, {WOOD},    --Bronze Spear +1
+        16864,  500, {WOOD},    --Brass Spear +1
+        16865,  1250, {WOOD},    --Spear +1
+        16876,  2100, {WOOD},    --Lance +1
+        16866,  2800, {WOOD},    --Halberd +1
+        16891,  3800, {WOOD},    --Obelisk Lance +1
+        18122,  4500, {WOOD},    --Broach Lance
+        16877,  5000, {WOOD},    --Mythril Lance +1
+    };
+    return special_stock(stock, points);
+end
+
+
+
+local function scythes2(player, points)
+    local stock = {
+        16794,  4800,    --Bone Scythe
+        18054,  5350,    --Ivory Sickle
+        16789,  6500,    --Darksteel Scythe
+        18954,  8000,    --Ogre Sickle
+        18058,  12000,    --Orichalcum Scythe
+    };
+    return stock;
+end
+
+
+local function scythesEx2(player, points)
+    local stock = {
+        16795,  6300, {BONE},    --Bone Scythe +1
+        18055,  7000, {BONE},    --Ivory Sickle +1
+        16790,  8000, {SMIT},    --Darksteel Scythe +1
+        18060,  12000, {ALCH, 8000},    --Blizzard Scythe
+        18942,  38000, {BONE, 10000},    --Naigama +1
+        18059,  44000, {GOLD, 10000},    --Triton's Scythe
+    };
+    return special_stock(stock, points);
+end
+
 
 local function scythes(player, points)
     local stock = {
-        16778,  100,    --Bronze Zaghnal +1
-        16772,  250,    --Brass Zaghnal +1
-        18039,  400,    --Republic Scythe
-        16773,  800,    --Cruel Scythe
-        16784,  1000,   --Frostreaper
-        18037,  1300,   --Federation Scythe
-        16785,  1600,   --Harvester
-        16782,  2000,   --Mythril Scythe +1
-        16797,  2400,   --Mythril Zaghnal +1
-        18051,  2900,   --Antlion Sickle
-        16771,  3400,   --Falcastra
-        16786,  4000,   --Barbarian's Scythe
+        16768,  100,    --Bronze Zaghnal
+        16769,  200,    --Brass Zaghnal
+        18956,  325,    --Serpette
+        16774,  500,    --Scythe
+        16770,  625,    --Zaghnal
+        16784,  1200,    --Frostreaper
+        16785,  1500,    --Harvester
+        16775,  2400,    --Mythril Scythe
+        16796,  3000,    --Mythril Zaghnal
+        18050,  3800,    --Mandibular Sickle
     };
     return stock;
 end
 
-local function greatswords(player, points)
+
+local function scythesEx(player, points)
     local stock = {
-        16606,  100,    --Rusty Greatsword
-        16638,  250,    --Claymore +1
-        16929,  400,    --Burning Claymore
-        19160,  650,    --Estramacon
-        16934,  800,    --Braveheart
-        16931,  1000,   --Two-handed Sword +1
-        16928,  1250,   --Hellfire Sword
-        16936,  1650,   --Demonic Sword
-        16639,  1950,   --Fine Claymore
-        16937,  2350,   --Ice Brand
-        18369,  3150,   --Gust Sword +1
-        19150,  4250,   --Cobra Unit Claymore
+        16778,  200, {SMIT},    --Bronze Zaghnal +1
+        16772,  350, {SMIT},    --Brass Zaghnal +1
+        18959,  550, {BONE},    --Serpette +1
+        16781,  800, {SMIT},    --Scythe +1
+        16779,  950, {SMIT},    --Zaghnal +1
+        16782,  3200, {SMIT},    --Mythril Scythe +1
+        16797,  3400, {SMIT},    --Mythril Zaghnal +1
+        18051,  5000, {BONE},    --Antlion Sickle
+        18945,  6400, {BONE},    --Jet Sickle
+    };
+    return special_stock(stock, points);
+end
+
+
+
+
+
+local function greatswords2(player, points)
+    local stock = {
+        16585,  4800,    --Darksteel Claymore
+        18382,  5200,    --Darksteel Falx
+        16591,  5500,    --Zweihander
+        16956,  6500,    --Flamberge
+        16597,  8000,    --Nagan
     };
     return stock;
+end
+
+local function greatswordsEx2(player, points)
+    local stock = {
+        16933,  6000, {SMIT},    --Darksteel Claymore +1
+        18383,  6200, {SMIT},    --Darksteel Falx +1
+        16616,  6800, {SMIT},    --Zweihander +1
+        16941,  8800, {SMIT},    --Flamberge +1
+        16955,  11000, {SMIT, 8900},    --Nagan +1
+        16955,  12500, {ALCH, 9000},    --Pealing Nagan
+        16587,  30000, {ALCH, 10000},    --Gold Algol [UPGRADE]
+        19151,  30000, {SMIT, 10000},    --Bahadur [UPGRADE]
+    };
+    return special_stock(stock, points);
+end
+
+
+local function greatswords(player, points)
+    local stock = {
+        16606,  100,    --Claymore
+        16589,  450,    --Two-Handed Sword
+        18375,  1500,    --Falx
+        16584,  1900,    --Mythril Claymore
+        16590,  2500,    --Greatsword
+        16957,  3500,    --Faussar
+    };
+    return stock;
+end
+
+local function greatswordEx(player, points)
+    local stock = {
+        16638,  200, {SMIT},    --Claymore +1
+        16929,  500, {ALCH},    --Burning Claymore
+        16931,  750, {SMIT},    --Two-handed Sword +1
+        16928,  1800, {ALCH},    --Hellfire Sword
+        18376,  2200, {SMIT},    --Falx +1
+        16639,  2650, {SMIT},    --Fine Claymore
+        16937,  3200, {ALCH},    --Ice Brand
+        16932,  3500, {SMIT},    --Greatsword +1
+        16958,  4800, {SMIT},    --Faussar +1
+    };
+    return special_stock(stock, points);
 end
 
 local function greatkatanas(player, points)
@@ -1017,58 +1204,203 @@ end
 
 local function clubs(player, points)
     local stock = {
-        17087,  150,    --Maple Wand +1
-        17138,  250,    --Willow Wand +1
-        17149,  350,    --Brass Hammer +1
-        17445,  500,    --Federation Club
-        17048,  680,    --Decurion's Hammer
-        17140,  850,    --Yew Wand +1
-        17115,  1200,   --Warhammer +1
-        17076,  1450,   --Earth Wand
-        17414,  1900,   --Pixie Mace
-        17442,  2200,   --Eremite's Wand+1
-        17449,  2450,   --Kingdom Mace
-        17040,  9000,   --Warp Cudgel
-        17411,  3000,   --Holy Mace +1
-        17143,  3400,   --Rose Wand +1
-        17072,  4000,   --Lilith's Wand
-        17083,  4000,   --Time Hammer
+        17024, 80,    --Ash Club
+        17034, 100,    --Bronze Mace
+        17059, 125,    --Bronze Rod
+        17043,  250,    --Brass Hammer
+        17081, 250,    --Brass Rod
+        17035, 600,    --Mace
+        17060, 850,    --Rod
+        17044,  1200,   --Warhammer
+        17045, 2400,    --Maul
+        17036,  2800,   --Mythril Mace
+        17062,  3000,   --Bone Rod
+        17030,  3200,   --Great Club
     };
     return stock;
 end
+
+local function clubs2(player, points)
+    local stock = {
+        17037, 4500,    --Darksteel Mace
+        17063, 4500,    --Darksteel Rod
+        17046, 5800,    --Darksteel Maul
+        17085, 6500,    --Holy Wand
+        17039, 6500,    --Platinum Mace
+        17065, 7300,    --Platinum Rod
+        18848, 7800,    --Brass Jadagna
+        17459, 8500,    --Scepter + 1
+    };
+    return stock;
+end
+
+local function clubsEx2(player, points)
+    local stock = {
+        17427,  4000, {WOOD},    --Ebony Wand +1
+        17430,  5000, {WOOD},    --Fey Wand
+        17433,  6200, {WOOD},    --Mythic Wand +1
+        18860,  7000, {SMIT},    --Flanged Mace +1
+        18406,  9400, {SMIT},    --Jadagna +1
+    };
+    return special_stock(stock, points);
+end
+
+local function clubsEx(player, points)
+    local stock = {
+        17087,  150, {WOOD},    --Maple Wand +1
+        17138,  250, {WOOD},    --Willow Wand +1
+        17048,  680, {SMIT},    --Decurion's Hammer
+        17140,  850, {WOOD},    --Yew Wand +1
+        17076,  1450, {WOOD},    --Earth Wand
+        17414,  1900, {SMIT},    --Pixie Mace
+        17071,  2300, {SMIT},   --Heat Rod
+        17442,  2200, {WOOD},   --Eremite's Wand+1
+        17114,  2900, {SMIT},   --Holy Maul +1
+        17411,  3500, {SMIT},   --Holy Mace +1
+        17143,  3400, {WOOD},   --Rose Wand +1
+        17072,  4500, {WOOD},   --Lilith's Wand
+        17040,  6000, {WOOD},   --Warp Cudgel
+    };
+    return special_stock(stock, points);
+end
+
+
+
+local function staves2(player, points)
+    local stock = {
+        17545,  6000,    --Fire Staff
+        17547,  6000,    --Ice Staff
+        17549,  6000,    --Wind Staff
+        17551,  6000,    --Earth Staff
+        17553,  6000,    --Thunder Staff
+        17555,  6000,    --Water Staff
+        17557,  6000,    --Light Staff
+        17559,  6000,    --Dark Staff
+        17520,  5000,    --Heavy Staff
+        17099,  5500,    --Mahogany Pole
+        17543,  5800,    --Battle Staff
+        17101,  7200,    --Mythic Pole
+        17102,  11000,    --Eight-Sided Pole
+    };
+    return stock;
+end
+
+
+local function stavesEx2(player, points)
+    local stock = {
+        17521,  6800, {WOOD},    --Mahogany Pole +1
+        17544,  7200, {WOOD},    --Battle Staff +1
+        17526,  9800, {WOOD},    --Mythic Pole +1
+        17592,  20000, {WOOD, 10000},    --Kinkobo
+        17596,  13000, {ALCH, 9000},    --Steel-Splitter
+        17546,  20000, {WOOD, 8000},    --Vulcan's Staff
+        17548,  20000, {WOOD, 8000},    --Aquilo's Staff
+        17550,  20000, {WOOD, 8000},    --Auster's Staff
+        17552,  20000, {WOOD, 8000},    --Terra's Staff
+        17554,  20000, {WOOD, 8000},    --Jupiter's Staff
+        17556,  20000, {WOOD, 8000},    --Neptune's Staff
+        17558,  20000, {WOOD, 8000},    --Apollo's Staff
+        17560,  20000, {WOOD, 8000},    --Pluto's Staff
+    };
+    return special_stock(stock, points);
+end
+
 
 local function staves(player, points)
     local stock = {
-        17123,  100,    --Ash Staff +1 >Chanter's Staff
-        17122,  200,    --Ash Pole +1
-        17125,  350,    --Holly Staff +1 >Misery Staff
-        17124,  480,    --Holly Pole +1 >Pastoral Staff
-        17126,  750,    --Elm Staff +1 >Himmel Stock
-        17425,  1100,   --Spiked Club +1
-        17134,  1300,   --Dolphin Staff >Whale Staff +1
-        17119,  1650,   --Elm Pole +1
-        17120,  2000,   --Oak Pole +1
-        17524,  2450,   --Footman's Staff
-        17135,  3200,   --Walrus Staff
+        17088,  100,    --Ash Staff
+        17095,  150,    --Ash Pole
+        17089,  185,    --Holly Staff
+        17096,  250,    --Holly Pole
+        17090,  380,    --Elm Staff
+        17424,  550,    --Spiked Club
+        17097,  900,    --Elm Pole
+        17091,  1300,    --Oak Staff
+        18606,  3000,    --Passaddhi Staff
+        17098,  2100,    --Oak Pole
+        18611,  2650,    --Qi Staff
+        17523,  3000,    --Quarterstaff
     };
     return stock;
 end
 
-local function axes(player, points)
+
+local function stavesEx(player, points)
     local stock = {
-        16646,  100,    --Bronze Axe +1
-        16661,  225,    --Brass Axe +1 >Tabar+1
-        16666,  480,    --Bone Axe +1
-        16663,  850,    --Battleaxe +1
-        16664,  1200,   --War Pick +1
-        16673,  1600,   --Warrior's Axe
-        16665,  2100,   --Mythril Axe +1
-        16675,  2800,   --Storm Axe
-        16676,  5200,   --Viking Axe
-        16670,  3400,   --Mythril Pick +1
+        17123,  225, {WOOD},    --Ash Staff +1
+        17122,  280, {WOOD},    --Ash Pole +1
+        17125,  340, {WOOD},    --Holly Staff +1
+        17124,  400, {WOOD},    --Holly Pole +1
+        17126,  550, {WOOD},    --Elm Staff +1
+        17425,  900, {WOOD},    --Spiked Club +1
+        17134,  950, {ALCH},    --Dolphin Staff
+        17117,  1100, {ALCH},    --Hypno Staff
+        17119,  1350, {WOOD},    --Elm Pole +1
+        17534,  2100, {ALCH},    --Whale Staff +1
+        17127,  1900, {WOOD},    --Oak Staff +1
+        18615,  4500, {WOOD},    --Passaddhi Staff +1
+        17120,  2800, {WOOD},    --Oak Pole +1
+        18616,  3400, {WOOD},    --Qi Staff +1
+        17524,  4200, {WOOD},    --Footman's Staff
+    };
+    return special_stock(stock, points);
+end
+
+
+local function axes2(player, points)
+    local stock = {
+        16645,  5100,    --Darksteel Axe
+        16652,  5800,    --Darksteel Pick
+        16658,  6200,    --Darksteel Tabar
+        16653,  7200,    --Nadziak
+        16659,  9000,    --Tabarzin
     };
     return stock;
 end
+
+
+local function axesEx2(player, points)
+    local stock = {
+        16677,  6300, {SMIT},    --Darksteel Axe +1
+        16682,  7100, {SMIT},    --Darksteel Pick +1
+        16683,  8100, {SMIT},    --Darksteel Tabar +1
+        16685,  9000, {SMIT},    --Nadziak +1
+        16647,  10000, {SMIT},    --Rune Axe
+        17949,  11500, {SMIT, 8000},    --Furnace Tabarzin
+        17953,  21000, {SMIT, 10000},    --Zoraal Ja's Axe
+        17966,  32000, {SMIT, 10000},    --Erlking's Tabar
+    };
+    return special_stock(stock, points);
+end
+
+
+local function axes(player, points)
+    local stock = {
+        16640,  100,    --Bronze Axe
+        16661,  200,    --Brass Axe
+        16642,  325,    --Bone Axe
+        16649,  580,    --Bone Pick
+        16663,  920,   --Battleaxe
+        16650,  1500,   --War Pick
+        16664,  2500,   --Mythril Axe
+        16657,  3500,   --Tabar
+        16651,  4500,   --Mythril Pick
+    };
+    return stock;
+end
+
+
+local function axesEx(player, points)
+    local stock = {
+        17943,  900, {SMIT},    --Tomahawk +1
+        17940,  2100, {SMIT},    --Military Pick
+        17957,  3100, {SMIT},    --Navy Axe
+        18531,  4000, {SMIT},    --Veldt Axe +1
+        16671,  4800, {SMIT},    --Tabar +1
+    };
+    return special_stock(stock, points);
+end
+
 
 local function katanas(player, points)
     local stock = {
@@ -1181,14 +1513,14 @@ local function shields2Ex(player, points)
         12344,  8800, {SMIT},    --Master Shield
         12369,  10800, {SMIT},    --Royal Knight Army Shield +2
         12410,  12000, {WOOD},    --Numinous Shield +1
-        12360,  15000, {WOOD},    --Tatami Shield
-        16179,  13000, {SMIT},    --Airy Buckler
-        12388,  14500, {SMIT},    --Kaiser Shield
-        16162,  16000, {SMIT},    --Tariqah
-        16180,  18000, {WOOD},    --Harpy Shield
-        16162,  19000, {SMIT},    --Acheron's Shield
-        16164,  28000, {SMIT},    --Tariqah +1
-        12386,  38000, {SMIT},    --Acheron's Shield +1
+        12360,  15000, {WOOD, 12000},    --Tatami Shield
+        16179,  13000, {SMIT, 12000},    --Airy Buckler
+        12388,  14500, {SMIT, 12000},    --Kaiser Shield
+        16162,  16000, {SMIT, 12500},    --Tariqah
+        16180,  18000, {WOOD, 13000},    --Harpy Shield
+        16162,  29000, {SMIT, 12000},    --Acheron's Shield
+        16164,  38000, {SMIT, 13000},    --Tariqah +1
+        12386,  48000, {SMIT, 13000},    --Acheron's Shield +1
     };
     return special_stock(stock, points);
 end
@@ -1303,209 +1635,863 @@ local function rings3Ex(player, points)
     return special_stock(stock, points);
 end
 
-local function neck(player, points)
+
+
+
+local function neck2(player, points)
     local stock = {
-        0x3319,   100,    --Leather Gorget
-        0x330f,   150,    --Scale Gorget
-        0x3fad,   1200,   --Focus Collar
-        0x3305,   2100,   --Spike Necklace
-        0x330c,   900,    --Hemp Gorget +1
-        0x330e,   1200,   --Wolf Gorget +1
-        0x336c,   2800,   --Agile Gorget
-        0x336d,   4200,   --Jagd Gorget
-        0x3f86,   4200,   --Mohbwa Scarf +1
-        0x3358,   5000,   --Wing Gorget
-        0x3f88,   5000,   --Beak Necklace +1
+        13108,   4500,    --Coral Gorget
+        13126,   6800,    --Torque +1
+        13132,   2500,    --Torama Gorget
+        13133,   2800,    --Torama Gorget
+        13130,   5000,    --Jeweled Collar +1
+        15532,   7500,    --Shark Necklace
+        13109,   9500,    --Harmonia's Torque
+        15539,   9500,    --Orochi Nodowa
     };
     return stock;
 end
 
+local function neckEx2(player, points)
+    local stock = {
+        13171, 5500,{BONE},     --Reraise Gorget
+        13171, 7000,{BONE},     --Merman's Gorget
+        16266, 11000,{BONE},     --Wivre Gorget +1
+        15522, 7800,{GOLD},     --Enlightened Chain
+        11580, 12000,{GOLD},     --Fylgja Torque +1
+        15531, 9500,{LEAT},     --Qiqirn Collar
+    };
+    return special_stock(stock, points);
+end
+
+
+local function neck(player, points)
+    local stock = {
+        13075,   100,    --Feather Collar
+        13081,   100,    --Leather Gorget
+        13071,   200,    --Scale Gorget
+        13090,   350,    --Beetle Gorget
+        13059,   600,    --Fine Gorget
+        13076,   900,    --Fang Necklace
+        13070,   900,    --Wolf Gorget +1
+        13065,   1200,    --Gorget +1
+        13124,   1800,    --Nodowa +1
+        13067,   1800,    --Noble's Gorget
+        16261,   2400,    --Mohbwa Scarf
+        13077,   2400,    --Star Pendant
+        16263,   3000,    --Beak Necklace
+    };
+    return stock;
+end
+
+local function neckEx(player, points)
+    local stock = {
+        15526, 900,{LEAT},     --Regen Collar
+        16282,  3000,{WEAV},     --Buffoon's Collar +1
+        13144,  3000,{GOLD},     --Wing Gorget
+        13169,  4000,{GOLD},     --Benign Necklace
+        16301,  4000,{GOLD},     --Focus Collar
+        16262,  4500,{WEAV},     --Mohbwa Scarf +1
+        16262,  5500,{BONE},     --Beak Necklace +1
+        13166, 5500,{LEAT},     --Hateful Collar
+    };
+    return special_stock(stock, points);
+end
+
+
+local function back2(player, points)
+    local stock = {
+        13679,   2000,    --Templar's Mantle
+        15463,   2500,    --Safety Mantle
+        13638,   3000,    --Gaia Mantle +1
+        13579,   3500,    --Jester's Cape
+        15493,   3500,    --Bushido Cape
+        15492,   3500,    --Intensifying Cape
+        16232,   4500,    --Smilodon Mantle +1
+        13630,   6500,    --Peace Cape +1
+        13626,   6500,    --Blue Cape +1
+        13591,   9000,    --Behemoth Mantle
+        16236,   9000,    --Lynx Mantle +1
+        13656,   9000,    --Errant Cape
+    };
+    return stock;
+end
+
+
+local function backEx2(player, points)
+    local stock = {
+        11540,  6000,{WEAV},     --Accura Cape +1
+        13610,  7000,{WEAV},     --Jester's Cape +1
+        11542,  6000,{LEAT},     --Kinesis Mantle +1
+        15491,  9000,{WEAV},     --Bullseye Cape
+        13651,  9000,{WEAV},     --Cheviot Cape
+        13627,  12000,{WEAV},     --Prism Cape
+        13604,  12000,{LEAT},     --Behemoth Mantle +1
+        11541,  18000,{LEAT},     --Fowler's Mantle +1
+        13646,  21000,{LEAT},     --Amemet Mantle +1
+    };
+    return special_stock(stock, points);
+end
+
+
 local function back(player, points)
     local stock = {
-        0x350f,   120,    --Cape
-        0x351a,   80, --Rabbit Mantle
-        0x3528,   225,    --Lizard Mantle +1
-        0x3510,   225,    --Cotton Cape
-        0x3c7e,   350,    --Breath Mantle
-        0x3529,   600,    --Wolf Mantle +1
-        0x352a,   1500,   --Black Cape +1
-        0x3511,   1500,   --White Cape +1
-        0x3c7f,   1500,   --High Breath Mantle
-        0x3544,   1500,   --Cavalier's Mtle +1
-        0x352b,   2200,   --Red Cape +1
-        0x351e,   3000,   --Bat Cape
-        0x356c,   3000,   --Heavy Mante
+        13594,   70, --Rabbit Mantle
+        13583,   100,    --Cape
+        13592,   200,    --Lizard Mantle
+        13584,   240,    --Cotton Cape
+        11530,   1500,    --Exactitude Mantle
+        13609,   800,    --Wolf Mantle +1
+        13612,   1800,    --Dino Mantle
+        13577,  1800,     --Black Cape
+        13585,  1800,     --White Cape
+        13586,   3000,    --Red Cape
+        13636,   3000,    --Cavalier's Mantle +1
         };
     return stock;
 end
 
+
+local function backEx(player, points)
+    local stock = {
+        13632,  1200,{LEAT},     --Nomad's Mantle +1
+        13610,  2800,{WEAV},     --Black Cape +1
+        13618,  2800,{WEAV},     --White Cape +1
+        11539,  3800,{LEAT},     --Exactitude Mantle +1
+        13611,  4500,{WEAV},     --Red Cape +1
+    };
+    return special_stock(stock, points);
+end
+
+
+
+local function hands2(player, points)
+    local stock = {
+        14956,  5000,    --Magi Cuffs
+        12707,  5000,    --Scorpion Mittens
+        13959,  5500,    --Gilt Gauntlets
+        13988,  6000,    --Merman's Bangles
+        14008,  6300,    --Carapace Gauntlets
+        12702,  7000,    --Tiger Gloves
+        14942,  7300,    --Marid Mittens +1
+        14993,  8000,    --Tabin Bracers
+        13989,  8000,    --Darksteel Gauntlets +1
+        13993,  8500,    --Torama Gloves
+        13986,  8500,    --Platinum Bangles +1
+        14871,  9200,    --Trainer's Gloves
+        12213,  9800,    --Ebon Mitts
+        14829,  9800,    --Gavial Fng Gauntlets
+        14881,  13500,    --Wise Gloves +1
+        14847,  16500,    --Sheikh Gages
+    };
+    return stock;
+end
+
+local function handsEx2(player, points)
+    local stock = {
+        14934,  7000,{SMIT},     --Jaridah Bazubands
+        13999,  7000,{WEAV},     --Aristocrat's Mitts
+        13997,  8000,{WEAV},     --Battle Bracers +1
+        14012,  10000,{SMIT},     --Thick Mufflers +1
+        14828,  18000,{SMIT, 8000},     --Gem Gauntlets
+        15059,  15000,{LEAT, 7000},     --Finesse Gloves +1
+        14878,  25000,{SMIT, 9800},     --Hachiman Kote +1
+        14883,  28000,{GOLD, 9500},     --King's Gauntlets +1
+        14011,  28000,{SMIT, 9500},     --Onyx Gadlings
+        14851,  16000,{LEAT, 9500},     --Brave's Wristbands
+        14079,  30000,{WEAV, 9500},     --Mahatma Cuffs
+        13998,  40000,{WEAV, 9500},     --War Gloves +1
+        14882,  40000,{WEAV, 9500},     --Yasha Tekko +1
+        14849,  19000,{SMIT, 7000},     --Conte Manopolas
+        12189,  24000,{SMIT, 7000},     --Ebon Gauntlets
+        14056,  35000,{SMIT, 9800},     --Unicorn Mittens +1
+    };
+    return special_stock(stock, points);
+end
+
+
+
 local function hands(player, points)
     local stock = {
         12696,  100,    --Leather Gloves
-        12736,  100,    --Mitts >Seer's Mitts +1
-        12778,  250,    --Linen Cuffs +1 >Concealing Cuffs
-        12785,  350,    --Fine Gloves
-        12789,  550,    --Beetle Mittens +1 >Combat Mitts +1
-        14863,  800,    --Kampfhentzes
-        12726,  1500,   --Gigas Bracelets
-        12793,  2000,   --Mage's Cuffs
-        12791,  2250,   --Gauntlets +
-        14052,  2750,   --Luisant Moufles
-        12795,  3100,   --Dino Gloves
-        13958,  4000,   --Mythril Gauntts +1
-        12794,  4000,   --Mage's Mitts
+        12736,  100,    --Mitts
+        12710,  300,    --Bone Mittens
+        12697,  350,    --Lizard Gloves
+        12769,  350,    --Chain Mittens +1
+        12730,  800,    --Wool Cuffs +1
+        14856,  1200,    --Seer's Mitts
+        12698,  1500,    --Studded Gloves
+        12787,  2100,    --Cuir Gloves +1
+        12793,  2100,    --Mage's Cuffs
+        12791,  2400,    --Gauntlets +1
+        12790,  3000,    --Carapace Mitts +1
+        12795,  3500,    --Dino Gloves
+        13958,  4000,    --Mythril Gauntlets +1
+        12794,  4000,    --Mage's Mitts
+        13955,  4000,    --Shinobi Tekko +1
     };
     return stock;
 end
+
+local function handsEx(player, points)
+    local stock = {
+        12778,  500,{WEAV},     --Linen Cuffs +1
+        14054,  800,{WEAV},     --Baron's Cuffs
+        13953,  800,{WEAV},     --White Mitts +1
+        14863,  1200,{SMIT},     --Kampf
+        14859,  2200,{WEAV},     --Seer's Mitts +1
+        14025,  3000,{WEAV},     --Devotee's Mitts +1
+        15053,  4000,{WEAV},     --Combat Mittens
+        14987,  4500,{BONE},     --Thunder Mittens
+        14987,  4500,{GOLD},     --Aero Mufflers
+        14490,  4500,{LEAT},     --Blizzard Gloves
+        14052,  6500,{SMIT},     --Luisant Moufles
+        14826,  6500,{LEAT},     --Austere Cuffs
+        14908,  6500,{WEAV},     --Raven Bracers
+    };
+    return special_stock(stock, points);
+end
+
+
+
+local function belts2(player, points)
+    local stock = {
+        13187,  2000, --Tiger Belt
+        15914,  3500, --Peiste Belt +1
+        13239,  4500, --Kaiser Belt
+        13188,  5000, --Star Sash
+        15890,  6800, --Marid Belt
+        15952,  9000, --Toxon Belt +1
+    };
+    return stock;
+end
+
+local function beltsEx2(player, points)
+    local stock = {
+        13279,  6000,{GOLD},     --Muscle Belt +1
+        13276,  6000,{WEAV},     --Arachne Obi +1
+        15892,  9800,{WEAV},     --Moon Sash
+        14950,  14000,{WEAV},     --Pythia Sash +1
+        13249,  9000,{LEAT},     --Sonic Belt
+    };
+    return special_stock(stock, points);
+end
+
 
 local function belts(player, points)
     local stock = {
-        13192,  75, --Leather Belt >Warrior's Belt +1
-        13226,  300,    --Blood Stone +1 >Augment +5 HP
-        15889,  500,    --Augmentig Belt
-        13190,  500,    --Heko Obi +1 >Gold Obi +1
-        13181,  350,    --Lizard Belt +1
-        15906,  900,    --Mohbwa Sash +1 >Qiqirn Sash +1
-        13213,  900,    --Chain Belt +1
-        13272,  2000,   --Corsette +1
-        15290,  3500,   --Haste Belt
-        15286,  5000,   --Tilt Belt >Life Belt
-        15434,  3000,   --Vanguard Belt
-        13220,  3000,   --Royl Kgt Belt
-        15945,  2500,   --Volant Belt
+        13192,  75, --Leather Belt
+        13204,  100, --Heko Obi
+        13193,  200, --Lizard Belt
+        13213,  350, --Chain Belt +1
+        15947,  400, --Griot Belt +1
+        13916,  550, --Silver Belt
+        13214,  1500, --Waistbelt +1
+        13230,  1500, --Adept's Rope
+        13234,  2500, --Brocade Obi +1
     };
     return stock;
 end
 
-local function legs(player, points)
+local function beltsEx(player, points)
     local stock = {
-        12824,  125,    --Leather Trousers >Cuir Trousers +1
-        12898,  200,    --Slacks +1 >Mage's Slacks
-        12912,  650,    --Bone Subligar +1
-        15405,  900,    --Baron's Slops
-        12808,  1200,   --Chain Hose +1
-        14328,  2250,   --Seer's Slacks +1
-        14332,  2250,   --Kampfdiechlings
-        12910,  2500,   --Strong Trousers >Magic Cuisses
-        12891,  3200,   --Iron Subligar +1
-        12918,  3800,   --Mage's Slops
-        12919,  4800,   --Dino Trousers
-        14211,  6400,   --ythril Cuisses +1
-        12926,  7000,   --White Slacks +1
+        13226,  300,{BONE},     --Blood Stone +1
+        13210,  300,{LEAT},     --Leather Belt +1
+        13240,  400,{LEAT},     --Warrior's Belt +1
+        13219,  800,{LEAT},     --Magic Belt +1
+        15906,  1300,{WEAV},     --Mohbwa Sash +1
+        13233,  1300,{WEAV},     --Gold Obi +1
+        13272,  2000,{LEAT},     --Corsette +1
+        15290,  2800,{LEAT},     --Haste Belt
+        14908,  3100,{WEAV},     --Qiqirn Sash +1
+        13232,  5000,{LEAT},     --Swordbelt +1
+    };
+    return special_stock(stock, points);
+end
+
+
+
+local function legs2(player, points)
+    local stock = {
+        15621,  5000,    -- Magi Slops
+        12838,  5800,    -- Scorpion Subligar
+        14212,  6200,    -- Gilt Cuisse
+        12930,  6800,    -- Tiger Trousers
+        14253,  6800,    -- Arhat's Hakama
+        14229,  7200,    -- Darksteel Cuisses +1
+        14235,  7200,    -- Merman Subligar
+        14288,  7200,    -- Clown's Subligar
+        14233,  9200,    -- Torama Trousers
+        12249,  10000,    -- Ebon Slops
     };
     return stock;
+end
+
+local function legsEx2(player, points)
+    local stock = {
+        14255,  6000,{WEAV},     -- Master's Sitabaki +1
+        14239,  7200,{WEAV},     -- Aristocrat's Slacks
+        15605,  7500,{SMIT},     -- Thick Breeches +1
+        14318,  9000,{LEAT},     -- Conte Cosciales
+        12228,  51000,{LEAT, 8000},     -- Ebon Brais
+        12225,  51000,{SMIT, 8000},     -- Ebon Hose
+        15605,  7500,{WEAV},     -- Jaridah Salvars
+        15391,  52000,{WEAV, 11000},     -- Blessed Trousers
+        15618,  30000,{WEAV, 11000},     -- Vendor's Slops
+        14302,  33500,{WEAV, 13500},     -- Mahatma Slops
+        15399,  31000,{GOLD, 11000},     -- King's Cuisses
+        15407,  51000,{BONE, 11000},     -- Unicorn Subligar +1
+        15401,  31000,{SMIT, 11000},     -- Onyx Cuisses
+    };
+    return special_stock(stock, points);
+end
+
+
+
+
+local function legs(player, points)
+    local stock = {
+        12824,  100,    -- Leather Trousers
+        12864,  140,    -- Slacks
+        12863,  210,    -- Solid Cuisses
+        12833,  260,    -- Brass Subligar
+        12857,  280,    -- Linen Slops
+        12825,  520,    -- Lizard Trousers
+        12849,  680,    -- Cotton Brais
+        12890,  750,    -- Chain Hose +1
+        14332,  1250,    -- Kampfdiechlings
+        12826,  1350,    -- Studded Trousers
+        12827,  2250,    -- Cuir Trousers
+        12918,  2250,    -- Mage's Slops
+        12916,  2900,    -- Cuisses +1
+        12837,  3200,    -- Carapace Subligar
+        14211,  4100,    -- Mythril Cuisses +1
+        12907,  4100,    -- Wool Hose +1
+    };
+    return stock;
+end
+
+local function legsEx(player, points)
+    local stock = {
+        12917,  800,{WEAV},     -- Mage's Slacks
+        12905,  900,{WEAV},     -- Soil Sitabaki +1
+        14325,  1250,{WEAV},     -- Seer's Slacks
+        15405,  800,{WEAV},     -- Baron's Slops
+        12922,  1300,{WEAV},     -- Martial Slacks
+        12925,  3000,{WEAV},     -- Shinobi Hakama +1
+        12926,  4100,{WEAV},     -- White Slacks +1
+        12924,  4400,{SMIT},     -- Magic Cuisses
+        15403,  6000,{SMIT},     -- Luisant
+        15579,  6000,{LEAT},     -- Raven Hose
+        14310,  6000,{LEAT},     -- Austere Slops
+    };
+    return special_stock(stock, points);
+end
+
+
+
+local function feet2(player, points)
+    local stock = {
+        15707,  4500,    --Magi Pigaches
+        12980,  5500,    --Battle Boots
+        14084,  6000,    --Darksteel Sollerets +1
+        12958,  6800,    --Tiger Ledelsens
+        15697,  6800,    --Marid Leggings +1
+        14111,  6800,    --Merman's Leggings
+        14114,  6800,    --Aristocrat's Pumps
+        14109,  7500,    --Torama Ledelsens
+        12285,  7500,    --Ebon Clogs
+        12264,  9000,    --Ebon Boots
+        15337,  10000,    --King's Sabatons
+        15340,  10000,    --Onyx Sollerets
+        13002,  10000,    --Yasha Sune-Ate
+        14194,  12000,    --Gavial Greaves +1
+        14159,  9500,    --Ogre Ledelsens +1
+        14192,  9500,    --Heroic Boots +1
+    };
+    return stock;
+end
+
+
+local function feetEx2(player, points)
+    local stock = {
+        15699,  5000, {SMIT},  -- Templar Sabatons
+        15689,  7200, {SMIT},  -- Jaridah Nails
+        11375,  8000, {WEAV},  -- Seihanshi Habaki
+        14127,  9500, {SMIT},  -- Thick Sollerets +1
+        14193,  9500, {SMIT},  -- Gem Sabatons
+        15700,  8000, {LEAT},  -- Skanda Boots
+        14197,  9000, {WEAV},  -- Dance Shoes +1
+        15739,  9000, {LEAT, 7000},  -- Tabin Boots +1
+        14183,  11000, {LEAT, 8000},  -- Mahatma Pigaches
+        15304,  11000, {LEAT, 8000},  -- Sheikh Crackos
+        14113,  11000, {LEAT, 8000},  -- War Boots +1
+        15335,  11000, {LEAT, 8000},  -- Wise Pigaches +1
+        15329,  13000, {LEAT},  -- Blessed Pumps
+        15732,  13000, {LEAT},  -- Stout Gamashes
+        15305,  13000, {GOLD},  -- Barone Gambieras
+    };
+    return special_stock(stock, points);
 end
 
 
 local function feet(player, points)
     local stock = {
-        12952,  70, --Leather Highboots
-        13027,  250,    --Brass Leggins +1
-        12991,  250,    --Holly Clogs +1
-        13052,  900,    --Light Soleas >Air Solea +1
-        13042,  500,    --Bone Leggings +1 >Mettle Leggings +1
-        13048,  800,    --Mage's Sandles >Seer's Pumps +1
-        14133,  1200,   --Winged Boots +1
-        15321,  1600,   --Kampfschuhs
-        13041,  2400,   --Cuir Highboots +1
-        13023,  2400,   --Ebony Sabots +1
-        13715,  3200,   --Carapace Legs +1
-        14086,  3800,   --Mythril Legs +1
-        13050,  4000,   --Mocassins +1
+        12952,  80, --Leather Highboots
+        12992,  80,    --Solea
+        13024,  250,    --Solid Greaves
+        12985,  300,    --Holly Clogs
+        12966,  400,    --Bone Leggings
+        15344,  600,    --Baron's Pigaches
+        13025,  900,    --Greaves +1
+        14134,  1500,    --Air Solea
+        14207,  2300,    --Noct Gaiters +1
+        13029,  2500,    --Silver Greaves +1
+        12987,  3000,    --Ebony Sabots
+        13044,  3500,    --Carapace Leggings +1
+        13055,  3800,    --Spirit Moccasins
+        14086,  4000,    --Mythril Leggings +1
     };
     return stock;
 end
+
+
+local function feetEx(player, points)
+    local stock = {
+        13048,  900, {LEAT},  -- Mage's Sandles
+        14133,  1500, {LEAT},  -- Winged Boots +1
+        14135,  2300, {LEAT},  -- Air Solea +1
+        11412,  2000, {BONE},  -- Mettle Leggings +1
+        14189,  4500, {LEAT},  -- Austere Sabots
+        15320,  4200, {LEAT},  -- Powder Boots
+        15342,  5000, {SMIT},  -- Luisant Solerets
+        15664,  7000, {LEAT},  -- Raven Gaiters
+    };
+    return special_stock(stock, points);
+end
+
+
+
+
+local function earrings2(player, points)
+    local stock = {
+        13315,  3600,  -- Gold Earring
+        13324,  3600,  -- Tortoise Earring
+        13350,  4000,  -- Moon Earring
+        13349,  4000,  -- Night Earring
+        14705,  4000,  -- Victory Earring +1
+        14706,  4000,  -- Genius Earring +1
+        14707,  4000,  -- Grace Earring +1
+        14708,  4000,  -- Serenity Earring +1
+        14709,  4000,  -- Vigor Earring +1
+        14725,  5000,  -- Melody Earring
+        13325,  5000,  -- Fang Earring
+        16009,  8000,  -- Pennon Earring
+        13406,  15000,  -- Merman's Earring
+        13434,  15000,  -- Triton Earring
+        14762,  20000,  -- Attila's Earring
+    };
+    return stock;
+end
+
+local function earringsEx2(player, points)
+    local stock = {
+        13372,  5000, {GOLD},  -- Gold Earring +1
+        13363,  5000, {BONE},  -- Tortoise Earring
+        14711,  6000, {GOLD},  -- Allure Earring +1
+        14710,  6000, {GOLD},  -- Mana Earring +1
+        13369,  9000, {GOLD},  -- Spike Earring
+        13418,  12000, {GOLD},  -- Eriss Earring
+        14712,  25000, {GOLD, 12000},  -- Nimble Earring +1
+        14713,  25000, {GOLD, 12000}, --Triumph Earring +1
+        14714,  25000, {GOLD, 12000}, --Omniscient Earring +1
+        14715,  25000, {GOLD, 12000}, --Adroit Earring +1
+        14716,  25000, {GOLD, 12000}, --Communion Earring +1
+        14717,  25000, {GOLD, 12000}, --Robust Earring +1
+        14719,  25000, {GOLD, 12000}, --Heaven's Earring +1
+        15994,  30000, {GOLD, 12000}, --Harmonius Earring
+        16052,  35000, {GOLD, 12000}, --Incubus Earring
+    };
+    return special_stock(stock, points);
+end
+
+
 
 local function earrings(player, points)
     local stock = {
-        14694,  1500,   --Energy Ear +1 >Astral Earring
-        14695,  1500,   --Hope Ear +1 >Bloodbead Ear
-        13370,  800,    --Silver Ear +1
-        13362,  1800,   --Bone Ear +1
-        13326,  2500,   --Beetle Ear +1
-        13371,  1400,   --Myhril Ear +1
-        14760,  3000,   --Cunning Ear >Morion Ear +1
-        13322,  4500,   --Wing Earring
-        14769,  3000,   --Buckler Ear
-        14766,  3000,   --Geist Ear
-        14711,  7000,   --Allure Ear +1
-        14710,  7000,   --Mana Ear +1
+        13336,  200,  -- Onyx Earring
+        13337,  200,  -- Opal Earring
+        13327,  380,  -- Silver Earring
+        13362,  380,  -- Bone Earring
+        13328,  800,  -- Mythril Earring
+        13323,  800,  -- Beetle Earring
+        13323,  1350,  -- Beetle Earring
+        13317,  1800,  -- Pearl Earring
+        13320,  1800,  -- Black Earring
+        14699,  2100,  -- Deft Earring +1
+        14696,  2100,  -- Alacrity Earring +1
+        14697,  2100,  -- Puissance Earring +1
+        14700,  2100,  -- Solace Earring +1
+        14701,  2100,  -- Verve Earring +1
+        14698,  2100,  -- Wisdom Earring +1
     };
     return stock;
 end
 
-local function hats(player, points)
+local function earringsEx(player, points)
     local stock = {
-        0x2FD0,   150,    --Leather Bandana >Kingdom Bandana
-        0x30D1,   250,    --Brass Hairpin >augment
-        0x30F2,   900,    --Sage's Circlet
-        0x30D2,   400,    --Cotton Headband >Blink Band
-        0x3609,   400,    --Noble's Ribbon >Rival Ribbon
-        0x3B68,   1200,   --Baron's Chap >Penance Hat
-        0x25E5,   5500,   --Precision Bandana
-        0x3B3E,   4200,   --Seer's Crown +1
-        0x3600,   1200,   --Strong Bandana
-        0x3B42,   8000,   --Blink Band
+        14694,  500, {GOLD},  -- Energy Earring +1
+        14695,  500, {GOLD},  -- Hope Earring +1
+        13370,  650, {GOLD},  -- Silver Earring +1
+        13362,  650, {BONE},  -- Bone Earring +1
+        13371,  1200, {GOLD},  -- Mythril Earring +1
+        13326,  1200, {BONE},  -- Beetle Earring +1
+        14790,  1500, {GOLD},  -- Reraise Earring
+        14702,  2500, {GOLD},  -- Aura Earring +1
+        14703,  2500, {GOLD},  -- Loyalty Earring +1
+        14720,  3200, {GOLD},  -- Morion Earring
+        13322,  3200, {WEAV},  -- Wing Earring
+        13361,  6000, {WEAV},  -- Drone Earring
+    };
+    return special_stock(stock, points);
+end
+
+
+
+local function headgear2(player, points)
+    local stock = {
+        12503,    4000,    -- Silk Headband
+        12451,    4350,    -- Scorpion Mask
+        16061,    4800,    -- Sipahi Turban
+        13854,    4000,    -- Green Ribbon +1
+        13878,    5400,    -- Carapace Helm
+        13881,    6300,    -- Arhat's Jinpachi
+        12446,    6800,    -- Tiger Helm
+        12468,    6800,    -- Green Beret
+        12504,    6800,    -- Rainbow Headband
+        16128,    7200,    -- Wivre Hairpin
+        12447,    7600,    -- Coeurl Mask
+        13918,    8000,    -- Tiger Mask
+        12141,    8500,    -- Ebon Beret
+        12490,    9000,    -- Yasha Jinpachi
+        15191,    11000,    -- Wise Cap +1
     };
     return stock;
+end
+
+local function headgearEx2(player, points)
+    local stock = {
+        16080,  4300, {WEAV},  -- Magi Hat
+        16068,  6000, {WEAV},  -- Akinji Khud
+        15206,  7000, {BONE},  -- Zeal Cap
+        16112,  7800, {WEAV},  -- Tabin Beret +1
+        13907,  8000, {LEAT},  -- Ogre Mask +1
+        16131,  8500, {LEAT},  -- Wivre Mask +1
+        15211,  8500, {BONE},  -- Reraise Hairpin
+        15181,  9000, {WEAV},  -- Pineal Hat
+        13929,  11000, {WEAV},  -- Errant Hat
+        12120,  9000, {LEAT},  -- Ebon Mask
+        13942,  11000, {LEAT},  -- Panther Mask
+        13867,  11000, {LEAT},  -- War Beret +1
+        13951,  13500, {WEAV},  -- Elite Beret
+    };
+    return special_stock(stock, points);
+end
+
+local function helmets2(player, points)
+    local stock = {
+        12439,   4500,    --Bascinet +1
+        13848,   5500,    --Gilt Armet
+        12423,   6800,    --Darksteel Armet +1
+        13860,   7000,    --Dragon Mask +1
+        12428,   8000,    --Celata
+        12117,   9200,    --Ebon Armet
+        13944,   9800,    --Gavial Mask +1
+        13887,    11000,    -- Black Sallet
+    };
+    return stock;
+end
+
+local function helmetsEx2(player, points)
+    local stock = {
+        15206,  3900, {SMIT},  -- Luisant Salade
+        11785,  9000, {GOLD},  -- Barone Zuchetto
+        15193,  9000, {GOLD},  -- King's Armet
+        13923,  12000, {BONE},  -- Demon Helm +1
+        15210,  12000, {BONE},  -- Unicorn Cap +1
+    };
+    return special_stock(stock, points);
+end
+
+
+
+
+
+local function headgear(player, points)
+    local stock = {
+        12448,    60,    --Bronze Cap
+        12472,    60,    --Circlet
+        12440,    100,    --Leather Bandana
+        12529,    150,    --Brass Hairpin +1
+        12464,    200,    --Headgear
+        12454,    300,    -- Bone Mask
+        12457,    300,    -- Cotton Hachimaki
+        15207,    400,    -- Trader's Chapeua
+        12465,    550,    -- Cotton Headgear
+        12474,    950,    -- Wool Hat
+        12458,    1100,    -- Soil Hachimaki
+        12442,    1300,    -- Studded Bandana
+        12466,    1600,    -- Red Cap
+        12443,    2200,    -- Cuir Bandana
+        13832,    3100,    -- Banded Helm +1
+        12541,    3500,    -- Wool Cap
+    };
+    return stock;
+end
+
+local function headgearEx(player, points)
+    local stock = {
+        12530,  380, {GOLD},  -- Sage's Circlet
+        12536,  400, {WEAV},  -- Erudite's Headband
+        15208,  550, {WEAV},  -- Baron's Chapeu
+        13833,  680, {WEAV},  -- Noble's Ribbon
+        15166,  1350, {GOLD},  -- Seer's Crown +1
+        15172,  1500, {WEAV},  -- Noct Beret +1
+        13883,  3200, {WEAV},  -- Corsair's Hat +1
+        13885,  4800, {WEAV},  -- Juggler's Headband
+        15243,  5800, {WEAV},  -- Raven Beret
+        13939,  6000, {LEAT},  -- Austere Hat
+    };
+    return special_stock(stock, points);
 end
 
 local function helmets(player, points)
     local stock = {
-        0x3090,   250,    --Faceguard >augment
-        0x30C0,   650,    --Lizard Helm +1
-        0x3603,   900,    --Beetle Mask +1
-        0x30F5,   2200,   --Silver Mask +1
-        0x3607,   3200,   --Sallet +1
+        12487,   250,    --Faceguard +1
+        12480,   380,    --Lizard Helm +1
+        12524,   800,    --Iron Mask +1
+        12533,   1900,    --Silver Mask +1
+        13831,   2600,    --Sallet +1
+        13847,   3900,    --Mythril Sallet +1
     };
     return stock;
+end
+
+local function helmetsEx(player, points)
+    local stock = {
+        15171,  1200, {SMIT},  -- Kampfschaller
+        13865,  2000, {SMIT},  -- Zunari Kabuto +1
+        15206,  3900, {SMIT},  -- Luisant Salade
+    };
+    return special_stock(stock, points);
 end
 
 
 local function clothing(player, points)
     local stock = {
-        0x3118,   300,    --Leather Vest
-        0x3148,   500,    --Tunic +1
-        0x389a,   2500,    --  Mana Cloak>High Mana Cloak, --Mana Tunic
-        0x312f,   1000,   --Doublet +1
-        0x3581,   1800,   --Fine Jerkin
-        0x386f,   2500,   --Baron's Saio
-        0x35a3,   4000,   --Faerie Tunic
-        0x358b,   5200,   --Strong Vest
-        0x2c4b,   6300,   --Channeling Robe
-        0x2c54,   10000,  --Salutary Robe +1
-        0x359f,   12500,  --Dino Jerkin
-        0x316b,   17000,  --White Cloak +1
+        12600,    80,    --Robe
+        12568,    100,    --Leather Vest
+        12608,   200,    --Tunic
+        12592,   280,   --Doublet
+        12601,   330,   --Linen Robe
+        12569,   650,   -- Lizard Jerkin
+        13725,   780,   --Mage's Tunic
+        12593,   950,   --Cotton Doublet
+        12602,   1300,   --Wool Robe
+        14424,   1550,   --Seer's Tunic
+        12570,   1850,   --Studded Vest
+        13750,   2100,   --Linen Doublet
+        12610,   2350,   --Cloak
+        12571,   3100,   --Cuir Boulli
+        12603,   3100,   --Velvet Robe
+        12572,   4100,   --Raptor Jerkin
     };
     return stock;
+end
+
+local function clothing2(player, points)
+    local stock = {
+        14543,    5000,    --Magi Coat
+        13699,    6000,    --Beak Jerkin
+        11351,    6800,    --Alacer Aketon +1
+        11350,    6800,    --Styrne Byrnie +1
+        11352,    6800,    --Vela Justaucorps +1
+        13795,    7300,    --Arhat's Gi
+        12574,    7300,    -- Tiger Jerkin
+        14285,    8100,    -- Tundra Jerkin
+        13775,    8100,    -- Blue Cotehardie
+        13772,    9000,    -- Bloody Aketon
+        13772,    9000,    -- Coeurl Jerkin
+        14418,    9800,    -- Bison Jacket
+        12177,    11000,    -- Ebon Frock
+        14372,    13000,    -- Cardinal Vest
+        14441,    15000,    -- Chausable
+        13787,    15000,    -- Dalmatica
+    };
+    return stock;
+end
+
+local function clothingEx2(player, points)
+    local stock = {
+        13801,  6000, {WEAV},  -- Master's Gi +1
+        11349,  6500, {WEAV},  -- Vivacity Coat +1
+        14496,  6500, {BONE},  -- Healing Justaucorps
+        13745,  6500, {BONE},  -- Justaucorps +1
+        13755,  6800, {LEAT},  -- Flora Cotehardie
+        13742,  7500, {LEAT},  -- Aketon +1
+        14526,  8000, {LEAT},  -- Jaridah Peti
+        14572,  8000, {WEAV},  -- Tabin Jupon +1
+        13749,  9500, {WEAV},  -- Royal Cloak
+        13770,  11000, {WEAV},  -- War Shinobi Gi +1
+        14544,  11000, {LEAT},  -- Corselet +1
+        14540,  13000, {WEAV},  -- Kyudogi +1
+        13779,  25000, {WEAV, 15000},  -- Black Cloak
+        12605,  25000, {WEAV, 15000},  -- Noble's Tunic
+    };
+    return special_stock(stock, points);
+end
+
+local function clothingEx(player, points)
+    local stock = {
+        12590,  650, {WEAV},  -- Power Gi
+        14447,  900, {WEAV},  -- Baron's Saio
+        14490,  1200, {WEAV},  -- Mana Tunic
+        14493,  1650, {WEAV},  -- Healing Vest
+        14434,  1800, {WEAV},  -- Noct Doublet +1
+        13797,  2500, {WEAV},  -- Bishop's Robe +1
+        13726,  3500, {WEAV},  -- Mage's Robe
+        14491,  3500, {WEAV},  -- Mana Cloak
+        14491,  3500, {WEAV},  -- Mana Cloak
+        13753,  3600, {WEAV},  -- Wool Doublet +1
+        11340,  4400, {WEAV},  -- Shinobi Gi +1
+        12651,  4400, {WEAV},  -- White Cloak +1
+        13733,  4900, {WEAV},  -- Salutary Robe +1
+        14492,  5800, {WEAV},  -- High Mana Cloak
+        14499,  6400, {WEAV},  -- Raven Jupon
+        13814,  7000, {LEAT},  -- Austere Robe
+    };
+    return special_stock(stock, points);
 end
 
 local function armor(player, points)
     local stock = {
-        0x3175,   1000,   --Solid Mail
-        0x3117,   4000,   --Steam Scale Mail
-        0x3595,   3200,   --Beetle Harness
-        0x3177,   7000,   --Strong Harness
-        0x389f,   1500,   --Healing Harness >High Heal Harness
-        0x3592,   11000,  --Carapace Harness +1
-        0x35a9,   15000,  --Mithril Breaste+1
-        0x359c,   9000,   --Breastplate +1
-        0x358d,   8000,   --Cuir Bouilli +1 >Brigandine Armor +1
+        12576,   100,   --Bronze Harness
+        12577,   300,   -- Brass Harness
+        12661,   400,   -- Solid Mail
+        12582,   500,   -- Bone Harness
+        12583,   700,   -- Beetle Harness
+        12552,   950,   -- Chainmail
+        12665,   1200,  --Brass Scale Mail +1
+        12578,   1650,  --Padded Armor
+        12666,   1650,  --Silver Mail +1
+        13724,   2200,  --Breastplate +1
+        13712,   3300,  --Carapace Harness
+        12667,   4100,  --Banded Mail +1
+        13737,   4800,  --Mythril Breastplate +1
     };
     return stock;
 end
 
+local function armor2(player, points)
+    local stock = {
+        12558,   5650,   --Royal Knight's Chainmail
+        13789,   7100,   --Carapace Breastplate
+        13738,   7100,   --Gilt Cuirass
+        12580,   7800,   --Darksteel Harness
+        13756,   8300,   --Darksteel Cuirass +1
+        12581,   8300,   --Coral harness
+        13768,   9200,   --Demon's Harness +1
+        13758,   9200,   --King's Cuirass
+        13762,   9200,   --Dragon Mail +1
+        12153,   10000,   --Ebon Breastplate
+        12156,   10000,   --Ebon Harness
+        13747,   11000,   --Gavial Mail +1
+        14383,   12000,   --Plastron +1
+        13746,   13500,   --Gem Cuirass
+    };
+    return stock;
+end
+
+local function armorEx2(player, points)
+    local stock = {
+        12579, 7000, {BONE},  -- Scorpion Harness
+        12555, 8000, {SMIT},  -- Haubergeon
+        13741, 8000, {LEAT},  -- Byrnie +1
+        12556, 9000, {SMIT},  -- Hauberk
+        13823, 9000, {SMIT},  -- Regen Cuirass
+        14390,   12000, {SMIT},   --Dragon Harness +1
+        14449,   12000, {SMIT},   --Unicorn Harness +1
+    };
+    return special_stock(stock, points);
+end
+
+local function armorEx(player, points)
+    local stock = {
+        14495, 1000, {SMIT},  -- Bannaret Mail
+        14495, 1000, {BONE},  -- Healing Harness
+        14433, 1200, {BONE},  -- Shade Harness + 1
+        14435, 1450, {SMIT},  -- Kampfbrust
+        14445, 2900, {SMIT},  -- Luisant Haubert
+        13710, 3200, {LEAT},  -- Brigandine Armor +1
+        13813, 3500, {SMIT},  -- Divine Breastplate
+        14497, 4500, {BONE},  -- High Healing Harness
+    };
+    return special_stock(stock, points);
+end
+
+
+
+local function bows2(player, points)
+    local stock = {
+        17240,  5000,    --Lightning Bow
+        17157,  5400,    --Rapid Bow
+        17205,  6800,    --Gendawa
+        17200,  7200,    --Rosenbogen
+    };
+end
+
+local function bowsEx2(player, points)
+    local stock = {
+        17241, 6500, {WOOD},  -- Lightning Bow +1
+        17189, 7000, {WOOD},  -- Rapid Bow +1
+        17189, 8000, {WOOD},  -- Gendawa +1
+        17201, 9000, {WOOD},  -- Rosenbogen +1
+    };
+    return special_stock(stock, points);
+end
+
+
 local function bows(player, points)
     local stock = {
-        17160,  100,    --Longbow
-        17176,  250,    --Self Bow +1
-        17183,  400,    --Hunter's Longbow
-        17178,  700,    --Power Bow +1
-        17172,  1000,   --Wrapped Bow +1
-        17180,  1600,   --Great Bow +1
-        17181,  2500,   --Battle Bow +1
-        17173,  4000,   --War Bow +1
+        17152,  100,    --Shortbow
+        17160,  150,    --Longbow
+        17153,  180,    --Self Bow
+        17161,  330,    --Power Bow
+        17154,  400,    --Wrapped Bow
+        17162,  750,    --Great Bow
+        17193,  1250,    --Shadow Bow
+        17155,  1800,    --Composite Bow
+        17163,  2500,    --Battle Bow
+        17156,  3800,    --Kaman
+        17164,  4200,    --War Bow
     };
+end
+
+local function bowsEx(player, points)
+    local stock = {
+        17175, 350, {WOOD},  -- Shortbow +1
+        17177, 800, {WOOD},  -- Longbow +1
+        17176, 800, {WOOD},  -- Selfbow +1
+        17178, 1250, {WOOD},  -- Power Bow +1
+        17172, 1450, {WOOD},  -- Wrapped Bow +1
+        17194, 1500, {WOOD},  -- Shadow Bow +1
+        17180, 1900, {WOOD},  -- Great Bow +1
+        17179, 2450, {WOOD},  -- Composite Bow +1
+        17181, 3800, {WOOD},  -- Battle Bow +1
+        17182, 5000, {WOOD},  -- Kaman +1
+        17173, 6800, {WOOD},  -- War Bow +1
+    };
+    return special_stock(stock, points);
 end
 
 local function arrows(player, points)
@@ -1544,18 +2530,101 @@ local function arrowsEx(player, points)
     return special_stock(stock, points);
 end
 
-local function crossbows(player, points)
+
+local function crossbows2(player, points)
     local stock = {
-        17228,  150,    --Light Crossbow +1
-        17217,  300,    --Crossbow
-        17211,  600,    --Almogavar Bow
-        17230,  1000,   --Power Crossbow
-        17229,  1600,   --Zamburak +1
-        17247,  2000,   --Rikondo
-        19241,  3200,   --Tracker's Bow +1
-        17226,  4500,   --Arbalest +1
+        17236,  5000,    --Leo Crossbow
+        17220,  5500,    --Heavy Crossbow
+        17242,  6250,    --Velocity Bow
+        17213,  12000,    --Staurobow
     };
     return stock;
+end
+
+local function crossbowsEx2(player, points)
+    local stock = {
+        17237,  6250, {WOOD},  --Leo Crossbow +1
+        17227,  7000, {WOOD},  --Heavy Crossbow +1
+        17243,  8500, {WOOD},  --Velocity Bow +1
+        17221,  20000, {WOOD, 9500},  --Repeating Crossbow [UPGRADE]
+        17214,  25000, {WOOD, 9500},  --Staurobow +1
+    };
+    return special_stock(stock, points);
+end
+
+local function guns2(player, points)
+    local stock = {
+        17250,  5000,    --Matchlock Gun
+        19226,  6000,    --Blunderbuss
+        17222,  6500,    --Hexagun
+        17251,  7800,    --Hellfire
+        17262,  12000,    --Corsair's Gun
+    };
+    return stock;
+end
+
+local function gunsEx2(player, points)
+    local stock = {
+        17261,  6250, {SMIT},  --Matchlock Gun +1
+        19227,  7250, {SMIT},  --Blunderbuss +1
+        18687,  8000, {SMIT},  --Hexagun +1
+        17264,  11000, {SMIT, 9000},  --Hellfire +1
+        19206,  20000, {GOLD, 9000},  --Silver Cassandra [UPGRADE]
+        17252,  30000, {SMIT, 10000},  --Culverin [UPGRADE]
+    };
+    return special_stock(stock, points);
+end
+
+local function crossbows(player, points)
+    local stock = {
+        17228,  100,    --Light Crossbow +1
+        17217,  200,    --Crossbow
+        17218,  1200,    --Zamburak
+        19231,  3400,    --Tracker's Bow
+        17219,  4400,    --Arbalest
+    };
+    return stock;
+end
+
+local function crossbowsEx(player, points)
+    local stock = {
+        17228,  200, {WOOD},  --Light Crossbow +1
+        17225,  300, {WOOD},  --Crossbow +1
+        17229,  2000, {WOOD},  --Zamburak +1
+        19241,  4800, {WOOD},  --Tracker's Bow +1
+        17226,  600, {WOOD},  --Arbalest +1
+    };
+    return special_stock(stock, points);
+end
+
+local function guns(player, points)
+    local stock = {
+        19224,  150,    --Musketoon
+        17257,  250,    --Bandit's Gun
+        17265,  250,    --Tanegashima
+        17248,  400,    --Arquebus
+        17259,  650,    --Priate's Gun
+        18715,  1000,    --Mars's Hexagun
+        18704,  2000,    --Darksteel Hexagun
+        17267,  2800,    --Negoroshiki
+        18710,  4400,    --Seadog Gun
+    };
+    return stock;
+end
+
+local function gunsEx(player, points)
+    local stock = {
+        19225,  250, {SMIT},  --Musketoon +1
+        17258,  350, {SMIT},  --Bandit's Gun +1
+        17266,  350, {SMIT},  --Tanegashima +1
+        17254,  550, {SMIT},  --Arquebus +1
+        17260,  950, {SMIT},  --Pirate's Gun +1
+        18716,  1500, {SMIT},  --Mars's Hexagun +1
+        18705,  3000, {SMIT},  --Darksteel Hexagun +1
+        17268,  3800, {SMIT},  --Negoroshiki +1
+        18711,  6000, {SMIT},  --Seadog Gun +1
+    };
+    return special_stock(stock, points);
 end
 
 local function bolts(player, points)
@@ -1610,22 +2679,6 @@ local function coins(player, points)
     return stock;
 end
 
-local function guns(player, points)
-    local stock = {
-        19225,  300,    --Musketoon +1 > Serpentine Gun
-        17258,  750,    --Bandit's Gun +1
-        17254,  1100,   --Arquebus +1
-        17260,  1900,   --Pirate's Gun +1
-        17272,  2500,   --Military Gun
-        18716,  2500,   --Mar's Hexgun +1
-        18705,  3200,   --Dark Hexgun +1
-        17269,  4500,   --Negorishikj +1
-        17274,  5500,   --Deluxe Carbine
-        17253,  6500,   --Musketeer Gun
-        18710,  6500,   --Seadog Gun +1
-    };
-    return stock;
-end
 
 local function bullets(player, points)
     local stock = {
@@ -1643,26 +2696,83 @@ local function bullets(player, points)
     return stock;
 end
 
-local function daggers(player, points)
+
+
+local function daggers2(player, points)
     local stock = {
-        16491,  100,    --Bronze Knife +1 >Kris +1
-        16490,  250,    --Blind Knife +1
-        16508,  350,    --Silence Dagger +1
-        16614,  500,    --Knife +1 > Poison Knife +1
-        16741,  700,    --Poison Dagger +1
-        16748,  900,    --Kukri +1 > Poison Kukri +1
-        17606,  1200,   --Corrosive Dagger > Corrosive Knife
-        19127,  1600,   --Ranging Knife+1
-        16754,  1900,   --Parrying Knife
-        16497,  2600,   --Sleep Dagger
-        17631,  3000,   --Hawker's Knife +1
-        19106,  3200,   --Thug Jambiya +1
-        17973,  3800,   --Kingdom Dagger
-        17607,  4450,   --Corrosive Baselard
-        17661,  5000,   --Bone Knife +1
-        16757,  6000,   --Corsair's Knife
+        16468,  4800,    --Darksteel Knife
+        19103,  5200,    --Darksteel Jambiya
+        17612,  5400,    --Beetle Knife
+        16759,  6000,    --Darksteel Kris
+        16476,  6300,    --Darksteel Kukri
+        16477,  6600,    --Cermet Kukri
+        16505,  7000,    --Venom Kukri
+        16453,  3000,    --Orichalcum Dagger
+        17620,  10000,    --Misericorde
+        17621,  15000,    --Gully +1
     };
     return stock;
+end
+
+local function daggersEx(player, points)
+    local stock = {
+        16751,  5800, {SMIT},  --Darksteel Knife +1
+        16762,  6400, {ALCH},  --Venom Knife +1
+        19104,  7400, {SMIT},  --Darksteel Jambiya +1
+        17613,  6000, {BONE},  --Beetle Knife +1
+        16760,  7200, {SMIT},  --Darksteel Kris +1
+        16761,  8000, {ALCH},  --Venom Kris +1
+        16763,  8000, {SMIT},  --Darksteel Kukri +1
+        17603,  8000, {ALCH},  --Cermet Kukri +1
+        16510,  8500, {ALCH},  --Venom Baselard +1
+        17604,  9500, {ALCH},  --Venom Kukri +1
+        17992,  3000, {GOLD},  --Triton's Dagger
+        17620,  13000, {SMIT, 10000},  --Triton's Dagger
+        18032,  30000, {ALCH, 10000},  --Adder Jambiya [UPGRADE]
+        17625,  13000, {ALCH, 10000},  --Ponderous Gully
+    };
+    return special_stock(stock, points);
+end
+
+
+local function daggers(player, points)
+    local stock = {
+        16448,  100,    --Bronze Dagger
+        16449,  200,    --Brass Dagger
+        16450,  325,    --Dagger
+        16455,  580,    --Baselard
+        16473,  800,    --Kukri
+        16451,  1000,    --Mythril Dagger
+        19119,  1250,    --Ranging Knife
+        16460,  2000,    --Kris
+        17630,  2400,    --Hawker's Knife
+        16467,  2600,    --Mythril Knife
+        16475,  3000,    --Mythril Kukri
+        17610,  3800,    --Bone Knife
+    };
+    return stock;
+end
+
+local function daggersEx(player, points)
+    local stock = {
+        16492,  200, {SMIT},  --Bronze Dagger +1
+        16493,  500, {ALCH},  --Blind Dagger +1
+        16740,  350, {GOLD},  --Brass Dagger +1
+        16736,  500, {SMIT},  --Dagger +1
+        16508,  800, {ALCH},  --Silence Dagger +1
+        16737,  800, {SMIT},  --Baselard +1
+        16748,  1200, {SMIT},  --Kukri +1
+        16741,  1500, {ALCH},  --Poison Dagger +1
+        17606,  2000, {ALCH},  --Corrosive Dagger
+        16738,  1750, {SMIT},  --Mythril Dagger +1
+        16489,  3000, {ALCH},  --Poison Kukri +1
+        19127,  2000, {BONE},  --Ranging Knife +1
+        16749,  3000, {SMIT},  --Kris +1
+        17631,  3800, {ALCH},  --Hawker's Knife +1
+        16494,  4800, {ALCH},  --Corrosive Kukri
+        17611,  5000, {BONE},  --Bone Knife +1
+    };
+    return special_stock(stock, points);
 end
 
 local function default_error(player, points)
@@ -1672,95 +2782,56 @@ end
 
 
 funcs = {
-    ["earrings"] = earrings,
-    ["rings"] = rings,
-    ["rings2"] = rings2,
-    ["rings3"] = rings3,
-    ["ringsEx"] = ringsEx,
-    ["rings2Ex"] = rings2Ex,
-    ["rings3Ex"] = rings3Ex,
-    ["grips"] = grips,
-    ["gripsEx"] = gripsEx,
-    ["feet"] = feet,
-    ["hands"] = hands,
-    ["legs"] = legs,
-    ["back"] = back,
-    ["belts"] = belts,
-    ["neck"] = neck,
-    ["helmets"] = helmets,
-    ["clothing"] = clothing,
-    ["armor"] = armor,
-    ["shields"] = shields,
-    ["shieldsEx"] = shieldsEx,
-    ["shields2"] = shields2,
-    ["shields2Ex"] = shields2Ex,
+    ["earrings"] = earrings, ["earrings2"] = earrings2, ["earringsEx"] = earringsEx, ["earringsEx2"] = earringsEx2,
+    ["rings"] = rings, ["rings2"] = rings2, ["rings3"] = rings3, ["ringsEx"] = ringsEx, ["rings2Ex"] = rings2Ex, ["rings3Ex"] = rings3Ex,
+    ["grips"] = grips, ["gripsEx"] = gripsEx,
+    ["feet"] = feet, ["feet2"] = feet2, ["feetEx"] = feetEx, ["feetEx2"] = feetEx2,
+    ["hands"] = hands, ["hands2"] = hands2, ["handsEx"] = handsEx, ["handsEx2"] = handsEx2,
+    ["legs"] = legs, ["legsE2"] = legs2, ["legsEx"] = legsEx, ["legsEx2"] = legsEx2,
+    ["back"] = back, ["back2"] = back2, ["backEx"] = backEx, ["backEx2"] = backEx2,
+    ["belts"] = belts, ["belts2"] = belts2, ["beltsEx"] = beltsEx, ["beltsEx2"] = beltsEx2,
+    ["neck"] = neck, ["neck2"] = neck2, ["neckEx"] = neckEx, ["neckEx2"] = neckEx2,
+    ["headgear"] = headgear, ["headgear2"] = headgear2, ["headgearEx"] = headgearEx, ["headgearEx2"] = headgearEx2,
+    ["helmets"] = helmets, ["helmets2"] = helmets2, ["helmetsEx"] = helmetsEx, ["helmetsEx2"] = helmetsEx2,
+    ["clothing"] = clothing, ["clothing2"] = clothing2,
+    ["clothingEx"] = clothingEx, ["clothingEx2"] = clothingEx2,
+    ["armor"] = armor, ["armor2"] = armor2, ["armorEx"] = armorEx, ["armorEx2"] = armorEx2,
+    ["shields"] = shields, ["shieldsEx"] = shieldsEx, ["shields2"] = shields2, ["shields2Ex"] = shields2Ex,
     ["throwing"] = throwing,
-    ["hats"] = hats,
     ["coins"] = coins,
     ["drinks"] = drinks,
-    ["bows"] = bows,
-    ["arrows"] = arrows,
-    ["arrowsEx"] = arrowsEx,
-    ["crossbows"] = crossbows,
+    ["bows"] = bows, ["bows2"] = bows2, ["bowsEx"] = bowsEx, ["bowsEx2"] = bowsEx2,
+    ["arrows"] = arrows, ["arrowsEx"] = arrowsEx,
+    ["crossbows"] = crossbows, ["crossbows2"] = crossbows2, ["crossbowsEx"] = crossbowsEx, ["crossbowsEx2"] = crossbowsEx2,
     ["bolts"] = bolts,
-    ["guns"] = guns,
+    ["guns"] = guns, ["guns2"] = guns2, ["gunsEx"] = gunsEx, ["gunsEx2"] = gunsEx2,
     ["bullets"] = bullets,
     ["daggers"] = daggers,
-    ["swords"] = swords,
-    ["swordsEx"] = swordsEx,
-    ["swords2"] = swords2,
-    ["swords2Ex"] = swords2Ex,
-    ["clubs"] = clubs,
-    ["staves"] = staves,
-    ["axes"] = axes,
+    ["swords"] = swords, ["swordsEx"] = swordsEx, ["swords2"] = swords2, ["swords2Ex"] = swords2Ex,
+    ["clubs"] = clubs, ["clubs2"] = clubs2, ["clubsEx"] = clubsEx, ["clubsEx2"] = clubsEx2,
+    ["staves"] = staves, ["staves2"] = staves2, ["stavesEx"] = stavesEx, ["stavesEx2"] = stavesEx2,
+    ["axes"] = axes, ["axes2"] = axes2, ["axesEx"] = axesEx, ["axesEx2"] = axesEx2,
     ["katanas"] = katanas,
     ["knuckles"] = knuckles,
-    ["spears"] = spears,
-    ["scythes"] = scythes,
-    ["greatswords"] = greatswords,
+    ["polearms"] = polearms, ["polearms2"] = polearms2, ["polearmsEx"] = polearmsEx, ["polearmsEx2"] = polearmsEx2,
+    ["scythes"] = scythes, ["scythes2"] = scythes2, ["scythesEx"] = scythesEx, ["scythesEx2"] = scythesEx2,
+    ["greatswords"] = greatswords, ["greatswords2"] = greatswords2, ["greatswordsEx"] = greatswordEx, ["greatswordsEx2"] = greatswordsEx2,
     ["greatkatanas"] = greatkatanas,
     ["greataxes"] = greataxes,
     ["misc"] = misc,
-    ["jugs"] = jugs,
-    ["jugs2"] = jugs,
+    ["jugs"] = jugs, ["jugs2"] = jugs,
     ["treats"] = treats,
     ["boomerangs"] = boomerangs,
-    ["dice1"] = dice1,
-    ["dice2"] = dice2,
-    ["sch1"] = sch1,
-    ["sch2"] = sch2,
-    ["red1"] = red1,
-    ["red2"] = red2,
-    ["dark1"] = dark1,
-    ["nin1"] = nin1,
-    ["nin2"] = nin2,
-    ["tools"] = tools,
-    ["bard1"] = bard1,
-    ["bard2"] = bard2,
-    ["bard3"] = bard3,
-    ["bard4"] = bard4,
-    ["bard5"] = bard5,
-    ["black1"] = black1,
-    ["black2"] = black2,
-    ["black3"] = black3,
-    ["black4"] = black4,
-    ["black5"] = black5,
-    ["white1"] = white1,
-    ["white2"] = white2,
-    ["white3"] = white3,
-    ["white4"] = white4,
-    ["white5"] = white5,
-    ["white6"] = white6,
-    ["white7"] = white7,
-    ["darkAttachments"] = darkAttachments,
-    ["lightAttachments"] = lightAttachments,
-    ["fireAttachments"] = fireAttachments,
-    ["thunderAttachments"] = thunderAttachments,
-    ["waterAttachments"] = waterAttachments,
-    ["earthAttachments"] = earthAttachments,
-    ["windAttachments"] = windAttachments,
-    ["iceAttachments"] = iceAttachments,
-    ["automatonParts"] = automatonParts,
+    ["dice1"] = dice1, ["dice2"] = dice2,
+    ["sch1"] = sch1, ["sch2"] = sch2,
+    ["red1"] = red1, ["red2"] = red2, ["dark1"] = dark1,
+    ["nin1"] = nin1, ["nin2"] = nin2, ["tools"] = tools,
+    ["bard1"] = bard1, ["bard2"] = bard2, ["bard3"] = bard3, ["bard4"] = bard4, ["bard5"] = bard5,
+    ["black1"] = black1, ["black2"] = black2, ["black3"] = black3, ["black4"] = black4, ["black5"] = black5,
+    ["white1"] = white1, ["white2"] = white2, ["white3"] = white3, ["white4"] = white4, ["white5"] = white5, ["white6"] = white6, ["white7"] = white7,
+    ["darkAttachments"] = darkAttachments, ["lightAttachments"] = lightAttachments, ["fireAttachments"] = fireAttachments,
+    ["thunderAttachments"] = thunderAttachments, ["waterAttachments"] = waterAttachments, ["earthAttachments"] = earthAttachments,
+    ["windAttachments"] = windAttachments, ["iceAttachments"] = iceAttachments, ["automatonParts"] = automatonParts,
     ["puppetmasterEquipment"] = pupEquipment,
 };
 

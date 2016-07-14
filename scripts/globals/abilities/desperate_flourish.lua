@@ -57,18 +57,17 @@ function onUseAbility(player,target,ability,action)
     end
 
     local hitrate = getHitRate(player,target,true);
-    target:addEnmity(player, 0, -800);
 
     if (math.random() <= hitrate or isSneakValid) then
-        
-        local bonus = 50 - target:getMod(MOD_STUNRES);
+        target:addEnmity(player, -500, -800);
+
+        local bonus = 20 - target:getMod(MOD_GRAVITYRES);
         local spell = getSpell(216);
         local resist = applyResistance(player,spell,target,0,player:getWeaponSkillType(SLOT_MAIN),bonus)
         
-        if resist > 0.125 then
+        if resist > 0.5 then
             target:delStatusEffectSilent(EFFECT_WEIGHT);
             target:addStatusEffect(EFFECT_WEIGHT, 50, 0, 60 * resist);
-            target:addStatusEffect(EFFECT_EVASION_DOWN_II, 10, 0, 60 * resist);
         else
             ability:setMsg(110);
         end

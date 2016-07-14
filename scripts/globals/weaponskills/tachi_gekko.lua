@@ -35,8 +35,11 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
     -- Silence duration changed from 60 to 45 as per bg-wiki: http://www.bg-wiki.com/bg/Tachi:_Gekko
-    if (damage > 0 and target:hasStatusEffect(EFFECT_SILENCE) == false) then
-        target:addStatusEffect(EFFECT_SILENCE, 1, 0, 45);
+    local duration = fTP(tp, 45, 90, 160);
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_WIND, SKILL_GKT);
+    if (damage > 0 and resist >= 0.5) then
+        target:addStatusEffect(EFFECT_SILENCE, 1, 0, duration * resist);
+        target:setPendingMessage(277, EFFECT_SILENCE);
     end
     return tpHits, extraHits, criticalHit, damage;
 

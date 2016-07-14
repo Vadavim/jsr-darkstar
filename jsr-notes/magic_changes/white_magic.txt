@@ -6,8 +6,9 @@ Duration: 300 -> 600 seconds
  - DoT: 1 -> 2
 
 
-[Banish Spells]
- - Damage increased significantly
+[Banish Spells / Holy]
+ - Damage increased significantly; Holy's damage scales with level
+ - Innate accuracy bonus
 
 [Bar Status Spells]
  - Duration: 180 + Enhancing * 2

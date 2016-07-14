@@ -73,6 +73,7 @@ struct Pet_t
     uint32		time;		// время существования (будет использоваться для задания длительности статус эффекта)
 
     uint8		mJob;
+    uint8		sJob;
     uint8		m_Element;
     float       HPscale;                             // HP boost percentage
     float       MPscale;                             // MP boost percentage
@@ -168,7 +169,8 @@ namespace petutils
                 hasSpellScript, spellList, \
                 Slash, Pierce, H2H, Impact, \
                 Fire, Ice, Wind, Earth, Lightning, Water, Light, Dark, \
-                cmbDelay, name_prefix, mob_pools.skill_list_id \
+                cmbDelay, name_prefix, mob_pools.skill_list_id, \
+                mob_pools.sJob\
                 FROM pet_list, mob_pools, mob_family_system \
                 WHERE pet_list.poolid = mob_pools.poolid AND mob_pools.familyid = mob_family_system.familyid";
 
@@ -238,6 +240,7 @@ namespace petutils
                 Pet->cmbDelay = (uint16)Sql_GetIntData(SqlHandle, 38);
                 Pet->name_prefix = (uint8)Sql_GetUIntData(SqlHandle, 39);
                 Pet->m_MobSkillList = (uint16)Sql_GetUIntData(SqlHandle, 40);
+                Pet->sJob = (uint8)Sql_GetIntData(SqlHandle, 41);
 
                 g_PPetList.push_back(Pet);
             }
@@ -386,9 +389,10 @@ namespace petutils
             case JOB_DRK:
             case JOB_BLU:
             case JOB_SCH:
-                PMob->health.maxmp = (int16)(15.2 * pow(lvl, 1.1075) * petStats->MPscale);
+                PMob->health.maxmp = (int16)(10) * lvl * petStats->MPscale;
                 break;
         }
+//        PMob->health.maxmp = (int16)(15.2 * pow(lvl, 1.1075) * petStats->MPscale);
 
         PMob->speed = petStats->speed;
         PMob->speedsub = petStats->speed;
@@ -433,6 +437,8 @@ namespace petutils
         PMob->stats.INT = (fINT + mINT) * 0.9;
         PMob->stats.MND = (fMND + mMND) * 0.9;
         PMob->stats.CHR = (fCHR + mCHR) * 0.9;
+        battleutils::AddTraits(PMob, traits::GetTraits(PMob->GetMJob()), PMob->GetMLevel());
+        battleutils::AddTraits(PMob, traits::GetTraits(PMob->GetSJob()), PMob->GetSLevel());
 
     }
 
@@ -1238,13 +1244,23 @@ namespace petutils
         CPetEntity* PPet = new CPetEntity(petType);
         PPet->m_Weapons[SLOT_MAIN]->setDelay(floor(1000.0f*(240.0f / 60.0f)));
 
+        PPet->SetMJob(PPetData->mJob);
+        PPet->SetSJob(PPetData->sJob);
         PPet->SetMLevel(PMaster->GetMLevel());
         PPet->SetSLevel(PMaster->GetMLevel() / 2);
+        PPet->MPscale = PPetData->MPscale;
+        ShowDebug("MP Scale: %f\n", PPet->MPscale);
+        ShowDebug("Job: %d\n", PPet->GetMJob());
+        ShowDebug("Sub Job: %d\n", PPet->GetSJob());
         LoadJugStats(PPet, PPetData);
         PPet->loc = PMaster->loc;
         float randCirc = dsprand::GetRandomNumber(0.0f, 2.0f);
         float randDist = dsprand::GetRandomNumber(1.0f, 2.0f);
         PPet->loc.p = nearPosition(PMaster->loc.p, CPetController::PetRoamDistance * randDist, M_PI * randCirc);
+
+        if (PetID == PETID_CHERUKIKI) {
+            PPet->m_Behaviour = 2;
+        }
 
         PPet->look = g_PPetList.at(PetID)->look;
         PPet->name = g_PPetList.at(PetID)->name;

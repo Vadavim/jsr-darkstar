@@ -10956,11 +10956,12 @@ inline int32 CLuaBaseEntity::getRecentAlly(lua_State* L)
 {
     CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
     uint16 allySize = PEntity->PAlly.size();
+
     if(allySize > 0)
     {
         //uint32 petid = (uint32);
 
-        CBattleEntity* ally = PEntity->PAlly[allySize - 1];
+        CBattleEntity* ally = PEntity->PAlly[0];
 
         lua_getglobal(L,CLuaBaseEntity::className);
         lua_pushstring(L,"new");

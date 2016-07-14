@@ -58,13 +58,12 @@ function onUseAbility(player,target,ability)
         player:addStatusEffect(EFFECT_BUILDING_FLOURISH,3,0,60, 0, player:getMerit(MERIT_BUILDING_FLOURISH_EFFECT));
     elseif (player:hasStatusEffect(EFFECT_FINISHING_MOVE_4)) then
         player:delStatusEffect(EFFECT_FINISHING_MOVE_4);
-        player:addStatusEffect(EFFECT_FINISHING_MOVE_2,1,0,7200);
+        player:addStatusEffect(EFFECT_FINISHING_MOVE_1,1,0,7200);
         player:addStatusEffect(EFFECT_BUILDING_FLOURISH,3,0,60, 0, player:getMerit(MERIT_BUILDING_FLOURISH_EFFECT));
     elseif (player:hasStatusEffect(EFFECT_FINISHING_MOVE_5)) then
         player:delStatusEffect(EFFECT_FINISHING_MOVE_5);
-        player:addStatusEffect(EFFECT_FINISHING_MOVE_3,1,0,7200);
+        player:addStatusEffect(EFFECT_FINISHING_MOVE_2,1,0,7200);
         player:addStatusEffect(EFFECT_BUILDING_FLOURISH,3,0,60, 0, player:getMerit(MERIT_BUILDING_FLOURISH_EFFECT));
     end;
 
-    player:addStatusEffect(EFFECT_PRESTO,1,0,7200);
 end;

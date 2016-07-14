@@ -273,23 +273,80 @@ function unionRepresentativeTriggerFinish(player, option, target, guildID, curre
 end
 
 function unionRepresentativeTrade(player, npc, trade, csid, guildID)
-    local gpItem, remainingPoints = player:getCurrentGPItem(guildID);
-    if (player:getVar('[GUILD]currentGuild') - 1 == guildID) then
-        if remainingPoints == 0 then
-            player:messageText(npc, NO_MORE_GP_ELIGIBLE);
-        else
-            local totalPoints = 0;
-            for i=0,8,1 do
-                local items, points = player:addGuildPoints(guildID,i)
-                if items ~= 0 and points ~= 0 then
-                    totalPoints = totalPoints + points;
-                    trade:confirmItem(i, items);
-                end
-            end
-            if (totalPoints > 0) then
-                player:confirmTrade();
-                player:startEvent(csid,totalPoints);
-            end
-        end
+    local pointType = 0;
+    if (guildID == 0) then
+        return
     end
+
+    if (guildID == 1) then pointType = "guild_woodworking";
+    elseif (guildID == 2) then pointType = "guild_smithing";
+    elseif (guildID == 3) then pointType = "guild_goldsmithing";
+    elseif (guildID == 4) then pointType = "guild_weaving";
+    elseif (guildID == 5) then pointType = "guild_leathercraft";
+    elseif (guildID == 6) then pointType = "guild_bonecraft";
+    elseif (guildID == 7) then pointType = "guild_alchemy";
+    elseif (guildID == 8) then pointType = "guild_cooking";
+    end
+--
+--    local crystalTranslate = {
+--        [4096] = 4238,
+--        [4097] = 4239,
+--        [4098] = 4240,
+--        [4099] = 4241,
+--        [4100] = 4242,
+--        [4101] = 4243,
+--        [4102] = 4244,
+--        [4103] = 4245,
+--    };
+--
+--    local points = player:getCurrency(pointType);
+--    local count = trade:getItemCount();
+--    local fire      =       (trade:getItemQty(4096));
+--    local ice      =       (trade:getItemQty(4097) / 12);
+--    local wind      =       (trade:getItemQty(4098) / 12);
+--    local earth      =       (trade:getItemQty(4099) / 12);
+--    local lightning      =       (trade:getItemQty(4100) / 12);
+--    local water      =       (trade:getItemQty(4101) / 12);
+--    local light      =       (trade:getItemQty(4102) / 12);
+--    local dark      =       (trade:getItemQty(4103) / 12);
+--    local total = fire + ice + wind + earth + lightning + water + light + dark;
+--    printf("total: %d", total);
+--    printf("fire: %d", fire);
+--    printf("count: %d", count);
+--
+--    if (total == count and points >= total * 100) then
+--        points = points - total * 100;
+--        player:setCurrency(pointType, points);
+--        for i=0,7 do
+--            local crystalAmount = trade:getSlotQty(i);
+--            local curCrystal = trade:getItem(i);
+--            if (curCrystal ~= 0) then
+--                player:addItem(crystalTranslate[curCrystal], crystalAmount);
+--            end
+--        end
+--        player:tradeComplete();
+--        return;
+--    end
+
+
+
+--    local gpItem, remainingPoints = player:getCurrentGPItem(guildID);
+--    if (player:getVar('[GUILD]currentGuild') - 1 == guildID) then
+--        if remainingPoints == 0 then
+--            player:messageText(npc, NO_MORE_GP_ELIGIBLE);
+--        else
+--            local totalPoints = 0;
+--            for i=0,8,1 do
+--                local items, points = player:addGuildPoints(guildID,i)
+--                if items ~= 0 and points ~= 0 then
+--                    totalPoints = totalPoints + points;
+--                    trade:confirmItem(i, items);
+--                end
+--            end
+--            if (totalPoints > 0) then
+--                player:confirmTrade();
+--                player:startEvent(csid,totalPoints);
+--            end
+--        end
+--    end
 end

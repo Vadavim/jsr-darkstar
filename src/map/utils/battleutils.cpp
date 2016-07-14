@@ -38,6 +38,7 @@
 #include "../packets/inventory_finish.h"
 
 #include "../lua/luautils.h"
+#include "../ai/helpers/ai_utils.h"
 
 #include "../ability.h"
 #include "../modifier.h"
@@ -1266,52 +1267,75 @@ namespace battleutils
             // TODO: ignore dazes from dancers outside party
             int16 delay = PAttacker->GetWeaponDelay(false) / 10;
 
-            if (PAttacker->PMaster == nullptr)
-            {
+//            if (PAttacker->PMaster == nullptr)
+//            {
                 EFFECT daze = EFFECT_NONE;
                 uint16 power = 0;
-                if (PAttacker->PParty != nullptr && PAttacker->objtype == TYPE_PC)
+            std::vector<CBattleEntity*> cMembers = aiutils::getWholeParty(PAttacker, true);
+            for (CBattleEntity* member : cMembers) {
+                if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_DRAIN_DAZE, member->id))
                 {
-                    for (uint8 i = 0; i < PAttacker->PParty->members.size(); i++)
-                    {
-                        if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_DRAIN_DAZE, PAttacker->PParty->members[i]->id))
-                        {
-                            daze = EFFECT_DRAIN_DAZE;
-                            power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_DRAIN_DAZE, PAttacker->PParty->members[i]->id)->GetPower();
-                            break;
-                        }
-                        if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_HASTE_DAZE, PAttacker->PParty->members[i]->id))
-                        {
-                            daze = EFFECT_HASTE_DAZE;
-                            power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_HASTE_DAZE, PAttacker->PParty->members[i]->id)->GetPower();
-                            break;
-                        }
-                        if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_ASPIR_DAZE, PAttacker->PParty->members[i]->id))
-                        {
-                            daze = EFFECT_ASPIR_DAZE;
-                            power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_ASPIR_DAZE, PAttacker->PParty->members[i]->id)->GetPower();
-                            break;
-                        }
-                    }
+                    daze = EFFECT_DRAIN_DAZE;
+                    power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_DRAIN_DAZE, member->id)->GetPower();
+                    break;
                 }
-                else
+                if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_HASTE_DAZE, member->id))
                 {
-                    if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_DRAIN_DAZE, PAttacker->id))
-                    {
-                        daze = EFFECT_DRAIN_DAZE;
-                        power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_DRAIN_DAZE, PAttacker->id)->GetPower();
-                    }
-                    if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_HASTE_DAZE, PAttacker->id))
-                    {
-                        daze = EFFECT_HASTE_DAZE;
-                        power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_HASTE_DAZE, PAttacker->id)->GetPower();
-                    }
-                    if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_ASPIR_DAZE, PAttacker->id))
-                    {
-                        daze = EFFECT_ASPIR_DAZE;
-                        power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_ASPIR_DAZE, PAttacker->id)->GetPower();
-                    }
+                    daze = EFFECT_HASTE_DAZE;
+                    power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_HASTE_DAZE, member->id)->GetPower();
+                    break;
                 }
+                if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_ASPIR_DAZE, member->id))
+                {
+                    daze = EFFECT_ASPIR_DAZE;
+                    power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_ASPIR_DAZE, member->id)->GetPower();
+                    break;
+                }
+            }
+
+//                if (PAttacker->PParty != nullptr && (PAttacker->objtype == TYPE_PC || PAttacker->objtype == TYPE_PET))
+//                {
+//
+//                    for (uint8 i = 0; i < PAttacker->PParty->members.size(); i++)
+//                    {
+//                        if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_DRAIN_DAZE, PAttacker->PParty->members[i]->id))
+//                        {
+//                            daze = EFFECT_DRAIN_DAZE;
+//                            power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_DRAIN_DAZE, PAttacker->PParty->members[i]->id)->GetPower();
+//                            break;
+//                        }
+//                        if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_HASTE_DAZE, PAttacker->PParty->members[i]->id))
+//                        {
+//                            daze = EFFECT_HASTE_DAZE;
+//                            power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_HASTE_DAZE, PAttacker->PParty->members[i]->id)->GetPower();
+//                            break;
+//                        }
+//                        if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_ASPIR_DAZE, PAttacker->PParty->members[i]->id))
+//                        {
+//                            daze = EFFECT_ASPIR_DAZE;
+//                            power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_ASPIR_DAZE, PAttacker->PParty->members[i]->id)->GetPower();
+//                            break;
+//                        }
+//                    }
+//                }
+//                else
+//                {
+//                    if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_DRAIN_DAZE, PAttacker->id))
+//                    {
+//                        daze = EFFECT_DRAIN_DAZE;
+//                        power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_DRAIN_DAZE, PAttacker->id)->GetPower();
+//                    }
+//                    if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_HASTE_DAZE, PAttacker->id))
+//                    {
+//                        daze = EFFECT_HASTE_DAZE;
+//                        power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_HASTE_DAZE, PAttacker->id)->GetPower();
+//                    }
+//                    if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_ASPIR_DAZE, PAttacker->id))
+//                    {
+//                        daze = EFFECT_ASPIR_DAZE;
+//                        power = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_ASPIR_DAZE, PAttacker->id)->GetPower();
+//                    }
+//                }
 
                 if (daze == EFFECT_DRAIN_DAZE)
                 {
@@ -1342,10 +1366,10 @@ namespace battleutils
 
                     Action->additionalEffect = SUBEFFECT_HP_DRAIN;
                     Action->addEffectMessage = 161;
-                    Action->addEffectParam = Samba;
 
-                    PAttacker->addHP(Samba);	// does not do any additional drain to targets HP, only a portion of it
-                    PDefender->addHP(-Samba); //  JSR: drain samba also damages
+                    int healed = PAttacker->addHP(Samba);	// does not do any additional drain to targets HP, only a portion of it
+                    Action->addEffectParam = healed;
+                    PDefender->addHP(-healed); //  JSR: drain samba also damages
                     if (PChar != nullptr) {
                         PChar->updatemask |= UPDATE_HP;
                     }
@@ -1367,6 +1391,7 @@ namespace battleutils
                     int16 mpDrained = PDefender->addMP(-Samba);
 
                     PAttacker->addMP(Samba);
+                    PDefender->addMP(-(Samba * 2));
 //                    Action->addEffectParam = mpDrained;
                     Action->addEffectParam = Samba;
 
@@ -1381,7 +1406,7 @@ namespace battleutils
                     PAttacker->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_HASTE_SAMBA_HASTE, 0, power, 0, 10));
                     // Status effect removed in CAttackRound constructor (i.e. after next attack round is calculated)
                 }
-            }
+//            }
         }
 
         // TODO: move all this to scripts for each of these weapons
@@ -4707,6 +4732,8 @@ namespace battleutils
     {
         if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_AFFLATUS_MISERY) && damage > 0)
         {
+            PDefender->addMP(damage / 5);
+            PDefender->addTP(dsp_cap(((float)damage) * (1.2 - (float)PDefender->GetMLevel() / 100.0f), 0, 500));
             PDefender->setModifier(MOD_AFFLATUS_MISERY, damage);
             // ShowDebug("Misery power: %d\n", damage);
         }
