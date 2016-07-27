@@ -628,6 +628,7 @@ public:
     int32 removeConfrontationFromParty(lua_State* L);
     int32 getModelSize(lua_State* L);
     int32 getTargetsWithinArea(lua_State* L);
+    int32 getHateTarget(lua_State* L);
 };
 
 #endif

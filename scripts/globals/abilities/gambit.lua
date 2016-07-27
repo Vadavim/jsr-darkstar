@@ -40,7 +40,9 @@ function onUseAbility(player,target,ability, action)
     elseif (tenebrae >= 2) then element = ELE_DARK;
     end
 
-    player:removeAllRunes();
+    if (not player:hasStatusEffect(EFFECT_ELEMENTAL_SFORZO)) then
+        player:removeAllRunes();
+    end
 
     local duration = 90;
     local skillType = player:getWeaponSkillType(SLOT_MAIN);

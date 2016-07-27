@@ -12,7 +12,11 @@ require("scripts/globals/status");
 -----------------------------------------
 
 function onItemCheck(target)
-    return 0;
+    local result = 0;
+    if (target:hasStatusEffect(EFFECT_MEDICINE) == true) then
+        result = 111;
+    end
+    return result;
 end;
 
 -----------------------------------------
@@ -37,6 +41,9 @@ function onItemUse(target)
     rDisease = math.random(1,2) -- Disease is not garunteed to be cured, 1 means removed 2 means fail. 50% chance
     if (rDisease == 1 and target:hasStatusEffect(EFFECT_DISEASE) == true) then
         target:delStatusEffect(EFFECT_DISEASE);
-    end    
+    end
+    target:eraseStatusEffect();
+
+    target:addStatusEffect(EFFECT_MEDICINE, 1, 0, 60);
 end;
 

@@ -219,7 +219,7 @@ end;
 function doEnspell(caster,target,spell,effect)
 
     if (effect==EFFECT_BLOOD_WEAPON) then
-        target:addStatusEffect(EFFECT_BLOOD_WEAPON,1,0,30);
+        target:addStatusEffect(EFFECT_BLOOD_WEAPON,1,0,60);
         return;
     end
 
@@ -765,6 +765,11 @@ end;
     end
 
     dmg = target:magicDmgTaken(dmg);
+    if (caster:hasStatusEffect(EFFECT_CURSE_I)) then
+        local factor = 10;
+        if (caster:isMob()) then factor = 2; end
+        caster:delHP(dmg / factor);
+    end
 
     if (dmg > 0) then
         dmg = dmg - target:getMod(MOD_PHALANX);
@@ -796,6 +801,12 @@ function finalMagicNonSpellAdjustments(caster,target,ele,dmg)
     --Handles target's HP adjustment and returns SIGNED dmg (negative values on absorb)
 
     dmg = target:magicDmgTaken(dmg);
+    if (caster:hasStatusEffect(EFFECT_CURSE_I)) then
+        local factor = 10;
+        if (caster:isMob()) then factor = 2; end
+        caster:delHP(dmg / factor);
+    end
+
 
     if (dmg > 0) then
         dmg = dmg - target:getMod(MOD_PHALANX);

@@ -19,15 +19,31 @@ require("scripts/globals/weaponskills");
 function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local params = {};
-    params.ftp100 = 1; params.ftp200 = 2.5; params.ftp300 = 3;
+    params.ftp100 = 1.5; params.ftp200 = 2.5; params.ftp300 = 3.5;
     params.str_wsc = 0.3; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.3; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
     params.ele = ELE_DARK;
     params.skill = SKILL_SYH;
     params.includemab = true;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.str_wsc = 0.4; params.int_wsc = 0.4;
+        params.str_wsc = 0.4; params.int_wsc = 0.6;
     end
+    if (target:getHPP() <= 33) then
+        params.ftp100 = params.ftp100 * 1.33; params.ftp200 = params.ftp200 * 1.33; params.ftp300 = params.ftp300 * 1.33;
+    end
+
+
+    local duration = fTP(tp, 60, 180, 300);
+    if (not player:hasStatusEffect(EFFECT_MAGIC_ATK_BOOST)) then
+        player:addStatusEffect(EFFECT_MAGIC_ATK_BOOST, 15, 0, duration);
+        local effect = player:getStatusEffect(EFFECT_MAGIC_ATK_BOOST);
+        if (effect ~= nil) then
+            player:addMod(MOD_MACC, 15);
+            effect:addMod(MOD_MACC, 15);
+        end
+    end
+
+
 
     local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, params, tp, primary);
     return tpHits, extraHits, criticalHit, damage;

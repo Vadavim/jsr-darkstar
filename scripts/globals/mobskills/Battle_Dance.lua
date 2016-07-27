@@ -15,6 +15,8 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    local duration = 90 * fTP(skill:getTP(), 1, 1.5, 2) * (1 + hard / 5)
 
     local numhits = 1;
     local accmod = 1;
@@ -25,7 +27,11 @@ function onMobWeaponSkill(target, mob, skill)
 
     local typeEffect = EFFECT_DEX_DOWN;
 
-    MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, 10, 3, 120);
+    local power = (10 + mob:getMainLvl() / 10) * (1 + hard / 3);
+    local success = MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, power, 3, duration);
+    if (success == 242) then
+        target:setPendingMessage(278, EFFECT_DEX_DOWN);
+    end
 
     return dmg;
 end;

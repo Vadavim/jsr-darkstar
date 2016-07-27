@@ -22,7 +22,7 @@ function onMobWeaponSkill(target, mob, skill)
     local duration = 4;
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     if (hard > 0) then
-        dmgmod = dmgmod * (1 + hard / 2);
+        dmgmod = dmgmod * (1 + hard / 6);
         duration = duration * (1 + hard / 2);
     end
 

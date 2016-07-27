@@ -7,12 +7,26 @@ require("scripts/globals/conquest");
 require("scripts/globals/missions");
 require("scripts/globals/quests");
 require("scripts/globals/status");
+require("scripts/globals/jsr_utils");
 
 -----------------------------------
 -- onMobDeathEx
 -----------------------------------
 
 function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
+
+    if (player:isPC()) then
+        local diff = player:getMainLvl() - mob:getMainLvl();
+        if (diff < 0) then diff = 1; end
+        diff = (diff * diff) / 2;
+        if (math.random(0, 100) < diff * 50) then
+            rewardTemporaryItem(player);
+        end
+
+
+    end
+
+
 
     -- Things that happen only to the person who landed killing blow
     if (isKiller == true) then

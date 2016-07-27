@@ -32,10 +32,12 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
 
-    if (damage > 0) then
-        local duration = (tp/1000 * 30) + 30;
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_WIND, SKILL_SYH);
+    if (damage > 0 and resist >= 0.25) then
+        local duration = ((tp/1000 * 30) + 30) * resist;
         if (target:hasStatusEffect(EFFECT_SILENCE) == false) then
             target:addStatusEffect(EFFECT_SILENCE, 1, 0, duration);
+            target:setPendingMessage(277, EFFECT_SILENCE);
         end
     end
     return tpHits, extraHits, criticalHit, damage;

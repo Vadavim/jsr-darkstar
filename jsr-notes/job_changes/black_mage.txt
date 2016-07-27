@@ -10,6 +10,9 @@ Elemental Celerity: 10% (Lvl 30), 15% (Lvl 45), 20% (Lvl 60), 25% (Lvl 75)
 
 ABILITY CHANGES
 
+[Mana Font]
+ - For duration, also grants +30 MACC
+
 [Mana Wall]
  - Gained at level 55 (instead of 76)
 

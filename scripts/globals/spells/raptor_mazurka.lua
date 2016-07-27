@@ -24,9 +24,9 @@ function onSpellCast(caster,target,spell)
     duration = duration * ((iBoost * 0.1) + (caster:getMod(MOD_SONG_DURATION_BONUS)/100) + 1);
     
     if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
-        duration = duration * 2;
+        power = power * 1.5;
     elseif (caster:hasStatusEffect(EFFECT_MARCATO)) then
-        duration = duration * 1.5;
+        power = power * 1.25
     end
     caster:delStatusEffect(EFFECT_MARCATO);
     

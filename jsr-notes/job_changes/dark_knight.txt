@@ -25,7 +25,8 @@ TRAIT CHANGES
 ABILITY CHANGES
 
 [Blood Weapon]
- - Recast Time is 10 minutes
+ - Duration: 30 -> 60 seconds
+ - Grants +40 Accuracy while active
 
 [Dark Seal]
  - Gained at level 10
@@ -55,6 +56,7 @@ ABILITY CHANGES
 
 [Nether Void]
  - Gained at level 25.
+ - Recast is 6 minutes
  - Does not get consumed, and instead increases potency of drains by 33% (+2% per merit in Dark Seal).
 
 [Diabolic Eye]
@@ -63,6 +65,7 @@ ABILITY CHANGES
 
 [Consume Mana]
  - Gained at level 55
+ - Recast is 2 minutes
  - Instead consumes 25% current mana and adds it as base magical damage.
 
 [Arcane Crest]

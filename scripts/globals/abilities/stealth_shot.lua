@@ -19,6 +19,6 @@ end;
 
 function onUseAbility(player,target,ability)
     local bonus = player:getMerit(MERIT_STEALTH_SHOT);
-    player:addStatusEffect(EFFECT_STEALTH_SHOT,20 + bonus * 2,0,180);
+    player:addStatusEffect(EFFECT_STEALTH_SHOT,20,0,180, 0, 20 + 3 * bonus);
     return EFFECT_STEALTH_SHOT;
 end;

@@ -27,7 +27,7 @@ function onUseAbility(player,target,ability)
     local dmg = (player:getHP() * 0.5) + (player:getMainLvl() / 0.5);
     local resist = applyPlayerResistance(player, nil, target, player:getStat(MOD_INT)-target:getStat(MOD_INT), 0, ELE_NONE);
 
-    dmg = dmg * resist;
+    dmg = dmg * resist * 2;
 
     target:delHP(dmg);
 

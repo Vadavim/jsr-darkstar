@@ -18,7 +18,8 @@ end;
 
 function onMobWeaponSkill(target, mob, skill)
     local typeEffect = EFFECT_EVASION_BOOST;
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
 
-    skill:setMsg(MobBuffMove(mob, typeEffect, 50, 0, 30));
+    skill:setMsg(MobBuffMove(mob, typeEffect, 50 + hard * 5, 3, 30 + hard * 10));
     return typeEffect;
 end;

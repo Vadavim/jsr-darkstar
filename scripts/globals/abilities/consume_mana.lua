@@ -23,5 +23,5 @@ end;
 function onUseAbility(player,target,ability)
     local power = math.floor(player:getMP() * 0.25);
     player:delMP(power);
-    player:addStatusEffect(EFFECT_CONSUME_MANA,power,0,60);
+    player:addStatusEffect(EFFECT_CONSUME_MANA,power * 1.5,0,60);
 end;

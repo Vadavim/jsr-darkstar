@@ -21,7 +21,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local params = {};
     params.numHits = 4;
-    params.ftp100 = 0.75; params.ftp200 = 1.25; params.ftp300 = 2.0;
+    params.ftp100 = 0.7; params.ftp200 = 1.0; params.ftp300 = 1.3;
     params.str_wsc = 0.0; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.85 + (player:getMerit(MERIT_ENTROPY) / 100); params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
     params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
     params.canCrit = false;
@@ -33,7 +33,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
-    player:addMP(damage * 0.2);
+    player:addMP(damage * fTP(tp, 0.15, 0.25, 0.35));
     return tpHits, extraHits, criticalHit, damage;
 
 end

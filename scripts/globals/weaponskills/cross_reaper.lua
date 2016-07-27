@@ -28,6 +28,10 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
         params.ftp100 = 2.0; params.ftp200 = 4.0; params.ftp300 = 7.0;
+        if (target:getSystem() == SYSTEM_DEMON or target:getSystem() == SYSTEM_UNDEAD) then
+            params.ftp100 = 2.5; params.ftp200 = 5.0; params.ftp300 = 9.5;
+
+        end
         params.str_wsc = 0.6; params.mnd_wsc = 0.6;
     end
 

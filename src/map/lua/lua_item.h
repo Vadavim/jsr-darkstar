@@ -68,6 +68,7 @@ public:
     int32 delMod(lua_State*);               // remove power from mod
 
     int32 getAugment(lua_State*);           // get the augment id and power in slot
+    int32 getSlotType(lua_State*);           // get the augment id and power in slot
     //int32 setAugment(lua_State*);           // set the augment id and power in slot
 
     int32 getSkillType(lua_State*);         // get skill type

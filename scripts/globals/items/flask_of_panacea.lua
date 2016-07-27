@@ -20,6 +20,15 @@ end;
 
 function onItemUse(target)
     target:delStatusEffect(EFFECT_PARALYSIS);
+    target:delStatusEffect(EFFECT_SILENCE);
+    target:delStatusEffect(EFFECT_GRADUAL_PETRIFICATION);
+    target:delStatusEffect(EFFECT_BLINDNESS);
+    target:delStatusEffect(EFFECT_SLOW);
+    target:delStatusEffect(EFFECT_CURSE_I);
+    target:delStatusEffect(EFFECT_POISON);
+    target:delStatusEffect(EFFECT_DISEASE);
+    target:delStatusEffect(EFFECT_PLAGUE);
+    target:delStatusEffect(EFFECT_DOOM);
     target:delStatusEffect(EFFECT_BIND);
     target:delStatusEffect(EFFECT_WEIGHT);
     target:delStatusEffect(EFFECT_ADDLE);

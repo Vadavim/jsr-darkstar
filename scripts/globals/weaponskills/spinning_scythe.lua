@@ -32,6 +32,18 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    if (damage > 0) then
+        local effect = player:getStatusEffect(EFFECT_ATTACK_BOOST);
+        if (effect == nil) then
+            player:addStatusEffect(EFFECT_ATTACK_BOOST, 5, 0, fTP(tp, 60, 180, 360));
+        else
+            if (effect:getMod(MOD_ATTP) < 25) then
+                effect:addMod(MOD_ATTP, 5);
+                player:addMod(MOD_ATTP, 5);
+            end
+        end
+    end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

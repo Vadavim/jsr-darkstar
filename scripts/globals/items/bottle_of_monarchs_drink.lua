@@ -20,5 +20,5 @@ end;
 -----------------------------------------
 
 function onItemUse(target)
-    target:addStatusEffect(EFFECT_REGAIN, 3, 0, 190);
+    target:addStatusEffect(EFFECT_REGAIN, 3, 0, 300);
 end;

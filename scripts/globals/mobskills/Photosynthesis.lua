@@ -23,14 +23,14 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local tpMod = tpModifier(skill);
-    local power = (mob:getMainLvl()/10 * 6 + 5) * tpMod;
+    local tpMod = fTP(skill:getTP(), 1, 1.5, 2);
+    local power = (mob:getMainLvl() / 2 + 2) * tpMod;
     local duration = 30 * tpMod;
 
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     if (hard > 0) then
-        power = power * (1 + hard / 4);
-        duration = duration * (hard * 3);
+        power = power * (1 + hard / 6);
+        duration = duration * (1 + hard / 6);
     end
 
     power = reduced_healing_factor(target) * power;

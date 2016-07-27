@@ -13,9 +13,6 @@ require("scripts/globals/status");
 
 function onItemCheck(target)
 local result = 0;
-        if (target:hasStatusEffect(EFFECT_MEDICINE)) then
-                result = 111;
-        end
 return result;
 end;
 
@@ -25,5 +22,4 @@ end;
 
 function onItemUse(target)
         target:warp();
-        target:addStatusEffect(EFFECT_MEDICINE,0,0,30);
 end;

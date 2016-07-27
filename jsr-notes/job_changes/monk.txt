@@ -48,7 +48,19 @@ ABILITY CHANGES
  - At 350+ Ki, dispels a status effect from the target
 
 [Perfect Counter]
- - Gained at level 70
+ - Gained at level 50
+ - Instead increases Counter rate to 100% for 15 seconds.
+ - Consumes boost to increase duration by 1 second per 40 ki
+ - Recast is 2 minutes
+
+[Formless Strikes]
+ - While Boost and Formless Strikes is active, each normal attack increases Boost's Ki Points by 5.
+
+[Inner Strength]
+ - Gained at level 75.
+ - Recast: 10 minutes
+ - While active, boost generates +50% Ki.
+ - Lasts for 2 minutes.
 
 
 

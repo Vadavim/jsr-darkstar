@@ -102,7 +102,10 @@ function onUseAbility(player,target,ability, action)
 
 
 
-    player:removeOldestRune();
+    if (not player:hasStatusEffect(EFFECT_ELEMENTAL_SFORZO)) then
+        player:removeOldestRune();
+    end
+
     return damage;
 end;
 

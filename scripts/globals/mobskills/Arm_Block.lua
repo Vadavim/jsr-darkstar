@@ -15,6 +15,7 @@ end;
 
 function onMobWeaponSkill(target, mob, skill)
     local typeEffect = EFFECT_DEFENSE_BOOST;
-    skill:setMsg(MobBuffMove(mob, typeEffect, 15, 0, 300));
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+    skill:setMsg(MobBuffMove(mob, typeEffect, 15 + hard * 3, 0, 300));
     return typeEffect;
 end;

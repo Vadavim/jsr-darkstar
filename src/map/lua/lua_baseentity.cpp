@@ -6913,12 +6913,11 @@ inline int32 CLuaBaseEntity::getRACC(lua_State *L)
             ShowDebug(CL_CYAN"lua::getRACC weapon in ranged slot is NULL!\n" CL_RESET);
             return 0;
         }
-
         return PEntity->RACC(0);
     }
 
-    int skill = PEntity->GetSkill(weapon->getSkillType());
-    int acc = PEntity->RACC(skill);
+//    int skill = PEntity->GetSkill(weapon->getSkillType());
+    int acc = PEntity->RACC(weapon->getSkillType());
 
 //    if (weapon == nullptr)
 //    {
@@ -8783,9 +8782,9 @@ inline int32 CLuaBaseEntity::castSpell(lua_State* L)
         auto spellid {lua_tointeger(L, 1)};
         CBattleEntity* PTarget {nullptr};
 
-        if (!lua_isnil(L, 1) && lua_isuserdata(L, 1))
+        if (!lua_isnil(L, 2) && lua_isuserdata(L, 2))
         {
-            CLuaBaseEntity* PLuaBaseEntity = Lunar<CLuaBaseEntity>::check(L, 1);
+            CLuaBaseEntity* PLuaBaseEntity = Lunar<CLuaBaseEntity>::check(L, 2);
             PTarget = (CBattleEntity*)PLuaBaseEntity->m_PBaseEntity;
         }
 
@@ -11351,6 +11350,60 @@ inline int32 CLuaBaseEntity::getModelSize(lua_State *L)
     return 1;
 }
 
+
+inline int32 CLuaBaseEntity::getHateTarget(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_MOB);
+    bool completelyRandom = lua_isnil(L, 1) ? false : lua_tointeger(L, 1);
+
+    CMobEntity* PMob = (CMobEntity*)m_PBaseEntity;
+    EnmityList_t* enmityList = PMob->PEnmityContainer->GetEnmityList();
+    std::vector<std::pair<CBattleEntity*, int>> members;
+    if (enmityList)
+    {
+        for (auto member : *enmityList) {
+            if (distance(PMob->loc.p, member.second->PEnmityOwner->loc.p) <= 20.0f) {
+                members.push_back(
+                        std::pair<CBattleEntity*, int>(member.second->PEnmityOwner,
+                                                       member.second->CE + member.second->VE));
+            }
+        }
+
+        CBattleEntity* PTarget = nullptr;
+        if (completelyRandom)
+            PTarget = members[dsprand::GetRandomNumber(members.size())].first;
+        else {
+            int totalEnmity = 0;
+            for (auto member : members) {
+                totalEnmity += member.second;
+                member.second = totalEnmity;
+            }
+
+            int roll = dsprand::GetRandomNumber(totalEnmity);
+            for (auto member : members) {
+                if (roll <= member.second) {
+                    PTarget = member.first;
+                    break;
+                }
+            }
+        }
+
+        lua_getglobal(L, CLuaBaseEntity::className);
+        lua_pushstring(L, "new");
+        lua_gettable(L, -2);
+        lua_insert(L, -2);
+        lua_pushlightuserdata(L, (void*)PTarget);
+        lua_pcall(L, 2, 1, 0);
+        return 1;
+    }
+    else
+    {
+        lua_pushnil(L);
+    }
+    return 1;
+}
+
 //==========================================================//
 
 const int8 CLuaBaseEntity::className[] = "CBaseEntity";
@@ -11848,5 +11901,6 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeConfrontationFromParty),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getModelSize),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getTargetsWithinArea),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getHateTarget),
     {nullptr,nullptr}
 };

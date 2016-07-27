@@ -18,11 +18,21 @@ function onTrigger(player, amount)
 --    player:spawnPet(73);7
 --print(player:checkDistance(player:getPet()));
 --print(player:getRotPos());
-    local target = player:getCursorTarget();
-    if (target ~= nil) then
-        if (target:hasStatusEffect(EFFECT_DEFENDER)) then
-            print("have");
-        end
+
+
+print("Skill: %d\n", player:getSkillLevel(SKILL_ARC));
+--local item = player:getStorageItem(LOC_INVENTORY, 3);
+--    printf("Augment: %d, Val: %d", item:getAugment(0));
+--printf("Augment: %d, Val: %d", item:getAugment(1));
+--printf("Augment: %d, Val: %d", item:getAugment(2));
+--printf("Augment: %d, Val: %d", item:getAugment(3));
+end
+
+--    local target = player:getCursorTarget();
+--    if (target ~= nil) then
+--        if (target:hasStatusEffect(EFFECT_DEFENDER)) then
+--            print("have");
+--        end
 
 --        target:addTP(1000);
 
@@ -37,7 +47,6 @@ function onTrigger(player, amount)
 --        .. ", INT: " .. tostring(targ:getStat(MOD_INT))
 --        .. ", MND: " .. tostring(targ:getStat(MOD_MND))
 --);
-    end
 --local area = player:getTargetsWithinArea(10.0, 16);
 --for i,member in ipairs(area) do
 --    print(member:getID());
@@ -56,4 +65,3 @@ function onTrigger(player, amount)
 --    print(player:aetAugmentCount(1064));
 --    print(player:getSkillLevel(SKILL_ELE));
 --    print(player:getWeaponSkillType(SLOT_RANGED));
-end;

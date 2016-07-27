@@ -28,9 +28,11 @@ end;
 function onSpellCast(caster,target,spell)
     caster:spawnAlly(78);
     local ally = caster:getRecentAlly();
-    ally:addMod(MOD_REFRESH, caster:getMainLvl() / 25);
     ally:addMod(MOD_MATT, caster:getMainLvl() / 4);
     ally:addMod(MOD_ENMITY, -25);
+    if (ally:getMainLvl() >= 25) then
+        ally:addMod(MOD_REFRESH, caster:getMainLvl() / 25);
+    end
 
         --    ally = caster:getRecentAlly();
         --    ally:addMod(MOD_ENMITY, -25);

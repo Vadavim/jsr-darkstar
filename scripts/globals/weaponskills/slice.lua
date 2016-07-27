@@ -29,9 +29,12 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.atkmulti = 1;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
+        params.ftp100 = 2; params.ftp200 = 3.5; params.ftp300 = 5;
         params.str_wsc = 1.0;
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    local duration = fTP(tp, 60, 120, 180);
+
     return tpHits, extraHits, criticalHit, damage;
 end

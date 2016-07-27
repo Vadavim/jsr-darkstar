@@ -827,34 +827,102 @@ end
 
 local function treats(player, points)
     local stock = {
-        17016,  10, {FOOD, 0},  --Pet Food Alpha
-        17017,  20, {FOOD, 500}, --Pet Food Beta
-        17018,  40, {FOOD, 1500}, --Pet Food Gamma
-        17019,  60, {FOOD, 3000}, --Pet Food Delta
-        17020,  80, {FOOD, 5000}, --Pet Food Epsilon
-        17021,  100, {FOOD, 7000} --Pet Food Zeta
+        17016,  10, {COOK, 0},  --Pet Food Alpha
+        17017,  20, {COOK, 500}, --Pet Food Beta
+        17018,  40, {COOK, 1500}, --Pet Food Gamma
+        17019,  60, {COOK, 3000}, --Pet Food Delta
+        17020,  80, {COOK, 5000}, --Pet Food Epsilon
+        17021,  100, {COOK, 7000} --Pet Food Zeta
     };
     return special_stock(stock, points);
 end
 
-local function greataxes(player, points)
+
+
+local function instruments(player, points)
     local stock = {
-        16716,  200,    --Butterfly Axe +1
-        16713,  400,    --Hellfire Axe
-        16717,  650,    --Greataxe +1
-        16714,  980,    --Neckchopper
-        18212,  1200,   --Military Axe
-        18215,  1650,   --Voulge +1 > Horror Voulge
-        16718,  2000,   --Heavy Axe +1
-        16721,  2300,   --Huge Moth Axe
-        18210,  2650,   --Raifu
-        18509,  3300,   --Tewhatewha +1
-        16710,  3750,   --Gigant Axe
-        18219,  4800,   --Leucous Voulge +1
+        17354,  1000,    --Harp
+        17372,  1000,    --Flute +1
+        17347,  1000,    --Piccolo
+        17351,  1500,    --Gemshorn
+        17348,  2000,    --Traversiere
+        17355,  2500,    --Rose Harp
+        17352,  3000,    --Horn
+        17350,  3000,    --Angel's Flute
+        17361,  3800,    --Crumhorn
+        17362,  5000,    --Shofar
+        17357,  6000,    --Ebony Harp
+        17850,  7000,    --Hellish Bugle +1
+        17364,  9000,    --Cythara Anglica
     };
     return stock;
 end
 
+local function instrumentsEx(player, points)
+    local stock = {
+        17844,  1500, {WOOD},  --Flute +2
+        17374,  2000, {WOOD},  --Harp +1
+        17368,  3000, {WOOD},  --Picollo +1
+        17370,  3000, {WOOD},  --Gemshorn +1
+        17845,  4000, {WOOD},  --Traversiere +2
+        17376,  4500, {WOOD},  --Rose Harp +1
+        17371,  6000, {WOOD},  --Horn +1
+        17378,  6000, {WOOD},  --Angel's Flute +1
+        17847,  8000, {WOOD},  --Crumhorn +2
+        17848,  9000, {WOOD},  --Ebony Harp +2
+        17832,  9000, {WOOD},  --Shofar +1
+        17842,  12000, {WOOD},  --Sorrowful Harp
+        17837,  20000, {WOOD, 9000},  --Cythara Anglica +1
+    };
+    return special_stock(stock, points);
+end
+
+local function greataxes2(player, points)
+    local stock = {
+        16724,  5000,    --Heavy Darksteel Axe
+        16730,  5300,    --Colossal Axe
+        16707,  8000,    --Bhuj
+    };
+    return stock;
+end
+
+local function greataxesEx2(player, points)
+    local stock = {
+        16725,  6000, {SMIT},  --Massive Darksteel Axe
+        16731,  6300, {SMIT},  --Colossal Axe +1
+        18197,  9000, {SMIT},  --Bhuj +1
+    };
+    return special_stock(stock, points);
+end
+
+
+local function greataxes(player, points)
+    local stock = {
+        16704,  150,    --Butterfly Axe
+        16713,  200,    --Inferno Axe
+        16705,  280,    --Greataxe
+        18214,  1800,    --Voulge
+        16706,  2100,    --Heavy Axe
+        18208,  3000,    --Kheten
+        18506,  3500,    --Tewhatewha
+        18218,  4000,    --Leucous Voulge
+    };
+    return stock;
+end
+
+local function greataxesEx(player, points)
+    local stock = {
+        17016,  250, {SMIT},  --Butterfly Axe +1
+        16713,  800, {ALCH},  --Hellfire Axe
+        16717,  400, {SMIT},  --Greataxe +1
+        18215,  2500, {SMIT},  --Voulge +1
+        16718,  2900, {SMIT},  --Heavy Axe +1
+        18208,  4000, {SMIT},  --Kheten +1
+        18509,  4800, {SMIT},  --Tewhatewha +1
+        18219,  5500, {SMIT},  --Leucous Voulge +1
+    };
+    return special_stock(stock, points);
+end
 
 local function knuckles2(player, points)
     local stock = {
@@ -1114,20 +1182,56 @@ local function greatswordEx(player, points)
     return special_stock(stock, points);
 end
 
-local function greatkatanas(player, points)
+
+local function greatkatanas2(player, points)
     local stock = {
-        16981,  300,    --Tachi +1
-        16978,  550,    --Uchigatana +1
-        16983,  850,    --Nodachi +1
-        16987,  1100,   --Okanehira
-        16988,  1400,   --Kotetsu
-        16986,  1900,   --Homura +1
-        17800,  2450,   --Hosodachi +1
-        16989,  2900,   --Mikazuki +1
-        16991,  3200,   --Odenta
-        16965,  4300,   --Koryukagemitsu
+        16984,  4400,    --Jindachi
+        16964,  5200,    --Zanbato
+        16975,  5400,    --Kanesada
+        16972,  6300,    --Kazaridachi
+        18439,  9000,    --Shirogatana
     };
     return stock;
+end
+
+local function greatkatanasEx2(player, points)
+    local stock = {
+        16985,  5400, {SMIT},    --Jindachi +1
+        17803,  7200, {SMIT},    --Zanbato +1
+        17818,  7400, {SMIT},    --Kanesada +1
+        17805,  7900, {SMIT},    --Kazaridachi +1
+        18440,  11000, {SMIT},    --Shirgatana +1
+    };
+    return special_stock(stock, points);
+end
+
+
+local function greatkatanas(player, points)
+    local stock = {
+        16966,  150,    --Tachi
+        16960,  225,    --Uchigatana
+        16982,  350,    --Nodachi
+        16988,  800,    --Kotetsu
+        16973,  1250,    --Homura
+        16962,  1900,    --Ashura
+        16970,  2400,    --Hosodachi
+        16967,  3400,    --Mikazuki
+    };
+    return stock;
+end
+
+local function greatkatanasEx(player, points)
+    local stock = {
+        16981,  250, {SMIT},    --Tachi +1
+        16978,  350, {SMIT},    --Uchigatana +1
+        16983,  500, {SMIT},    --Nodachi
+        17816,  1200, {SMIT},    --Kotetsu +1
+        16986,  2200, {ALCH},    --Homura +1
+        16979,  2400, {SMIT},    --Ashura +1
+        17800,  3100, {SMIT},    --Hosodachi +1
+        16989,  4800, {SMIT},    --Mikazuki +1
+    };
+    return special_stock(stock, points);
 end
 
 local function swords(player, points)
@@ -1402,23 +1506,61 @@ local function axesEx(player, points)
 end
 
 
-local function katanas(player, points)
+
+
+local function katanas2(player, points)
     local stock = {
-        16914,  150,    --Kunai +1
-        16918,  250,    --Wakazashi +1
-        16920,  400,    --Shinobi-gatana +1
-        16917,  700,    --Suzume
-        17777,  1000,   --Hibari +1
-        16927,  1300,   --Busuto +1
-        16921,  1700,   --Kodachi +1
-        19281,  2300,   --Midare +1
-        16926,  3000,   --Bokuto +1
-        17768,  3800,   --Yoto +1
-        17796,  4400,   --Sai +1
-        18411,  5000,   --Buboso
-        16897,  5000,   --Kagboshi
+        17778,  4800,    --Muketsu
+        16903,  5000,    --Kabutowari
+        16909,  6300,    --Kororito
+        18420,  8000,    --Hayabusa
     };
     return stock;
+end
+
+local function katanasEx2(player, points)
+    local stock = {
+        17779,  6000, {ALCH},    --Muketsu +1
+        16923,  6500, {SMIT},    --Kabutowari +1
+        17769,  8200, {ALCH},    --Kororito +1
+        18421,  9000, {SMIT},    --Hayabusa +1
+        18415,  12000, {ALCH},    --Tojaki
+    };
+    return special_stock(stock, points);
+end
+
+
+
+local function katanas(player, points)
+    local stock = {
+        16896,  100,    --Kunai
+        16900,  150,    --Wakizashi
+        16919,  200,    --Shinobi Gatana
+        17776,  400,    --Hibari
+        16901,  900,    --Kodachi
+        19276,  1350,    --Midare
+        16902,  2200,    --Sakurafubuki
+        17795,  3500,    --Sai
+    };
+    return stock;
+end
+
+local function katanasEx(player, points)
+    local stock = {
+        16914,  200, {SMIT},    --Kunai +1
+        16918,  250, {SMIT},    --Wakizashi +1
+        16920,  350, {SMIT},    --Shinobi Gatana +1
+        16925,  800, {ALCH},    --Mokuto +1
+        17777,  800, {SMIT},    --Hibari +1
+        16927,  1200, {ALCH},    --Busuto +1
+        16921,  1300, {SMIT},    --Kodachi +1
+        19281,  2300, {SMIT},    --Midare +1
+        16926,  2300, {ALCH},    --Bokuto +1
+        16922,  3200, {SMIT},    --Sakurafubuki +1
+        17768,  4000, {ALCH},    --Yoto +1
+        17796,  5000, {SMIT},    --Sai +1
+    };
+    return special_stock(stock, points);
 end
 
 local function throwing(player, points)
@@ -2696,6 +2838,41 @@ local function bullets(player, points)
     return stock;
 end
 
+local function potions(player, points)
+    local stock = {
+        4112,  150,  --Potion
+        4116,  400,  --Hi-Potion
+        4120,  900,  --X-Potion
+        4124,  1800,  --Max Potio
+        4128,  250,  --Ether
+        4132,  650,  --Hi-Ether
+        4136,  1450,  --Super-Ether
+        4140,  2800,  --Pro-Ether
+        4148,  200,  --Antidote
+        4150,  350,  --Eye Drops
+        4158,  600,  --Echo Drops
+        4154,  800,  --Holy Water
+        5418,  800,  --Tincture
+        4155,  1500,  --Remedy
+        4164,  500,  --Prism Powder
+        4165,  500,  --Silent Oil
+    };
+    return stock;
+end
+
+local function potionsEx(player, points)
+    local stock = {
+        4115,  280, {ALCH, 1000},  --Potion +3
+        4119,  600, {ALCH, 2500},  --Hi-Potion +3
+        4123,  1350, {ALCH, 4500},  --X-Potion +3
+        4125,  2500, {ALCH, 6500},  --Max-Potion +1
+        4126,  3300, {ALCH, 8500},  --Max-Potion +2
+        4127,  4000, {ALCH, 10000},  --Max-Potion +3
+        4149,  3500, {ALCH, 8000},  --Panacea
+    };
+    return special_stock(stock, points);
+end
+
 
 
 local function daggers2(player, points)
@@ -2714,7 +2891,7 @@ local function daggers2(player, points)
     return stock;
 end
 
-local function daggersEx(player, points)
+local function daggersEx2(player, points)
     local stock = {
         16751,  5800, {SMIT},  --Darksteel Knife +1
         16762,  6400, {ALCH},  --Venom Knife +1
@@ -2806,21 +2983,22 @@ funcs = {
     ["bolts"] = bolts,
     ["guns"] = guns, ["guns2"] = guns2, ["gunsEx"] = gunsEx, ["gunsEx2"] = gunsEx2,
     ["bullets"] = bullets,
-    ["daggers"] = daggers,
+    ["daggers"] = daggers, ["daggers2"] = daggers2, ["daggersEx"] = daggersEx, ["daggersEx2"] = daggersEx2,
     ["swords"] = swords, ["swordsEx"] = swordsEx, ["swords2"] = swords2, ["swords2Ex"] = swords2Ex,
     ["clubs"] = clubs, ["clubs2"] = clubs2, ["clubsEx"] = clubsEx, ["clubsEx2"] = clubsEx2,
     ["staves"] = staves, ["staves2"] = staves2, ["stavesEx"] = stavesEx, ["stavesEx2"] = stavesEx2,
     ["axes"] = axes, ["axes2"] = axes2, ["axesEx"] = axesEx, ["axesEx2"] = axesEx2,
-    ["katanas"] = katanas,
-    ["knuckles"] = knuckles,
+    ["katanas"] = katanas, ["katanas2"] = katanas2, ["katanasEx"] = katanasEx, ["katanasEx2"] = katanasEx2,
+    ["knuckles"] = knuckles, ["knuckles2"] = knuckles2, ["knucklesEx"] = knucklesEx, ["knucklesEx2"] = knucklesEx2,
     ["polearms"] = polearms, ["polearms2"] = polearms2, ["polearmsEx"] = polearmsEx, ["polearmsEx2"] = polearmsEx2,
     ["scythes"] = scythes, ["scythes2"] = scythes2, ["scythesEx"] = scythesEx, ["scythesEx2"] = scythesEx2,
     ["greatswords"] = greatswords, ["greatswords2"] = greatswords2, ["greatswordsEx"] = greatswordEx, ["greatswordsEx2"] = greatswordsEx2,
     ["greatkatanas"] = greatkatanas,
-    ["greataxes"] = greataxes,
+    ["greataxes"] = greataxes, ["greataxes2"] = greataxes2, ["greataxesEx"] = greataxesEx, ["greataxesEx2"] = greataxesEx2,
     ["misc"] = misc,
     ["jugs"] = jugs, ["jugs2"] = jugs,
     ["treats"] = treats,
+    ["instruments"] = instruments, ["instrumentsEx"] = instrumentsEx,
     ["boomerangs"] = boomerangs,
     ["dice1"] = dice1, ["dice2"] = dice2,
     ["sch1"] = sch1, ["sch2"] = sch2,

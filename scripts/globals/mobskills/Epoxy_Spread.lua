@@ -19,7 +19,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 1, 0, 30));
     enmityStatusCheck(target, mob, skill, 15 + hard * 20);
-    if (hard > 1) then
+    if (hard > 0) then
         skill:setKnockback(5);
     end
 

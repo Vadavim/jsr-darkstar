@@ -841,9 +841,6 @@ void CMobEntity::DropItems()
                     uint8 tries = 0;
                     uint8 maxTries = 1 + (m_THLvl > 2 ? 2 : m_THLvl);
                     uint8 bonus = (m_THLvl > 2 ? (m_THLvl - 2) * 10 : 0);
-                    ShowDebug("Drop bonus: %f\n", dropBonus);
-                    ShowDebug("Before Bonus: %d\nAfter Bonus: %f\n", DropList->at(i).DropRate,
-                              DropList->at(i).DropRate * (1.0f + dropBonus));
                     while (tries < maxTries)
                     {
                         if (dsprand::GetRandomNumber(1000) < DropList->at(i).DropRate * map_config.drop_rate_multiplier * (1.0f + dropBonus)  + bonus)

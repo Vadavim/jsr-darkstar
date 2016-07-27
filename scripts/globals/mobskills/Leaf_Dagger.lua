@@ -35,7 +35,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     if (hard > 0) then
-        power = math.floor(power * (1 + hard / 2));
+        power = math.floor(power * (1 + hard / 6));
     end
 
     MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, power, 3, 18);

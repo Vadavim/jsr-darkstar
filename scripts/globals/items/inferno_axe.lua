@@ -12,7 +12,7 @@ require("scripts/globals/magic");
 -----------------------------------
 
 function onAdditionalEffect(player,target,damage)
-    local chance = 5;
+    local chance = 20;
 
     if (math.random(0,99) >= chance) then
         return 0,0,0;

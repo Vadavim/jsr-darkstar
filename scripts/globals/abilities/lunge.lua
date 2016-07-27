@@ -60,7 +60,10 @@ function onUseAbility(player, target, ability, action)
     target:updateEnmityFromDamage(player,totalDamage);
     target:updateClaim(player);
 
-    player:removeAllRunes();
+    if (not player:hasStatusEffect(EFFECT_ELEMENTAL_SFORZO)) then
+        player:removeAllRunes();
+    end
+
     return totalDamage;
 
 end;

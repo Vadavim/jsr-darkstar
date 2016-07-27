@@ -103,6 +103,14 @@ inline int32 CLuaItem::getSlotID(lua_State* L)
     return 1;
 }
 
+inline int32 CLuaItem::getSlotType(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PLuaItem == nullptr);
+
+    lua_pushinteger(L, ((CItemArmor*)m_PLuaItem)->getSlotType());
+    return 1;
+}
+
 inline int32 CLuaItem::getWornItem(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PLuaItem == nullptr);
@@ -251,5 +259,6 @@ Lunar<CLuaItem>::Register_t CLuaItem::methods[] =
     LUNAR_DECLARE_METHOD(CLuaItem,delMod),
     LUNAR_DECLARE_METHOD(CLuaItem,getAugment),
     LUNAR_DECLARE_METHOD(CLuaItem,getSkillType),
+    LUNAR_DECLARE_METHOD(CLuaItem,getSlotType),
     {nullptr,nullptr}
 };

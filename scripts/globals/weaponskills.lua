@@ -456,6 +456,8 @@ end;
 function getRangedHitRate(attacker,target,capHitRate,bonus)
     local acc = attacker:getRACC();
     local eva = target:getEVA();
+    printf("acc: %d\n", acc);
+    printf("eva: %d\n", eva);
 
     if (bonus == nil) then
         bonus = 0;
@@ -484,6 +486,7 @@ function getRangedHitRate(attacker,target,capHitRate,bonus)
     hitrate = hitrate+hitdiff;
     hitrate = hitrate/100;
 
+    printf("Hitrate: %d\n", hitrate);
 
     -- Applying hitrate caps
     if (capHitRate) then -- this isn't capped for when acc varies with tp, as more penalties are due
@@ -775,37 +778,16 @@ end;
     local critMult = 1.75 + attacker:getMod(MOD_CRIT_DMG_INCREASE / 100);
     -- Chance of resetting Eagle Eye shot
     if (attacker:getMainJob() == 11 and attacker:isPC() and wsID ~= 0) then
-        local rngLevel = attacker:getMainLvl();
-        local chance = attacker:getMainLvl() / 3;
-        local resetEagle = false;
-        local resetCamo = false;
-        if (math.random(0, 100) < chance) then
-            resetEagle = true;
---            attacker:SayToPlayer("Eagle Eye Shot has been reset!");
---            attacker:resetRecast(RECAST_ABILITY, 0);
-        end
 
         -- Stealth Shot
         if (attacker:hasStatusEffect(EFFECT_STEALTH_SHOT)) then
-            chance = 33 + attacker:getMerit(MERIT_STEALTH_SHOT) * 3;
+            local chance = 33 + attacker:getMerit(MERIT_STEALTH_SHOT) * 3;
             if (math.random(0, 100) < chance) then
-                resetCamo = true;
---                attacker:SayToPlayer("Camouflage has been reset!");
---                attacker:resetRecast(RECAST_ABILITY, 123);
+                attacker:SayToPlayer("Camouflage has been reset!");
+                attacker:resetRecast(RECAST_ABILITY, 123);
             end
         end
 
-        if (resetEagle and resetCamo) then
-            attacker:SayToPlayer("Camouflage and Eagle Eye Shot have been reset!");
-            attacker:resetRecast(RECAST_ABILITY, 0);
-            attacker:resetRecast(RECAST_ABILITY, 123);
-        elseif (resetEagle) then
-            attacker:SayToPlayer("Eagle Eye Shot has been reset!");
-            attacker:resetRecast(RECAST_ABILITY, 0);
-        elseif (resetCamo) then
-            attacker:SayToPlayer("Camouflage has been reset!");
-            attacker:resetRecast(RECAST_ABILITY, 123);
-        end
     end
 
     -- get fstr
@@ -918,7 +900,7 @@ end;
     end
     -- print("Landed " .. hitslanded .. "/" .. numHits .. " hits with hitrate " .. hitrate .. "!");
 
-    if (isAoEWeaponskill(wsID)) then
+    if (wsID ~= 0 and isAoEWeaponskill(wsID)) then
         if (target:getModelSize() >= 1) then finaldmg = finaldmg * 1.25; end;
         if (target:getFamily() == 47) then finaldmg = finaldmg * 1.33; end
     end

@@ -25,10 +25,10 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     -- accuracy mods (ONLY USE FOR accURACY VARIES WITH TP) , should be the acc at those %s NOT the penalty values. Leave 0 if acc doesnt vary with tp.
     params.acc100 = 0; params.acc200=0; params.acc300=0;
     -- attack multiplier (only some WSes use this, this varies the actual ratio value, see Tachi: Kasha) 1 is default.
-    params.atkmulti = 1;
+    params.atkmulti = 1.33;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.ftp200 = 2.75; params.ftp300 = 4.75;
+        params.ftp100 = 1.4; params.ftp200 = 4; params.ftp300 = 8;
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);

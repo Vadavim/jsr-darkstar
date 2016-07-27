@@ -24,8 +24,8 @@ ABILITY CHANGES
 [Eagle Eye Shot]
  - Very long range (40 yalms)
  - Bonus accuracy (+100)
- - Whenever a ranged weaponskill is used, there is a chance of resetting Eagle Eye Shot.
- - Chance is (Level / 3)%
+ - Damage scales with level
+ - Does not generate enmity
 
 [Scavange]
  - Now scavanges a random temporary item based on level.
@@ -37,27 +37,29 @@ ABILITY CHANGES
  - While under effect, special ammunition effects (such as Fire Arrow, Poison Arrow, etc.) are enhanced.
 
 [Stealth Shot]
- - Gained at level 60 (no longer require merit point to unlock)
+ - Gained at level 40 (no longer require merit point to unlock)
  - Adds a buff for 2 minutes (and has a recast of 2 minutes)
- - Grants -10 RATP, -(20 + Stealth Shot merits * 2) Enmity, and +20 Subtle Blow
- - Cancels / is cancelled by Flashy Shot
+ - Grants -10 RATP, -20 Enmity, and +(20 + 3 * Stealth Shot merit points) Subtle Blow
+ - Cannot be used with Flashy Shot
  - While under Stealth Shot, ranged weaponskills has a 33% chance of resetting Camouflage timer. 
  	- Chance increases by 3% per merit point in Stealth Shot.
 
 [Camouflage]
  - Duration is always 3 minutes
- - Enmity reduction also works for subjobs.
- - Also grants 2 shadows when used.
+ - Camouflage's enmity reduction now also works when ranger is a subjob
+ - Grants two shadows when used
  - Also grants +15 Subtle Blow for the duration
  - For each merit point in Camouflage Recast, +4 to Store TP while under effect of Camouflage.
 
 [Bounty Shot]
  - Recast is 180 seconds
- - Instead grants HP, MP, and TP if shot kills the target.
+ - Generates additional enmity
+ - Instead steals HP and TP.
 
 [Decoy Shot]
  - Gained at level 55
  - Recast is 5 minutes
+ - Generates additional enmity
  - Instead lowers target's Accuracy, Evasion, Magic Evasion by -20, and critical evasion by -5. Lasts for 60 seconds. Wind-based and can be resisted.
 
 

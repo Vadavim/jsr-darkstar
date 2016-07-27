@@ -20,6 +20,13 @@ end;
 
 function onItemUse(target)
     local duration = 900;
-        target:delStatusEffect(EFFECT_MAX_HP_BOOST);
-        target:addStatusEffect(EFFECT_MAX_HP_BOOST,100,0,duration);
+    target:delStatusEffect(EFFECT_MAX_HP_BOOST);
+    target:addStatusEffect(EFFECT_MAX_HP_BOOST,100,0,duration);
+    local effect = target:getStatusEffect(EFFECT_MAX_HP_BOOST);
+    if (effect ~= nil) then
+        local recovery = target:getMainLvl() / 10 + 1;
+        effect:addMod(MOD_REGEN, recovery);
+        target:addMod(MOD_REGEN, recovery);
+    end
+
 end;

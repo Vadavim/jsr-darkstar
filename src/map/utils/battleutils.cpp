@@ -584,6 +584,8 @@ namespace battleutils
         }
 
         damage = handleElementalDamage(PAttacker, PDefender, damage, element, false);
+        if (PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_ELEMENTAL_SFORZO))
+            damage *= 2;
 //        //matching day 10% bonus, matching weather 10% or 25% for double weather
 //        float dBonus = 1.0;
 //        float resist = 1.0;
@@ -733,6 +735,8 @@ namespace battleutils
 
         if (ele != 0) {
             damage = handleElementalDamage(PAttacker, PDefender, damage, ele - 1, true);
+            if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_ELEMENTAL_SFORZO))
+                damage *= 4;
 
 //            // elemental attack / defense bonus
 //            damage *= matb * mdef;
@@ -1222,8 +1226,8 @@ namespace battleutils
             else if (enspell == ENSPELL_SOUL_ENSLAVEMENT)
             {
                 Action->additionalEffect = SUBEFFECT_TP_DRAIN;
-                Action->addEffectMessage = 161;
-                float delayPower = 1.0f * (PAttacker->GetWeaponDelay(false) / 300.f);
+                Action->addEffectMessage = 165;
+                float delayPower = 1.0f * (PAttacker->GetWeaponDelay(false) / 3000.f);
 
                 int32 tpDrain = PDefender->health.tp * (0.1f * delayPower);
                 PDefender->addTP(-tpDrain);
@@ -2071,6 +2075,10 @@ namespace battleutils
                 formlessMod += ((CCharEntity*)PAttacker)->PMeritPoints->GetMeritValue(MERIT_FORMLESS_STRIKES, (CCharEntity*)PAttacker);
 
             damage = damage * formlessMod / 100;
+            CStatusEffect* boost = PAttacker->StatusEffectContainer->GetStatusEffect(EFFECT_BOOST);
+            if (boost != nullptr) {
+                boost->SetSubPower(boost->GetSubPower() + 5);
+            }
 
             // TODO: chance to 'resist'
 
@@ -2154,6 +2162,10 @@ namespace battleutils
             HandleAfflatusMiseryDamage(PDefender, damage);
         }
         damage = dsp_cap(damage, -99999, 99999);
+        if (damage > 0 && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_CURSE)) {
+            int mobDamFactor = PAttacker->objtype == TYPE_MOB ? 2 : 10;
+            PAttacker->addHP(damage / mobDamFactor);
+        }
 
         int32 corrected = PDefender->addHP(-damage);
         if (damage < 0)
@@ -2397,6 +2409,10 @@ namespace battleutils
 
         if (!isRanged)
             PChar->StatusEffectContainer->DelStatusEffectsByFlag(EFFECTFLAG_ATTACK);
+
+        if (damage > 0 && PChar->StatusEffectContainer->HasStatusEffect(EFFECT_CURSE)) {
+            PChar->addHP(damage / 10);
+        }
 
         return damage;
     }

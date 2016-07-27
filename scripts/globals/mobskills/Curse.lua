@@ -17,6 +17,8 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
+    local hard = mob:getMobMod(MOBMOD_HARD_MODE);
+
     local typeEffect = EFFECT_CURSE_I;
 
     skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 25, 0, 480));

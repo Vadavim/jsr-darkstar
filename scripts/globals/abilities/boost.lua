@@ -42,6 +42,7 @@ function onUseAbility(player,target,ability)
     end
 
 
+
     if (player:getLocalVar("critHit") == 1) then
         player:setLocalVar("critHit", 0);
         subPower = subPower + 25;
@@ -60,6 +61,10 @@ function onUseAbility(player,target,ability)
     if (player:getLocalVar("counterAttack") == 1) then
         player:setLocalVar("counterAttack", 0);
         subPower = subPower + 25;
+    end
+
+    if (player:hasStatusEffect(EFFECT_INNER_STRENGTH)) then
+        subPower = subPower * 1.5;
     end
 
 

@@ -40,14 +40,15 @@ function onUseAbility(player,target,ability,action)
     end
     local params = {};
     params.numHits = 1;
-    local ftp = 5
+    local ftp = 4 + player:getMainLvl() / 10;
     params.ftp100 = ftp; params.ftp200 = ftp; params.ftp300 = ftp;
-    params.str_wsc = 0.0; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
+    params.str_wsc = 0.0; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 1.0; params.int_wsc = 0.0; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
     params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
     params.canCrit = true;
     params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
     params.atkmulti = 1
-    params.enmityMult = 0.5
+    params.enmityMult = 0.0
+    params.bonusAcc = 100;
 
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, 0, params, 100, true)
 

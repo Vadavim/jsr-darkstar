@@ -11,7 +11,7 @@
 function onEffectGain(target,effect)
     target:addMod(MOD_RATTP, -10);
     target:addMod(MOD_ENMITY, -20);
-    target:addMod(MOD_SUBTLE_BLOW, 20);
+    target:addMod(MOD_SUBTLE_BLOW, effect:getSubPower());
 end;
 
 -----------------------------------
@@ -28,5 +28,5 @@ end;
 function onEffectLose(target,effect)
     target:delMod(MOD_RATTP, -10);
     target:delMod(MOD_ENMITY, -20);
-    target:delMod(MOD_SUBTLE_BLOW, 20);
+    target:delMod(MOD_SUBTLE_BLOW, effect:getSubPower());
 end;
