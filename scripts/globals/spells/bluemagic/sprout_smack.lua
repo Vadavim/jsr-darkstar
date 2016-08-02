@@ -51,11 +51,14 @@ function onSpellCast(caster,target,spell)
         params.chr_wsc = 0.0;
     damage = BluePhysicalSpell(caster, target, spell, params);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
-   
+
+    local resist = applyResistance(caster,spell,target,25,BLUE_SKILL);
+
     if (target:hasStatusEffect(EFFECT_SLOW)) then
         spell:setMsg(75); -- no effect
     else    
-        target:addStatusEffect(EFFECT_SLOW,15,0,20);
+        target:addStatusEffect(EFFECT_SLOW,165 + getSystemBonus(caster,target,spell) * 50,0,60 * resist);
+        target:setPendingMessage(277, EFFECT_SLOW);
     end
 
     return damage;

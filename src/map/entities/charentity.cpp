@@ -1213,6 +1213,7 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
                     int16 criticaldamage = getMod(MOD_CRIT_DMG_INCREASE);
                     criticaldamage = dsp_cap(criticaldamage, 0, 100);
                     pdif *= ((100 + criticaldamage) / 100.0f);
+                    pdif *= ((100 + getMod(MOD_RANGED_CRIT_DAMAGE)) / 100.0f);
                     actionTarget.speceffect = SPECEFFECT_CRITICAL_HIT;
                     actionTarget.messageID = 353;
                     isCrit = true;

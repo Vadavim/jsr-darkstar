@@ -17,7 +17,7 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    player:addStatusEffect(EFFECT_RESTRAINT,1,0,300);
+    player:addStatusEffect(EFFECT_RESTRAINT,1,0,240);
 
     return EFFECT_RESTRAINT;
 end;

@@ -1,127 +1,237 @@
 PHYSICAL SPELLS
+ - Many of the weaker spells have been adjusted to deal more damage. These changes are not neccessarily reflected in the notes, so try them out.
 
-[Queesy Shroom]
- - Poison damage is 1 + (level/4), to a max of 12.
+[Foot Kick]
+ - Modifiers: 20% STR, 20% DEX
+
+
+[Power Attack]
+ - Modifiers: 45% 
+
+[Sprout Smack]
+ - Slow Potency: 165 (+/- 50 based on System Bonus) for 60 seconds
+
+[Wild Oats]
+ - Vit Down (-15) (+/- 5 based on System Bonus) for 30 seconds; VIT Down decays over time
+ - TP increases Vit Down (-1 per 100 TP) and duration (3 seconds pet 100 TP).
+
+
+[Battle Dance]
+ - Dex Down (-15) (+/- 5 based on System Bonus) for 30 seconds
 
 [Feather Storm]
- - Poison damage is 2 + (level/6), to a max of 8.
+ - Poison DoT: 1 + Level / 6 (max of 8); (+/- 25% based on System Bonus)
+ - Max Distance: 14.7 yalms
+ - Deals bonus damage based on distance (max of +25% at 14.7 yalms)
+
+
+[Queasyshroom]
+ - Modifiers: AGI 40%
+ - Poison DoT: 1 + level / 4 (max of 12); (+/- 25% based on System Bonus)
+ - Poison DoT greatly increased by TP
 
 [Helldive]
- - fTP: 1.45(1.25), 2.25(2.00), 3 (2.375)
- - D: 21 (19)
+ - Modifiers: AGI 40%
+ - +20 Accuracy with attack
+
 
 [Bludgeon]
  - fTP: 0.8(1.0)
 
 [Screwdriver]
- - fTP: [0] 1.375 -> 1.6 [150] 2.0 [300] 3.0
- - dupper: 27 -> 31
+ - Modifiers: STR 40%, DEX 20%
+
+[Claw Cyclone]
+ - Modifiers: DEX 45%
 
 [Grand Slam]
- - WSC: 50% Vit, 50% Str
- - Dupper is 80
+ - Modifiers: VIT 60%
+ - -20 Accuracy, but much higher damage
+
+[Uppercut]
+ - Modifiers: STR 45%
+
+[Smite of Rage]
+ - Modifiers: STR 20%, DEX 20%
+
+
+[Pinecone Bomb]
+ - Instead inflicts Rasp for 90 seconds
+ - DoT: 1 + lvl / 5 (+/- 25% based on System Bonus)
+ - DoT affected by Magic Attack/Defense, and Earth Defense
+ - Both Duration and DoT increase drastically with TP during Chain Affinity.
+
+
+[Mandibular Bite]
+ - Modifiers: STR 40%
+
 
 [Terror Touch]
- - WSC: 20% Dex, 60(20)% Int
- - D cap: 43 (41)
- - Duration: 90 (60) seconds
+ - Modifiers: CHA 100%
+ - Damage is modified by Dark Defense and Magic Attack/Defense
+ - Inflicts -15% Attack Down for 90 seconds (+/-% based on System Bonus)
+ - Duration and power of Attack Down increases with TP (max of 360 seconds and -21% Attack)
 
 [Mandibular Bite]
  - D cap: 50 (45)
 
 [Sickle Slash]
- - WSC: 100(50)% Dex
- - D cap: 52 (49)
+ - Modifiers: DEX 70%
+ - +20% accuracy
 
-[Smite of Rage]
- - Set Points: 2 (3)
+[Spiral Spin]
+ - Modifiers: AGI 50%
+ - Inflicts -20 ACC (+/- 5 based on System Bonus) for 60 seconds; does not decay over time.
+ - Attack's power, and power of Accuracy Down, increases based on TP while under Chain Affinity.
 
-[Spinal Cleave]
- - WSC: 40(30)% Str
+[Dimensional Death]
+ - +25% damage against creatures with 33% current HP or lower
+ - Modifiers: STR 50%
 
-[Cannon Ball
- - WSC 50% Str, 100(50)% Vit
- - fTP: 2.1 (1.75), 2.65 (2.125), 3.55 (2.75)
+[Frypan]
+ - Modifiers: STR 50%
 
 [Hydro Shot]
- - WSC: 30% Agi, 30(0)% Int
- - Instead inflicts Drown.
+ - Modifiers: AGI 40%, INT 40%
+ - Reduces enmity towards target by up to 15% (partial if resisted)
+ - Damage is Water-based, and as such is affected by Water Defense and Magic Attack / Defense
+
+[Seedspray]
+ - Modifiers: AGI 40%
+ - Inflicts Defense Down (-15%; +/- 4% based on System Bonus) for 60 seconds 
+
+[Spinal Cleave]
+ - Modifiers: STR 60%
+ - -20% Accuracy
+
+[Death Scissors]
+ - Modifiers: DEX 60%
+ - +20% Accuracy
+
+[Frenetic Rip]
+ - Modifiers: STR 30%, DEX 30%
+
+[Hysteric Barrage]
+ - Recast: 60 seconds
+
+[Body Slam]
+ - Modifiers: VIT 60%
+
+[Sub-Zero Smash]
+ - Modifiers: INT 30%, STR 30%
+ - Recast: 60 seconds
+ - Paralyze Potency: 30% (+/- 6% based on System Bonus) for 30 seconds
+
+[Disseverment]
+ - Recast: 90 seconds
+ - Modifiers: DEX: 50%
+ - Poison DoT: Level / 4 + 3
 
 [Ram Charge]
- - WSC: 30% Str, 50% Mnd, 50(0)% Vit
- - fTP: 1.0(1.0), 3.0(1.75), 6.0(1.875)
+ - Modifiers: STR 100%
+
+[Vertical Cleave]
+ - Modifiers: STR 50%
+ - Wind-based (as such, affected by Wind Attack/Defense and Magic Attack/Defense)
 
 MAGICAL SPELLS
 
-All spell's damage have been increased slightly in addition to the following changes.
+ - All magical spell damage has been significantly increased
+ - Damage is influenced by system bonus
+ - System bonus also influences secondary effects (such as Accuracy Down, Poison, etc.)
+
 
 [Blastbomb]
- - Multiplier: 1.5 (1.375)
- - WSC: 40(20)% Int
- - D cap 32 (30)
+ - Modifiers: INT 30%
+ - Instead inflicts Magic Attack Down (-15%) and Magic Accuracy Down (-15) for 90 seconds.
 
 [Cursed Sphere]
- - Multiplier: 2 (1.5)
- - WSC: 50(30)% Int
- - D cap: 35 (30)
+ - Modifiers: INT 30%
 
 [Bomb Toss]
- - Multiplier: 2.8 (1.625)
- - D cap: 48 (40)
- - WSC: 50(20)% Int
+ - Modifiers: INT 35%
 
 [Death Ray]
- - Multiplier: 3.2 (1.625)
- - D cap: 61 (51)
- - WSC: 40(20)% Int, 20(10)% Mnd
+ - MND-based spell
+ - Modifiers: MND 35%
+ - Deals +33% damage against targets with 33% current HP or fewer
 
-[Blitztrahl]
- - Multiplier: 3.0 (1.5625)
- - D cap: 66 (61)
- - WSC: 60(30)% Int, 20(10)% Mnd
- - Trait: Undead Killer (+1 point)
-
-[Ice Break]
- - Multiplier: 3.8 (2.25)
- - T multiplier: 1.5
- - WSC: 60(30)% Int
-
-[Maelstrom]
- - Multiplier: 4.0 (2.375)
- - T multiplier: 1.75
- - WSC: 60(30)% Int, 20(10)% Mnd
- - Duppercap: 75
-
-[Firespit]
- - Multiplier: 4.5 (3.0)
- - T multiplier: 2.5
- - Duppercap: 75
- - WSC: 40(20)% Int, 40(20)% Mnd
 
 [Mysterious Light]
- - Multiplier: 3.4 (2.00)
- - WSC: 100(20)% Chr
- - Dupper: 68
+ - CHR-based spell
+ - Modifiers: MND 45%
+
+
+[Blitztrahl]
+ -Modifiers: INT 40%
+
+[Ice Break]
+ - Modifiers: INT 40%
+ - Instead inflicts Agi Down (-22) for 60 seconds.
+
+
+[Self Destruct]
+ - Sacrifices half of HP to deal additional damage to target.
+ - Modifiers: INT 40%
+ - Does not cause weakness.
+ - Recast: 120 (21) seconds.
 
 [Eyes on Me]
- - Multiplier: 4.0 ( 2.625)
- - T Multiplier: 2.0
- - WSC: 100(20)% Chr
- - Dupper: 69 -> 75
+ - Chr-Based Spell
+ - Modifiers: CHR 55%
+ - Recast: 40 (29) seconds.
+ - Generates double the normal amount of enmity
+ - Very high dCHR (benefits greatly from higher CHR)
+
+
+[Maelstrom]
+ - Modifiers: INT 60%
+ - Inflicts -40 STR (+/- 15 with System Bonus) for 60 seconds
+ - Recast: 60 (21) seconds.
+
+[Corrosive Ooze]
+ - Modifiers: INT 30%
+ - Inflicts -10% Attack and Defense for 60 seconds (+/- 3% based on System Acc)
+ - Only generates 25% of normal amount of hate due to damage
+
+[Sandspray]
+ - Now deals Earth damage, Int-Based
+ - Modifiers: INT 30%
+ - Inflicts -30 ACC for 90 seconds (+/-8 ACC based on System Bonus)
+
+[Firespit]
+ - Modifiers: INT 50%
+
+[Regurgitation]
+ - Modifiers: INT 30%
+ - +25% damage when behind target
+ - Only generates 25% of normal amount of hate due to damage
+
+[Mind Blast]
+ - MND-based spell
+ - Modifiers: MND 50%
+ - Paralysis: 25% for 60 seconds (+/-5% based on System Bonus)
+ - Also inflicts MND down (-25) for 60 seconds (+/- 5 based on System Bonus)
+
+
+
 
 DRAIN SPELLS
 
 [Blood Drain]
- - Drains: 1 + (0.66 * BLUE SKILL)
- - Casting time: 2(4) seconds
+ - Drains: 8 + (0.50 * BLUE SKILL)
+ - Casting Time 2(4) seconds
+ - Recast: 60 (24) seconds
 
 [Digest]
- - Drains: 10 + (0.9 * BLUE SKILL)
+ - Drains: 12 + (0.75 * BLUE SKILL)
  - Casting time 2(4) seconds
+ - Recast: 90 seconds
 
 [Blood Saber]
- - Drains: 10 + (0.9 * BLUE SKILL)
+ - Drains: 25 + (0.75 * BLUE SKILL)
  - Casting time 2(4) seconds
+ - Recast: 90 seconds
 
 [MP Drainkiss]
  - Casting time: 2(4) seconds
@@ -134,102 +244,79 @@ current HP percentage. So at 50%, a breath spell will
 only deal 50% of its normal damage.
 
 [Poison Breath]
- - Multiplier: 1.5
- - T Multiplier: 1.0
- - WSC: 100% Vit
- - D Cap: 40
- - Poison: (1 + level / 4)/tic, max of 10.
+ - Modifiers: VIT 25%
+ - Poison: 1 + 1 per 4 levels (max of 10); +/- 25% based on System Bonus
 
 [Magnetite Cloud]
- - Multiplier: 3.4
- - MP: 60 (84) 
- - Casting Time: 2 (4) seconds
- - T Multiplier: 1.25
- - WSC: 100% Vit
- - D Cap: 55
+ - Modifiers: VIT 40%
 
 [Hecatomb Wave]
- - Multiplier: 3.8
- - T Multiplier: 1.5
- - 3 (5) seconds
- - WSC: 100% Vit
- - D Cap: 65
- - Blind is -25 ACC
+ - Modifiers: VIT 40%
+ - Blindness: -20 ACC (+/- 5 based on System Bonus) for 90 seconds.
+
 
 [Radiant Breath]
- - Multiplier: 3.6
- - Casting Time: 3 (5) seconds
- - T Multiplier: 1.5
- - WSC: 100% Vit
- - MP 80 (116)
- - D Cap: 65
- - Slow power: 225
+ - Modifiers: VIT 40%
+ - Slow Potency: 225 (+/- 50 based on System Bonus) for 60 seconds
+ - Silence: 60 seconds
 
 [Flying Hip Press]
- - Multiplier: 3.9
- - T Multiplier: 1.75
- - MP 105 (125)
- - Casting Time: 3 (5) seconds
- - WSC: 100% Vit
- - D Cap: 70
+ - Modifiers: VIT 50%
 
 [Bad Breath]
- - Multiplier: 2.9
- - T Multiplier: 1.75
- - WSC: 100% Vit
- - D Cap: 75
- - Poison: 10/tic
- - Paralyze: 25% chance of losing action
- - Slow: comparable to Slow spell
+ - Modifiers: VIT 40%
+ - Poison DoT: 1 + level / 5 (+/- 25% based on System Bonus)
+ - Paralyze: 20% chance of losing action (+/- 5% based on System Bonus)
+ - Slow Potency: 190 (+/- 50 based on System Bonus)
+ - Petrification (instead of Bind): 4 seconds (+/- 2 seconds based on System Bonus)
+ - Weight: 50 (+/- 15 based on System Bonus)
  - MP: 160 (212)
-- Casting Time: 5 (8.8) second
- - Blind: -25 ACC
+
 
 [Frost Breath]
- - Multiplier: 4.4
- - T Multiplier: 2
- - WSC: 100% Vit
- - D Cap: 75
- - Casting Time: 4.25 (6) seconds
- - MP: 136
- - Paralyze: 25% chance of losing action
+ - Modifiers: 50% VIT
+ - Paralysis: 20% chance of losing action (+/- 5% based on System Bonus)
 
 [Heat Breath]
- - Multiplier: 5.0
- - T Multiplier: 2.5
- - 140 (169) MP
- - 5 (7) seconds
- - WSC: 100% Vit
- - D Cap: 75
+ - Multiplier: 55% VIT
+ - Inflicts a potent Burn for 60 seconds
 
 
 
 --------
 ENHANCING SPELLS
 
+[Metallic Skin]
+ - Formula is: Blue Skill / 2 + Level + 5
+ - Hard Caps at 225 (instead of 150)
+ - Azure Lore: amount absorbed is increased by 100%
 
 [Refueling]
  - Haste is 15(10)%
- - Set Points: 3 (4)
+ - Azure Lore: Haste increases to 22%
  - Trait: Undead Killer +1
- - 10 (29) MP
+ - 20 (29) MP
 
 [Feather Barrier]
- - Duration: 5(1.3)min
- - +20 EVA
- - 10 (29) MP
+ - Duration: 2 minutes
+ - +50 EVA, decays over time (duration is doubled and does not decay over time with Azure Lore)
+ - 18 (29) MP
 
 [Memento Mori]
- - Casting Time: 0.5(3) seconds
+ - Casting Time: 2(3) seconds
  - +35(20) MATK
- - 40 (56) MP
+ - 38 (46) MP
 
 [Voracious Trunky]
- - Casting Time: 2 (10) seconds
+ - Casting Time: 5 (10) seconds
 
 [Diamondhide]
- - Prevents damage equal to BLUE SKILL
+ - Prevents damage equal to BLUE SKILL x 0.8
+ - MP: 75 (99)
  - Cast Time: 5 (7) seconds
+
+[Triumphant Roar]
+ - Attack Boost: 22% (up from 15%)
 
 [Warmup]
  - Duration: 600 (300) seconds
@@ -238,9 +325,18 @@ ENHANCING SPELLS
  - Duration: 600 (90) seconds
 
 [Saline Coat]
- - Duration: 600 (60) seconds
- - 30 (66) MP
+ - Duration: 360 seconds
+ - 45 (66) MP
  - +30 MDEF
+
+[Reactor Cool]
+ - Ice Spikes: 30 damage, 180 seconds
+ - Defense Boost: +15% for 180 seconds
+ - While Ice Spikes is active, regenerate 12 HP/tic
+
+[Plasma Charge]
+ - Shock Spikes: 15 damage, 180 seconds
+ - While Shock Spikes is active, regain 1 MP/tic
 
 
 -------
@@ -248,7 +344,7 @@ EFEEBLING SPELLS
 
 [Sound Blast]
  - Casting Time: 2 (4) second
- - INT penalty: -20
+ - INT penalty: -20 (+/- 6 based on system), does not decay over time
  - MP: 15 (25)
  - Duration: 120 (30) seconds
  - Set Bonus: +2 INT
@@ -283,22 +379,20 @@ EFEEBLING SPELLS
  - Duration: 90 seconds
 
 [Awful Eye]
- - Casting Time: 1 (2.5) seconds
- - STR Penalty: -20
- - 10 (32) MP
- - Duration: 120 Seconds
- - Blue Points: 1 (2)
- - Set Bonus: +1 MND, +2 CHR
+ - CHR-based spell
+ - Casting Time: 1.5 (2.5) seconds
+ - STR Penalty: -10 + (-1 per 3 levels). (+/- 25% based on System Bonus)
+ - Duration: 180 Seconds
+ - MP: 20 (32)
+
 
 [Jettatura]
- - Blue Points: 2 (4)
- - MP: 20 (37)
- - Set Bonus: +15 MP, +2 AGI
+ - Duration: 12 seconds
 
 [Filamented Hold]
- - Blue Points: 2 (3)
- - MP: 20 (38)
- - Set Bonus: +2 VIT, +10 HP
+ - Equivalent of a max power Slow
+ - Lasts for 180 seconds
+ - (+/- 25% potency and duration based on System Bonus)
 
 [Light of Penance]
  - Lowers TP by 500 (100)
@@ -321,13 +415,6 @@ EFEEBLING SPELLS
  - Set Bonus: Int +3
  - Duration: 120 (60) seconds
 
-[Sandspray]
- - Casting Time: 1.5 (3) seconds
- - MP: 28 (43)
- - Blue Points: 1 (3)
- - Set Bonus: VIT +2, HP +10
- - Blind: -30 (25) ACC
- - Duration: 120 (60) seconds
 
 [Ennervation]
  - Casting Time: 2 (3.5) seconds
@@ -337,11 +424,16 @@ EFEEBLING SPELLS
  - Duration 90 (30) seconds
 
 [Lowing]
- - Casting Time: 3.5 (7) seconds
- - MP: 45 (66)
- - Stat Bonus: VIT +2, HP +20
  - Duration: 120 seconds
+ - MND-based
+ - Plague Potency: -60 TP and -6 MP each tic.
 
+[Frightful Roar]
+ - Defense Down: -15% (-10%), (+/- 4% based on System Bonus)
+ - Duration: 180 seconds
+
+[Yawn]
+ - Also inflicts Regain Down (-40 TP/tic) on sleeping targets. 
 -------
 HEALING SPELLS
 
@@ -387,11 +479,7 @@ OTHER
 [Regeneration]
  - Duration 300 (90) seconds
 
-[Self Destruct]
- - Sacrifices half of HP to deal damage to target.
- - Does not cause weakness.
- - Recast: 60 (21) seconds.
- - Set Bonus: STR +2, HP +20
+
 
 
 -------------------------------

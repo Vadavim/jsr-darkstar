@@ -30,6 +30,13 @@ function onUseAbility(player,target,ability)
         thfLevel = player:getSubLvl();
     end
 
+    local tpSteal = target:getTP() * 0.25;
+    player:addTP(tpSteal);
+    local agi = player:getStat(MOD_AGI);
+    target:delHP(agi * 4);
+    player:addHP(agi * 4);
+
+
     local mugChance = 90 + thfLevel - target:getMainLvl();
 
     if (target:isMob() and math.random(100) < mugChance and target:getMobMod(MOBMOD_MUG_GIL) > 0) then

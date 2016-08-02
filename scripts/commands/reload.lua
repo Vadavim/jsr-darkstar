@@ -16,6 +16,7 @@ function onTrigger(player, file)
     package.loaded["scripts/globals/summon"] = nil;
     package.loaded["scripts/globals/jsr_utils"] = nil;
     package.loaded["scripts/globals/weaponskills"] = nil;
+    package.loaded["scripts/globals/bluemagic"] = nil;
     package.loaded["scripts/globals/weaponskills/armor_break"] = nil;
     package.loaded["scripts/commands/buy"] = nil;
     package.loaded["scripts/commands/test"] = nil;

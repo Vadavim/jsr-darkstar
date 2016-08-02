@@ -31,21 +31,35 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    local typeEffect = EFFECT_BLINDNESS;
-    local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
-    local resist = applyResistanceEffect(caster,spell,target,dINT,BLUE_SKILL,0,typeEffect);
-    local duration = 120 * resist;
-    local power = 30;
-    
-    if (resist > 0.5) then -- Do it!
-        if (target:addStatusEffect(typeEffect,power,0,duration)) then
-            spell:setMsg(236);
-        else
-            spell:setMsg(75);
-        end
-    else
-        spell:setMsg(85);
-    end;
+    local params = {};
+    -- This data should match information on http://wiki.ffxiclopedia.org/wiki/Calculating_Blue_Magic_Damage
+    local multi = 1.5;
+    if (caster:hasStatusEffect(EFFECT_AZURE_LORE)) then
+        multi = multi + 0.50;
+    end
+    spell:setMsg(2);
+    params.multiplier = multi;
+    params.tMultiplier = 4.0;
+    params.duppercap = 75;
+    params.str_wsc = 0.0;
+    params.dex_wsc = 0.0;
+    params.vit_wsc = 0.0;
+    params.agi_wsc = 0.0;
+    params.int_wsc = 0.3;
+    params.mnd_wsc = 0.0;
+    params.chr_wsc = 0.0;
+    params.enmityMult = 0.25;
+    damage = BlueMagicalSpell(caster, target, spell, params, INT_BASED);
+    damage = BlueFinalAdjustments(caster, target, spell, damage, params);
 
-    return typeEffect;
+    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT) - target:getStat(MOD_INT),BLUE_SKILL,1.0);
+
+    if (damage > 0 and resist >= 0.25) then
+        local power = 30 + getSystemBonus(caster,target,spell) * 8;
+        target:delStatusEffectSilent(EFFECT_BLINDNESS);
+        target:addStatusEffect(EFFECT_BLINDNESS, power, 0, 90 * resist);
+        target:setPendingMessage(277, EFFECT_BLINDNESS);
+    end
+
+    return damage;
 end;

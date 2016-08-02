@@ -43,7 +43,7 @@ function onSpellCast(caster,target,spell)
         params.azuretp = 1.4375;
         params.duppercap = 23;
         params.str_wsc = 0.0;
-        params.dex_wsc = 0.3;
+        params.dex_wsc = 0.45;
         params.vit_wsc = 0.0;
         params.agi_wsc = 0.0;
         params.int_wsc = 0.0;

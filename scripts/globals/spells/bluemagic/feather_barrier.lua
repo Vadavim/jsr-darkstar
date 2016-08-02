@@ -33,8 +33,14 @@ end;
 function onSpellCast(caster,target,spell)
 
     local typeEffect = EFFECT_EVASION_BOOST;
-    local power = 20;
-    local duration = 180;
+    local power = 50;
+    local duration = 120;
+    local tic = 3;
+    if (caster:hasStatusEffect(EFFECT_AZURE_LORE)) then
+        duration = 240;
+        tic = 0;
+    end
+
 
     if (caster:hasStatusEffect(EFFECT_DIFFUSION)) then
         local diffMerit = caster:getMerit(MERIT_DIFFUSION);
@@ -46,7 +52,8 @@ function onSpellCast(caster,target,spell)
         caster:delStatusEffect(EFFECT_DIFFUSION);
     end;
 
-    if (target:addStatusEffect(typeEffect,power,0,duration) == false) then
+    target:delStatusEffectSilent(EFFECT_EVASION_BOOST);
+    if (target:addStatusEffect(typeEffect,power,tic,duration) == false) then
         spell:setMsg(75);
     end;
 

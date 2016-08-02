@@ -49,15 +49,26 @@ function onSpellCast(caster,target,spell)
         params.int_wsc = 0.0;
         params.mnd_wsc = 0.0;
         params.chr_wsc = 0.0;
+    local duration = 30;
+    local power = 15 + getSystemBonus(caster,target,spell);
+    if (caster:hasStatusEffect(EFFECT_CHAIN_AFFINITY)) then
+        duration = duration + caster:getTP() / 100;
+        power = power + caster:getTP() / 100;
+    end
+
     damage = BluePhysicalSpell(caster, target, spell, params);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
-   
-    if (target:hasStatusEffect(EFFECT_VIT_DOWN)) then
-        spell:setMsg(75); -- no effect
-    else    
-        target:addStatusEffect(EFFECT_VIT_DOWN,15,0,20);
+
+
+
+
+    local resist = applyResistance(caster,spell,target,60,BLUE_SKILL);
+    if (damage > 0 and resist >= 0.25) then
+        target:addStatusEffect(EFFECT_VIT_DOWN,power,3,duration * resist);
+        target:setPendingMessage(278, EFFECT_VIT_DOWN);
     end
-    
+
+
     return damage;
 
 end;

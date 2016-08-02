@@ -30,7 +30,7 @@ end;
 
 function onSpellCast(caster,target,spell)
     local dINT = caster:getStat(MOD_INT) - target:getStat(MOD_INT);
-    local resist = applyResistanceEffect(caster,spell,target,dINT,SKILL_BLU,0,EFFECT_STUN)
+    local resist = applyResistanceEffect(caster,spell,target,dINT,SKILL_BLU,20,EFFECT_STUN)
     local params = {};
     -- This data should match information on http://wiki.ffxiclopedia.org/wiki/Calculating_Blue_Magic_Damage
         params.tpmod = TPMOD_ATTACK;
@@ -38,10 +38,11 @@ function onSpellCast(caster,target,spell)
         params.scattr = SC_REVERBERATION;
         params.numhits = 1;
         params.multiplier = 1.625;
-        params.tp150 = 1.625;
-        params.tp300 = 1.625;
+        params.tp150 = 2.625;
+        params.tp300 = 3.625;
         params.azuretp = 1.625;
         params.duppercap = 75;
+        params.dbonus = 20;
         params.str_wsc = 0.2;
         params.dex_wsc = 0.0;
         params.vit_wsc = 0.5;
@@ -52,8 +53,8 @@ function onSpellCast(caster,target,spell)
     local damage = BluePhysicalSpell(caster, target, spell, params);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
 
-    if (resist > 0.5) then -- This line may need adjusting for retail accuracy.
-        target:addStatusEffect(EFFECT_STUN, 1, 0, 5 * resist); -- pre-resist duration needs confirmed/adjusted
+    if (resist >= 0.25) then -- This line may need adjusting for retail accuracy.
+        target:addStatusEffect(EFFECT_STUN, 1, 0, (6 + getSystemBonus(caster,target,spell) * 2) * resist); -- pre-resist duration needs confirmed/adjusted
     end
 
     return damage;

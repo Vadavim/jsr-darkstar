@@ -83,7 +83,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
     local ccmax = 0;
     local hasMightyStrikes = attacker:hasStatusEffect(EFFECT_MIGHTY_STRIKES);
     local isSneakValid = attacker:hasStatusEffect(EFFECT_SNEAK_ATTACK);
-    if (isSneakValid and not (attacker:isBehind(target) or attacker:hasStatusEffect(EFFECT_HIDE))) then
+    if (isSneakValid and not attacker:hasStatusEffect(EFFECT_INTIMIDATE) and not (attacker:isBehind(target) or attacker:hasStatusEffect(EFFECT_HIDE))) then
         isSneakValid = false;
     end
     attacker:delStatusEffectsByFlag(EFFECTFLAG_DETECTABLE);
@@ -131,7 +131,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
     -- Applying pDIF
     local pdif = generatePdif (cratio[1], cratio[2], true);
 
-    local firsthit = math.random();
+    local firsthit = math.random() - 0.3;
     local finaldmg = 0;
     local hitrate = getHitRate(attacker,target,true,bonusacc);
     if (params.acc100~=0) then
@@ -290,7 +290,7 @@ function applyResistanceWeaponskill(attacker, target, params, tp, element, skill
 
     local bonusTP = params.bonusTP or 0
     local bonusfTP, bonusacc = handleWSGorgetBelt(attacker);
-    bonusacc = bonusacc + attacker:getMod(MOD_WSACC) + 20 + (20 * (tp - 1000) / 2000); --JSR: magic weaponskills more accurate
+    bonusacc = bonusacc + attacker:getMod(MOD_WSACC) + 80 + (20 * (tp - 1000) / 2000); --JSR: magic weaponskills more accurate
     if (params.additionalEffectAcc ~= nil) then bonusacc = bonusacc + params.additionalEffectAcc end;
     local p = applyResistanceAbility(attacker,target,element,skill, bonusacc);
     return p;
@@ -303,7 +303,7 @@ function doMagicWeaponskill(attacker, target, wsID, params, tp, primary)
 
     local bonusTP = params.bonusTP or 0
     local bonusfTP, bonusacc = handleWSGorgetBelt(attacker);
-    bonusacc = bonusacc + attacker:getMod(MOD_WSACC) + 20; --JSR: magic weaponskills more accurate
+    bonusacc = bonusacc + attacker:getMod(MOD_WSACC) + 80; --JSR: magic weaponskills more accurate
     if (params.bonusACC) then
         bonusacc = bonusacc + params.bonusACC;
     end
@@ -321,14 +321,14 @@ function doMagicWeaponskill(attacker, target, wsID, params, tp, primary)
     end
 
 
-    local fint = utils.clamp(8 + (attacker:getStat(MOD_INT) - target:getStat(MOD_INT)), -32, 32) * params.int_wsc;
-    local fmnd = utils.clamp(8 + (attacker:getStat(MOD_MND) - target:getStat(MOD_MND)), -32, 32) * params.mnd_wsc;
-    local fchr = utils.clamp(8 + (attacker:getStat(MOD_CHR) - target:getStat(MOD_CHR)), -32, 32) * params.chr_wsc;
-    local fstr = utils.clamp(8 + (attacker:getStat(MOD_STR) - target:getStat(MOD_STR)), -32, 32) * params.str_wsc;
-    local fdex = utils.clamp(8 + (attacker:getStat(MOD_DEX) - target:getStat(MOD_DEX)), -32, 32) * params.dex_wsc;
-    local fagi = utils.clamp(8 + (attacker:getStat(MOD_AGI) - target:getStat(MOD_AGI)), -32, 32) * params.agi_wsc;
-    local fvit = utils.clamp(8 + (attacker:getStat(MOD_VIT) - target:getStat(MOD_VIT)), -32, 32) * params.vit_wsc;
-    local dmg = attacker:getMainLvl() * 1.5 + 2 + (attacker:getStat(MOD_STR) * params.str_wsc + attacker:getStat(MOD_DEX) * params.dex_wsc +
+    local fint = utils.clamp((attacker:getStat(MOD_INT) - target:getStat(MOD_INT)), -32, 32) * params.int_wsc;
+    local fmnd = utils.clamp((attacker:getStat(MOD_MND) - target:getStat(MOD_MND)), -32, 32) * params.mnd_wsc;
+    local fchr = utils.clamp((attacker:getStat(MOD_CHR) - target:getStat(MOD_CHR)), -32, 32) * params.chr_wsc;
+    local fstr = utils.clamp((attacker:getStat(MOD_STR) - target:getStat(MOD_STR)), -32, 32) * params.str_wsc;
+    local fdex = utils.clamp((attacker:getStat(MOD_DEX) - target:getStat(MOD_DEX)), -32, 32) * params.dex_wsc;
+    local fagi = utils.clamp((attacker:getStat(MOD_AGI) - target:getStat(MOD_AGI)), -32, 32) * params.agi_wsc;
+    local fvit = utils.clamp((attacker:getStat(MOD_VIT) - target:getStat(MOD_VIT)), -32, 32) * params.vit_wsc;
+    local dmg = attacker:getMainLvl() * 1.5  + 2 + (attacker:getStat(MOD_STR) * params.str_wsc + attacker:getStat(MOD_DEX) * params.dex_wsc +
          attacker:getStat(MOD_VIT) * params.vit_wsc + attacker:getStat(MOD_AGI) * params.agi_wsc +
          attacker:getStat(MOD_INT) * params.int_wsc + attacker:getStat(MOD_MND) * params.mnd_wsc +
          attacker:getStat(MOD_CHR) * params.chr_wsc) + fint + fmnd + fchr + fstr + fdex + fagi + fvit;
@@ -342,7 +342,8 @@ function doMagicWeaponskill(attacker, target, wsID, params, tp, primary)
     dmg = dmg * ftp;
 
     if (wsID ~= 0 and isAoEWeaponskill(wsID)) then
-        if (target:getModelSize() >= 1) then dmg = dmg * 1.25; end;
+        print("HREE");
+        if (target:getModelSize() >= 4) then dmg = dmg * 1.25; end;
         if (target:getFamily() == 47) then dmg = dmg * 1.33; end
     end
 --    dmg = addBonusesAbility(attacker, params.ele, target, dmg, params);
@@ -904,6 +905,12 @@ end;
         if (target:getModelSize() >= 1) then finaldmg = finaldmg * 1.25; end;
         if (target:getFamily() == 47) then finaldmg = finaldmg * 1.33; end
     end
+
+    if (params.ele ~= nil and params.ele > 0) then
+        finaldmg = addBonusesWeaponskill(attacker, params.ele, target, finaldmg, params);
+    end
+
+
     finaldmg = target:rangedDmgTaken(finaldmg);
     finaldmg = finaldmg * target:getMod(MOD_PIERCERES) / 1000;
 

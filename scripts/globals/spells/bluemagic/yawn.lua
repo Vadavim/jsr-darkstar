@@ -34,13 +34,19 @@ function onSpellCast(caster,target,spell)
 
     local typeEffect = EFFECT_SLEEP_II;
     local dINT = (caster:getStat(MOD_INT) - target:getStat(MOD_INT));
-    local resist = applyResistanceEffect(caster,spell,target,dINT,BLUE_SKILL,0,typeEffect);
+    local resist = applyResistanceEffect(caster,spell,target,dINT,BLUE_SKILL,10,typeEffect);
     local duration = 90 * resist;
 
-    if (resist > 0.5) then -- Do it!
+    if (resist >= 0.5) then -- Do it!
         if ((target:isFacing(caster))) then -- TODO: Apparently this check shouldn't exist for enemies using this spell? Need more info.
             if (target:addStatusEffect(typeEffect,2,0,duration)) then
                 spell:setMsg(236);
+                local sleep = target:getStatusEffect(EFFECT_SLEEP_II);
+                if (sleep ~= nil) then
+                    target:addMod(MOD_REGAIN_DOWN, 3 + getSystemBonus(caster,target,spell) * 1);
+                    sleep:addMod(MOD_REGAIN_DOWN, 3 + getSystemBonus(caster,target,spell) * 1);
+                end
+
             else
                 spell:setMsg(75);
             end;

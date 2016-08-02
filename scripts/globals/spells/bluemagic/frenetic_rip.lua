@@ -38,12 +38,12 @@ function onSpellCast(caster,target,spell)
         params.scattr = SC_INDURATION;
         params.numhits = 3;
         params.multiplier = 1.36;
-        params.tp150 = 2.08;
-        params.tp300 = 2.36;
+        params.tp150 = 2.2;
+        params.tp300 = 3.5;
         params.azuretp = 2.61;
-        params.duppercap = 75; -- D upper >=69
-        params.str_wsc = 0.2;
-        params.dex_wsc = 0.2;
+        params.duppercap = 80; -- D upper >=69
+        params.str_wsc = 0.3;
+        params.dex_wsc = 0.3;
         params.vit_wsc = 0.0;
         params.agi_wsc = 0.0;
         params.int_wsc = 0.0;

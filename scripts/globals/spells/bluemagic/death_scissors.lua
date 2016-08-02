@@ -37,13 +37,15 @@ function onSpellCast(caster,target,spell)
         params.dmgtype = DMGTYPE_SLASH;
         params.scattr = SC_COMPRESSION;
         params.numhits = 1;
-        params.multiplier = 1.5;
-        params.tp150 = 2.75;
-        params.tp300 = 3.25;
+        params.multiplier = 2.4;
+        params.tp150 = 3.5;
+        params.tp300 = 5.5;
         params.azuretp = 3.3;
-        params.duppercap = 74; -- >=69 D  
-        params.str_wsc = 0.6;
-        params.dex_wsc = 0.0;
+        params.duppercap = 74; -- >=69 D
+        params.dbonus = 0;
+        params.bonusAcc = 20;
+        params.str_wsc = 0.0;
+        params.dex_wsc = 0.6;
         params.vit_wsc = 0.0;
         params.agi_wsc = 0.0;
         params.int_wsc = 0.0;

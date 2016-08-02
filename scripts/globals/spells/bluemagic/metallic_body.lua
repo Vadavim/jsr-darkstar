@@ -34,12 +34,16 @@ function onSpellCast(caster,target,spell)
 
     local typeEffect = EFFECT_STONESKIN
     local blueskill = caster:getSkillLevel(BLUE_SKILL);
-    local power = (blueskill/3) + (caster:getMainLvl()/3) + 10;
+    local power = (blueskill/2) + (caster:getMainLvl()) + 5;
     local duration = 300;
 
-    if (power > 150) then
-        power = 150;
+    if (power > 250) then
+        power = 250;
     end;
+    if (caster:hasStatusEffect(EFFECT_AZURE_LORE)) then
+        power = power * 2;
+    end
+
 
     if (caster:hasStatusEffect(EFFECT_DIFFUSION)) then
         local diffMerit = caster:getMerit(MERIT_DIFFUSION);

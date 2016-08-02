@@ -17,7 +17,7 @@ end;
 function onSpellCast(caster, target, spell)
     local spellParams = {};
     spellParams.hasMultipleTargetReduction = false;
-    spellParams.resistBonus = 1.0;
+    spellParams.resistBonus = 30;
     spellParams.V0 = 800;
     spellParams.V50 = 900;
     spellParams.V100 = 1000;
@@ -27,7 +27,7 @@ function onSpellCast(caster, target, spell)
     spellParams.M100 = 2;
     spellParams.M200 = 2;
 
-    target:addStatusEffect(EFFECT_MAGIC_DEF_DOWN_II, 5, 0, 15);
+    target:addStatusEffect(EFFECT_MAGIC_DEF_DOWN_II, 5, 0, 60);
     local effect = target:getStatusEffect(EFFECT_MAGIC_DEF_DOWN_II)
     if (effect ~= nil) then
         effect:addMod(MOD_FIRERES, -30);

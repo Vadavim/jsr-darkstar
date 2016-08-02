@@ -16,18 +16,17 @@ TRAIT CHANGES
  - Gains Resist Blind at levels 15, 25, 45, and 65
  - Has Dual-Wield I/II/III at levels 20 / 40 / 60
  - Triple Attack increases to 8% at level 70
- - +10 / +22 Accuracy at Levels 30 and 65
- - Crit Damage Bonus (+15%) at level 20, and +5% per every 15 levels thereafter
+ - Crit Damage Bonus (+5%) at levels 20, 40, 60, and 75
 
 
 ABILITY CHANGES
 
 [Steal]
- - Instead steals a temporary item (such as a potion).
- - The type of item depends upon the monster's level.
+ - Steals a temporary item.
+
 
 [Mug]
- - Also steals the target's TP (up to 100).
+ - Mug also deals physical damage based on AGI, stealing HP and TP in the process.
 
 [Flee]
  - Duration is instead 90 seconds.
@@ -37,11 +36,31 @@ ABILITY CHANGES
  - Gained at level 10 instead of 45.
  - Grants 2 shadows when used.
 
-[Despoil]
+[Collaborator / Accomplice]
+ - Both of ally's CE and VE are converted into VE when tranferred to thief
+	- This means that all of the transferred hate will decay quickly on the thief
+ - Collaborator Recast: 90 seconds
+ - Accomplice Recast: 180 seconds
+
+
+
+[Larceny]
  - Gained at level 45 instead of 77.
+
+[Despoil]
+ - Gained at level 50
+ - Inflicts a random status down effect (such as Attack Down) and grants a status boost effect to Thief.
+ - Will not inflict a status effect that target already has.
+ - Resist is AGI-based and benefits from Steal bonus.
+ - Duration for both is 90 seconds
 
 [Bully]
  - Gained at level 55 instead of 93.
+ - Recast is 5 minutes
+ - Lasts for 30 seconds (gives 30% intimidation chance)
+ - Resistance is based on Charisma and Fire Resistance
+ - While target is intimidated, can use Sneak Attack from any angle.
 
 [Conspirator]
  - Gained at level 70 instead of 87.
+ - Grants +40 Subtle Blow, +15 Accuracy, +15 Ranged Accuracy, and +15 Magic Accuracy for duration.

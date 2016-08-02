@@ -303,8 +303,8 @@ void CEnmityContainer::LowerEnmityByPercent(CBattleEntity* PEntity, uint8 percen
         {
             UpdateEnmity(HateReceiver, 0, 0);
             EnmityList_t::iterator PEnmityReceiver = m_EnmityList.lower_bound(HateReceiver->id);
-            PEnmityReceiver->second->CE = dsp_cap(PEnmityReceiver->second->CE + CEValue,1,10000);
-            PEnmityReceiver->second->VE = dsp_cap(PEnmityReceiver->second->VE + VEValue,0,10000);
+//            PEnmityReceiver->second->CE = dsp_cap(PEnmityReceiver->second->CE + CEValue,1,10000);
+            PEnmityReceiver->second->VE = dsp_cap(PEnmityReceiver->second->VE + VEValue + CEValue,0,10000 );
         }
     }
 

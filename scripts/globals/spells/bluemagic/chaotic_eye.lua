@@ -32,7 +32,7 @@ function onSpellCast(caster,target,spell)
     local typeEffect = EFFECT_SILENCE;
     local dINT = (caster:getStat(MOD_INT) - target:getStat(MOD_INT));
     local resist = applyResistanceEffect(caster,spell,target,dINT,BLUE_SKILL,0,typeEffect);
-    local duration = 180 * resist;
+    local duration = (180 + getSystemBonus(caster, target, spell) * 30) * resist;
 
     if (resist > 0.5) then -- Do it!
         if (target:isFacing(caster)) then

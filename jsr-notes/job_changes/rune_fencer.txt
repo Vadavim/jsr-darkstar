@@ -37,15 +37,20 @@ ABILITY CHANGES
 
 [Elemental Sforzo]
 
- - Instead grants the following effects if you have at least one rune of the following.
-	- Unda: Restores 100% Maximum HP. 
-	- Ignis: +25% Double Attack for 2 minutes.
+
+ - Instead grants the following effects if you have at least one rune of the following. 
+	- Unda: -50% magical damage received
+	- Ignis: +20% Attack for 2 minutes.
 	- Tellus: -25% physical damage received for 2 minutes.
-	- Flabra: 4 Shadows
-	- Sulpor: +25% Critical Hit Chance for 2 minutes.
-	- Gelus: -50% magical damage received for 2 minutes.
-	- Lux: Regains 5% TP per 3 seconds for 2 minutes.
+	- Flabra: +25 Evasion and Parry for 2 minutes
+	- Sulpor: +20% Critical Hit Chance for 2 minutes.
+	- Gelus: +30 Magic Attack and Magic Accuracy for 2 minutes
+	- Lux: Restores 100% Maximum HP
 	- Tenebrae: Restores 100% Maximum MP.
+
+  - Finally, for the duration, enspell damage and spike damage is greatly increased, and runes are not consumed.
+
+
 
 [Vivacious Pulse]
  - Base healing is equal to Divine Skill.

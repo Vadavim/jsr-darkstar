@@ -27,23 +27,23 @@ function onUseAbility(player,target,ability)
     end
 
 
-    if (player:getMainJob() ~= 1) then
-        return;
-    end
-
-    if (player:hasStatusEffect(EFFECT_DEFENDER)) then
-        local power = 1 + player:getMainLvl() / 5;
-        player:addStatusEffect(EFFECT_VIT_BOOST_II, power, 0, 15);
-    elseif (player:hasStatusEffect(EFFECT_BERSERK)) then
-        local power = 1 + player:getMainLvl() / 5;
-        player:addStatusEffect(EFFECT_STR_BOOST_II, power, 0, 15);
-
-        local cDif = 2 * (player:getStat(MOD_CHR) - target:getStat(MOD_CHR));
-        local resist = applyResistanceAbility(player, target, ELE_FIRE, 0, cDif);
-        if (resist > 0.125) then
-            target:addStatusEffect(EFFECT_STUN, 1, 0, 3);
-            target:setPendingMessage(277, EFFECT_STUN);
-        end
-    end
+--    if (player:getMainJob() ~= 1) then
+--        return;
+--    end
+--
+--    if (player:hasStatusEffect(EFFECT_DEFENDER)) then
+--        local power = 1 + player:getMainLvl() / 5;
+--        player:addStatusEffect(EFFECT_VIT_BOOST_II, power, 0, 15);
+--    elseif (player:hasStatusEffect(EFFECT_BERSERK)) then
+--        local power = 1 + player:getMainLvl() / 5;
+--        player:addStatusEffect(EFFECT_STR_BOOST_II, power, 0, 15);
+--
+--        local cDif = 2 * (player:getStat(MOD_CHR) - target:getStat(MOD_CHR));
+--        local resist = applyResistanceAbility(player, target, ELE_FIRE, 0, cDif);
+--        if (resist > 0.125) then
+--            target:addStatusEffect(EFFECT_STUN, 1, 0, 3);
+--            target:setPendingMessage(277, EFFECT_STUN);
+--        end
+--    end
 
 end;

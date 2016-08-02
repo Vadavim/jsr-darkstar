@@ -16,7 +16,7 @@ function onSpellCast(caster,target,spell)
     local pINT = caster:getStat(MOD_INT);
     local mINT = target:getStat(MOD_INT);
     local dINT = (pINT - mINT);
-    local resm = applyResistanceEffect(caster,spell,target,dINT,ENFEEBLING_MAGIC_SKILL,0,EFFECT_SLEEP_I);
+    local resm = applyResistanceEffect(caster,spell,target,dINT,ENFEEBLING_MAGIC_SKILL,10,EFFECT_SLEEP_I);
     if (resm < 0.5) then
         spell:setMsg(85);--resist message
         return EFFECT_SLEEP_I;

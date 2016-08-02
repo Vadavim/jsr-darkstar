@@ -42,17 +42,17 @@ function onSpellCast(caster,target,spell)
         params.tp300 = 1.78;
         params.azuretp = 1.78;
         params.duppercap = 75;
-        params.str_wsc = 0.2;
+        params.str_wsc = 0.5;
         params.dex_wsc = 0.0;
         params.vit_wsc = 0.0;
         params.agi_wsc = 0.0;
         params.int_wsc = 0.0;
-        params.mnd_wsc = 0.2;
+        params.mnd_wsc = 0;
         params.chr_wsc = 0.0;
     local damage = BluePhysicalSpell(caster, target, spell, params);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
 
-    if (resist > 0.5) then -- This line may need adjusting for retail accuracy.
+    if (resist >= 0.25) then -- This line may need adjusting for retail accuracy.
         target:addStatusEffect(EFFECT_STUN, 1, 0, 5 * resist); -- pre-resist duration needs confirmed/adjusted
     end
 

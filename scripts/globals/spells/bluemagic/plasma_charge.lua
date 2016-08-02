@@ -33,8 +33,9 @@ end;
 function onSpellCast(caster,target,spell)
 
     local typeEffect = EFFECT_SHOCK_SPIKES;
-    local power = 5;
-    local duration = 60;
+    local power = 15;
+    local duration = 180;
+    local notHave = target:hasStatusEffect(EFFECT_SHOCK_SPIKES);
 
     if (caster:hasStatusEffect(EFFECT_DIFFUSION)) then
         local diffMerit = caster:getMerit(MERIT_DIFFUSION);
@@ -49,6 +50,13 @@ function onSpellCast(caster,target,spell)
     if (target:addStatusEffect(typeEffect,power,0,duration) == false) then
         spell:setMsg(75);
     end;
+
+    local spikes = caster:getStatusEffect(EFFECT_SHOCK_SPIKES);
+
+    if (notHave and spikes ~= nil) then
+        target:addMod(MOD_REFRESH, 1);
+        spikes:addMod(MOD_REFRESH, 1);
+    end
 
     return typeEffect;
 end;

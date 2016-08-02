@@ -33,9 +33,9 @@ function onSpellCast(caster,target,spell)
 
     local typeEffect = EFFECT_POISON
     local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
-    local resist = applyResistanceEffect(caster,spell,target,dINT,BLUE_SKILL,0,typeEffect);
-    local duration = 120 * resist;
-    local power = 12 + caster:getMainLvl()/3;
+    local resist = applyResistanceEffect(caster,spell,target,dINT + 30,BLUE_SKILL,0,typeEffect);
+    local duration = (120 + 30 * getSystemBonus(caster,target,spell)) * resist;
+    local power = (12 + caster:getMainLvl()/3) * (1 + 0.25 * getSystemBonus(caster,target,spell));
 
     if (resist > 0.25) then -- Do it!
         if (target:addStatusEffect(typeEffect,power,0,duration)) then

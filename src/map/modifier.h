@@ -493,7 +493,7 @@ enum MODIFIER
 
     MOD_MAIN_DMG_RATING           = 366, // adds damage rating to main hand weapon (maneater/blau dolch etc hidden effects)
     MOD_SUB_DMG_RATING            = 367, // adds damage rating to off hand weapon
-    MOD_REGAIN                    = 368, // auto regain TP (from items) | this is multiplied by 10 e.g. 20 is 2% TP
+    MOD_REGAIN                    = 368, // auto regain TP (from isems) | this is multiplied by 10 e.g. 20 is 2% TP
     MOD_REGAIN_DOWN               = 406, // plague, reduce tp
     MOD_REFRESH                   = 369, // auto refresh from equipment
     MOD_REFRESH_DOWN              = 405, // plague, reduce mp
@@ -623,6 +623,7 @@ enum MODIFIER
     MOD_BLOOD_BOON               = 845, // Chance to reduce Blood Pact MP cost
     MOD_CARDINAL_CHANT               = 846, // Chance to reduce Blood Pact MP cost
     MOD_ABSORB_MAGDMG_TO_MP      = 847, // Absorbs a percentage of physical damage taken to MP.
+    MOD_RANGED_CRIT_DAMAGE       = 848, // Raises chance to crit
 
     // Weaponskill %damage modifiers
     // The following modifier should not ever be set, but %damage modifiers to weaponskills use the next 255 IDs (this modifier + the WSID)

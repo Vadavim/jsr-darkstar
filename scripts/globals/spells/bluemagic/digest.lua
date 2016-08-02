@@ -29,10 +29,10 @@ end;
 -----------------------------------------
 
 function onSpellCast(caster,target,spell)
-        
-    local dmg = 10 + 0.9 * (caster:getSkillLevel(BLUE_SKILL) + caster:getMod(79 + BLUE_SKILL));
+
+    local dmg = 8 + (0.75 * (caster:getSkillLevel(BLUE_SKILL)) + caster:getMod(1 + BLUE_SKILL));
     --get resist multiplier (1x if no resist)
-    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_MND)-target:getStat(MOD_MND),BLUE_SKILL,1.0);
+    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_MND)-target:getStat(MOD_MND),BLUE_SKILL,20);
     --get the resisted damage
     dmg = dmg*resist;
     --add on bonuses (staff/day/weather/jas/mab/etc all go in this function)
@@ -55,7 +55,7 @@ function onSpellCast(caster,target,spell)
         dmg = target:getHP();
     end
 
-    dmg = BlueFinalAdjustments(caster,target,spell,dmg);
+    dmg = BlueFinalAdjustments(caster,target,spell,dmg, {});
     caster:addHP(dmg);
     
     return dmg;

@@ -35,9 +35,9 @@ function onSpellCast(caster,target,spell)
     -- This data should match information on http://wiki.ffxiclopedia.org/wiki/Calculating_Blue_Magic_Damage
         params.multiplier = 1.0;
         params.tMultiplier = 1.0;
-        params.duppercap = 13;
-        params.str_wsc = 0.0;
-        params.dex_wsc = 0.0;
+        params.duppercap = 15;
+    params.str_wsc = 0.0;
+    params.dex_wsc = 0.0;
         params.vit_wsc = 0.0;
         params.agi_wsc = 0.0;
         params.int_wsc = 0.2;
@@ -50,7 +50,8 @@ function onSpellCast(caster,target,spell)
 
     if (damage > 0 and resist > 0.0625) then
         if (target:canGainStatusEffect(EFFECT_ACCURACY_DOWN)) then
-            target:addStatusEffect(EFFECT_ACCURACY_DOWN,20,3,60);
+            target:addStatusEffect(EFFECT_ACCURACY_DOWN,20 + getSystemBonus(caster, target, spell) * 5,3,60);
+            target:setPendingMessage(278, EFFECT_ACCURACY_DOWN);
         end
     end
     

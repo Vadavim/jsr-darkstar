@@ -38,8 +38,8 @@ function onSpellCast(caster,target,spell)
         params.scattr = SC_GRAVITATION;
         params.numhits = 1;
         params.multiplier = 3.0;
-        params.tp150 = 3.0;
-        params.tp300 = 3.0;
+        params.tp150 = 5.5;
+        params.tp300 = 7.8;
         params.azuretp = 3.0;
         params.duppercap = 75;
         params.str_wsc = 0.5;
@@ -50,6 +50,8 @@ function onSpellCast(caster,target,spell)
         params.mnd_wsc = 0.0;
         params.chr_wsc = 0.0;
     damage = BluePhysicalSpell(caster, target, spell, params);
+    local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
+    damage = addBonusesAbility(caster, ELE_WIND, target, damage, mParams, 1.0);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
 
     return damage;

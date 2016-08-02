@@ -1,14 +1,23 @@
 SKILL CHANGES
 Parrying: B
-Evasion: C+
+Evasion: B-
 Shield: B
 
 TRAIT CHANGES
 
 ABILITY CHANGES
 
+[Azure Lore]
+ - Lasts for 2 minutes and instead does the following:
+ 	- Doubles System Bonus / Penalty to Blue Spells
+	- Instantly resets Chain and Burst Affinity. While under Azure Lore, their recast times are halved.
+	- +40 Accuracy / Magic Accuracy with Spells
+        - Certain spells have special effects while under Azure Lore
+        
+
 [Burst Affinity]
- - Increases potency of next magical blue spell by current TP (+50% per 1000 TP).
+ - Increases potency of next magical blue spell based on current TP.
+ - On a successful magic burst, returns 33% of MP spent.
 
 [Efflux]
  - Gained at level 60
@@ -16,12 +25,13 @@ ABILITY CHANGES
 
 [Convergence
  - Gained at level 30
- - Halves casting time when of AoE spells in addition to normal effect.
+ - Recast is 8 minutes
+ - Halves casting time when of AoE spells and reduces cost by 33% in addition to normal effect.
 
-
-[Chain Affinity]
- - Gained at level 35
-
+[Unbridled Wisdom]
+ - Gained at level 50
+ - Recast: 5 minutes
+ - Refunds MP of next Blue Magic spell, or until one minute has passed
 
 MAGIC CHANGES
 

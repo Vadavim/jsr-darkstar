@@ -37,27 +37,32 @@ function onSpellCast(caster,target,spell)
         params.dmgtype = DMGTYPE_SLASH;
         params.scattr = SC_GRAVITATION;
         params.numhits = 3;
-        params.multiplier = 1.925;
-        params.tp150 = 1.25;
-        params.tp300 = 1.25;
+        params.multiplier = 1.2;
+        params.tp150 = 2;
+        params.tp300 = 3.2;
         params.azuretp = 1.25;
-        params.duppercap = 61;
+        params.duppercap = 75;
         params.str_wsc = 0.0;
-        params.dex_wsc = 0.30;
+        params.dex_wsc = 0.0;
         params.vit_wsc = 0.0;
-        params.agi_wsc = 0.0;
-        params.int_wsc = 0.20;
+        params.agi_wsc = 0.3;
+        params.int_wsc = 0.0;
         params.mnd_wsc = 0.0;
         params.chr_wsc = 0.0;
+        params.offcratiomod = MOD_RATT;
     damage = BluePhysicalSpell(caster, target, spell, params);
+    local distance = utils.clamp(caster:checkDistance(target), 0, 100);
+    printf("distance: %f\n", distance);
+    damage = damage * (1 + (distance / 36));
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
    
-    local chance = math.random();
 
-    if (damage > 0 and chance > 1) then
+    local resist = applyResistance(caster,spell,target,30,BLUE_SKILL);
+    if (damage > 0 and resist >= 0.25) then
         local typeEffect = EFFECT_DEFENSE_DOWN;
         target:delStatusEffect(typeEffect);
-        target:addStatusEffect(typeEffect,4,0,getBlueEffectDuration(caster,resist,typeEffect));
+        target:addStatusEffect(typeEffect,15 + getSystemBonus(caster,target,spell) * 4,0,60 * resist);
+        target:setPendingMessage(278, EFFECT_DEFENSE_DOWN);
     end
     
     return damage;

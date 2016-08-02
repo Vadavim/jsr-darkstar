@@ -21,5 +21,5 @@ end;
 -----------------------------------------
 
 function onItemUse(target)
-	useEther(target, 450);
+	useEther(target, 400);
 end;

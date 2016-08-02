@@ -26,8 +26,9 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     params.includemab = true;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.ftp300 = 6.0;
-        params.str_wsc = 0.4; params.int_wsc = 0.8;
+        params.ftp300 = 3.5;
+        params.ftp300 = 6.5;
+        params.str_wsc = 0.4; params.int_wsc = 0.4;
     end
 
     local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, params, tp, primary);
@@ -36,8 +37,8 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     if (sEffect ~= nil) then
         damage = math.floor(damage * 1.20);
         sEffect:addMod(MOD_REGEN_DOWN, math.floor(1 + player:getMainLvl() / 5));
-        sEffect:addMod(MOD_INT, -3);
-        target:addMod(MOD_INT, -3);
+        sEffect:addMod(MOD_INT, -5);
+        target:addMod(MOD_INT, 5);
         target:addMod(MOD_REGEN_DOWN, math.floor(1 + player:getMainLvl() / 5));
     end
 

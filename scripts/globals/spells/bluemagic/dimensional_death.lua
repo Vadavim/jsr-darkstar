@@ -37,11 +37,12 @@ function onSpellCast(caster,target,spell)
         params.dmgtype = DMGTYPE_H2H;
         params.scattr = SC_IMPACTION;
         params.numhits = 1;
-        params.multiplier = 2.25;
+        params.multiplier = 2;
         params.tp150 = 1.2;
         params.tp300 = 1.4;
         params.azuretp = 1.5;
-        params.duppercap = 70; --guesstimated attack % bonuses  
+        params.duppercap = 70; --guesstimated attack % bonuses
+        params.dbonus = 40;
         params.str_wsc = 0.5;
         params.dex_wsc = 0.0;
         params.vit_wsc = 0.0;
@@ -50,6 +51,7 @@ function onSpellCast(caster,target,spell)
         params.mnd_wsc = 0.0;
         params.chr_wsc = 0.0;
     damage = BluePhysicalSpell(caster, target, spell, params);
+    if (target:getHPP() <= 33) then damage = damage * 1.25; end;
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
     
     return damage;

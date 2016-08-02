@@ -33,22 +33,24 @@ function onSpellCast(caster,target,spell)
 
     local params = {};
     -- This data should match information on http://wiki.ffxiclopedia.org/wiki/Calculating_Blue_Magic_Damage
-    local multi = 4.0;
+    local multi = 1.5;
     if(caster:hasStatusEffect(EFFECT_AZURE_LORE)) then
-        multi = multi + 2.0;
+        multi = multi + 1.0;
     end
         params.multiplier = multi;
-        params.tMultiplier = 2;
+        params.tMultiplier = 7.5;
         params.duppercap = 75;
+        params.dbonus = 150;
         params.str_wsc = 0.0;
         params.dex_wsc = 0.0;
         params.vit_wsc = 0.0;
         params.agi_wsc = 0.0;
         params.int_wsc = 0.0;
         params.mnd_wsc = 0.0;
-        params.chr_wsc = 1.0;
+        params.chr_wsc = 0.55;
     damage = BlueMagicalSpell(caster, target, spell, params, CHR_BASED);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
-    
+    target:updateEnmityFromDamage(caster,damage);
+
     return damage;
 end;

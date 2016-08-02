@@ -34,7 +34,7 @@ function onSpellCast(caster,target,spell)
 
     local typeEffect = EFFECT_STONESKIN;
     local blueskill = caster:getSkillLevel(BLUE_SKILL);
-    local power = blueskill;
+    local power = blueskill * 0.8;
     local duration = 300;
 
     if (target:addStatusEffect(typeEffect,power,0,duration) == false) then

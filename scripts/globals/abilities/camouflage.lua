@@ -36,7 +36,7 @@ function onUseAbility(player,target,ability)
         specialBonus = 2 * player:getMerit(MERIT_CAMOUFLAGE_RECAST) / 5;
     end
 
-    player:addStatusEffect(EFFECT_CAMOUFLAGE,1,0,duration, specialBonus);
+    player:addStatusEffect(EFFECT_CAMOUFLAGE,1,0,duration, 0, specialBonus);
     target:addStatusEffectEx(EFFECT_COPY_IMAGE, EFFECT_COPY_IMAGE_2, 2, 0, 60);
     target:setMod(MOD_UTSUSEMI, 2);
 end;

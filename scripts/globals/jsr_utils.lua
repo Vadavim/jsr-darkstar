@@ -508,6 +508,7 @@ function rewardTemporaryItem(player)
         5827, -- Lucid Ether
         5445, -- Lucid Ether
         5828, -- Lucid Ether II
+        5945, -- Prize Powder
         5829, -- Lucid Ether III
         4146, -- Revitalizer
         5445, -- Prismatic Elixir
@@ -515,9 +516,12 @@ function rewardTemporaryItem(player)
         5390, -- Braver's Drink
         5440, -- Dusty Wing
         5393, -- Monarch's Drink
+        5437, -- Strange Milk
+        5438, -- Strange Juice
         4174, -- Vile Elixir
         4175, -- Vile Elixir +1
         4254, -- Megalixir
+        4160, -- Petrify Potion
         4155 -- Remedy
     };
 

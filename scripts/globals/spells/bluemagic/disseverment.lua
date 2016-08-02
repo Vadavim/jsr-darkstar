@@ -37,13 +37,13 @@ function onSpellCast(caster,target,spell)
         params.dmgtype = DMGTYPE_PIERCE;
         params.scattr = SC_DISTORTION;
         params.numhits = 5;
-        params.multiplier = 1.5;
+        params.multiplier = 1;
         params.tp150 = 0.8;
         params.tp300 = 1.0;
         params.azuretp = 1.0;
-        params.duppercap = 100; -- D upper >=69
-        params.str_wsc = 0.2;
-        params.dex_wsc = 0.2;
+        params.duppercap = 75; -- D upper >=69
+        params.str_wsc = 0.0;
+        params.dex_wsc = 0.5;
         params.vit_wsc = 0.0;
         params.agi_wsc = 0.0;
         params.int_wsc = 0.0;
@@ -55,7 +55,7 @@ function onSpellCast(caster,target,spell)
     poison = target:getStatusEffect(EFFECT_POISON);
     local chance = math.random();
     if (chance < 0.95 and poison == nil) then
-        local power = (caster:getMainLvl()/5) + 3; -- from http://wiki.ffxiclopedia.org/wiki/Disseverment
+        local power = (caster:getMainLvl()/4) + 3; -- from http://wiki.ffxiclopedia.org/wiki/Disseverment
         target:addStatusEffect(EFFECT_POISON,power,3,180); -- for 180secs
     end
     

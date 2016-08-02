@@ -15,7 +15,6 @@ STATS
 TRAIT CHANGES
  - Recycle chance increased to 25%.
  - Alertness: also grants a +10 bonus to Evasion, Magic Evasion, Guard, Shield, and Parry
- - Dead Aim is gained at levels 30, 55, and 65. It increases Crit Rate by +2%, +3%, and +4% respectively.
  - Gains Bird and Beast Killer at level 35
 
 
@@ -52,16 +51,21 @@ ABILITY CHANGES
  - For each merit point in Camouflage Recast, +4 to Store TP while under effect of Camouflage.
 
 [Bounty Shot]
- - Recast is 180 seconds
+ - Recast is 120 seconds
  - Generates additional enmity
+ - Gained at level 35
  - Instead steals HP and TP.
 
 [Decoy Shot]
- - Gained at level 55
+ - Gained at level 60
  - Recast is 5 minutes
  - Generates additional enmity
  - Instead lowers target's Accuracy, Evasion, Magic Evasion by -20, and critical evasion by -5. Lasts for 60 seconds. Wind-based and can be resisted.
 
+[Overkill]
+ - Gained at level 70
+ - Recast 8 minutes
+ - Instead grants +33 Snapshot, +33 Rapid Shot, +15% Crit Hit Rate, and -40 RACC for one minute.
 
 
 

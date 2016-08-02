@@ -32,6 +32,7 @@ function onSpellCast(caster,target,spell)
 
     local typeEffect = EFFECT_HASTE;
     local power = 150;
+    if (caster:hasStatusEffect(EFFECT_AZURE_LORE)) then power = 220; end;
     local duration = 300;
 
     if (caster:hasStatusEffect(EFFECT_DIFFUSION)) then

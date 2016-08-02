@@ -25,7 +25,7 @@ function onSpellCast(caster,target,spell)
 
     local power = 250 + blue * 0.50 + vit * 2.0 + mnd * 0.5;
     if (power > 250) then power = 250 + (power - 250) / 3 end;
-    power = power * (1 + master:getMod(MOD_CURE_POTENCY) / 100) * (1 + target:getMod(MOD_CURE_POTENCY_RCVD) / 100);
+    power = power * (1 + caster:getMod(MOD_CURE_POTENCY) / 100) * (1 + target:getMod(MOD_CURE_POTENCY_RCVD) / 100);
     if (caster:getSubJob() == JOBS.SCH) then healing = healing / 2 end;
     power = power + healing * 0.5;
     local erased = caster:eraseStatusEffect();

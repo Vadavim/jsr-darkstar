@@ -32,8 +32,8 @@ end;
 
 function onSpellCast(caster,target,spell)
 
-    local dmg = 1 + (0.66 * (caster:getSkillLevel(BLUE_SKILL)) + caster:getMod(1 + BLUE_SKILL));
-    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_MND)-target:getStat(MOD_MND),BLUE_SKILL,1.0);
+    local dmg = 8 + (0.5 * (caster:getSkillLevel(BLUE_SKILL)) + caster:getMod(1 + BLUE_SKILL));
+    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT)-target:getStat(MOD_INT),BLUE_SKILL,20);
     dmg = dmg*resist;
     dmg = addBonuses(caster,spell,target,dmg);
     dmg = adjustForTarget(target,dmg,spell:getElement());
@@ -55,7 +55,7 @@ function onSpellCast(caster,target,spell)
         dmg = target:getHP();
     end
 
-    dmg = BlueFinalAdjustments(caster,target,spell,dmg);
+    dmg = BlueFinalAdjustments(caster,target,spell,dmg, {});
     caster:addHP(dmg);
     
     return dmg;

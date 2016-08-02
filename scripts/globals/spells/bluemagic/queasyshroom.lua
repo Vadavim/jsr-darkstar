@@ -16,6 +16,7 @@
 require("scripts/globals/magic");
 require("scripts/globals/status");
 require("scripts/globals/bluemagic");
+require("scripts/globals/weaponskills");
 
 -----------------------------------------
 -- OnMagicCastingCheck
@@ -37,31 +38,37 @@ function onSpellCast(caster,target,spell)
         params.dmgtype = DMGTYPE_PIERCE;
         params.scattr = SC_DARK;
         params.numhits = 1;
-    params.multiplier = 1.25;
+    params.multiplier = 1.5;
         params.tp150 = 1.25;
         params.tp300 = 1.25;
         params.azuretp = 1.25;
-        params.duppercap = 8;
+        params.duppercap = 22;
         params.str_wsc = 0.0;
         params.dex_wsc = 0.0;
         params.vit_wsc = 0.0;
-        params.agi_wsc = 0.0;
-        params.int_wsc = 0.20;
+        params.agi_wsc = 0.4;
+        params.int_wsc = 0.0;
         params.mnd_wsc = 0.0;
         params.chr_wsc = 0.0;
+    local poisonMult = 1;
+    if (caster:hasStatusEffect(EFFECT_CHAIN_AFFINITY)) then
+        poisonMult = fTP(caster:getTP() + caster:getMod(MOD_TP_BONUS), 1, 3, 6);
+    end
+
     damage = BluePhysicalSpell(caster, target, spell, params);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
-   
-    local chance = math.random();
---JSR: increased DOT with Queesyshroome
-    if (damage > 0 and chance > 10) then
+
+    local resist = applyResistance(caster,spell,target,60,BLUE_SKILL);
+    if (resist >= 0.25 and damage > 0) then
+        local power = 1 + caster:getMainLvl()/4;
         local typeEffect = EFFECT_POISON;
-	local power = 1 + caster:getMainLvl()/4;
-	if (power > 12) then
-		power = 12;
-	end
-        target:delStatusEffect(typeEffect);
-        target:addStatusEffect(typeEffect,power,0,getBlueEffectDuration(caster,resist,typeEffect));
+        if (power > 12) then
+            power = 12;
+        end
+        power = poisonMult * power * (1 + 0.25 * getSystemBonus(caster,target,spell));
+        target:delStatusEffectSilent(typeEffect);
+        target:addStatusEffect(typeEffect,power,0,90 * resist);
+        target:setPendingMessage(277, EFFECT_POISON);
     end
     
     return damage;

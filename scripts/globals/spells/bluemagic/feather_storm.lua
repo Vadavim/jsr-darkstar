@@ -37,11 +37,12 @@ function onSpellCast(caster,target,spell)
         params.dmgtype = DMGTYPE_PIERCE;
         params.scattr = SC_LIGHT;
         params.numhits = 1;
-        params.multiplier = 1.25;
+        params.multiplier = 1.5;
         params.tp150 = 1.25;
         params.tp300 = 1.25;
         params.azuretp = 1.25;
-        params.duppercap = 12;
+        params.duppercap = 18;
+        params.dbonus = 6;
         params.str_wsc = 0.0;
         params.dex_wsc = 0.0;
         params.vit_wsc = 0.0;
@@ -50,18 +51,22 @@ function onSpellCast(caster,target,spell)
         params.mnd_wsc = 0.0;
         params.chr_wsc = 0.0;
     damage = BluePhysicalSpell(caster, target, spell, params);
+    local distance = utils.clamp(caster:checkDistance(target), 0, 100);
+    damage = damage * (1 + (distance / 58.8));
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
    
-   local chance = math.random();
+    local resist = applyResistance(caster,spell,target,60,BLUE_SKILL);
 --JSR: increased DOT with feather storm
-    if (damage > 0 and chance > 70) then
+    if (damage > 0 and resist >= 0.25) then
         local typeEffect = EFFECT_POISON;
-	local power = 2 + caster:getMainLvl()/6;
+	local power = 1 + caster:getMainLvl()/6;
 	if (power > 8) then
 		power = 8;
-	end
+    end
+    power = power * (1 + 0.25 * getSystemBonus(caster,target,spell));
         target:delStatusEffect(typeEffect);
-        target:addStatusEffect(typeEffect,power,0,getBlueEffectDuration(caster,resist,typeEffect));
+        target:addStatusEffect(typeEffect,power,0,90 * resist);
+        target:setPendingMessage(277, EFFECT_POISON);
     end
     
     return damage;

@@ -31,26 +31,29 @@ end;
 
 function onSpellCast(caster,target,spell)
     
-    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT) - target:getStat(MOD_INT),BLUE_SKILL,1.0);
+    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT) - target:getStat(MOD_INT),BLUE_SKILL,60);
     local params = {};
     -- This data should match information on http://wiki.ffxiclopedia.org/wiki/Calculating_Blue_Magic_Damage
-        params.multiplier = 3.8;
-        params.tMultiplier = 1.5;
-        params.duppercap = 69; 
+        params.multiplier = 1.5;
+        params.tMultiplier = 4;
+        params.duppercap = 70;
+        params.dbonus = 100;
         params.str_wsc = 0.0;
         params.dex_wsc = 0.0;
         params.vit_wsc = 0.0;
         params.agi_wsc = 0.0;
-        params.int_wsc = 0.6;
+        params.int_wsc = 0.4;
         params.mnd_wsc = 0.0;
         params.chr_wsc = 0.0;
     damage = BlueMagicalSpell(caster, target, spell, params, INT_BASED);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
 
-    if (damage > 0 and resist > 0.0625) then
-        local typeEffect = EFFECT_BIND;
-        target:delStatusEffect(typeEffect); -- Wiki says it can overwrite itself or other binds
-        target:addStatusEffect(typeEffect,1,0,getBlueEffectDuration(caster,resist,typeEffect));
+    local power = 22 + getSystemBonus(caster,target,spell) * 5;
+    local duration = 60 + getSystemBonus(caster,target,spell) * 30;
+
+    if (damage > 0 and resist >= 0.25) then
+        target:addStatusEffect(EFFECT_AGI_DOWN, power, 0, duration * resist);
+        target:setPendingMessage(278, EFFECT_AGI_DOWN);
     end
     
     return damage;

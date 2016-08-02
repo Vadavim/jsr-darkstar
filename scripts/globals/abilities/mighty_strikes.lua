@@ -22,5 +22,5 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    player:addStatusEffect(EFFECT_MIGHTY_STRIKES,1,0,45);
+    player:addStatusEffect(EFFECT_MIGHTY_STRIKES,1,0,60);
 end;

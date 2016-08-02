@@ -3008,7 +3008,7 @@ namespace battleutils
             case SYSTEM_VERMIN:		KillerEffect = PDefender->getMod(MOD_VERMIN_KILLER);   break;
         }
 
-        return (dsprand::GetRandomNumber(100) < KillerEffect + PDefender->GetLocalVar("doubtEffect"));
+        return (dsprand::GetRandomNumber(100) < KillerEffect + PAttacker->GetLocalVar("doubtEffect"));
     }
 
     /****************************************************************
@@ -4976,6 +4976,9 @@ namespace battleutils
         if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_DIFFUSION))
             return SPELLAOE_RADIAL;
         else
+            return SPELLAOE_NONE;
+
+        if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_SUBTLE_SORCERY))
             return SPELLAOE_NONE;
 
         return PSpell->getAOE();

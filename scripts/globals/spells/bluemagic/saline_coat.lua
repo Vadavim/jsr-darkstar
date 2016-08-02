@@ -34,7 +34,7 @@ function onSpellCast(caster,target,spell)
 
     local typeEffect = EFFECT_MAGIC_DEF_BOOST;
     local power = 30;
-    local duration = 600;
+    local duration = 360;
 
     if (caster:hasStatusEffect(EFFECT_DIFFUSION)) then
         local diffMerit = caster:getMerit(MERIT_DIFFUSION);

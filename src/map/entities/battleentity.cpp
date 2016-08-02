@@ -1566,6 +1566,16 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                 }
 
                 actionTarget.param = battleutils::TakePhysicalDamage(this, PTarget, attack.GetDamage(), attack.IsBlocked(), attack.GetWeaponSlot(), 1, attackRound.GetTAEntity(), true, true);
+
+                if (this->StatusEffectContainer->HasStatusEffect(EFFECT_FEINT)) {
+                    PTarget->StatusEffectContainer->DelStatusEffectSilent(EFFECT_EVASION_DOWN);
+                    PTarget->StatusEffectContainer->AddStatusEffect(
+                            new CStatusEffect(EFFECT_EVASION_DOWN, EFFECT_EVASION_DOWN, 60, 1, 60)
+                    );
+                    this->StatusEffectContainer->DelStatusEffectSilent(EFFECT_FEINT);
+
+                }
+
                 if (actionTarget.param < 0)
                 {
                     actionTarget.param = -(actionTarget.param);

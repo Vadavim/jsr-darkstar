@@ -37,28 +37,29 @@ function onSpellCast(caster,target,spell)
         params.dmgtype = DMGTYPE_SLASH;
         params.scattr = SC_TRANSFIXION;
         params.numhits = 1;
-    params.multiplier = 1.925;
-        params.tp150 = 1.25;
-        params.tp300 = 1.25;
+    params.multiplier = 2;
+        params.tp150 = 3.5;
+        params.tp300 = 5;
         params.azuretp = 1.25;
         params.duppercap = 60;
         params.str_wsc = 0.0;
         params.dex_wsc = 0.0;
         params.vit_wsc = 0.0;
-        params.agi_wsc = 0.60;
-        params.int_wsc = 0.30;
+        params.agi_wsc = 0.50;
+        params.int_wsc = 0.0;
         params.mnd_wsc = 0.0;
         params.chr_wsc = 0.0;
     damage = BluePhysicalSpell(caster, target, spell, params);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
    
-    local chance = math.random();
-
-    if (damage > 0 and chance > 4) then
-        local typeEffect = EFFECT_ACCURACY_DOWN;
-        target:delStatusEffect(typeEffect);
-        target:addStatusEffect(typeEffect,15,0,getBlueEffectDuration(caster,resist,typeEffect));
+    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT) - target:getStat(MOD_INT),BLUE_SKILL,1.0);
+    if (damage > 0 and resist >= 0.25) then
+        if (target:canGainStatusEffect(EFFECT_ACCURACY_DOWN)) then
+            target:addStatusEffect(EFFECT_ACCURACY_DOWN,20 + getSystemBonus(caster, target, spell) * 5,0,60 * resist);
+            target:setPendingMessage(278, EFFECT_ACCURACY_DOWN);
+        end
     end
-    
+
+
     return damage;
 end;

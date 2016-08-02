@@ -30,21 +30,22 @@ end;
 -----------------------------------------
 
 function onSpellCast(caster,target,spell)
-    
-    if (target:hasStatusEffect(EFFECT_STR_DOWN)) then
-        spell:setMsg(75); 
-    elseif (target:isFacing(caster)) then      
-        local dINT = caster:getStat(MOD_INT) - target:getStat(MOD_INT);
-        local resist = applyResistance(caster,spell,target,dINT,BLUE_SKILL,0);
-        if (resist <= 0) then
-            spell:setMsg(85);
-        else
-            spell:setMsg(329);
-            target:addStatusEffect(EFFECT_STR_DOWN,20,0,120 * resist);
-        end;
+
+    local typeEffect = EFFECT_STR_DOWN;
+    local dINT = caster:getStat(MOD_CHR) - target:getStat(MOD_CHR);
+    local resist = applyResistance(caster,spell,target,dINT,BLUE_SKILL, 50);
+    local duration = 180 + getSystemBonus(caster,target,spell) * 60;
+    local power = (10 + caster:getMainLvl() / 3) * (1 + 0.25 * getSystemBonus(caster, target, spell));
+
+    if (resist >= 0.25) then -- Do it!
+    if (target:addStatusEffect(typeEffect,power,0,duration * resist)) then
+        spell:setMsg(236);
     else
         spell:setMsg(75);
+    end
+    else
+        spell:setMsg(85);
     end;
-    
-    return EFFECT_STR_DOWN;
+
+    return typeEffect;
 end;

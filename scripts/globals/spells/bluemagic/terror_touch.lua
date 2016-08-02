@@ -38,25 +38,35 @@ function onSpellCast(caster,target,spell)
         params.dmgtype = DMGTYPE_H2H;
         params.scattr = SC_COMPRESSION;
         params.numhits = 1;
-        params.multiplier = 1.5;
-        params.tp150 = 1.5;
-        params.tp300 = 1.5;
+        params.multiplier = 1.8;
+        params.tp150 = 2;
+        params.tp300 = 2.5;
         params.azuretp = 1.5;
-        params.duppercap = 43;
+        params.duppercap = 50;
         params.str_wsc = 0.0;
-        params.dex_wsc = 0.2;
+        params.dex_wsc = 0.0;
         params.vit_wsc = 0.0;
         params.agi_wsc = 0.0;
-        params.int_wsc = 0.6;
+        params.int_wsc = 0.0;
         params.mnd_wsc = 0.0;
-        params.chr_wsc = 0.0;
+        params.chr_wsc = 1;
+    local power = 15 + getSystemBonus(caster,target,spell) * 5;
+    local duration = 90;
+    if (caster:hasStatusEffect(EFFECT_CHAIN_AFFINITY)) then
+        power = power + caster:getTP() / 500;
+        duration = duration + caster:getTP() / 11.111;
+    end
+
     damage = BluePhysicalSpell(caster, target, spell, params);
+    local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
+    damage = addBonusesAbility(caster, ELE_DARK, target, damage, mParams, 1.0);
+
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
 
-    if (target:hasStatusEffect(EFFECT_ATTACK_DOWN)) then
-        spell:setMsg(75); -- no effect
-    else    
-        target:addStatusEffect(EFFECT_ATTACK_DOWN,15,0,90);
+    local resist = applyResistance(caster,spell,target,60,BLUE_SKILL);
+    if (resist >= 0.25 and damage > 0) then
+        target:addStatusEffect(EFFECT_ATTACK_DOWN, power, 0, duration);
+        target:setPendingMessage(278, EFFECT_ATTACK_DOWN);
     end
 
     return damage;

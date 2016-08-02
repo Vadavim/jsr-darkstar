@@ -5106,7 +5106,7 @@ inline int32 CLuaBaseEntity::stealStatusEffect(lua_State *L)
         lua_pushlightuserdata(L, (void*)PStatusEffect);
         lua_pcall(L, 2, 1, 0);
 
-        delete PStatusEffect;
+//        delete PStatusEffect;
     }
     return 1;
 }
@@ -5528,10 +5528,20 @@ inline int32 CLuaBaseEntity::setsLevel(lua_State *L)
 inline int32 CLuaBaseEntity::setLevel(lua_State *L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
 
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
     DSP_DEBUG_BREAK_IF(lua_tointeger(L, 1) > 99);
+
+    if (m_PBaseEntity->objtype == TYPE_MOB) {
+        CMobEntity* PMob = (CMobEntity*) m_PBaseEntity;
+        PMob->SetMLevel(lua_tointeger(L, 1));
+        PMob->SetSLevel(lua_tointeger(L, 1) / 2);
+        mobutils::CalculateStats(PMob);
+        PMob->addHP(99999);
+        PMob->addMP(99999);
+        return 0;
+    }
 
     CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
 

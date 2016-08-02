@@ -19,8 +19,19 @@ function onTrigger(player, amount)
 --print(player:checkDistance(player:getPet()));
 --print(player:getRotPos());
 
+    local target = player:getCursorTarget();
+    if (target ~= nil) then
+--        target:addStatusEffect(EFFECT_STUN, 1, 0, 90000);
+--        target:setMod(MOD_FIREDEF, 0);
+        player:SayToPlayer("STR: " .. tostring(target:getStat(MOD_STR))
+            .. ", VIT: " .. tostring(target:getStat(MOD_VIT))
+                .. ", DEX: " .. tostring(target:getStat(MOD_DEX))
+                .. ", INT: " .. tostring(target:getStat(MOD_INT))
+                .. ", MND: " .. tostring(target:getStat(MOD_MND)))
+    end
 
-print("Skill: %d\n", player:getSkillLevel(SKILL_ARC));
+
+--print("Skill: %d\n", player:getSkillLevel(SKILL_ARC));
 --local item = player:getStorageItem(LOC_INVENTORY, 3);
 --    printf("Augment: %d, Val: %d", item:getAugment(0));
 --printf("Augment: %d, Val: %d", item:getAugment(1));
@@ -28,8 +39,6 @@ print("Skill: %d\n", player:getSkillLevel(SKILL_ARC));
 --printf("Augment: %d, Val: %d", item:getAugment(3));
 end
 
---    local target = player:getCursorTarget();
---    if (target ~= nil) then
 --        if (target:hasStatusEffect(EFFECT_DEFENDER)) then
 --            print("have");
 --        end
@@ -41,11 +50,6 @@ end
 --        targ:setMobMod(MOBMOD_ADD_EFFECT,1);
 --        targ:setModelId(amount);
 --        player:SayToPlayer("Skill: " .. tostring(targ:getSkillLevel(SKILL_HEA)));
---player:SayToPlayer("STR: " .. tostring(targ:getStat(MOD_STR))
---    .. ", VIT: " .. tostring(targ:getStat(MOD_VIT))
---        .. ", DEX: " .. tostring(targ:getStat(MOD_DEX))
---        .. ", INT: " .. tostring(targ:getStat(MOD_INT))
---        .. ", MND: " .. tostring(targ:getStat(MOD_MND))
 --);
 --local area = player:getTargetsWithinArea(10.0, 16);
 --for i,member in ipairs(area) do

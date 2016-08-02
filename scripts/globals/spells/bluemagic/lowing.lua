@@ -33,12 +33,12 @@ function onSpellCast(caster,target,spell)
 
     local typeEffect = EFFECT_PLAGUE;
     local dINT = caster:getStat(MOD_MND) - target:getStat(MOD_MND);
-    local resist = applyResistance(caster,spell,target,dINT,BLUE_SKILL);
+    local resist = applyResistanceEffect(caster,spell,target,dINT,BLUE_SKILL, 50, EFFECT_DISEASE);
     local duration = 120 * resist;
-    local power = 5;
+    local power = 6 + getSystemBonus(caster,target,spell) * 2;
     
-    if (resist > 0.5) then -- Do it!
-        if (target:addStatusEffect(typeEffect,power,0,duration)) then
+    if (resist >= 0.25) then -- Do it!
+        if (target:addStatusEffect(typeEffect,power,0,duration * resist)) then
             spell:setMsg(236);
         else
             spell:setMsg(75);

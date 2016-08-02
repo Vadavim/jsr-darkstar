@@ -411,9 +411,15 @@ function applyResistanceEffect(player,spell,target,diff,skill,bonus,effect)
         end
     end
 
+
     local element = spell:getElement();
     local percentBonus = 0;
     local magicaccbonus = getSpellBonusAcc(player, target, spell);
+
+    if (skill == BLUE_SKILL) then
+--        magicaccbonus = magicaccbonus + player:getMainLvl() / 5 + 20;
+        magicaccbonus = 30;
+    end
 
     if (skill == SKILL_BLU) then
         local system = target:getSystem();
@@ -526,7 +532,7 @@ function calculateMagicHitRate(magicacc, magiceva, percentBonus, casterLvl, targ
 
     p = 60 - 0.5 * (magiceva - magicacc) + levelDiff * 2 + percentBonus;
 
---     printf("P: %f, macc: %f, meva: %f, bonus: %d%%, leveldiff: %d", p, magicacc, magiceva, percentBonus, levelDiff);
+     printf("P: %f, macc: %f, meva: %f, bonus: %d%%, leveldiff: %d", p, magicacc, magiceva, percentBonus, levelDiff);
 
     return utils.clamp(p, 5, 95);
 end
@@ -735,8 +741,8 @@ end;
             dmg = dmg * (0.9 - 0.05 * total);
         end
 
-        if (not target:hasStatusEffect(EFFECT_SUBTLE_SORCERY)) then
-            if (target:getModelSize() >= 1) then dmg = dmg * 1.25; end
+        if (not caster:hasStatusEffect(EFFECT_SUBTLE_SORCERY)) then
+            if (target:getModelSize() >= 4) then dmg = dmg * 1.25; end
             if (target:getFamily() == 47) then dmg = dmg * 1.33; end
         end
 
@@ -893,6 +899,11 @@ function calculateMagicBurst(caster, spell, target)
         --JSR: casters gain MP based on magic burst (TEMP DISABLED)
 --        local burstMP = math.floor(burst * spell:getMPCost());
 --        caster:doMagicBurstMP(burstMP);
+        if (spell:getSpellGroup() == 3) then
+            caster:addMP(spell:getMP() * 0.33);
+        end
+
+
     end
 
     return burst;
@@ -1360,6 +1371,11 @@ function doElementalNuke(caster, spell, target, spellParams)
     local hasMultipleTargetReduction = spellParams.hasMultipleTargetReduction; --still unused!!!
     local resistBonus = spellParams.resistBonus;
     local mDMG = caster:getMod(MOD_MAGIC_DAMAGE);
+
+    if (caster:isPC() and spell:isAoE() == 1) then
+        resistBonus = resistBonus + 40;
+    end
+
 
     if (caster:isPet()) then
         local master = caster:getMaster()

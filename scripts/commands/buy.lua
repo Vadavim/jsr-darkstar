@@ -2838,16 +2838,16 @@ local function bullets(player, points)
     return stock;
 end
 
-local function potions(player, points)
+local function medicine(player, points)
     local stock = {
         4112,  150,  --Potion
-        4116,  400,  --Hi-Potion
-        4120,  900,  --X-Potion
-        4124,  1800,  --Max Potio
+        4116,  300,  --Hi-Potion
+        4120,  600,  --X-Potion
+        4124,  1000,  --Max Potio
         4128,  250,  --Ether
-        4132,  650,  --Hi-Ether
-        4136,  1450,  --Super-Ether
-        4140,  2800,  --Pro-Ether
+        4132,  500,  --Hi-Ether
+        4136,  900,  --Super-Ether
+        4140,  1800,  --Pro-Ether
         4148,  200,  --Antidote
         4150,  350,  --Eye Drops
         4158,  600,  --Echo Drops
@@ -2860,14 +2860,18 @@ local function potions(player, points)
     return stock;
 end
 
-local function potionsEx(player, points)
+local function medicineEx(player, points)
     local stock = {
-        4115,  280, {ALCH, 1000},  --Potion +3
-        4119,  600, {ALCH, 2500},  --Hi-Potion +3
-        4123,  1350, {ALCH, 4500},  --X-Potion +3
-        4125,  2500, {ALCH, 6500},  --Max-Potion +1
-        4126,  3300, {ALCH, 8500},  --Max-Potion +2
-        4127,  4000, {ALCH, 10000},  --Max-Potion +3
+        4115,  240, {ALCH, 1000},  --Potion +3
+        4119,  450, {ALCH, 2500},  --Hi-Potion +3
+        4123,  780, {ALCH, 4500},  --X-Potion +3
+        4125,  1250, {ALCH, 6500},  --Max-Potion +1
+        4126,  1500, {ALCH, 8500},  --Max-Potion +2
+        4127,  1750, {ALCH, 10000},  --Max-Potion +3
+        4131,  380, {ALCH, 1300},  --Ether +3
+        4135,  780, {ALCH, 1300},  --Hi-Ether +3
+        4139,  1350, {ALCH, 1300},  --Super Ether +3
+        4143,  2650, {ALCH, 1300},  --Pro Ether +3
         4149,  3500, {ALCH, 8000},  --Panacea
     };
     return special_stock(stock, points);
@@ -3000,6 +3004,7 @@ funcs = {
     ["treats"] = treats,
     ["instruments"] = instruments, ["instrumentsEx"] = instrumentsEx,
     ["boomerangs"] = boomerangs,
+    ["medicine"] = medicine, ["medicineEx"] = medicineEx,
     ["dice1"] = dice1, ["dice2"] = dice2,
     ["sch1"] = sch1, ["sch2"] = sch2,
     ["red1"] = red1, ["red2"] = red2, ["dark1"] = dark1,

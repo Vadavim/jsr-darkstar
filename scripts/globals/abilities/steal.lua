@@ -66,15 +66,15 @@ function onUseAbility(player,target,ability)
 
         player:addItem(stolen);
         rewardTemporaryItem(player);
-        if (math.random(0, 100) < 25) then
-            rewardTemporaryItem(player);
-        end
-        if (math.random(0, 100) < 25) then
-            rewardTemporaryItem(player);
-        end
-        if (math.random(0, 100) < 25) then
-            rewardTemporaryItem(player);
-        end
+--        if (math.random(0, 100) < 15) then
+--            rewardTemporaryItem(player);
+--        end
+--        if (math.random(0, 100) < 15) then
+--            rewardTemporaryItem(player);
+--        end
+--        if (math.random(0, 100) < 15) then
+--            rewardTemporaryItem(player);
+--        end
 
         target:itemStolen();
         ability:setMsg(125); -- Item stolen successfully

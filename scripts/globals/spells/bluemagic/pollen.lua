@@ -38,7 +38,7 @@ function onSpellCast(caster,target,spell)
 
     local power = 12 + blue * 0.3 + vit * 0.25 + mnd * 0.5;
     if (power > 45) then power = 45 + (power - 45) / 3 end;
-    power = power * (1 + master:getMod(MOD_CURE_POTENCY) / 100) * (1 + target:getMod(MOD_CURE_POTENCY_RCVD) / 100);
+    power = power * (1 + caster:getMod(MOD_CURE_POTENCY) / 100) * (1 + target:getMod(MOD_CURE_POTENCY_RCVD) / 100);
     if (caster:getSubJob() == JOBS.SCH) then healing = healing / 3 end;
     power = power + healing * 0.15;
     power = getCureFinal(caster, spell, power, 15, true);

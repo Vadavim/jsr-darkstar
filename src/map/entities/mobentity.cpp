@@ -873,6 +873,8 @@ void CMobEntity::DropItems()
             {
 
                 int baseChance = lDif < 0 ? 20 : dsp_cap(20 + (lDif * lDif) / 2, 20, 80);
+                if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_PROWESS_CRYSTAL_YEILD));
+                baseChance += 20;
                 ShowDebug("Base chance: %d\n", baseChance);
                 if (((PChar->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) && conquest::GetInfluenceGraphics(PChar->loc.zone->GetRegionID()) < 64) ||
                     (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_SANCTION) && PChar->loc.zone->GetRegionID() >= 28 && PChar->loc.zone->GetRegionID() <= 32) ||
@@ -886,7 +888,7 @@ void CMobEntity::DropItems()
                 // Item element matches day/weather element, not mob crystal. Lv80+ xp mobs can drop Avatarite.
                 // Wiki's have conflicting info on mob lv required for Geodes. One says 50 the other 75. I think 50 is correct.
 
-                if (dsprand::GetRandomNumber(100) < baseChance && PChar->PTreasurePool->CanAddSeal() && !getMobMod(MOBMOD_NO_DROPS))
+                if (dsprand::GetRandomNumber(100) < baseChance / 2 && PChar->PTreasurePool->CanAddSeal() && !getMobMod(MOBMOD_NO_DROPS))
                 {
                     //RULES: Only 1 kind may drop per mob
                     if (GetMLevel() >= 75 && luautils::IsExpansionEnabled("ABYSSEA")) //all 4 types

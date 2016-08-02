@@ -29,11 +29,11 @@ function onUseAbility(player,target,ability)
     local tpBonus = 0;
     if player:getMainJob() == 1 then
         power = math.floor((player:getMainLvl()/4)+4.75)/256;
-        tpBonus = 200 + merit;
+        tpBonus = 250 + merit;
         chance = 10;
     else
         power = math.floor((player:getSubLvl()/4)+4.75)/256;
-        tpBonus = 100 + merit;
+        tpBonus = 125 + merit;
         chance = 5;
     end
 
@@ -49,6 +49,8 @@ function onUseAbility(player,target,ability)
     if (player:hasStatusEffect(EFFECT_DEFENDER)) then
         local effect = target:getStatusEffect(EFFECT_WARCRY);
         if (effect ~= nil) then
+            effect:addMod(MOD_DEFP, power);
+            target:addMod(MOD_DEFP, power);
             effect:addMod(MOD_NULL_PHYSICAL_DAMAGE, chance + merit / 5);
             target:addMod(MOD_NULL_PHYSICAL_DAMAGE, chance + merit / 5);
         end

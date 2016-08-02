@@ -35,7 +35,7 @@ end;
 -----------------------------------
 
 function onEffectTick(target,effect)
-    if (effect:getPower() == 4 and effect:getSubPower > 0) then
+    if (effect:getPower() == 4 and effect:getSubPower() > 0) then
         target:delMod(MOD_UDMGMAGIC, -4);
         effect:setSubPower(effect:getSubPower() - 4);
     end

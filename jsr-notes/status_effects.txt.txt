@@ -1,4 +1,5 @@
-[Basics]
- - Bar Status spells automatically reduce the duration of the associated status effect by 33%.
- - The status resistance bonus granted by bar spells, equipment, and traits also gives a flat
-	chance to have the player automatically resist the status. The chance is 3% per point of resistance.
+[Curse]
+ - Instead does the following:
+	- Lowers all attributes by 6
+	- Lowers resistance against status effects
+	- Reflects a portion of damage inflicted (10% for PCs, 50% for Mobs)

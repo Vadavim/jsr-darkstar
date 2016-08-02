@@ -46,7 +46,7 @@ function useEther(target,cap)
     if (power > cap) then
         power = cap
     end
-    target:addStatusEffect(EFFECT_MEDICINE,0,0,60);
+    target:addStatusEffect(EFFECT_MEDICINE,0,0,120);
 	target:messageBasic(25,0,target:addMP(power));
 end;
 

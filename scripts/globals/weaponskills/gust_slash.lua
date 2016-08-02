@@ -46,8 +46,8 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         -- Remove Rasp
         target:delStatusEffect(EFFECT_RASP);
 
-        target:addStatusEffect(EFFECT_RASP, DOT, 3, duration * resist,FLAG_ERASABLE);
-        target:setPendingMessage(277, EFFECT_RASP);
+        target:addStatusEffect(EFFECT_CHOKE, DOT, 3, duration * resist,FLAG_ERASABLE);
+        target:setPendingMessage(277, EFFECT_CHOKE);
     end
 
 

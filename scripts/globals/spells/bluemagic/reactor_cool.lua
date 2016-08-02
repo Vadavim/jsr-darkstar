@@ -34,10 +34,12 @@ function onSpellCast(caster,target,spell)
 
     local typeEffectOne = EFFECT_ICE_SPIKES
     local typeEffectTwo = EFFECT_DEFENSE_BOOST
-    local powerOne = 5;
-    local powerTwo = 12
-    local duration = 120;
+    local powerOne = 30;
+    local powerTwo = 15
+    local duration = 180;
     local returnEffect = typeEffectOne;
+
+    local notHave = target:hasStatusEffect(EFFECT_ICE_SPIKES);
 
     if (caster:hasStatusEffect(EFFECT_DIFFUSION)) then
         local diffMerit = caster:getMerit(MERIT_DIFFUSION);
@@ -60,6 +62,15 @@ function onSpellCast(caster,target,spell)
         target:addStatusEffect(typeEffectTwo,powerTwo,0,duration)
         spell:setMsg(230);
     end;
+
+    local spikes = caster:getStatusEffect(EFFECT_ICE_SPIKES);
+
+    if (notHave and spikes ~= nil) then
+        target:addMod(MOD_REGEN, 12);
+        spikes:addMod(MOD_REGEN, 12);
+    end
+
+
 
     return returnEffect;
 end;

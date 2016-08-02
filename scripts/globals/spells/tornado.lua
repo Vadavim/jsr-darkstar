@@ -17,7 +17,7 @@ end;
 function onSpellCast(caster, target, spell)
     local spellParams = {};
     spellParams.hasMultipleTargetReduction = false;
-    spellParams.resistBonus = 1.0;
+    spellParams.resistBonus = 20;
     spellParams.V0 = 700;
     spellParams.V50 = 800;
     spellParams.V100 = 900;
@@ -27,7 +27,7 @@ function onSpellCast(caster, target, spell)
     spellParams.M100 = 2;
     spellParams.M200 = 2;
 
-    target:addStatusEffect(EFFECT_MAGIC_DEF_DOWN_II, 5, 0, 10);
+    target:addStatusEffect(EFFECT_MAGIC_DEF_DOWN_II, 5, 0, 45);
     local effect = target:getStatusEffect(EFFECT_MAGIC_DEF_DOWN_II)
     if (effect ~= nil) then
         effect:addMod(MOD_ICERES, -30);

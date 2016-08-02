@@ -23,13 +23,13 @@ end;
 function onUseAbility(player,target,ability)
     local merit = player:getMerit(MERIT_SAVAGERY);
 
-    local power = 5;
+    local power = 6;
     local subPower = 0;
     if (player:hasStatusEffect(EFFECT_BERSERK)) then
-        power = 7;
+        power = 9;
     elseif (player:hasStatusEffect(EFFECT_DEFENDER)) then
         subPower = 10;
     end
 
-    target:addStatusEffect(EFFECT_BLOOD_RAGE,power,0,30,0,subPower);
+    target:addStatusEffect(EFFECT_BLOOD_RAGE,power,0,60,0,subPower);
 end;

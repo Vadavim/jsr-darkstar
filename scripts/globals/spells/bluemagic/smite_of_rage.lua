@@ -39,9 +39,10 @@ function onSpellCast(caster,target,spell)
         params.numhits = 1;
         params.multiplier = 1.5;
         params.tp150 = 2.25;
-        params.tp300 = 2.5;
+        params.tp300 = 3.2;
         params.azuretp = 2.53125;
-        params.duppercap = 35;  
+        params.duppercap = 75;
+        params.dbonus = 28;
         params.str_wsc = 0.2;
         params.dex_wsc = 0.2;
         params.vit_wsc = 0.0;

@@ -33,33 +33,27 @@ function onSpellCast(caster,target,spell)
 
     local typeEffectOne = EFFECT_BLINDNESS;
     local typeEffectTwo = EFFECT_BIND;
-    local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT) - target:getStat(MOD_INT),BLUE_SKILL,1.0);
-    local duration = 60 * resist;
-    local power = 500 * resist;
+    local resistBlind = applyResistanceEffect(caster,spell,target,caster:getStat(MOD_INT) - target:getStat(MOD_INT),BLUE_SKILL,40, EFFECT_BLINDNESS);
+    local resistBind = applyResistanceEffect(caster,spell,target,caster:getStat(MOD_INT) - target:getStat(MOD_INT),BLUE_SKILL,40, EFFECT_BIND);
+    local resistTP = applyResistance(caster,spell,target,caster:getStat(MOD_INT) - target:getStat(MOD_INT),BLUE_SKILL,40);
+    local duration = 60;
+    local power = 500 * resistTP;
     local returnEffect = typeEffectOne;
+    if (target:isFacing(caster)) then
+        if (resistBlind >= 0.5) then
+            target:addStatusEffect(EFFECT_BLINDNESS,35,0,duration * resistBlind);
+            target:setPendingMessage(277, EFFECT_BLINDNESS);
+        end
 
-    if (resist >= 0.5) then
-        if (target:isFacing(caster)) then
-            if (target:hasStatusEffect(typeEffectOne) and target:hasStatusEffect(typeEffectTwo) and target:getTP() == 0) then
-                spell:setMsg(75); -- no effect
-            elseif (target:hasStatusEffect(typeEffectOne) and target:hasStatusEffect(typeEffectTwo)) then
-                target:delTP(power);
-                spell:setMsg(431); -- tp reduced
-            elseif (target:hasStatusEffect(typeEffectOne)) then
-                target:addStatusEffect(typeEffectTwo,1,0,duration);
-                target:delTP(power);
-                returnEffect = typeEffectTwo; -- make it return bind message if blind can't be inflicted
-                spell:setMsg(236);
-            else
-                target:addStatusEffect(typeEffectOne,50,0,duration);
-                target:addStatusEffect(typeEffectTwo,1,0,duration);
-                target:delTP(power);
-                spell:setMsg(236);
-            end;
-        else
-            spell:setMsg(75);
-        end;
-    end;
+        if (resistBind >= 0.5) then
+            target:addStatusEffect(typeEffectTwo,1,0,duration * resistBind);
+            target:setPendingMessage(277, EFFECT_BIND);
+        end
 
-    return returnEffect;
+        target:delTP(power);
+        spell:setMsg(431); -- tp reduced
+    end
+
+
+    return 0;
 end;

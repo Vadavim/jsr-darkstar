@@ -849,43 +849,48 @@ FAMILY CHANGES
  - Grand Slam: HARD: also has Knockback
 
 
-[Lamiae]
- - +40% XP
-
-[Mamool Ja]
- - +15% XP
-
 [Orc]
- - +10% XP
+ - +15% XP
+ - Howl: HARD: also grants Regain
+ - Slam Dunk: Also drastically lowers target's Defense while bound
 
 [Orcish Warmachine]
- - +20% XP
+ - Weak against Blunt / H2H (+25%)
+ - Very weak against Water (+33%)
+ - +35% XP
+ - Blastbomb: HARD: also inflict knockback
+ - Fountain: HARD: dispels a status effect
+ - Fire Arrow: HARD: also inflicts Burn
+ - Firebomb: HARD: also inflicts Burn
+ - Burst: hits 3 to 5 times, low accuracy; HARD: increased accuracy
 
-[Poroggo]
- - +30% XP
 
 [Quadav]
  - +15% XP
+ - Howl: HARD: also grants Regain
+ - Ore Toss: HARD: also inflicts Rasp
 
 [Sahagin]
- - +10% XP
+ - +25% XP
+ - Bubble Armor: also grants -30% Fire Damage received and +80% Lightning Damage received (before shell's damage reduction)
+	- HARD: also grants Torrent Spikes for the duration
+ - Hydro Shot: HARD: also inflicts Drown
+ - Hydro Ball: HARD: also inflicts Drown
 
 
 [Tonberry]
- - +30% XP
+ - +35% XP
+ - Everyone's Grudge: is instead a dark-based magical attack that deals bonus damage based on missing HP
+	- HARD: also inflicts a potent Bio for duration
+ - Light of Pennance: HARD: faster activation time
+ - Words of Bane: HARD: also inflicts Enmity Down
 
 [Yagudo]
- - +10% XP
+ - +15% XP
+ - Howl: HARD: also grants Regain
+ - Feather Storm: Hard: also inflicts Plague
+ - Double Kick: hits twice (lower damage)
 
-[Troll]
- - +35% XP
-
-[Velkk]
- - +35% XP
-
-
-[Worms]
- - Choke is 50% more potent against worms and slows casting speed by 25%.
 
 
 

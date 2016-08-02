@@ -51,7 +51,7 @@ Duration: 180 -> 300 Seconds
 	- +1 [Element] ACC
 	- +1 [Element] ATT
 	- +4 [Weak Element] Resistance
-	- -1% [Weak Element] Damage received
+	- -1% [Weak Element] Damage 
 	- +10 TP Bonus with weaponskills
 
 
@@ -76,6 +76,11 @@ Fire Spikes: increased damage
  - Rasp: also inflicts MP damage over time (equal to 75% of DoT)
  - Shock: also lowers target's TP over time (-20 TP a tic).
 
+[-ga Spells]
+ - Has a higher (+20%) chance of being unresisted.
+ - Deals bonus damage (+25%) against large creatures.
+
 
 [Ancient Magic]
- - Lowers Resistance by 30, Magic Defense by 5, Elemental Defense by 10%, and lasts for 10 seconds (15 for Ancient Magic II).
+ - Has a higher (+10% for Tier I, +15% for Tier II) chance of being unresisted.
+ - Lowers Resistance by 30, Magic Defense by 5%, Elemental Defense by 10%, and lasts for 45 seconds (60 for Ancient Magic II).

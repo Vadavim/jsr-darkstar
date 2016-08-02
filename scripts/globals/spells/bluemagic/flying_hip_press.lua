@@ -32,17 +32,18 @@ end;
 function onSpellCast(caster,target,spell)
 
     local params = {};    
-        params.multiplier = 3.9;
-        params.tMultiplier = 1.75;
+        params.multiplier = 1.8;
+        params.tMultiplier = 4;
         params.duppercap = 70;
+        params.dbonus = 100;
         params.str_wsc = 0.0;
         params.dex_wsc = 0.0;
-        params.vit_wsc = 1.0;
+        params.vit_wsc = 0.5;
         params.agi_wsc = 0.0;
         params.int_wsc = 0.0;
         params.mnd_wsc = 0.0;
         params.chr_wsc = 0.0;
-    damage = BlueMagicalSpell(caster, target, spell, params, VIT_BASED);
+    damage = BlueMagicalSpell(caster, target, spell, params, VIT_BASED) * breathFactor(caster);
     damage = BlueFinalAdjustments(caster, target, spell, damage, params);
         
     return damage;
