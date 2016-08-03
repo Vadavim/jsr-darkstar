@@ -16,7 +16,7 @@ require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
 -----------------------------------
 
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     local params = {};
     params.numHits = 1; -- aoe not multihit
@@ -31,6 +31,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         params.str_wsc = 1.0;
     end
 
+    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
     if (not player:hasStatusEffect(EFFECT_EVASION_BOOST)) then
         local duration = fTP(tp, 60, 120, 180);
         player:addStatusEffect(EFFECT_EVASION_BOOST, 20, 0, duration);
@@ -43,7 +44,6 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
 
 
-    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
     return tpHits, extraHits, criticalHit, damage;
 
 end

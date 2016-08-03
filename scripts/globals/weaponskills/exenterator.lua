@@ -18,7 +18,7 @@ require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
 -----------------------------------
 
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     local params = {};
     params.numHits = 4;
@@ -35,7 +35,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
     end
 
     local hasTrick = player:hasStatusEffect(EFFECT_TRICK_ATTACK);
-    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
 
     if (damage > 0) then
         local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_EARTH, SKILL_DAG);

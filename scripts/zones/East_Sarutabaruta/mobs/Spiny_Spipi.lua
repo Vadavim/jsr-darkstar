@@ -4,10 +4,10 @@
 -----------------------------------
 
 -----------------------------------
--- onMobDeath
+-- onMobDespawn
 -----------------------------------
 
-function onMobDeath(mob, player, isKiller)
+function onMobDespawn(mob)
 
 --JSR: remove confrontation when Spipi despawns from forced pop
 if (mob == nil or mob:getLocalVar("TimedOut") == 1) then

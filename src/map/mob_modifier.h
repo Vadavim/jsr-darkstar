@@ -95,11 +95,13 @@ enum MOBMODIFIER : int
     MOBMOD_ATTACK_SKILL_LIST  = 63, // skill list to use in place of regular attacks
     MOBMOD_CHARMABLE          = 64, // mob is charmable
     MOBMOD_NO_MOVE            = 65,  // Mob will not be able to move
-    MOBMOD_SCALE_LEVEL            = 66,  // Mob's level scales with person who engaged
-    MOBMOD_HARD_MODE            = 67,  // Mob's level scales with person who engaged
-    MOBMOD_ENSPELL            = 68,  // Mob's level scales with person who engaged
-    MOBMOD_POISON_ATTACK            = 69,  // Mob's level scales with person who engaged
-    MOBMOD_NO_XP           = 70 //
+    MOBMOD_MULTI_HIT          = 66,  // Mob will not be able to move
+
+    MOBMOD_SCALE_LEVEL            = 70,  // Mob's level scales with person who engaged
+    MOBMOD_HARD_MODE            = 71,  // Mob's level scales with person who engaged
+    MOBMOD_ENSPELL            = 72,  // Mob's level scales with person who engaged
+    MOBMOD_POISON_ATTACK            = 73,  // Mob's level scales with person who engaged
+    MOBMOD_NO_XP           = 74 //
 };
 
 #endif

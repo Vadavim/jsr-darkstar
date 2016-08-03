@@ -15,7 +15,7 @@ require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
 -----------------------------------
 
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     local params = {};
     params.numHits = 1;
@@ -35,7 +35,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
 
 
-    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
     if (criticalHit) then
         target:addStatusEffect(EFFECT_VIT_DOWN, 30, 0, fTP(tp, 30, 90, 180));
         target:setPendingMessage(278, EFFECT_VIT_DOWN);

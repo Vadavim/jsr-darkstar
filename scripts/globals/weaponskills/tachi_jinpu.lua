@@ -17,7 +17,7 @@ require("scripts/globals/weaponskills");
  require("scripts/globals/magic");
 -----------------------------------
 
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     local params = {};
     params.numHits = 2;
@@ -35,8 +35,8 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         params.int_wsc = 0.6;
     end
 
+    local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, tp, primary, action, params);
     local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_WIND, SKILL_GKT);
-    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
     if (damage > 0 and resist > 0.125 and not target:hasStatusEffect(EFFECT_FROST))then
         local DOT = math.floor(player:getMainLvl()/4) + 1;
 

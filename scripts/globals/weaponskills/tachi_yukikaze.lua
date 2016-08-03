@@ -19,7 +19,7 @@ require("scripts/globals/weaponskills");
 require("scripts/globals/magic");
 -----------------------------------
 
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     local params = {};
     params.numHits = 1;
@@ -36,7 +36,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         params.atkmulti = 1.65;
     end
 
-    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
     local duration = fTP(tp, 60, 180, 360);
 
     local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_DARK, SKILL_GKT);

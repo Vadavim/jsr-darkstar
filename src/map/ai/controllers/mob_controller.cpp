@@ -112,7 +112,11 @@ bool CMobController::CheckHide(CBattleEntity* PTarget)
 
 bool CMobController::CheckDetection(CBattleEntity* PTarget)
 {
-    if (CanDetectTarget(PTarget) || CanPursueTarget(PTarget) || PMob->StatusEffectContainer->HasStatusEffect(EFFECT_BIND))
+    if (CanDetectTarget(PTarget) || CanPursueTarget(PTarget) || 
+        PMob->StatusEffectContainer->HasStatusEffect(EFFECT_BIND) || 
+        PMob->StatusEffectContainer->HasStatusEffect(EFFECT_SLEEP) || 
+        PMob->StatusEffectContainer->HasStatusEffect(EFFECT_SLEEP_II) ||
+        PMob->StatusEffectContainer->HasStatusEffect(EFFECT_LULLABY))
     {
         TapDeaggroTime();
     }
@@ -918,7 +922,7 @@ void CMobController::Disengage()
 
     if (PMob->getMobMod(MOBMOD_IDLE_DESPAWN))
     {
-        PMob->SetDespawnTime(std::chrono::milliseconds(PMob->getMobMod(MOBMOD_IDLE_DESPAWN)));
+        PMob->SetDespawnTime(std::chrono::seconds(PMob->getMobMod(MOBMOD_IDLE_DESPAWN)));
     }
 
     // JSR: reset monster's level if it scaled

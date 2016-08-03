@@ -18,7 +18,7 @@ require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
 -----------------------------------
 
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     local params = {};
     params.numHits = 1;
@@ -36,7 +36,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local hasSneak = player:hasStatusEffect(EFFECT_SNEAK_ATTACK);
 
-    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
 
 
     local power = (1 + player:getStat(MOD_DEX) / 5) * (tp / 1000);

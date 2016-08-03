@@ -17,7 +17,7 @@ require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
 -----------------------------------
 
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     local params = {};
     params.numHits = 5;
@@ -32,7 +32,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         params.dex_wsc = 0.4;
     end
 
-    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
     if (damage > 0) then
         player:addStatusEffect(EFFECT_ENMITY_DOWN, 15, 0, 60 * (tp / 1000));
     end

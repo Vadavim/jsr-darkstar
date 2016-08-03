@@ -18,7 +18,7 @@ require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
 -----------------------------------
 
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     local params = {};
     params.numHits = 1;
@@ -33,7 +33,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
         params.ftp100 = 1.5625; params.ftp200 = 2.6875; params.ftp300 = 4.125;
     end
 
-    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
     -- Silence duration changed from 60 to 45 as per bg-wiki: http://www.bg-wiki.com/bg/Tachi:_Gekko
     local duration = fTP(tp, 45, 90, 160);
     local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_WIND, SKILL_GKT);

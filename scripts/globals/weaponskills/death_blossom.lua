@@ -22,7 +22,7 @@ local enspellTypes = {[9] = EFFECT_ENFIRE_II, [10] = EFFECT_ENSTONE_II, [11] = E
     [12] = EFFECT_ENAERO_II, [13] = EFFECT_ENBLIZZARD_II, [14] = EFFECT_ENTHUNDER_II};
 local statuses = {EFFECT_POISON, EFFECT_POISON_II, EFFECT_SLOW, EFFECT_BLINDNESS, EFFECT_BIO, EFFECT_PARALYSIS, EFFECT_DISEASE, EFFECT_PLAGUE};
 -----------------------------------
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     local params = {};
     params.numHits = 3;
     -- ftp damage mods (for Damage Varies with TP; lines are calculated in the function
@@ -44,7 +44,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary)
 
     local enspell = player:getMod(MOD_ENSPELL)
     if (enspell ~= 0) then params.ele = enspellElements[enspell] end;
-    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, params, tp, primary);
+    local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
 
     if (damage > 0) then
         local duration = ((tp/1000) * 30);

@@ -608,6 +608,7 @@ void CalculateStats(CMobEntity * PMob)
 void SetupJob(CMobEntity* PMob)
 {
     JOBTYPE mJob = PMob->GetMJob();
+    JOBTYPE sJob = PMob->GetSJob();
 
     switch(mJob)
     {
@@ -696,9 +697,11 @@ void SetupJob(CMobEntity* PMob)
             PMob->defaultMobMod(MOBMOD_HP_STANDBACK, 70);
             break;
         case JOB_PLD:
+            PMob->defaultMobMod(MOBMOD_MAGIC_COOL, 35);
             PMob->defaultMobMod(MOBMOD_MAGIC_DELAY, 7);
             break;
         case JOB_DRK:
+            PMob->defaultMobMod(MOBMOD_MAGIC_COOL, 35);
             PMob->defaultMobMod(MOBMOD_MAGIC_DELAY, 7);
             break;
         case JOB_WHM:
@@ -710,19 +713,41 @@ void SetupJob(CMobEntity* PMob)
             PMob->defaultMobMod(MOBMOD_GA_CHANCE, 25);
             PMob->defaultMobMod(MOBMOD_BUFF_CHANCE, 60);
             PMob->defaultMobMod(MOBMOD_MAGIC_DELAY, 10);
+            break;
         case JOB_BLU:
             PMob->defaultMobMod(MOBMOD_MAGIC_COOL, 35);
+            break;
         case JOB_RDM:
             PMob->defaultMobMod(MOBMOD_MAGIC_COOL, 35);
             PMob->defaultMobMod(MOBMOD_GA_CHANCE, 15);
             PMob->defaultMobMod(MOBMOD_BUFF_CHANCE, 40);
             PMob->defaultMobMod(MOBMOD_MAGIC_DELAY, 10);
+            break;
         case JOB_SMN:
             PMob->defaultMobMod(MOBMOD_MAGIC_COOL, 70);
             // smn only has "buffs"
             PMob->defaultMobMod(MOBMOD_BUFF_CHANCE, 100);
     }
 
+    // Just a fallback at the moment
+    switch(sJob)
+    {
+        case JOB_BLM:
+        case JOB_WHM:
+        case JOB_RDM:
+        case JOB_DRK:
+        case JOB_BLU:
+        case JOB_SMN:
+        case JOB_BRD:
+        case JOB_NIN:
+            if(PMob->getMobMod(MOBMOD_MP_BASE))
+            {
+                PMob->defaultMobMod(MOBMOD_MAGIC_COOL, 35);
+                PMob->defaultMobMod(MOBMOD_GA_CHANCE, 15);
+                PMob->defaultMobMod(MOBMOD_BUFF_CHANCE, 40);
+                PMob->defaultMobMod(MOBMOD_MAGIC_DELAY, 10);
+            }
+    }
 }
 
 void SetupRoaming(CMobEntity* PMob)
@@ -1010,7 +1035,6 @@ void InitializeMob(CMobEntity* PMob, CZone* PZone)
     PMob->defaultMobMod(MOBMOD_SIGHT_RANGE, CMobEntity::sight_range);
     PMob->defaultMobMod(MOBMOD_SOUND_RANGE, CMobEntity::sound_range);
 
-
     // Killer Effect
     switch (PMob->m_EcoSystem)
       {
@@ -1036,7 +1060,6 @@ void InitializeMob(CMobEntity* PMob, CZone* PZone)
             ShowError("Mob %s level is 0! zoneid %d, poolid %d\n", PMob->GetName(), PMob->getZone(), PMob->m_Pool);
         }
     }
-
 }
 
 /*

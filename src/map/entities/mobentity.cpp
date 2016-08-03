@@ -37,6 +37,7 @@
 #include "../entities/charentity.h"
 #include "../packets/action.h"
 #include "../packets/entity_update.h"
+#include "../packets/pet_sync.h"
 #include "../utils/battleutils.h"
 #include "../utils/blueutils.h"
 #include "../utils/charutils.h"
@@ -504,6 +505,13 @@ void CMobEntity::PostTick()
     if (loc.zone && updatemask)
     {
         loc.zone->PushPacket(this, CHAR_INRANGE, new CEntityUpdatePacket(this, ENTITY_UPDATE, updatemask));
+
+        // If this mob is charmed, it should sync with its master
+        if (PMaster && PMaster->PPet == this && PMaster->objtype == TYPE_PC)
+        {
+            ((CCharEntity*)PMaster)->pushPacket(new CPetSyncPacket((CCharEntity*)PMaster));
+        }
+
         updatemask = 0;
     }
 }
@@ -623,6 +631,7 @@ void CMobEntity::Spawn()
             }
         }
     }
+
     m_DespawnTimer = time_point::min();
     luautils::OnMobSpawn(this);
 }
@@ -641,7 +650,6 @@ void CMobEntity::OnWeaponSkillFinished(CWeaponSkillState& state, action_t& actio
 
 void CMobEntity::OnMobSkillFinished(CMobSkillState& state, action_t& action)
 {
-
     auto PSkill = state.GetSkill();
     auto PTarget = static_cast<CBattleEntity*>(state.GetTarget());
 
@@ -781,7 +789,7 @@ void CMobEntity::OnMobSkillFinished(CMobSkillState& state, action_t& action)
                     SUBEFFECT effect = battleutils::GetSkillChainEffect(PTarget, PWeaponSkill);
                     if (effect != SUBEFFECT_NONE)
                     {
-                        int32 skillChainDamage = battleutils::TakeSkillchainDamage(this, PTarget, target.param);
+                        int32 skillChainDamage = battleutils::TakeSkillchainDamage(this, PTarget, target.param, nullptr);
                         if (skillChainDamage < 0)
                         {
                             target.addEffectParam = -skillChainDamage;
@@ -843,7 +851,7 @@ void CMobEntity::DropItems()
                     uint8 bonus = (m_THLvl > 2 ? (m_THLvl - 2) * 10 : 0);
                     while (tries < maxTries)
                     {
-                        if (dsprand::GetRandomNumber(1000) < DropList->at(i).DropRate * map_config.drop_rate_multiplier * (1.0f + dropBonus)  + bonus)
+                        if (DropList->at(i).DropRate > 0 && dsprand::GetRandomNumber(1000) < DropList->at(i).DropRate * map_config.drop_rate_multiplier * (1.0f + dropBonus)  + bonus)
                         {
                             PChar->PTreasurePool->AddItem(DropList->at(i).ItemID, this);
                             break;
@@ -1032,7 +1040,7 @@ void CMobEntity::OnDisengage(CAttackState& state)
 
     if (getMobMod(MOBMOD_IDLE_DESPAWN))
     {
-        SetDespawnTime(std::chrono::milliseconds(getMobMod(MOBMOD_IDLE_DESPAWN)));
+        SetDespawnTime(std::chrono::seconds(getMobMod(MOBMOD_IDLE_DESPAWN)));
     }
     // this will let me decide to walk home or despawn
     m_neutral = true;

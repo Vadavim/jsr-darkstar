@@ -16,7 +16,7 @@ require("scripts/globals/weaponskills");
 require("scripts/globals/magic");
 -----------------------------------
 
-function onUseWeaponSkill(player, target, wsID, tp, primary)
+function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     local params = {};
     params.numHits = 1;

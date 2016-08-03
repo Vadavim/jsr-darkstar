@@ -130,6 +130,7 @@
 #include "../ai/states/magic_state.h"
 
 #include "../transport.h"
+#include "../treasure_pool.h"
 #include "../mob_modifier.h"
 
 CLuaBaseEntity::CLuaBaseEntity(lua_State* L)
@@ -711,6 +712,28 @@ inline int32 CLuaBaseEntity::getSpawnPos(lua_State* L)
     lua_setfield(L, newTable, "rot");
 
     return 1;
+}
+
+//==========================================================//
+
+inline int32 CLuaBaseEntity::addTreasure(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+
+    if (PChar->PTreasurePool != nullptr)
+    {
+        PChar->PTreasurePool->AddItem((uint16)lua_tointeger(L, 1), PChar);
+    }
+    else
+    {
+        ShowError(CL_RED"Lua::addTreasure: Tried to add item to a treasure pool that was nullptr! \n" CL_RESET);
+    }
+    return 0;
 }
 
 //==========================================================//
@@ -2289,6 +2312,57 @@ inline int32 CLuaBaseEntity::delLearnedAbility(lua_State *L)
         charutils::SaveLearnedAbilities(PChar);
         PChar->pushPacket(new CCharAbilitiesPacket(PChar));
     }
+    return 0;
+}
+
+inline int32 CLuaBaseEntity::addLearnedWeaponskill(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+
+    uint8 wsid = (uint16)lua_tointeger(L, 1);
+
+    charutils::addLearnedWeaponskill(PChar, wsid);
+    charutils::BuildingCharWeaponSkills(PChar);
+    charutils::SaveLearnedAbilities(PChar);
+    PChar->pushPacket(new CCharAbilitiesPacket(PChar));
+    return 0;
+}
+
+inline int32 CLuaBaseEntity::hasLearnedWeaponskill(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+
+    uint8 wsid = (uint16)lua_tointeger(L, 1);
+
+    lua_pushboolean(L, (charutils::hasLearnedWeaponskill((CCharEntity*)m_PBaseEntity, wsid) != 0));
+    return 1;
+}
+
+//==========================================================//
+
+inline int32 CLuaBaseEntity::delLearnedWeaponskill(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+
+    uint8 wsid = (uint16)lua_tointeger(L, 1);
+
+    charutils::delLearnedWeaponskill(PChar, wsid);
+    charutils::BuildingCharWeaponSkills(PChar);
+    charutils::SaveLearnedAbilities(PChar);
+    PChar->pushPacket(new CCharAbilitiesPacket(PChar));
     return 0;
 }
 
@@ -3946,6 +4020,21 @@ inline int32 CLuaBaseEntity::getFame(lua_State *L)
         case 5: // Norg
             fame = PChar->profile.fame[3]*fameMultiplier;
             break;
+        // Abyssea
+        case 6: // Konschtat
+        case 7: // Tahrongi
+        case 8: // La Theine
+        case 9: // Misareaux
+        case 10: // Vunkerl
+        case 11: // Attohwa
+        case 12: // Altepa
+        case 13: // Grauberg
+        case 14: // Uleguerand
+            fame = PChar->profile.fame[fameArea-1] * fameMultiplier;
+            break;
+        case 15: // Adoulin
+            fame = PChar->profile.fame[14] * fameMultiplier;
+            break;
     }
     lua_pushinteger(L, fame);
     return 1;
@@ -3962,6 +4051,7 @@ inline int32 CLuaBaseEntity::getFameLevel(lua_State *L)
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
     DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
 
+    uint8  fameArea = (uint8)lua_tointeger(L, 1);
     this->getFame(L);
 
     uint16 fame = (uint16)lua_tointeger(L, -1);
@@ -3983,6 +4073,9 @@ inline int32 CLuaBaseEntity::getFameLevel(lua_State *L)
         fameLevel = 3;
     else if (fame >= 50)
         fameLevel = 2;
+
+    if ((fameArea >= 6) && (fameArea <= 14) && (fameLevel >= 6))
+        fameLevel = 6; // Abyssea areas cap out at level 6 fame.
 
     lua_pushinteger(L, fameLevel);
     return 1;
@@ -4021,6 +4114,21 @@ inline int32 CLuaBaseEntity::setFame(lua_State *L)
             break;
         case 5: // Norg
             ((CCharEntity*)m_PBaseEntity)->profile.fame[3] = fame;
+            break;
+        // Abyssea
+        case 6: // Konschtat
+        case 7: // Tahrongi
+        case 8: // La Theine
+        case 9: // Misareaux
+        case 10: // Vunkerl
+        case 11: // Attohwa
+        case 12: // Altepa
+        case 13: // Grauberg
+        case 14: // Uleguerand
+            ((CCharEntity*)m_PBaseEntity)->profile.fame[fameArea-1] = fame;
+            break;
+        case 15: // Adoulin
+            ((CCharEntity*)m_PBaseEntity)->profile.fame[14] = fame;
             break;
     }
     charutils::SaveFame((CCharEntity*)m_PBaseEntity);
@@ -4062,6 +4170,21 @@ inline int32 CLuaBaseEntity::addFame(lua_State *L)
             break;
         case 5: // Norg
             PChar->profile.fame[3] += fame;
+            break;
+        // Abyssea
+        case 6: // Konschtat
+        case 7: // Tahrongi
+        case 8: // La Theine
+        case 9: // Misareaux
+        case 10: // Vunkerl
+        case 11: // Attohwa
+        case 12: // Altepa
+        case 13: // Grauberg
+        case 14: // Uleguerand
+            PChar->profile.fame[fameArea-1] += fame;
+            break;
+        case 15: // Adoulin
+            PChar->profile.fame[14] += fame;
             break;
     }
     charutils::SaveFame(PChar);
@@ -7507,6 +7630,10 @@ inline int32 CLuaBaseEntity::setRespawnTime(lua_State* L)
     if (!lua_isnil(L, 1) && lua_isnumber(L, 1))
     {
         PMob->m_RespawnTime = lua_tointeger(L, 1) * 1000;
+        if (PMob->PAI->IsCurrentState<CDespawnState>())
+        {
+            PMob->PAI->GetCurrentState()->ResetEntryTime();
+        }
 
         if (!lua_isnil(L, 2) && lua_isboolean(L, 2) && lua_toboolean(L, 2)) //set optional parameter to true to only modify the timer
             return 0;
@@ -10108,14 +10235,17 @@ inline int32 CLuaBaseEntity::getEnmityList(lua_State* L)
         int i = 1;
         for (auto member : *enmityList)
         {
-            lua_getglobal(L, CLuaBaseEntity::className);
-            lua_pushstring(L, "new");
-            lua_gettable(L, -2);
-            lua_insert(L, -2);
-            lua_pushlightuserdata(L, (void*)member.second->PEnmityOwner);
-            lua_pcall(L, 2, 1, 0);
+            if (member.second.PEnmityOwner)
+            {
+                lua_getglobal(L, CLuaBaseEntity::className);
+                lua_pushstring(L, "new");
+                lua_gettable(L, -2);
+                lua_insert(L, -2);
+                lua_pushlightuserdata(L, (void*)member.second.PEnmityOwner);
+                lua_pcall(L, 2, 1, 0);
 
-            lua_rawseti(L, -2, i++);
+                lua_rawseti(L, -2, i++);
+            }
         }
     }
     else
@@ -11447,6 +11577,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getStat),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getMaxHP),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getMaxMP),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,addTreasure),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addItem),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addTempItem),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,delItem),
@@ -11514,6 +11645,9 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,hasLearnedAbility),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,canLearnAbility),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,delLearnedAbility),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,addLearnedWeaponskill),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,hasLearnedWeaponskill),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,delLearnedWeaponskill),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getMainJob),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getMainLvl),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getSubJob),

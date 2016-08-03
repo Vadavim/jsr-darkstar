@@ -16,7 +16,7 @@ require("scripts/globals/magicburst");
 
 local runeElements = {ELE_FIRE, ELE_ICE, ELE_WIND, ELE_EARTH, ELE_THUNDER, ELE_WATER, ELE_LIGHT, ELE_DARK};
 -- params contains: ftp100, ftp200, ftp300, str_wsc, dex_wsc, vit_wsc, int_wsc, mnd_wsc, canCrit, crit100, crit200, crit300, acc100, acc200, acc300, ignoresDef, ignore100, ignore200, ignore300, atkmulti
-function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
+function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taChar, params)
 
     local criticalHit = false;
     local bonusTP = params.bonusTP or 0
@@ -62,8 +62,6 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
          attacker:getStat(MOD_INT) * params.int_wsc + attacker:getStat(MOD_MND) * params.mnd_wsc +
          attacker:getStat(MOD_CHR) * params.chr_wsc) * getAlpha(attacker:getMainLvl());
 
-
-
     -- Applying fTP multiplier
     local ftp = fTP(tp,params.ftp100,params.ftp200,params.ftp300) + bonusfTP;
 
@@ -107,6 +105,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
     if (params.canCrit) then -- work out critical hit ratios, by +1ing
         critrate = fTP(tp,params.crit100,params.crit200,params.crit300);
         -- add on native crit hit rate (guesstimated, it actually follows an exponential curve)
+        local flourisheffect = attacker:getStatusEffect(EFFECT_BUILDING_FLOURISH);
         if flourisheffect ~= nil and flourisheffect:getPower() > 1 then
             critrate = critrate + (10 + flourisheffect:getSubPower()/2)/100;
         end
@@ -126,7 +125,6 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
 
 
     local dmg = 0;
-
 
     -- Applying pDIF
     local pdif = generatePdif (cratio[1], cratio[2], true);
@@ -250,7 +248,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
     end
 
     finaldmg = target:physicalDmgTaken(finaldmg);
-
+    
     if (weaponType == SKILL_H2H) then
         finaldmg = finaldmg * target:getMod(MOD_HTHRES) / 1000;
     elseif (weaponType == SKILL_DAG or weaponType == SKILL_POL) then
@@ -279,7 +277,6 @@ function doPhysicalWeaponskill(attacker, target, wsID, params, tp, primary)
     if tpHitsLanded + extraHitsLanded > 0 then
         finaldmg = takeWeaponskillDamage(target, attacker, params, finaldmg, SLOT_MAIN, tpHitsLanded, (extraHitsLanded * 10) + bonusTP, taChar)
     end
-
     return finaldmg, criticalHit, tpHitsLanded, extraHitsLanded;
 end;
 
@@ -296,7 +293,7 @@ function applyResistanceWeaponskill(attacker, target, params, tp, element, skill
     return p;
 end
 
-function doMagicWeaponskill(attacker, target, wsID, params, tp, primary)
+function doMagicWeaponskill(attacker, target, wsID, tp, primary, action, params)
     if (attacker:isPC() and attacker:getMainJob() == 10) then
         attacker:resetRecast(RECAST_ABILITY, 48);
     end
@@ -338,7 +335,7 @@ function doMagicWeaponskill(attacker, target, wsID, params, tp, primary)
     if (ftp > 1000) then
         bonusacc = bonusacc + math.floor(ftp / 50 - 20);
     end
-    
+
     dmg = dmg * ftp;
 
     if (wsID ~= 0 and isAoEWeaponskill(wsID)) then
@@ -558,7 +555,7 @@ function cMeleeRatio(attacker, defender, params, ignoredDef)
         pdifmax = cratio + 0.3;
     elseif (cratio < 1.5) then
         pdifmax = (cratio * 0.25) + cratio;
-    elseif (cratio < 1.5) then
+    elseif (cratio < 2.625) then
         pdifmax = cratio + 0.375;
     else
         pdifmax = 3;
@@ -595,7 +592,7 @@ function cMeleeRatio(attacker, defender, params, ignoredDef)
         pdifmax = cratio + 0.3;
     elseif (cratio < 1.5) then
         pdifmax = (cratio * 0.25) + cratio;
-    elseif (cratio < 1.5) then
+    elseif (cratio < 2.625) then
         pdifmax = cratio + 0.375;
     else
         pdifmax = 3;
