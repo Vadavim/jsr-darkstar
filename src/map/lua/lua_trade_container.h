@@ -48,6 +48,7 @@ public:
     int32 getItem(lua_State*);
     int32 getItemSubId(lua_State*);
     int32 getItemQty(lua_State*);
+    int32 isAugmented(lua_State*);
     int32 hasItemQty(lua_State*);
     int32 getSlotQty(lua_State*);		// количество предметов в указанной ячейке
     int32 getItemCount(lua_State*);		// общее количество предметов

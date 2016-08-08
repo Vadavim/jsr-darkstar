@@ -28,6 +28,10 @@ DEFENSE
 TP
  - Players gain TP from being hit by magical spells (like mobs). Previously this was not the case.
 
+
+HEALING
+ - +HP while Healing modifiers increase in effectiveness with player level (+5% per level)
+
 STATS
  - Gain a bonus to critical damage equal to: (aSTR - dVIT)%, max of -40% to 40%.
  - Gain a bonus to TP gain equal to: ((aINT - dMND) * 075)%, max of -30% to 30%.

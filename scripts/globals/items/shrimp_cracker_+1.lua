@@ -37,7 +37,7 @@ end;
 function onEffectGain(target,effect)
     target:addMod(MOD_VIT, 2);
     target:addMod(MOD_HPHEAL, 9);
-    target:addMod(MOD_AMORPH_KILLER, 5);
+    target:addMod(MOD_AMORPH_KILLER, 12);
 end;
 
 -----------------------------------------
@@ -47,5 +47,5 @@ end;
 function onEffectLose(target,effect)
     target:delMod(MOD_VIT, 2);
     target:delMod(MOD_HPHEAL, 9);
-    target:delMod(MOD_AMORPH_KILLER, 5);
+    target:delMod(MOD_AMORPH_KILLER, 12);
 end;

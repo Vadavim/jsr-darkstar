@@ -1110,6 +1110,7 @@ function addBonusesWeaponskill(caster, ele, target, dmg, params)
 end;
 
 function addBonusesAbility(caster, ele, target, dmg, params, dChance)
+    if (params == nil) then params = {} end;
     if (dChance == nil) then
         dChance = 0.75;
     end

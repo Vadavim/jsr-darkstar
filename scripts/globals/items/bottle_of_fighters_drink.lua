@@ -19,7 +19,7 @@ end;
 -----------------------------------------
 
 function onItemUse(target)
-    local duration = 90000;
+    local duration = 900;
     target:delStatusEffect(EFFECT_ACCURACY_BOOST);
-    target:addStatusEffect(EFFECT_ACCURACY_BOOST,300,0,duration);
+    target:addStatusEffect(EFFECT_ACCURACY_BOOST,40,0,duration);
 end;

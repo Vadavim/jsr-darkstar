@@ -221,7 +221,7 @@ uint8 CAttack::GetAnimationID()
         return this->m_attackDirection == RIGHTATTACK ? 2 : 3;
     }
 
-    if (this->m_attackType == RANGED_ATTACK) {
+    if (this->m_attackType == PHYSICAL_ATTACK_TYPE::RANGED) {
         return ANIMATION_RANGED;
     }
 

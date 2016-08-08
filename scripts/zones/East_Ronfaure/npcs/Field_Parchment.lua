@@ -21,6 +21,7 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
+    DespawnMob(17191322);
     if (player:hasStatusEffect(EFFECT_CONFRONTATION) or player:hasStatusEffect(EFFECT_LEVEL_RESTRICTION)) then
         player:delStatusEffect(EFFECT_CONFRONTATION);
         player:delStatusEffect(EFFECT_LEVEL_RESTRICTION);

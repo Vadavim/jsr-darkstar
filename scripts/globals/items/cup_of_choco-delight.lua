@@ -33,7 +33,13 @@ end;
 -----------------------------------------
 
 function onEffectGain(target,effect)
-    target:addMod(MOD_MPHEAL, 5);
+    target:addMod(MOD_MPHEAL, 1);
+    target:addMod(MOD_CONSERVE_MP, 10);
+    target:addMod(MOD_CONSERVE_TP, 10);
+    target:addMod(MOD_CURSERES, 20);
+    target:addMod(MOD_DARKRES, 20);
+    target:addMod(MOD_LIGHTRES, 20);
+    target:addMod(MOD_DEATHRES, 20);
 end;
 
 -----------------------------------------
@@ -41,5 +47,11 @@ end;
 -----------------------------------------
 
 function onEffectLose(target,effect)
-    target:delMod(MOD_MPHEAL, 5);
+    target:delMod(MOD_MPHEAL, 1);
+    target:delMod(MOD_CONSERVE_MP, 10);
+    target:delMod(MOD_CONSERVE_TP, 10);
+    target:delMod(MOD_CURSERES, 20);
+    target:delMod(MOD_DARKRES, 20);
+    target:delMod(MOD_LIGHTRES, 20);
+    target:delMod(MOD_DEATHRES, 20);
 end;

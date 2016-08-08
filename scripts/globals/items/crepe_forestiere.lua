@@ -1,11 +1,10 @@
 -----------------------------------------
--- ID: 4520
--- Item: coin_cookie
--- Food Effect: 5Min, All Races
+-- ID: 5773
+-- Item: mushroom_crepe
+-- Food Effect: 30Min, All Races
 -----------------------------------------
--- Magic Regen While Healing 6
--- Vermin Killer 5
--- Poison Resist 5
+-- Mind 2
+-- MP % 10 (cap 30)
 -----------------------------------------
 
 require("scripts/globals/status");
@@ -27,7 +26,7 @@ end;
 -----------------------------------------
 
 function onItemUse(target)
-    target:addStatusEffect(EFFECT_FOOD,0,0,300,4520);
+    target:addStatusEffect(EFFECT_FOOD,0,0,1800,5773);
 end;
 
 -----------------------------------------
@@ -35,9 +34,11 @@ end;
 -----------------------------------------
 
 function onEffectGain(target,effect)
-    target:addMod(MOD_MPHEAL, 6);
-    target:addMod(MOD_VERMIN_KILLER, 12);
-    target:addMod(MOD_POISONRES, 12);
+    target:addMod(MOD_MND, 2);
+    target:addMod(MOD_MDEF, 6);
+    target:addMod(MOD_MACC, 15);
+    target:addMod(MOD_FOOD_MPP, 10);
+    target:addMod(MOD_FOOD_MP_CAP, 35);
 end;
 
 -----------------------------------------
@@ -45,7 +46,9 @@ end;
 -----------------------------------------
 
 function onEffectLose(target,effect)
-    target:delMod(MOD_MPHEAL, 6);
-    target:delMod(MOD_VERMIN_KILLER, 12);
-    target:delMod(MOD_POISONRES, 12);
+    target:delMod(MOD_MACC, 15);
+    target:delMod(MOD_MND, 2);
+    target:delMod(MOD_MDEF, 6);
+    target:delMod(MOD_FOOD_MPP, 10);
+    target:delMod(MOD_FOOD_MP_CAP, 30);
 end;

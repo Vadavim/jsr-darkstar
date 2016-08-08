@@ -20,12 +20,12 @@ end;
 
 function onItemUse(target)
     local worked = 0;
-    if (target:hasStatusEffect(EFFECT_REGEN) == false) then
-        target:addStatusEffect(EFFECT_REGEN,5,3,300);
+    if (target:hasStatusEffect(EFFECT_AUTO_REGEN) == false) then
+        target:addStatusEffect(EFFECT_AUTO_REGEN,7,3,300);
         worked = worked + 1;
     end
     if (target:hasStatusEffect(EFFECT_REFRESH) == false) then
-        target:addStatusEffect(EFFECT_REFRESH,5,3,300);
+        target:addStatusEffect(EFFECT_REFRESH,7,3,300);
         worked = worked + 1;
     end
     if (worked == 0) then

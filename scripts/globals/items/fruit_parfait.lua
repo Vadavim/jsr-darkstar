@@ -45,6 +45,7 @@ function onEffectGain(target,effect)
     target:addMod(MOD_CHR, 1);
     target:addMod(MOD_STR, -3);
     target:addMod(MOD_MATT, 6);
+    target:addMod(MOD_MACC, 3);
 end;
 
 -----------------------------------------
@@ -59,4 +60,5 @@ function onEffectLose(target,effect)
     target:delMod(MOD_CHR, 1);
     target:delMod(MOD_STR, -3);
     target:delMod(MOD_MATT, 6);
+    target:delMod(MOD_MACC, 3);
 end;

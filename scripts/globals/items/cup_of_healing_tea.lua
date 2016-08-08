@@ -36,10 +36,13 @@ end;
 -----------------------------------
 
 function onEffectGain(target,effect)
-    target:addMod(MOD_MP, 10);
-    target:addMod(MOD_VIT, -1);
-    target:addMod(MOD_CHR, 3);
+    target:addMod(MOD_VIT, 2);
+    target:addMod(MOD_HPP, 10);
     target:addMod(MOD_MPHEAL, 2);
+    target:addMod(MOD_HPHEAL, 8);
+    target:addMod(MOD_REGEN, 1);
+    target:addMod(MOD_POISONRES, 20);
+    target:addMod(MOD_VIRUSRES, 20);
 end;
 
 -----------------------------------------
@@ -47,8 +50,11 @@ end;
 -----------------------------------------
 
 function onEffectLose(target,effect)
-    target:delMod(MOD_MP, 10);
-    target:delMod(MOD_VIT, -1);
-    target:delMod(MOD_CHR, 3);
+    target:delMod(MOD_VIT, 2);
+    target:delMod(MOD_HPP, 10);
     target:delMod(MOD_MPHEAL, 2);
+    target:delMod(MOD_HPHEAL, 8);
+    target:delMod(MOD_REGEN, 1);
+    target:delMod(MOD_POISONRES, 20);
+    target:delMod(MOD_VIRUSRES, 20);
 end;

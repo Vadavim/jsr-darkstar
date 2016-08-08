@@ -40,6 +40,7 @@ function onEffectGain(target,effect)
     target:addMod(MOD_FOOD_HP_CAP, 70);
     target:addMod(MOD_VIT, 2);
     target:addMod(MOD_STORETP, 5);
+    target:addMod(MOD_VIRUSRES, 15);
 end;
 
 -----------------------------------------
@@ -51,4 +52,5 @@ function onEffectLose(target,effect)
     target:delMod(MOD_FOOD_HP_CAP, 70);
     target:delMod(MOD_VIT, 2);
     target:delMod(MOD_STORETP, 5);
+    target:delMod(MOD_VIRUSRES, 15);
 end;

@@ -36,8 +36,8 @@ end;
 
 function onEffectGain(target,effect)
     target:addMod(MOD_MPHEAL, 5);
-    target:addMod(MOD_AQUAN_KILLER, 5);
-    target:addMod(MOD_SLEEPRES, 5);
+    target:addMod(MOD_AQUAN_KILLER, 12);
+    target:addMod(MOD_SLEEPRES, 12);
 end;
 
 -----------------------------------------
@@ -46,6 +46,6 @@ end;
 
 function onEffectLose(target,effect)
     target:delMod(MOD_MPHEAL, 5);
-    target:delMod(MOD_AQUAN_KILLER, 5);
-    target:delMod(MOD_SLEEPRES, 5);
+    target:delMod(MOD_AQUAN_KILLER, 12);
+    target:delMod(MOD_SLEEPRES, 12);
 end;

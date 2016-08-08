@@ -11346,6 +11346,11 @@ inline int32 CLuaBaseEntity::addLimitPoints(lua_State *L)
 inline int32 CLuaBaseEntity::setSpawner(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    if (lua_isnil(L,1)) {
+        CMobEntity* PMob = (CMobEntity*)m_PBaseEntity;
+        PMob->m_PSpawner = nullptr;
+        return 0;
+    }
     DSP_DEBUG_BREAK_IF(lua_isnil(L,1) || !lua_isuserdata(L,1));
 
     CLuaBaseEntity* PLuaBaseEntity = Lunar<CLuaBaseEntity>::check(L,1);
@@ -11503,10 +11508,11 @@ inline int32 CLuaBaseEntity::getHateTarget(lua_State* L)
     if (enmityList)
     {
         for (auto member : *enmityList) {
-            if (distance(PMob->loc.p, member.second->PEnmityOwner->loc.p) <= 20.0f) {
+
+            if (distance(PMob->loc.p, member.second.PEnmityOwner->loc.p) <= 20.0f) {
                 members.push_back(
-                        std::pair<CBattleEntity*, int>(member.second->PEnmityOwner,
-                                                       member.second->CE + member.second->VE));
+                        std::pair<CBattleEntity*, int>(member.second.PEnmityOwner,
+                                                       member.second.CE + member.second.VE));
             }
         }
 

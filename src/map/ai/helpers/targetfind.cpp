@@ -260,13 +260,13 @@ void CTargetFind::addNearby(CBattleEntity* PTarget, float radius, uint16 flags)
     if (flags & 16) {
         if (PTarget->objtype == TYPE_PET) {
             zoneutils::GetZone(PTarget->getZone())->ForEachMobInstance(PTarget, [&](CMobEntity *PMob) {
-                if (PMob && isWithinArea(&(PMob->loc.p)) && PMob->PEnmityContainer->HasTargetID(PTarget->PMaster->id)) {
+                if (PMob && isWithinArea(&(PMob->loc.p)) && PMob->PEnmityContainer->HasID(PTarget->PMaster->id)) {
                     m_targets.push_back(PMob);
                 }
             });
         } else {
             zoneutils::GetZone(PTarget->getZone())->ForEachMobInstance(PTarget, [&](CMobEntity *PMob) {
-                if (PMob && isWithinArea(&(PMob->loc.p)) && PMob->PEnmityContainer->HasTargetID(PTarget->id)) {
+                if (PMob && isWithinArea(&(PMob->loc.p)) && PMob->PEnmityContainer->HasID(PTarget->id)) {
                     m_targets.push_back(PMob);
                 }
             });

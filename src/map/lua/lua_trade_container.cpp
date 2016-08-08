@@ -82,6 +82,24 @@ inline int32 CLuaTradeContainer::getItem(lua_State *L)
     return 1;
 }
 
+inline int32 CLuaTradeContainer::isAugmented(lua_State *L)
+{
+    if (m_pMyTradeContainer != nullptr)
+    {
+        uint8 SlotID = 0;
+
+        if (!lua_isnil(L, 1) && lua_isnumber(L, 1))
+        {
+            SlotID = (uint8)lua_tonumber(L, 1);
+        }
+        CItem* PItem = m_pMyTradeContainer->getItem(SlotID);
+        lua_pushboolean(L, PItem->isSubType(ITEM_AUGMENTED));
+        return 1;
+    }
+    lua_pushboolean(L, false);
+    return 1;
+}
+
 //======================================================//
 
 inline int32 CLuaTradeContainer::getItemSubId(lua_State *L)
@@ -226,6 +244,7 @@ Lunar<CLuaTradeContainer>::Register_t CLuaTradeContainer::methods[] =
     LUNAR_DECLARE_METHOD(CLuaTradeContainer,getSlotCount),
     LUNAR_DECLARE_METHOD(CLuaTradeContainer,getItemQty),
     LUNAR_DECLARE_METHOD(CLuaTradeContainer,getSlotQty),
+    LUNAR_DECLARE_METHOD(CLuaTradeContainer,isAugmented),
     LUNAR_DECLARE_METHOD(CLuaTradeContainer,hasItemQty),
     LUNAR_DECLARE_METHOD(CLuaTradeContainer,confirmItem),
     {nullptr,nullptr}

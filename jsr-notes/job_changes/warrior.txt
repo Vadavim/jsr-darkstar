@@ -18,26 +18,20 @@ Additional Defense Bonus at level 50
 ABILITY CHANGES
 
 [Mighty Strikes]
+ - Duration: 45 -> 60 seconds
  - Also grants a +1000 TP bonus with weaponskills for the duration
-
-[Provoke]
- - [Berserk] (Main only): gives a temporary STR bonus and has a chance of stunning target. Greatly affected by Fire Resistance and CHR.
- - [Defender] (Main ony): gives a temporary VIT bonus.
 
 [Defender]
  - Also reduces physical damage by 15% (10% when used by a subjob).
  - Cancels and is cancelled by Berserk
 
 [Warcry]
- - [Berserk]: grants a +200 TP Bonus (+100 if subjob) to weaponskills for the duration.
+ - [Berserk]: grants a +250 TP Bonus (+125 if subjob) to weaponskills for the duration.
      - Each Savagery merit increases bonus by +25.
- - [Defender]: grants 10% (5% if subjob) chance of nullifying physical damage for duration.
+ - [Defender]: also boosts Defense by same amount as Attack and grants 10% (5% if subjob) chance of nullifying physical damage for duration.
      - Each Savagery merit increases chance by 1%.
 
-[Aggressor]
- - Aggressive aim gives +4 RACC and +4 RATP per merit point.
- - [Berserk]: grants +5% chance to critically hit
- - [Defender]: grants +10 Enmity
+
 
 [Retaliation]
  - Does not give TP to attacker (but warrior still gains TP).
@@ -49,7 +43,10 @@ ABILITY CHANGES
 
 [Restraint]
  - Gained at level 55
- - Changed to -25% Attack, -5% crit chance, +25 Subtle Blow, and +50 Store TP.
+ - Changed to -35% Attack, +20 Accuracy, -10% crit chance, +50 Subtle Blow, and +50 Store TP.
+ - Removed when weaponskill is used (can also be removed manually)
+ - Duration: 4 minutes
+ - Recast: 8 minutes
 
 [Warrior's Charge]
  - Gained at level 60 (no longer requires merit)

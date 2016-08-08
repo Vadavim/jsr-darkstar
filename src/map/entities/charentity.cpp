@@ -1508,7 +1508,7 @@ void CCharEntity::OnRangedAttackEx(CBattleEntity* PTarget, action_t& action)
     if (hitOccured == true)
     {
 
-        actionTarget.param = battleutils::TakePhysicalDamage(this, PTarget, totalDamage, false, slot, realHits, nullptr, true, true);
+        actionTarget.param = battleutils::TakePhysicalDamage(this, PTarget, PHYSICAL_ATTACK_TYPE::RANGED, totalDamage, false, slot, realHits, nullptr, true, true);
 
         // lower damage based on shadows taken
         if (shadowsTaken)

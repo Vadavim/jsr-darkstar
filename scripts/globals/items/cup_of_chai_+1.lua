@@ -34,8 +34,10 @@ end;
 -----------------------------------------
 
 function onEffectGain(target,effect)
-    target:addMod(MOD_VIT, -3);
-    target:addMod(MOD_CHR, 3);
+    target:addMod(MOD_CHR, 10);
+    target:addMod(MOD_MPP, 10);
+    target:addMod(MOD_SILENCERES, 20);
+    target:addMod(MOD_CHARMRES, 20);
 end;
 
 -----------------------------------------
@@ -43,6 +45,8 @@ end;
 -----------------------------------------
 
 function onEffectLose(target,effect)
-    target:delMod(MOD_VIT, -3);
-    target:delMod(MOD_CHR, 3);
+    target:delMod(MOD_CHR, 10);
+    target:delMod(MOD_MPP, 10);
+    target:delMod(MOD_SILENCERES, 20);
+    target:delMod(MOD_CHARMRES, 20);
 end;

@@ -36,6 +36,10 @@ end;
 function onEffectGain(target,effect)
     target:addMod(MOD_HPHEAL, 5);
     target:addMod(MOD_MPHEAL, 5);
+    target:addMod(MOD_SLEEPRES, 20);
+    target:addMod(MOD_PARALYZERES, 20);
+    target:addMod(MOD_SLOWRES, 20);
+    target:addMod(MOD_BINDRES, 20);
 end;
 
 -----------------------------------------
@@ -45,4 +49,8 @@ end;
 function onEffectLose(target,effect)
     target:delMod(MOD_HPHEAL, 5);
     target:delMod(MOD_MPHEAL, 5);
+    target:delMod(MOD_SLEEPRES, 20);
+    target:delMod(MOD_PARALYZERES, 20);
+    target:delMod(MOD_SLOWRES, 20);
+    target:delMod(MOD_BINDRES, 20);
 end;

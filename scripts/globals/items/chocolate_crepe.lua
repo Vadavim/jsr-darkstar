@@ -36,9 +36,12 @@ end;
 -----------------------------------------
 
 function onEffectGain(target,effect)
+    local mBonus = target:getMainLvl() * 0.8;
+    if (mBonus > 35) then mBonus = 35; end;
+
     target:addMod(MOD_HP, 15);
     target:addMod(MOD_MPHEAL, 2);
-    target:addMod(MOD_MACC, 4);
+    target:addMod(MOD_MACC, mBonus);
     target:addMod(MOD_MDEF, 1);
 end;
 
@@ -47,8 +50,11 @@ end;
 -----------------------------------------
 
 function onEffectLose(target,effect)
+    local mBonus = target:getMainLvl() * 0.8;
+    if (mBonus > 35) then mBonus = 35; end;
+
     target:delMod(MOD_HP, 15);
     target:delMod(MOD_MPHEAL, 2);
-    target:delMod(MOD_MACC, 4);
+    target:delMod(MOD_MACC, mBonus);
     target:delMod(MOD_MDEF, 1);
 end;

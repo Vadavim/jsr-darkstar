@@ -759,11 +759,15 @@ local katanaAugment = {
 };
 
 local bowAugment = {
+    {AUGMENT_STAT_INT,      {0, 1},     1, 3, true, 0.05},
+    {AUGMENT_STAT_CHR,      {0, 1},     1, 3, true, 0.05},
+    {AUGMENT_STAT_MND,      {0, 1},     1, 3, true, 0.05},
+    {AUGMENT_ENMITYNEG,            {0, 1},     1, 3, false, 0.0},
     {AUGMENT_STORETP,           {1, 3},     1, 3, false, 0.0},
     {AUGMENT_STAT_STR_AGI,      {0, 1},     1, 3, true, 0.03},
-    {AUGMENT_RACC,              {0, 2},     1, 8, false, 0.0},
+    {AUGMENT_RACC,              {0, 2},     1, 6, false, 0.0},
     {AUGMENT_HP,                {1, 5},     1, 4, true, 0.15},
-    {AUGMENT_RATK,               {0, 2},    1, 8, true, 0.1},
+    {AUGMENT_RATK,               {0, 2},    1, 3, true, 0.1},
     {AUGMENT_RAPIDSHOT,          {0, 3},    1, 5, false, 0.15},
     {AUGMENT_SNAPSHOT,           {0, 3},    1, 5, false, 0.10},
     {AUGMENT_RECYCLE,           {5, 9},    1, 5, false, 0.0},
@@ -772,11 +776,15 @@ local bowAugment = {
 };
 
 local markAugment = {
+    {AUGMENT_STAT_INT,      {0, 1},     1, 3, true, 0.05},
+    {AUGMENT_STAT_CHR,      {0, 1},     1, 3, true, 0.05},
+    {AUGMENT_STAT_MND,      {0, 1},     1, 3, true, 0.05},
+    {AUGMENT_ENMITYNEG,            {0, 1},     1, 3, false, 0.0},
     {AUGMENT_STORETP,           {0, 2},     1, 3, false, 0.0},
     {AUGMENT_STAT_AGI,         {0, 2},     1, 3, true, 0.03},
-    {AUGMENT_RACC,              {0, 2},     1, 8, false, 0.0},
+    {AUGMENT_RACC,              {0, 2},     1, 6, false, 0.0},
     {AUGMENT_HP,                {3, 5},     1, 4, true, 0.15},
-    {AUGMENT_RATK,               {0, 2},    1, 8, true, 0.1},
+    {AUGMENT_RATK,               {0, 2},    1, 3, true, 0.1},
     {AUGMENT_RAPIDSHOT,          {1, 3},    1, 5, false, 0.15},
     {AUGMENT_SNAPSHOT,           {1, 3},    1, 5, false, 0.10},
     {AUGMENT_RECYCLE,           {8, 12},    1, 5, false, 0.10},

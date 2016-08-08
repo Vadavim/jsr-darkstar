@@ -17,8 +17,9 @@ function onMobSpawn(mob)
     mob:setMobMod(MOBMOD_NO_XP, 1);
     mob:setMod(MOD_ENSPELL_DMG, 6);
     mob:setMod(MOD_ENSPELL, 1);
-    mob:setMod(MOD_FIRERES, 40);
-    mob:setMod(MOD_FIREDEF, 55);
+    mob:setMod(MOD_SPELLINTERRUPT, 40);
+    mob:setMod(MOD_FIRERES, 50);
+    mob:setMod(MOD_FIREDEF, 65);
 --    mob:addHP(99999);
 end
 
@@ -26,17 +27,18 @@ end
 function onMobFight(mob, target)
     local time = mob:getBattleTime();
     if (time ~= 0 and time % 20 == 0 and mob:getLocalVar("cast") == 0) then
+--    if (time ~= 0 and time % 20 == 0 and mob:getLocalVar("cast") == 0) then
         local target = mob:getHateTarget(true);
-        if (target == nil) then
-            print("BAD");
-        end
 
         mob:castSpell(235, mob:getHateTarget(true)); -- Burn
+
         mob:setLocalVar("cast", 1);
     elseif (time % 20 == 1) then
         mob:setLocalVar("cast", 0);
+    elseif (mob:getHPP() <= 70 and mob:getLocalVar("blaze") == 0) then
+        mob:castSpell(249, mob); -- Blaze Spikes
+        mob:setLocalVar("blaze", 1);
     end
-
 end
 
 function onMobDeath(mob, player, isKiller)

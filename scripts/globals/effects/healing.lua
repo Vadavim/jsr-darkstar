@@ -28,11 +28,12 @@ function onEffectTick(target,effect)
         -- curse II also known as "zombie"
         if (not(target:hasStatusEffect(EFFECT_DISEASE)) and target:hasStatusEffect(EFFECT_PLAGUE) == false and target:hasStatusEffect(EFFECT_CURSE_II) == false) then
             local healHP = 0;
+            local healMult = target:getMainLvl() / 20;
             if (target:getContinentID() == 1 and target:hasStatusEffect(EFFECT_SIGNET)) then
-                healHP = 10+(3*math.floor(target:getMainLvl()/10))+(healtime-2)*(1+math.floor(target:getMaxHP()/300))+(target:getMod(MOD_HPHEAL));
+                healHP = 10+(3*math.floor(target:getMainLvl()/10))+(healtime-2)*(1+math.floor(target:getMaxHP()/300))+(target:getMod(MOD_HPHEAL) * healMult);
             else
                 target:addTP(HEALING_TP_CHANGE);
-                healHP = 10+(healtime-2)+(target:getMod(MOD_HPHEAL));
+                healHP = 10+(healtime-2)+(target:getMod(MOD_HPHEAL) * healMult);
             end
 
             target:addHP(healHP);

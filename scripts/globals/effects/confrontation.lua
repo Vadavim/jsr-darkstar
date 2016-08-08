@@ -33,10 +33,12 @@ function onEffectLose(target,effect)
     if (target:getPet()) then
         target:getPet():delStatusEffect(EFFECT_CONFRONTATION);
     end
-    if (target:isMob() and target:getSpawner() ~= nil and target:getHPP() ~= 0) then
-        target:setLocalVar("TimedOut", 1);
-        DespawnMob(target:getID());
-    end
+--    if (target:isMob() and target:getSpawner() ~= nil and target:getHPP() ~= 0) then
+--        target:setSpawner(nil);
+--        target:setLocalVar("TimedOut", 1);
+--        print("DESPAWN");
+--        DespawnMob(target:getID());
+--    end
     --    DespawnMob(id, 10);
     --end
     

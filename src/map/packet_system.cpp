@@ -317,7 +317,7 @@ void SmallPacket0x00A(map_session_data_t* session, CCharEntity* PChar, CBasicPac
     if (!PChar->loc.zoning) {
         PChar->StatusEffectContainer->DelStatusEffectsByFlag(EFFECTFLAG_ON_ZONE, true);
         // update magic recasts
-        int8* fmtQuery = "SELECT id, time, recast FROM char_recast WHERE charid = %u AND type = 2;";
+        int8* fmtQuery = "SELECT id, time, recast FROM char_recast WHERE charid = %u";
 
         int32 ret = Sql_Query(SqlHandle, fmtQuery, PChar->id);
         if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0) {

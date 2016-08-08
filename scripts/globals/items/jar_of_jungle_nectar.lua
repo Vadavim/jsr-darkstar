@@ -1,11 +1,9 @@
 -----------------------------------------
--- ID: 4520
--- Item: coin_cookie
--- Food Effect: 5Min, All Races
+-- ID: 4283
+-- Item: cup_of_choco-delight
+-- Food Effect: 240Min, All Races
 -----------------------------------------
--- Magic Regen While Healing 6
--- Vermin Killer 5
--- Poison Resist 5
+-- Magic Regen While Healing 5
 -----------------------------------------
 
 require("scripts/globals/status");
@@ -27,7 +25,7 @@ end;
 -----------------------------------------
 
 function onItemUse(target)
-    target:addStatusEffect(EFFECT_FOOD,0,0,300,4520);
+    target:addStatusEffect(EFFECT_FOOD,0,0,14400,4283);
 end;
 
 -----------------------------------------
@@ -35,9 +33,15 @@ end;
 -----------------------------------------
 
 function onEffectGain(target,effect)
-    target:addMod(MOD_MPHEAL, 6);
-    target:addMod(MOD_VERMIN_KILLER, 12);
-    target:addMod(MOD_POISONRES, 12);
+    target:addMod(MOD_POISONRES, 20);
+    target:addMod(MOD_VIRUSRES, 20);
+    target:addMod(MOD_PLANTOID_KILLER, 8);
+    target:addMod(MOD_VERMIN_KILLER, 8);
+    target:addMod(MOD_BEAST_KILLER, 8);
+    target:addMod(MOD_BIRD_KILLER, 8);
+    target:addMod(MOD_EARTHRES, 20);
+    target:addMod(MOD_WATERRES, 20);
+    target:addMod(MOD_WINDRES, 20);
 end;
 
 -----------------------------------------
@@ -45,7 +49,13 @@ end;
 -----------------------------------------
 
 function onEffectLose(target,effect)
-    target:delMod(MOD_MPHEAL, 6);
-    target:delMod(MOD_VERMIN_KILLER, 12);
-    target:delMod(MOD_POISONRES, 12);
+    target:delMod(MOD_POISONRES, 20);
+    target:delMod(MOD_VIRUSRES, 20);
+    target:delMod(MOD_PLANTOID_KILLER, 8);
+    target:delMod(MOD_VERMIN_KILLER, 8);
+    target:delMod(MOD_BEAST_KILLER, 8);
+    target:delMod(MOD_BIRD_KILLER, 8);
+    target:delMod(MOD_EARTHRES, 20);
+    target:delMod(MOD_WATERRES, 20);
+    target:delMod(MOD_WINDRES, 20);
 end;

@@ -5,7 +5,7 @@ require("scripts/globals/status");
 require("scripts/globals/weaponskills");
 require("scripts/globals/magic");
 
-function onUseWeaponSkill(player, target, wsID, tp, primary, action taChar)
+function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     local params = {};
     local power = player:getStat(MOD_INT) / 2 + player:getSkillLevel(SKILL_DAG) * 0.2;
     power = power * (tp / 1000);

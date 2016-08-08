@@ -19,8 +19,8 @@ end;
 -----------------------------------------
 
 function onItemUse(target)
-	if(target:hasStatusEffect(EFFECT_REGEN) == false) then
-		target:addStatusEffect(EFFECT_REGEN,2,3,600);
+	if(target:hasStatusEffect(EFFECT_AUTO_REGEN) == false) then
+		target:addStatusEffect(EFFECT_AUTO_REGEN,2,3,300);
 	else
 		target:messageBasic(423);
 	end

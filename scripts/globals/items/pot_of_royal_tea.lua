@@ -34,8 +34,8 @@ end;
 -----------------------------------
 
 function onEffectGain(target,effect)
-    target:addMod(MOD_VIT, -1);
-    target:addMod(MOD_CHR, 3);
+    target:addMod(MOD_CHR, 4);
+    target:addMod(MOD_ENMITY, -8);
 end;
 
 -----------------------------------------
@@ -43,6 +43,6 @@ end;
 -----------------------------------------
 
 function onEffectLose(target,effect)
-    target:delMod(MOD_VIT, -1);
-    target:delMod(MOD_CHR, 3);
+    target:delMod(MOD_CHR, 4);
+    target:delMod(MOD_ENMITY, -8);
 end;
