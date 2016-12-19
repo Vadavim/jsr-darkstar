@@ -1,0 +1,2 @@
+[Papilio Kirpan]
+ - While under 1000 TP: +20 Attack and +8% Crit Hit rate

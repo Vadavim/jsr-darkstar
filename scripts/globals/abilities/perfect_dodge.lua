@@ -22,5 +22,9 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    player:addStatusEffect(EFFECT_PERFECT_DODGE,1,0,60);
+    local duration = 30;
+    if (player:isPC()) then
+        duration = 60;
+    end
+    player:addStatusEffect(EFFECT_PERFECT_DODGE,1,0,duration);
 end;

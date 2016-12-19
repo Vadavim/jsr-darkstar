@@ -10,6 +10,7 @@ require("scripts/globals/jsr_utils");
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
+
     if (player:getActiveRunes() == 0) then
         return MSGBASIC_UNABLE_TO_USE_JA, 0;
     end;
@@ -23,6 +24,7 @@ function onUseAbility(player,target,ability, action)
     getRuneSpecEffect(player, target, ability, action);
 
 
+
     local ignis = player:getEffectsCount(EFFECT_IGNIS);
     local gelus = player:getEffectsCount(EFFECT_GELUS);
     local flabra = player:getEffectsCount(EFFECT_FLABRA);
@@ -32,8 +34,12 @@ function onUseAbility(player,target,ability, action)
     local lux = player:getEffectsCount(EFFECT_LUX);
     local tenebrae = player:getEffectsCount(EFFECT_TENEBRAE);
 
+    if (player:isNM()) then
+        ignis = 3; gelus = 3; flabra = 3; tellus = 3; sulpor = 3; unda = 3; lux = 3; tenebrae = 3;
+    end
 
-    player:addStatusEffect(EFFECT_LIEMENT, 1, 0, 10);
+
+    player:addStatusEffect(EFFECT_LIEMENT, 1, 0, 20);
     local effect = player:getStatusEffect(EFFECT_LIEMENT);
     if (effect ~= nil) then
         if (ignis > 0) then
@@ -47,8 +53,8 @@ function onUseAbility(player,target,ability, action)
         end
 
         if (tellus > 0) then
-            player:addMod(MOD_THUNDER_ABSORB, 75 + tellus * 25);
-            effect:addMod(MOD_THUNDER_ABSORB, 75 + tellus * 25);
+            player:addMod(MOD_LTNG_ABSORB, 75 + tellus * 25);
+            effect:addMod(MOD_LTNG_ABSORB, 75 + tellus * 25);
         end
 
         if (gelus > 0) then

@@ -25,7 +25,9 @@ function onUseAbility(player,target,ability)
 
     local duration = math.random(30, 300);
 
-    player:addStatusEffect(EFFECT_HIDE,1,0,(duration * SNEAK_INVIS_DURATION_MULTIPLIER));
+    if (not player:isMob()) then
+        player:addStatusEffect(EFFECT_HIDE,1,0,(duration * SNEAK_INVIS_DURATION_MULTIPLIER));
+    end
     target:addStatusEffectEx(EFFECT_COPY_IMAGE, EFFECT_COPY_IMAGE_2, 2, 0, 60);
     target:setMod(MOD_UTSUSEMI, 2);
 end;

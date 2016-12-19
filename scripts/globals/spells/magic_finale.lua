@@ -19,9 +19,10 @@ function onSpellCast(caster,target,spell)
     local dINT = (caster:getStat(MOD_CHR) - target:getStat(MOD_CHR));
 
     local resist = applyResistance(caster,spell,target,dINT,SINGING_SKILL,caster:getMod(MOD_FINALE_EFFECT) + caster:getMod(MOD_ALL_SONGS_EFFECT));
+    if (target:isNM()) then resist = resist - 0.75 end;
     local effect = EFFECT_NONE;
 
-    if (resist > 0.0625) then
+    if (resist >= 0.25) then
         spell:setMsg(341);
         effect = target:dispelStatusEffect();
         if (effect == EFFECT_NONE) then

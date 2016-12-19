@@ -89,7 +89,7 @@ function mobAddStatus(mob, target, damage, effect, params)
 
     if (params.bonusAcc == nil) then params.bonusAcc = 0; end
     if (params.diffStat == nil) then params.diffStat = MOD_INT; end
-    if (params.dur == nil) then params.dur = 0; end
+    if (params.duration == nil) then params.duration = 0; end
     if (params.power == nil) then params.power = 0; end
     if (params.subPower == nil) then params.subPower = 0; end
     if (params.minResist == nil) then params.minResist = 0.5; end
@@ -104,7 +104,7 @@ function mobAddStatus(mob, target, damage, effect, params)
     local diff = mob:getStat(params.diffStat) - target:getStat(params.diffStat);
     local resist = applyPlayerResistance(mob, effect, target, diff, params.bonusAcc, element);
     if (resist >= params.minResist) then
-        target:addStatusEffect(effect, params.power, params.tick, params.dur, 0, params.subPower);
+        target:addStatusEffect(effect, params.power, params.tick, params.duration * resist, 0, params.subPower);
         return subeffect, MSGBASIC_ADD_EFFECT_STATUS, effect;
     end
 
@@ -116,6 +116,173 @@ end
 
 
 -------------------- ON FIGHT ---------------------
+
+function timedAbility(mob, target, ability, minDelay, maxDelay)
+    local time = mob:getBattleTime();
+    if (maxDelay == nil) then maxDelay = minDelay; end;
+
+    local lastTime = mob:getLocalVar("ability_" .. tostring(ability));
+    if (lastTime + minDelay < time) then
+        mob:useJobAbility(ability, target);
+        mob:setLocalVar("ability_" .. tostring(ability), time + math.random(maxDelay - minDelay));
+        return true;
+    end
+
+    return false;
+end
+
+function thresholdAbility(mob, target, ability, thresholdStep)
+    if (thresholdStep == nil) then thresholdStep = 25; end;
+    local lastThresh = mob:getLocalVar("tability_" .. tostring(ability));
+    local missing = 100 - mob:getHPP();
+
+    if (missing >= lastThresh + thresholdStep) then
+        mob:setLocalVar("tability_" .. tostring(ability), lastThresh + thresholdStep);
+        mob:useJobAbility(ability, target);
+        return true;
+    end
+    return false;
+end
+
+function limitedAbility(mob, target, ability, numTimes)
+    local times = mob:getLocalVar("lability_" .. tostring(ability));
+
+    if (numTimes < times) then
+        mob:setLocalVar("lability_" .. tostring(ability), times + 1);
+        mob:useJobAbility(ability, target);
+        return true;
+    end
+    return false;
+end
+
+
+
+function timedMobAbility(mob, target, ability, minDelay, maxDelay)
+    local time = mob:getBattleTime();
+    if (maxDelay == nil) then maxDelay = minDelay; end;
+
+    local ability_name = ability;
+
+    if (type(ability) == "table") then
+        ability_name = ability[1];
+        local size = 0;
+
+        for i,v in pairs(ability) do
+            size = size + 1;
+        end
+
+        ability = ability[math.random(1, size)];
+    end
+
+
+    local lastTime = mob:getLocalVar("mobskill_" .. tostring(ability_name));
+    printf("Last: %d\nCur: %d", lastTime, time);
+    if (lastTime + minDelay < time ) then
+        mob:useMobAbility(ability, target);
+        mob:setLocalVar("mobskill_" .. tostring(ability_name), time + math.random(maxDelay - minDelay));
+        return true;
+    end
+
+    return false;
+end
+
+function thresholdMobAbility(mob, target, ability, thresholdStep)
+    if (thresholdStep == nil) then thresholdStep = 25; end;
+    local lastThresh = mob:getLocalVar("tmobskill_" .. tostring(ability));
+    local missing = 100 - mob:getHPP();
+
+    if (missing >= lastThresh + thresholdStep) then
+        mob:setLocalVar("tmobskill_" .. tostring(ability), lastThresh + thresholdStep);
+        mob:useMobAbility(ability, target);
+        return true;
+    end
+    return false;
+end
+
+function limitedMobAbility(mob, target, ability, numTimes)
+    local times = mob:getLocalVar("lmobskill_" .. tostring(ability));
+
+    if (numTimes < times) then
+        mob:setLocalVar("lmobskill_" .. tostring(ability), times + 1);
+        mob:useMobAbility(ability, target);
+        return true;
+    end
+    return false;
+end
+
+
+
+
+function timedSpell(mob, target, spell, minDelay, maxDelay)
+    local time = mob:getBattleTime();
+    if (maxDelay == nil) then maxDelay = minDelay; end;
+
+    local spell_name = spell;
+
+    if (type(spell) == "table") then
+        spell_name = spell[1];
+        local size = 0;
+
+        for i,v in pairs(spell) do
+            size = size + 1;
+        end
+
+        spell = spell[math.random(1, size)];
+    end
+
+
+
+    local lastTime = mob:getLocalVar("spell_" .. tostring(spell_name));
+    if (lastTime + minDelay < time) then
+        mob:castSpell(spell, target);
+        mob:setLocalVar("spell_" .. tostring(spell_name), time + math.random(maxDelay - minDelay));
+        return true;
+    end
+
+    return false;
+end
+
+function thresholdSpell(mob, target, spell, thresholdStep)
+    if (thresholdStep == nil) then thresholdStep = 25; end;
+    local lastThresh = mob:getLocalVar("tspell_" .. tostring(spell));
+    local missing = 100 - mob:getHPP();
+
+    if (missing >= lastThresh + thresholdStep) then
+        mob:setLocalVar("tspell_" .. tostring(spell), lastThresh + thresholdStep);
+        mob:castSpell(spell, target);
+        return true;
+    end
+    return false;
+end
+
+function limitedSpell(mob, target, spell, numTimes)
+    local times = mob:getLocalVar("lspell_" .. tostring(spell));
+
+    if (numTimes < times) then
+        mob:setLocalVar("lspell_" .. tostring(spell), times + 1);
+        mob:castSpell(spell, target);
+        return true;
+    end
+    return false;
+end
+
+function mobAbilityFlee(mob, target)
+    local effects = {EFFECT_EVASION_DOWN, EFFECT_SLOW, EFFECT_WEIGHT, EFFECT_BIND }
+    local hasEffect = false;
+
+    for i,v in pairs(effects) do
+        if (mob:hasStatusEffect(v)) then
+            hasEffect = true;
+        end
+    end
+
+    if (hasEffect) then
+        mob:useJobAbility(ABILITY_FLEE);
+        return true;
+    end
+
+    return false;
+end
 
 ---------------- ON MAGIC PREPARE ----------------------
 

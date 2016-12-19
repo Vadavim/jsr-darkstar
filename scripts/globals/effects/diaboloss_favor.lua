@@ -21,6 +21,17 @@ end;
 -----------------------------------
 
 function onEffectTick(target,effect)
+    if (not target:isPet()) then
+        return;
+    end
+    local owner = target:getMaster();
+
+    local party = owner:getParty(true);
+    if (party ~= nil) then
+        for i,member in ipairs(party) do
+            member:addStatusEffect(EFFECT_DIABOLOS_S_FAVOR, effect:getPower(), 0, 16);
+        end
+    end
 end;
 
 -----------------------------------

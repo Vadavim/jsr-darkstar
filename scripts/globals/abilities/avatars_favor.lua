@@ -26,18 +26,15 @@ function onUseAbility(player,target,ability)
     local pet = player:getPet();
 
     player:delMP(30);
-    pet:addMod(MOD_REGEN_DOWN, 2 + player:getMainLvl() / 6);
-    pet:addMod(MOD_CRITHITRATE, 5);
-    pet:addMod(MOD_ATTP, 10);
-    pet:addMod(MOD_DEFP, 10);
-    pet:addMod(MOD_EVASION, 15);
-    pet:addMod(MOD_ACC, 15);
-    pet:addMod(MOD_MEVA, 15);
-    pet:addMod(MOD_MATT, 10);
-    pet:addMod(MOD_MACC, 15);
-    pet:addMod(MOD_MDEF, 5);
-    pet:addMod(MOD_STORETP, 15);
-    pet:addMod(MOD_MOVE, 10);
-    pet:addMod(MOD_ENMITY, 10);
-    pet:addMod(MOD_HASTE_ABILITY, 50);
+
+    if (pet:getLocalVar("favor") == 0) then
+        pet:addMod(MOD_REGEN_DOWN, 2 + player:getMainLvl() / 5);
+        pet:addMod(MOD_CRITHITRATE, 5);
+        pet:addMod(MOD_MOVE, 25);
+        pet:addMod(MOD_ENSPELL_DMG, 1 + player:getMainLvl() / 4);
+        pet:addMod(MOD_ENMITY, 20);
+        pet:addMod(MOD_HASTE_ABILITY, 250);
+        pet:setLocalVar("favor", 1);
+    end
+
 end;

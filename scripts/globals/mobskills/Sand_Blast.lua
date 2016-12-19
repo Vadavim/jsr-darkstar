@@ -19,7 +19,7 @@ function onMobWeaponSkill(target, mob, skill)
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     local tp = skill:getTP();
     local duration = 90 * fTP(tp, 1, 1.5, 2) * (1 + hard / 5)
-    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 20 + hard * 5, 0, duration));
+    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 35 + hard * 5, 0, duration));
 
     if (hard > 0) then
         local success = MobStatusEffectMove(mob, target, EFFECT_RASP, (1 + mob:getMainLvl() / 6) * (1 + hard / 5), 0, duration / 2);

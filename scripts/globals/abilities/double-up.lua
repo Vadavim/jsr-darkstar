@@ -67,6 +67,7 @@ function onUseAbility(caster,target,ability,action)
             if (caster:getLocalVar("cuttingCards") == 1) then
                 caster:setLocalVar("cuttingCards", 0);
                 roll = math.floor(oldRoll / 2);
+                if (roll <= 0) then roll = 1; end;
             end
 
             if (roll > 12) then

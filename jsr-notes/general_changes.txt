@@ -22,6 +22,7 @@ DEFENSE
  - Parrying chance is higher in general
  -  AGI increases Parry by more (+1% for every 4 AGI above target's DEX, or -1% for every 4 AGI below target's DEX)
  - Max Guard Rate: 25% -> 45%
+ - Staves can be used to Guard (and have a higher Guard rate than H2H weapons).
  - Mobs gain less of a damage bonus against players when they are higher level than the player (~15% less)
 
 
@@ -63,9 +64,21 @@ EXPERIENCE POINTS
 
  - The permonster XP cap has been raised significantly.
  - Harder monsters give even higher amounts of XP.
- - XP chains are easier to start at lower levels. 
  - Notorius Monsters give +500% XP.
- - XP Chain 1, 2, 3 times are longer than normal at levels 31+
- - Some monster families now give bonus XP:
+ - Some monster families now give bonus XP 
+ - XP curve decreased significantly: after level 61, XP to next level increased by 300 per level
 	
-	Dhalmels	+8%
+
+Fields of Valor / Grounds of Valor
+ - The first time that you complete a particular regime, you get a bonus of 500 gil and 50 tabs.
+	- You can only get this bonus once per regime per conquest tally
+ - The XP reward for Fields/Grounds of Valor is capped at 500.
+
+ELITE TRAINING REGIMES
+ - You start an elite training regime by getting the corresponding key item and trading (500 * tier) gil to a Field Parchment.
+ - Tier 1 is "Elite Training Introduction", Tier 2 is "Elite Training: Chapter 1", etc. j
+ - If you win, you receive twice the amount of traded gil, along with some experience, limit points, scylds, and a randomly augmented item.
+ - If you trade a piece of unaugmented equipment, in addition to the required gil, you will fight a harder version of the NM.
+ 	- If you win, you receive the equipment back with random augments, and some bonus XP / scylds.
+ - You may attempt each Elite NM once per Midnight.
+ - To get the "Elite Training: Chapter 7" key item, you must also spend 150 scylds.

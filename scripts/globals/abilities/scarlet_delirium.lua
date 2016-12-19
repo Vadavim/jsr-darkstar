@@ -18,5 +18,7 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    player:addStatusEffect(EFFECT_SCARLET_DELIRIUM,25,0,60);
+    local duration = 60;
+    if (player:isPC()) then duration = 120; end;
+    player:addStatusEffect(EFFECT_SCARLET_DELIRIUM,25,0,duration);
 end;

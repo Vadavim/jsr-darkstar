@@ -34,5 +34,5 @@ function onMobWeaponSkill(target, mob, skill)
 --        skill:setMsg(MSG_DISAPPEAR);
 --    end
 
-    return dispel;
+    return 0;
 end;

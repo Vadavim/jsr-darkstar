@@ -33,7 +33,8 @@ function onUseAbility(player,target,ability)
     
     local duration = 60;
     local resist = applyResistanceAbility(player,target,ELE_DARK,SKILL_MRK, (player:getStat(MOD_AGI)/2) + player:getMerit(MERIT_QUICK_DRAW_ACCURACY));
-    
+    if (target:isNM()) then resist = resist - 0.75 end;
+
     if (resist < 0.25) then
         ability:setMsg(324);--resist message
         return 0;

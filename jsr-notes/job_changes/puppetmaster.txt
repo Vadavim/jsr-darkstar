@@ -1,0 +1,220 @@
+[SKILLS]
+
+[STATS]
+
+[TRAITS]
+
+[ABILITIES]
+
+[Activate]
+ - Initial burden is 15 (down from 30)
+ - When automaton is activated, it starts at 25% of its maximum MP.
+
+[General]
+ - 
+
+[AUTOMATONS]
+
+[Harlequin Frame]
+ - Much higher Defense
+ - Lowers Burden by -4
+ - Magic Mortar: instead deals additional damage based on remaining HP (the higher, the better)
+	- Skillchain element is now Fusion / Transfixion
+ - Slapstick: lowers Evasion and M. Evasion by -40 for 30 seconds.
+
+[Harlequin Head]
+ - Lowers Burden by -2
+
+[Valoredge Frame]
+ - Slightly higher Defense
+ - Base Block rate is 25%, +10% if Valoredge head is equipped
+ - Cannibal Blade: skillchain element changed to Gravitation / Reverberation
+
+
+[Armor Piercer]
+ - Instead dispels a status effect on the target
+
+[Armor Shatterer]
+ - Available at Automaton Ranged skill 250
+
+
+[ATTACHMENTS]
+
+
+FIRE
+
+[Flame Holder]
+Increases weaponskill damage by 15% per Fire Maneuver, and an additional +10% if Puppetmaster has 3 fire maneuvers.
+
+
+THUNDER
+
+[Coiler]
+Base: +3% Double Attack
+Thunder 1: +10% Double Attack
+Thunder 2: +8% Double Attack 
+Thunder 3: +15% Double Attack 
+
+[Dynamo]
+Base: +3% Crit, +5% Crit Damage
+Thunder 1: +2% Crit, +5% Crit Damage
+Thunder 2: +2% Crit, +5% Crit Damage
+Thunder 3: +2% Crit, +5% Crit Damage
+
+[Galvanizer]
+Base: +10 Counter
+Thunder 1: +10 Counter
+Thunder 2: +15 Counter
+Thunder 3: +15 Counter
+
+[Stabilizer]
+Base: +5 ACC
+Thunder 1: +10 ACC
+Thunder 2: +5 ACC
+Thunder 3: +10 ACC
+
+
+[Stabilizer II]
+Base: +10 ACC
+Thunder 1: +12 ACC
+Thunder 2: +6 ACC
+Thunder 3: +12 ACC
+
+[Volt Gun]
+Each maneuver increases damage by 1 + level / 3.5.
+
+ICE
+
+[Loudspeaker]
+Base: +5 MATT
+Ice 1: +5 MATT
+Ice 2: +5 MATT
+Ice 3: +10 MATT
+
+[Loudspeaker II]
+Base: +10 MATT
+Ice 1: +5 MATT
+Ice 2: +5 MATT
+Ice 3: +10 MATT
+
+[Tactical Processer]
+Base: -3 Universal Cast Time, +5 Burden per maneuver
+Ice 1: +15 Fast Cast
+Ice 2: +15 Fast Cast
+Ice 3: +25 Fast Cast
+
+
+WIND
+
+[Drum Magazine]
+Base: -2 Ranged Cooldown, -2 RACC
+Wind 1: -4 Ranged Cooldown, -4 RACC
+Wind 2: -2 Ranged Cooldown, -2 RACC
+Wind 3: -5 Ranged Cooldown, -5 RACC
+
+[Acellerator]
+Base: +5 EVA
+Wind 1: +10 EVA, +4 Move
+Wind 2: +5 EVA, +2 Move
+Wind 3: +10 EVA, +4 Move
+
+[Acellerator II]
+Base: +10 EVA
+Wind 1: +12 EVA, +6 Move
+Wind 2: +6 EVA, +3 Move
+Wind 3: +12 EVA, +6 Move
+
+[Turbo Charger]
+Each maneuver also gives +8 Fast Cast
+
+
+LIGHT
+
+[Auto Repair Kit]
+Base: +6 HPP, +1 Regen
+Light 1: +6 HPP, +(1 + level / 10) Regen
+Light 2: +3 HPP, +(1 + level / 15) Regen
+Light 3: +6 HPP, +(1 + level / 10) Regen
+
+Note: Valoredge gives +1 bonus to Regen values
+
+[Auto Repair Kit II]
+Base: +12 HPP, +2 Regen
+Light 1: +9 HPP, +(2 + level / 7) Regen
+Light 2: +6 HPP, +(2 + level / 10) Regen
+Light 3: +9 HPP, +(2 + level / 7) Regen
+
+Note: Valoredge gives +2 bonus to Regen values
+
+[Auto Repair Kit II]
+ - Gives bonus regen equal to (level / 25) at maneuvers 1 and 3
+
+[Arcanic Cell]
+Base: +10 Occult Acumen
+Light 1: +25 Occult Acumen
+Light 2: +25 Occult Acumen
+Light 3: +50 Occult Acumen
+
+When a weaponskill is used, restores (light maneuvers * 0.1)% damage as MP.
+
+EARTH
+
+
+[Armor Plate]
+Base: +5% Damage Reduction, +5% DEF
+Earth 1: +2% Damage Reduction, +5% DEF
+Earth 2: +2% Damage Reduction, +5% DEF
+Earth 3: +5% Damage Reduction, +10% DEF
+
+[Armor Plate II]
+Base: +10% Damage Reduction, +5% DEF
+Earth 1: +5% Damage Reduction, +5% DEF
+Earth 2: +5% Damage Reduction, +5% DEF
+Earth 3: +5% Damage Reduction, +10% DEF
+
+DARK
+
+[Mana Tank]
+Base: +6 MPP
+Dark 1: +6 MPP, +1 Refresh
+Dark 2: +3 MPP, +2 Refresh
+Dark 3: +6 MPP, +3 Refresh
+
+Note: Stormwaker gives +1 bonus to Refresh values
+
+[Mana Tank II]
+Base: +12 MPP
+Dark 1: +9 MPP, +2 Refresh
+Dark 2: +6 MPP, +3 Refresh
+Dark 3: +9 MPP, +4 Refresh
+
+Note: Stormwaker gives +1 bonus to Refresh values
+
+[Mana Conserver] (note, Conserve MP is much more effective now)
+Base: +20 Conserve MP
+Dark 1: +15 Conserve MP
+Dark 2: +15 Conserve MP
+Dark 3: +30 Conserve MP
+
+[Economizer]
+Always triggers when MP < 50% and at least one Dark Maneuver is active. 
+Recast is still 180 seconds.
+
+
+[Mana Converter]
+MP recovery is instant, and the recast is now 120 seconds (down from 180 seconds).
+
+[Smoke Screen]
+With at least one Dark Maneuver, weaponskills can also blind mobs (-25 ACC, 60 seconds).
+
+
+
+------
+
+Potential Animations:
+Dark Shield Bash: 1419
+Charge Energy Shield Bash: 1464
+Throw Light Ball: 1463
+Toxic Fire Breath: 1292
+Water Breath: 1291
+

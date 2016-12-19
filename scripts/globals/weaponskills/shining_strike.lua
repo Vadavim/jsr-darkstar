@@ -19,18 +19,20 @@ require("scripts/globals/weaponskills");
 function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     local params = {};
-    params.ftp100 = 1; params.ftp200 = 1.75; params.ftp300 = 2.5;
-    params.str_wsc = 0.2; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.2; params.chr_wsc = 0.0;
+    params.ftp100 = 1.75; params.ftp200 = 3; params.ftp300 = 5;
+    params.str_wsc = 0.5; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.5; params.chr_wsc = 0.0;
     params.ele = ELE_LIGHT;
     params.skill = SKILL_CLB;
     params.includemab = true;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.ftp100 = 1.625; params.ftp200 = 3; params.ftp300 = 4.625;
-        params.str_wsc = 0.4; params.mnd_wsc = 0.4;
+        params.ftp100 = 2; params.ftp200 = 4; params.ftp300 = 6;
+        params.str_wsc = 0.5; params.mnd_wsc = 0.5;
     end
 
     local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, tp, primary, action, params);
+    local duration = 60 * (tp / 1000) * (1 + (tp - 1000) / 2000);
+    player:addStatusEffect(EFFECT_MAGIC_DEF_BOOST_II,35,0,duration);
     return tpHits, extraHits, criticalHit, damage;
 
 end

@@ -27,7 +27,7 @@ function onEffectTick(target,effect)
     end
     local owner = target:getMaster();
 
-    local party = owner:getParty();
+    local party = owner:getParty(true);
     if (party ~= nil) then
         for i,member in ipairs(party) do
             member:addStatusEffect(EFFECT_IFRIT_S_FAVOR, 1, 0, 16);

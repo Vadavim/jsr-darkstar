@@ -32,6 +32,14 @@ function onUseAbility(player,target,ability)
         player:setLocalVar("storedStreak", win);
         player:addTP(win * 50);
     end
+
+    if (win >= 10) then
+        player:resetRecast(RECAST_ABILITY, 197);
+        player:resetRecast(RECAST_ABILITY, 323);
+        player:resetRecast(RECAST_ABILITY, 376);
+
+    end
+
     player:setLocalVar("winningStreak", 0);
 
     local merit = target:getMerit(MERIT_FOLD);

@@ -34,6 +34,14 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
+
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_THUNDER, SKILL_CLB);
+    local duration = fTP(tp, 60, 120, 180);
+    if (damage > 0 and resist >= 0.25) then
+        target:addStatusEffect(EFFECT_MND_DOWN, 30, 0, duration);
+        target:setPendingMessage(278, EFFECT_MND_DOWN);
+    end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

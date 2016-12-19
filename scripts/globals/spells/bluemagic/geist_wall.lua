@@ -35,8 +35,9 @@ function onSpellCast(caster,target,spell)
     local dINT = (caster:getStat(MOD_INT) - target:getStat(MOD_INT));
     local resist = applyResistance(caster,spell,target,dINT,BLUE_SKILL, 10);
     local effect = EFFECT_NONE;
+    if (target:isNM()) then resist = resist - 0.75 end;
 
-    if (resist > 0.0625) then
+    if (resist >= 0.25) then
         spell:setMsg(341);
         effect = target:dispelStatusEffect();
         if (effect == EFFECT_NONE) then

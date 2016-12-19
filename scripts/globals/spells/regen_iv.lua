@@ -31,6 +31,9 @@ function onSpellCast(caster,target,spell)
     end
 
     hp = hp + caster:getMod(MOD_REGEN_EFFECT) + meritBonus;
+    if (caster:isMob()) then
+        hp = hp * 2.5;
+    end;
 
     local duration = 60;
 

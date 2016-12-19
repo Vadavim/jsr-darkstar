@@ -64,6 +64,10 @@ function onSpellCast(caster,target,spell)
         duration = duration * 2;
     end
 
+    if (caster:isMob()) then
+        hp = hp * 2.5;
+    end
+
 
     local subPower = 0
     if ((caster:getID() == target:getID()) and target:getEffectsCount(EFFECT_LUX) >= 1) then

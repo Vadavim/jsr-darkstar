@@ -1,0 +1,35 @@
+[Hard Slash]
+ - +33% damage against Arcana
+ - If the target is weak against blunt damage, inflicts an extra +33% damage.
+ - Ignores Defense (10% at 1000 TP, 25% at 2000 TP, 50% at 3000 TP).
+ - fTP: 1.5 (1000), 2.1 (2000), 3.0 (3000)
+
+[Shield / Armor / Weapon Break]
+ - Modifiers: STR 20%, VIT 20%
+ - Refunds 45% of TP spent
+
+[Iron Tempest]
+ - Modifiers: STR 60%, VIT 60%
+ - fTP: 1.0 (1000), 2.5 (2000), 5.0 (3000)
+ - Attack Multiplier: 1.25
+
+[Sturmwind]
+ - Modifiers: STR 45%, VIT 45%
+ - fTP: 1.0 (1000), 1.4 (2000), 1.8 (3000)
+ - +33% damage against Birds.
+
+[Keen Edge]
+ - Modifiers: STR 100%
+ - On a critical hit, refunds 50% of TP spent.
+
+[Full Break]
+ - Modifiers: STR 50%, VIT 50%
+ - fTP: 1.5
+ - Duration is 60 to 180 seconds (depending upon TP).
+ - Can inflict the following:
+	- Attack Down: -12.5%
+	- Defense Down: -12.5%
+	- Evasion Down: -20
+	- Accuracy Down: -20
+	- Magic Attack Down: -20%
+	- Magic Defense Down: -20%

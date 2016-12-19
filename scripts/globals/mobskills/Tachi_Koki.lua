@@ -21,7 +21,8 @@ function onMobWeaponSkill(target, mob, skill)
     dmg = MobFinalAdjustments(dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_SLASH,info.hitslanded);
 
     local resist = applyPlayerResistance(mob,0,target,mob:getStat(MOD_MND)-target:getStat(MOD_MND),0,ELE_LIGHT);
-    if (dmg > 0 and resist >= 0.5) then
+    if (target:isNM()) then resist = resist - 0.75 end;
+    if (dmg > 0 and resist >= 0.25) then
         local dispel = target:dispelStatusEffect();
         if (dispel ~= EFFECT_NONE) then
             mob:addTP(skill:getTP() * 0.5);

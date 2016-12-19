@@ -695,7 +695,7 @@ function handleAfflatusMisery(caster, spell, dmg)
         end;
 
         -- Damage is 2x at boost cap.
-        local boost = 1 + (misery / miseryMax);
+        local boost = 1 + (misery / miseryMax) * 1.33;
 
         dmg = math.floor(dmg * boost);
 

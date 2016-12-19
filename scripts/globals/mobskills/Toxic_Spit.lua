@@ -24,6 +24,11 @@ function onMobWeaponSkill(target, mob, skill)
     local typeEffect = EFFECT_POISON;
     local power = (mob:getMainLvl()/5 + 3) * (1 + hard / 4);
 
+    if (mob:isPet() and mob:getMaster():isPC()) then
+        power = power * 1.33;
+    end
+
+
     local success = MobStatusEffectMove(mob, target, typeEffect, power, 3, duration, MOD_VIT);
     if (success == 242) then
         target:setPendingMessage(277, EFFECT_POISON);

@@ -28,6 +28,18 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
     params.atkmulti = 1;
 
+    params.ignoresDef = true;
+    params.ignored100 = 0.30;
+    params.ignored200 = 0.50;
+    params.ignored300 = 0.70;
+
+
+    if (target:getSystem() == SYSTEM_AQUAN) then
+        params.ftp100 = params.ftp100 * 1.33; params.ftp200 = params.ftp200 * 1.33; params.ftp300 = params.ftp300 * 1.33;
+    end
+
+
+
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
         params.str_wsc = 1.0;
     end
@@ -38,6 +50,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
         local duration = (tp/1000 * 60) + 120;
         if (target:hasStatusEffect(EFFECT_DEFENSE_DOWN) == false) then
             target:addStatusEffect(EFFECT_DEFENSE_DOWN, 25, 0, duration);
+            target:setPendingMessage(278, EFFECT_DEFENSE_DOWN);
         end
     end
     return tpHits, extraHits, criticalHit, damage;

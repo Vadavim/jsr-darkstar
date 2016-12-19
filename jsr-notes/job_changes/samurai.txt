@@ -19,10 +19,26 @@ ABILITY CHANGES
 	- +10% bonus to skillchain damage
  - Merit: each point of Warding Circle recast increases the following: +1 Demon Killer, +2 Magic Evade, +2% skillchain damage
 
-[Hagakure]
- - Gained at level 50
 
-[Hamanoha]
- - Gained at level 60
- - Instead reduces target's TP to 0 and silences target for 30 seconds.
- - Recast increaed to 10 minutes.
+[Yaegasumi]
+ - Gained at level 45
+ - Recast is 5 minutes, lasts for 45 seconds
+ - Reduces ACC / M. ACC of next mob TP move directed at Samurai by 100
+ - Generates a high amount of volatile enmity
+ - Enhanced effect while Seigan is active:
+	- Additional -100 ACC / M. ACC penalty
+	- Grants 1000 TP when consumed
+
+[Sengikore]
+ - Gained at level 50
+ - Effectively increases skillchain count by 2 when initiating a skillchain.
+
+[Hagakure]
+ - Gained at level 70
+ - Recast is 5 minutes, lasts for 30 seconds
+ - Generate a large amount of enmity
+
+#[Hamanoha]
+# - Gained at level 60
+# - Instead reduces target's TP to 0 and silences target for 30 seconds.
+# - Recast increaed to 10 minutes.

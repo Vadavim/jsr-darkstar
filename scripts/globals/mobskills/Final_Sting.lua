@@ -14,6 +14,7 @@ function onMobSkillCheck(target,mob,skill)
     local param = skill:getParam();
     if (param == 0) then
         param = 50;
+        if (mob:isNM()) then param = 15; end;
     end
 
     if (mob:getHPP() <= param) then
@@ -33,12 +34,12 @@ function onMobWeaponSkill(target, mob, skill)
     dmgmod = dmgmod + hpMod * 14 + math.random(2,6);
 
     if (mob:isMobType(MOBTYPE_NOTORIOUS)) then
-        dmgmod = dmgmod * 5;
+        dmgmod = dmgmod;
     end
 
     mob:setHP(0);
 
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES,1,2,3);
+    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_NO_EFFECT,1,2,3);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_SLASH,info.hitslanded);
     target:delHP(dmg);
     return dmg;

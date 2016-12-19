@@ -27,8 +27,8 @@ function onMobWeaponSkill(target, mob, skill)
     local typeEffect = EFFECT_POISON;
 
 
-    local power = (mob:getMainLvl()/5);
-    power = power * tpModifier(skill);
+    local power = (mob:getMainLvl()/4);
+    power = power * fTP(1, 2, 3);
     if (power < 1 ) then
         power = 1;
     end

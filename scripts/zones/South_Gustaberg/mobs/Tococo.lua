@@ -3,6 +3,7 @@
 --  NM:  Tococo
 -----------------------------------
 require("scripts/globals/status");
+require("scripts/globals/jsr_mob");
 -----------------------------------
 
 
@@ -27,6 +28,12 @@ function onAdditionalEffect(mob,target,damage)
         return SUBEFFECT_POISON,0,EFFECT_POISON;
     end
 end;
+
+function onMobFight(mob, target)
+    limitedSpell(mob, target, 368, 1); -- Foe Reqiuem
+end
+
+
 
 -----------------------------------
 -- onMobDespawn

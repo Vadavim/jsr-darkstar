@@ -17,6 +17,13 @@ require("scripts/globals/magicburst");
 local runeElements = {ELE_FIRE, ELE_ICE, ELE_WIND, ELE_EARTH, ELE_THUNDER, ELE_WATER, ELE_LIGHT, ELE_DARK};
 -- params contains: ftp100, ftp200, ftp300, str_wsc, dex_wsc, vit_wsc, int_wsc, mnd_wsc, canCrit, crit100, crit200, crit300, acc100, acc200, acc300, ignoresDef, ignore100, ignore200, ignore300, atkmulti
 function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taChar, params)
+    if (attacker:hasStatusEffect(EFFECT_HAGAKURE)) then
+        attacker:addTP(400);
+        tp = tp + 1000;
+        if (tp > 3000) then tp = 3000; end;
+        attacker:delStatusEffect(EFFECT_HAGAKURE);
+    end
+
 
     local criticalHit = false;
     local bonusTP = params.bonusTP or 0
@@ -296,6 +303,13 @@ end
 function doMagicWeaponskill(attacker, target, wsID, tp, primary, action, params)
     if (attacker:isPC() and attacker:getMainJob() == 10) then
         attacker:resetRecast(RECAST_ABILITY, 48);
+    end
+
+    if (attacker:hasStatusEffect(EFFECT_HAGAKURE)) then
+        attacker:addTP(400);
+        tp = tp + 1000;
+        if (tp > 3000) then tp = 3000; end;
+        attacker:delStatusEffect(EFFECT_HAGAKURE);
     end
 
     local bonusTP = params.bonusTP or 0
@@ -754,6 +768,13 @@ end;
 
  -- params contains: ftp100, ftp200, ftp300, str_wsc, dex_wsc, vit_wsc, int_wsc, mnd_wsc, canCrit, crit100, crit200, crit300, acc100, acc200, acc300, ignoresDef, ignore100, ignore200, ignore300, atkmulti
  function doRangedWeaponskill(attacker, target, wsID, params, tp, primary)
+
+     if (attacker:hasStatusEffect(EFFECT_HAGAKURE)) then
+         attacker:addTP(400);
+         tp = tp + 1000;
+         if (tp > 3000) then tp = 3000; end;
+         attacker:delStatusEffect(EFFECT_HAGAKURE);
+     end
 
     local bonusTP = params.bonusTP or 0
     local multiHitfTP = params.multiHitfTP or false

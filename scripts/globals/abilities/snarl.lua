@@ -18,7 +18,7 @@ function onAbilityCheck(player,target,ability)
     if (player:getPet() == nil) then
         return MSGBASIC_REQUIRES_A_PET,0;
     else
-        if ((player:getPet():getTarget() ~= nil) and (player:isJugPet())) then
+        if ((player:getPet():getTarget() ~= nil)) then
             return 0,0;
         else
             return MSGBASIC_PET_CANNOT_DO_ACTION,0;

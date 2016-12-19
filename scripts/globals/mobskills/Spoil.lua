@@ -20,8 +20,13 @@ function onMobWeaponSkill(target, mob, skill)
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
 
 
+    local power = 5 + mob:getMainLvl() / 3;
+    if (mob:isPet() and mob:getMaster():isPC()) then
+        power = power * 1.33;
+    end
+
     local typeEffect = EFFECT_STR_DOWN;
-    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 10, 3, 120));
+    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, power, 3, 120));
     enmityStatusCheck(target, mob, skill, 15 + hard * 5);
 
     if (hard > 0) then

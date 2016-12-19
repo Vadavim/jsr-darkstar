@@ -15,7 +15,7 @@ end;
 
 function onMobWeaponSkill(target, mob, skill)
     local typeEffect = EFFECT_MND_DOWN;
-    local power = 10;
+    local power = 15;
     local duration = math.random(4, 10);
 
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
@@ -24,7 +24,12 @@ function onMobWeaponSkill(target, mob, skill)
         duration = duration * (1 + hard / 2);
     end
 
-    skill:setMsg(MobRoarMove(mob, target, typeEffect, 10, 3, 120, MOD_MND));
+    local power = 128 + hard * 25;
+    if (mob:isPet() and mob:getMaster():isPC()) then
+        power = 30;
+    end
+
+    skill:setMsg(MobRoarMove(mob, target, typeEffect, power + hard * 5, 3, 120, MOD_MND));
     enmityStatusCheck(target, mob, skill, 15 + hard * 5);
 
     --JSR: also inflicts terror momentarily

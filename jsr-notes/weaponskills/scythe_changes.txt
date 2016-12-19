@@ -1,0 +1,59 @@
+[Slice]
+ - fTP: 2 (1000), 3.5 (2000), 5 (3000)
+
+[Dark Harvest]
+ - fTP: 1.5 (1000), 2.5 (2000), 3.5 (3000)
+ - Modifiers: STR 40%, INT 60%
+ - Heals HP for 100% of damage inflicted and MP for 10% of damage inflicted.
+
+[Shadow of Death]
+ - fTP: 1.5 (1000), 2.5 (2000), 3.5 (3000)
+ - Modifiers: STR 40%, INT 60%
+ - Grants a temporary +15 bonus to Magic Attack and Magic Accuracy for 60 to 300 seconds (based on TP).
+ - +30% damage against creates with 33% HP remaining or fewer.
+
+[Nightmare Scythe]
+ - fTP: 1.5
+ - Modifiers: STR 60%, INT 60%
+ - Inflicts -20 ACC Blind for 60 to 180 seconds (depending upon TP)
+ - Deals +25% damage if target is afflicted with Bio
+ - Deals +200% damage if target is afflicted with Sleep or Lullaby
+
+[Spinning Scythe]
+ - fTP: 1 (1000), 2 (2000), 3 (3000)
+ - Grants +5% attack per target hit (max of +25%) for 60 to 180 seconds (depending upon TP).
+
+[Vorpal Scythe]
+ - Attack Multiplier: 1.33
+ - +25% damage against Beastmen and Humanoids
+ - On a critical hit, grants +10% Critical Hit chance for 60 to 300 seconds (depending upon TP).
+
+[Cross Reaper]
+ - +25% damage against Demons and Undead
+
+[Spiral Hell]
+ - fTP: 1.4 (1000), 4 (2000), 8 (3000)
+ - Attack Multiplier: 1.33
+
+[Infernal Scythe]
+ - fTP: 2 (1000), 3 (2000), 4 (3000)
+ - Attack Down is -20%, duration is 90 to 360 seconds (depending upon TP).
+ - Gained at skill level 240
+
+[Entropy]
+ - Gained at skill level 250
+ - fTP: 0.7 (1000), 1.0 (2000), 1.3 (3000)
+ - Damage converted to MP: 15% to 35% (scales with TP)
+
+[Insurgency]
+ - fTP: 0.6 (1000), 0.7 (2000), 0.8 (3000)
+ - Can crit: 10% (1000), 20% (2000), 30% (3000)
+ - Gains an attack multiplier based on missing HP (+1% Attack per 2% missing HP)
+
+
+
+
+
+
+
+

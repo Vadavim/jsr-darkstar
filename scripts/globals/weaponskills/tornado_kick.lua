@@ -10,6 +10,7 @@
 require("scripts/globals/status");
 require("scripts/globals/settings");
 require("scripts/globals/weaponskills");
+require("scripts/globals/magic");
 -----------------------------------
 
 function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
@@ -43,6 +44,13 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
         params.str_wsc = 0.4; params.dex_wsc = 0.4; 
         params.atkmulti = 1.5;
     end
+
+    local system = target:getSystem();
+    if (system == SYSTEM_BIRD) then
+        params.ftp100 = params.ftp100 * 1.25; params.ftp200 = params.ftp200 * 1.25; params.ftp300 = params.ftp300 * 1.25;
+    end
+    params.ele = ELE_WIND;
+
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
     return tpHits, extraHits, criticalHit, damage;

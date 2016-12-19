@@ -9,7 +9,7 @@ require("scripts/globals/jsr_utils");
 cmdprops =
 {
     permission = 1,
-    parameters = "s"
+    parameters = "i"
 };
 
 
@@ -18,11 +18,12 @@ function onTrigger(player, amount)
 --    player:spawnPet(73);7
 --print(player:checkDistance(player:getPet()));
 --print(player:getRotPos());
+--player:dispelAllStatusEffect();
 
     local target = player:getCursorTarget();
+    printf("Cool: %d\nDelay: %d\nStand: %d", target:getMobMod(MOBMOD_MAGIC_COOL), target:getMobMod(MOBMOD_MAGIC_DELAY), target:getMobMod(MOBMOD_STANDBACK_COOL));
+    printf("Fast: %d\nUFast: %d", target:getMod(MOD_FASTCAST), target:getMod(MOD_UFASTCAST));
     if (target ~= nil) then
---        target:addStatusEffect(EFFECT_STUN, 1, 0, 90000);
---        target:setMod(MOD_FIREDEF, 0);
         player:SayToPlayer("STR: " .. tostring(target:getStat(MOD_STR))
             .. ", VIT: " .. tostring(target:getStat(MOD_VIT))
                 .. ", DEX: " .. tostring(target:getStat(MOD_DEX))

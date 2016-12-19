@@ -1303,6 +1303,7 @@ MOD_WEAPONSKILL_DAMAGE_BASE = 570 -- See modifier.h for how this is used
 MOD_ELEMENTAL_CELERITY = 840
 MOD_OCCULT_ACUMEN = 841
 MOD_CONSERVE_TP        = 842
+MOD_BLOOD_BOON      = 845
 MOD_CARDINAL_CHANT        = 846
 MOD_ABSORB_MAGDMG_TO_MP      = 847
 
@@ -2015,7 +2016,7 @@ MOBMOD_MULTI_HIT      = 66
 
 MOBMOD_SCALE_LEVEL        = 70
 MOBMOD_HARD_MODE        = 71
-MOBMOD_NO_XP        = 72
+MOBMOD_NO_XP        = 74
 
 ------------------------------------
 -- Skills

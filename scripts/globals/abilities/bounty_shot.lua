@@ -43,7 +43,7 @@ function onUseAbility(player,target,ability,action)
     params.acc100 = 0.0; params.acc200= 0.0; params.acc300= 0.0;
     params.atkmulti = 1
     params.enmityMult = 2.5
-    params.bonusAcc = 20;
+    params.bonusACC = 20;
 
     local damage, criticalHit, tpHits, extraHits = doRangedWeaponskill(player, target, 0, params, 100, true)
     player:addHP(damage);

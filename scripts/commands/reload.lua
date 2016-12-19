@@ -15,6 +15,7 @@ function onTrigger(player, file)
     package.loaded["scripts/globals/moghouse"] = nil;
     package.loaded["scripts/globals/summon"] = nil;
     package.loaded["scripts/globals/jsr_utils"] = nil;
+    package.loaded["scripts/globals/jsr_mob"] = nil;
     package.loaded["scripts/globals/weaponskills"] = nil;
     package.loaded["scripts/globals/bluemagic"] = nil;
     package.loaded["scripts/globals/weaponskills/armor_break"] = nil;

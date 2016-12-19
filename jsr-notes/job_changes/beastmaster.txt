@@ -27,14 +27,21 @@ ABILITY CHANGES
 [Familiar]
  - Recast reduced to 30 minutes
 
+[Reward]
+ - HP bonus is based on CHR instead of MND
+
 [Run Wild]
- - Gained at level 50
- - Also instantly heals pet (based on level and Charisma).
- - Works on charmed mobs as well (kills them after 5 minutes)
+ - Gained at level 70
+ - Works on charmed mobs as well
+ - Grants +25% to MATT, ATK, DEF, MDEF, and +30 to EVA, MEVA, ACC, MACC, along with a regen effect.
+
+[Sic]
+ - Recast time reduced to 90 seconds
 
 [Spur]
  - Gained at level 55.
- - Has an increased effect when using jug pets.
+ - Grants +25 Store TP for 90 seconds.
+ - Charmed pets also gain a +12% bonus to Attack and Magic Attack for the duration.
 
 [Tame]
  - Against any mob, this also acts as a powerful stun for 8 seconds.
@@ -44,6 +51,5 @@ ABILITY CHANGES
 
 [Unleash
  - Gained at level 65.
- - Recast reduced to 10 minutes. Shares recast with Familiar.
- - Instead instantly grants 3000 TP. If pet is charmed, causes it to use special move.
+ - Instead instantly grants 1000 TP to pet. If pet is charmed, causes it to use special move on its current target.
 

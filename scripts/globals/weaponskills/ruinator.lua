@@ -33,6 +33,15 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
+
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_LIGHT, SKILL_AXE);
+    if (target:isNM()) then
+        resist = resist - 0.75;
+        if (resist >= 0.25) then
+            target:dispelStatusEffect();
+        end
+    end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

@@ -23,7 +23,7 @@ end;
 function onUseAbility(player,target,ability)
 
     if (player:isPet()) then
-        target:addEnmity(player, 200, 1000);
+        target:addEnmity(player, 500, 1800);
     end
 
 

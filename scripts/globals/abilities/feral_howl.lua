@@ -44,25 +44,17 @@ function onUseAbility(player,target,ability)
     local potency = 1;
     --printf("Potency : %u",potency);
     
-    -- Grabbing variables for terror accuracy. Unknown if ability is stat based. Using Beastmaster's level versus Target's level
     local pLvl = player:getMainLvl();
-    --printf("player level : %u",pLvl);
     local mLvl = target:getMainLvl();
-    --printf("mob level : %u",mLvl);
 
-    -- Checking level difference between the target and the BST
     local dLvl = (mLvl - pLvl);
-    --printf("level difference : %u",dLvl);
 
-    -- Determining what level of resistance the target will have to the ability
     local resist = 0
     dLvl = (10 * dLvl) - modAcc; -- merits increase accuracy by 5% per level
     if dLvl <= 0 then -- default level difference to 1 if mob is equal to the Beastmaster's level or less.
         resist = 1;
-    --printf("resist : %u",resist);
     else
         resist = math.random(1,(dLvl + 100)); -- calculate chance of missing based on number of levels mob is higher than you. Target gets 10% resist per level over BST
-    --printf("resist : %u",resist);
     end
 
     -- Adjusting duration based on resistance. Only fair way I could see to do it...

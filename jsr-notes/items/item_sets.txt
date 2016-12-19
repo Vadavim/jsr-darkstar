@@ -1,0 +1,3 @@
+[Scorpion Harness +1] (Scorpion Harness +1, Scorpion Mittens +1, Scorpion Subligar +1, Scorpion Mask +1, Scorpiong Leggings +1)
+ - Two Pieces: +5 Poison Res, +10% Critical Damage
+ - Additional Pieces: +2 Poison Res, +2% Critical Damage

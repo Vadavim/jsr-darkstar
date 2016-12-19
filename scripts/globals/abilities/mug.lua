@@ -30,11 +30,17 @@ function onUseAbility(player,target,ability)
         thfLevel = player:getSubLvl();
     end
 
-    local tpSteal = target:getTP() * 0.25;
-    player:addTP(tpSteal);
     local agi = player:getStat(MOD_AGI);
     target:delHP(agi * 4);
     player:addHP(agi * 4);
+    if (player:isMob()) then
+        ability:setMsg(187);
+        return agi * 4;
+    end
+
+
+    local tpSteal = target:getTP() * 0.25;
+    player:addTP(tpSteal);
 
 
     local mugChance = 90 + thfLevel - target:getMainLvl();

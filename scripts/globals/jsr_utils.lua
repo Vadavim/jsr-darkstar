@@ -400,7 +400,7 @@ function onEliteDeath(mob, player, tier)
         local party = player:getParty();
 
         local scyld = 10 + tier * 5;
-        local xpReward = 200 + 100 * tier;
+        local xpReward = 200 + 100 * tier + mob:getLocalVar("bonusEliteXP");
         if (mob:getMobMod(MOBMOD_HARD_MODE) == 2) then
             xpReward = xpReward + tier * 50 + 50;
             scyld = scyld + 10;
@@ -450,7 +450,7 @@ function tradeElite(player, npc, trade, tier, monsters)
     -- hard mode
     elseif (count == 2 and gil == tier * 500 and thirdSlot ~= 0) then
 
-        local augmented = (trade:isAugmented(0));
+        local augmented = (trade:isAugmented(1));
         local item = getItem(thirdSlot);
         local iLevel = item:getLevel();
         if (augmented) then
@@ -466,7 +466,7 @@ function tradeElite(player, npc, trade, tier, monsters)
         npc:setLocalVar("trader", player:getID());
         npc:setLocalVar("traded", thirdSlot);
         player:tradeComplete();
-        startConfrontation(player, 10, 1200, monsters, true);
+        startConfrontation(player, tier * tie + leftover - 5, 1200, monsters, true);
     end
 
 end
@@ -492,7 +492,7 @@ function rewardElite(player, npc, items)
             ["augment"] = {id, augments[1], augments[2], augments[3], augments[4], augments[5], augments[6], augments[7], augments[8]},
             ["gil"] = npc:getLocalVar("gilReward");
         };
---        jsrReward(player, reward);
+        jsrReward(player, reward);
 
 
         -- reward second item if player traded one
@@ -500,7 +500,7 @@ function rewardElite(player, npc, items)
             item = getItem(tradedItem);
             augments = pickAugments(item);
             reward = {["augment"] = {tradedItem, augments[1], augments[2], augments[3], augments[4], augments[5], augments[6], augments[7], augments[8]}};
---            jsrReward(player, reward);
+            jsrReward(player, reward);
         end
 
     end
@@ -589,7 +589,8 @@ function rewardTemporaryItem(player)
     local item = boostItems[math.random(1,boostSize)];
 
     player:addTempItem(item);
-    player:messageSpecial(ITEM_OBTAINED, item);
+    player:messageSpecial(item_zone_ids[player:getZoneID()], item);
+
 end
 
 

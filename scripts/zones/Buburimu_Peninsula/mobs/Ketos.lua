@@ -9,6 +9,8 @@ require("scripts/globals/jsr_utils");
 -- onMobDeath
 -----------------------------------
 function onMobSpawn(mob)
+    mob:setMod(MOD_ENSPELL_DMG, 12);
+    mob:setMod(MOD_ENSPELL, 3);
     mob:setMobMod(MOBMOD_NO_XP, 1);
 end
 

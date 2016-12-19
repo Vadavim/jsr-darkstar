@@ -1,0 +1,34 @@
+[Shining Strike]
+ - Grants +35 Magic Defense for 60 to 360 seconds (depending upon TP)
+
+[Seraph strike]
+ - Grants a potent regen (that stacks with normal regen) for 45 to 270 seconds (depending upon TP).
+
+[Brainshaker]
+ - Refuns 35% of TP spent
+
+[Sunlight]
+ - Now heals all allies equal to Club Skill 
+ - Attempts to erase a single effect. If successful, increases amount healed by 50%.
+
+[Skullbreaker]
+ - fTP: 2 (1000), 4 (2000), 6 (3000)
+ - Reduces target's Int by -30 and inflicts Addle
+ - Duration varies with TP (60 to 180 seconds)
+
+[True Strike]
+ - Very accuracy (+100 accuracy)
+
+[Judgment]
+ - Also inflicts MND Down (-30) for 60 to 180 seconds (depending upon TP).
+ 
+[Black Halo]
+ - Hybrid Dark-Attack: influenced by target's Dark resistance
+ - Inflicts Blind (-25 ACC) for 60 to 180 seconds (depending upon TP).
+
+[Flash Nova]
+ - Gained at skill level 250
+ - Inflicts Flash for 5 to 15 seconds (depending upon TP).
+
+[Realmrazer]
+ - Gained at skill level 265

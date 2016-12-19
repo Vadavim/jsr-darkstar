@@ -98,10 +98,10 @@ function onSpellCast(caster,target,spell)
             
         --printf("BEFORE AFFLATUS MISERY BONUS: %d", basecure);
             
-        basecure = basecure + misery;
+        basecure = basecure + misery * 2;
             
         if (basecure > 175) then
-            basecure = 175;
+            basecure = 175 + (basecure - 175) / 2;
         end
         
         --printf("AFTER AFFLATUS MISERY BONUS: %d", basecure);

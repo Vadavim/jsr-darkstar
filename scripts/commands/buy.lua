@@ -981,52 +981,52 @@ end
 
 local function jugs(player, points)
     local stock = {
-        17860,  20,{COOK, 400},  --Carrot
-        17864,  20,{COOK, 400},  --Herbal
-        17876,  20, {COOK, 400}, --Fish
-        17877,  55, {COOK, 1100}, --Fish Oil
-        17822,  35, {COOK, 700}, --Alchemist's
-        17905,  35, {COOK, 800}, --Wormy
-        17868,  50, {COOK, 1000}, --Humus
-        17870,  80, {COOK, 1600}, --Meat
-        17885,  65, {COOK, 1300}, --Grass
-        17862,  90, {COOK, 1800}, --Bug
-        17866,  110,{COOK, 2200},     --Carrion
-        17880,  110,{COOK, 2200},     --Seedbed
-        17887,  125,{COOK, 2500},     --Mole
-        17872,  145,{COOK, 2900},     --Tree
-        17891,  155,{COOK, 3100}     --Antica
+        17860,  200,{COOK, 400},  --Carrot
+        17864,  200,{COOK, 400},  --Herbal
+        17876,  200, {COOK, 400}, --Fish
+        17877,  350, {COOK, 1100}, --Fish Oil
+        17822,  400, {COOK, 700}, --Alchemist's
+        17905,  400, {COOK, 800}, --Wormy
+        17868,  450, {COOK, 1000}, --Humus
+        17870,  700, {COOK, 1600}, --Meat
+        17885,  500, {COOK, 1300}, --Grass
+        17862,  800, {COOK, 1800}, --Bug
+        17866,  700,{COOK, 2200},     --Carrion
+        17880,  750,{COOK, 2200},     --Seedbed
+        17887,  800,{COOK, 2500},     --Mole
+        17872,  850,{COOK, 2900},     --Tree
+        17891,  900,{COOK, 3100}     --Antica
     };
     return special_stock(stock, points);
 end
 
 local function jugs2(player, points)
     local stock = {
-        17861,  170,{COOK, 3400},     --Famous Carrot
-        17865,  170,{COOK, 3400},     --Singing Herbal
-        17889,  190,{COOK, 3700},     --Blood
-        17869,  240,{COOK, 4800},     --Rich Humus
-        17871,  240,{COOK, 4800},     --Warm Meat
-        17863,  270,{COOK, 5400},     --Quadav
-        17867,  270,{COOK, 5400},     --Cold Carrion
-        17886,  270,{COOK, 5400},     --Noisy Grass
-        17888,  270,{COOK, 5400},     --Lively Mole
-        17873,  320,{COOK, 6400},     --Scarlet Sap
-        17890,  350,{COOK, 7000},     --Clear Blood
-        17892,  350,{COOK, 7000},     --Fragrant Antica
-        17884,  400,{COOK, 8000}    --Sun Water
+        17861,  700,{COOK, 3400},     --Famous Carrot
+        17865,  700,{COOK, 3400},     --Singing Herbal
+        17889,  800,{COOK, 3700},     --Blood
+        17869,  950,{COOK, 4800},     --Rich Humus
+        17871,  950,{COOK, 4800},     --Warm Meat
+        17863,  1050,{COOK, 5400},     --Quadav
+        17867,  1050,{COOK, 5400},     --Cold Carrion
+        17886,  1050,{COOK, 5400},     --Noisy Grass
+        17888,  1050,{COOK, 5400},     --Lively Mole
+        17873,  1100,{COOK, 6400},     --Scarlet Sap
+        17890,  1100,{COOK, 7000},     --Clear Blood
+        17892,  1100,{COOK, 7000},     --Fragrant Antica
+        17884,  1700,{COOK, 8000}    --Sun Water
     };
     return special_stock(stock, points);
 end
 
 local function treats(player, points)
     local stock = {
-        17016,  10, {COOK, 0},  --Pet Food Alpha
-        17017,  20, {COOK, 500}, --Pet Food Beta
-        17018,  40, {COOK, 1500}, --Pet Food Gamma
-        17019,  60, {COOK, 3000}, --Pet Food Delta
-        17020,  80, {COOK, 5000}, --Pet Food Epsilon
-        17021,  100, {COOK, 7000} --Pet Food Zeta
+        17016,  15, {COOK, 0},  --Pet Food Alpha
+        17017,  30, {COOK, 500}, --Pet Food Beta
+        17018,  50, {COOK, 1500}, --Pet Food Gamma
+        17019,  80, {COOK, 3000}, --Pet Food Delta
+        17020,  120, {COOK, 5000}, --Pet Food Epsilon
+        17021,  150, {COOK, 7000} --Pet Food Zeta
     };
     return special_stock(stock, points);
 end
@@ -3163,7 +3163,7 @@ end
 
 
 
-funcs = {
+local funcs = {
     ["earrings"] = earrings, ["earrings2"] = earrings2, ["earringsEx"] = earringsEx, ["earringsEx2"] = earringsEx2,
     ["rings"] = rings, ["rings2"] = rings2, ["rings3"] = rings3, ["ringsEx"] = ringsEx, ["rings2Ex"] = rings2Ex, ["rings3Ex"] = rings3Ex,
     ["grips"] = grips, ["gripsEx"] = gripsEx,

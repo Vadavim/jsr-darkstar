@@ -28,8 +28,10 @@ end;
 function onSpellCast(caster,target,spell)
     caster:spawnAlly(79);
     local ally = caster:getRecentAlly();
-    ally:addMod(MOD_MATT, caster:getMainLvl() / 4);
-    ally:addMod(MOD_ENMITY, 40);
+    ally:addMod(MOD_MATT, caster:getMainLvl() / 2);
+    ally:addMod(MOD_DEF, caster:getMainLvl() * 1.33);
+    ally:addMod(MOD_ENMITY, 35);
+    ally:addMod(MOD_ENMITY_LOSS_REDUCTION, 60);
 
         --    ally = caster:getRecentAlly();
         --    ally:addMod(MOD_HPHEAL, caster:getMainLvl());

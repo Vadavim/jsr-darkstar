@@ -18,10 +18,15 @@ function onMobWeaponSkill(target, mob, skill)
     local typeEffect = EFFECT_VIT_DOWN;
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     local tp = skill:getTP();
-    local duration = 120 * fTP(tp, 1, 1.5, 2) * (1 + hard / 5)
+    local duration = 90 * fTP(tp, 1, 1.5, 2) * (1 + hard / 5)
     local power = 10 * fTP(1, 1.5, 2);
 
     mob:addTP(500);
+
+    if (mob:isPet() and mob:getMaster():isPC()) then
+        power = power * 1.5;
+    end
+
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     if (hard > 0) then
         power = power * (1 + hard / 2)

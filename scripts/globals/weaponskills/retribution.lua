@@ -23,7 +23,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     local params = {};
     params.numHits = 1;
-    params.ftp100 = 2; params.ftp200 = 2.5; params.ftp300 = 3;
+    params.ftp100 = 2; params.ftp200 = 3.5; params.ftp300 = 4.5;
     params.str_wsc = 0.3; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.0; params.mnd_wsc = 0.5; params.chr_wsc = 0.0;
     params.crit100 = 0.0; params.crit200 = 0.0; params.crit300 = 0.0;
     params.canCrit = false;
@@ -34,7 +34,23 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
         params.atkmulti = 1.5;
     end
 
+    local reflectPower = 33;
+
+    local boost = player:getStatusEffect(EFFECT_BOOST);
+    if (boost ~= nil) then
+        local bSubPower = boost:getSubPower();
+        player:addStatusEffect(EFFECT_RETALIATION, 1, 0, bSubPower / 3);
+    end
+--
+--
+--    local maxReflectedDamage = target:getMaxHP() * 2;
+--    player:addStatusEffect(EFFECT_REPRISAL, 33, 0, fTP(tp, 45, 90, 180), 0, maxReflectedDamage, 1);
+
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
+    if (damage > 0) then
+        target:setLocalVar("retribution", 2 + math.floor((tp - 1000) / 500));
+    end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

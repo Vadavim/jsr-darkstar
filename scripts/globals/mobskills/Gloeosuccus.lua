@@ -21,6 +21,8 @@ function onMobWeaponSkill(target, mob, skill)
     local tp = skill:getTP();
     local duration = 90 * fTP(tp, 1, 1.5, 2) * (1 + hard / 5)
 
+
+
     if (hard > 0) then
         local targTP = target:getTP();
         local drain = 250 + 50 * hard;
@@ -29,7 +31,12 @@ function onMobWeaponSkill(target, mob, skill)
         mob:addTP(drain);
     end
 
-    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 128 + hard * 15, 0, duration));
+    local power = 128 + hard * 25;
+    if (mob:isPet() and mob:getMaster():isPC()) then
+        power = 280;
+    end
+
+    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, power, 0, duration));
     enmityStatusCheck(target, mob, skill, 15 + hard * 5);
 
     return typeEffect;

@@ -19,15 +19,28 @@ require("scripts/globals/weaponskills");
 function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     local params = {};
-    params.ftp100 = 1; params.ftp200 = 2.3125; params.ftp300 = 3.625;
+    params.ftp100 = 1.35; params.ftp200 = 2.5; params.ftp300 = 4.5;
     params.str_wsc = 0.3; params.dex_wsc = 0.0; params.vit_wsc = 0.0; params.agi_wsc = 0.0; params.int_wsc = 0.3; params.mnd_wsc = 0.0; params.chr_wsc = 0.0;
     params.ele = ELE_EARTH;
     params.skill = SKILL_STF;
     params.includemab = true;
 
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
-        params.str_wsc = 0.4; params.int_wsc = 0.4;
+        params.str_wsc = 0.6; params.int_wsc = 0.4;
     end
+
+    local power = 5 + player:getMainLvl() * 2.5;
+    power = power * (1 + (tp - 1000) / 1000);
+
+    local boost = player:getStatusEffect(EFFECT_BOOST);
+    if (boost ~= nil) then
+        local bSubPower = boost:getSubPower();
+        power = power * (1 + bSubPower / 500);
+        player:delStatusEffect(EFFECT_BOOST);
+    end
+
+
+    player:addStatusEffect(EFFECT_STONESKIN, power, 0, 600);
 
     local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, tp, primary, action, params);
     return tpHits, extraHits, criticalHit, damage;

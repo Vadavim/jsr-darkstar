@@ -4,6 +4,7 @@ require("scripts/globals/settings");
 require("scripts/globals/conquest");
 -- require("scripts/globals/teleports");
 require("scripts/globals/status");
+require("scripts/globals/jsr_utils");
 require("scripts/globals/regimereward");
 require("scripts/globals/regimeinfo");
 require("scripts/globals/common");
@@ -473,22 +474,47 @@ function checkRegime(player, mob, rid, index)
                         -- complete regime
                         player:messageBasic(FOV_MSG_COMPLETED_REGIME);
                         local reward = getFoVregimeReward(rid);
+
+                        -- Special bonus of +500 for first time each week
+
+
                         local tabs = (math.floor(reward / 10) * TABS_RATE);
+
+
                         local VanadielEpoch = vanaDay();
+
+                        local bonus = 0;
+
+                        if (afterTime(player, "fields_tally_" .. tostring(rid))) then
+                            setTally(player, "fields_tally_" .. tostring(rid));
+                            bonus = 500;
+                        end
 
                         -- Award gil and tabs once per day.
                         if (player:getVar("fov_LastReward") < VanadielEpoch) then
-                           player:messageBasic(FOV_MSG_GET_GIL, reward);
-                           player:addGil(reward);
-                           player:addCurrency("valor_point", tabs);
-                           player:messageBasic(FOV_MSG_GET_TABS, tabs, player:getCurrency("valor_point")); -- Careful about order.
-                           if (REGIME_WAIT == 1) then
-                              player:setVar("fov_LastReward", VanadielEpoch);
-                           end
+
+
+                            player:messageBasic(FOV_MSG_GET_GIL, reward + bonus);
+                            player:addGil(reward + bonus);
+                            player:addCurrency("valor_point", tabs + bonus / 10);
+                            player:messageBasic(FOV_MSG_GET_TABS, tabs + bonus / 10, player:getCurrency("valor_point")); -- Careful about order.
+                            if (REGIME_WAIT == 1) then
+                                player:setVar("fov_LastReward", VanadielEpoch);
+                            end
+                        elseif (bonus > 0) then
+                            player:messageBasic(FOV_MSG_GET_GIL, bonus);
+                            player:addGil(bonus);
+                            player:addCurrency("valor_point", bonus / 10);
+                            player:messageBasic(FOV_MSG_GET_TABS, bonus / 10, player:getCurrency("valor_point")); -- Careful about order.
                         end
 
                         -- TODO: display msgs (based on zone annoyingly, so will need player:getZoneID() then a lookup)
-                        player:addExp(reward / 2);
+                        if (reward > 500) then
+                            player:addExp(500);
+                        else
+                            player:addExp(reward);
+                        end
+
                         if (k1 ~= 0) then player:setVar("fov_numkilled1", 0); end
                         if (k2 ~= 0) then player:setVar("fov_numkilled2", 0); end
                         if (k3 ~= 0) then player:setVar("fov_numkilled3", 0); end

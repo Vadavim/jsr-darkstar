@@ -25,5 +25,6 @@ ABILITY CHANGES
  - Heals MP equal to 1/5th of damage received
  - Gains TP based on damage received: (1.2 - level / 100) * damage TP.
  - Accuracy bonus from Afflatus Misery also applies to Banish / Holy spells.
- - Banish and Holy spells heal most injured party member by 33% of damage dealt.
+ - If damaged multiple times, highest recorded damage is stored (instead of most recent).
+ - Banish spells heal most injured party member by 33% of damage dealt.
 	- Can only heal allies (not self)

@@ -23,4 +23,5 @@
 
 [Tornado Kick]
  - Gained at skill level 260.
- - +20% damage against  birds
+ - Hybrid Wind-based Attack: influenced by elemental weakness
+ - +25% damage against  birds

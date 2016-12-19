@@ -75,9 +75,9 @@ ABILITY CHANGES
 
 [Scarlet Delirium]
  - Gained at level 45
- - Duration reduced to 1 minute.
+ - Duration reduced to 2 minute.
  - Recast is 10 minutes
- - Instead converts 25% damage taken into MP.
+ - Instead converts 25% damage taken into MP, and physical damage received gives a +10% bonus to magic attack (max of +50%)
 
 [Soul Enslavement
  - Gained at level 65

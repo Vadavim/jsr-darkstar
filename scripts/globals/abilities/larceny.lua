@@ -50,8 +50,8 @@ function onUseAbility(player,target,ability)
             if (duration > 300) then duration = 300; end
             player:addStatusEffect(effect:getType(), effect:getPower(), effect:getTickCount(), duration, 0, effect:getSubPower());
             -- add buff to myself
-            ability:setMsg(370);
-            return 1;
+            ability:setMsg(453);
+            return effect;
         end
     end
 

@@ -22,6 +22,12 @@ function onMobWeaponSkill(target, mob, skill)
     if (mob:hasStatusEffect(EFFECT_DROWN)) then duration = duration * 0.8 end;
 
     local typeEffect = EFFECT_EVASION_DOWN;
+
+    local power = 50;
+    if (mob:isPet() and mob:getMaster():isPC()) then
+        power = 35;
+    end
+
     skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 50, 0, duration));
     enmityStatusCheck(target, mob, skill, 15 + hard * 5);
 

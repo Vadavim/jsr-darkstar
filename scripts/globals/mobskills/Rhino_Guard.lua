@@ -20,7 +20,11 @@ function onMobWeaponSkill(target, mob, skill)
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     local tp = skill:getTP();
     local duration = 45 * fTP(tp, 1, 1.5, 2) * (1 + hard / 5)
-    
+
+    if (mob:isPet() and mob:getMaster():isPC()) then
+        duration = duration * 2;
+    end
+
 
     local typeEffect = EFFECT_EVASION_BOOST;
     skill:setMsg(MobBuffMove(mob, typeEffect, 30, 0, duration));

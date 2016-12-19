@@ -1,0 +1,46 @@
+[Raging Axe]
+ - Modifiers: STR 60%, VIT 30%
+
+[Smash Axe]
+ - Refunds 40% of TP spent
+
+[Gale Axe]
+ - Hybrid Wind-based attack: influenced by elemental weakness
+ - Choke DoT increased
+
+[Avalanche Axe]
+ - Attack Multiplier: 1.0 -> 1.35
+ - Modifiers: STR 60%, VIT 60%
+
+[Spinning Axe]
+ - Modifiers: 100% STR
+
+[Calamity]
+ - Modifiers: 125% STR
+ - fTP: 2 (1000), 6.5 (2000), 10.375 (3000)
+
+[Rampage]
+ - Attack Multiplier: 1.0 -> 0.9
+
+[Mistral Axe]
+ - fTP: 3 (1000), 5.5 (2000), 8 (3000)
+ - +50 Accuracy
+ - +25% damage against Birds
+ - Modifiers: 50% STR, 50% AGI
+
+[Decimation]
+ - Attack Multiplier: 1.0 -> 1.5
+ - fTP: 1.5 -> 1
+ - Grants +30 STR for 60 to 360 seconds (depending upon TP). 
+
+[Bora Axe]
+ - Gained at skill level 250
+ - Hybrid Attack: influenced by Ice weakness
+ - Also inflicts Agi Down (-25) for 60 to 240 seconds (depending upon TP).
+ - fTP: 1 (1000), 1.75 (2000), 2.5 (3000)
+ - Attack Multiplier: 2.0
+
+
+[Ruinator]
+ - Gained at skill level 270
+ - Attempts to dispel a status effect (Light-based).

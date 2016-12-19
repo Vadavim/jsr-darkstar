@@ -86,8 +86,9 @@ function onUseAbility(player,target,ability,action)
 --        local resist = applyResistance(player,0,target,0,player:getWeaponSkillType(SLOT_MAIN),bonus);
         params = {};
         local resist = applyResistanceWeaponskill(player, target, params, 1000, ELE_LIGHT, player:getWeaponSkillType(SLOT_MAIN));
+        if (target:isNM()) then resist = resist - 0.75 end;
 
-        if (resist > 0.5) then
+        if (resist >= 0.25) then
             local dispel = target:dispelStatusEffect();
             if (dispel ~= EFFECT_NONE) then
                 dmg = dmg * 3;

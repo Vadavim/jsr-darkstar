@@ -14,7 +14,7 @@ function onAbilityCheck(player, target, ability)
     return 0,0;
 end;
 
-function onPetAbility(target, pet, master)
+function onPetAbility(target, pet, skill, master)
     local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP() + pet:getMod(MOD_TP_BONUS);
 	local moon = VanadielMoonPhase();
 

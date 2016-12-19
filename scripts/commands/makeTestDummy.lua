@@ -38,6 +38,7 @@ function onTrigger(player, amount)
         target:setMod(MOD_ICERES, 0);
         target:setMod(MOD_LIGHTRES, 0);
         target:setMod(MOD_DARKRES, 0);
+        target:setMod(MOD_REGEN, 300);
 
         target:setMod(MOD_MDEF, 0);
 --        target:setMod(MOD_HPP, 500);

@@ -30,7 +30,14 @@ function onMobWeaponSkill(target, mob, skill)
     local success = MobPhysicalStatusEffectMove(mob, target, skill, typeEffect, 1, 0, 30, MOD_MND);
     if (success == 242) then
         target:setPendingMessage(277, EFFECT_SLEEP_I);
+
+        if (hard >= 1) then
+            target:addStatusEffect(EFFECT_COSTUME, 30, 0, 30);
+        end
+
     end
+
+
 
     target:delHP(dmg);
     return dmg;

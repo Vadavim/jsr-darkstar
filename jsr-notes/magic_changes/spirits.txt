@@ -1,0 +1,106 @@
+GENERAL
+ - Elemental Spirits do not have a perpetuation cost
+ - Elemental Spirits lose life over time and will eventually die
+ - Casting a spirit spell costs additional MP equal to level * 2.
+
+
+[Fire Spirit]
+Level 13: Fire
+Level 38: Fire II
+Level 62: Fire III
+Level 73: Fire IV
+
+Level 24: Burn
+Level 45: Virus
+Level 70: Addle
+
+[Ice Spirit]
+Level 17: Blizzard
+Level 42: Blizzard II
+Level 64: Blizzard III
+Level 74: Blizzard IV
+
+Level 4: Paralyze
+Level 22: Frost
+Level 70: Paralyze II
+Level 35: Distract
+Level 75: Distract II
+
+[Air Spirit]
+Level 9: Aero
+Level 34: Aero II
+Level 59: Aero III
+Level 72: Aero IV
+
+Level 15: Silence
+Level 20: Choke
+Level 21: Gravity
+Level 67: Gravity II
+
+[Thunder Spirit]
+Level 21: Thunder
+Level 46: Thunder II
+Level 56: Burst
+Level 66: Thunder III
+Level 70: Burst II
+Level 75: Thunder IV
+
+Level 16: Shock
+
+[Water Spirit]
+Level 5: Water
+Level 30: Water II
+Level 55: Water III
+Level 70: Water IV
+
+Level 27: Drown
+Level 3: Poison
+Level 42: Poison II
+Level 73: Poison III
+
+[Light Spirit]
+Level 5: Banish
+Level 30: Banish II
+Level 45: Holy
+Level 55: Banish III
+Level 65: Holy II
+Level 70: Banish IV
+
+Level 1: Cure
+Level 11: Cure II
+Level 21: Cure III
+Level 41: Cure IV
+Level 61: Cure V
+
+Level 25: Dia II
+Level 37: Flash
+Level 68: Dia III
+
+Level 7: Protectra
+Level 17: Shellra
+Level 27: Protectra II
+Level 37: Shellra II
+Level 47: Protectra III
+Level 57: Shellra III
+Level 63: Protectra IV
+Level 68: Shellra IV
+Level 75: Protectra V
+Level 75: Shellra V
+
+[Dark Spirit]
+Level 5: Blind
+Level 56: Blind II
+
+Level 8: Bio
+Level 35: Bio II
+Level 64: Bio III
+
+Level 10: Drain
+Level 50: Drain II
+
+Level 32: Dispel
+Level 37: Stun
+Level 58: Curse
+Level 75: Death
+
+

@@ -45,6 +45,17 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
+    if (player:isMob()) then
+        ability:setMsg(226);
+        local power = 150 + math.random(0, 300);
+        local targetTP = target:getTP();
+        if (power > targetTP) then power = targetTP; end;
+        target:delTP(power);
+        player:addTP(power);
+        return power;
+
+    end
+
     local thfLevel;
     local stolen = 0;
 

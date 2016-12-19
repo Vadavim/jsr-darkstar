@@ -1,0 +1,53 @@
+[Selbina Milk / Au Lait Drinks]
+ - HP Regen stacks with Regen (same effect as Field Manual's Auto Regen)
+
+[Goblin Drink]
+ - +20 Magic Evasion
+ - +1 MP recovered while healing
+ - -10 CHR
+ - +12 Status Effect resistance
+
+[Imperial Coffee +1]
+ - +5 HP and MP recovered while healing
+ - +20 Sleep, Paralyze, Bind, and Slow Res.
+
+[Chai +1]
+ - +10% MP and +3 MP recovered while healing
+ - +10 CHR
+ - +20 Silence and Charm Res
+
+[Healing Tea]
+ - +10% HP and +8 HP recovered while healing
+ - +2 VIT
+ - +1 HP/tic
+ - +20 Poison and Disease Res
+
+[Choco-Delight]
+ - +1 MP recovered while Healing
+ - +10 Conserve MP and Conserve TP
+ - +20 Curse, Death, Dark, and Light Res
+
+[Caravan Tea]
+ - +8% HP and MP
+ - +8 CHR
+ - +4 INT
+ - +1 HP/tic
+
+[Royal Tea]
+ - +4 CHR
+ - -8 Enmity
+
+[Jungle Nectar]
+ - +20 Poison and Disease Res
+ - +8 Bird, Beast, Plantoid, and Vermin Killer
+ - +20 Earth, Water, and Wind Res
+
+[Ambrosia]
+ - +7 to all attributes
+ - +7% HP and MP
+ - +7 Attack, Defense, RATT, RACC, MACC, MATT, MDEF
+ - +7% Crit Chance, Crit Damage, Magic Crit Chance, Magic Crit Damage
+ - -7% damage taken
+ - +7 HP and MP recovered while healing
+ - +7 Subtle Blow, Store TP, Conserve MP, and Conserve MP
+ - 7 to all Status Resistances

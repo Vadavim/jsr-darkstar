@@ -33,23 +33,23 @@ The Loaded Deck merit trait now instead affects Winning Streak by giving a chanc
 [Rolls]
  - Duration: 5 -> 10 Minutes
  - Recast Time: 60 -> 30 seconds
- - Winning Streak Duration bonus: 20 -> 40 seconds
+
 
 [Quick Draw]
  - At level 55, recharge time reduced to 50 seconds
  - At level 70, recharge time reduced to 40 seconds.
  - Each elemental shot will imbue the target with the corresponding skillchain attribute (Detonation for Wind, Induration for Ice, etc.).
- - Increases potency of associated elemental status effects by 33%
- - Boosts all associated elemental status effects (instead of just 1)
+ - Increases potency of all associated elemental status effects by 33%
 
 [Random Deal]
  - Now instead grants random beneficial status effects (chosen from a large list) for 5 minutes. Recast is 10 minutes.
- - Base chance for each status effect is 10%, +1% per 2 Winning Streak points
+ - Base chance for each status effect is 5%, +0.05% per Winning Streak Point (max chance of 10%)
  - Random Deal Recast Merit: 40 -> 20 seconds reduction per point
 
 [Fold]
  - Now gained at level 25 (merit point bonuses updated accordingly.)
  - When Fold is used, all Winning Streak points are converted into TP (50 TP per point).
+ - With 10+ Winning Streak points, also resets Snake Eyes, Crooked Cards, and Cutting Cards
 
 [Snake Eyes]
  - Now gained at level 35.
@@ -57,7 +57,6 @@ The Loaded Deck merit trait now instead affects Winning Streak by giving a chanc
 [Crooked Cards]
  - Now gained at level 60. Recast is 5 minutes.
  - When used, next roll will automatically be a 6. 
- - Recast ID currently unknown (i.e. you won't see the recast timer update)
 
 [Cutting Cards]
  - Now gained at level 70. Recast is 5 minutes.
@@ -68,8 +67,9 @@ The Loaded Deck merit trait now instead affects Winning Streak by giving a chanc
 
 
 [Triple Shot]
- - Gained at level 35
-
+ - Gained at level 55
+ - Lasts for one minute.
+ - For duration, 25% chance to shoot three times. 
 
 
 --------------
@@ -78,35 +78,33 @@ The Loaded Deck merit trait now instead affects Winning Streak by giving a chanc
  - Also increases status effect resistance by a proportionate amount (up to 33%)
 
 [Drachen Roll]
- - Also increases Fire, Ice, and Thunder resistance, accuracy, attack, and defense for all pets.
+ - Also increases Fire, Ice, and Thunder resistance/accuracy/attack/defense for all pets.
 
 [Monk's Roll]
- - Also increases Guard skill and Maximum HP% by half of Subtle Blow bonus.
+ - Also increases Guard skill and Maximum HP%.
 
 [Warlock's Roll]
  - Also bestows Fast Cast requal to 1/2 magic accuracy bonus
 
 [Choral Roll]
- - Also bestows HP Regen equal to 1/15th spell interruption rate reduction
+ - Also bestows HP Regen equal to 1/12th spell interruption rate reduction
 
 [Beast Roll]
  - Also increases pet's Defense by an equal amount
 
-[Gallant's Roll]
- - Also increases Shield skill and TP gained on blocking
+
 
 [Evoker's Roll]
  - Also increases Maximum MP
 
 [Dancer's Roll]
+ - Potency of HP regen slightly increased
  - Also bestows a minor TP regen
 
 [Puppet Roll]
- - Also bestows HP regen and TP regen equal to 1/2 amount.
+ - Also bestows HP regen and TP regen equal to 1/2 amount for pets.
 
-[Rogue's Roll]
- - Also increases Parry and TP gained when parrying
 
 [Scholar's Roll]
  - Conserve MP amount doubled.
- - Also grants enmity reduction
+ - Also grants a bonus to INT, CHR, and MND

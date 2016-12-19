@@ -60,6 +60,10 @@ function onSpellCast(caster,target,spell)
         hp = hp * 1.5;
     end
 
+    if (caster:isMob()) then
+        hp = hp  * 2.5;
+    end
+
     if (caster:hasStatusEffect(EFFECT_PERPETUANCE)) then
         duration = duration * 2;
     end

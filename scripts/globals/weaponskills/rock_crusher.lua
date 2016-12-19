@@ -30,6 +30,34 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     end
 
     local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, tp, primary, action, params);
+
+    -- add Burn
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_EARTH, SKILL_STF);
+    if (damage > 0 and resist > 0.125 and not target:hasStatusEffect(EFFECT_CHOKE))then
+        local DOT = math.floor(player:getMainLvl()/3) + 1;
+
+        local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
+        DOT = addBonusesAbility(player, ELE_EARTH, target, DOT, mParams, 1.0);
+
+        local boost = player:getStatusEffect(EFFECT_BOOST);
+        if (boost ~= nil) then
+            local bSubPower = boost:getSubPower();
+            DOT = DOT * (1 + bSubPower / 200);
+            player:delStatusEffect(EFFECT_BOOST);
+        end
+
+        local duration = (30 * (tp / 1000) * (1 + (tp - 1000) / 2000));
+
+        -- Remove Shock
+        if (target:getStatusEffect(EFFECT_SHOCK) ~= nil) then
+            target:delStatusEffect(EFFECT_SHOCK);
+        end;
+
+        target:addStatusEffect(EFFECT_RASP, DOT, 3, duration * resist);
+        target:setPendingMessage(277, EFFECT_RASP);
+    end
+
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

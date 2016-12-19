@@ -38,7 +38,8 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     if (damage > 0) then
         local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_LIGHT, SKILL_GKT);
-        if (resist >= 0.5) then
+        if (target:isNM()) then resist = resist - 0.75 end;
+        if (resist >= 0.25) then
             local dispel = target:dispelStatusEffect();
             if (dispel ~= EFFECT_NONE) then
                 player:addTP(tp * 0.6);

@@ -14,10 +14,11 @@ end
 
 
 function onMobFight(mob, target)
---    if (mob:getHPP() <= 35 and mob:getLocalVar("Defender") == 0) then
---        mob:useJobAbility(ABILITY_DEFENDER, mob);
---        mob:setLocalVar("Defender", 1);
---    end
+    local time = mob:getBattleTime();
+    if (mob:getHPP() <= 25 and mob:getLocalVar("2hour") == 0) then
+        mob:useJobAbility(ABILITY_PERFECT_DODGE, mob);
+        mob:setLocalVar("2hour", 1);
+    end
 end
 
 function onMobDeath(mob, player, isKiller)

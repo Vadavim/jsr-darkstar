@@ -34,6 +34,11 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     end
 
     local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, tp, primary, action, params);
+    if (damage > 0) then
+        target:addStatusEffect(EFFECT_FLASH, 300, 0, fTP(tp, 5, 10, 15));
+        target:setPendingMessage(277, EFFECT_FLASH);
+    end
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

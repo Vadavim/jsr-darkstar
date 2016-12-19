@@ -10,14 +10,23 @@ require("scripts/globals/jsr_utils");
 -----------------------------------
 function onMobSpawn(mob)
     mob:setMobMod(MOBMOD_NO_XP, 1);
+    mob:setMod(MOD_ENSPELL_DMG, 9);
+    mob:setMod(MOD_ENSPELL, 6);
+    mob:setMod(MOD_SPELLINTERRUPT, 40);
+    mob:setLocalVar("thunder", 75);
+    mob:setMod(MOD_THUNDERRES, 50);
+    mob:setMod(MOD_THUNDERDEF, 80);
+    mob:setMod(MOD_EARTHRES, -40);
+    mob:setMod(MOD_EARTHDEF, -60);
 end
 
 
 function onMobFight(mob, target)
---    if (mob:getHPP() <= 35 and mob:getLocalVar("Defender") == 0) then
---        mob:useJobAbility(ABILITY_DEFENDER, mob);
---        mob:setLocalVar("Defender", 1);
---    end
+    local thresh = mob:getLocalVar("thunder");
+    if (mob:getHPP() <= thresh) then
+        mob:castSpell(164, mob:getHateTarget()); -- Thunder
+        mob:setLocalVar("thunder", thresh - 25);
+    end
 end
 
 function onMobDeath(mob, player, isKiller)

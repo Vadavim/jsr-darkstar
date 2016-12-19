@@ -90,6 +90,25 @@ MSG_DISAPPEAR_NUM = 231; -- <num> of <target>'s effects disappear!
 
 BOMB_TOSS_HPP = 1;
 
+
+local strongSystem = {
+    [SYSTEM_PLANTOID] = SYSTEM_BEAST, [SYSTEM_BEAST] = SYSTEM_LIZARD, [SYSTEM_LIZARD] = SYSTEM_VERMIN,
+    [SYSTEM_VERMIN] = SYSTEM_PLANTOID, [SYSTEM_AQUAN] = SYSTEM_AMORPH, [SYSTEM_AMORPH] = SYSTEM_BIRD,
+    [SYSTEM_BIRD] = SYSTEM_AQUAN, [SYSTEM_UNDEAD] = SYSTEM_ARCANA, [SYSTEM_ARCANA] = SYSTEM_UNDEAD,
+    [SYSTEM_DRAGON] = SYSTEM_DEMON, [SYSTEM_DEMON] = SYSTEM_DRAGON, [SYSTEM_BEASTMEN] = SYSTEM_BEASTMEN,
+    [SYSTEM_LUMINION] = SYSTEM_LUMORIAN, [SYSTEM_LUMORIAN] = SYSTEM_LUMINION
+}
+
+
+local weakSystem = {
+    [SYSTEM_PLANTOID] = SYSTEM_VERMIN, [SYSTEM_BEAST] = SYSTEM_PLANTOID, [SYSTEM_LIZARD] = SYSTEM_BEAST,
+    [SYSTEM_VERMIN] = SYSTEM_LIZARD, [SYSTEM_AQUAN] = SYSTEM_BIRD, [SYSTEM_AMORPH] = SYSTEM_AQUAN,
+    [SYSTEM_BIRD] = SYSTEM_AMORPH, [SYSTEM_UNDEAD] = SYSTEM_UNDEAD, [SYSTEM_ARCANA] = SYSTEM_ARCANA,
+    [SYSTEM_DRAGON] = SYSTEM_DRAGON, [SYSTEM_DEMON] = SYSTEM_DEMON,
+    [SYSTEM_LUMINION] = SYSTEM_LUMINION, [SYSTEM_LUMORIAN] = SYSTEM_LUMORIAN
+}
+
+
 function MobRangedMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mtp000,mtp150,mtp300,offcratiomod)
     -- this will eventually contian ranged attack code
     local returninfo = {};
@@ -110,6 +129,22 @@ function MobRangedMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mtp0
     local lvltarget = target:getMainLvl();
     local acc = mob:getRACC();
     local eva = target:getEVA();
+
+    local hitMult = 0;
+    local damMult = 1;
+    if (not target:isPC()) then
+        local mobSystem = mob:getSystem();
+        local targetSystem = target:getSystem();
+
+        if (strongSystem[mobSystem] == targetSystem) then
+            hitMult = 15; damMult = 1.15;
+        elseif (weakSystem[mobSystem] == targetSystem) then
+            hitMult = -15; damMult = 0.85;
+        end
+    end
+
+
+
     if (master ~= nil) then acc = acc + master:getMod(MOD_CHR) / 2 end;
     if (target:hasStatusEffect(EFFECT_YONIN) and mob:isFacing(target, 23)) then -- Yonin evasion boost if mob is facing target
     eva = eva + target:getStatusEffect(EFFECT_YONIN):getPower();
@@ -129,6 +164,16 @@ function MobRangedMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mtp0
         target:addTP(foil:getPower() * 5);
         target:delStatusEffect(EFFECT_FOIL);
     end
+
+    if (target:hasStatusEffect(EFFECT_YAEGASUMI)) then
+        acc = acc - 100;
+        if (target:hasStatusEffect(EFFECT_SEIGAN)) then
+            acc = acc - 100;
+            target:addTP(1000);
+        end
+        target:delStatusEffect(EFFECT_YAEGASUMI);
+    end
+
 
     --apply WSC
     local base = mob:getWeaponDmg() + dstr; --todo: change to include WSC
@@ -157,7 +202,7 @@ function MobRangedMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mtp0
     ratio = utils.clamp(ratio, 0, 4.5);
 
     --work out hit rate for mobs (bias towards them)
-    local hitrate = (acc*accmod) - eva + (lvldiff*2) + 75;
+    local hitrate = (acc*accmod) - eva + (lvldiff*2) + 75 + hitMult;
 
     -- printf("acc: %f, eva: %f, hitrate: %f", acc, eva, hitrate);
     hitrate = utils.clamp(hitrate, 20, 95);
@@ -168,7 +213,7 @@ function MobRangedMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mtp0
         hitdamage = 1;
     end
 
-    hitdamage = hitdamage * dmgmod;
+    hitdamage = hitdamage * dmgmod * damMult;
 
     if (tpeffect == TP_DMG_VARIES) then
         hitdamage = hitdamage * MobTPMod(skill:getTP() + mob:getMod(MOD_TP_BONUS));
@@ -301,11 +346,25 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     if (dstr < -40) then
         dstr = -40;
     end
-    printf("Dstr: %d", dstr);
 
     if (dstr > 40) then
         dstr = 40;
     end
+
+    local hitMult = 0;
+    local damMult = 1;
+    if (not target:isPC()) then
+        local mobSystem = mob:getSystem();
+        local targetSystem = target:getSystem();
+
+        if (strongSystem[mobSystem] == targetSystem) then
+            hitMult = 15; damMult = 1.15;
+        elseif (weakSystem[mobSystem] == targetSystem) then
+            hitMult = -15; damMult = 0.85;
+        end
+    end
+
+
 
     local lvluser = mob:getMainLvl();
     local lvltarget = target:getMainLvl();
@@ -317,11 +376,21 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     end
 
 
+
     local foil = target:getStatusEffect(EFFECT_FOIL)
     if (foil ~= nil) then
         acc = acc - foil:getPower();
         target:addTP(foil:getPower() * 5);
         target:delStatusEffect(EFFECT_FOIL);
+    end
+
+    if (target:hasStatusEffect(EFFECT_YAEGASUMI)) then
+        acc = acc - 100;
+        if (target:hasStatusEffect(EFFECT_SEIGAN)) then
+            acc = acc - 100;
+            target:addTP(1000);
+        end
+        target:delStatusEffect(EFFECT_YAEGASUMI);
     end
 
     --apply WSC
@@ -353,7 +422,7 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     ratio = utils.clamp(ratio, 0, 4);
     
     --work out hit rate for mobs (bias towards them)
-    local hitrate = (acc*accmod) - eva + (lvldiff*2) + 75;
+    local hitrate = (acc*accmod) - eva + (lvldiff*2) + 75 + hitMult;
 
     -- printf("acc: %f, eva: %f, hitrate: %f", acc, eva, hitrate);
     hitrate = utils.clamp(hitrate, 20, 95);
@@ -364,7 +433,7 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
         hitdamage = 1;
     end
 
-    hitdamage = hitdamage * dmgmod;
+    hitdamage = hitdamage * dmgmod * damMult;
 
     if (tpeffect == TP_DMG_VARIES) then
         hitdamage = hitdamage * MobTPMod(skill:getTP() + mob:getMod(MOD_TP_BONUS));
@@ -567,6 +636,18 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue,
     end
 
 
+    local hitMult = 0;
+    local damMult = 1;
+    if (not target:isPC()) then
+        local mobSystem = mob:getSystem();
+        local targetSystem = target:getSystem();
+
+        if (strongSystem[mobSystem] == targetSystem) then
+            hitMult = 0.15; damMult = 1.15;
+        elseif (weakSystem[mobSystem] == targetSystem) then
+            hitMult = -0.15; damMult = 0.85;
+        end
+    end
 
     local mdefBarBonus = 0;
     if (element > 0 and element <= 6 and target:hasStatusEffect(barSpells[element])) then -- bar- spell magic defense bonus
@@ -607,7 +688,7 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue,
 
     -- printf("power: %f, bonus: %f", damage, mab);
     -- resistence is added last
-    local finaldmg = damage * mab * dmgmod;
+    local finaldmg = damage * mab * dmgmod * damMult;
 
     local lvldiff = mob:getMainLvl() - target:getMainLvl();
     if lvldiff < 0 then
@@ -652,11 +733,28 @@ function applyPlayerResistance(mob,effect,target,diff,bonus,element)
     local percentBonus = 0;
     local magicaccbonus = 0;
 
+
+
+
     if (diff > 10) then
         magicaccbonus = magicaccbonus + 10 + (diff - 10)/2;
     else
         magicaccbonus = magicaccbonus + diff;
     end
+
+
+    if (not target:isPC()) then
+        local mobSystem = mob:getSystem();
+        local targetSystem = target:getSystem();
+
+        if (strongSystem[mobSystem] == targetSystem) then
+            magicaccbonus = magicaccbonus + 15;
+        elseif (weakSystem[mobSystem] == targetSystem) then
+            magicaccbonus = magicaccbonus - 15;
+        end
+    end
+
+
 
     if (mob:isPet()) then
         local master = mob:getMaster();
@@ -674,6 +772,15 @@ function applyPlayerResistance(mob,effect,target,diff,bonus,element)
         magicaccbonus = magicaccbonus - foil:getPower();
         target:addTP(foil:getPower() * 5);
         target:delStatusEffect(EFFECT_FOIL);
+    end
+
+    if (target:hasStatusEffect(EFFECT_YAEGASUMI)) then
+        magicaccbonus = magicaccbonus - 100;
+        if (target:hasStatusEffect(EFFECT_SEIGAN)) then
+            magicaccbonus = magicaccbonus - 100;
+            target:addTP(1000);
+        end
+        target:delStatusEffect(EFFECT_YAEGASUMI);
     end
 
     if (bonus ~= nil) then

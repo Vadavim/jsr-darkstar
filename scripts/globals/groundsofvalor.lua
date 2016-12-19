@@ -566,19 +566,36 @@ function checkGoVregime(player,mob,rid,index)
                             reward = RewardCAP;
                         end
 
+                        local bonus = 0;
+
+                        if (afterTime(player, "grounds_tally_" .. tostring(rid))) then
+                            setTally(player, "grounds_tally_" .. tostring(rid));
+                            bonus = 500;
+                        end
+
+
                         -- Award gil and tabs once per day.
                         if (player:getVar("fov_LastReward") < VanadielEpoch) then
-                            player:messageBasic(GOV_MSG_GET_GIL,reward / 2);
-                            player:addGil(reward / 2);
-                            player:addCurrency("valor_point", tabs);
-                            player:messageBasic(GOV_MSG_GET_TABS,tabs,player:getCurrency("valor_point")); -- Careful about order.
+                            player:messageBasic(GOV_MSG_GET_GIL,reward + bonus);
+                            player:addGil(reward + bonus);
+                            player:addCurrency("valor_point", tabs + bonus / 10);
+                            player:messageBasic(GOV_MSG_GET_TABS,tabs + bonus / 10,player:getCurrency("valor_point")); -- Careful about order.
                             if (REGIME_WAIT == 1) then
                                 player:setVar("fov_LastReward",VanadielEpoch);
                             end
+                        elseif (bonus > 0) then
+                            player:messageBasic(GOV_MSG_GET_GIL, bonus);
+                            player:addGil(bonus);
+                            player:addCurrency("valor_point", bonus / 10);
+                            player:messageBasic(GOV_MSG_GET_TABS, bonus / 10, player:getCurrency("valor_point")); -- Careful about order.
                         end
 
                         -- Give player the candy and inform which Prowess they got.
-                        player:addExp(reward);
+                        if (reward > 500) then
+                            player:addExp(500);
+                        else
+                            player:addExp(reward);
+                        end
                         player:messageBasic(ProwessMessage);
                         
                         -- Debugging crap.

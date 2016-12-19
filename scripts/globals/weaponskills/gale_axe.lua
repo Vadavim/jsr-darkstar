@@ -13,6 +13,7 @@
 -----------------------------------
 require("scripts/globals/status");
 require("scripts/globals/settings");
+require("scripts/globals/magic");
 require("scripts/globals/weaponskills");
 -----------------------------------
 
@@ -31,7 +32,31 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
         params.str_wsc = 1.0;
     end
 
+    params.ele = ELE_WIND;
+
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
+
+    -- add Choke
+    local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_WIND, SKILL_AXE);
+    if (damage > 0 and resist > 0.125 and not target:hasStatusEffect(EFFECT_FROST))then
+        local DOT = math.floor(player:getMainLvl()/3) + 1;
+
+        local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
+        DOT = addBonusesAbility(player, ELE_WIND, target, DOT, mParams, 1.0);
+
+        local duration = (30 * (tp / 1000) * (1 + (tp - 1000) / 2000));
+
+        -- Remove Rasp
+        if (target:getStatusEffect(EFFECT_RASP) ~= nil) then
+            target:delStatusEffect(EFFECT_RASP);
+        end;
+
+        target:addStatusEffect(EFFECT_CHOKE, DOT, 3, duration * resist);
+        target:setPendingMessage(277, EFFECT_CHOKE);
+    end
+
+
+
     return tpHits, extraHits, criticalHit, damage;
 
 end

@@ -27,7 +27,7 @@ function onEffectTick(target,effect)
     end
     local owner = target:getMaster();
 
-    local party = owner:getParty(true, true);
+    local party = owner:getParty(true);
     if (party ~= nil) then
         for i,member in ipairs(party) do
             if (member:getID() ~= target:getID()) then

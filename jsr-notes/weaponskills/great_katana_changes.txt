@@ -1,0 +1,44 @@
+[Tachi Hobaku]
+ - Refunds 40% of TP used
+
+[Tachi Goten]
+ - fTP: 2 (1000), 5 (2000), 8 (3000)
+ - Modifiers: STR 60%, INT 60%
+ - On a hit, applies Shock. Duration varies with TP (60 at 1000 to 360 at 3000).
+
+[Tachi Kagero]
+ - fTP: 2 (1000), 5 (2000), 8 (3000)
+ - Modifiers: STR 60%, INT 60%
+ - On a hit, applies Burn. Duration varies with TP (60 at 1000 to 360 at 3000).
+
+[Tachi Jinpu]
+ - fTP: 1 (1000), 2.5 (2000), 4 (3000)
+ - Modifiers: STR 60%, INT 60%
+ - On a hit, applies Choke. Duration varies with TP (60 at 1000 to 360 at 3000).
+
+[Tachi Koki]
+ - fTP: 1 (1000), 2 (2000), 3 (3000)
+ - Modifiers: STR 60%, MND 60%
+ - On a hit, attempt to dispel an effect on the target. On a success, refunds 60% of TP spent.
+
+[Tachi Yukikaze]
+ - Attack Mult: 1.5 -> 1.65
+ - Deals Dark hybrid elemental damage (physical, but affected by dark attack / defense)
+ - Duration varies with TP (60 to 360 seconds).
+
+[Tachi Kasha]
+ - Duration varies with TP (60 to 360 seconds).
+ - Deals Ice hybrid elemental damage (physical, but affected by ice attack / defense)
+ - fTP: 1.5625 (1000), 3 (2000), 5.5 (3000)
+
+[Tachi Gekko]
+ - Duration varies with TP (45 to 180 seconds)
+
+[Tachi Ageha]
+ - Gained at skill level 240
+ - Inflicts Defense Down (-20%) for 30 to 180 seconds (Depending upon TP).
+
+
+[Tachi Shoha]
+ - Gained at skill level 260
+ - Deals Light hybrid elemental damage (physical, but affected by light attack / defense)

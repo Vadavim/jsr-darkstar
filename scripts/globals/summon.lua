@@ -396,20 +396,23 @@ function summonSpirit(caster, petType)
     local enspellTypes = {EFFECT_ENFIRE, EFFECT_ENBLIZZARD, EFFECT_ENAERO, EFFECT_ENSTONE, EFFECT_ENTHUNDER,
                             EFFECT_ENWATER, EFFECT_ENLIGHT, EFFECT_ENDARK};
     caster:spawnPet(petType);
-    local pet = caster:getPet();
-    if (pet ~= nil) then
-        local power = 1 + pet:getMainLvl() / 4;
-        pet:addStatusEffect(enspellTypes[petType + 1],power,0,3000);
+    if (caster:isPC()) then
+        local pet = caster:getPet();
+        if (pet ~= nil) then
+            local power = 1 + pet:getMainLvl() / 4;
+            pet:addStatusEffect(enspellTypes[petType + 1],power,0,3000);
 
-        local degen = 1 + pet:getMainLvl() / 2.5;
-        pet:addMod(MOD_REGEN_DOWN, degen);
-        pet:addMod(MOD_REGAIN, 50);
-        pet:addMod(MOD_ATTP, -15);
-        pet:addMod(MOD_MDEF, 35);
-        pet:addMod(MOD_MATT, -45);
-        pet:addMod(MOD_MACC, 15);
-        caster:delMP(pet:getMainLvl() * 2);
+            local degen = 1 + pet:getMainLvl() / 2.5;
+            pet:addMod(MOD_REGEN_DOWN, degen);
+            pet:addMod(MOD_REGAIN, 50);
+            pet:addMod(MOD_ATTP, -15);
+            pet:addMod(MOD_MDEF, 35);
+            pet:addMod(MOD_MATT, -60);
+            pet:addMod(MOD_MACC, 30);
+            caster:delMP(pet:getMainLvl() * 2);
+        end
     end
+
 end
 
 function healingBreathCalc(pet, target, skill, action, tier)

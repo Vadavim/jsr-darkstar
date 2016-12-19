@@ -19,16 +19,20 @@ end;
 function onMobWeaponSkill(target, mob, skill)
     local hard = mob:getMobMod(MOBMOD_HARD_MODE);
     local tp = skill:getTP();
-    local duration = 30 * fTP(tp, 1, 1.5, 2) * (1 + hard / 5)
+    local duration = 30 * fTP(tp, 1, 2, 3) * (1 + hard / 5)
 
     local typeEffect = EFFECT_POISON;
     local power = (mob:getMainLvl()/8 + 10) * (1 + hard / 5);
+    if (mob:isPet() and mob:getMaster():isPC()) then
+        power = power * 2;
+    end
+
 
 
     MobStatusEffectMove(mob, target, typeEffect, power, 3, duration);
 
     local dmgmod = 1 + (hard / 5);
-    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*1.8,ELE_WATER,dmgmod,TP_NO_EFFECT);
+    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*1.8,ELE_WATER,dmgmod,TP_NO_EFF);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_MAGICAL,MOBPARAM_WATER,MOBPARAM_IGNORE_SHADOWS);
     target:delHP(dmg);
     return dmg;

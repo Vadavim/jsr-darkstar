@@ -24,7 +24,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     local numhits = 1;
     local accmod = 0.7;
-    local dmgmod = 2.5 + hard / 3;
+    local dmgmod = 2.5 + hard / 8;
     local info = MobRangedMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES,1,2,3);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_RANGED,MOBPARAM_PIERCE,info.hitslanded);
     target:delHP(dmg);

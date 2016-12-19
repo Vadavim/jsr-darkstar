@@ -12,8 +12,6 @@ require("scripts/globals/status");
 
 function onEffectGain(target,effect)
     target:addMod(MOD_CRITHITRATE, effect:getPower());
-    target:addMod(MOD_PARRY, effect:getPower());
-    target:addMod(MOD_TACTICAL_PARRY, effect:getPower() * 2);
 end;
 
 -----------------------------------
@@ -29,6 +27,4 @@ end;
 
 function onEffectLose(target,effect)
     target:delMod(MOD_CRITHITRATE, effect:getPower());
-    target:delMod(MOD_PARRY, effect:getPower());
-    target:delMod(MOD_TACTICAL_PARRY, effect:getPower() * 2);
 end;

@@ -42,6 +42,7 @@ function onSpellCast(caster,target,spell)
 
 
     local final = pAbs + pEquipMods;
+    if (caster:isNM()) then final = final * 2.5; end;
 
 
     if (caster:hasStatusEffect(EFFECT_RAPTURE)) then

@@ -9,50 +9,97 @@ cmdprops =
     parameters = "ss"
 };
 
-inventory_cost = {1000, 2000, 4000, 7000, 12000, 20000, 
-                  34000, 56000, 78000, 99900};
-                  
-sack_cost = {500, 1000, 2000, 3000, 4000, 6000, 8000, 12000, 16000, 20000, 
-                  28000, 34000, 56000, 62000, 78000, 99900};
-                  
-safe_cost = {1000, 2000, 4000, 6000, 10000, 15000};
 
-case_cost = {100, 250, 500, 1000, 1500, 2500, 3200, 4800, 6000, 9000, 
-                  12000, 15000, 15000, 15000, 15000, 15000};
+local function doStorage(player, storage, kind)
+    local mult = 20;
+    local size = 0;
+    local type = "gil";
+    local containerNumber = 0;
+    if (storage == "inventory") then
+        containerNumber = 0;
+    elseif (storage == "sack") then
+        containerNumber = 6;
+        type = "cp";
+        mult = 4;
+    elseif (storage == "safe") then
+        containerNumber = 1;
+        mult = 10;
+    elseif (storage == "satchel") then
+        containerNumber = 5;
+        type = "cp";
+        mult = 4;
+    elseif (storage == "case") then
+        containerNumber = 7;
+        type = "cp";
+        mult = 4;
+    elseif (storage == "wardrobe") then
+        containerNumber = 8;
+        mult = 80;
+    else
+        player:SayToPlayer("That is not a storage type!");
+        return;
+    end
+
+    size = player:getContainerSize(containerNumber);
+
+    if (size >= 80) then
+        player:SayToPlayer("You cannot upgrade this storage any further.");
+        return;
+    end
+
+    local cost = ((size * size) / 2)  * mult;
+    if (kind == "check") then
+        local message = "The cost to upgrade this storage is: " .. tostring(cost) .. " " .. type;
+        player:SayToPlayer(message);
+        return
+    end
+
+    if (type == "gil") then
+        if (cost > player:getGil()) then
+            player:SayToPlayer("You do not have enough gil to upgrade this storage");
+            return;
+        end
+
+        player:delGil(cost);
+        player:changeContainerSize(containerNumber, 5);
+        if (storage == "wardrobe") then
+            player:changeContainerSize(10, 5);
+            player:changeContainerSize(11, 5);
+            player:changeContainerSize(12, 5);
+        end
+
+        if (storage == "safe") then
+            player:changeContainerSize(9, 5);
+        end
+
+
+        player:SayToPlayer("Increased " .. storage .. " storage by 5 slots.");
+        return;
+    elseif (type == "cp") then
+        if (cost > player:getCP()) then
+            player:SayToPlayer("You do not have enough cp to upgrade this storage");
+            return;
+        end
+
+        player:delCP(cost);
+        player:changeContainerSize(containerNumber, 5);
+        player:SayToPlayer("Increased " .. storage .. " storage by 5 slots.");
+        return;
+    end
+end;
+
+
+
 
 function onTrigger(player, action, storage)
     -- eminence message: player:messageBasic(694, 100);
     if (action == "check") then
-        checkCost(player, storage);
+        doStorage(player, storage, "check");
+    elseif (action == "upgrade") then
+        doStorage(player, storage, "upgrade");
+    else
+        player:SayToPlayer("Usage: storage check/upgrade inventory/safe/satchel/case/wardrobe");
     end
     
-end;
-
-function checkCost(player, storage)  
-    if (storage == "inventory") then
-        local size = player:getContainerSize(0);
-        local cost = inventory_cost[ (size / 5) - 5];
-        local message = "The cost to upgrade your inventory is: ";
-        player:PrintToPlayer(message .. tostring(cost) .. " gil");
-        
-    elseif (storage == "sack") then
-        local size = player:getContainerSize(6);
-        local cost = sack_cost[ (size / 5) + 1];
-        local message = "The cost to upgrade your mog sack is: ";
-        player:PrintToPlayer(message .. tostring(cost) .. " gil");
-        
-    elseif (storage == "satchel") then
-        local size = player:getContainerSize(5);
-        local cost = sack_cost[ (size / 5) + 1];
-        local message = "The cost to upgrade your mog satchel is: ";
-        player:PrintToPlayer(message .. tostring(cost) .. " gil");
-        
-    elseif (storage == "safe") then
-        local size = player:getContainerSize(5);
-        local cost = sack_cost[ (size / 5) + 1];
-        local message = "The cost to upgrade your mog safe is: ";
-        player:PrintToPlayer(message .. tostring(cost) .. " gil");
-        
-    end
 end;
 
