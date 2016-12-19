@@ -693,7 +693,7 @@ namespace charutils
         PChar->SetMLevel(PChar->jobs.job[PChar->GetMJob()]);
         PChar->SetSLevel(PChar->jobs.job[PChar->GetSJob()]);
 
-        fmtQuery = "SELECT id, time, recast FROM char_recast WHERE charid = %u AND type = 1;";
+        fmtQuery = "SELECT id, time, recast FROM char_recast WHERE charid = %u;";
 
         ret = Sql_Query(SqlHandle, fmtQuery, PChar->id);
         if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)

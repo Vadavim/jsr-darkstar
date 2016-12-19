@@ -11459,26 +11459,26 @@ inline int32 CLuaBaseEntity::removeConfrontationFromParty(lua_State*)
     {
         for (auto member : PEntity->PParty->members)
         {
-            member->StatusEffectContainer->DelStatusEffect(EFFECT_CONFRONTATION);
-            member->StatusEffectContainer->DelStatusEffect(EFFECT_LEVEL_RESTRICTION);
+            member->StatusEffectContainer->DelStatusEffectSilent(EFFECT_CONFRONTATION);
+            member->StatusEffectContainer->DelStatusEffectSilent(EFFECT_LEVEL_RESTRICTION);
             if (member->PAlly.size() > 0)
             {
                 for (auto ally : member->PAlly)
                 {
-                    ally->StatusEffectContainer->DelStatusEffect(EFFECT_CONFRONTATION);
+                    ally->StatusEffectContainer->DelStatusEffectSilent(EFFECT_CONFRONTATION);
                 }
             }
         }
     }
     else
     {
-        PEntity->StatusEffectContainer->DelStatusEffect(EFFECT_CONFRONTATION);
-        PEntity->StatusEffectContainer->DelStatusEffect(EFFECT_LEVEL_RESTRICTION);
+        PEntity->StatusEffectContainer->DelStatusEffectSilent(EFFECT_CONFRONTATION);
+        PEntity->StatusEffectContainer->DelStatusEffectSilent(EFFECT_LEVEL_RESTRICTION);
         if (PEntity->PAlly.size() > 0)
         {
             for (auto ally : PEntity->PAlly)
             {
-                ally->StatusEffectContainer->DelStatusEffect(EFFECT_CONFRONTATION);
+                ally->StatusEffectContainer->DelStatusEffectSilent(EFFECT_CONFRONTATION);
             }
         }
     }

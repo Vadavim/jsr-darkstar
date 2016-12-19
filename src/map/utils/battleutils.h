@@ -128,7 +128,7 @@ namespace battleutils
     void				FreeWeaponSkillsList();
     void				FreeMobSkillList();
 
-    SUBEFFECT			GetSkillChainEffect(CBattleEntity* PDefender, CWeaponSkill* PWeaponSkill);
+    SUBEFFECT			GetSkillChainEffect(CBattleEntity* PDefender, CWeaponSkill* PWeaponSkill, bool hasSengi = false);
     SUBEFFECT			GetSkillChainEffect(CBattleEntity* PDefender, CBlueSpell* PSpell);
     SKILLCHAIN_ELEMENT  FormSkillchain(const std::list<SKILLCHAIN_ELEMENT>& resonance, const std::list<SKILLCHAIN_ELEMENT>& skill);
     uint8				GetSkillchainTier(SKILLCHAIN_ELEMENT skillchain);

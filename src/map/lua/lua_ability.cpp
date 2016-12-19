@@ -122,6 +122,15 @@ inline int32 CLuaAbility::setAnimation(lua_State *L)
     return 0;
 }
 
+inline int32 CLuaAbility::setActionType(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PLuaAbility == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, -1) || !lua_isnumber(L, -1));
+
+    m_PLuaAbility->setActionType((ACTIONTYPE)lua_tointeger(L, -1));
+    return 0;
+}
+
 inline int32 CLuaAbility::setRecast(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PLuaAbility == nullptr);
@@ -186,6 +195,7 @@ Lunar<CLuaAbility>::Register_t CLuaAbility::methods[] =
     LUNAR_DECLARE_METHOD(CLuaAbility,getMsg),
     LUNAR_DECLARE_METHOD(CLuaAbility,setMsg),
     LUNAR_DECLARE_METHOD(CLuaAbility,setAnimation),
+    LUNAR_DECLARE_METHOD(CLuaAbility,setActionType),
     LUNAR_DECLARE_METHOD(CLuaAbility,setRecast),
     LUNAR_DECLARE_METHOD(CLuaAbility,setCE),
     LUNAR_DECLARE_METHOD(CLuaAbility,setVE),

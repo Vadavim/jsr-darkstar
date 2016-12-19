@@ -34,6 +34,7 @@ CWeaponSkillState::CWeaponSkillState(CBattleEntity* PEntity, uint16 targid, uint
     m_PEntity(PEntity)
 {
     auto skill = battleutils::GetWeaponSkill(wsid);
+    ShowDebug("Got here!\n");
     if (!skill)
     {
         throw CStateInitException(std::make_unique<CMessageBasicPacket>(PEntity, PEntity, 0, 0, MSGBASIC_CANNOT_USE_WS));
@@ -44,9 +45,10 @@ CWeaponSkillState::CWeaponSkillState(CBattleEntity* PEntity, uint16 targid, uint
 
     if (!PTarget || m_errorMsg)
     {
+        ShowDebug("No target?\n");
         throw CStateInitException(std::move(m_errorMsg));
     }
-    if (!m_PEntity->PAI->TargetFind->canSee(&PTarget->loc.p))
+    if (target_flags != TARGET_SELF && !m_PEntity->PAI->TargetFind->canSee(&PTarget->loc.p))
     {
         throw CStateInitException(std::make_unique<CMessageBasicPacket>(m_PEntity, PTarget, 0, 0, MSGBASIC_CANNOT_PERFORM_ACTION));
     }

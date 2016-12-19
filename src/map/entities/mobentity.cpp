@@ -1102,6 +1102,10 @@ void CMobEntity::OnAbility(CAbilityState& state, action_t& action)
         actionTarget.reaction = REACTION_NONE;
         actionTarget.speceffect = SPECEFFECT_RECOIL;
         actionTarget.animation = PAbility->getAnimationID();
+        if (action.actiontype == ACTION_RUNE) {
+            actionTarget.animation = 299;
+            action.actiontype = ACTION_JOBABILITY_FINISH;
+        }
         actionTarget.param = 0;
         auto prevMsg = actionTarget.messageID;
 

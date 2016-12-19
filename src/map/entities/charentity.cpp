@@ -710,6 +710,11 @@ void CCharEntity::OnWeaponSkillFinished(CWeaponSkillState& state, action_t& acti
 {
     CBattleEntity::OnWeaponSkillFinished(state, action);
     SetLocalVar("usedWeaponskill", 1);
+    bool hasSengi = false;
+    if (StatusEffectContainer->HasStatusEffect(EFFECT_SENGIKORI)) {
+        hasSengi = true;
+        StatusEffectContainer->DelStatusEffectSilent(EFFECT_SENGIKORI);
+    }
 
     auto PWeaponSkill = state.GetSkill();
     auto PBattleTarget = static_cast<CBattleEntity*>(state.GetTarget());
@@ -785,7 +790,12 @@ void CCharEntity::OnWeaponSkillFinished(CWeaponSkillState& state, action_t& acti
                 actionTarget.messageID = primary ? 224 : 276; //restores mp msg
                 actionTarget.reaction = REACTION_HIT;
                 dsp_max(damage, 0);
-                actionTarget.param = addMP(damage);
+                if (PWeaponSkill->getID() == 163) {
+                    actionTarget.messageID = 263;
+                    actionTarget.param = addHP(damage);
+                }
+                else
+                    actionTarget.param = addMP(damage);
             }
 
             if (primary)
@@ -821,7 +831,7 @@ void CCharEntity::OnWeaponSkillFinished(CWeaponSkillState& state, action_t& acti
                     {
                         // NOTE: GetSkillChainEffect is INSIDE this if statement because it
                         //  ALTERS the state of the resonance, which misses and non-elemental skills should NOT do.
-                        SUBEFFECT effect = battleutils::GetSkillChainEffect(PBattleTarget, PWeaponSkill);
+                        SUBEFFECT effect = battleutils::GetSkillChainEffect(PBattleTarget, PWeaponSkill, hasSengi);
                         if (effect != SUBEFFECT_NONE)
                         {
                             actionTarget.addEffectParam = battleutils::TakeSkillchainDamage(this, PBattleTarget, damage, taChar);
@@ -1180,6 +1190,12 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
         hitCount += 4;
     }
 
+    if (this->StatusEffectContainer->HasStatusEffect(EFFECT_TRIPLE_SHOT)) {
+        CStatusEffect* triple = this->StatusEffectContainer->GetStatusEffect(EFFECT_TRIPLE_SHOT);
+        if (dsprand::GetRandomNumber(100) < triple->GetPower())
+            hitCount += 2;
+    }
+
 
     // loop for barrage hits, if a miss occurs, the loop will end
     for (uint8 i = 1; i <= hitCount; ++i)
@@ -1412,6 +1428,11 @@ void CCharEntity::OnRangedAttackEx(CBattleEntity* PTarget, action_t& action)
     bool hitOccured = false;	// track if player hit mob at all
 
 
+    if (this->StatusEffectContainer->HasStatusEffect(EFFECT_TRIPLE_SHOT)) {
+        CStatusEffect* triple = this->StatusEffectContainer->GetStatusEffect(EFFECT_TRIPLE_SHOT);
+        if (dsprand::GetRandomNumber(100) < triple->GetPower())
+            hitCount += 2;
+    }
 
     // loop for barrage hits, if a miss occurs, the loop will end
     for (uint8 i = 1; i <= hitCount; ++i)

@@ -376,8 +376,9 @@ bool CMobController::TryCastSpell()
     int chosenSpellId = -1;
     float castMod = dsp_cap((1.0f - PMob->getMod(MOD_FASTCAST) / 100.0f), 0.5, 1.5) *
             (1.0f - PMob->getMod(MOD_UFASTCAST) / 100.0f);
+
     m_LastMagicTime = m_Tick - std::chrono::milliseconds(dsprand::GetRandomNumber(
-            ((int)(PMob->getBigMobMod(MOBMOD_MAGIC_COOL) * castMod * 0.5))));
+            ((int)(PMob->getBigMobMod(MOBMOD_MAGIC_COOL) * castMod * 0.15))));
 
     if (PMob->m_HasSpellScript)
     {

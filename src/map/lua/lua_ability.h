@@ -58,6 +58,7 @@ public:
     int32 setCE(lua_State*);
     int32 setAOE(lua_State*);
     int32 setVE(lua_State*);
+    int32 setActionType(lua_State*);
     int32 setRange(lua_State*);
 };
 

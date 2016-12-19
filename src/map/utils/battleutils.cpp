@@ -2033,7 +2033,7 @@ namespace battleutils
         CItemWeapon* PWeapon = GetEntityWeapon(PDefender, SLOT_MAIN);
 
         // Defender must have no weapon equipped, or a hand to hand weapon equipped to guard
-        bool validWeapon = (PWeapon == nullptr || PWeapon->getSkillType() == SKILL_H2H);
+        bool validWeapon = (PWeapon == nullptr || PWeapon->getSkillType() == SKILL_H2H || PWeapon->getSkillType() == SKILL_STF);
 
         if (PDefender->objtype == TYPE_MOB || PDefender->objtype == TYPE_PET) {
             validWeapon = PDefender->GetMJob() == JOB_MNK || PDefender->GetMJob() == JOB_PUP;
@@ -2051,11 +2051,13 @@ namespace battleutils
 
             if (diff < 0.4f) diff = 0.4f;
             if (diff > 1.4f) diff = 1.4f;
+            if (PWeapon->getSkillType() == SKILL_STF)
+                diff += 0.15f;
 
             float dex = PAttacker->DEX();
             float agi = PDefender->AGI();
 
-            return dsp_cap((skill * 0.1f + (agi - dex) * 0.125f + 10.0f) * diff, 5, 45);
+            return dsp_cap((skill * 0.1f + (agi - dex) * 0.25f + 10.0f) * diff, 5, 45);
         }
 
         return 0;
@@ -2158,18 +2160,26 @@ namespace battleutils
                 damage = (damage * absorb) / 100;
             }
         }
+
+        if (damage > 0 && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_CURSE)) {
+            int mobDamFactor = PAttacker->objtype == TYPE_MOB ? 2 : 10;
+            PAttacker->addHP(-(damage / mobDamFactor));
+        }
+
+
         if (damage > 0)
         {
             damage = dsp_max(damage - PDefender->getMod(MOD_PHALANX), 0);
+            int retribution = PAttacker->GetLocalVar("retribution");
+            if (retribution >= 1) {
+                PAttacker->SetLocalVar("retribution", retribution - 1);
+                PAttacker->addHP(-(damage));
+            }
 
             damage = HandleStoneskin(PDefender, damage);
             HandleAfflatusMiseryDamage(PDefender, damage);
         }
         damage = dsp_cap(damage, -99999, 99999);
-        if (damage > 0 && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_CURSE)) {
-            int mobDamFactor = PAttacker->objtype == TYPE_MOB ? 2 : 10;
-            PAttacker->addHP(damage / mobDamFactor);
-        }
 
         int32 corrected = PDefender->addHP(-damage);
         if (damage < 0)
@@ -2198,6 +2208,16 @@ namespace battleutils
         if (damage > 0)
         {
             PDefender->StatusEffectContainer->DelStatusEffectsByFlag(EFFECTFLAG_DAMAGE);
+
+            if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_SCARLET_DELIRIUM)){
+                CStatusEffect* scarlet = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_SCARLET_DELIRIUM);
+                int scarSub = scarlet->GetSubPower();
+                if (scarSub < 50) {
+                    PDefender->addModifier(MOD_MATT, 10);
+                    scarlet->addMod(MOD_MATT, 10);
+                    scarlet->SetSubPower(scarSub + 10);
+                }
+            }
 
 
             // Check for bind breaking
@@ -2436,9 +2456,11 @@ namespace battleutils
     uint8 GetHitRateEx(CBattleEntity* PAttacker, CBattleEntity* PDefender, uint8 attackNumber, int8 offsetAccuracy) //subWeaponAttack is for calculating acc of dual wielded sub weapon
     {
         int32 hitrate = 75;
+        bool sneakValid = PAttacker->objtype == TYPE_PC && ((PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK) && (abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) < 23 || PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_HIDE))) ||
+                                              (charutils::hasTrait((CCharEntity*)PAttacker, TRAIT_ASSASSIN) && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK) && battleutils::getAvailableTrickAttackChar(PAttacker, PDefender)));
 
-        if (PAttacker->objtype == TYPE_PC && ((PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK) && (abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) < 23 || PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_HIDE))) ||
-                                              (charutils::hasTrait((CCharEntity*)PAttacker, TRAIT_ASSASSIN) && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK) && battleutils::getAvailableTrickAttackChar(PAttacker, PDefender))))
+        if (sneakValid || (PAttacker->objtype ==  TYPE_MOB && (PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK) ||
+                                                               PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK))))
         {
             hitrate = 100; //attack with SA active or TA/Assassin cannot miss
         }
@@ -2508,6 +2530,10 @@ namespace battleutils
         if (PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_MIGHTY_STRIKES, 0) ||
             PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_MIGHTY_STRIKES)) {
             return 100;
+        }
+            else if (PAttacker->objtype == TYPE_MOB && (PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK)
+                                                       || PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK))) {
+            crithitrate = 100;
         }
         else if (PAttacker->objtype == TYPE_PC && (!ignoreSneakTrickAttack) && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK))
         {
@@ -2670,6 +2696,8 @@ namespace battleutils
             criticaldamage = dsp_cap(criticaldamage, 0, 200);
             int16 critBonus = dsp_cap(PAttacker->STR() - PDefender->VIT(), -40, 40);
             pDIF *= ((100 + criticaldamage + critBonus) / 100.0f);
+            if (PAttacker->objtype == TYPE_MOB && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK))
+                pDIF *= 1.33;
         }
         pDIF *= GetKillerRatio(PAttacker, PDefender);
 
@@ -3200,16 +3228,17 @@ namespace battleutils
     }
 
 
-    SUBEFFECT GetSkillChainEffect(CBattleEntity* PDefender, CWeaponSkill* PWeaponSkill)
+    SUBEFFECT GetSkillChainEffect(CBattleEntity* PDefender, CWeaponSkill* PWeaponSkill, bool hasSengi)
     {
         CStatusEffect* PSCEffect = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_SKILLCHAIN, 0);
         CStatusEffect* PCBEffect = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_CHAINBOUND, 0);
         SKILLCHAIN_ELEMENT skillchain = SC_NONE;
+        int bonusCount = hasSengi ? 2 : 0;
 
         if (PSCEffect == nullptr && PCBEffect == nullptr)
         {
             // No effect exists, apply an effect using the weaponskill ID as the power with a tier of 0.
-            PDefender->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_SKILLCHAIN, 0, PWeaponSkill->getID(), 0, 10, 0, 0, 0));
+            PDefender->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_SKILLCHAIN, 0, PWeaponSkill->getID(), 0, 10, 0, bonusCount, 0));
             return SUBEFFECT_NONE;
         }
         else
@@ -3244,7 +3273,7 @@ namespace battleutils
 
                     skillchain = FormSkillchain(resonanceProperties, skillProperties);
                 }
-                PDefender->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_SKILLCHAIN, 0, PWeaponSkill->getID(), 0, 10, 0, 0, 0));
+                PDefender->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_SKILLCHAIN, 0, PWeaponSkill->getID(), 0, 10, 0, bonusCount, 0));
                 PDefender->StatusEffectContainer->DelStatusEffect(EFFECT_CHAINBOUND);
                 PSCEffect = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_SKILLCHAIN, 0);
 
@@ -4713,7 +4742,9 @@ namespace battleutils
         {
             PDefender->addMP(damage / 5);
             PDefender->addTP(dsp_cap(((float)damage) * (1.2 - (float)PDefender->GetMLevel() / 100.0f), 0, 500));
-            PDefender->setModifier(MOD_AFFLATUS_MISERY, damage);
+            if (PDefender->getMod(MOD_AFFLATUS_MISERY) < damage) {
+                PDefender->setModifier(MOD_AFFLATUS_MISERY, damage);
+            }
             // ShowDebug("Misery power: %d\n", damage);
         }
     }

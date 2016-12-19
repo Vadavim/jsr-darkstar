@@ -272,7 +272,7 @@ void CEnmityContainer::LowerEnmityByPercent(CBattleEntity* PEntity, uint8 percen
         if (HateReceiver != nullptr)
         {
             // TODO: reimplment thief stealing CE and VE as VE
-            UpdateEnmity(HateReceiver, CEValue, VEValue);
+            UpdateEnmity(HateReceiver, 0, VEValue + (CEValue * 1.5));
         }
     }
 }
