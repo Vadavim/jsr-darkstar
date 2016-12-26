@@ -1512,6 +1512,9 @@ namespace petutils
 
 
             LoadAvatarStats(PPet); //follows PC calcs (w/o SJ)
+
+            PPet->m_SpellListContainer = mobSpellList::GetMobSpellList(PPetData->spellList);
+
             PPet->setModifier(MOD_DMGPHYS, -50); //-50% PDT
             if (PPet->GetMLevel() >= 70){
                 PPet->setModifier(MOD_MATT, 32);

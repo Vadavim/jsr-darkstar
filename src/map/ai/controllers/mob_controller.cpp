@@ -26,7 +26,6 @@ This file is part of DarkStar-server source code.
 #include "../helpers/targetfind.h"
 #include "../states/ability_state.h"
 #include "../states/magic_state.h"
-#include "../states/death_state.h"
 #include "../states/weaponskill_state.h"
 #include "../../mobskill.h"
 #include "../../party.h"
@@ -35,10 +34,10 @@ This file is part of DarkStar-server source code.
 #include "../../mob_modifier.h"
 #include "../../mob_spell_container.h"
 #include "../../entities/mobentity.h"
-#include "../../packets/entity_update.h"
 #include "../../utils/battleutils.h"
 #include "../../utils/mobutils.h"
 #include "../../../common/utils.h"
+#include "../../utils/petutils.h"
 
 CMobController::CMobController(CMobEntity* PEntity) :
     CController(PEntity),
@@ -55,7 +54,7 @@ void CMobController::Tick(time_point tick)
         {
             DoCombatTick(tick);
         }
-        else if (PMob->PAI->IsSpawned())
+        else if (!PMob->isDead())
         {
             DoRoamTick(tick);
         }
@@ -113,10 +112,7 @@ bool CMobController::CheckHide(CBattleEntity* PTarget)
 bool CMobController::CheckDetection(CBattleEntity* PTarget)
 {
     if (CanDetectTarget(PTarget) || CanPursueTarget(PTarget) || 
-        PMob->StatusEffectContainer->HasStatusEffect(EFFECT_BIND) || 
-        PMob->StatusEffectContainer->HasStatusEffect(EFFECT_SLEEP) || 
-        PMob->StatusEffectContainer->HasStatusEffect(EFFECT_SLEEP_II) ||
-        PMob->StatusEffectContainer->HasStatusEffect(EFFECT_LULLABY))
+        PMob->StatusEffectContainer->HasStatusEffect({EFFECT_BIND, EFFECT_SLEEP, EFFECT_SLEEP_II, EFFECT_LULLABY}))
     {
         TapDeaggroTime();
     }
@@ -141,7 +137,7 @@ void CMobController::TryLink()
     {
         if (PTarget->PPet->objtype == TYPE_PET && ((CPetEntity*)PTarget->PPet)->getPetType() == PETTYPE_AVATAR)
         {
-            PTarget->PPet->PAI->Engage(PMob->id);
+            petutils::AttackTarget(PTarget, PMob);
         }
     }
 
@@ -166,7 +162,7 @@ void CMobController::TryLink()
                 {
                     // force into attack action
                     //#TODO
-                    PPartyMember->PAI->Engage(PTarget->id);
+                    PPartyMember->PAI->Engage(PTarget->targid);
                 }
             }
         }
@@ -422,8 +418,7 @@ bool CMobController::CanCastSpells()
         return false;
 
     // check for spell blockers e.g. silence
-    if (PMob->StatusEffectContainer->HasStatusEffect(EFFECT_SILENCE) ||
-        PMob->StatusEffectContainer->HasStatusEffect(EFFECT_MUTE))
+    if (PMob->StatusEffectContainer->HasStatusEffect({EFFECT_SILENCE, EFFECT_MUTE}))
     {
         return false;
     }
@@ -527,7 +522,19 @@ void CMobController::DoCombatTick(time_point tick)
     }
 
     Move();
-    return;
+}
+
+void CMobController::FaceTarget(uint16 targid)
+{
+    CBaseEntity* targ = PTarget;
+    if (targid != 0 && ((targ && targid != targ->targid ) || !targ))
+    {
+        targ = PMob->GetEntity(targid);
+    }
+    if (!(PMob->m_Behaviour & BEHAVIOUR_NO_TURN) && targ)
+    {
+        PMob->PAI->PathFind->LookAt(targ->loc.p);
+    }
 }
 
 void CMobController::Move()
@@ -604,7 +611,7 @@ void CMobController::Move()
             }
             else if (CanMoveForward(currentDistance))
             {
-                if (!PMob->PAI->PathFind->IsFollowingPath())
+                if (!PMob->PAI->PathFind->IsFollowingPath() || distanceSquared(PMob->PAI->PathFind->GetDestination(), PTarget->loc.p) > 10)
                 {
                     //path to the target if we don't have a path already
                     PMob->PAI->PathFind->PathInRange(PTarget->loc.p, attack_range - 0.2f, PATHFLAG_WALLHACK | PATHFLAG_RUN);
@@ -632,14 +639,15 @@ void CMobController::Move()
                     }
                 }
             }
+            else
+            {
+                FaceTarget();
+            }
         }
     }
     else
     {
-        if (!(PMob->m_Behaviour & BEHAVIOUR_NO_TURN))
-        {
-            PMob->PAI->PathFind->LookAt(PTarget->loc.p);
-        }
+        FaceTarget();
     }
 }
 
@@ -887,7 +895,7 @@ void CMobController::Despawn()
 {
     if (PMob)
     {
-        PMob->PAI->Internal_Despawn(std::chrono::milliseconds(PMob->m_RespawnTime));
+        PMob->PAI->Internal_Despawn();
     }
 }
 
@@ -906,6 +914,7 @@ bool CMobController::MobSkill(uint16 targid, uint16 wsid)
 {
     if (POwner)
     {
+        FaceTarget(targid);
         return POwner->PAI->Internal_MobSkill(targid, wsid);
     }
 
@@ -1019,6 +1028,12 @@ bool CMobController::CanAggroTarget(CBattleEntity* PTarget)
 void CMobController::TapDeaggroTime()
 {
     m_DeaggroTime = m_Tick;
+}
+
+void CMobController::Cast(uint16 targid, uint16 spellid)
+{
+    FaceTarget(targid);
+    CController::Cast(targid, spellid);
 }
 
 bool CMobController::CanMoveForward(float currentDistance)

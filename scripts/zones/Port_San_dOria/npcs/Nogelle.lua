@@ -5,9 +5,9 @@
 -----------------------------------
 package.loaded["scripts/zones/Port_San_dOria/TextIDs"] = nil;
 -----------------------------------
+require("scripts/zones/Port_San_dOria/TextIDs");
 require("scripts/globals/quests");
 require("scripts/globals/titles");
-require("scripts/zones/Port_San_dOria/TextIDs");
 
 -----------------------------------
 -- onTrade Action
@@ -23,19 +23,19 @@ function questReward(player)
 end
 
 function onTrade(player,npc,trade)
--- "Flyers for Regine" conditional script
-FlyerForRegine = player:getQuestStatus(SANDORIA,FLYERS_FOR_REGINE);
+    -- "Flyers for Regine" conditional script
+    local FlyerForRegine = player:getQuestStatus(SANDORIA,FLYERS_FOR_REGINE);
 
     if (FlyerForRegine == 1) then
-        count = trade:getItemCount();
-        MagicFlyer = trade:hasItemQty(532,1);
+        local count = trade:getItemCount();
+        local MagicFlyer = trade:hasItemQty(532,1);
         if (MagicFlyer == true and count == 1) then
             player:messageSpecial(FLYER_REFUSED);
         end
     end
     
     if (player:getQuestStatus(SANDORIA,LUFET_S_LAKE_SALT) == QUEST_ACCEPTED) then
-        count = trade:getItemCount();
+        local count = trade:getItemCount();
         LufetSalt = trade:hasItemQty(1019,3);
         if (LufetSalt == true and count == 3) then
             player:tradeComplete();
@@ -54,7 +54,7 @@ end;
 
 function onTrigger(player,npc)
 
-LufetsLakeSalt = player:getQuestStatus(SANDORIA,LUFET_S_LAKE_SALT);
+    local LufetsLakeSalt = player:getQuestStatus(SANDORIA,LUFET_S_LAKE_SALT);
 
     if (LufetsLakeSalt == 0) then
         player:startEvent(0x000c);
@@ -89,7 +89,3 @@ function onEventFinish(player,csid,option)
         player:messageSpecial(GIL_OBTAINED,GIL_RATE*600);
     end
 end;
-
-
-
-

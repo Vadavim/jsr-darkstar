@@ -21,15 +21,10 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    local buff = 90;
-    local sFeet = player:getEquipID(SLOT_FEET);
-    if (sFeet == 14094) or (sFeet == 15357) then
-        buff = buff + 30;
-    end
+    local duration = 90 + player:getMod(MOD_FLEE_DURATION);
+    player:addStatusEffect(EFFECT_FLEE,100,0,duration);
     player:delStatusEffect(EFFECT_WEIGHT);
     player:delStatusEffect(EFFECT_SLOW);
     player:delStatusEffect(EFFECT_BIND);
     player:delStatusEffect(EFFECT_EVASION_DOWN);
-
-    player:addStatusEffect(EFFECT_FLEE,100,0,buff);
 end;

@@ -66,17 +66,13 @@ end;
 -----------------------------------
 
 function onEventUpdate(player,csid,option)
--- printf("CSID: %u",csid);
--- printf("RESULT: %u",option);
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
 end;
 
 -----------------------------------
 -- onEventFinish
 -----------------------------------
-
-function onEventFinish(player,csid,option)
--- printf("CSID: %u",csid);
--- printf("RESULT: %u",option);
 
 function questReward(player)
     require("scripts/globals/jsr_utils");
@@ -87,6 +83,11 @@ function questReward(player)
     };
     jsrReward(player, reward);
 end
+
+function onEventFinish(player,csid,option)
+-- printf("CSID: %u",csid);
+-- printf("RESULT: %u",option);
+
 
 
     if (csid == 0x02c2 and option == 1) then

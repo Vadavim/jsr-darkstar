@@ -24,7 +24,8 @@ end;
 function onUseAbility(player,target,ability)
     local merit = player:getMerit(MERIT_RAMPART_RECAST) / 2;
     local iron = player:getMerit(MERIT_IRON_WILL);
-    target:addStatusEffect(EFFECT_MAGIC_SHIELD,4,0,30, 0, 80 + merit);
+    local duration = 30 + player:getMod(MOD_RAMPART_DURATION);
+    target:addStatusEffect(EFFECT_MAGIC_SHIELD,4,0,duration, 0, 80 + merit);
     local effect = target:getStatusEffect(EFFECT_MAGIC_SHIELD);
     if (iron > 0 and effect ~= nil) then
         local resistBonus = iron / 5;

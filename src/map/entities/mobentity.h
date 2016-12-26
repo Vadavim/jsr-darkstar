@@ -177,7 +177,9 @@ public:
     virtual void OnAbility(CAbilityState&, action_t&) override;
 
     virtual void OnDisengage(CAttackState&) override;
-    virtual void OnDeathTimer() override;
+    virtual void OnDeathTimer() override;public:
+
+    virtual void OnDespawn(CDespawnState&) override;
 
     virtual void Spawn() override;
     virtual void FadeOut() override;
@@ -261,6 +263,7 @@ public:
 protected:
 
     void DropItems();
+
 
 
 private:

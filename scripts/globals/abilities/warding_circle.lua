@@ -23,5 +23,6 @@ end;
 
 function onUseAbility(player,target,ability)
     local bonus = player:getMerit(MERIT_WARDING_CIRCLE_RECAST) / 10;
-    target:addStatusEffect(EFFECT_WARDING_CIRCLE,8 + bonus,0,180);
+    local duration = 180 + player:getMod(MOD_WARDING_CIRCLE_DURATION);
+    target:addStatusEffect(EFFECT_WARDING_CIRCLE,8 + bonus,0,duration);
 end;

@@ -538,7 +538,7 @@ void LoadMOBList()
             }
             else
             {
-                PMob->PAI->Despawn();
+                PMob->PAI->Internal_Respawn(std::chrono::milliseconds(PMob->m_RespawnTime));
             }
         });
     });
