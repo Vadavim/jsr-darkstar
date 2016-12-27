@@ -22,13 +22,23 @@ CREATE TABLE IF NOT EXISTS `char_profile` (
   `fame_windurst` smallint(5) unsigned NOT NULL DEFAULT '0',
   `fame_norg` smallint(5) unsigned NOT NULL DEFAULT '0',
   `fame_jeuno` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `fame_aby_konschtat` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `fame_aby_tahrongi` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `fame_aby_latheine` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `fame_aby_misareaux` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `fame_aby_vunkerl` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `fame_aby_attohwa` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `fame_aby_altepa` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `fame_aby_grauberg` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `fame_aby_uleguerand` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `fame_adoulin` smallint(5) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`charid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.char_profile: 1 rows
 /*!40000 ALTER TABLE `char_profile` DISABLE KEYS */;
-INSERT INTO `char_profile` (`charid`, `rank_points`, `rank_sandoria`, `rank_bastok`, `rank_windurst`, `fame_sandoria`, `fame_bastok`, `fame_windurst`, `fame_norg`, `fame_jeuno`) VALUES
-	(21828, 0, 1, 1, 1, 65, 0, 960, 0, 0);
+REPLACE INTO `char_profile` (`charid`, `rank_points`, `rank_sandoria`, `rank_bastok`, `rank_windurst`, `fame_sandoria`, `fame_bastok`, `fame_windurst`, `fame_norg`, `fame_jeuno`, `fame_aby_konschtat`, `fame_aby_tahrongi`, `fame_aby_latheine`, `fame_aby_misareaux`, `fame_aby_vunkerl`, `fame_aby_attohwa`, `fame_aby_altepa`, `fame_aby_grauberg`, `fame_aby_uleguerand`, `fame_adoulin`) VALUES
+	(21828, 0, 1, 1, 1, 65, 0, 960, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `char_profile` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

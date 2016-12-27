@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `bonus_item_points` (
 
 -- Dumping data for table dspdb.bonus_item_points: 1,201 rows
 /*!40000 ALTER TABLE `bonus_item_points` DISABLE KEYS */;
-INSERT INTO `bonus_item_points` (`guild`, `itemid`, `name`, `points`) VALUES
+REPLACE INTO `bonus_item_points` (`guild`, `itemid`, `name`, `points`) VALUES
 	('guild_woodworking', 688, 'arrowwood_log', 0),
 	('guild_woodworking', 689, 'lauan_log', 0),
 	('guild_woodworking', 690, 'elm_log', 0),

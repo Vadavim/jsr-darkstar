@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `points_of_interest` (
 
 -- Dumping data for table dspdb.points_of_interest: 462 rows
 /*!40000 ALTER TABLE `points_of_interest` DISABLE KEYS */;
-INSERT INTO `points_of_interest` (`npcid`, `pos`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`) VALUES
+REPLACE INTO `points_of_interest` (`npcid`, `pos`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`) VALUES
 	(16814557, 0, 0, -393.000, 16.000, -208.000),
 	(16814557, 1, 0, -392.950, 16.000, -236.012),
 	(16814557, 2, 20, -349.409, 16.000, -232.783),

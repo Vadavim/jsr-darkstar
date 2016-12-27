@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS `blue_spell_mods` (
   PRIMARY KEY (`spellId`,`modid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.blue_spell_mods: 293 rows
+-- Dumping data for table dspdb.blue_spell_mods: 295 rows
 /*!40000 ALTER TABLE `blue_spell_mods` DISABLE KEYS */;
-INSERT INTO `blue_spell_mods` (`spellId`, `modid`, `value`) VALUES
+REPLACE INTO `blue_spell_mods` (`spellId`, `modid`, `value`) VALUES
 	(513, 13, 2),
 	(515, 13, 2),
 	(517, 0, 0),
@@ -313,7 +313,9 @@ INSERT INTO `blue_spell_mods` (`spellId`, `modid`, `value`) VALUES
 	(743, 0, 0),
 	(744, 0, 0),
 	(745, 0, 0),
-	(746, 0, 0);
+	(746, 0, 0),
+	(603, 66, 2),
+	(603, 106, 4);
 /*!40000 ALTER TABLE `blue_spell_mods` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

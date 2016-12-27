@@ -18,14 +18,39 @@ CREATE TABLE IF NOT EXISTS `char_vars` (
   PRIMARY KEY (`charid`,`varname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.char_vars: 6 rows
+-- Dumping data for table dspdb.char_vars: 30 rows
 /*!40000 ALTER TABLE `char_vars` DISABLE KEYS */;
-INSERT INTO `char_vars` (`charid`, `varname`, `value`) VALUES
+REPLACE INTO `char_vars` (`charid`, `varname`, `value`) VALUES
 	(21828, 'HpTeleportMask1b', 32),
 	(21828, 'characterLimbusKey', 22746),
 	(21828, 'LimbusID', 1292),
 	(21828, 'Scorpio_ConquestWeek', 1467554400),
-	(21828, 'PlayerMainJob', 4);
+	(21828, 'dynaWaitxDay', 1469714400),
+	(21828, 'elite_115', 1470405600),
+	(21828, 'trade_itemid', 1551),
+	(21828, 'elite_101', 1470405600),
+	(21828, 'trade_bcnmid', 34),
+	(21828, 'bcnm_instanceid', 1),
+	(21828, 'elite_100', 1470751200),
+	(21828, 'elite_107', 1470751200),
+	(21828, 'elite_106', 1470751200),
+	(21828, 'elite_117', 1470751200),
+	(21828, 'elite_108', 1470751200),
+	(21828, 'elite_119', 1470751200),
+	(21828, 'elite_103', 1470751200),
+	(21828, 'killedFoVNM', 127),
+	(21828, 'elite_109', 1470751200),
+	(21828, 'elite_126', 1470751200),
+	(21828, 'elite_105', 1470751200),
+	(21828, 'elite_111', 1470837600),
+	(21828, 'elite_110', 1470837600),
+	(21828, 'elite_120', 1470837600),
+	(21828, 'elite_112', 1470837600),
+	(21828, 'elite_127', 1470837600),
+	(21828, 'fov_regimeid', 66),
+	(21828, 'fov_repeat', 1),
+	(21828, 'fov_numneeded1', 7),
+	(21828, 'fov_LastReward', 452362);
 /*!40000 ALTER TABLE `char_vars` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

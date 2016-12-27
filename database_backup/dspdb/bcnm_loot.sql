@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `bcnm_loot` (
 
 -- Dumping data for table dspdb.bcnm_loot: 1,535 rows
 /*!40000 ALTER TABLE `bcnm_loot` DISABLE KEYS */;
-INSERT INTO `bcnm_loot` (`LootDropId`, `itemId`, `rolls`, `lootGroupId`) VALUES
+REPLACE INTO `bcnm_loot` (`LootDropId`, `itemId`, `rolls`, `lootGroupId`) VALUES
 	(100, 13292, 75, 0),
 	(100, 13287, 32, 0),
 	(100, 13300, 54, 0),

@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `fishing_lure` (
 
 -- Dumping data for table dspdb.fishing_lure: 920 rows
 /*!40000 ALTER TABLE `fishing_lure` DISABLE KEYS */;
-INSERT INTO `fishing_lure` (`lureid`, `name`, `fishid`, `luck`) VALUES
+REPLACE INTO `fishing_lure` (`lureid`, `name`, `fishid`, `luck`) VALUES
 	(16992, 'Slice of Bluetail', 4479, 300),
 	(16992, 'Slice of Bluetail', 4318, 150),
 	(16992, 'Slice of Bluetail', 5473, 150),

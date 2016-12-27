@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS `bcnm_treasure_chests` (
   `npcId` int(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=56;
 
--- Dumping data for table dspdb.bcnm_treasure_chests: 49 rows
+-- Dumping data for table dspdb.bcnm_treasure_chests: 52 rows
 /*!40000 ALTER TABLE `bcnm_treasure_chests` DISABLE KEYS */;
-INSERT INTO `bcnm_treasure_chests` (`bcnmId`, `battlefieldNumber`, `npcId`) VALUES
+REPLACE INTO `bcnm_treasure_chests` (`bcnmId`, `battlefieldNumber`, `npcId`) VALUES
 	(4, 1, 17346675),
 	(4, 2, 17346679),
 	(4, 3, 17346683),
@@ -68,6 +68,9 @@ INSERT INTO `bcnm_treasure_chests` (`bcnmId`, `battlefieldNumber`, `npcId`) VALU
 	(129, 1, 17444884),
 	(129, 2, 17444891),
 	(129, 3, 17444898),
+	(130, 1, 17444929),
+	(130, 2, 17444934),
+	(130, 3, 17444939),
 	(673, 1, 16810019);
 /*!40000 ALTER TABLE `bcnm_treasure_chests` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

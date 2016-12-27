@@ -438,3 +438,13 @@ function healingBreathCalc(pet, target, skill, action, tier)
     return base;
 end
 
+function doAllyCost(player, amount, type)
+    if (player:getGil() >= amount) then
+        player:delGil(amount);
+        return true;
+    else
+        return false;
+    end
+
+end
+

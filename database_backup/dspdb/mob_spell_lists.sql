@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS `mob_spell_lists` (
   PRIMARY KEY (`spell_list_id`,`spell_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.mob_spell_lists: 1,492 rows
+-- Dumping data for table dspdb.mob_spell_lists: 1,478 rows
 /*!40000 ALTER TABLE `mob_spell_lists` DISABLE KEYS */;
-INSERT INTO `mob_spell_lists` (`spell_list_name`, `spell_list_id`, `spell_id`, `min_level`, `max_level`) VALUES
+REPLACE INTO `mob_spell_lists` (`spell_list_name`, `spell_list_id`, `spell_id`, `min_level`, `max_level`) VALUES
 	('Beastmen_WHM', 1, 1, 1, 10),
 	('Beastmen_WHM', 1, 2, 11, 20),
 	('Beastmen_WHM', 1, 3, 21, 40),
@@ -241,24 +241,7 @@ INSERT INTO `mob_spell_lists` (`spell_list_name`, `spell_list_id`, `spell_id`, `
 	('Beastmen_PLD', 4, 50, 60, 79),
 	('Beastmen_PLD', 4, 51, 80, 255),
 	('Beastmen_PLD', 4, 112, 37, 255),
-	('Beastmen_DRK', 5, 144, 23, 34),
-	('Beastmen_DRK', 5, 145, 60, 71),
-	('Beastmen_DRK', 5, 146, 88, 255),
-	('Beastmen_DRK', 5, 149, 29, 41),
-	('Beastmen_DRK', 5, 150, 66, 78),
-	('Beastmen_DRK', 5, 151, 92, 255),
-	('Beastmen_DRK', 5, 154, 17, 28),
-	('Beastmen_DRK', 5, 155, 54, 65),
-	('Beastmen_DRK', 5, 156, 84, 91),
-	('Beastmen_DRK', 5, 159, 5, 16),
-	('Beastmen_DRK', 5, 160, 42, 53),
-	('Beastmen_DRK', 5, 161, 76, 83),
-	('Beastmen_DRK', 5, 164, 35, 71),
-	('Beastmen_DRK', 5, 165, 72, 83),
-	('Beastmen_DRK', 5, 166, 96, 255),
-	('Beastmen_DRK', 5, 169, 11, 22),
-	('Beastmen_DRK', 5, 170, 48, 59),
-	('Beastmen_DRK', 5, 171, 80, 87),
+	('Beastmen_DRK', 5, 226, 51, 255),
 	('Beastmen_DRK', 5, 220, 6, 45),
 	('Beastmen_DRK', 5, 221, 46, 255),
 	('Beastmen_DRK', 5, 225, 26, 50),
@@ -1514,7 +1497,10 @@ INSERT INTO `mob_spell_lists` (`spell_list_name`, `spell_list_id`, `spell_id`, `
 	('Pet_DarkSpirit', 207, 252, 37, 255),
 	('Pet_DarkSpirit', 207, 260, 32, 255),
 	('Pet_DarkSpirit', 207, 257, 32, 255),
-	('Pet_DarkSpirit', 207, 367, 75, 255);
+	('Pet_DarkSpirit', 207, 367, 75, 255),
+	('Oupire', 150, 366, 1, 255),
+	('Oupire', 150, 274, 1, 255),
+	('Wake_Warder_Wanda', 151, 240, 1, 255);
 /*!40000 ALTER TABLE `mob_spell_lists` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

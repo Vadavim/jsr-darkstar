@@ -19,9 +19,9 @@ CREATE TABLE IF NOT EXISTS `char_spells` (
   KEY `char_spells_spellid_index` (`spellid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table dspdb.char_spells: ~838 rows (approximately)
+-- Dumping data for table dspdb.char_spells: ~841 rows (approximately)
 /*!40000 ALTER TABLE `char_spells` DISABLE KEYS */;
-INSERT INTO `char_spells` (`charid`, `spellid`) VALUES
+REPLACE INTO `char_spells` (`charid`, `spellid`) VALUES
 	(21828, 1),
 	(21828, 2),
 	(21828, 3),
@@ -858,8 +858,11 @@ INSERT INTO `char_spells` (`charid`, `spellid`) VALUES
 	(21828, 894),
 	(21828, 895),
 	(21828, 900),
+	(21828, 902),
 	(21828, 903),
-	(21828, 913);
+	(21828, 913),
+	(21828, 916),
+	(21828, 921);
 /*!40000 ALTER TABLE `char_spells` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

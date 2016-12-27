@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `item_armor` (
 
 -- Dumping data for table dspdb.item_armor: 12,910 rows
 /*!40000 ALTER TABLE `item_armor` DISABLE KEYS */;
-INSERT INTO `item_armor` (`itemId`, `name`, `level`, `ilevel`, `jobs`, `MId`, `shieldSize`, `scriptType`, `slot`, `rslot`) VALUES
+REPLACE INTO `item_armor` (`itemId`, `name`, `level`, `ilevel`, `jobs`, `MId`, `shieldSize`, `scriptType`, `slot`, `rslot`) VALUES
 	(10240, 'hexed_haubert', 99, 0, 8641, 0, 0, 0, 32, 0),
 	(10241, 'hexed_domaru', 99, 0, 137218, 0, 0, 0, 32, 0),
 	(10242, 'hexed_jacket', 99, 0, 2462754, 0, 0, 0, 32, 0),
@@ -1352,7 +1352,7 @@ INSERT INTO `item_armor` (`itemId`, `name`, `level`, `ilevel`, `jobs`, `MId`, `s
 	(11601, 'navarchs_choker', 80, 0, 65536, 0, 0, 0, 512, 0),
 	(11602, 'cirque_necklace', 80, 0, 131072, 0, 0, 0, 512, 0),
 	(11603, 'charis_necklace', 80, 0, 262144, 0, 0, 0, 512, 0),
-	(11604, 'corvus_torque', 79, 0, 66592, 0, 0, 0, 512, 0),
+	(11604, 'corvus_torque', 75, 0, 66592, 0, 0, 0, 512, 0),
 	(11605, 'ziel_charm', 80, 0, 4194303, 0, 0, 0, 512, 0),
 	(11606, 'arctiers_torque', 80, 0, 2473969, 0, 0, 0, 512, 0),
 	(11607, 'artemis_medal', 77, 0, 4194303, 0, 0, 0, 512, 0),

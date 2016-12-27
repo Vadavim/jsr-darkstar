@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS `traits` (
   `required_expansion` varchar(7) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.traits: 710 rows
+-- Dumping data for table dspdb.traits: 704 rows
 /*!40000 ALTER TABLE `traits` DISABLE KEYS */;
-INSERT INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `value`, `required_expansion`) VALUES
+REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `value`, `required_expansion`) VALUES
 	(1, 'accuracy bonus', 11, 10, 1, 25, 10, NULL),
 	(1, 'accuracy bonus', 11, 10, 1, 26, 10, NULL),
 	(1, 'accuracy bonus', 11, 30, 2, 25, 22, NULL),
@@ -402,7 +402,7 @@ INSERT INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `va
 	(106, 'skillchain bonus', 19, 97, 4, 174, 23, 'ABYSSEA'),
 	(110, 'mag. burst bonus', 4, 45, 1, 487, 15, 'ABYSSEA'),
 	(110, 'mag. burst bonus', 4, 70, 2, 487, 20, 'ABYSSEA'),
-	(98, 'crit dam bonus', 6, 20, 1, 421, 15, 'ABYSSEA'),
+	(98, 'crit dam bonus', 6, 20, 1, 421, 5, 'ABYSSEA'),
 	(110, 'mag. burst bonus', 8, 75, 5, 487, 35, 'ABYSSEA'),
 	(110, 'mag. burst bonus', 8, 60, 4, 487, 30, 'ABYSSEA'),
 	(110, 'mag. burst bonus', 5, 85, 1, 487, 5, 'ABYSSEA'),
@@ -530,9 +530,9 @@ INSERT INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `va
 	(21, 'alertness', 11, 5, 1, 109, 10, NULL),
 	(21, 'alertness', 11, 5, 1, 107, 10, NULL),
 	(21, 'alertness', 11, 5, 1, 31, 10, NULL),
-	(112, 'dead aim', 11, 35, 1, 165, 2, NULL),
-	(112, 'dead aim', 11, 50, 2, 165, 3, NULL),
-	(112, 'dead aim', 11, 65, 3, 165, 4, NULL),
+	(112, 'dead aim', 11, 35, 1, 165, 10, NULL),
+	(112, 'dead aim', 11, 50, 2, 165, 20, NULL),
+	(112, 'dead aim', 11, 65, 3, 165, 30, NULL),
 	(36, 'bird killer', 11, 35, 1, 225, 8, NULL),
 	(32, 'beast killer', 11, 10, 1, 230, 8, NULL),
 	(108, 'conserve tp', 14, 30, 1, 842, 15, 'ABYSSEA'),
@@ -554,8 +554,6 @@ INSERT INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `va
 	(99, 'crit defense', 7, 25, 1, 166, 1, NULL),
 	(99, 'crit defense', 7, 45, 2, 166, 2, NULL),
 	(99, 'crit defense', 7, 65, 3, 166, 3, NULL),
-	(10, 'auto refresh', 7, 70, 2, 369, 2, NULL),
-	(10, 'auto refresh', 8, 70, 2, 369, 2, NULL),
 	(9, 'auto regen', 3, 60, 3, 370, 3, 'ABYSSEA'),
 	(9, 'auto regen', 22, 30, 3, 370, 3, 'SOA'),
 	(9, 'auto regen', 22, 40, 4, 370, 4, 'SOA'),
@@ -582,9 +580,9 @@ INSERT INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `va
 	(110, 'mag. burst bonus', 13, 45, 3, 487, 25, 'ABYSSEA'),
 	(110, 'mag. burst bonus', 13, 60, 4, 487, 30, 'ABYSSEA'),
 	(110, 'mag. burst bonus', 13, 75, 5, 487, 35, 'ABYSSEA'),
-	(98, 'crit dam bonus', 6, 35, 2, 421, 20, 'ABYSSEA'),
-	(98, 'crit dam bonus', 6, 50, 3, 421, 25, 'ABYSSEA'),
-	(98, 'crit dam bonus', 6, 65, 4, 421, 30, 'ABYSSEA'),
+	(98, 'crit dam bonus', 6, 35, 2, 421, 10, 'ABYSSEA'),
+	(98, 'crit dam bonus', 6, 50, 3, 421, 15, 'ABYSSEA'),
+	(98, 'crit dam bonus', 6, 65, 4, 421, 20, 'ABYSSEA'),
 	(54, 'resist virus', 1, 15, 1, 54, 10, NULL),
 	(54, 'resist virus', 1, 35, 2, 54, 20, NULL),
 	(54, 'resist virus', 1, 50, 3, 54, 30, NULL),
@@ -671,10 +669,6 @@ INSERT INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `va
 	(49, 'resist poison', 13, 20, 1, 59, 10, NULL),
 	(49, 'resist poison', 13, 75, 4, 241, 20, NULL),
 	(49, 'resist poison', 13, 60, 3, 241, 16, NULL),
-	(1, 'accuracy bonus', 6, 30, 1, 25, 10, NULL),
-	(1, 'accuracy bonus', 6, 30, 1, 26, 10, NULL),
-	(1, 'accuracy bonus', 6, 65, 2, 26, 22, NULL),
-	(1, 'accuracy bonus', 6, 65, 2, 25, 22, NULL),
 	(51, 'resist blind', 6, 25, 2, 61, 20, NULL),
 	(51, 'resist blind', 6, 15, 1, 61, 10, NULL),
 	(51, 'resist blind', 6, 65, 4, 243, 20, NULL),

@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `fishing_rod` (
 
 -- Dumping data for table dspdb.fishing_rod: 774 rows
 /*!40000 ALTER TABLE `fishing_rod` DISABLE KEYS */;
-INSERT INTO `fishing_rod` (`rodid`, `name`, `fishid`, `flag`) VALUES
+REPLACE INTO `fishing_rod` (`rodid`, `name`, `fishid`, `flag`) VALUES
 	(17011, 'Ebisu Fishing Rod', 90, 1),
 	(17011, 'Ebisu Fishing Rod', 624, 1),
 	(17011, 'Ebisu Fishing Rod', 688, 1),

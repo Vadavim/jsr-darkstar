@@ -19,9 +19,9 @@ CREATE TABLE IF NOT EXISTS `mob_family_mods` (
   PRIMARY KEY (`familyid`,`modid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=13 PACK_KEYS=1;
 
--- Dumping data for table dspdb.mob_family_mods: 536 rows
+-- Dumping data for table dspdb.mob_family_mods: 540 rows
 /*!40000 ALTER TABLE `mob_family_mods` DISABLE KEYS */;
-INSERT INTO `mob_family_mods` (`familyid`, `modid`, `value`, `is_mob_mod`) VALUES
+REPLACE INTO `mob_family_mods` (`familyid`, `modid`, `value`, `is_mob_mod`) VALUES
 	(175, 29, 50, 0),
 	(4, 29, 25, 0),
 	(4, 7, 60, 1),
@@ -557,7 +557,11 @@ INSERT INTO `mob_family_mods` (`familyid`, `modid`, `value`, `is_mob_mod`) VALUE
 	(358, 59, 120, 1),
 	(371, 59, 125, 1),
 	(165, 29, 24, 0),
-	(48, 69, 15, 1);
+	(48, 69, 15, 1),
+	(56, 68, 1, 1),
+	(68, 68, 1, 1),
+	(69, 68, 1, 1),
+	(232, 68, 5, 1);
 /*!40000 ALTER TABLE `mob_family_mods` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

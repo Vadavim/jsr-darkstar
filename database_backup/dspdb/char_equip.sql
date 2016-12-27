@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS `char_equip` (
 
 -- Dumping data for table dspdb.char_equip: 1 rows
 /*!40000 ALTER TABLE `char_equip` DISABLE KEYS */;
-INSERT INTO `char_equip` (`charid`, `slotid`, `equipslotid`, `containerid`) VALUES
-	(21828, 29, 4, 0);
+REPLACE INTO `char_equip` (`charid`, `slotid`, `equipslotid`, `containerid`) VALUES
+	(21828, 76, 0, 8);
 /*!40000 ALTER TABLE `char_equip` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

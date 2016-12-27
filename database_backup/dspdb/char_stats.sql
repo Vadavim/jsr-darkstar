@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS `char_stats` (
 
 -- Dumping data for table dspdb.char_stats: 1 rows
 /*!40000 ALTER TABLE `char_stats` DISABLE KEYS */;
-INSERT INTO `char_stats` (`charid`, `hp`, `mp`, `nameflags`, `mhflag`, `mjob`, `sjob`, `death`, `2h`, `title`, `bazaar_message`, `zoning`, `mlvl`, `slvl`, `pet_id`, `pet_type`, `pet_hp`, `pet_mp`) VALUES
-	(21828, 1419, 0, 117702725, 0, 19, 1, 18, 0, 41, NULL, 0, 75, 37, 0, 0, 0, 0);
+REPLACE INTO `char_stats` (`charid`, `hp`, `mp`, `nameflags`, `mhflag`, `mjob`, `sjob`, `death`, `2h`, `title`, `bazaar_message`, `zoning`, `mlvl`, `slvl`, `pet_id`, `pet_type`, `pet_hp`, `pet_mp`) VALUES
+	(21828, 1459, 560, 117440581, 0, 3, 1, 9, 0, 41, NULL, 0, 75, 37, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `char_stats` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

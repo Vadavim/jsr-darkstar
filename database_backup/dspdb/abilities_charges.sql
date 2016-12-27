@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `abilities_charges` (
 
 -- Dumping data for table dspdb.abilities_charges: 9 rows
 /*!40000 ALTER TABLE `abilities_charges` DISABLE KEYS */;
-INSERT INTO `abilities_charges` (`recastId`, `job`, `level`, `maxCharges`, `chargeTime`, `meritModID`) VALUES
+REPLACE INTO `abilities_charges` (`recastId`, `job`, `level`, `maxCharges`, `chargeTime`, `meritModID`) VALUES
 	(231, 20, 10, 1, 240, 0),
 	(231, 20, 30, 2, 120, 0),
 	(231, 20, 45, 3, 80, 0),

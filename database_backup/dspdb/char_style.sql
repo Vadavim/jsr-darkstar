@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `char_style` (
 
 -- Dumping data for table dspdb.char_style: 1 rows
 /*!40000 ALTER TABLE `char_style` DISABLE KEYS */;
-INSERT INTO `char_style` (`charid`, `head`, `body`, `hands`, `legs`, `feet`, `main`, `sub`, `ranged`) VALUES
+REPLACE INTO `char_style` (`charid`, `head`, `body`, `hands`, `legs`, `feet`, `main`, `sub`, `ranged`) VALUES
 	(21828, 0, 0, 0, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `char_style` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

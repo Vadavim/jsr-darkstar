@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `delivery_box` (
 
 -- Dumping data for table dspdb.delivery_box: ~1 rows (approximately)
 /*!40000 ALTER TABLE `delivery_box` DISABLE KEYS */;
-INSERT INTO `delivery_box` (`charid`, `charname`, `box`, `slot`, `itemid`, `itemsubid`, `quantity`, `extra`, `senderid`, `sender`, `received`, `sent`) VALUES
+REPLACE INTO `delivery_box` (`charid`, `charname`, `box`, `slot`, `itemid`, `itemsubid`, `quantity`, `extra`, `senderid`, `sender`, `received`, `sent`) VALUES
 	(21828, 'Destin', 1, 8, 65535, 16534, 201, NULL, 0, 'AH-Jeuno', 0, 0);
 /*!40000 ALTER TABLE `delivery_box` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

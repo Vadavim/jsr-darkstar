@@ -29,14 +29,14 @@ CREATE TABLE IF NOT EXISTS `zone_settings` (
 
 -- Dumping data for table dspdb.zone_settings: 294 rows
 /*!40000 ALTER TABLE `zone_settings` DISABLE KEYS */;
-INSERT INTO `zone_settings` (`zoneid`, `zonetype`, `zoneip`, `zoneport`, `name`, `music_day`, `music_night`, `battlesolo`, `battlemulti`, `restriction`, `tax`, `misc`) VALUES
+REPLACE INTO `zone_settings` (`zoneid`, `zonetype`, `zoneip`, `zoneport`, `name`, `music_day`, `music_night`, `battlesolo`, `battlemulti`, `restriction`, `tax`, `misc`) VALUES
 	(0, 1, '127.0.0.1', 54230, 'Residential_Area', 0, 0, 0, 0, 0, 0.00, 32),
 	(1, 2, '127.0.0.1', 54230, 'Phanauet_Channel', 229, 229, 101, 219, 0, 0.00, 152),
 	(2, 2, '127.0.0.1', 54230, 'Carpenters_Landing', 0, 0, 101, 219, 0, 0.00, 156),
 	(3, 2, '127.0.0.1', 54230, 'Manaclipper', 229, 229, 101, 219, 0, 0.00, 152),
 	(4, 2, '127.0.0.1', 54230, 'Bibiki_Bay', 0, 0, 101, 219, 0, 0.00, 156),
 	(5, 2, '127.0.0.1', 54230, 'Uleguerand_Range', 0, 0, 101, 219, 0, 0.00, 152),
-	(6, 4, '127.0.0.1', 54230, 'Bearclaw_Pinnacle', 0, 0, 220, 220, 0, 0.00, 144),
+	(6, 4, '127.0.0.1', 54230, '2', 0, 0, 220, 220, 0, 0.00, 144),
 	(7, 2, '127.0.0.1', 54230, 'Attohwa_Chasm', 0, 0, 101, 219, 0, 0.00, 152),
 	(8, 4, '127.0.0.1', 54230, 'Boneyard_Gully', 0, 0, 220, 220, 0, 0.00, 144),
 	(9, 3, '127.0.0.1', 54230, 'PsoXja', 225, 225, 115, 218, 0, 0.00, 145),

@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `item_furnishing` (
 
 -- Dumping data for table dspdb.item_furnishing: 380 rows
 /*!40000 ALTER TABLE `item_furnishing` DISABLE KEYS */;
-INSERT INTO `item_furnishing` (`itemid`, `name`, `storage`, `moghancement`, `element`, `aura`) VALUES
+REPLACE INTO `item_furnishing` (`itemid`, `name`, `storage`, `moghancement`, `element`, `aura`) VALUES
 	(1, 'pile_of_chocobo_bedding', 1, 0, 7, 2),
 	(2, 'simple_bed', 1, 0, 5, 3),
 	(3, 'oak_bed', 1, 0, 2, 5),

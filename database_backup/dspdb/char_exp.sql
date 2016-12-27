@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS `char_exp` (
 
 -- Dumping data for table dspdb.char_exp: 1 rows
 /*!40000 ALTER TABLE `char_exp` DISABLE KEYS */;
-INSERT INTO `char_exp` (`charid`, `mode`, `war`, `mnk`, `whm`, `blm`, `rdm`, `thf`, `pld`, `drk`, `bst`, `brd`, `rng`, `sam`, `nin`, `drg`, `smn`, `blu`, `cor`, `pup`, `dnc`, `sch`, `geo`, `run`, `merits`, `limits`) VALUES
-	(21828, 0, 43999, 43999, 43999, 7999, 43999, 43999, 43999, 43999, 43999, 55999, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 3599, 43999, 43999, 42799, 43999, 25, 4182);
+REPLACE INTO `char_exp` (`charid`, `mode`, `war`, `mnk`, `whm`, `blm`, `rdm`, `thf`, `pld`, `drk`, `bst`, `brd`, `rng`, `sam`, `nin`, `drg`, `smn`, `blu`, `cor`, `pup`, `dnc`, `sch`, `geo`, `run`, `merits`, `limits`) VALUES
+	(21828, 0, 1448, 43999, 41599, 7799, 4799, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 577, 43999, 43999, 43999, 34, 4170);
 /*!40000 ALTER TABLE `char_exp` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

@@ -19,9 +19,9 @@ CREATE TABLE IF NOT EXISTS `mob_droplist` (
   KEY `dropId` (`dropId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=9;
 
--- Dumping data for table dspdb.mob_droplist: 32,834 rows
+-- Dumping data for table dspdb.mob_droplist: 32,888 rows
 /*!40000 ALTER TABLE `mob_droplist` DISABLE KEYS */;
-INSERT INTO `mob_droplist` (`dropId`, `type`, `itemId`, `rate`) VALUES
+REPLACE INTO `mob_droplist` (`dropId`, `type`, `itemId`, `rate`) VALUES
 	(1, 2, 1455, 0),
 	(1, 0, 1455, 90),
 	(1, 0, 1456, 10),
@@ -13994,7 +13994,7 @@ INSERT INTO `mob_droplist` (`dropId`, `type`, `itemId`, `rate`) VALUES
 	(2355, 0, 643, 270),
 	(2355, 0, 645, 160),
 	(2355, 0, 645, 80),
-	(2355, 0, 18136, 150),
+	(2355, 0, 18136, 400),
 	(2356, 2, 2151, 0),
 	(2356, 0, 2151, 210),
 	(2356, 2, 2155, 0),
@@ -20052,7 +20052,7 @@ INSERT INTO `mob_droplist` (`dropId`, `type`, `itemId`, `rate`) VALUES
 	(3445, 0, 891, 1000),
 	(3445, 0, 891, 500),
 	(3445, 0, 930, 400),
-	(3445, 0, 1272, 1000),
+	(3445, 0, 17561, 700),
 	(3446, 0, 4412, 20),
 	(3446, 0, 4432, 80),
 	(3446, 2, 4468, 0),
@@ -32666,7 +32666,7 @@ INSERT INTO `mob_droplist` (`dropId`, `type`, `itemId`, `rate`) VALUES
 	(4507, 0, 2842, 1000),
 	(4508, 0, 16296, 700),
 	(4509, 0, 15052, 350),
-	(4510, 0, 19043, 269),
+	(4510, 0, 19043, 500),
 	(4511, 0, 2832, 218),
 	(4512, 0, 2852, 1000),
 	(4513, 0, 2811, 250),
@@ -32855,7 +32855,7 @@ INSERT INTO `mob_droplist` (`dropId`, `type`, `itemId`, `rate`) VALUES
 	(608, 0, 4382, 150),
 	(67, 0, 13646, 500),
 	(157, 0, 13276, 500),
-	(3445, 0, 17562, 800),
+	(4572, 0, 11339, 340),
 	(3559, 0, 18014, 40),
 	(971, 0, 17214, 200),
 	(971, 0, 17243, 200),
@@ -32903,7 +32903,13 @@ INSERT INTO `mob_droplist` (`dropId`, `type`, `itemId`, `rate`) VALUES
 	(4337, 0, 13653, 300),
 	(4337, 0, 13654, 100),
 	(1704, 0, 14024, 350),
-	(1704, 0, 14025, 150);
+	(1704, 0, 14025, 150),
+	(2355, 0, 14720, 300),
+	(2355, 0, 14721, 100),
+	(3445, 0, 1272, 1000),
+	(3445, 0, 17562, 200),
+	(4573, 0, 11338, 111),
+	(4574, 0, 19305, 111);
 /*!40000 ALTER TABLE `mob_droplist` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

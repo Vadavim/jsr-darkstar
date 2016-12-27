@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS `item_mods_pet` (
   PRIMARY KEY (`itemId`,`modId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=13 PACK_KEYS=1;
 
--- Dumping data for table dspdb.item_mods_pet: 41 rows
+-- Dumping data for table dspdb.item_mods_pet: 46 rows
 /*!40000 ALTER TABLE `item_mods_pet` DISABLE KEYS */;
-INSERT INTO `item_mods_pet` (`itemId`, `modId`, `value`) VALUES
+REPLACE INTO `item_mods_pet` (`itemId`, `modId`, `value`) VALUES
 	(11338, 25, 3),
 	(11338, 289, 3),
 	(11497, 384, 51),
@@ -61,7 +61,12 @@ INSERT INTO `item_mods_pet` (`itemId`, `modId`, `value`) VALUES
 	(10531, 28, 5),
 	(10532, 28, 5),
 	(10664, 28, 4),
-	(10744, 165, 5);
+	(10744, 165, 5),
+	(14449, 370, 6),
+	(13279, 291, 2),
+	(17135, 431, 1),
+	(17562, 431, 1),
+	(17576, 431, 1);
 /*!40000 ALTER TABLE `item_mods_pet` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

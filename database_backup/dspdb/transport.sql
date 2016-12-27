@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `transport` (
 
 -- Dumping data for table dspdb.transport: 17 rows
 /*!40000 ALTER TABLE `transport` DISABLE KEYS */;
-INSERT INTO `transport` (`id`, `name`, `transport`, `door`, `dock_x`, `dock_y`, `dock_z`, `dock_rot`, `boundary`, `anim_arrive`, `anim_depart`, `time_offset`, `time_interval`, `time_anim_arrive`, `time_waiting`, `time_anim_depart`, `zone`) VALUES
+REPLACE INTO `transport` (`id`, `name`, `transport`, `door`, `dock_x`, `dock_y`, `dock_z`, `dock_rot`, `boundary`, `anim_arrive`, `anim_depart`, `time_offset`, `time_interval`, `time_anim_arrive`, `time_waiting`, `time_anim_depart`, `zone`) VALUES
 	(1, 'Kazham-Jeuno_Airship', 17801320, 17801319, -4.000, -3.497, 32.125, 128, 512, 18, 19, 90, 360, 20, 50, 20, 226),
 	(2, 'Jeuno-Kazham_Airship', 17784936, 17784935, -4.000, 10.450, 117.000, 64, 477, 24, 25, 270, 360, 20, 50, 20, 226),
 	(3, 'Jeuno-Sandoria_Airship', 17784936, 17784932, -68.000, 10.450, 117.000, 64, 474, 18, 19, 0, 360, 12, 60, 12, 223),

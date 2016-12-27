@@ -1023,7 +1023,7 @@ namespace battleutils
                 }
                 break;
             }
-            case SUBEFFECT_WIND_SPIKES:
+            case SUBEFFECT_GALE_SPIKES:
             {
                 if (dsprand::GetRandomNumber(100) <= 20 + lvlDiff && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SILENCE) == false)
                 {
@@ -1031,7 +1031,7 @@ namespace battleutils
                 }
                 break;
             }
-            case SUBEFFECT_STONE_SPIKES:
+            case SUBEFFECT_CLOD_SPIKES:
             {
                 if (dsprand::GetRandomNumber(100) <= 20 + lvlDiff && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SLOW_II) == false)
                 {

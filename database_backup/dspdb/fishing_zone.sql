@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `fishing_zone` (
 
 -- Dumping data for table dspdb.fishing_zone: 872 rows
 /*!40000 ALTER TABLE `fishing_zone` DISABLE KEYS */;
-INSERT INTO `fishing_zone` (`zoneid`, `name`, `fishid`) VALUES
+REPLACE INTO `fishing_zone` (`zoneid`, `name`, `fishid`) VALUES
 	(1, 'Phanauet Channel', 5125),
 	(1, 'Phanauet Channel', 4469),
 	(1, 'Phanauet Channel', 4315),

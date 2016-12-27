@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `elevators` (
 
 -- Dumping data for table dspdb.elevators: 23 rows
 /*!40000 ALTER TABLE `elevators` DISABLE KEYS */;
-INSERT INTO `elevators` (`id`, `name`, `elevator`, `upperDoor`, `lowerDoor`, `status`, `regime`) VALUES
+REPLACE INTO `elevators` (`id`, `name`, `elevator`, `upperDoor`, `lowerDoor`, `status`, `regime`) VALUES
 	(1, 'Pso\'Xja_Elvtr_1', 16814442, 16814443, 16814444, 1, 1),
 	(2, 'Pso\'Xja_Elvtr_2', 16814461, 16814462, 16814463, 1, 1),
 	(3, 'Pso\'Xja_Elvtr_3', 16814464, 16814465, 16814466, 1, 1),

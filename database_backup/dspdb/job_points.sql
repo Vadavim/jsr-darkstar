@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `job_points` (
 
 -- Dumping data for table dspdb.job_points: 217 rows
 /*!40000 ALTER TABLE `job_points` DISABLE KEYS */;
-INSERT INTO `job_points` (`job_pointid`, `name`, `upgrade`, `jobs`) VALUES
+REPLACE INTO `job_points` (`job_pointid`, `name`, `upgrade`, `jobs`) VALUES
 	(64, 'mighty_strikes_effect', 2, 1),
 	(66, 'berserk_effect', 4, 1),
 	(68, 'brazen_rush_effect', 2, 1),

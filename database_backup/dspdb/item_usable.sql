@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS `item_usable` (
   PRIMARY KEY (`itemid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=1 CHECKSUM=1;
 
--- Dumping data for table dspdb.item_usable: 2,026 rows
+-- Dumping data for table dspdb.item_usable: 2,030 rows
 /*!40000 ALTER TABLE `item_usable` DISABLE KEYS */;
-INSERT INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `animation`, `animationTime`, `maxCharges`, `useDelay`, `reuseDelay`, `aoe`) VALUES
+REPLACE INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `animation`, `animationTime`, `maxCharges`, `useDelay`, `reuseDelay`, `aoe`) VALUES
 	(4096, 'fire_crystal', 1, 0, 0, 0, 0, 0, 0, 0),
 	(4097, 'ice_crystal', 1, 0, 0, 0, 0, 0, 0, 0),
 	(4098, 'wind_crystal', 1, 0, 0, 0, 0, 0, 0, 0),
@@ -1122,7 +1122,7 @@ INSERT INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `anim
 	(5318, 'toolbag_(kodoku)', 1, 1, 55, 0, 0, 0, 0, 0),
 	(5319, 'toolbag_(shinobi-tabi)', 1, 1, 55, 0, 0, 0, 0, 0),
 	(5320, 'chunk_of_smelling_salts', 1, 1, 24, 0, 0, 0, 0, 0),
-	(5321, 'bottle_of_romance_potion', 1, 3, 24, 0, 0, 0, 0, 0),
+	(5321, 'bottle_of_romance_potion', 1, 3, 24, 0, 0, 0, 0, 1),
 	(5322, 'flask_of_healing_powder', 1, 3, 30, 0, 0, 0, 0, 1),
 	(5323, 'copy_of_the_brenner_bluebook', 1, 1, 0, 0, 0, 0, 0, 0),
 	(5324, 'page_of_the_brenner_bluebook', 1, 1, 0, 0, 0, 0, 0, 0),
@@ -1246,7 +1246,7 @@ INSERT INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `anim
 	(5442, 'thunderguard_dart', 32, 1, 0, 0, 0, 0, 0, 0),
 	(5443, 'magnus_stone_pouch', 1, 4, 55, 0, 0, 0, 0, 0),
 	(5444, 'bunch_of_grauberg_greens', 1, 4, 24, 0, 0, 0, 0, 0),
-	(5445, 'prismatic_elixir', 1, 4, 34, 0, 0, 0, 0, 0),
+	(5445, 'prismatic_elixir', 20, 1, 34, 0, 0, 0, 0, 0),
 	(5446, 'red_bubble-eye', 1, 1, 27, 0, 0, 0, 0, 0),
 	(5447, 'denizanasi', 1, 1, 25, 0, 0, 0, 0, 0),
 	(5448, 'kalamar', 1, 1, 25, 0, 0, 0, 0, 0),
@@ -1593,7 +1593,7 @@ INSERT INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `anim
 	(5830, 'lucid_elixir_i', 1, 4, 34, 0, 0, 0, 0, 0),
 	(5831, 'lucid_elixir_ii', 1, 4, 34, 0, 0, 0, 0, 0),
 	(5832, 'flask_of_healing_mist', 1, 4, 30, 0, 0, 0, 0, 1),
-	(5833, 'flask_of_mana_mist', 1, 4, 32, 0, 0, 0, 0, 1),
+	(5833, 'flask_of_mana_mist', 1, 2, 32, 0, 0, 0, 0, 1),
 	(5834, 'pair_of_lucid_wings_i', 1, 4, 34, 0, 0, 0, 0, 1),
 	(5835, 'tube_of_healing_salve_i', 1, 4, 0, 0, 0, 0, 0, 0),
 	(5836, 'tube_of_healing_salve_ii', 1, 4, 0, 0, 0, 0, 0, 0),
@@ -1749,7 +1749,7 @@ INSERT INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `anim
 	(14515, 'hydra_doublet', 1, 3, 0, 0, 20, 30, 1800, 0),
 	(14516, 'hydra_harness', 1, 3, 0, 0, 1, 30, 72000, 0),
 	(14517, 'hydra_haubert', 1, 3, 0, 0, 20, 30, 1800, 0),
-	(14531, 'bannaret_mail', 1, 3, 0, 0, 50, 30, 1800, 0),
+	(14531, 'bannaret_mail', 1, 3, 0, 0, 50, 60, 300, 0),
 	(14532, 'otoko_yukata', 1, 2, 0, 0, 1, 30, 604800, 0),
 	(14533, 'onago_yukata', 1, 2, 0, 0, 1, 30, 604800, 0),
 	(14534, 'otokogimi_yukata', 1, 2, 0, 0, 1, 30, 604800, 0),
@@ -2042,7 +2042,7 @@ INSERT INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `anim
 	(18844, 'miracle_wand', 4, 3, 0, 0, 10, 30, 7200, 0),
 	(18845, 'miracle_wand_+1', 4, 3, 0, 0, 1, 30, 432000, 0),
 	(18853, 'spirit_maul', 1, 3, 0, 0, 100, 30, 600, 0),
-	(18867, 'daedalus_hammer', 1, 3, 0, 0, 50, 30, 1800, 0),
+	(18867, 'daedalus_hammer', 1, 1, 0, 0, 50, 30, 1800, 0),
 	(18871, 'kitty_rod', 1, 0, 0, 0, 1, 30, 3600, 0),
 	(18879, 'rounsey_wand', 1, 8, 0, 0, 1, 30, 604800, 0),
 	(18880, 'maestros_baton', 1, 1, 0, 0, 1, 30, 3600, 0),
@@ -2053,7 +2053,11 @@ INSERT INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `anim
 	(19246, 'moggiebag', 1, 3, 0, 0, 8, 10, 259200, 0),
 	(26720, 'sheep_cap_+1', 1, 2, 55, 0, 1, 30, 86400, 0),
 	(27556, 'echad_ring', 1, 3, 76, 0, 1, 5, 7200, 0),
-	(28540, 'warp_ring', 1, 8, 80, 3, 1, 8, 600, 0);
+	(28540, 'warp_ring', 1, 8, 80, 3, 1, 8, 600, 0),
+	(5990, 'scroll_of_instant_stoneskin', 1, 1, 34, 1, 0, 0, 0, 0),
+	(6473, 'super_revitalizer', 1, 1, 10, 0, 0, 0, 0, 1),
+	(6475, 'pair_of_lucid_wings_ii', 1, 4, 34, 0, 0, 0, 0, 1),
+	(5945, 'prize_powder', 1, 1, 24, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `item_usable` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

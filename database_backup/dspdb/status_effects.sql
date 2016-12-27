@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS `status_effects` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.status_effects: 600 rows
+-- Dumping data for table dspdb.status_effects: 601 rows
 /*!40000 ALTER TABLE `status_effects` DISABLE KEYS */;
-INSERT INTO `status_effects` (`id`, `name`, `flags`, `type`, `negative_id`, `overwrite`, `block_id`, `remove_id`, `element`, `min_duration`) VALUES
+REPLACE INTO `status_effects` (`id`, `name`, `flags`, `type`, `negative_id`, `overwrite`, `block_id`, `remove_id`, `element`, `min_duration`) VALUES
 	(0, 'ko', 0, 0, 0, 0, 0, 0, 0, 0),
 	(1, 'weakness', 0, 0, 0, 3, 0, 0, 0, 1),
 	(2, 'sleep', 48, 2, 19, 2, 193, 0, 8, 1),
@@ -463,11 +463,11 @@ INSERT INTO `status_effects` (`id`, `name`, `flags`, `type`, `negative_id`, `ove
 	(445, 'copy_image', 32, 36, 0, 0, 0, 0, 0, 0),
 	(446, 'copy_image', 32, 36, 0, 0, 0, 0, 0, 0),
 	(447, 'multi_shots', 32, 0, 0, 0, 0, 0, 0, 0),
-	(448, 'bewildered_daze', 32, 0, 0, 0, 0, 0, 0, 0),
-	(449, 'bewildered_daze', 32, 0, 0, 0, 0, 0, 0, 0),
-	(450, 'bewildered_daze', 32, 0, 0, 0, 0, 0, 0, 0),
-	(451, 'bewildered_daze', 32, 0, 0, 0, 0, 0, 0, 0),
-	(452, 'bewildered_daze', 32, 0, 0, 0, 0, 0, 0, 0),
+	(448, 'bewildered_daze_1', 32, 0, 0, 0, 0, 0, 0, 0),
+	(449, 'bewildered_daze_2', 32, 0, 0, 0, 0, 0, 0, 0),
+	(450, 'bewildered_daze_3', 32, 0, 0, 0, 0, 0, 0, 0),
+	(451, 'bewildered_daze_4', 32, 0, 0, 0, 0, 0, 0, 0),
+	(452, 'bewildered_daze_5', 32, 0, 0, 0, 0, 0, 0, 0),
 	(453, 'divine_caress', 32, 0, 0, 0, 0, 0, 0, 0),
 	(454, 'saboteur', 32, 0, 0, 0, 0, 0, 0, 0),
 	(455, 'tenuto', 32, 0, 0, 0, 0, 0, 0, 0),
@@ -627,7 +627,8 @@ INSERT INTO `status_effects` (`id`, `name`, `flags`, `type`, `negative_id`, `ove
 	(800, 'dynamis', 0, 0, 0, 0, 0, 0, 0, 0),
 	(801, 'meditate', 32, 0, 0, 0, 0, 0, 7, 0),
 	(599, 'consume_mana', 32, 0, 0, 0, 0, 0, 0, 0),
-	(611, 'magic_evasion_boost', 33, 0, 0, 0, 0, 0, 0, 0);
+	(611, 'magic_evasion_boost', 33, 0, 0, 0, 0, 0, 0, 0),
+	(582, 'contradance', 32, 0, 0, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `status_effects` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
