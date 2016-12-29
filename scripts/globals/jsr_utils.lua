@@ -328,7 +328,8 @@ function jsrReward(player, rewards)
     if (rewards["gil"] ~= nil) then
         player:addGil(rewards["gil"]);
 --        player:SayToPlayer("Received " .. tostring(rewards["gil"]) .. " gil.");
-        player:messageSpecial(gil_zone_ids[zoneID],rewards["gil"]);
+--        player:messageSpecial(gil_zone_ids[zoneID],rewards["gil"]);
+        player:messageSpecial(GIL_OBTAINED,rewards["gil"]);
     end
 
     if (rewards["cp"] ~= nil) then
@@ -339,7 +340,8 @@ function jsrReward(player, rewards)
     if (rewards["beast"] ~= nil) then
         player:addItem(1126, rewards["beast"]);
         if (rewards["beast"] == 1) then
-            player:messageSpecial(item_zone_ids[zoneID],1126, rewards["beast"]);
+--            player:messageSpecial(item_zone_ids[zoneID],1126, rewards["beast"]);
+            player:messageSpecial(ITEM_OBTAINED,1126, rewards["beast"]);
         else
             player:SayToPlayer("Received " .. tostring(rewards["beast"]) .. " beastman seals.");
         end
@@ -347,18 +349,21 @@ function jsrReward(player, rewards)
 
     if (rewards["item"] ~= nil) then
         player:addItem(rewards["item"]);
-        player:messageSpecial(item_zone_ids[zoneID],rewards["item"]);
+--        player:messageSpecial(item_zone_ids[zoneID],rewards["item"]);
+        player:messageSpecial(ITEM_OBTAINED,rewards["item"]);
     end
 
     if (rewards["item2"] ~= nil) then
         player:addItem(rewards["item2"]);
-        player:messageSpecial(item_zone_ids[zoneID],rewards["item2"]);
+--        player:messageSpecial(item_zone_ids[zoneID],rewards["item2"]);
+        player:messageSpecial(ITEM_OBTAINED,rewards["item2"]);
     end
 
     if (rewards["augment"] ~= nil) then
         local arr = rewards["augment"];
         player:addItem(arr[1], 1, arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8], arr[9]);
-        player:messageSpecial(item_zone_ids[zoneID],arr[1]);
+--        player:messageSpecial(item_zone_ids[zoneID],arr[1]);
+        player:messageSpecial(ITEM_OBTAINED,arr[1]);
     end
 
     if (rewards["guild"] ~= nil) then
