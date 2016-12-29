@@ -21,6 +21,11 @@ function onMagicCastingCheck(caster,target,spell)
 	if (caster:hasStatusEffect(EFFECT_CONFRONTATION)) then
 		return MSGBASIC_UNABLE_TO_CAST;
 	end
+
+    if (not doAllyCost(caster, 10 * caster:getMainLvl())) then
+        return MSGBASIC_UNABLE_TO_CAST;
+	end
+
 	return 0;
 end;
 

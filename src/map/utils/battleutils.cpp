@@ -2050,7 +2050,7 @@ namespace battleutils
 
             if (diff < 0.4f) diff = 0.4f;
             if (diff > 1.4f) diff = 1.4f;
-            if (PWeapon->getSkillType() == SKILL_STF)
+            if (PWeapon && PWeapon->getSkillType() == SKILL_STF)
                 diff += 0.15f;
 
             float dex = PAttacker->DEX();
