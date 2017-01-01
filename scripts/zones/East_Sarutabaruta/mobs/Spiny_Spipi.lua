@@ -20,13 +20,13 @@ function onMobDespawn(mob)
 if (mob == nil or mob:getLocalVar("TimedOut") == 1) then
         return;
     end
-    if (mob:getSpawner() ~= nil) then
-        local player = mob:getSpawner();
-        if (player ~= nil) then
-            player:removeConfrontationFromParty();
-        end
-        return;
-    end
+--    if (mob:getSpawner() ~= nil) then
+--        local player = mob:getSpawner();
+--        if (player ~= nil) then
+--            player:removeConfrontationFromParty();
+--        end
+--        return;
+--    end
 
     -- Set Spiny_Spipi's Window Open Time
     local wait = math.random(1700,3200) -- JSR: shorter spawn time for Spipi
