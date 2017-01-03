@@ -35,10 +35,11 @@ function onTrigger(player,npc)
     local BatHuntCompleted = player:hasCompletedMission(SANDORIA,BAT_HUNT); -- quest repeatable and clicking tombstone should not produce cutscene on repeat
     local X = npc:getXPos();
     local Z = npc:getZPos();
-    
+
     if (X >= -1 and X <= 1 and Z >= -106 and Z <= -102) then
-        if (currentMission == BAT_HUNT and MissionStatus <= 1) then 
-            player:startEvent(0x0004);
+        if (currentMission == BAT_HUNT and MissionStatus <= 1) then
+            player:setVar("MissionStatus",2);
+--            player:startEvent(0x0004);
         else
             player:startEvent(0x0002);
         end
