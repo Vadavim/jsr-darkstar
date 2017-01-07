@@ -40,6 +40,7 @@ local function special_stock(stock, points)
             skill = element;
             threshold = cost; -- default threshold
         end
+        if (threshold == nil) then threshold = cost end
 
         if (points[skill] > threshold) then
             table.insert(newStock, id);
@@ -52,14 +53,13 @@ end
 
 local function attackFood(player, points)
     local stock = {
-        4137,   80,    --Grilled Hare
-        4507,   110,    --Rarab Meatball
+        4371,   80,    --Grilled Hare
         4507,   110,    --Rarab Meatball
         4411,   220,    --Dhalmel Pie
         4517,   300,    --Yellow Curry
         5190,   310,    --Carbonara
         5598,   390,    --Sis Kebabi
-        5598,   450,    --Coeurl Sub
+        5166,   450,    --Coeurl Sub
         5211,   600,    --Spaghetti Arrabbiata
         4547,   620,    --Boiled Cockatrice
         5685,   950,    --Rabbit Pie

@@ -11370,6 +11370,22 @@ inline int32 CLuaBaseEntity::moveSpawn(lua_State *L)
     return 1;
 }
 
+inline int32 CLuaBaseEntity::recordTreasureLoc(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    float xPos = (float)lua_tonumber(L, 1);
+    float yPos = (float)lua_tonumber(L, 2);
+    float zPos = (float)lua_tonumber(L, 3);
+    uint8 rot = (uint8)lua_tonumber(L, 4);
+    uint8 zoneId = (uint8)lua_tointeger(L, 5);
+
+//    SET pos_x = %f, pos_y = %f, pos_z = %f, pos_rot = %d
+    const int8* moveQuery = "INSERT INTO spots_for_treasure SET pos_x = %f , pos_y = %f , pos_z = %f , rot = %d , zone = %d";
+
+    return 1;
+}
+
 inline int32 CLuaBaseEntity::grabNPCList(lua_State *L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
@@ -12241,6 +12257,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,pushSkillchain),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,disableSpawn),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,moveSpawn),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,recordTreasureLoc),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,grabNPCList),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeOldestRune),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllRunes),

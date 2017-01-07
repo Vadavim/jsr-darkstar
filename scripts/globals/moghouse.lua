@@ -48,13 +48,13 @@ local function crystalEnchant(player, npc, trade)
     if (augmented) then
         return false;
     end
-    local id = trade:getItem(1);
-    local crystal = trade:getItem(0);
+    local id = trade:getItemId(1);
+    local crystal = trade:getItemId(0);
     local crystalAmount = trade:getSlotQty(0);
 
-    local isSecondTier = id >= 4238 and id <= 4245;
+--    local isSecondTier = id >= 4238 and id <= 4245;
 
-    if (not (isSecondTier or (crystal >= 4096 and crystal <= 4103)) or id == 0) then
+    if (not ((crystal >= 4096 and crystal <= 4103)) and id == 0) then
         return false
     end
 
@@ -63,18 +63,16 @@ local function crystalEnchant(player, npc, trade)
     local level = item:getLevel();
 
     local buffTier = 0;
-    if (crystalAmount == 4) then
+    if (crystalAmount == 12) then
         buffTier = 1;
-        if (isSecondTier) then
-            buffTier = 2;
-        end
 
 --    elseif (crystalAmount == 8) then buffTier = 2;
 --    elseif (crystalAmount == 12) then buffTier = 3;
     end
 
 
-    if (buffTier == 0 or level < (buffTier - 1) * 35) then
+--    if (buffTier == 0 or level < (buffTier - 1) * 35) then
+    if (buffTier == 0) then
         return false;
     end
 
