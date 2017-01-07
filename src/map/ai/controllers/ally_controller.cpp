@@ -55,10 +55,6 @@ void CAllyController::DoRoamTick(time_point tick) {
         return;
     }
 
-    if (PetIsHealing()) {
-        ShowDebug("Is healing?");
-        return;
-    }
 
     restCounter += 1;
     if (restCounter >= 10) {
