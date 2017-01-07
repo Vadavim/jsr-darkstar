@@ -11,7 +11,7 @@ cmdprops =
 
 
 local function doStorage(player, storage, kind)
-    local mult = 20;
+    local mult = 6;
     local size = 0;
     local type = "gil";
     local containerNumber = 0;
@@ -20,21 +20,21 @@ local function doStorage(player, storage, kind)
     elseif (storage == "sack") then
         containerNumber = 6;
         type = "cp";
-        mult = 4;
+        mult = 3;
     elseif (storage == "safe") then
         containerNumber = 1;
-        mult = 10;
+        mult = 6;
     elseif (storage == "satchel") then
         containerNumber = 5;
         type = "cp";
-        mult = 4;
+        mult = 3;
     elseif (storage == "case") then
         containerNumber = 7;
         type = "cp";
-        mult = 4;
+        mult = 3;
     elseif (storage == "wardrobe") then
         containerNumber = 8;
-        mult = 80;
+        mult = 12;
     else
         player:SayToPlayer("That is not a storage type!");
         return;
@@ -47,7 +47,7 @@ local function doStorage(player, storage, kind)
         return;
     end
 
-    local cost = ((size * size) / 2)  * mult;
+    local cost = ((size * size) / 2)  * mult + 500;
     if (kind == "check") then
         local message = "The cost to upgrade this storage is: " .. tostring(cost) .. " " .. type;
         player:SayToPlayer(message);

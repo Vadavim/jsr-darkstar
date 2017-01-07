@@ -3192,6 +3192,7 @@ inline int32 CLuaBaseEntity::setVar(lua_State *L)
     return 1;
 }
 
+
 /************************************************************************
 *                                                                       *
 *  Увеличиваем/уменьшаем значение временной переменной                  *
@@ -11382,6 +11383,7 @@ inline int32 CLuaBaseEntity::recordTreasureLoc(lua_State *L)
 
 //    SET pos_x = %f, pos_y = %f, pos_z = %f, pos_rot = %d
     const int8* moveQuery = "INSERT INTO spots_for_treasure SET pos_x = %f , pos_y = %f , pos_z = %f , rot = %d , zone = %d";
+    Sql_Query(SqlHandle, moveQuery, xPos, yPos, zPos, rot, zoneId);
 
     return 1;
 }

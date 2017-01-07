@@ -38,9 +38,24 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
             end
         end
 
+        local zid = player:getZoneID()
+        local fid = mob:getFamily()
+        local sid = mob:getSystem()
+        local fname = "achv_f" .. fid .. "_kill"
+        local zname = "achv_z" .. zid .. "_kill"
+        local sname = "achv_s" .. sid .. "_kill"
+        player:setVar(zname, player:getVar(zname) + 1)
+        player:setVar(fname, player:getVar(fname) + 1)
+        player:setVar(sname, player:getVar(sname) + 1)
+        if (mob:isNM()) then
+            local NMname = "achv_NM" .. zid .. "_kill"
+            player:setVar(NMname, player:getVar(NMname) + 1)
+        end
+
 
 
     end
+
 
 
 
