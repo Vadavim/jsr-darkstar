@@ -752,10 +752,15 @@ void SetupJob(CMobEntity* PMob)
 
 void SetupRoaming(CMobEntity* PMob)
 {
-    uint16 distance = 10;
+//    uint16 distance = 10;
+//    uint16 turns = 1;
+//    uint16 cool = 20;
+//    uint16 rate = 15;
+
+    uint16 distance = 30;
     uint16 turns = 1;
     uint16 cool = 20;
-    uint16 rate = 15;
+    uint16 rate = 30;
 
     switch(PMob->m_EcoSystem)
     {
