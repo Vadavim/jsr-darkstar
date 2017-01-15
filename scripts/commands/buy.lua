@@ -246,14 +246,16 @@ end
 
 local function automatonParts(player, points)
     local stock = {
-        8193,   2500,    --Valoredge Head
-        8225,   5000,    --Valoredge Frame
-        8195,   2500,    --Sharpshot Head
-        8226,   5000,    --Sharpshot Frame
-        8196,   2500,    --Stormwaker Head
-        8227,   5000,    --Stormwaker Frame
-        8197,   8000,    --Soulsoother Head
-        8198,   8000,    --Spiritreaver Head
+        8193,   500,    --Harlequin Head
+        8193,   500,    --Harlequin Frame
+        8193,   1250,    --Valoredge Head
+        8225,   2500,    --Valoredge Frame
+        8195,   1250,    --Sharpshot Head
+        8226,   2500,    --Sharpshot Frame
+        8196,   1250,    --Stormwaker Head
+        8227,   2500,    --Stormwaker Frame
+        8197,   4000,    --Soulsoother Head
+        8198,   4000,    --Spiritreaver Head
     };
     return stock;
 end

@@ -60,6 +60,9 @@ MERIT POINTS
  - The Max Merit Points merit does not increase maximum merit points. 
 	- Instead, when you purchase it, 10 High Kingdred Crests are placed into your inventory.
 
+GIL / DROPS
+ - When the level difference between you and a monster is high, there is an increased chance for gil and items (and bonus gil)
+
 EXPERIENCE POINTS
 
  - The permonster XP cap has been raised significantly.

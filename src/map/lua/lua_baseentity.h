@@ -646,6 +646,7 @@ public:
     int32 getModelSize(lua_State* L);
     int32 getTargetsWithinArea(lua_State* L);
     int32 getHateTarget(lua_State* L);
+    int32 getJobLevel(lua_State* L);
 };
 
 #endif

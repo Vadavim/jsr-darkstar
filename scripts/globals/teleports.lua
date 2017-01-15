@@ -913,3 +913,19 @@ end;
 function toLufaise(player)
     player:setPos(438 ,0 ,-18 ,11 ,24);
 end;
+
+function toSurvivalWestRonfaure(player)
+    player:setPos(-451 ,-19 ,-217 ,126, 100);
+end;
+
+function toSurvivalBostOubliette(player)
+    player:setPos(-13 ,0 ,25 ,0, 167);
+end;
+
+function toSurvivalLaTheine(player)
+    player:setPos(-13 ,0 ,25 ,0, 167);
+end;
+
+function toSurvivalMisareaux(player)
+    player:setPos(-59 ,0 ,30 ,0, 167);
+end;

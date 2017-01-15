@@ -30,5 +30,5 @@ end;
 -----------------------------------------
 
 function onItemUse(target)
-    target:addStatusEffect(EFFECT_DEDICATION,75,0,43200,0,10000);
+    target:addStatusEffect(EFFECT_DEDICATION,75,0,43200,0,3000);
 end;

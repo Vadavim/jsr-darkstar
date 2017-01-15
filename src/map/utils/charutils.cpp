@@ -3091,7 +3091,8 @@ namespace charutils
 
         int lDif = PMob->GetMLevel() - PChar->GetMLevel();
         double gilBonus = lDif < 0 ? 0 : ((double)dsp_cap(lDif * lDif, 0, 100) * 2) / 100.0f;
-        gil = (gil * (1 + gilBonus));
+        gil = (gil * (1 + gilBonus) + gilBonus * 200);
+
 
         // Distribute gil to player/party/alliance
         if (PChar->PParty != nullptr)

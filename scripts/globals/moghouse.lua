@@ -60,7 +60,7 @@ local function crystalEnchant(player, npc, trade)
 
 
     local item = getItem(id);
-    local level = item:getLevel();
+--    local level = item:getLevel();
 
     local buffTier = 0;
     if (crystalAmount == 12) then
@@ -92,6 +92,27 @@ local function crystalEnchant(player, npc, trade)
     return true;
 end
 
+local function noSaleTrade(player, npc, trade)
+    local total = 0;
+    for x=0,7 do
+        local item = trade:getItem(x);
+        if (item ~= nil and trade:getItemId(x) ~= 0) then
+            if (item:isNoSale() ~= true) then return false end;
+            total = total + item:getBasePrice() * trade:getItemCount(x);
+        end
+    end
+
+    if (total > 0) then
+        player:tradeComplete();
+        player:addGil(total);
+        player:SayToPlayer("Received " .. tostring(total) .. " gil.");
+        return true;
+    end
+
+    return false;
+
+end
+
 
 function moogleTrade(player,npc,trade)
     if (player:isInMogHouse()) then
@@ -111,6 +132,10 @@ function moogleTrade(player,npc,trade)
     if (attachment > 8193 and attachment <= 8681) then
         player:unlockAttachment(attachment);
         player:tradeComplete();
+        return true;
+    end
+
+    if (noSaleTrade(player, npc, trade) == true) then
         return true;
     end
 

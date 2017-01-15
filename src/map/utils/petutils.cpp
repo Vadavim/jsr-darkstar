@@ -1557,7 +1557,7 @@ namespace petutils
             PPet->setModifier(MOD_ACC, battleutils::GetMaxSkill(SKILL_CLB, JOB_WHM, PPet->GetMLevel()));
             //Set E evasion and def
             PPet->setModifier(MOD_EVA, battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PPet->GetMLevel()));
-            PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PPet->GetMLevel()));
+            PPet->setModifier(MOD_DEF, 1.5 * battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PPet->GetMLevel()));
             // cap all magic skills so they play nice with spell scripts
             for (int i = SKILL_DIV; i <= SKILL_BLU; i++) {
                 uint16 maxSkill = battleutils::GetMaxSkill((SKILLTYPE)i, PPet->GetMJob(), PPet->GetMLevel());

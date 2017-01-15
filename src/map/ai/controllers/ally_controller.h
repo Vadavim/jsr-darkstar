@@ -84,6 +84,7 @@ private:
     time_point m_ability3;
     time_point m_ability4;
     time_point m_ability5;
+    time_point m_ability6;
 
     uint16 targid;
     CBattleEntity* lastTarget;

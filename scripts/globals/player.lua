@@ -28,6 +28,14 @@ function onGameIn(player, firstlogin, zoning)
         -- Nothing here yet :P
     end
 
+    player:addNationTeleport(0,2097120);
+    player:addNationTeleport(1,2097120);
+    player:addNationTeleport(2,2097120);
+    player:addNationTeleport(0,10485760);
+    player:addNationTeleport(1,10485760);
+    player:addNationTeleport(2,10485760);
+
+
     -- Things checked BOTH during logon AND zone in below this line.
     checkForGearSet(player);
 
