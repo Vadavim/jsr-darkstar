@@ -403,7 +403,7 @@ function summonSpirit(caster, petType)
 --            pet:addStatusEffect(enspellTypes[petType + 1],power,0,3000);
 
             for i,v in pairs({8, 9, 10, 11, 12, 13, 14, 15, 16}) do
-                caster:setVar("avatar_" .. v, utils.clamp(target:getVar("avatar_" .. v) + 3, 0, 100));
+                caster:setVar("avatar_" .. v, utils.clamp(caster:getVar("avatar_" .. v) + 3, 0, 100));
             end
 
             local degen = 1 + pet:getMainLvl() / 2.5;
