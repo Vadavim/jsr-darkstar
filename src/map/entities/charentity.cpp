@@ -892,6 +892,8 @@ void CCharEntity::OnAbility(CAbilityState& state, action_t& action)
                 pushPacket(new CMessageBasicPacket(this, PTarget, 0, 0, MSGBASIC_UNABLE_TO_USE_JA));
                 return;
             }
+            charutils::TrySkillUP(this, SKILL_SUM, PTarget->GetMLevel());
+
         }
 
         if (battleutils::IsParalyzed(this)) {

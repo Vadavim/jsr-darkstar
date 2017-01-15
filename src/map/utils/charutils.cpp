@@ -2668,8 +2668,9 @@ namespace charutils
                 double chance = 0;
                 uint8  SkillAmount = 1;
                 uint8  tier = dsp_min(1 + (Diff / 5), 5);
+                int maxAttempts = CurSkill < 100 ? 12 : 6;
 
-                for (uint8 i = 0; i < 4; ++i) // 1 + 4 возможных дополнительных (максимум 5)
+                for (uint8 i = 0; i < maxAttempts; ++i) // 1 + 4 возможных дополнительных (максимум 5)
                 {
                     random = dsprand::GetRandomNumber(1.);
 
@@ -2682,8 +2683,9 @@ namespace charutils
                         case 1:  chance = 0.200; break;
                         default: chance = 0.000; break;
                     }
+                    if (SkillID == SKILL_SUM) chance *= 2;
 
-                    if (chance < random || SkillAmount == 5) break;
+                    if (chance < random || SkillAmount >= 8) break;
 
                     tier -= 1;
                     SkillAmount += 1;
