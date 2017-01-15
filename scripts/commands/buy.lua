@@ -247,8 +247,8 @@ end
 local function automatonParts(player, points)
     local stock = {
         8193,   500,    --Harlequin Head
-        8193,   500,    --Harlequin Frame
-        8193,   1250,    --Valoredge Head
+        8224,   500,    --Harlequin Frame
+        8194,   1250,    --Valoredge Head
         8225,   2500,    --Valoredge Frame
         8195,   1250,    --Sharpshot Head
         8226,   2500,    --Sharpshot Frame

@@ -11,16 +11,17 @@ package.loaded["scripts/zones/Windurst_Woods/TextIDs"] = nil;
 -----------------------------------
 
 function levelRewards(player)
+    local totalReward = 0;
+    local totalLevels = 0;
     for job=0,22 do
-        for level=5,75 do
-            local jobLevel = player:getJobLevel(job);
-            if (jobLevel >= level and player:getMaskBit("lvl" .. tostring(level) .. "_rewards", job) == 0) then
-                player:setMaskBit("lvl" .. tostring(level) .. "_rewards", job, true);
-            end
-
-        end
-
+        totalLevels = totalLevels + player:getJobLevel(job);
     end
+
+    local curReward = player:getVar("totalLevelReward");
+    while (curReward < totalLevels) do
+        totalReward = totalReward + 50 + curReward * 10;
+    end
+
 
 end
 
