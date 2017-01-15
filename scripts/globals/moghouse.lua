@@ -129,7 +129,7 @@ function moogleTrade(player,npc,trade)
     end
 
     local attachment = trade:getItemId(0);
-    if (attachment > 8193 and attachment <= 8681) then
+    if (attachment >= 8193 and attachment <= 8681 and trade:getItemCount() == 1) then
         player:unlockAttachment(attachment);
         player:tradeComplete();
         return true;
