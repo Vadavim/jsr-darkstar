@@ -335,6 +335,9 @@ function CharCreate(player)
 end;
 
 function onPlayerLevelUp(player)
+    for i,v in pairs({8, 9, 10, 11, 12, 13, 14, 15, 16}) do
+        player:setVar("avatar_" .. v, 100);
+    end
 end
 
 function onPlayerLevelDown(player)

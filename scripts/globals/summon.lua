@@ -402,6 +402,10 @@ function summonSpirit(caster, petType)
 --            local power = 1 + pet:getMainLvl() / 4;
 --            pet:addStatusEffect(enspellTypes[petType + 1],power,0,3000);
 
+            for i,v in pairs({8, 9, 10, 11, 12, 13, 14, 15, 16}) do
+                caster:setVar("avatar_" .. v, utils.clamp(target:getVar("avatar_" .. v) + 3, 0, 100));
+            end
+
             local degen = 1 + pet:getMainLvl() / 2.5;
             pet:addMod(MOD_REGEN_DOWN, degen);
             pet:addMod(MOD_ATTP, -25);
