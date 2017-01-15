@@ -579,14 +579,14 @@ end
 
 local function smn1(player, points)
     local stock = {
-        4896,   5000,   --Fire Spirit
-        4897,   5000,   --Ice Spirit
-        4898,   5000,   --Air Spirit
-        4899,   5000,   --Earth Spirit
-        4900,   5000,   --Thunder Spirit
-        4901,   5000,   --Water Spirit
-        4902,   15000,   --Light Spirit
-        4903,   15000,   --Dark Spirit
+        4896,   3000,   --Fire Spirit
+        4897,   3000,   --Ice Spirit
+        4898,   3000,   --Air Spirit
+        4899,   3000,   --Earth Spirit
+        4900,   3000,   --Thunder Spirit
+        4901,   3000,   --Water Spirit
+        4902,   3000,   --Light Spirit
+        4903,   8000,   --Dark Spirit
     };
     return stock;
 end

@@ -107,6 +107,14 @@ function moogleTrade(player,npc,trade)
         end
     end
 
+    local attachment = trade:getItemId(0);
+    if (attachment > 8193 and attachment <= 8681) then
+        player:unlockAttachment(attachment);
+        player:tradeComplete();
+        return true;
+    end
+
+
     if (crystalEnchant(player, npc, trade) == true) then
         return true;
     end
