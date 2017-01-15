@@ -179,6 +179,7 @@ namespace charutils
     void    AddWeaponSkillPoints(CCharEntity*, SLOTTYPE, int);
 
     int32   GetVar(CCharEntity* PChar, const char* var);
+    void   SetVar(CCharEntity* PChar, const char* var, uint32 amount);
     void ApplyBonusPoints(CCharEntity* PChar, uint16 id, uint32 sellAmount);
 };
 

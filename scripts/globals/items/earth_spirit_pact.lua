@@ -18,4 +18,5 @@ end;
 
 function onItemUse(target)
     target:addSpell(291);
+    target:addSpell(299);
 end;

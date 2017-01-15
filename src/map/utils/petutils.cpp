@@ -1044,9 +1044,21 @@ namespace petutils
 
         }
         else if (PPet->objtype == TYPE_PET){
+
+            CPetEntity* PPetEnt = (CPetEntity*)PPet;
+            if (PPetEnt->m_PetID >= 8 && PPetEnt->m_PetID <= 18 && PMaster->objtype == TYPE_PC) {
+                int pid = PPetEnt->m_PetID;
+                char* varname = pid == 8 ? "avatar_8" : pid == 9 ? "avatar_9"
+                    : pid == 10 ? "avatar_10" : pid == 11 ? "avatar_11"
+                    : pid == 12 ? "avatar_12" : pid == 13 ? "avatar_13"
+                    : pid == 14 ? "avatar_14" : pid == 15 ? "avatar_15"
+                    : pid == 16 ? "avatar_16" : "avatar_8";
+                charutils::SetVar((CCharEntity*)PMaster, varname, PPet->GetHPP());
+            }
+
+
             if (!PPet->isDead())
                 PPet->Die();
-            CPetEntity* PPetEnt = (CPetEntity*)PPet;
 
             if (PPetEnt->getPetType() == PETTYPE_AVATAR)
                 PMaster->setModifier(MOD_AVATAR_PERPETUATION, 0);
@@ -1082,6 +1094,7 @@ namespace petutils
         DSP_DEBUG_BREAK_IF(PMaster->PPet == nullptr);
 
         CBattleEntity* PPet = PMaster->PPet;
+//        if (PMaster->objtype == TYPE_PC && PPet && ((CPetEntity*)PPet)->m_PetID >=
 
         petutils::DetachPet(PMaster);
     }
@@ -1484,6 +1497,7 @@ namespace petutils
         PPet->m_PetID = PetID;
 
         if (PPet->getPetType() == PETTYPE_AVATAR){
+            PPet->setMobMod(34, 22);
             if (PMaster->GetMJob() == JOB_SMN){
                 PPet->SetMLevel(PMaster->GetMLevel());
             }

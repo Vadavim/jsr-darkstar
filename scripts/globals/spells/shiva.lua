@@ -30,7 +30,7 @@ function onSpellCast(caster,target,spell)
     if (pet ~= nil) then
         pet:addStatusEffect(EFFECT_SHIVA_S_FAVOR, 1, 15, 30000);
         pet:addStatusEffect(EFFECT_ENBLIZZARD,enspellPower,0,30000);
-        doSiphonBuff(caster, pet);
+        summonAvatar(caster);
     end
 
     return 0;

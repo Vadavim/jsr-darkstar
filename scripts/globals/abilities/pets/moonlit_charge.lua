@@ -19,7 +19,7 @@ function onPetAbility(target, pet, skill, master)
 	local accmod = 1.15;
 	local dmgmod = 4;
     skill:setSkillchain(84); -- Keen Edge = Compression
-    pet:addTP(100 + skill:getTP()); -- Add TP for using physical skill
+    pet:addTP(200 + skill:getTP()); -- Add TP for using physical skill
 
 
     local totaldamage = 0;

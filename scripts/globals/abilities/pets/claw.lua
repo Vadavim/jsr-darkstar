@@ -19,7 +19,7 @@ function onPetAbility(target, pet, skill)
     local dmgmod = 3.5;
 
     skill:setSkillchain(4); -- Backhand Blow: Detonation
-    pet:addTP(100 + skill:getTP()); -- add tp for using physical skill
+    pet:addTP(200 + skill:getTP()); -- add tp for using physical skill
 
     local totaldamage = 0;
     local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,0,TP_NO_EFFECT,1,2,3);

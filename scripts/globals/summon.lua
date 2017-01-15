@@ -399,17 +399,35 @@ function summonSpirit(caster, petType)
     if (caster:isPC()) then
         local pet = caster:getPet();
         if (pet ~= nil) then
-            local power = 1 + pet:getMainLvl() / 4;
-            pet:addStatusEffect(enspellTypes[petType + 1],power,0,3000);
+--            local power = 1 + pet:getMainLvl() / 4;
+--            pet:addStatusEffect(enspellTypes[petType + 1],power,0,3000);
 
             local degen = 1 + pet:getMainLvl() / 2.5;
             pet:addMod(MOD_REGEN_DOWN, degen);
-            pet:addMod(MOD_REGAIN, 50);
-            pet:addMod(MOD_ATTP, -15);
+            pet:addMod(MOD_ATTP, -25);
+            pet:addMod(MOD_HASTE_MAGIC, -200);
+            pet:addMod(MOD_FASTCAST, -50);
             pet:addMod(MOD_MDEF, 35);
             pet:addMod(MOD_MATT, -60);
             pet:addMod(MOD_MACC, 30);
-            caster:delMP(pet:getMainLvl() * 2);
+            caster:delMP(pet:getMainLvl() * 2.5);
+        end
+    end
+
+end
+
+function summonAvatar(caster)
+
+    if (caster:isPC()) then
+        local pet = caster:getPet()
+        if (pet ~= nil) then
+            local curHP = caster:getVar("avatar_" .. caster:getPetID())
+            pet:delHP(((100 - curHP) / 100.0) * pet:getMaxHP())
+
+            local degen = utils.clamp(pet:getMaxHP() * 0.015, 1, 200);
+            pet:addMod(MOD_REGEN_DOWN, degen);
+            pet:addMod(MOD_CURE_POTENCY_RCVD, -80);
+            caster:delMP(1 + pet:getMainLvl() * 0.5);
         end
     end
 

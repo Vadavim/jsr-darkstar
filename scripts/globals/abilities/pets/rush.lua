@@ -19,7 +19,7 @@ function onPetAbility(target, pet, skill)
     local dmgmod = 5;
     local dmgmodsubsequent = 2.5;
     skill:setSkillchain(15); -- Spiral Hell: Distortion / Scission
-    pet:addTP(300 + skill:getTP()); -- add tp for using physical skill
+    pet:addTP(600 + skill:getTP()); -- add tp for using physical skill
 
     local totaldamage = 0;
     local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,dmgmodsubsequent,TP_NO_EFFECT,1,2,3);

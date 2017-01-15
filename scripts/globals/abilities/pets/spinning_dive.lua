@@ -18,7 +18,7 @@ function onPetAbility(target, pet, skill)
     local accmod = 1.15;
     local dmgmod = 12;
     skill:setSkillchain(88); -- Steel Cyclone: Distortion / Detonation
-    pet:addTP(300 + skill:getTP()); -- add tp for using physical skill
+    pet:addTP(600 + skill:getTP()); -- add tp for using physical skill
 
     local totaldamage = 0;
     local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,0,TP_NO_EFFECT,1,2,3);

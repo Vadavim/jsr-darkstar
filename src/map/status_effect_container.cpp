@@ -1623,6 +1623,7 @@ void CStatusEffectContainer::CheckRegen(time_point tick)
                     if (perpetuation < 1)
                         perpetuation = 1;
                 }
+                perpetuation = 0; // JSR: disabled perpetuation for now
             }
 
             m_POwner->addMP(refresh - perpetuation);

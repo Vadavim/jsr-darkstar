@@ -12,7 +12,7 @@ require("scripts/globals/status");
 
 function onEffectGain(target,effect)
    local power = effect:getPower();
-   target:addMod(MOD_ARCANA_KILL, power);
+   target:addMod(MOD_ARCANA_KILLER, power);
    target:addMod(MOD_DARKRES, power * 5);
    target:addMod(MOD_CURSERES, power * 5);
    target:addMod(MOD_DARKDEF, 60);

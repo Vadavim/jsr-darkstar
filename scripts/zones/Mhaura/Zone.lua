@@ -26,7 +26,9 @@ end;
 -----------------------------------
 
 function onZoneIn(player,prevZone)
-    local cs = -1;
+    local cs = -1
+    player:speed(95);
+
     local currentday = tonumber(os.date("%j"));
     if ((player:getXPos() == 0) and (player:getYPos() == 0) and (player:getZPos() == 0)) then
         if (prevZone == 221 or prevZone == 47) then

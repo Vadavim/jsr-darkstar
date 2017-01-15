@@ -27,6 +27,7 @@ end;
 
 function onZoneIn(player,prevZone)
     local cs = -1;
+    player:speed(95);
 
     if ((player:getXPos() == 0) and (player:getYPos() == 0) and (player:getZPos() == 0)) then
         if (prevZone == 220) then

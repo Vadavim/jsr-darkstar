@@ -21,7 +21,7 @@ function onPetAbility(target, pet, skill, master)
 	local accmod = 1.15;
 	local dmgmod = 4.5;
     skill:setSkillchain(225); -- Arching Arrow = Fusion
-    pet:addTP(150 + skill:getTP()); -- Add TP for using physical skill
+    pet:addTP(300 + skill:getTP()); -- Add TP for using physical skill
 
     local totaldamage = 0;
     local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,0,TP_NO_EFFECT,1,2,3);

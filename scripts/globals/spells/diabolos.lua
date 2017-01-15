@@ -32,7 +32,7 @@ function onSpellCast(caster,target,spell)
         if (pet:getMainLvl() > 60) then refreshBuff = 2 end;
         pet:addStatusEffect(EFFECT_DIABOLOS_S_FAVOR, refreshBuff, 15, 3000);
         pet:addStatusEffect(EFFECT_ENDARK,enspellPower,0,3000);
-        doSiphonBuff(caster, pet);
+        summonAvatar(caster);
     end
 
     return 0;

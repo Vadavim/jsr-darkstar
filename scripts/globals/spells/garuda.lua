@@ -29,7 +29,7 @@ function onSpellCast(caster,target,spell)
     if (pet ~= nil) then
         pet:addStatusEffect(EFFECT_GARUDA_S_FAVOR, 1, 15, 3000);
         pet:addStatusEffect(EFFECT_ENAERO,enspellPower,0,3000);
-        doSiphonBuff(caster, pet);
+        summonAvatar(caster);
     end
     
 	return 0;

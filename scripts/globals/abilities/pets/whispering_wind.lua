@@ -21,7 +21,6 @@ function onPetAbility(target, pet, skill)
         durBonus = 90;
     end
 
-    
     target:addStatusEffect(EFFECT_REGEN,base,3,duration + durBonus);
     skill:setMsg(MSG_BUFF);
 	return EFFECT_REGEN;

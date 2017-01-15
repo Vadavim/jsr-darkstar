@@ -4898,6 +4898,15 @@ namespace charutils
         return 0;
     }
 
+    void SetVar(CCharEntity* PChar, const char* var, uint32 amount)
+    {
+//        const int8* fmtQuery = "SELECT value FROM char_vars WHERE charid = %u AND varname = '%s' LIMIT 1;";
+        const int8* fmtQuery = "INSERT INTO char_vars SET charid = %u, varname = '%s', value = %i ON DUPLICATE KEY UPDATE value = %i;";
+//        const int8* Query = "UPDATE char_vars SET %s = %d WHERE charid = %u;";
+
+        Sql_Query(SqlHandle, fmtQuery, PChar->id, var, amount, amount);
+    }
+
     void ApplyBonusPoints(CCharEntity* PChar, uint16 id, uint32 sellAmount)
     {
         const int8* fmtQuery = "SELECT guild,points FROM bonus_item_points WHERE itemid = %u LIMIT 1;";

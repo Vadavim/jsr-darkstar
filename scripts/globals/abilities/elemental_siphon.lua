@@ -92,7 +92,10 @@ function onUseAbility(player,target,ability)
     end
     
     local power = math.floor(basePower * weatherDayBonus * 0.5);
-    if (petID >= 0 and petID <= 7) then power = power * 2 end;
+    power = (1 + pet:getTP() / 1000) * power;
+    if (petID >= 0 and petID <= 7) then power = power * 0.5 end;
+    power = math.floor(power);
+    player:addTP(pet:getTP() * 0.5);
 
 --    power = utils.clamp(power, 0, spirit:getMP()); -- cap MP drained at spirit's MP
 --    power = utils.clamp(power, 0, player:getMaxMP() - player:getMP()); -- cap MP drained at the max MP - current MP

@@ -28,7 +28,8 @@ function onSpellCast(caster,target,spell)
     if (pet ~= nil) then
         pet:addStatusEffect(EFFECT_CARBUNCLE_S_FAVOR, power, 15, 3000);
         pet:addStatusEffect(EFFECT_ENLIGHT,enspellPower,0,3000);
-        doSiphonBuff(caster, pet);
+--        doSiphonBuff(caster, pet);
+        summonAvatar(caster);
     end
     
 	return 0;

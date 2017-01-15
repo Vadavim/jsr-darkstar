@@ -39,6 +39,13 @@ function onEffectTick(target,effect)
             target:addHP(healHP);
             target:updateEnmityFromCure(target, healHP);
 
+            if (target:isPC() and (target:getMainJob() == JOBS.SMN or target:getSubJob() == JOBS.SMN)) then
+                for i,v in pairs({8, 9, 10, 11, 12, 13, 14, 15, 16}) do
+                    target:setVar("avatar_" .. v, utils.clamp(target:getVar("avatar_" .. v) + 2, 0, 100));
+                end
+            end
+
+
          -- Each rank of Clear Mind provides +3 hMP (via MOD_MPHEAL)
          -- Each tic of healing should be +1mp more than the last
          -- Clear Mind III increases this to +2, and Clear Mind V to +3 (via MOD_CLEAR_MIND)

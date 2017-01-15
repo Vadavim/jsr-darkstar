@@ -23,6 +23,7 @@ end;
 
 function onZoneIn(player,prevZone)
     local cs = -1;
+    player:speed(95);
     -- FIRST LOGIN (START CS)
     if (player:getPlaytime(false) == 0) then
         if (OPENING_CUTSCENE_ENABLE == 1) then

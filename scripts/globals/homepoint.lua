@@ -138,7 +138,11 @@ freeHpTeleGroups[7] = { 41, 104}; -- Norg
 freeHpTeleGroups[8] = { 42, 105}; -- Rabao
 
 function homepointMenu( player, csid, hpIndex)
-    
+
+    for i,v in pairs({8, 9, 10, 11, 12, 13, 14, 15, 16}) do
+        player:setVar("avatar_" .. v, 100);
+    end
+
     if ( HOMEPOINT_HEAL == 1) then
         player:addHP(player:getMaxHP());
         player:addMP(player:getMaxMP());

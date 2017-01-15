@@ -21,7 +21,7 @@ function onPetAbility(target, pet, skill, master)
     local accmod = 1.15;
     local dmgmod = 5;
     skill:setSkillchain(19); -- Gust Slash: detonation
-    pet:addTP(200 + skill:getTP()); -- Add TP for using physical skill
+    pet:addTP(400 + skill:getTP()); -- Add TP for using physical skill
 
     -- Deal Damage
     local totaldamage = 0;

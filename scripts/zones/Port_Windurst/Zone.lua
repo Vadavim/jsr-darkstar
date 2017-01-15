@@ -26,6 +26,7 @@ end;
 -----------------------------------
 
 function onZoneIn(player,prevZone)
+    player:speed(95);
     local cs = -1;
     -- FIRST LOGIN (START CS)
     if (player:getPlaytime(false) == 0) then

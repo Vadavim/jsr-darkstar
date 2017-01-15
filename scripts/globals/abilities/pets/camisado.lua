@@ -20,7 +20,7 @@ function onPetAbility(target, pet, skill, master)
     local dmgmod = 3.5;
 
     skill:setSkillchain(84); -- Keen Edge: Compression
-    pet:addTP(100 + skill:getTP()); -- Add TP for using physical skill
+    pet:addTP(200 + skill:getTP()); -- Add TP for using physical skill
 
     local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,0,TP_NO_EFFECT,1,2,3);
     local resist = applyPlayerResistance(pet,-1,target,

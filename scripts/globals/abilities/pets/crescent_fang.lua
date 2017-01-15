@@ -19,7 +19,7 @@ function onPetAbility(target, pet, master)
 	local accmod = 1.15;
 	local dmgmod = 5;
     skill:setSkillchain(49); -- Power Slash = Transfixion
-    pet:addTP(150 + skill:getTP()); -- Add TP for using physical skill
+    pet:addTP(300 + skill:getTP()); -- Add TP for using physical skill
 
     local totaldamage = 0;
     local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,0,TP_NO_EFFECT,1,2,3);

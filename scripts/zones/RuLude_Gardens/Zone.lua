@@ -26,6 +26,7 @@ end;
 
 function onZoneIn(player,prevZone)
     local cs = -1;
+    player:speed(95);
     -- MOG HOUSE EXIT
     if (player:getXPos() == 0 and player:getYPos() == 0 and player:getZPos() == 0) then
         position = math.random(1,5) + 45;

@@ -34,7 +34,8 @@ function onZoneIn(player,prevZone)
     local currentMission = player:getCurrentMission(SANDORIA);
     local MissionStatus = player:getVar("MissionStatus");
     local cs = -1;
-    
+    player:speed(95);
+
     -- FIRST LOGIN (START CS)
     if (player:getPlaytime(false) == 0) then
         if (OPENING_CUTSCENE_ENABLE == 1) then

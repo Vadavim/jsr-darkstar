@@ -21,7 +21,7 @@ function onPetAbility(target, pet, skill, master)
 	local dmgmod = 10;
 	local dmgmodsubsequent = 1;
     skill:setSkillchain(119); -- Wheeling Thrust = Fusion
-    pet:addTP(300 + skill:getTP()); -- add tp for using physical skill
+    pet:addTP(600 + skill:getTP()); -- add tp for using physical skill
 
     local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,0,TP_NO_EFFECT,1,2,3);
     --get resist multiplier (1x if no resist)
