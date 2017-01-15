@@ -1410,7 +1410,7 @@ function doAstralFlow(target, pet, skill, master, element)
 --    local damage = 48 + (level * 8);
     local mpBonus = master:getMP() * 0.25;
     master:delMP(mpBonus);
-    local damage = 10 + (level * 2) + (mpBonus * 0.5);
+    local damage = 40 + (level * 2) + (mpBonus * 0.5);
     damage = damage + (dINT * (1 + level * 0.035));
     damage = MobMagicalMove(pet,target,skill,damage,element,1,TP_DMG_VARIES,0);
     damage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_MAGICAL,MOBPARAM_NONE,1);

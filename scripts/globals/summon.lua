@@ -414,7 +414,7 @@ function summonSpirit(caster, petType)
             pet:addMod(MOD_MDEF, 35);
             pet:addMod(MOD_MATT, -60);
             pet:addMod(MOD_MACC, 30);
-            caster:delMP(pet:getMainLvl() * 2.5);
+            caster:delMP(5 + pet:getMainLvl() * 2.5);
         end
     end
 
