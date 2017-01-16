@@ -502,26 +502,26 @@ bool CAllyController::TrySpecialSkill() {
                 return useJobAbility(PAlly, ABILITY_AGGRESSOR, m_ability3);
         }
 
-        if (lvl >= 35 && isReady(m_ability4, 180) && notHave(PAlly, EFFECT_WARCRY))
+        if (lvl >= 35 && isReady(m_ability4, 120) && notHave(PAlly, EFFECT_WARCRY))
             return useJobAbility(PAlly, ABILITY_WARCRY, m_ability4);
     }
     else if (id == PETID_CURILLA) {
         if (lvl >= 10 && notHave(PAlly, EFFECT_DEFENDER))
             return useJobAbility(PAlly, ABILITY_DEFENDER, m_ability1);
 
-        if (lvl >= 30 && notHave(PAlly, EFFECT_SENTINEL) && isReady(m_ability1, 300))
+        if (lvl >= 30 && notHave(PAlly, EFFECT_SENTINEL) && isReady(m_ability2, 300))
             return useJobAbility(PAlly, ABILITY_SENTINEL, m_ability2);
 
-        if (lvl >= 10 && PTarget != nullptr && isReady(m_ability2, 30))
+        if (lvl >= 10 && PTarget != nullptr && isReady(m_ability3, 30))
             return useJobAbility(PTarget, ABILITY_PROVOKE, m_ability3);
 
-        if (lvl >= 20 && isReady(m_ability3, 180))
+        if (lvl >= 20 && isReady(m_ability4, 120))
             return useJobAbility(PAlly, ABILITY_DIVINE_EMBLEM, m_ability4);
 
-        if (lvl >= 40 && isReady(m_ability4, 180))
+        if (lvl >= 40 && isReady(m_ability5, 120))
             return useJobAbility(PAlly, ABILITY_DIVINE_SEAL, m_ability5);
 
-        if (lvl >= 35 && isReady(m_ability5, 300) && PTarget != nullptr && PTarget->GetBattleTarget() != nullptr
+        if (lvl >= 35 && isReady(m_ability6, 180) && PTarget != nullptr && PTarget->GetBattleTarget() != nullptr
                 && PTarget->GetBattleTarget() != PAlly && PTarget->GetBattleTarget()->GetHPP() <= 50)
             return useJobAbility(PTarget->GetBattleTarget(), ABILITY_COVER, m_ability6);
     }

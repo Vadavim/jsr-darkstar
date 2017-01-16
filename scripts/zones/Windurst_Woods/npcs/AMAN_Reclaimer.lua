@@ -8,22 +8,9 @@
 -- Auto-Script: Requires Verification (Verfied By Brawndo)
 -----------------------------------
 package.loaded["scripts/zones/Windurst_Woods/TextIDs"] = nil;
+require("scripts/globals/jsr_utils");
 -----------------------------------
 
-function levelRewards(player)
-    local totalReward = 0;
-    local totalLevels = 0;
-    for job=0,22 do
-        totalLevels = totalLevels + player:getJobLevel(job);
-    end
-
-    local curReward = player:getVar("totalLevelReward");
-    while (curReward < totalLevels) do
-        totalReward = totalReward + 50 + curReward * 10;
-    end
-
-
-end
 
 -----------------------------------
 -- onTrade Action
@@ -37,7 +24,7 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    player:SayToPlayer("HI");
+    require("scripts/globals/jsr_utils");
     levelRewards(player);
 end;
 

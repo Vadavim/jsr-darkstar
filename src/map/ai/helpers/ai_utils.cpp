@@ -80,7 +80,7 @@ namespace aiutils {
         CBattleEntity* curTarget = nullptr;
         std::vector<CBattleEntity*> party = getWholeParty(caster);
         for (CBattleEntity* member : party) {
-            if (member->objtype == TYPE_PET)
+            if (member->objtype == TYPE_PET && ((CPetEntity*)member)->getPetType() != PETTYPE_ALLY)
                 continue;
             if (member->GetHPP() <= lowest) {
 //        if ((member->objtype == TYPE_PET && member->GetHPP() <= lowest && caster->GetBattleTarget()->GetBattleTarget() == member)

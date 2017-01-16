@@ -1111,3 +1111,27 @@ end
 }
 
 
+function levelRewards(player)
+    local totalReward = 0;
+    local totalLevels = 0;
+    for job=0,22 do
+        totalLevels = totalLevels + player:getJobLevel(job);
+    end
+
+    local curReward = player:getVar("totalLevelReward");
+    while (curReward + 5 <= totalLevels) do
+        totalReward = totalReward + 1000;
+        curReward = curReward + 5;
+    end
+
+    if (totalReward > 0) then
+        player:setVar("totalLevelReward", curReward);
+        player:SayToPlayer("For your efforts in leveling, you receive " .. tostring(totalReward) .. " gil!");
+        player:addCurrency("spark_of_eminence", curReward / 100);
+        player:SayToPlayer("For your efforts in leveling, you receive " .. tostring(totalReward / 100) .. " sparks!");
+        player:addGil(totalReward);
+    end
+
+
+
+end

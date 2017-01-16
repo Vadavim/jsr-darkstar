@@ -35,7 +35,7 @@ function onSpellCast(caster,target,spell)
 --	ally:addMod(MOD_ATTP, 100);
 --	ally:addMod(MOD_DOUBLE_ATTACK, 100);
 --	ally:addMod(MOD_TRIPLE_ATTACK, 100);
---    ally:addMod(MOD_ENMITY, -25);
+    ally:addMod(MOD_ENMITY, -15);
 --    ally:addMod(MOD_HPHEAL, caster:getMainLvl());
 
     
