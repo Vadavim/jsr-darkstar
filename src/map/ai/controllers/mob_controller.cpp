@@ -141,6 +141,11 @@ void CMobController::TryLink()
         }
     }
 
+//    if (PTarget->objtype == TYPE_PC) {
+//            ally->PAI->Engage(targid);
+//        }
+//    }
+
     // my pet should help as well
     if (PMob->PPet != nullptr && PMob->PPet->PAI->IsRoaming())
     {
@@ -162,6 +167,8 @@ void CMobController::TryLink()
                 {
                     // force into attack action
                     //#TODO
+                    PPartyMember->SetLocalVar("linked", 1);
+                    PMob->SetLocalVar("linked", 1);
                     PPartyMember->PAI->Engage(PTarget->targid);
                 }
             }

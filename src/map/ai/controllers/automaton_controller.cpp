@@ -198,6 +198,7 @@ bool CAutomatonController::combatHarlHarl(int mS) {
     int sHaste = mS < 100 ? 0 : 57;
     int sGain = mS < 80 ? 0 : 486; // Gain Strength
     int sDistract = mS < 96 ? 0 : mS < 190 ? 841 : 842; // Distract I and II
+    int sInundation = mS < 165 ? 0 : 879;
 
 
     CBattleEntity* master = PAutomaton->PMaster;
@@ -215,7 +216,10 @@ bool CAutomatonController::combatHarlHarl(int mS) {
 
 
     // try to enfeeble
-    if (isReady(m_enfeebleTick, PAutomaton->m_enfeebleDelay + manaMod) && PTarget != nullptr) {
+    int levelDiff = PTarget->GetMLevel() - PAutomaton->GetMLevel();
+
+
+    if (isReady(m_enfeebleTick, PAutomaton->m_enfeebleDelay + manaMod) && PTarget != nullptr && levelDiff >= 2) {
         bool b75 = (PTarget->GetHPP() >= 75);
         bool b50 = (PTarget->GetHPP() >= 50);
         bool b25 = (PTarget->GetHPP() >= 25);
@@ -226,6 +230,7 @@ bool CAutomatonController::combatHarlHarl(int mS) {
         if (b50 && canCast(sDia) && mList.light >= 1 && notHave(PTarget, EFFECT_DIA) && notHave(PTarget, EFFECT_BIO))
             return choose(target, sDia, m_enfeebleTick);
 
+
         if (b50 && canCast(sPoison) && mList.water >= 1 && notHave(PTarget, EFFECT_POISON))
             return choose(target, sPoison, m_enfeebleTick);
 
@@ -233,6 +238,12 @@ bool CAutomatonController::combatHarlHarl(int mS) {
             return choose(target, sDistract, m_enfeebleTick);
 
     }
+
+    if (isReady(m_nukeTick, PAutomaton->m_nukeDelay + 30 + manaMod) && PTarget != nullptr && levelDiff >= 0) {
+        if (canCast(sInundation) && notHave(PTarget, EFFECT_CHAINBOUND))
+            return choose(target, sInundation, m_nukeTick);
+    }
+
 
     if (isReady(m_enhanceTick, PAutomaton->m_enhanceDelay + manaMod)) {
         if (canCast(sHaste) && notHave(master, EFFECT_HASTE))

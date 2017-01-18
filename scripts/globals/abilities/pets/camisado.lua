@@ -10,14 +10,14 @@ require("scripts/globals/summon");
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
-    ability:setRecast(20);
+    ability:setRecast(18);
     return 0,0;
 end;
 
 function onPetAbility(target, pet, skill, master)
     local numhits = 1;
-    local accmod = 1.15;
-    local dmgmod = 3.5;
+    local accmod = 1.25;
+    local dmgmod = 2.7;
 
     skill:setSkillchain(84); -- Keen Edge: Compression
     pet:addTP(200 + skill:getTP()); -- Add TP for using physical skill

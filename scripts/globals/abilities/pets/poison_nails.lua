@@ -12,14 +12,14 @@ require("scripts/globals/utils");
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
-    ability:setRecast(20);
+    ability:setRecast(25);
     return 0,0;
 end;
 
 function onPetAbility(target, pet, skill, master)
 	local numhits = 1;
 	local accmod = 1.15;
-	local dmgmod = 2.5;
+	local dmgmod = 2.25;
     skill:setSkillchain(49); -- Power Slash = Transfixion
     pet:addTP(200 + skill:getTP()); -- Add TP for using physical skill
 

@@ -10,7 +10,7 @@ require("scripts/globals/summon");
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
-    ability:setRecast(35);
+    ability:setRecast(40);
     return 0,0;
 end;
 

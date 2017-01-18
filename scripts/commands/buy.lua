@@ -552,29 +552,29 @@ end
 
 local function sch1(player, points)
     local stock = {
-        6045,   2500,   --Geohelix
-        6042,   3000,   --Hydrohelix
-        6046,   3500,    --Anemohelix
-        6041,   4000,    --Pyrohelix
-        6044,   4500,    --Cryohelix
-        6043,   5000,    --Ionohelix
-        6048,   6000,    --Noctohelix
-        6047,   7000,    --Luminohelix
+        6045,   2000,   --Geohelix
+        6042,   2000,   --Hydrohelix
+        6046,   2000,    --Anemohelix
+        6041,   2000,    --Pyrohelix
+        6044,   2000,    --Cryohelix
+        6043,   2000,    --Ionohelix
+        6048,   2000,    --Noctohelix
+        6047,   2000,    --Luminohelix
     };
     return stock;
 end
 
 local function sch2(player, points)
     local stock = {
-        6053,   10000,   --Sandstorm
-        6050,   10000,   --Rainstorm
-        6054,   10000,    --Windstorm
-        6049,   10000,    --Firestorm
-        6052,   10000,    --Hailstorm
-        6058,   20000,    --Klimaform
-        6051,   10000,    --Thunderstorm
-        6056,   10000,    --Voidstorm
-        6055,   10000,    --Aurorastorm
+        6053,   3000,   --Sandstorm
+        6050,   3000,   --Rainstorm
+        6054,   3000,    --Windstorm
+        6049,   3000,    --Firestorm
+        6052,   3000,    --Hailstorm
+        6058,   6000,    --Klimaform
+        6051,   3000,    --Thunderstorm
+        6056,   3000,    --Voidstorm
+        6055,   3000,    --Aurorastorm
     };
     return stock;
 end

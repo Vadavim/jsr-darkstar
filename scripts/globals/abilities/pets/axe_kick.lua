@@ -16,8 +16,8 @@ end;
 
 function onPetAbility(target, pet, skill)
     local numhits = 1;
-    local accmod = 1.15;
-    local dmgmod = 3.5;
+    local accmod = 1.1;
+    local dmgmod = 3;
     skill:setSkillchain(50); -- Frostbite: Induration
     pet:addTP(200 + skill:getTP()); -- Add TP for using physical skill
 

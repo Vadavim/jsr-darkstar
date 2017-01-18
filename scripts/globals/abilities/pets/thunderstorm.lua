@@ -16,6 +16,6 @@ end;
 
 function onPetAbility(target, pet, skill, master)
     local merits = master:getMerit(MERIT_THUNDERSTORM);
-    return avatarMagicalMove(target, pet, skill, ELE_EARTH, 512 + merits * 5, 4.0, 0.24);
+    return avatarMagicalMove(target, pet, skill, ELE_THUNDER, 600 + merits * 5, 4.0, 0.30);
 end
 

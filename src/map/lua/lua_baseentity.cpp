@@ -10690,6 +10690,8 @@ inline int32 CLuaBaseEntity::addBurden(lua_State* L)
     if (((CBattleEntity*)m_PBaseEntity)->PPet && ((CPetEntity*)((CBattleEntity*)m_PBaseEntity)->PPet)->getPetType() == PETTYPE_AUTOMATON)
     {
         lua_pushinteger(L, ((CAutomatonEntity*)((CBattleEntity*)m_PBaseEntity)->PPet)->addBurden(lua_tointeger(L, 1), lua_tointeger(L, 2)));
+        SKILLTYPE autoSkills[3] = {SKILL_AMA, SKILL_AME, SKILL_ARA};
+        puppetutils::TrySkillUP((CAutomatonEntity*)((CBattleEntity*)m_PBaseEntity)->PPet, autoSkills[dsprand::GetRandomNumber(0, 2)], ((CBattleEntity*)m_PBaseEntity)->GetMLevel());
     }
     else
     {

@@ -17,7 +17,7 @@ end;
 function onPetAbility(target, pet, skill)
 	local numhits = 1;
 	local accmod = 1;
-	local dmgmod = 3.5;
+	local dmgmod = 3;
     skill:setSkillchain(33); -- burning blade = liquifaction
     pet:addTP(200 + skill:getTP()); -- add tp for using physical skill
 

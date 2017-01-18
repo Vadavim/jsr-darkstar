@@ -16,8 +16,8 @@ end;
 function onPetAbility(target, pet, master)
     local chr, summoning, level = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl();
 	local numhits = 1;
-	local accmod = 1.15;
-	local dmgmod = 5;
+	local accmod = 1.25;
+	local dmgmod = 3.3;
     skill:setSkillchain(49); -- Power Slash = Transfixion
     pet:addTP(300 + skill:getTP()); -- Add TP for using physical skill
 
@@ -30,7 +30,7 @@ function onPetAbility(target, pet, master)
     if(AvatarPhysicalHit(skill, totaldamage)) then
         local success = MobStatusEffectMove(pet, target, EFFECT_PARALYSIS, 30, 0, duration);
         if (success == 242) then
-            target:setPendingMessage(277, EFFECT_BLINDNESS);
+            target:setPendingMessage(277, EFFECT_PARALYSIS);
         end
     end
 

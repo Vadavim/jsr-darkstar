@@ -24,7 +24,7 @@ CARBUNCLE
 
 
 [POISON NAILS]
- - Recast: 20 seconds
+ - Recast: 25 seconds
  - Poison DoT: 1 + Level / 5 + (CHRMOD + SMNMOD) / 6
  - Poison is resisted by VIT; affected by Water Resistance / Attack / Defense
  - Duration: 30 + CHRMOD + SMNMOD, max of 90
@@ -53,9 +53,9 @@ CARBUNCLE
 
 [Shining Ruby]
  - Recast: 45 seconds
- - Boosts Defense and Magic Defense by +15% for duration
+ - Boosts Defense and Magic Defense by +10% for duration
  - Duration: 300 + CHRMOD * 3 + SMNMOD * 6, max of 600 seconds
- - TP Bonus: +1 second per 10 TP (does not count against max)
+ - TP Bonus: +1 second per 5 TP (does not count against max)
 
 
 [Meteorite]
@@ -65,10 +65,10 @@ CARBUNCLE
 SHIVA
 
 [Shiva's Favor]
- - Grants +10 MATT
+ - Grants +10 MATT and +10 MACC
 
 [Axe Kick]
- - Recast: 20 seconds
+ - Recast: 25 seconds
  - +15% accuracy
 
 [Blizzard II]
@@ -101,7 +101,7 @@ IFRIT
  - Grants +10% Double Attack
 
 [Punch]
- - Recast: 20 seconds
+ - Recast: 25 seconds
 
 [Fire II]
  - Gained at Level 18
@@ -114,14 +114,15 @@ IFRIT
  - Damage is 1 + (level / 5)/tic. 
 
 [Double Punch]
- - Recast: 35 seconds
+ - Recast: 40 seconds
+ - Gained at level 45
 
 [Crimson Howl]
  - Recast: 45 seconds
  - Power: 10 + level / 20
  - Also grants a +200 TP bonus for duration
- - Duration: 60 + CHRMOD + SMNMOD; max of 180 seconds
- - TP Bonus: +1 second per 20 TP (does not count against maximum duration)
+ - Duration: 120 + CHRMOD * 3 + SMNMOD * 3; max of 240 seconds
+ - TP Bonus: +1 second per 15 TP (does not count against maximum duration)
 
 [Fire IV]
  - Recast: 48 seconds
@@ -138,11 +139,15 @@ IFRIT
 TITAN
 
 [Titan's Favor]
- - Grants 10 + (Level / 2) DEF
+ - Grants 10 + Level DEF
 
 [Stone II]
  - Gained at Level 18
  - Recast: 25 seconds
+
+[Rock Buster]
+ - Recast: 25 Seconds
+ - +15% Accuracy
 
 [Megalith Throw]
  - Recast: 30 seconds
@@ -170,7 +175,7 @@ GARUDA
  - Grants +20 EVA and +10% Ranged Attack
 
 [Claw]
- - Recast: 20 seconds
+ - Recast: 25 seconds
  - +15% accuracy
 
 [Aero II]
@@ -179,7 +184,7 @@ GARUDA
 
 [Aerial Armor]
  - Duration: 900 + (CHRMOD + SMNMOD) * 30, max of 1800 seconds
- - Power: 3 shadows + 1 shadow per 1000 TP
+ - Power: 3 shadows + 1 shadow per 800 TP
 
 [Hastega]
  - Recast: 45 seconds
@@ -189,7 +194,7 @@ GARUDA
 
 [Whispering Wind]
  - Instead grants a powerful regen. Power scales with TP.
- - Base duration is 90 seconds. Increased by chr / summoning mod.
+ - Base duration is 60 seconds. Increased by chr / summoning mod (maximum of 90 seconds).
 
 [Wind Blade]
  - Does not require merits to gain (each merit gives +80 TP bonus).
@@ -231,10 +236,11 @@ FENRIR
  - Duration: 80 + (CHRMOD + SMNMOD) * 2; max 240 seconds
  - Also inflicts Magic Accuracy Down and Magic Evasion down.
  - Max penalty is -36.
- - TP Bonus: increased chance of affecting target (+1 accuracy per 50 TP)
+ - TP Bonus: increased chance of affecting target (+1 accuracy per 25 TP)
 
 [Lunar Roar]
- - Gains a bonus based on TP (+1 accuracy pet 50 TP)
+ - Recast: 30 seconds
+ - Gains a bonus to accuracy based on TP (+1 accuracy pet 25 TP)
 
 [Eclipse Bite]
  - Recast: 50 seconds
@@ -244,18 +250,18 @@ FENRIR
 LEVIATHAN
 
 [Leviathan's Favor]
- - Grants +20 MACC
+ - Grants +15 MDEF and increases resistance against status ailments.
 
 [Barracuda Dive]
  - +15% accuracy
- - Recast: 20 seconds
+ - Recast: 25 seconds
 
 [Water II]
  - Gained at Level 18
  - Recast: 25 seconds
 
 [Tail Whip]
- - Recast: 30 seconds
+ - Recast: 35 seconds
  - +15% accuracy to hit
  - Duration: 30 + CHR + SMNMOD, max of 90
  - Weight Power: 60
@@ -303,8 +309,9 @@ RAMUH
  - Recast: 35 seconds
  - Gained at level 24
  - Paralysis Power: 35
- - Duration: 45 + CHRMOD + SMNMOD (max of 90 seconds)
- - TP Bonus: +1 second per 35 TP (does not count against maximum duration)
+ - Damage and TP Bonus Damage grows with level.
+ - Duration: 30 + CHRMOD + SMNMOD (max of 90 seconds)
+ - TP Bonus: +1 second per 100 TP (does not count against maximum duration)
 
 [Rolling Thunder]
  - Recast: 45 seconds
@@ -326,6 +333,9 @@ RAMUH
 
 DIABOLOS
 
+[Diabolos's Favor]
+ - Instead grants Conserve MP +30 and Blood Boon +30.
+
 [Camisado]
  - Recast: 20 seconds
  - Is a Dark-based attack (affected by resistance, defense, MAB, etc.)
@@ -335,7 +345,7 @@ DIABOLOS
  - Recast: 45 seconds
  - Power: 80
  - Damage scales with level and TP
- - Duration: 20 + CHR / 2 + SMNMOD / 2, max of 40 seconds
+ - Duration: 20 + CHR / 2 + SMNMOD / 2, max of 40 seconds. +1 second per 100 TP.
 
 [Ultimate Terror]
  - Inflicts Terror

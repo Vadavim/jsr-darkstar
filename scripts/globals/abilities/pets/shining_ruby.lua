@@ -20,7 +20,7 @@ function onPetAbility(target, pet, skill, master)
 
     local duration = 300 + chr * 3 + summoning * 6;
     if (duration > 600) then duration = 600 end;
-    duration = duration + tp / 10;
+    duration = duration + tp / 5;
 
     target:delStatusEffect(EFFECT_SHINING_RUBY);
     target:addStatusEffect(EFFECT_SHINING_RUBY,1,0,duration);

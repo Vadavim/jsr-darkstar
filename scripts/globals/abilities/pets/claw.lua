@@ -9,14 +9,14 @@ require("scripts/globals/summon");
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
-    ability:setRecast(20);
+    ability:setRecast(25);
     return 0,0;
 end;
 
 function onPetAbility(target, pet, skill)
     local numhits = 1;
     local accmod = 1.15;
-    local dmgmod = 3.5;
+    local dmgmod = 2.8;
 
     skill:setSkillchain(4); -- Backhand Blow: Detonation
     pet:addTP(200 + skill:getTP()); -- add tp for using physical skill

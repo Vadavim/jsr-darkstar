@@ -11,11 +11,11 @@ require("scripts/globals/summon");
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
-    local level = player:getMainLvl() * 2;
-
-    if(player:getMP()<level) then
-        return 87,0;
-    end
+--    local level = player:getMainLvl() * 2;
+--
+--    if(player:getMP()<level) then
+--        return 87,0;
+--    end
 
     return 0,0;
 end;

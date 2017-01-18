@@ -16,6 +16,6 @@ function onAbilityCheck(player, target, ability)
 end;
 
 function onPetAbility(target, pet, skill, summoner)
-    return avatarMagicalMove(target, pet, skill, ELE_THUNDER, 90, 1.8, 0.03);
+    return avatarMagicalMove(target, pet, skill, ELE_THUNDER, 120, 1.8, 0.06);
 end
 

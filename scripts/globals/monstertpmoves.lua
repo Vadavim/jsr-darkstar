@@ -706,8 +706,8 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue,
         local petID = master:getPetID();
         if (petID ~= nil) then
             if (master:getPetID() >= 0 and master:getPetID() <= 20) then -- check to ensure pet is avatar
-                avatarAccBonus = utils.clamp(master:getSkillLevel(SKILL_SUM) - master:getMaxSkillLevel(mob:getMainLvl(), JOBS.SMN, SUMMONING_SKILL), 0, 200);
-                avatarAccBonus = avatarAccBonus + skill:getTP() / 50;
+--                avatarAccBonus = utils.clamp(master:getSkillLevel(SKILL_SUM) - master:getMaxSkillLevel(mob:getMainLvl(), JOBS.SMN, SUMMONING_SKILL), 0, 200);
+                avatarAccBonus = skill:getTP() / 50;
             end
         end
     end
@@ -756,13 +756,12 @@ function applyPlayerResistance(mob,effect,target,diff,bonus,element)
 
 
 
-    if (mob:isPet()) then
+    if (mob:isPet() and mob:getMaster() ~= nil) then
         local master = mob:getMaster();
         magicaccbonus = magicaccbonus + master:getMod(MOD_CHR);
         if (master:getMainJob() == JOBS.SMN) then
             magicaccbonus = magicaccbonus + master:getMod(MOD_SUMMONING) / 2;
         end
-
     end
 
 
@@ -843,6 +842,8 @@ function mobAddBonuses(caster, spell, target, dmg, ele)
 
     if (ele > 0) then
         dmg = dmg * (1 + caster:getMod(spellAtt[ele]) / 100);
+        local magicDefense = getElementalDamageReduction(target, ele);
+        dmg = math.floor(dmg * magicDefense);
     end
 
     dmg = math.floor(dmg * dayWeatherBonus);
@@ -1219,7 +1220,7 @@ function reduced_healing_factor(target)
 end
 
 -- Adds a status effect to a target
-function MobStatusEffectMove(mob, target, typeEffect, power, tick, duration, specificStat)
+function MobStatusEffectMove(mob, target, typeEffect, power, tick, duration, specificStat, accBonus)
 
     if (target:canGainStatusEffect(typeEffect, power)) then
         local statmod = MOD_INT;
@@ -1235,8 +1236,10 @@ function MobStatusEffectMove(mob, target, typeEffect, power, tick, duration, spe
             end
         end
 
+        if (accBonus == nil) then accBonus = 0; end;
 
-        local resist = applyPlayerResistance(mob,typeEffect,target,mob:getStat(statmod)-target:getStat(defStatMod),0,element);
+
+        local resist = applyPlayerResistance(mob,typeEffect,target,mob:getStat(statmod)-target:getStat(defStatMod),accBonus,element);
 
         if (resist >= 0.25) then
 
@@ -1388,7 +1391,7 @@ function avatarMagicalMove(target, pet, skill, element, baseDamage, intMult, tpM
     local tp = skill:getTP()
     local damage = baseDamage + (tpMult * (tp + pet:getMod(MOD_TP_BONUS))) + (dINT * intMult) ;
 
-    damage = MobMagicalMove(pet,target,skill,damage,element,1,TP_NO_EFFECT,0);
+    damage = MobMagicalMove(pet,target,skill,damage,element,1,TP_NO_EFFECT,tp / 50 + dINT);
     damage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_MAGICAL,MOBPARAM_NONE,1);
 
     target:delHP(damage);
@@ -1406,13 +1409,12 @@ function doAstralFlow(target, pet, skill, master, element)
         [14] = EFFECT_SHIVA_S_FAVOR, [15] = EFFECT_RAMUH_S_FAVOR,
         [16] = EFFECT_DIABOLOS_S_FAVOR, [20] = EFFECT_CAIT_SITH_S_FAVOR};
 
-    local level = pet:getMainLvl()
---    local damage = 48 + (level * 8);
-    local mpBonus = master:getMP() * 0.25;
-    master:delMP(mpBonus);
-    local damage = 40 + (level * 2) + (mpBonus * 0.5);
-    damage = damage + (dINT * (1 + level * 0.035));
-    damage = MobMagicalMove(pet,target,skill,damage,element,1,TP_DMG_VARIES,0);
+    local level = pet:getMainLvl();
+    local damage = 20 + (level * 10);
+    damage = damage + (dINT * (1 + level * 0.05));
+    damage = damage * (1 + skill:getTP() / 2000);
+    damage = damage * (0.5 + (pet:getHPP() / 200 ));
+    damage = MobMagicalMove(pet,target,skill,damage,element,1,TP_NO_EFFECT,0);
     damage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_MAGICAL,MOBPARAM_NONE,1);
 
 

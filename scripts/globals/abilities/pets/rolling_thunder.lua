@@ -17,7 +17,7 @@ end;
 function onPetAbility(target, pet, skill, master)
     local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP() + pet:getMod(MOD_TP_BONUS);
     local duration = utils.clamp(90 + chr * 3 + summoning * 3, 90, 180);
-    local duration = duration + tp / 20;
+    local duration = duration + tp / 10;
 
     local power = 1 + (level + chr + summoning) / 5;
 

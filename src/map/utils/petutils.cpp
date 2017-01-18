@@ -1046,15 +1046,15 @@ namespace petutils
         else if (PPet->objtype == TYPE_PET){
 
             CPetEntity* PPetEnt = (CPetEntity*)PPet;
-            if (PPetEnt->m_PetID >= 8 && PPetEnt->m_PetID <= 18 && PMaster->objtype == TYPE_PC) {
-                int pid = PPetEnt->m_PetID;
-                char* varname = pid == 8 ? "avatar_8" : pid == 9 ? "avatar_9"
-                    : pid == 10 ? "avatar_10" : pid == 11 ? "avatar_11"
-                    : pid == 12 ? "avatar_12" : pid == 13 ? "avatar_13"
-                    : pid == 14 ? "avatar_14" : pid == 15 ? "avatar_15"
-                    : pid == 16 ? "avatar_16" : "avatar_8";
-                charutils::SetVar((CCharEntity*)PMaster, varname, PPet->GetHPP());
-            }
+//            if (PPetEnt->m_PetID >= 8 && PPetEnt->m_PetID <= 18 && PMaster->objtype == TYPE_PC) {
+//                int pid = PPetEnt->m_PetID;
+//                char* varname = pid == 8 ? "avatar_8" : pid == 9 ? "avatar_9"
+//                    : pid == 10 ? "avatar_10" : pid == 11 ? "avatar_11"
+//                    : pid == 12 ? "avatar_12" : pid == 13 ? "avatar_13"
+//                    : pid == 14 ? "avatar_14" : pid == 15 ? "avatar_15"
+//                    : pid == 16 ? "avatar_16" : "avatar_8";
+//                charutils::SetVar((CCharEntity*)PMaster, varname, PPet->GetHPP());
+//            }
 
 
             if (!PPet->isDead())
@@ -1557,7 +1557,7 @@ namespace petutils
             PPet->setModifier(MOD_ACC, battleutils::GetMaxSkill(SKILL_CLB, JOB_WHM, PPet->GetMLevel()));
             //Set E evasion and def
             PPet->setModifier(MOD_EVA, battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PPet->GetMLevel()));
-            PPet->setModifier(MOD_DEF, 1.5 * battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PPet->GetMLevel()));
+            PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PPet->GetMLevel()));
             // cap all magic skills so they play nice with spell scripts
             for (int i = SKILL_DIV; i <= SKILL_BLU; i++) {
                 uint16 maxSkill = battleutils::GetMaxSkill((SKILLTYPE)i, PPet->GetMJob(), PPet->GetMLevel());

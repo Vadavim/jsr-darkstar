@@ -43,13 +43,13 @@ function onPetAbility(target, pet, skill, master)
 	target:delStatusEffect(EFFECT_MND_BOOST);
 	target:delStatusEffect(EFFECT_CHR_BOOST);
 
-	target:addStatusEffect(EFFECT_STR_BOOST,buffvalue,0,180);
-	target:addStatusEffect(EFFECT_DEX_BOOST,buffvalue,0,180);
-	target:addStatusEffect(EFFECT_VIT_BOOST,buffvalue,0,180);
-	target:addStatusEffect(EFFECT_AGI_BOOST,18-buffvalue,0,180);
-	target:addStatusEffect(EFFECT_INT_BOOST,18-buffvalue,0,180);
-	target:addStatusEffect(EFFECT_MND_BOOST,18-buffvalue,0,180);
-	target:addStatusEffect(EFFECT_CHR_BOOST,18-buffvalue,0,180);
+	target:addStatusEffect(EFFECT_STR_BOOST,buffvalue,0,duration);
+	target:addStatusEffect(EFFECT_DEX_BOOST,buffvalue,0,duration);
+	target:addStatusEffect(EFFECT_VIT_BOOST,buffvalue,0,duration);
+	target:addStatusEffect(EFFECT_AGI_BOOST,18-buffvalue,0,duration);
+	target:addStatusEffect(EFFECT_INT_BOOST,18-buffvalue,0,duration);
+	target:addStatusEffect(EFFECT_MND_BOOST,18-buffvalue,0,duration);
+	target:addStatusEffect(EFFECT_CHR_BOOST,18-buffvalue,0,duration);
 	skill:setMsg(0);
 	return 0;
 end

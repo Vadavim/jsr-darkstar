@@ -3459,6 +3459,8 @@ namespace charutils
                         sprintf(bonusString, "Bonus XP: +%d", sBonusXP);
                         PMember->pushPacket(new CChatMessagePacket(MESSAGE_SAY, bonusString));
                     }
+                    if (PMob->GetLocalVar("linked") == 1)
+                        exp *= 1.25f;
 
 
                     if (PMember->systemList.size() == 0)

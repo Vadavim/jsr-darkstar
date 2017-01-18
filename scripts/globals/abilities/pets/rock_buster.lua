@@ -9,13 +9,14 @@ require("scripts/globals/summon");
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
+    ability:setRecast(25);
     return 0,0;
 end;
 
 function onPetAbility(target, pet, skill)
     local numhits = 1;
-    local accmod = 1;
-    local dmgmod = 4;
+    local accmod = 1.15;
+    local dmgmod = 4.5;
 
     local totaldamage = 0;
     pet:addTP(400 + skill:getTP()); -- add tp for using physical skill

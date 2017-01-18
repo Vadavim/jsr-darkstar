@@ -34,6 +34,8 @@ function onGameIn(player, firstlogin, zoning)
     player:addNationTeleport(0,10485760);
     player:addNationTeleport(1,10485760);
     player:addNationTeleport(2,10485760);
+    if (player:canLearnSpell(478)) then  player:addSpell(478); end;
+    if (player:canLearnSpell(502)) then  player:addSpell(502); end;
 
 
     -- Things checked BOTH during logon AND zone in below this line.
@@ -343,9 +345,9 @@ function CharCreate(player)
 end;
 
 function onPlayerLevelUp(player)
-    for i,v in pairs({8, 9, 10, 11, 12, 13, 14, 15, 16}) do
-        player:setVar("avatar_" .. v, 100);
-    end
+--    for i,v in pairs({8, 9, 10, 11, 12, 13, 14, 15, 16}) do
+--        player:setVar("avatar_" .. v, 100);
+--    end
 end
 
 function onPlayerLevelDown(player)

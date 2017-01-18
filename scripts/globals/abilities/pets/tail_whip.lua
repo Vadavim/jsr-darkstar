@@ -12,7 +12,7 @@ require("scripts/globals/magic");
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
-    ability:setRecast(30);
+    ability:setRecast(35);
     return 0,0;
 end;
 

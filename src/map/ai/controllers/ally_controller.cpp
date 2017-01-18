@@ -216,7 +216,7 @@ bool CAllyController::combatIngrid(uint16 lvl) {
         return choose(PTarget, sHoly, m_divine2);
 
 
-    if (PTarget == nullptr || PTarget->GetHPP() == 100)
+    if (PTarget == nullptr || PTarget->GetHPP() == 100 || (PTarget->GetMLevel() - PAlly->GetMLevel()) < 2)
         return false;
 
     if (notHave(PTarget, EFFECT_DIA) && notHave(PTarget, EFFECT_BIO) && canCast(sDia) && isReady(m_enfeeble1, 10))
@@ -275,8 +275,10 @@ bool CAllyController::combatCherukiki(uint16 lvl) {
             return true;
     }
 
-    if (PTarget == nullptr || PTarget->GetHPP() == 100)
+    // don't premptively cast magic or waste debuffs on low level enemies
+    if (PTarget == nullptr || PTarget->GetHPP() == 100 || (PTarget->GetMLevel() - PAlly->GetMLevel()) < 2)
         return false;
+
 
     if (isReady(m_enfeeble1, 15) && PTarget->GetHPP() > 40) {
         if (notHave(PTarget, EFFECT_PARALYSIS) && canCast(sParalyze))

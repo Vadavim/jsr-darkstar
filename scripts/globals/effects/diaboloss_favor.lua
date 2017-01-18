@@ -4,6 +4,7 @@
 --
 -----------------------------------
 
+require("scripts/globals/status");
 -----------------------------------
 -- onEffectGain Action
 -----------------------------------
@@ -13,7 +14,8 @@ function onEffectGain(target,effect)
     target:addMod(MOD_DARKATT,10);
     target:addMod(MOD_DARKDEF,25);
     target:addMod(MOD_DARKRES,40);
-    target:addMod(MOD_REFRESH, effect:getPower());
+    target:addMod(MOD_CONSERVE_MP, 30);
+    target:addMod(MOD_BLOOD_BOON, 30);
 end;
 
 -----------------------------------
@@ -43,5 +45,6 @@ function onEffectLose(target,effect)
     target:delMod(MOD_DARKATT,10);
     target:delMod(MOD_DARKDEF,25);
     target:delMod(MOD_DARKRES,40);
-    target:delMod(MOD_REFRESH, effect:getPower());
+    target:delMod(MOD_CONSERVE_MP, 30);
+    target:delMod(MOD_BLOOD_BOON, 30);
 end;

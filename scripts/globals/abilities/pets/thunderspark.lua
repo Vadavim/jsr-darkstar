@@ -17,14 +17,14 @@ end;
 
 function onPetAbility(target, pet, skill, master)
     local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP() + pet:getMod(MOD_TP_BONUS);
-    local damage = avatarMagicalMove(target, pet, skill, ELE_THUNDER, 40 + level, 2.5, 0.05);
+    local damage = avatarMagicalMove(target, pet, skill, ELE_THUNDER, 55 + level * 1.5, 2.5, 0.05 + level / 450);
 
-    local duration = utils.clamp(45 + chr + summoning, 45, 90);
-    duration = duration + tp / 35;
+    local duration = utils.clamp(30 + chr + summoning, 30, 90);
+    duration = duration + tp / 100;
 
     local success = MobStatusEffectMove(pet, target, EFFECT_PARALYSIS, 35, 0, duration);
     if (success == 242) then
-        target:setPendingMessage(277, EFFECT_POISON);
+        target:setPendingMessage(277, EFFECT_PARALYSIS);
     end
 
 

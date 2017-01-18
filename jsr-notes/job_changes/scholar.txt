@@ -80,4 +80,11 @@ STRATAGEM CHANGES
 	- This replaces their original bonus to Regen spells.
 
 [Dark Arts]
- - While under Dark Arts, Poison and Bio spells receive a +33% bonus to potency anda +100% bonus to duration (SCH main job only).
+ - While under Dark Arts, Poison and Bio spells receive a +50% bonus to potency and +100% bonus to duration (SCH main job only).
+
+[Light Addendum]
+ - Also reduces white magic cost, cast time, and recast by a further 10%, and increases black magic cost, cast time, and recast by a further 10%.
+
+
+[Dark Addendum]
+ - Also reduces black magic cost, cast time, and recast by a further 10%, and increases white magic cost, cast time, and recast by a further 10%.

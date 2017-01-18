@@ -17,9 +17,9 @@ end;
 function onPetAbility(target, pet, skill, master)
     local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP() + pet:getMod(MOD_TP_BONUS);
     local dmg = 10 + pet:getMainLvl() * 2
-    local duration = utils.clamp(20 + chr / 2 + summoning / 2, 20, 40);
+    local duration = utils.clamp(20 + chr / 2 + summoning / 2, 20, 40) + tp / 100;
 
-    local damage = avatarMagicalMove(target, pet, skill, ELE_DARK, 10 + level * 2, 0.5 + level / 20, 0.01 + level / 350);
+    local damage = avatarMagicalMove(target, pet, skill, ELE_DARK, 25 + level * 2, 0.5 + level / 20, 0.01 + level / 350);
 
 
     local success = MobStatusEffectMove(pet, target, EFFECT_WEIGHT, 80, 0, duration);

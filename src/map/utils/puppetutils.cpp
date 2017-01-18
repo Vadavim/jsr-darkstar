@@ -469,9 +469,9 @@ void TrySkillUP(CAutomatonEntity* PAutomaton, SKILLTYPE SkillID, uint8 lvl)
 
         double random = dsprand::GetRandomNumber(1.);
 
-        if (SkillUpChance > 0.5)
+        if (SkillUpChance > 0.8)
         {
-            SkillUpChance = 0.5;
+            SkillUpChance = 0.8;
         }
 
         if (Diff > 0 && random < SkillUpChance)
@@ -480,7 +480,7 @@ void TrySkillUP(CAutomatonEntity* PAutomaton, SKILLTYPE SkillID, uint8 lvl)
             uint8  SkillAmount = 1;
             uint8  tier = dsp_min(1 + (Diff / 5), 5);
 
-            for (uint8 i = 0; i < 4; ++i) // 1 + 4 возможных дополнительных (максимум 5)
+            for (uint8 i = 0; i < 8; ++i) // 1 + 4 возможных дополнительных (максимум 5)
             {
                 random = dsprand::GetRandomNumber(1.);
 
@@ -494,7 +494,7 @@ void TrySkillUP(CAutomatonEntity* PAutomaton, SKILLTYPE SkillID, uint8 lvl)
                 default: chance = 0.000; break;
                 }
 
-                if (chance < random || SkillAmount == 5) break;
+                if (chance < random || SkillAmount == 8) break;
 
                 tier -= 1;
                 SkillAmount += 1;

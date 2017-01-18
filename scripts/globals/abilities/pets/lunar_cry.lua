@@ -36,7 +36,7 @@ function onPetAbility(target, pet, skill, owner)
     local duration = utils.clamp(80 + (chr + summoning) * 2, 80, 240);
     local diff = owner:getMod(MOD_CHR) + owner:getMod(MOD_SUMMONING) / 2 + pet:getStat(MOD_INT) - target:getStat(MOD_INT);
 
-    local resist = applyResistanceAbility(pet,target,ELE_DARK, 0, diff + tp / 50 );
+    local resist = applyResistanceAbility(pet,target,ELE_DARK, 0, diff + tp / 25 );
 
     if (resist >= 0.5) then
         target:delStatusEffect(EFFECT_ACCURACY_DOWN);

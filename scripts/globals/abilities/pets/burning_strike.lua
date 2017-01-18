@@ -19,7 +19,7 @@ function onPetAbility(target, pet, skill, master)
     local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP();
 	local numhits = 1;
 	local accmod = 1.15;
-	local dmgmod = 4.5;
+	local dmgmod = 3.5;
     skill:setSkillchain(225); -- Arching Arrow = Fusion
     pet:addTP(300 + skill:getTP()); -- Add TP for using physical skill
 

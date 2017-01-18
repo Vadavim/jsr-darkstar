@@ -16,8 +16,8 @@ end;
 
 function onPetAbility(target, pet, skill)
     local numhits = 1;
-    local accmod = 1.15;
-    local dmgmod = 3.5;
+    local accmod = 1.25;
+    local dmgmod = 3;
     skill:setSkillchain(1); -- Combo = Impaction
     pet:addTP(200 + skill:getTP()); -- add tp for using physical skill
 

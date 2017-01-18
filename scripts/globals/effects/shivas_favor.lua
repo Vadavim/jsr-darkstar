@@ -14,6 +14,7 @@ function onEffectGain(target,effect)
     target:addMod(MOD_ICEDEF,25);
     target:addMod(MOD_ICERES,40);
     target:addMod(MOD_MATT,10);
+    target:addMod(MOD_MACC,10);
 end;
 
 -----------------------------------
@@ -44,4 +45,5 @@ function onEffectLose(target,effect)
     target:delMod(MOD_ICEDEF,25);
     target:delMod(MOD_ICERES,40);
     target:delMod(MOD_MATT,10);
+    target:delMod(MOD_MACC,10);
 end;

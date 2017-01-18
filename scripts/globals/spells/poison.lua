@@ -32,7 +32,7 @@ function onSpellCast(caster,target,spell)
     end
 
     if (caster:hasStatusEffect(EFFECT_DARK_ARTS) and caster:getMainJob() == JOBS.SCH) then
-        power = power * 1.33;
+        power = power * 1.5;
         duration = duration * 2;
     end
 

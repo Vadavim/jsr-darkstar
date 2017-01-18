@@ -16,10 +16,10 @@ end;
 function onPetAbility(target, pet, skill, master)
     local chr, summoning, level = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl();
 	local numhits = 1;
-	local accmod = 1.15;
-	local dmgmod = 4;
+	local accmod = 1.25;
+	local dmgmod = 3.5;
     skill:setSkillchain(84); -- Keen Edge = Compression
-    pet:addTP(200 + skill:getTP()); -- Add TP for using physical skill
+    pet:addTP(250 + skill:getTP()); -- Add TP for using physical skill
 
 
     local totaldamage = 0;

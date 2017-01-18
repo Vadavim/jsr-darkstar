@@ -11,17 +11,12 @@ require("scripts/globals/summon");
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
-    if (not caster:canUsePet()) then
-        return MSGBASIC_CANT_BE_USED_IN_AREA;
-    elseif (caster:hasPet()) then
-        return MSGBASIC_ALREADY_HAS_A_PET;
-    else
-        return 0;
-    end
+    return summonCheck(caster, target, spell);
 end;
 
 function onSpellCast(caster,target,spell)
 	caster:spawnPet(PET_CARBUNCLE);
+    summonCost(caster);
     local power = math.floor(1 + caster:getMainLvl() / 8);
     local enspellPower = 1 + caster:getMainLvl() / 2;
     local pet = caster:getPet();
@@ -29,7 +24,7 @@ function onSpellCast(caster,target,spell)
         pet:addStatusEffect(EFFECT_CARBUNCLE_S_FAVOR, power, 15, 3000);
         pet:addStatusEffect(EFFECT_ENLIGHT,enspellPower,0,3000);
 --        doSiphonBuff(caster, pet);
-        summonAvatar(caster);
+--        summonAvatar(caster);
     end
     
 	return 0;

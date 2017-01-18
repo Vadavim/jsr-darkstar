@@ -7,6 +7,7 @@
 -- onEffectGain Action
 -----------------------------------
 
+require("scripts/globals/status");
 function onEffectGain(target,effect)
     target:addMod(MOD_WINDACC,10);
     target:addMod(MOD_WINDATT,10);

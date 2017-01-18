@@ -15,7 +15,7 @@ end;
 
 function onSpellCast(caster,target,spell)
     local dMND = (caster:getStat(MOD_INT) - target:getStat(MOD_INT));
-    local power = 30;
+    local power = 32;
     local duration = 180 * applyResistanceEffect(caster,spell,target,dMND,35,0,EFFECT_MAGIC_EVASION_DOWN);
 
     if (duration >= 60) then

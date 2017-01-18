@@ -16,7 +16,7 @@ end;
 
 function onPetAbility(target, pet, skill, master)
     local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP() + pet:getMod(MOD_TP_BONUS);
-    local duration = utils.clamp(60 + chr + summoning, 60, 180) + tp / 20;
+    local duration = utils.clamp(120 + chr * 3 + summoning * 3, 60, 240) + tp / 15;
 
 
     target:addStatusEffect(EFFECT_WARCRY,10 + level / 20,0,duration, 0, 200);

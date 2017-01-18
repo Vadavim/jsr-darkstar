@@ -399,22 +399,23 @@ function summonSpirit(caster, petType)
     if (caster:isPC()) then
         local pet = caster:getPet();
         if (pet ~= nil) then
---            local power = 1 + pet:getMainLvl() / 4;
+            local power = 1 + pet:getMainLvl() / 2;
 --            pet:addStatusEffect(enspellTypes[petType + 1],power,0,3000);
 
             for i,v in pairs({8, 9, 10, 11, 12, 13, 14, 15, 16}) do
                 caster:setVar("avatar_" .. v, utils.clamp(caster:getVar("avatar_" .. v) + 3, 0, 100));
             end
 
-            local degen = 1 + pet:getMainLvl() / 2.5;
+            local degen = utils.clamp(pet:getMaxHP() * 0.025, 1, 1000);
             pet:addMod(MOD_REGEN_DOWN, degen);
-            pet:addMod(MOD_ATTP, -25);
-            pet:addMod(MOD_HASTE_MAGIC, -200);
+            pet:addMod(MOD_ATTP, -99);
+            pet:addMod(MOD_STR, -50);
+--            pet:addMod(MOD_HASTE_MAGIC, -200);
             pet:addMod(MOD_FASTCAST, -50);
             pet:addMod(MOD_MDEF, 35);
             pet:addMod(MOD_MATT, -60);
             pet:addMod(MOD_MACC, 30);
-            caster:delMP(5 + pet:getMainLvl() * 2.5);
+            caster:delMP(5 + pet:getMainLvl() * 3);
         end
     end
 
@@ -428,9 +429,9 @@ function summonAvatar(caster)
             local curHP = caster:getVar("avatar_" .. caster:getPetID())
             pet:delHP(((100 - curHP) / 100.0) * pet:getMaxHP())
 
-            local degen = utils.clamp(pet:getMaxHP() * 0.015, 1, 200);
-            pet:addMod(MOD_REGEN_DOWN, degen);
-            pet:addMod(MOD_CURE_POTENCY_RCVD, -80);
+--            local degen = utils.clamp(pet:getMaxHP() * 0.015, 1, 200);
+--            pet:addMod(MOD_REGEN_DOWN, degen);
+--            pet:addMod(MOD_CURE_POTENCY_RCVD, -80);
             caster:delMP(1 + pet:getMainLvl() * 0.5);
         end
     end
@@ -458,6 +459,23 @@ function healingBreathCalc(pet, target, skill, action, tier)
     skill:setMsg(MSGBASIC_USES_RECOVERS_HP);
     target:addHP(base);
     return base;
+end
+
+
+function summonCheck(caster, target, spell)
+    if (not caster:canUsePet()) then
+        return MSGBASIC_CANT_BE_USED_IN_AREA;
+    elseif (caster:hasPet()) then
+        return MSGBASIC_ALREADY_HAS_A_PET;
+    elseif (caster:getMP() < 10 + caster:getMainLvl() * 4) then
+        return MSGBASIC_NOT_ENOUGH_MP;
+    else
+        return 0;
+    end
+end
+
+function summonCost(caster)
+    caster:delMP(10 + caster:getMainLvl() * 4);
 end
 
 function doAllyCost(player, amount, type)

@@ -19,7 +19,7 @@ function onSpellCast(caster,target,spell)
     local dMND = (caster:getStat(MOD_INT) - target:getStat(MOD_INT));
     
     -- Base power.  May need more research.
-    local power = 20;
+    local power = 25;
 
     -- Duration, including resistance.  Unconfirmed.
     local duration = 120 * applyResistanceEffect(caster,spell,target,dMND,35,0,EFFECT_MAGIC_EVASION_DOWN);
