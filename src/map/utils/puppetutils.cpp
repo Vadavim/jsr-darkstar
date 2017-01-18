@@ -469,9 +469,9 @@ void TrySkillUP(CAutomatonEntity* PAutomaton, SKILLTYPE SkillID, uint8 lvl)
 
         double random = dsprand::GetRandomNumber(1.);
 
-        if (SkillUpChance > 0.8)
+        if (SkillUpChance > 0.9)
         {
-            SkillUpChance = 0.8;
+            SkillUpChance = 0.9;
         }
 
         if (Diff > 0 && random < SkillUpChance)
