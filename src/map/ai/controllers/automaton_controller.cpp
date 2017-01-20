@@ -756,27 +756,27 @@ bool CAutomatonController::combatStormSpirit(int mS) {
     }
 
     if (isReady(m_enfeebleTick, PAutomaton->m_enfeebleDelay + manaMod) && PTarget != nullptr) {
-        if (mList.fire >= 1 && PTarget->GetHPP() >= 50 && notHave(PTarget, EFFECT_FROST)
+        if (mList.fire >= 1 && PTarget->GetHPP() >= 50 && canCast(sBurn) && notHave(PTarget, EFFECT_FROST)
             && notHave(PTarget, EFFECT_BURN) && notHave(PTarget, EFFECT_DROWN) && PTarget->getMod(MOD_FIREDEF) <= 10)
             return choose(PTarget, sBurn, m_enfeebleTick);
 
-        if (mList.wind >= 1 && PTarget->GetHPP() >= 50 && notHave(PTarget, EFFECT_FROST)
+        if (mList.wind >= 1 && PTarget->GetHPP() >= 50 && canCast(sChoke) && notHave(PTarget, EFFECT_FROST)
             && notHave(PTarget, EFFECT_CHOKE) && notHave(PTarget, EFFECT_RASP) && PTarget->getMod(MOD_WINDDEF) <= 10)
             return choose(PTarget, sChoke, m_enfeebleTick);
 
-        if (mList.ice >= 2 && PTarget->GetHPP() >= 50 && notHave(PTarget, EFFECT_FROST)
+        if (mList.ice >= 2 && PTarget->GetHPP() >= 50 && canCast(sFrost) && notHave(PTarget, EFFECT_FROST)
             && notHave(PTarget, EFFECT_CHOKE) && notHave(PTarget, EFFECT_BURN) && PTarget->getMod(MOD_ICEDEF) <= 10)
             return choose(PTarget, sFrost, m_enfeebleTick);
 
-        if (mList.thunder >= 1 && PTarget->GetHPP() >= 50 && notHave(PTarget, EFFECT_DROWN)
+        if (mList.thunder >= 1 && PTarget->GetHPP() >= 50 && canCast(sShock) && notHave(PTarget, EFFECT_DROWN)
             && notHave(PTarget, EFFECT_SHOCK) && notHave(PTarget, EFFECT_RASP) && PTarget->getMod(MOD_THUNDERDEF) <= 10)
             return choose(PTarget, sShock, m_enfeebleTick);
 
-        if (mList.earth >= 1 && PTarget->GetHPP() >= 50 && notHave(PTarget, EFFECT_CHOKE)
+        if (mList.earth >= 1 && PTarget->GetHPP() >= 50 && canCast(sRasp) && notHave(PTarget, EFFECT_CHOKE)
             && notHave(PTarget, EFFECT_SHOCK) && notHave(PTarget, EFFECT_RASP) && PTarget->getMod(MOD_EARTHDEF) <= 10)
             return choose(PTarget, sRasp, m_enfeebleTick);
 
-        if (mList.water >= 1 && PTarget->GetHPP() >= 50 && notHave(PTarget, EFFECT_DROWN)
+        if (mList.water >= 1 && PTarget->GetHPP() >= 50 && canCast(sDrown) && notHave(PTarget, EFFECT_DROWN)
             && notHave(PTarget, EFFECT_SHOCK) && notHave(PTarget, EFFECT_BURN) && PTarget->getMod(MOD_WATERDEF) <= 10)
             return choose(PTarget, sDrown, m_enfeebleTick);
 
@@ -800,48 +800,54 @@ bool CAutomatonController::combatStormSpirit(int mS) {
 
 int CAutomatonController::chooseNuke(int sFire, int sWater, int sAero, int sBlizzard, int sStone, int sThunder) {
     // handle Tactical Processer
-    if (PAutomaton->hasAttachment(ATTACHMENT_SCANNER) && dsprand::GetRandomNumber(100) < (55 + mList.ice * 15)) {
-        int sType = 0;
-        int lowestRes = 0;
+    int sType = 0;
+    int lowestRes = 0;
 
-        std::vector<std::pair<int, MODIFIER> > resTypes = {
-                {sFire, MOD_FIREDEF}, {sWater, MOD_WATERDEF}, {sThunder, MOD_THUNDERDEF},
-                {sBlizzard, MOD_ICEDEF}, {sAero, MOD_WINDDEF}, {sStone, MOD_EARTHDEF}
-        };
+    std::vector<std::pair<int, MODIFIER> > resTypes = {
+            {sFire, MOD_FIREDEF}, {sWater, MOD_WATERDEF}, {sThunder, MOD_THUNDERDEF},
+            {sBlizzard, MOD_ICEDEF}, {sAero, MOD_WINDDEF}, {sStone, MOD_EARTHDEF}
+    };
 
-        for (auto const& p : resTypes) {
-            if (PTarget->getMod(p.second) < lowestRes) {
-                sType = p.first;
-                lowestRes = PTarget->getMod(p.second);
-            }
+    int strongestSpell = 0;
+    int highestCost = 0;
+    for (auto const& p : resTypes) {
+        if (canCast(p.first) && spell::GetSpell(p.first)->getMPCost() > highestCost) {
+            strongestSpell = p.first;
+            highestCost = spell::GetSpell(p.first)->getMPCost();
         }
+        if (PTarget->getMod(p.second) < lowestRes) {
+            sType = p.first;
+            lowestRes = PTarget->getMod(p.second);
+        }
+    }
 
+    if (PAutomaton->hasAttachment(ATTACHMENT_SCANNER) && dsprand::GetRandomNumber(100) < (55 + mList.ice * 15)) {
         if (sType && canCast(sType))
             return sType;
     }
 
-    if ((mList.earth == 2 && (mList.ice == 1 || mList.dark == 1)) && canCast(sStone))
-        return sStone;
-    if ((mList.water == 2 && (mList.ice == 1 || mList.dark == 1)) && canCast(sWater))
-        return sWater;
-    if ((mList.fire == 2 && (mList.ice == 1 || mList.dark == 1)) && canCast(sFire))
-        return sFire;
-    if ((mList.thunder == 2 && (mList.ice == 1 || mList.dark == 1)) && canCast(sThunder))
-        return sThunder;
-    if ((mList.wind == 2 && (mList.ice == 1 || mList.dark == 1)) && canCast(sAero))
-        return sAero;
-    if ((mList.ice == 3 || (mList.ice == 2 && mList.dark == 1)) && canCast(sBlizzard))
-        return sBlizzard;
+//    if ((mList.earth == 2 && (mList.ice == 1 || mList.dark == 1)) && canCast(sStone))
+//        return sStone;
+//    if ((mList.water == 2 && (mList.ice == 1 || mList.dark == 1)) && canCast(sWater))
+//        return sWater;
+//    if ((mList.fire == 2 && (mList.ice == 1 || mList.dark == 1)) && canCast(sFire))
+//        return sFire;
+//    if ((mList.thunder == 2 && (mList.ice == 1 || mList.dark == 1)) && canCast(sThunder))
+//        return sThunder;
+//    if ((mList.wind == 2 && (mList.ice == 1 || mList.dark == 1)) && canCast(sAero))
+//        return sAero;
+//    if ((mList.ice == 3 || (mList.ice == 2 && mList.dark == 1)) && canCast(sBlizzard))
+//        return sBlizzard;
 
     // otherwise, randomly cast a spell!
-    std::vector<int> spellArray = {sStone, sWater, sFire, sThunder, sAero, sBlizzard};
-    spellArray.erase(std::remove(spellArray.begin(), spellArray.end(), 0), spellArray.end());
-    if (spellArray.size() > 0) {
-        int nukeSpell = spellArray[dsprand::GetRandomNumber(spellArray.size())];
-        if (canCast(nukeSpell))
-            return nukeSpell;
-    }
-    return 0;
+//    std::vector<int> spellArray = {sStone, sWater, sFire, sThunder, sAero, sBlizzard};
+//    spellArray.erase(std::remove(spellArray.begin(), spellArray.end(), 0), spellArray.end());
+//    if (spellArray.size() > 0) {
+//        int nukeSpell = spellArray[dsprand::GetRandomNumber(spellArray.size())];
+//        if (canCast(nukeSpell))
+//            return nukeSpell;
+//    }
+    return strongestSpell;
 }
 
 bool CAutomatonController::isReady(time_point cooldown, int delay) {

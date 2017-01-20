@@ -1021,10 +1021,12 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
 
     if (not player:isPC()) then return; end;
 
-    local diff = player:getMainLvl() - mob:getMainLvl();
-    diff = (diff * diff) / 2.5;
+    local diff = mob:getMainLvl() - player:getMainLvl();
+    local tempChance = 10 + diff * 3.5;
+    if (tempChance < 0) then tempChance = 1 end;
+--    diff = (diff * diff) / 2.5;
     if (diff <= 0) then diff = 1; end
-    if (math.random(0, 100) < diff) then
+    if (math.random(0, 100) <= tempChance) then
         rewardTemporaryItem(player);
     end
 
