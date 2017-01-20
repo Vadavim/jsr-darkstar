@@ -12,19 +12,22 @@
 
 -- Dumping structure for table dspdb.spots_for_treasure
 CREATE TABLE IF NOT EXISTS `spots_for_treasure` (
-  `npcid` int(10) NOT NULL,
-  `pos` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `pos_rot` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `id` int(12) unsigned NOT NULL AUTO_INCREMENT,
   `pos_x` float(7,3) NOT NULL DEFAULT '0.000',
   `pos_y` float(7,3) NOT NULL DEFAULT '0.000',
   `pos_z` float(7,3) NOT NULL DEFAULT '0.000',
+  `rot` int(7) NOT NULL DEFAULT '0',
   `zone` smallint(4) NOT NULL,
-  `notes` text NOT NULL,
-  PRIMARY KEY (`npcid`,`pos`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
--- Dumping data for table dspdb.spots_for_treasure: 0 rows
+-- Dumping data for table dspdb.spots_for_treasure: 4 rows
 /*!40000 ALTER TABLE `spots_for_treasure` DISABLE KEYS */;
+REPLACE INTO `spots_for_treasure` (`id`, `pos_x`, `pos_y`, `pos_z`, `rot`, `zone`) VALUES
+	(1, -424.362, -16.703, -180.199, 247, 100),
+	(2, -424.362, -16.703, -180.199, 247, 100),
+	(3, -424.362, -16.703, -180.199, 247, 100),
+	(4, -398.898, -20.000, -199.372, 12, 100);
 /*!40000 ALTER TABLE `spots_for_treasure` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

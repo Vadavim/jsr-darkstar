@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `char_vars` (
   PRIMARY KEY (`charid`,`varname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.char_vars: 30 rows
+-- Dumping data for table dspdb.char_vars: 51 rows
 /*!40000 ALTER TABLE `char_vars` DISABLE KEYS */;
 REPLACE INTO `char_vars` (`charid`, `varname`, `value`) VALUES
 	(21828, 'HpTeleportMask1b', 32),
@@ -36,7 +36,7 @@ REPLACE INTO `char_vars` (`charid`, `varname`, `value`) VALUES
 	(21828, 'elite_106', 1470751200),
 	(21828, 'elite_117', 1470751200),
 	(21828, 'elite_108', 1470751200),
-	(21828, 'elite_119', 1470751200),
+	(21828, 'avatar_8', 100),
 	(21828, 'elite_103', 1470751200),
 	(21828, 'killedFoVNM', 127),
 	(21828, 'elite_109', 1470751200),
@@ -50,7 +50,29 @@ REPLACE INTO `char_vars` (`charid`, `varname`, `value`) VALUES
 	(21828, 'fov_regimeid', 66),
 	(21828, 'fov_repeat', 1),
 	(21828, 'fov_numneeded1', 7),
-	(21828, 'fov_LastReward', 452362);
+	(21828, 'fov_LastReward', 452362),
+	(21828, 'z100_kill', 1),
+	(21828, 'f226_kill', 1),
+	(21828, 's6_kill', 1),
+	(21828, 'avatar_9', 100),
+	(21828, 'avatar_10', 100),
+	(21828, 'avatar_11', 100),
+	(21828, 'avatar_12', 100),
+	(21828, 'avatar_13', 100),
+	(21828, 'avatar_14', 100),
+	(21828, 'avatar_15', 100),
+	(21828, 'avatar_16', 100),
+	(21828, 'totalLevelReward', 1495),
+	(21828, 'achv_z100_kill', 1),
+	(21828, 'achv_f189_kill', 1),
+	(21828, 'achv_s7_kill', 1),
+	(21828, 'achv_z103_kill', 4),
+	(21828, 'achv_f113_kill', 3),
+	(21828, 'achv_s20_kill', 3),
+	(21828, 'GodMode', 1),
+	(21828, 'achv_f206_kill', 1),
+	(21828, 'achv_s6_kill', 1),
+	(21828, 'PlayerMainJob', 4);
 /*!40000 ALTER TABLE `char_vars` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

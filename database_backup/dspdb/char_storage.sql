@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `char_storage` (
 -- Dumping data for table dspdb.char_storage: 1 rows
 /*!40000 ALTER TABLE `char_storage` DISABLE KEYS */;
 REPLACE INTO `char_storage` (`charid`, `inventory`, `safe`, `locker`, `satchel`, `sack`, `case`, `wardrobe`, `wardrobe2`, `wardrobe3`, `wardrobe4`) VALUES
-	(21828, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80);
+	(21828, 80, 80, 80, 5, 80, 80, 80, 80, 80, 80);
 /*!40000 ALTER TABLE `char_storage` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

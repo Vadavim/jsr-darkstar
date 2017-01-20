@@ -2057,7 +2057,14 @@ REPLACE INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `ani
 	(5990, 'scroll_of_instant_stoneskin', 1, 1, 34, 1, 0, 0, 0, 0),
 	(6473, 'super_revitalizer', 1, 1, 10, 0, 0, 0, 0, 1),
 	(6475, 'pair_of_lucid_wings_ii', 1, 4, 34, 0, 0, 0, 0, 1),
-	(5945, 'prize_powder', 1, 1, 24, 0, 0, 0, 0, 0);
+	(5945, 'prize_powder', 1, 1, 24, 0, 0, 0, 0, 0),
+	(5514, 'lake_of_light_tincture', 1, 1, 34, 0, 0, 0, 0, 0),
+	(5507, 'luminous_isle_tincture', 1, 1, 24, 0, 0, 0, 0, 0),
+	(5510, 'immaculate_sands_tincture', 1, 1, 24, 0, 0, 0, 0, 0),
+	(5518, 'sanctum_of_life_tincture', 1, 1, 24, 0, 0, 0, 0, 0),
+	(5517, 'flames_prominence_tincture', 1, 1, 24, 0, 0, 0, 0, 0),
+	(5519, 'soils_prominence_tincture', 1, 1, 24, 0, 0, 0, 0, 0),
+	(5520, 'snowdrift_arbor_tincture', 1, 1, 24, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `item_usable` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

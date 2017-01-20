@@ -139,7 +139,7 @@ REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `v
 	(9, 'auto regen', 3, 40, 2, 370, 2, 'ABYSSEA'),
 	(10, 'auto refresh', 7, 35, 1, 369, 1, NULL),
 	(10, 'auto refresh', 15, 25, 1, 369, 1, NULL),
-	(10, 'auto refresh', 15, 60, 2, 369, 2, 'ABYSSEA'),
+	(10, 'auto refresh', 15, 80, 2, 369, 2, 'ABYSSEA'),
 	(11, 'rapid shot', 11, 15, 1, 359, 10, NULL),
 	(11, 'rapid shot', 17, 15, 1, 359, 10, 'TOAU'),
 	(12, 'fast cast', 5, 15, 1, 170, 10, NULL),

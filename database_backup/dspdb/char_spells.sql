@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `char_spells` (
   KEY `char_spells_spellid_index` (`spellid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table dspdb.char_spells: ~841 rows (approximately)
+-- Dumping data for table dspdb.char_spells: ~838 rows (approximately)
 /*!40000 ALTER TABLE `char_spells` DISABLE KEYS */;
 REPLACE INTO `char_spells` (`charid`, `spellid`) VALUES
 	(21828, 1),
