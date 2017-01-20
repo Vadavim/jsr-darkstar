@@ -50,7 +50,8 @@ function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["xp"] = 400,
-        ["item"] = 4665
+        ["item"] = 4665,
+        ["item2"] = 5490,
     };
     jsrReward(player, reward);
 end

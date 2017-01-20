@@ -348,10 +348,9 @@ DIABOLOS
  - Duration: 20 + CHR / 2 + SMNMOD / 2, max of 40 seconds. +1 second per 100 TP.
 
 [Ultimate Terror]
- - Inflicts Terror
-	- Duration: 3 + (CHRMOD + SMNMOD) / 10, max of 6 seconds. +1 second per 1000 TP
- - Lowers two of the target's attributes by (12 + tp / 200)
-	- Duration: 60 + chr + summoning, max of 120 seconds. +1 second per 50 TP.
+ - Attempts to drain each attribute by 8 + level / 10
+	- Duration: 60 + CHR + SMN * 3, max of 120 seconds. +1 second per 20 TP.
+
 
 [Noctoshield]
  - Recast: 45 seconds

@@ -56,10 +56,11 @@ end;
 function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 500,
+        ["xp"] = 800,
+        ["gil"] = 1000,
         ["guild"] = {SMIT, 250},
         ["augment"] = {16706, 47, 7, 25, 14, 41, 4}, --Heavy Axe
-        ["item"] = 4778
+        ["item"] = 4808
     };
     jsrReward(player, reward);
 end

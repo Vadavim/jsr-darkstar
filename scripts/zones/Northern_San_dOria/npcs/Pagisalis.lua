@@ -23,7 +23,7 @@ function onTrade(player,npc,trade)
     if (player:getQuestStatus(SANDORIA,UNDYING_FLAMES) == QUEST_ACCEPTED) then
         if (trade:hasItemQty(913,2) and trade:getItemCount() == 2) then -- Trade Lump of Beeswax
             player:startEvent(0x0233);
-        elseif (trade:hasItemQty(750,2) and trade:getItemCount() == 2) then -- Trade silver beastcoins
+        elseif (trade:hasItemQty(4099,12) and trade:getItemCount() == 12) then -- Trade Earth Crystals
             player:startEvent(0x0233);
         end
     end

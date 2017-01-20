@@ -539,13 +539,6 @@ function rewardTemporaryItem(player)
         5849, -- Berserker's Drink
         5241, -- Giant's Drink
         5395, -- Cleric's Drink
-        4258, -- Drop
-        4259, -- Drop
-        4260, -- Drop
-        4261, -- Drop
-        4262, -- Drop
-        4263, -- Drop
-        4264, -- Drop
         4199, -- Stat Potion
         4201, -- Stat Potion
         4203, -- Stat Potion
@@ -580,7 +573,12 @@ function rewardTemporaryItem(player)
         4174, -- Vile Elixir
         4175, -- Vile Elixir +1
         4254, -- Megalixir
-        4160, -- Petrify Potion
+        5514, -- Lake of Light Tincture
+        5507, -- Luminous Isle Tincture
+        5510, -- Immaculate Sands Tincture
+        5518, -- Sanctum of Life Tincture
+        5519, -- Soil's Prominence Tincture
+        5520, -- Snowdrift Arbor Tincture
         4155 -- Remedy
     };
 

@@ -3159,6 +3159,44 @@ local function daggersEx(player, points)
     return special_stock(stock, points);
 end
 
+
+local function furniture(player, points)
+    local stock = {
+        3701,  300,    --Awning
+        46,  500,    --Athenienne
+        3699,  500,    --Bathtub
+        450,  500,    --Candelabrum
+        459,  500,    --Candle Holder
+        22,  200,    --Workbench
+        97,  200,    --Book Holder
+        21,  200,    --Desk
+        30,  500,    --Bureau
+        96,  500,    --Beverage Barrel
+        3702,  500,    --Triangular Jalousie
+        3703,  500,    --Square Jalousie
+        3704,  500,    --Transom
+        3709,  500,    --Valance
+        3669,  750,    --Courier Bags
+        55,  1500,    --Cabinet
+        46,  1500,    --Armor Box
+        57,  1500,    --Cupboard
+        3662,  2000,    --Case of Display Blades
+        411,  2000,    --Blue Round Table
+        412,  2000,    --Red Round Table
+        414,  2000,    --White Round Table
+        122,  2000,    --Amir Bed
+        359,  2500,    --Bahut
+        28,  4800,    --Drawing Desk
+        316,  6500,    --3-Drawer Almirah
+        61,  6500,    --Armoire
+        32,  7500,    --Dresser
+        3637,  2250,    --Banquet Set
+        77,  9500,    --Bookshelf
+    };
+    return stock;
+end
+
+
 local function default_error(player, points)
     return false;
 end

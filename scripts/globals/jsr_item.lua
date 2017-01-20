@@ -33,7 +33,7 @@ end;
 
 
 function usePotion(target,cap)
-    local power = math.floor(target:getMaxHP() * 0.66);
+    local power = math.floor(target:getMaxHP() * 0.75);
     if (power > cap) then
         power = cap
     end

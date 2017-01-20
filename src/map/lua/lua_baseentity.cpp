@@ -2263,10 +2263,10 @@ inline int32 CLuaBaseEntity::canLearnSpell(lua_State *L)
     {
         Message = 96;
     }
-    else if (!spell::CanUseSpell((CCharEntity*)m_PBaseEntity, SpellID))
-    {
-        Message = 95;
-    }
+//    else if (!spell::CanUseSpell((CCharEntity*)m_PBaseEntity, SpellID))
+//    {
+//        Message = 95;
+//    }
     lua_pushinteger(L, Message);
     return 1;
 }

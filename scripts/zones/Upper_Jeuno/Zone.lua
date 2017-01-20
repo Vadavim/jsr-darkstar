@@ -24,6 +24,7 @@ end;
 
 function onZoneIn(player,prevZone)
     local cs = -1;
+    player:speed(95);
     local month = tonumber(os.date("%m"));
     local day = tonumber(os.date("%d"));
     -- Retail start/end dates vary, I am going with Dec 5th through Jan 5th.
