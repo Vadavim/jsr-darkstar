@@ -539,7 +539,7 @@ function checkGoVregime(player,mob,rid,index)
                         -- Apply repeat bonus and Prowess buffs
                         if (player:hasStatusEffect(EFFECT_PROWESS) == true) then
                             GoV_clears = player:getStatusEffect(EFFECT_PROWESS):getPower();
-                            reward = reward * ((100+(GoV_clears*4))/100);
+--                            reward = reward * ((100+(GoV_clears*4))/100);
                             player:delStatusEffect(EFFECT_PROWESS);
                             player:delStatusEffect(RandomProwess);
                             player:addStatusEffect(EFFECT_PROWESS,(GoV_clears + 1),0,0);

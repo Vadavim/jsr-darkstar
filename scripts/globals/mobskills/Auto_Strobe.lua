@@ -13,7 +13,7 @@ end;
 
 function onMobWeaponSkill(target, mob, skill)
     mob:addTP(skill:getTP()); -- Ability doesn't consume TP
-    target:addEnmity(mob, 1, 1800);
+    target:addEnmity(mob, 650, 2000);
     return 0;
 end;
 

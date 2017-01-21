@@ -13,9 +13,46 @@ require("scripts/globals/jsr_utils");
 -- onMobDeathEx
 -----------------------------------
 
-
+local ZONE_PHANAUET = 1;
+local ZONE_CARPENTERS = 2;
+local ZONE_MANACLIPPER = 3;
+local ZONE_BIBIKI = 4;
+local ZONE_ULEGUERAND = 5;
+local ZONE_ATTOHWA = 7;
+local ZONE_PSOXJA = 9;
+local ZONE_OLDTON = 11;
+local ZONE_NEWTON = 12;
+local ZONE_PROM_HOLLA = 17;
+local ZONE_PROM_DEM = 18;
+local ZONE_PROM_MEA = 20;
+local ZONE_PROM_VAHZL = 22;
+local ZONE_LUFAISE = 24;
+local ZONE_MISAREAUX = 25;
+local ZONE_PHOMIUNA = 27;
+local ZONE_SACRARIUM = 28;
+local ZONE_RIVERNE_B1 = 29;
+local ZONE_RIVERNE_A1 = 30;
+local ZONE_ALTAIEU = 33;
+local ZONE_HUXZOI = 34;
+local ZONE_RUHMET = 35;
+local ZONE_RONFAURE_WEST = 100;
+local ZONE_RONFAURE_EAST = 101;
+local ZONE_LATHEINE = 102;
+local ZONE_VALKURM = 103;
+local ZONE_JUGNER = 104;
+local ZONE_BATALLIA = 105;
+local ZONE_GUSTABERG_NORTH = 106;
+local ZONE_GUSTABERG_SOUTH = 107;
+local ZONE_KONSCHTAT = 108;
+local ZONE_PASHHOW = 109;
+local ZONE_ROLANBERRY = 110;
+local ZONE_BEAUCEDINE = 111;
+local ZONE_XARCABARD = 112;
+local ZONE_TERRIGAN = 113;
+local ZONE_ALTEPA_EAST = 114;
+local ZONE_SARUTA_WEST = 115;
+local ZONE_SARUTA_EAST = 116;
 local ZONE_TAHRONGI = 117;
-local ZONE_MON_CAVERN = 150;
 local ZONE_BUBURIMU = 118;
 local ZONE_MERIPHATAUD = 119;
 local ZONE_SAUROMUGUE = 120;
@@ -24,78 +61,54 @@ local ZONE_ROMAEVE = 122;
 local ZONE_YUHTUNGA = 123;
 local ZONE_YHOATOR = 124;
 local ZONE_ALTEPA_WEST = 125;
-local ZONE_CAULDRON = 205;
 local ZONE_QUFIM = 126;
-local ZONE_SEASERPENT = 176;
 local ZONE_BEHEMOTHS = 127;
 local ZONE_SORROWS = 128;
-local ZONE_VALKURM = 103;
-local ZONE_LATHEINE = 102;
-local ZONE_ZERUHN = 172;
-local ZONE_KONSCHTAT = 108;
-local ZONE_PASHHOW = 109;
-local ZONE_ROLANBERRY = 110;
-local ZONE_BOSTAUNIEUX = 167;
-local ZONE_BEAUCEDINE = 111;
-local ZONE_ULEGURAND = 5;
-local ZONE_XARCABARD = 112;
-local ZONE_TERRIGAN = 113;
-local ZONE_ALTEPA_EAST = 114;
-local ZONE_GIDDEUS = 145;
-local ZONE_PALBOROUGH = 143;
-local ZONE_JUGNER = 104;
-local ZONE_BATALLIA = 105;
-local ZONE_HORUTOTO_INNER = 192;
-local ZONE_HORUTOTO_OUTER = 194;
-local ZONE_DANGRUF = 191;
-local ZONE_SHAKHRAMI = 198;
+local ZONE_RUAUN = 128;
 local ZONE_GHELSBA_OUTPOST = 140;
 local ZONE_GHELSBA_FORT = 141;
-local ZONE_DELKFUTT_LOW = 184;
-local ZONE_ELDIEME = 195;
-local ZONE_GUSGEN = 196;
+local ZONE_YUGHOTT = 142;
+local ZONE_PALBOROUGH = 143;
+local ZONE_GIDDEUS = 145;
+local ZONE_BEADEAUX = 147;
+local ZONE_QULUN = 148;
+local ZONE_DAVOI = 149;
+local ZONE_MON_CAVERN = 150;
 local ZONE_OZTROJA = 151;
+local ZONE_BOYAHDA = 153;
+local ZONE_AERY = 154;
 local ZONE_DELKFUTT_MID = 157;
 local ZONE_DELKFUTT_HIGH = 158;
-local ZONE_ZVAHL_KEEP = 162;
-local ZONE_ZVAHL_BAILEYS = 161;
-
-local ZONE_PROM_DEM = 18;
-local ZONE_PROM_HOLLA = 17;
-local ZONE_PROM_MEA = 20;
-local ZONE_PROM_VAHZL = 22;
-
-local ZONE_PHANAUET = 1;
-local ZONE_CARPENTERS = 2;
-local ZONE_MANACLIPPER = 3;
-local ZONE_BIBIKI = 4;
-local ZONE_ATTOHWA = 5;
-local ZONE_OLDTON = 11;
-local ZONE_NEWTON = 12;
-local ZONE_LUFAISE = 24;
-local ZONE_MISAREAUX = 25;
-local ZONE_PHOMIUNA = 27;
-local ZONE_SACRARIUM = 28;
-local ZONE_RIVERNE_B1 = 29;
-local ZONE_RIVERNE_A1 = 29;
-local ZONE_ALTAIEU = 33;
-local ZONE_HUXZOI = 34;
-local ZONE_RUHMET = 35;
-local ZONE_TORAIMARAI = 169;
-local ZONE_SARUTA_EAST = 116;
-local ZONE_SARUTA_WEST = 115;
-local ZONE_RONFAURE_EAST = 101;
-local ZONE_RONFAURE_WEST = 100;
-local ZONE_GUSTABERG_NORTH = 106;
-local ZONE_GUSTABERG_SOUTH = 107;
-local ZONE_YUGHOTT = 176;
-local ZONE_CRAWLERS = 197;
-local ZONE_QULUN = 197;
-local ZONE_BEADEAUX = 147;
-local ZONE_GARLAIGE = 200;
+local ZONE_UGGALEPIH = 159;
 local ZONE_RANCOR = 160;
+local ZONE_ZVAHL_BAILEYS = 161;
+local ZONE_ZVAHL_KEEP = 162;
 local ZONE_RANGUEMONT = 166;
-local ZONE_PSOXJA = 9;
+local ZONE_BOSTAUNIEUX = 167;
+local ZONE_TORAIMARAI = 169;
+local ZONE_ZERUHN = 172;
+local ZONE_KORROLOKA = 173;
+local ZONE_KUFTAL = 174;
+local ZONE_SEASERPENT = 176;
+local ZONE_VELUGANNON = 177;
+local ZONE_RUAVITAU = 178;
+local ZONE_DELKFUTT_LOW = 184;
+local ZONE_RANPERRE = 190;
+local ZONE_DANGRUF = 191;
+local ZONE_HORUTOTO_INNER = 192;
+local ZONE_ORDELLE = 193;
+local ZONE_HORUTOTO_OUTER = 194;
+local ZONE_ELDIEME = 195;
+local ZONE_GUSGEN = 196;
+local ZONE_CRAWLERS = 197;
+local ZONE_SHAKHRAMI = 198;
+local ZONE_GARLAIGE = 200;
+local ZONE_GUSTAV = 202;
+local ZONE_FEIYIN = 204;
+local ZONE_CAULDRON = 205;
+local ZONE_QUICKSAND = 208;
+local ZONE_ONZOZO = 213;
+
 
 
 -- item, min, max, zone, job, bonusamount, family
@@ -334,6 +347,9 @@ local commonRewards = {
     {362, 1, 99, ZONE_CARPENTERS, 0, 0, 0}, -- Fluoro Flora
     {373, 1, 99, ZONE_CARPENTERS, 0, 0, 0}, -- Glowfly Cage
     {3632, 1, 99, ZONE_CARPENTERS, 0, 0, 0}, -- Carpenter's Stall
+
+    -- Ranguemont Pass (25 - 35)
+    {419, 1, 99, ZONE_RANGUEMONT, 0, 0, 0}, -- Leisure Table
 
     -- Korroloka Tunnel (25 - 35)
     {419, 1, 99, ZONE_KORROLOKA, 0, 0, 0}, -- Leisure Table
@@ -626,9 +642,9 @@ local commonRewards = {
 
 
     -- Uleguerand Range (65 - 75)
-    {415, 1, 99, ZONE_ULEGURAND, 0, 0, 0}, -- Aldebaran Horn
-    {461, 1, 99, ZONE_ULEGURAND, 0, 0, 0}, -- Buffalo Milk Case
-    {322, 1, 99, ZONE_ULEGURAND, 0, 0, 0}, -- Horn Trophy
+    {415, 1, 99, ZONE_ULEGUERAND, 0, 0, 0}, -- Aldebaran Horn
+    {461, 1, 99, ZONE_ULEGUERAND, 0, 0, 0}, -- Buffalo Milk Case
+    {322, 1, 99, ZONE_ULEGUERAND, 0, 0, 0}, -- Horn Trophy
 
     -- Valley of Sorrows (70 - 75)
 
