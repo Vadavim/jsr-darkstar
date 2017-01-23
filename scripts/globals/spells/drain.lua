@@ -25,12 +25,13 @@ function onSpellCast(caster,target,spell)
     if (dmg > (caster:getSkillLevel(DARK_MAGIC_SKILL) + 100)) then
         dmg = (caster:getSkillLevel(DARK_MAGIC_SKILL) + 100);
     end
-    local family = target:getFamily();
     if (target:getFamily() == 172 or target:getFamily() == 369) then dmg = dmg * 1.5; end;
 
     if (caster:hasStatusEffect(EFFECT_EBULLIENCE)) then
         dmg = dmg * 1.5;
     end
+
+    dmg = dmg * (1 +  caster:getMod(MOD_ENH_DRAIN_ASPIR) / 100);
 
     --get resist multiplier (1x if no resist)
     local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT)-target:getStat(MOD_INT),DARK_MAGIC_SKILL,1.0);

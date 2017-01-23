@@ -12,5 +12,5 @@ require("scripts/globals/magic");
 -----------------------------------
 
 function onAdditionalEffect(player,target,damage)
-    return weaponElementalDamage(player, target, damage, 20, ELE_THUNDER, 6, 12);
+    return weaponElementalDamage(player, target, damage, 30, ELE_THUNDER, 6, 12);
 end;

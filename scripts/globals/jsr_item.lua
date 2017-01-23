@@ -37,15 +37,18 @@ function usePotion(target,cap)
     if (power > cap) then
         power = cap
     end
+    power = power * (1 + target:getMod(MOD_HPHEAL) / 100);
     target:addStatusEffect(EFFECT_MEDICINE,0,0,60);
 	target:messageBasic(24,0,target:addHP(power));
 end;
 
 function useEther(target,cap)
-    local power = math.floor(target:getMaxMP() * 0.50);
+    local power = math.floor(target:getMaxMP() * 0.33);
     if (power > cap) then
         power = cap
     end
+
+    power = power * (1 + target:getMod(MOD_MPHEAL) / 100);
     target:addStatusEffect(EFFECT_MEDICINE,0,0,120);
 	target:messageBasic(25,0,target:addMP(power));
 end;

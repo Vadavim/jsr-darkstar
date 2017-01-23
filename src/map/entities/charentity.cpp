@@ -1196,6 +1196,10 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
             hitCount += 2;
     }
 
+    // JSR: bonus damage if target is at full HP
+    if (PTarget->GetHPP() == 100)
+        totalDamage += damage * 2.5;
+//    totalDamage += damage * (1.5f + ((double)this->GetMLevel()) / 40.0f);
 
     // loop for barrage hits, if a miss occurs, the loop will end
     for (uint8 i = 1; i <= hitCount; ++i)

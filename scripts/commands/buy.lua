@@ -53,17 +53,17 @@ end
 
 local function attackFood(player, points)
     local stock = {
-        4371,   80,    --Grilled Hare
-        4507,   110,    --Rarab Meatball
-        4411,   220,    --Dhalmel Pie
-        4517,   300,    --Yellow Curry
-        5190,   310,    --Carbonara
-        5598,   390,    --Sis Kebabi
-        5166,   450,    --Coeurl Sub
-        5211,   600,    --Spaghetti Arrabbiata
-        4547,   620,    --Boiled Cockatrice
-        5685,   950,    --Rabbit Pie
-        5146,   1100,    --Hedgehog Pie
+        5648,   65,    --Grilled Lik
+        4371,   140,    --Grilled Hare
+        4507,   220,    --Rarab Meatball
+        4411,   440,    --Dhalmel Pie
+        4517,   600,    --Yellow Curry
+        5190,   620,    --Carbonara
+        5598,   800,    --Sis Kebabi
+        5166,   900,    --Coeurl Sub
+        5211,   1200,    --Spaghetti Arrabbiata
+        4547,   1300,    --Boiled Cockatrice
+        5146,   2200,    --Hedgehog Pie
     };
     return stock;
 end
@@ -71,28 +71,28 @@ end
 
 local function attackFoodEx(player, points)
     local stock = {
-        4516,   120, {COOK, 350},    --Grilled Black Hare
-        4349,   200, {COOK, 600},    --Bunny Ball
-        6212,   380, {COOK, 1000},    --Marinara Sice +1
-        4284,   435, {COOK, 2000},    --Tender Navarin
-        5199,   670, {COOK, 2500},    --Carbonara +1
-        4349,   200, {COOK, 3200},    --Yellow Curry Bun +1
-        4212,   1400, {COOK, 3800},    --Arrabbiata +1
-        5156,   1900, {COOK, 5000},    --Porcupine Pie
-        4331,   2400, {COOK, 9000},    --Imperial Omelette
+        4516,   240, {COOK, 350},    --Grilled Black Hare
+        4349,   400, {COOK, 600},    --Bunny Ball
+        6212,   640, {COOK, 1000},    --Marinara Sice +1
+        4284,   880, {COOK, 2000},    --Tender Navarin
+        5199,   1300, {COOK, 2500},    --Carbonara +1
+        4349,   400, {COOK, 3200},    --Yellow Curry Bun +1
+        4212,   2800, {COOK, 3800},    --Arrabbiata +1
+        5156,   3800, {COOK, 5000},    --Porcupine Pie
+        4331,   4500, {COOK, 9000},    --Imperial Omelette
     };
     return special_stock(stock, points);
 end
 
 local function hybridFood(player, points)
     local stock = {
-        5145,   120,    --Fish and Chips
-        6217,   150,    --Anchovy Slice
-        6466,   380,    --Miso Soup
-        5758,   440,    --Black Curry Bun
+        5145,   180,    --Fish and Chips
+        6217,   220,    --Anchovy Slice
+        5758,   300,    --Black Curry Bun
         6211,   435,    --Marinara Slice
+        4488,   500,    --Jack-O-Lantern
         4584,   550,    --Founder Meuniere
-        4488,   900,    --Jack-O-Lantern
+        6466,   600,    --Miso Soup
     };
     return stock;
 end
@@ -101,12 +101,12 @@ local function hybridFoodEx(player, points)
     local stock = {
         5159,   240, {COOK, 800},    --Friture Misareaux
         6218,   300, {COOK, 1000},    --Anchovy Slice +1
-        4345,   950, {COOK, 1800},    --Flounder Meuniere +1
-        6467,   660, {COOK, 2800},    --Miso Soup +1
+        4345,   800, {COOK, 1800},    --Flounder Meuniere +1
         6212,   1150, {COOK, 4600},    --Marinara Slice +1
         5764,   1300, {COOK, 6000},    --Black Curry Bun +1
-        5685,   1000, {COOK, 8000},    --Rabbit Pie
-        6069,   3000, {COOK, 9300},    --Riverfin Soup
+        6467,   900, {COOK, 7000},    --Miso Soup +1
+        5685,   900, {COOK, 8000},    --Rabbit Pie
+        6069,   3500, {COOK, 9300},    --Riverfin Soup
     };
     return special_stock(stock, points);
 end
@@ -139,66 +139,66 @@ end
 
 local function defenseFood(player, points)
     local stock = {
-        4535,  70,    --Boiled Crayfish
-        4456,  100,    --Boiled Crab
-        5189,  115,    --Vongole Rosso
-        4459,  150,    --Nebimonite Bake
-        4398,  190,    --Fish Mithkabob
-        5191,  200,    --Pescatora
-        4398,  250,    --Boiled Barnacles
-        6272,  280,    --Fried Popoto
-        4554,  365,    --Tavnazian Taco
-        4554,  800,    --Shallops Tropicale
+        4535,  120,    --Boiled Crayfish
+        4456,  220,    --Boiled Crab
+        5189,  220,    --Vongole Rosso
+        4459,  300,    --Nebimonite Bake
+        4398,  450,    --Fish Mithkabob
+        5191,  400,    --Pescatora
+        4398,  500,    --Boiled Barnacles
+        6272,  580,    --Fried Popoto
+        4554,  700,    --Tavnazian Taco
+        4554,  1600,    --Shallops Tropicale
     };
     return stock;
 end
 
 local function defenseFoodEx(player, points)
     local stock = {
-        4338,   155, {COOK, 500},    --Steamed Crayfish
-        4342,   225, {COOK, 1000},    --Steamed Crab
-        5198,   260, {COOK, 1400},    --Vongole Rosso +1
-        4267,   330, {COOK, 1800},    --Buttered Nebimonite
-        4575,   410, {COOK, 2500},    --Fish Chiefkabob
-        5200,   445, {COOK, 2850},    --Pescatora +1
-        6273,   560, {COOK, 3200},    --Fried Popoto +1
-        5175,   850, {COOK, 3900},    --Leremieu Taco +1
+        4338,   230, {COOK, 500},    --Steamed Crayfish
+        4342,   550, {COOK, 1000},    --Steamed Crab
+        5198,   580, {COOK, 1400},    --Vongole Rosso +1
+        4267,   660, {COOK, 1800},    --Buttered Nebimonite
+        4575,   820, {COOK, 2500},    --Fish Chiefkabob
+        5200,   900, {COOK, 2850},    --Pescatora +1
+        6273,   1100, {COOK, 3200},    --Fried Popoto +1
+        5175,   1700, {COOK, 3900},    --Leremieu Taco +1
     };
     return special_stock(stock, points);
 end
 
 local function magicFood(player, points)
     local stock = {
-        4414,  70,    --Rolanberry Pie
-        4413,  100,    --Apple Pie
-        4563,  150,    --Pamama Tart
-        4556,  200,    --Icecap Rolanberry
-        4270,  265,    --Sweet Rice Cake
-        5718,  320,    --Cream Puff
-        5646,  300,    --Bloody Chocolate
+        5646,  200,    --Bloody Chocolate
+        4414,  300,    --Rolanberry Pie
+        4413,  350,    --Apple Pie
+        4563,  500,    --Pamama Tart
+        4556,  600,    --Icecap Rolanberry
+        4270,  780,    --Sweet Rice Cake
+        5718,  500,    --Cream Puff
         5773,  480,    --Mushroom Crepe
         5930,  1250,    --Sprightly Soup
-        6063,  1400,    --Fruit Parfait
-        5766,  600,    --Butter Crepe
-        5775,  900,    --Chocolate Crepe
-        5777,  1300,    --Pear Crepe
+        6063,  2300,    --Fruit Parfait
+        5766,  1800,    --Butter Crepe
+        5775,  2400,    --Chocolate Crepe
+        5777,  3800,    --Pear Crepe
     };
     return stock;
 end
 
 local function magicFoodEx(player, points)
     local stock = {
-        4339,   160, {COOK, 800},    --Rollanberry Pie +1
-        5555,   300, {COOK, 1300},    --Flurry Courante
+        4339,   380, {COOK, 800},    --Rollanberry Pie +1
+        5555,   580, {COOK, 1300},    --Flurry Courante
         4320,   280, {COOK, 1800},    --Apple Pie +1
         4287,   450, {COOK, 2400},    --Opo-opo Tart
         5931,   2000, {COOK, 3200},    --Shimmy Soup
         5158,   900, {COOK, 4000},    --Vermillian Jelly
-        5774,   920, {COOK, 4800},    --Crepe Forestiere
+        5774,   2000, {COOK, 4800},    --Crepe Forestiere
         6064,   3300, {COOK, 5250},    --Queen's Crown
-        5767,   1450, {COOK, 5800},    --Crepe Delice
-        5776,   2200, {COOK, 6800},    --Crepe Caprice
-        5778,   3300, {COOK, 8000},    --Crepe Belle Helene
+        5767,   3000, {COOK, 5800},    --Crepe Delice
+        5776,   4400, {COOK, 6800},    --Crepe Caprice
+        5778,   5800, {COOK, 8000},    --Crepe Belle Helene
     };
     return special_stock(stock, points);
 end
@@ -206,18 +206,18 @@ end
 
 local function accuracyFood(player, points)
     local stock = {
-        4440,   150,    --Whitefish Stew
-        5215,   120,    --Tentacle Sushi
-        4582,   210,    --Bass Meuniere
-        5219,   155,    --Ikra Gunkan
-        4404,   180,    --Roast Trout
-        5721,   210,    --Crab Sushi
-        5693,   235,    --Octopus Sushi
-        5149,   285,    --Sole Sushi
-        5176,   320,    --Bream Sushi
-        5665,   320,    --Fin Sushi
-        5178,   450,    --Dorado Sushi
-        5968,   1400,    --Seafood Paella
+        4440,   300,    --Whitefish Stew
+        5215,   300,    --Tentacle Sushi
+        4582,   420,    --Bass Meuniere
+        5219,   300,    --Ikra Gunkan
+        4404,   400,    --Roast Trout
+        5721,   450,    --Crab Sushi
+        5693,   550,    --Octopus Sushi
+        5149,   650,    --Sole Sushi
+        5176,   800,    --Bream Sushi
+        5665,   800,    --Fin Sushi
+        5178,   980,    --Dorado Sushi
+        5968,   1900,    --Seafood Paella
     };
     return stock;
 end
@@ -225,19 +225,19 @@ end
 
 local function accuracyFoodEx(player, points)
     local stock = {
-        4601,   220, {COOK, 800},    --Sopa Pez Blanco
-        5216,   240, {COOK, 1350},    --Tentacle Sushi +1
-        4582,   490, {COOK, 1600},    --Bass Meuniere +1
-        5220,   435, {COOK, 1800},    --Ikra Gunkan +1
-        4587,   320, {COOK, 2350},    --Broiled Trout
-        5722,   500, {COOK, 2900},    --Crab Sushi +1
-        5694,   540, {COOK, 3350},    --Octopus Sushi +1
-        5163,   610, {COOK, 4000},    --Sole Sushi +1
-        4353,   450, {COOK, 4500},    --Bass Croute
-        5177,   700, {COOK, 4800},    --Bream Sushi +1
-        5666,   700, {COOK, 4800},    --Fin Sushi +1
-        5983,   2200, {COOK, 5450},    --Piscator's Paella
-        5179,   1100, {COOK, 6400},    --Dorado Sushi +1
+        4601,   440, {COOK, 800},    --Sopa Pez Blanco
+        5216,   480, {COOK, 1350},    --Tentacle Sushi +1
+        4582,   950, {COOK, 1600},    --Bass Meuniere +1
+        5220,   890, {COOK, 1800},    --Ikra Gunkan +1
+        4587,   640, {COOK, 2350},    --Broiled Trout
+        5722,   1000, {COOK, 2900},    --Crab Sushi +1
+        5694,   1080, {COOK, 3350},    --Octopus Sushi +1
+        5163,   1200, {COOK, 4000},    --Sole Sushi +1
+        4353,   900, {COOK, 4500},    --Bass Croute
+        5177,   1400, {COOK, 4800},    --Bream Sushi +1
+        5666,   1400, {COOK, 4800},    --Fin Sushi +1
+        5983,   2300, {COOK, 5450},    --Piscator's Paella
+        5179,   1400, {COOK, 6400},    --Dorado Sushi +1
     };
     return special_stock(stock, points);
 end

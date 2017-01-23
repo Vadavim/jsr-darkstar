@@ -12,12 +12,5 @@ require("scripts/globals/magic");
 -----------------------------------
 
 function onAdditionalEffect(player,target,damage)
-    local chance = 10;
-
-    if (math.random(0,99) >= chance or applyResistanceAddEffect(player,target,ELE_WATER,0) <= 0.5) then
-        return 0,0,0;
-    else
-        target:addStatusEffect(EFFECT_POISON, 4, 3, 30);
-        return SUBEFFECT_POISON, MSGBASIC_ADD_EFFECT_STATUS, EFFECT_POISON;
-    end
+    return weaponStatus(player, target, 30, ELE_WATER, EFFECT_POISON, 10, 30);
 end;

@@ -113,6 +113,27 @@ std::array<uint16, 100> g_ExpPerLevel;
 *																		*
 ************************************************************************/
 
+std::set<int> xpBonusAreas = {
+        7, // Attohwa Chasm
+        11, 12, // Movalpolos
+        160, // Den of Rancor
+        2, // Carpenter's Landing
+        4, // Bibiki Bay
+        5, // Uleguerand Range
+        150, // Monastic Cavern
+        151, // Dragon's Aery
+        122, // Romaeve
+        16, 18, 20, 22, // Promyvion
+        33, // Al'Taieu
+        34, // HuXzoi
+        35, // Garden of Ru'Hmet
+        24, // Lufaise Meadows
+        25, // Misareaux Coast
+        27, // Phomiuna Aqueducts
+        28, // Sacrarium
+        29, 30 // Riverne B1 and A1
+};
+
 namespace charutils
 {
 
@@ -3442,7 +3463,9 @@ namespace charutils
                         PMember->systemList.clear();
                     }
 
+                    // Hard monsters give bonus XP
                     if (PMob->GetMLevel() > PMember->GetMLevel() + 3) {
+                        exp *= 1.0f + (float)(PMob->GetMLevel() - PMember->GetMLevel() - 3) * 0.125;
                     }
 
                     if (sBonus > 0) {
@@ -3461,6 +3484,9 @@ namespace charutils
                     }
                     if (PMob->GetLocalVar("linked") == 1)
                         exp *= 1.25f;
+
+                    if (xpBonusAreas.find(PMob->getZone()) != xpBonusAreas.end())
+                        exp *= 1.30f;
 
 
                     if (PMember->systemList.size() == 0)

@@ -1374,7 +1374,7 @@ function doElementalNuke(caster, spell, target, spellParams)
     local mDMG = caster:getMod(MOD_MAGIC_DAMAGE);
 
     if (caster:isPC() and spell:isAoE() == 1) then
-        resistBonus = resistBonus + 40;
+        resistBonus = resistBonus + 30;
     end
 
 

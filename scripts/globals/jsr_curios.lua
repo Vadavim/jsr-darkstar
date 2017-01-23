@@ -48,6 +48,7 @@ local randomFurniture = {
     {264, 1},                 -- Stuffed Chocobo
     {3695, 1},                 -- Cait Sith Carving
     {3706, 1},                 -- Vanaclock
+    {6411, 1},                 -- Chocobo Chair
 };
 
 local rareFurniture = {
@@ -55,5 +56,25 @@ local rareFurniture = {
     {3585, 1},                 -- Galley Kitchen
 }
 
-local rareItems = {
+local Costumes = {
+    {28652, 1},                 -- Hatchling Shield
+    {10809, 1},                 -- Moogle Guard
+    {27631, 1},                 -- Cait Sith Guard
+    {10811, 1},                 -- Chocobo Shield
+    {27911, 1},                 -- Chocobo Suit
+    {10252, 1},                 -- Decennial Dress
+    {10251, 1},                 -- Decennial Coat
+    {10250, 1},                 -- Moogle Suit
+    {27854, 1},                 -- Mandragora Suit
+    {27727, 1},                 -- Metal Slime Hat
+    {25645, 1},                 -- Kupo Masque
+    {27765, 1},                 -- Chocobo Masque
+    {17074, 1},                 -- Chocobo Wand
+}
+
+
+local specialRewards = {
+    {11290, 1},                 -- Tidal Talisman (lots of teleports)
+    {11403, 1},                 -- Talaria (+10% movement for 60 minutes)
+    {20694, 1},                 -- Fermion Sword
 }

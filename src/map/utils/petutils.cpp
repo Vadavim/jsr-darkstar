@@ -377,6 +377,9 @@ namespace petutils
         }
 
         PMob->health.maxhp = (int16)(17.0 * pow(lvl, growth) * petStats->HPscale);
+        if (PMob->getPetType() == PETTYPE_ALLY) {
+            PMob->health.maxhp = 20 + lvl * 15 * petStats->HPscale;
+        }
         if (PMob->m_PetID == 75) {
             PMob->health.maxhp = 10 + lvl * 10;
         };

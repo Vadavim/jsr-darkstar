@@ -12,5 +12,5 @@ require("scripts/globals/magic");
 -----------------------------------
 
 function onAdditionalEffect(player,target,damage)
-    return weaponDrain(player, target, damage, 50, DRAIN_HP, 30, 100)
+    return weaponDrain(player, target, damage, 50, DRAIN_HP, 30, 120)
 end;

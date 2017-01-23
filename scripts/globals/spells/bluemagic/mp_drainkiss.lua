@@ -31,7 +31,8 @@ end;
 function onSpellCast(caster,target,spell)
 
     -- also have small constant to account for 0 dark skill
-    local dmg = 5 + 0.375 * (caster:getSkillLevel(BLUE_SKILL) + caster:getMod(79 + BLUE_SKILL));
+    local dmg = 10 + 0.45 * (caster:getSkillLevel(BLUE_SKILL) + caster:getMod(79 + BLUE_SKILL));
+    dmg = dmg * (1 +  caster:getMod(MOD_ENH_DRAIN_ASPIR) / 100);
     --get resist multiplier (1x if no resist)
     local resist = applyResistance(caster,spell,target,caster:getStat(MOD_INT)-target:getStat(MOD_INT),BLUE_SKILL,1.0);
     --get the resisted damage

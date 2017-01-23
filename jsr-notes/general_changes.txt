@@ -70,6 +70,7 @@ EXPERIENCE POINTS
  - Notorius Monsters give +500% XP.
  - Some monster families now give bonus XP 
  - XP curve decreased significantly: after level 61, XP to next level increased by 300 per level
+ - Areas that do not have Fields / Grounds of Valor give a +30% bonus to XP.
 	
 
 Fields of Valor / Grounds of Valor

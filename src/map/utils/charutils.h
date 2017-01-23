@@ -35,6 +35,8 @@ class CMobEntity;
 class CMeritPoints;
 class CAbility;
 
+#include <set>
+
 namespace charutils
 {
 

@@ -25,7 +25,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     local typeEffect = EFFECT_INT_DOWN;
 
-    local success = MobStatusEffectMove(mob, target, skill, typeEffect, 10, 3, 60 * (skill:getTP() / 1000));
+    local success = MobStatusEffectMove(mob, target, typeEffect, 10, 3, 60 * (skill:getTP() / 1000));
     if (success == 242) then
         target:setPendingMessage(278, typeEffect);
     end

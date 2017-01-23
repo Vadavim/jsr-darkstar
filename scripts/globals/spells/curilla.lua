@@ -35,6 +35,8 @@ function onSpellCast(caster,target,spell)
     local ally = caster:getRecentAlly();
     ally:addMod(MOD_MATT, caster:getMainLvl() / 2);
     ally:addMod(MOD_DEF, caster:getMainLvl() * 1.33);
+    ally:addMod(MOD_UDMGPHYS, -15);
+    ally:addMod(MOD_UDMGMAGIC, -15);
     ally:addMod(MOD_ENMITY, 35);
     ally:addMod(MOD_ENMITY_LOSS_REDUCTION, 60);
 
