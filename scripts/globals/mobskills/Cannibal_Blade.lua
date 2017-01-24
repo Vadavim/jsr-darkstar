@@ -14,7 +14,7 @@ end;
 
 function onMobWeaponSkill(target, mob, skill)
     skill:setSkillchain(184); -- Retribution: Gravitation / Reverberation
-    local dmg = 50 + mob:getMainLvl() * 3.5;
+    local dmg = 50 + mob:getMainLvl() * 5;
     dmg = dmg * (1 + (skill:getTP() - 1000) / 3000);
     local dmg = AutomatonFinalAdjustments(target, mob, skill, dmg);
     target:delHP(dmg);

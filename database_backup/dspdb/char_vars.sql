@@ -69,10 +69,14 @@ REPLACE INTO `char_vars` (`charid`, `varname`, `value`) VALUES
 	(21828, 'achv_z103_kill', 4),
 	(21828, 'achv_f113_kill', 3),
 	(21828, 'achv_s20_kill', 3),
-	(21828, 'GodMode', 1),
 	(21828, 'achv_f206_kill', 1),
 	(21828, 'achv_s6_kill', 1),
-	(21828, 'PlayerMainJob', 4);
+	(21828, 'achv_z118_kill', 11),
+	(21828, 'achv_f197_kill', 6),
+	(21828, 'achv_s2_kill', 9),
+	(21828, 'achv_f172_kill', 2),
+	(21828, 'achv_s1_kill', 2),
+	(21828, 'achv_f77_kill', 3);
 /*!40000 ALTER TABLE `char_vars` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

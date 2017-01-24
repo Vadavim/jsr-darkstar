@@ -23,9 +23,9 @@ function onSpellCast(caster,target,spell)
     local basedmg = caster:getSkillLevel(DARK_MAGIC_SKILL) / 4;
     local dmg = calculateMagicDamage(basedmg,3,caster,spell,target,DARK_MAGIC_SKILL,MOD_INT,false);
 
-    -- Softcaps at 32, should always do at least 1
-    if (dmg > 62) then
-        dmg = 62;
+    -- Softcaps at 90, should always do at least 1
+    if (dmg > 90) then
+        dmg = 90;
     end
     if (dmg < 1) then
         dmg = 1;
@@ -52,7 +52,7 @@ function onSpellCast(caster,target,spell)
     local dia = target:getStatusEffect(EFFECT_DIA);
 
     -- Calculate DoT (rough, though fairly accurate)
-    local dotdmg = 5 + math.floor(caster:getSkillLevel(DARK_MAGIC_SKILL) / 15);
+    local dotdmg = 8 + math.floor(caster:getSkillLevel(DARK_MAGIC_SKILL) / 15);
     if (dotdmg > 30) then
         dotdmg = 30;
     end

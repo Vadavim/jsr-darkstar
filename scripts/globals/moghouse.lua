@@ -4,6 +4,7 @@
 
 require("scripts/globals/status")
 require("scripts/globals/jsr_utils")
+require("scripts/globals/jsr_unleash")
 ------------------------------------
 -- Mog Locker constants
 ------------------------------------
@@ -134,6 +135,11 @@ function moogleTrade(player,npc,trade)
         player:tradeComplete();
         return true;
     end
+
+    if (jsrUnleash(player, npc, trade) == true) then
+        return true;
+    end
+
 
     if (noSaleTrade(player, npc, trade) == true) then
         return true;

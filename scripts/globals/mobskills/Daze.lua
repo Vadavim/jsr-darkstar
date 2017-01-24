@@ -18,7 +18,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     local numhits = 1;
     local accmod = 1;
-    local dmgmod = 1.35;
+    local dmgmod = 1.15;
     local info = MobRangedMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_BONUS,5.0, 5.5, 6.0);
     local dmg = AutomatonFinalAdjustments(target, mob, skill, info.dmg);
     dmg = MobFinalAdjustments(dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_SLASH,info.hitslanded);

@@ -22,13 +22,13 @@ function onSpellCast(caster,target,spell)
     local mINT = target:getStat(MOD_INT);
 
     local dINT = (pINT - mINT);
-    local power = caster:getSkillLevel(ENFEEBLING_MAGIC_SKILL) / 15 + 2;
+    local power = caster:getSkillLevel(ENFEEBLING_MAGIC_SKILL) / 15 + 4;
     if power > 16 then
         power = 16;
     end
 
     if (caster:hasStatusEffect(EFFECT_DARK_ARTS) and caster:getMainJob() == JOBS.SCH) then
-        power = power * 1.33;
+        power = power * 1.5;
         duration = duration * 2;
     end
     if (caster:hasStatusEffect(EFFECT_EBULLIENCE)) then

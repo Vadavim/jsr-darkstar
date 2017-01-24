@@ -8,7 +8,7 @@
  - 
 Duration: 90 seconds
  - 
-Max DOT: 4 -> 6, and scales faster (+1 per 15 skill)
+Max DOT: 4 -> 8, and scales faster (1 +1 per 15 skill)
 
 
 
@@ -16,7 +16,7 @@ Max DOT: 4 -> 6, and scales faster (+1 per 15 skill)
 
  - Duration: 120 -> 90 seconds
 
- - Max DOT: 10 -> 18, and scales faster (3 +1 per 15 skill)
+ - Max DOT: 10 -> 24, and scales faster (6 +1 per 15 skill)
 
 
 
@@ -28,19 +28,19 @@ Max DOT: 4 -> 6, and scales faster (+1 per 15 skill)
 
 
 
-[Poisonaga]
+[Poisonga]
  - 
-Duration: 60 -> 90 seconds
+Duration: 90 -> 180 seconds seconds
  - 
-Max DOT: 4 -> 15, and scales faster (2 +1 per 15 skill)
+Max DOT: 4 -> 85, and scales faster (5 +1 per 15 skill)
 
 
 
-[Poisonaga II]
+[Poisonga II]
  - 
-Duration: 60 -> 90 seconds
+Duration: 60 -> 180 seconds
 
- - Max DOT: 15 -> 25, and scales faster (6 +1 per 15 skill)
+ - Max DOT: 15 -> 25, and scales faster (7 +1 per 15 skill)
 
 
 
@@ -79,6 +79,7 @@ Fire Spikes: increased damage
 [-ga Spells]
  - Has a higher (+20%) chance of being unresisted.
  - Deals bonus damage (+25%) against large creatures.
+ - The damage of first and second tier -ga spells has been increased.
 
 
 [Ancient Magic]

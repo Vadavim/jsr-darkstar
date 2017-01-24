@@ -1056,7 +1056,8 @@ bool CAutomatonController::ChooseSkill() {
     }
 
     // Shield Bash
-    if (PAutomaton->getFrame() == FRAME_VALOREDGE && m_Tick >= m_shieldBashTick + std::chrono::seconds(120) &&
+    int shieldBashDuration = PAutomaton->hasAttachment(8551) ? 90 : 120;
+    if (PAutomaton->getFrame() == FRAME_VALOREDGE && m_Tick >= m_shieldBashTick + std::chrono::seconds(shieldBashDuration) &&
         (PTarget->PAI->IsCurrentState<CMagicState>() || PTarget->PAI->IsCurrentState<CMobSkillState>())) {
         return choose(PTarget, 1307, m_shieldBashTick);
     }

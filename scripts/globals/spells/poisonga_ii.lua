@@ -22,9 +22,9 @@ function onSpellCast(caster,target,spell)
     local mINT = target:getStat(MOD_INT);
 
     local dINT = (pINT - mINT);
-    local power = caster:getSkillLevel(ENFEEBLING_MAGIC_SKILL) / 15 + 7;
-    if power > 28 then
-        power = 28;
+    local power = caster:getSkillLevel(ENFEEBLING_MAGIC_SKILL) / 15 + 5;
+    if power > 18 then
+        power = 18;
     end
 
     local params = {}; params.bonusmab = 0; params.includemab = true;

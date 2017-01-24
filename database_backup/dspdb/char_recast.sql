@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS `char_recast` (
 -- Dumping data for table dspdb.char_recast: 3 rows
 /*!40000 ALTER TABLE `char_recast` DISABLE KEYS */;
 REPLACE INTO `char_recast` (`charid`, `id`, `time`, `recast`) VALUES
-	(21828, 5, 1484883929, 0),
-	(21828, 0, 1484883929, 0),
-	(21828, 38, 1484883929, 0);
+	(21828, 5, 1485134530, 0),
+	(21828, 0, 1485134520, 0),
+	(21828, 38, 1485134530, 0);
 /*!40000 ALTER TABLE `char_recast` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

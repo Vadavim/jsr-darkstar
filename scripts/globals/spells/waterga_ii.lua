@@ -18,10 +18,10 @@ function onSpellCast(caster, target, spell)
     local spellParams = {};
     spellParams.hasMultipleTargetReduction = true;
     spellParams.resistBonus = 1.0;
-    spellParams.V0 = 280;
-    spellParams.V50 = 465;
-    spellParams.V100 = 610;
-    spellParams.V200 = 805;
+    spellParams.V0 = 290;
+    spellParams.V50 = 475;
+    spellParams.V100 = 620;
+    spellParams.V200 = 815;
     spellParams.M0 = 3.7;
     spellParams.M50 = 2.9;
     spellParams.M100 = 1.95;

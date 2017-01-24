@@ -1958,7 +1958,10 @@ function doRequiem(caster, target, spell, tier)
     end
 
     local iBoost = caster:getMod(MOD_REQUIEM_EFFECT) + caster:getMod(MOD_ALL_SONGS_EFFECT);
-    power = power + 1 + (iBoost * tier * 0.5);
+    if (iBoost > 0) then
+        power = power + 1 + (iBoost * tier * 0.5);
+    end
+
 
     if (caster:hasStatusEffect(EFFECT_SOUL_VOICE)) then
         power = power * 2;

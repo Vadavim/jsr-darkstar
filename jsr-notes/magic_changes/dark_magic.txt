@@ -10,17 +10,19 @@ Increase drain to: Dark Magic Skill * 1.6
  - Lowers target's Dark Resistance by 20.
 
 [Bio]
-Duration: 90  seconds
-Max DOT: 3 -> 10
+Duration: 60  seconds
+Max DOT: 3 -> 12
+ - Also lowers Dark Res by 25
 
 [Bio II]
 Duration: 120  seconds
 Max DOT: 8 -> 20
+ - Also lowers Dark Rest by 25
 
 [Bio III]
 Duration: 120  seconds
 Max DOT: 17 -> 30
-
+ - Also lowers Dark Res by 25
 [Absorb Stat Spells]
  - Absorb amount scales with Dark Magic skill. Absorbed stat does not decay over time.
  - Duration: 60 -> 180 seconds.

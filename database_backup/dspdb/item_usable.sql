@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `item_usable` (
   PRIMARY KEY (`itemid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=1 CHECKSUM=1;
 
--- Dumping data for table dspdb.item_usable: 2,030 rows
+-- Dumping data for table dspdb.item_usable: 2,046 rows
 /*!40000 ALTER TABLE `item_usable` DISABLE KEYS */;
 REPLACE INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `animation`, `animationTime`, `maxCharges`, `useDelay`, `reuseDelay`, `aoe`) VALUES
 	(4096, 'fire_crystal', 1, 0, 0, 0, 0, 0, 0, 0),
@@ -1873,7 +1873,7 @@ REPLACE INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `ani
 	(15769, 'olduum_ring', 1, 3, 0, 0, 1, 30, 72000, 0),
 	(15770, 'random_ring', 1, 3, 0, 0, 50, 30, 1800, 0),
 	(15782, 'manashell_ring', 1, 3, 0, 0, 50, 30, 1800, 0),
-	(15783, 'amored_ring', 1, 3, 0, 0, 50, 30, 1800, 0),
+	(15783, 'armored_ring', 1, 3, 0, 0, 50, 30, 1800, 0),
 	(15793, 'anniversary_ring', 1, 3, 0, 0, 10, 15, 3600, 0),
 	(15817, 'ecphoria_ring', 1, 3, 0, 0, 100, 30, 300, 0),
 	(15834, 'blind_ring', 20, 2, 70, 0, 100, 30, 60, 0),
@@ -2064,7 +2064,16 @@ REPLACE INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `ani
 	(5518, 'sanctum_of_life_tincture', 1, 1, 24, 0, 0, 0, 0, 0),
 	(5517, 'flames_prominence_tincture', 1, 1, 24, 0, 0, 0, 0, 0),
 	(5519, 'soils_prominence_tincture', 1, 1, 24, 0, 0, 0, 0, 0),
-	(5520, 'snowdrift_arbor_tincture', 1, 1, 24, 0, 0, 0, 0, 0);
+	(5520, 'snowdrift_arbor_tincture', 1, 1, 24, 0, 0, 0, 0, 0),
+	(10849, 'yagudo_belt', 1, 1, 0, 0, 1, 15, 30, 0),
+	(10847, 'orc_belt', 1, 1, 0, 0, 1, 15, 30, 0),
+	(10848, 'quadav_belt', 1, 1, 0, 0, 1, 15, 30, 0),
+	(10851, 'slime_belt', 1, 1, 0, 0, 1, 15, 30, 0),
+	(10852, 'hecteyes_belt', 1, 1, 0, 0, 1, 15, 30, 0),
+	(10850, 'leech_belt', 1, 1, 0, 0, 1, 15, 30, 0),
+	(26167, 'sneak_ring', 1, 1, 0, 0, 1, 5, 900, 0),
+	(26168, 'deodorize_ring', 1, 1, 0, 0, 1, 5, 900, 0),
+	(26166, 'invisible_ring', 1, 1, 0, 0, 1, 5, 900, 0);
 /*!40000 ALTER TABLE `item_usable` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

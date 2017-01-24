@@ -12,8 +12,15 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    mob:addTP(skill:getTP() + 250); -- Ability doesn't consume TP (but does give some)
-    target:addStatusEffect(EFFECT_STUN, 1, 0, 6);
-    return EFFECT_STUN;
+    mob:addTP(skill:getTP() + 400); -- Ability doesn't consume TP (but does give some)
+    local dmg = 2 * mob:getMainLvl() + mob:getStat(MOD_STR);
+    local duration = 6;
+    if (mob:hasAttachment(8551)) then
+        duration = 10;
+        dmg = dmg * 2;
+    end;
+    target:addStatusEffect(EFFECT_STUN, 1, 0, duration);
+    dmg = target:physicalDmgTaken(dmg);
+    return dmg;
 end;
 

@@ -20,16 +20,18 @@ function onTrigger(player, amount)
 --print(player:getRotPos());
 --player:dispelAllStatusEffect();
 
-    local target = player:getCursorTarget();
-    printf("Cool: %d\nDelay: %d\nStand: %d", target:getMobMod(MOBMOD_MAGIC_COOL), target:getMobMod(MOBMOD_MAGIC_DELAY), target:getMobMod(MOBMOD_STANDBACK_COOL));
-    printf("Fast: %d\nUFast: %d", target:getMod(MOD_FASTCAST), target:getMod(MOD_UFASTCAST));
-    if (target ~= nil) then
-        player:SayToPlayer("STR: " .. tostring(target:getStat(MOD_STR))
-            .. ", VIT: " .. tostring(target:getStat(MOD_VIT))
-                .. ", DEX: " .. tostring(target:getStat(MOD_DEX))
-                .. ", INT: " .. tostring(target:getStat(MOD_INT))
-                .. ", MND: " .. tostring(target:getStat(MOD_MND)))
-    end
+player:startEvent(0x7d00, 0, 0, 0, amount, 0, 0, 0, 0);
+
+--    local target = player:getCursorTarget();
+--    printf("Cool: %d\nDelay: %d\nStand: %d", target:getMobMod(MOBMOD_MAGIC_COOL), target:getMobMod(MOBMOD_MAGIC_DELAY), target:getMobMod(MOBMOD_STANDBACK_COOL));
+--    printf("Fast: %d\nUFast: %d", target:getMod(MOD_FASTCAST), target:getMod(MOD_UFASTCAST));
+--    if (target ~= nil) then
+--        player:SayToPlayer("STR: " .. tostring(target:getStat(MOD_STR))
+--            .. ", VIT: " .. tostring(target:getStat(MOD_VIT))
+--                .. ", DEX: " .. tostring(target:getStat(MOD_DEX))
+--                .. ", INT: " .. tostring(target:getStat(MOD_INT))
+--                .. ", MND: " .. tostring(target:getStat(MOD_MND)))
+--    end
 
 
 --print("Skill: %d\n", player:getSkillLevel(SKILL_ARC));

@@ -19,7 +19,7 @@ function onEffectGain(target,effect)
 	local subpower = effect:getSubPower();
 	target:addMod(MOD_ATTP,-subpower);
 	target:addMod(MOD_REGEN_DOWN, power);
-	target:addMod(MOD_DARKRES, -20);
+	target:addMod(MOD_DARKRES, -25);
 end;
 
 -----------------------------------

@@ -113,14 +113,6 @@ local ZONE_ONZOZO = 213;
 
 -- item, min, max, zone, job, bonusamount, family
 local commonRewards = {
-    {4104, 1, 99, 0, 0, 0, 0}, -- Fire Cluster
-    {4105, 1, 99, 0, 0, 0, 0}, -- Ice Cluster
-    {4106, 1, 99, 0, 0, 0, 0}, -- Wind Cluster
-    {4107, 1, 99, 0, 0, 0, 0}, -- Earth Cluster
-    {4108, 1, 99, 0, 0, 0, 0}, -- Lightning Cluster
-    {4109, 1, 99, 0, 0, 0, 0}, -- Water Cluster
-    {4110, 1, 99, 0, 0, 0, 0}, -- Light Cluster
-    {4111, 1, 99, 0, 0, 0, 0}, -- Dark Cluster
     {3974, 1, 39, 0, 0, 0, 0}, -- Airlixir
     {3974, 1, 39, 0, 0, 0, 0}, -- Airlixir
     {3975, 40, 65, 0, 0, 0, 0}, -- Airlixir +1
@@ -471,7 +463,7 @@ local zoneRewards = {
     {431, 1, 99, ZONE_RANGUEMONT, 0, 0, 0}, -- Green Storm Lantern
 
     {26166, 1, 99, ZONE_RANGUEMONT, 0, 0, 0}, -- Invisible Ring
-    {14593, 1, 99, ZONE_RANGUEMONT, 0, 0, 0}, -- Courage Ring +1
+    {13625, 1, 99, ZONE_RANGUEMONT, 0, 0, 0}, -- Tundra Mantle
     {14592, 1, 99, ZONE_RANGUEMONT, 0, 0, 0}, -- Reflex Ring +1
     {15558, 1, 99, ZONE_RANGUEMONT, 0, 0, 0}, -- Mighty Ring
     {12343, 1, 99, ZONE_RANGUEMONT, 0, 0, 0}, -- Faerie Shield
@@ -552,6 +544,7 @@ local zoneRewards = {
     {16387, 1, 99, ZONE_DAVOI, 0, 0, 0}, -- Poison Cesti
     {13685, 1, 99, ZONE_DAVOI, 0, 0, 0}, -- Invisible Mantle
     {17940, 1, 99, ZONE_DAVOI, 0, 0, 0}, -- Military Pick
+    {13404, 1, 99, ZONE_DAVOI, 0, 0, 0}, -- Nemesis Earring
 
 
     -- Delkfutt Lower Tower (25 - 35)
@@ -561,9 +554,9 @@ local zoneRewards = {
     {3634, 1, 99, ZONE_DELKFUTT_LOW, 0, 0, 0}, -- Starlight Cake
 
     {11043, 1, 99, ZONE_DELKFUTT_LOW, 0, 0, 0}, -- Giant's Earring
-    {13437, 1, 99, ZONE_DELKFUTT_LOW, 0, 0, 0}, -- Healer's Earring (-1 enmity if WHM Sub)
-    {13438, 1, 99, ZONE_DELKFUTT_LOW, 0, 0, 0}, -- Wizard's Earring (+5 Ele Skill if BLM sub)
     {10648, 1, 99, ZONE_DELKFUTT_LOW, 0, 0, 0}, -- Areion Boots +1
+    {13404, 1, 99, ZONE_DELKFUTT_LOW, 0, 0, 0}, -- Nemesis Earring
+    {13127, 1, 99, ZONE_DELKFUTT_LOW, 0, 0, 0}, -- Guarding Gorget
     {13725, 1, 99, ZONE_DELKFUTT_LOW, 0, 0, 0}, -- Mage's Tunic
 
     -- Delkfutt Middle Tower Items (30 - 40)
@@ -607,7 +600,7 @@ local zoneRewards = {
     {328, 1, 99, ZONE_BATALLIA, 0, 0, 0}, -- Black Hobby Bo
 
     {16042, 1, 99, ZONE_BATALLIA, 0, 0, 0}, -- Duchy Earring (teleport to Jeuno)
-    {15786, 1, 99, ZONE_BATALLIA, 0, 0, 0}, -- Divisor Ring
+    {18451, 1, 99, ZONE_BATALLIA, 0, 0, 0}, -- Mokusa
     {14331, 1, 99, ZONE_BATALLIA, 0, 0, 0}, -- Shade Tights +1
     {14433, 1, 99, ZONE_BATALLIA, 0, 0, 0}, -- Shade Harness +1
     {14135, 1, 99, ZONE_BATALLIA, 0, 0, 0}, -- Air Solea +1
@@ -644,8 +637,11 @@ local zoneRewards = {
     {325, 1, 99, ZONE_YUHTUNGA, 0, 0, 0}, -- Green Bamboo Grass
     {205, 1, 99, ZONE_YUHTUNGA, 0, 0, 0}, -- Mandragora Lantern
     {3646, 1, 99, ZONE_YUHTUNGA, 0, 0, 0}, -- Mandragora Pricket
+
     {16046, 1, 99, ZONE_YUHTUNGA, 0, 0, 0}, -- Kazham Earring (teleport to Khazam)
-    {15786, 1, 99, ZONE_YUHTUNGA, 0, 0, 0}, -- Divisor Ring (+6 ACC, +3 ATK if level divisble by 5)
+    {12349, 1, 99, ZONE_YUHTUNGA, 0, 0, 0}, -- Balance Buckler
+    {13238, 1, 99, ZONE_YUHTUNGA, 0, 0, 0}, -- Druid's Rope
+    {13675, 1, 99, ZONE_YUHTUNGA, 0, 0, 0}, -- Rearguard Mantle
 
     -- Sanctuary of Zi'tah (35 - 45)
     {87, 1, 99, ZONE_ZITAH, 0, 0, 0}, -- Kadomatsu
@@ -654,12 +650,20 @@ local zoneRewards = {
     {324, 1, 99, ZONE_ZITAH, 0, 0, 0}, -- Blue Bamboo Grass
     {26738, 1, 99, ZONE_ZITAH, 0, 0, 0}, -- Leafkin Cap
 
+    {12375, 1, 99, ZONE_ZITAH, 0, 0, 0}, -- Light Buckler
+    {13674, 1, 99, ZONE_ZITAH, 0, 0, 0}, -- Agile Mantle
+
+
     -- Lufaise Meadows (35 - 45)
     {100, 1, 99, ZONE_LUFAISE, 0, 0, 0}, -- Okadomatsu
     {180, 1, 99, ZONE_LUFAISE, 0, 0, 0}, -- Bonbori
     {363, 1, 99, ZONE_LUFAISE, 0, 0, 0}, -- Glowfly Cage
     {3694, 1, 99, ZONE_LUFAISE, 0, 0, 0}, -- Polished Lamb Carving
     {26719, 1, 99, ZONE_LUFAISE, 0, 0, 0}, -- Sheep Cap
+
+    {15183, 1, 99, ZONE_LUFAISE, 0, 0, 0}, -- Dobson Bandana
+    {14766, 1, 99, ZONE_LUFAISE, 0, 0, 0}, -- Geist Earring
+    {12350, 1, 99, ZONE_LUFAISE, 0, 0, 0}, -- Strike Shield
 
     -- Beaucedine Glacier (35 - 45)
     {208, 1, 99, ZONE_BEAUCEDINE, 0, 0, 0}, -- Ice Lamp
@@ -668,6 +672,9 @@ local zoneRewards = {
     {178, 1, 99, ZONE_BEAUCEDINE, 0, 0, 0}, -- Snowman Mage
     {25672, 1, 99, ZONE_BEAUCEDINE, 0, 0, 0}, -- Snoll Masque
 
+    {13625, 1, 99, ZONE_BEAUCEDINE, 0, 0, 0}, -- Tundra Mantle
+    {13165, 1, 99, ZONE_BEAUCEDINE, 0, 0, 0}, -- Jag Gorget
+
     -- Eastern Altepa Items (35 - 50)
     {150, 1, 99, ZONE_ALTEPA_EAST, 0, 0, 0}, -- Leather Pot
     {363, 1, 99, ZONE_ALTEPA_EAST, 0, 0, 0}, -- Amigo Cactus
@@ -675,12 +682,22 @@ local zoneRewards = {
     {16045, 1, 99, ZONE_ALTEPA_EAST, 0, 0, 0}, -- Rabao Earring (teleport to Rabao)
     {16804, 1, 99, ZONE_ALTEPA_EAST, 0, 0, 0}, -- Flame Blade +1
 
+    {13202, 1, 99, ZONE_ALTEPA_EAST, 0, 0, 0}, -- Brown Belt
+    {15348, 1, 99, ZONE_ALTEPA_EAST, 0, 0, 0}, -- Mountain Gaiters
+    {17787, 1, 99, ZONE_ALTEPA_EAST, 0, 0, 0}, -- Ohaguro
+    {13623, 1, 99, ZONE_ALTEPA_EAST, 0, 0, 0}, -- Earth Mantle
+    {17510, 1, 99, ZONE_ALTEPA_EAST, 0, 0, 0}, -- Vampiric Claws
+
     -- Bibiki Bay (35 - 75)
     {224, 1, 99, ZONE_BIBIKI, 0, 0, 0}, -- Bay Aquarium
     {319, 1, 99, ZONE_BIBIKI, 0, 0, 0}, -- Shell Lamp
     {222, 1, 99, ZONE_BIBIKI, 0, 0, 0}, -- Fighting Fish Tank
     {3664, 1, 99, ZONE_BIBIKI, 0, 0, 0}, -- Shell Assortment
     {26705, 1, 99, ZONE_BIBIKI, 0, 0, 0}, -- Mandragora Masque
+
+    {13237, 1, 50, ZONE_BIBIKI, 0, 0, 0}, -- Survival Belt
+    {13164, 1, 50, ZONE_BIBIKI, 0, 0, 0}, -- Agile Gorget
+    {12404, 1, 50, ZONE_BIBIKI, 0, 0, 0}, -- Elegant Shield
 
 
     -- Misareaux Coast (40 - 50)
@@ -690,12 +707,22 @@ local zoneRewards = {
     {3619, 1, 99, ZONE_MISAREAUX, 0, 0, 0}, -- Couronne Des Etoiles
     {3631, 1, 99, ZONE_MISAREAUX, 0, 0, 0}, -- Fisherman's Stall
 
+    {15219, 1, 99, ZONE_MISAREAUX, 0, 0, 0}, -- Sinister Mask
+    {17463, 1, 99, ZONE_MISAREAUX, 0, 0, 0}, -- Sealed Mace
+    {13129, 1, 99, ZONE_MISAREAUX, 0, 0, 0}, -- Spirit Torque
+    {17693, 1, 99, ZONE_MISAREAUX, 0, 0, 0}, -- Grudge Sword
+    {13271, 1, 99, ZONE_MISAREAUX, 0, 0, 0}, -- Corsette +1
+
     -- Phomiuna Aqueducts (40 - 50)
     {149, 1, 99, ZONE_PHOMIUNA, 0, 0, 0}, -- Set of Alchemist's Tools
     {353, 1, 99, ZONE_PHOMIUNA, 0, 0, 0}, -- Spence
     {442, 1, 99, ZONE_PHOMIUNA, 0, 0, 0}, -- Gilded Chest
     {416, 1, 99, ZONE_PHOMIUNA, 0, 0, 0}, -- Tomeshelf
     {460, 1, 99, ZONE_PHOMIUNA, 0, 0, 0}, -- Candelabrum
+
+    {15290, 1, 99, ZONE_RIVERNE_A1, 0, 0, 0}, -- Haste Belt
+    {15372, 1, 99, ZONE_RIVERNE_A1, 0, 0, 0}, -- Magic Slacks
+    {15468, 1, 99, ZONE_RIVERNE_A1, 0, 0, 0}, -- Resentment Cape
 
     -- Riverne Site A01 (40 - 50)
     {3596, 1, 99, ZONE_RIVERNE_A1, 0, 0, 0}, -- Ornament Case
@@ -704,12 +731,17 @@ local zoneRewards = {
     {3707, 1, 99, ZONE_RIVERNE_A1, 0, 0, 0}, -- Murrey Grisaille
     {147, 1, 99, ZONE_RIVERNE_A1, 0, 0, 0}, -- Imperial Tapestry
 
+    {15287, 1, 99, ZONE_RIVERNE_A1, 0, 0, 0}, -- Mantra Belt
+
     -- Oldton Movapolis (40 - 50)
     {418, 1, 99, ZONE_OLDTON, 0, 0, 0}, -- Tidings Board
     {26730, 1, 99, ZONE_OLDTON, 0, 0, 0}, -- Celeste Cap
     {3596, 1, 99, ZONE_OLDTON, 0, 0, 0}, -- Ornament Case
     {3708, 1, 99, ZONE_OLDTON, 0, 0, 0}, -- Moss-green Grissaile
     {15929, 1, 99, ZONE_OLDTON, 0, 0, 0}, -- Goblin Belt
+
+    {15222, 1, 99, ZONE_OLDTON, 0, 0, 0}, -- Spelunker's Hat
+    {15286, 1, 99, ZONE_OLDTON, 0, 0, 0}, -- Tilt Belt
 
     -- Garlaige Citadel (40 - 55)
     {358, 1, 99, ZONE_GARLAIGE, 0, 0, 0}, -- Credenza
@@ -1906,7 +1938,7 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
 
     local diff = mob:getMainLvl() - player:getMainLvl();
     local tempChance = 10 + diff * 3.5;
-    if (diff >= 4) then tempChance = tempChance + 1.5 * diff;
+    if (diff >= 4) then tempChance = tempChance + 1.5 * diff; end;
     if (tempChance < 0) then tempChance = 1 end;
 --    diff = (diff * diff) / 2.5;
     if (tempChance <= 0) then tempChance = 1; end
