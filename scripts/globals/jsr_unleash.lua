@@ -48,6 +48,7 @@ local noviceRecipes = {
     {13404, AUGMENT_DEF, 2, AUGMENT_ENMITY, 1, 0, 0, 0, 0}, -- Nemesis Earring
     {17794, AUGMENT_DBLATKCRIT, 2, AUGMENT_STAT_INT, 4, 0, 0, 0, 0}, -- Niokiyotsuna
     {17787, AUGMENT_STAT_STR_INT, 5, AUGMENT_SKILL_NINJITSU, 5, 0, 0, 0, 0}, -- Ohaguro
+    {13227, AUGMENT_VIT, 1, AUGMENT_HP, 5, AUGMENT_PET_VIT, 2, 0, 0}, -- Plate Belt
     {16687, AUGMENT_STORETP, 10, AUGMENT_WSKILL_DAM, 25, 0, 0, 0, 0}, -- Platoon Axe
     {17519, AUGMENT_STORETP, 10, AUGMENT_WSKILL_DAM, 25, 0, 0, 0, 0}, -- Platoon Cesti
     {18209, AUGMENT_STORETP, 10, AUGMENT_WSKILL_DAM, 25, 0, 0, 0, 0}, -- Platoon Cutter

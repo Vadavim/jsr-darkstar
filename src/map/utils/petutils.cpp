@@ -433,13 +433,13 @@ namespace petutils
         uint16 mMND = GetBaseToRank(grade::GetJobGrade(PMob->GetMJob(), 7), PMob->GetMLevel());
         uint16 mCHR = GetBaseToRank(grade::GetJobGrade(PMob->GetMJob(), 8), PMob->GetMLevel());
 
-        PMob->stats.STR = (fSTR + mSTR) * 0.9;
-        PMob->stats.DEX = (fDEX + mDEX) * 0.9;
-        PMob->stats.VIT = (fVIT + mVIT) * 0.9;
-        PMob->stats.AGI = (fAGI + mAGI) * 0.9;
-        PMob->stats.INT = (fINT + mINT) * 0.9;
-        PMob->stats.MND = (fMND + mMND) * 0.9;
-        PMob->stats.CHR = (fCHR + mCHR) * 0.9;
+        PMob->stats.STR = (fSTR + mSTR) * 1.1;
+        PMob->stats.DEX = (fDEX + mDEX) * 1.1;
+        PMob->stats.VIT = (fVIT + mVIT) * 1.1;
+        PMob->stats.AGI = (fAGI + mAGI) * 1.1;
+        PMob->stats.INT = (fINT + mINT) * 1.1;
+        PMob->stats.MND = (fMND + mMND) * 1.1;
+        PMob->stats.CHR = (fCHR + mCHR) * 1.1;
         battleutils::AddTraits(PMob, traits::GetTraits(PMob->GetMJob()), PMob->GetMLevel());
         battleutils::AddTraits(PMob, traits::GetTraits(PMob->GetSJob()), PMob->GetSLevel());
 
@@ -1304,6 +1304,9 @@ namespace petutils
                 }
             }
         }
+        PPet->WorkingSkills.skill[SKILL_PAR] = battleutils::GetMaxSkill(SKILL_PAR, PPet->GetMJob(), PPet->GetMLevel());
+        PPet->WorkingSkills.skill[SKILL_SHL] = battleutils::GetMaxSkill(SKILL_SHL, PPet->GetMJob(), PPet->GetMLevel());
+        PPet->WorkingSkills.skill[SKILL_GRD] = battleutils::GetMaxSkill(SKILL_GRD, PPet->GetMJob(), PPet->GetMLevel());
 
         FinalizePetStatistics(PMaster, PPet);
 //        PPet->PetSkills = battleutils::GetMobSkillsByFamily(PPet->m_Family);

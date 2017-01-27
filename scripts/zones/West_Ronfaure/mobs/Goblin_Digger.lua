@@ -1,18 +1,46 @@
 -----------------------------------
--- Area: West Ronfaure
---  MOB: Goblin Digger
+-- Area: West Sarutabaruta
+--  MOB: Bakru
+-----------------------------------
+
+-----------------------------------
 -----------------------------------
 
 require("scripts/globals/fieldsofvalor");
-require("scripts/globals/pathfind");
+require("scripts/globals/status");
+require("scripts/globals/jsr_utils");
+require("scripts/globals/jsr_mob");
 
 -----------------------------------
 -- onMobDeath
 -----------------------------------
-
 function onMobSpawn(mob)
-end;
+    setSpecialMobStats(mob, 400);
+    mob:setMod(MOD_MP, 300);
+    mob:setMod(MOD_ENFEEBLE, mob:getMainLvl() * 3.8);
+    mob:setMod(MOD_ELEM, mob:getMainLvl() * 3.8);
+    mob:setMod(MOD_ENHANCE, 80 + mob:getMainLvl() * 8);
+    mob:setMod(MOD_DEFP, -30);
+    mob:setMod(MOD_EVASION, -30);
+    mob:setMod(MOD_STR, -5);
+    mob:setMod(MOD_HP, -100);
+    mob:updateHealth();
+    mob:addMP(300);
+
+    mob:setMod(MOD_ENSPELL_DMG, 12);
+    mob:setMod(MOD_ENSPELL, 2);
+    mob:setMod(MOD_SPELLINTERRUPT, 40);
+    mob:setMod(MOD_EARTHRES, 50);
+    mob:setMod(MOD_EARTHDEF, 80);
+    mob:setMod(MOD_EARTHATT, 10);
+    mob:setMod(MOD_WINDRES, -40);
+    mob:setMod(MOD_WINDDEF, -60);
+end
+
+
+function onMobFight(mob, target)
+end
 
 function onMobDeath(mob, player, isKiller)
-    checkRegime(player,mob,56,2);
+    rewardNotorious(mob, player, isKiller);
 end;

@@ -292,9 +292,9 @@ void CalculateStats(CMobEntity * PMob)
         if(isNM)
         {
             PMob->health.maxhp *= 2.0;
-            if(mLvl > 75){
-                PMob->health.maxhp *= 2.5;
-            }
+//            if(mLvl > 75){
+//                PMob->health.maxhp *= 2.5;
+//            }
         }
 
     }
@@ -360,10 +360,6 @@ void CalculateStats(CMobEntity * PMob)
             if(isNM)
             {
                 PMob->health.maxmp *= 1.5;
-                if(mLvl>75)
-                {
-                    PMob->health.maxmp *= 1.5;
-                }
             }
         }
         else

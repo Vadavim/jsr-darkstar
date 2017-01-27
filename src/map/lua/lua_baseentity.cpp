@@ -185,6 +185,21 @@ inline int32 CLuaBaseEntity::ChangeMusic(lua_State *L)
     return 0;
 }
 
+inline int32 CLuaBaseEntity::resetMusic(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+    CZone* PZone = zoneutils::GetZone(PChar->getZone());
+    PChar->pushPacket(new CChangeMusicPacket(0, PZone->GetBackgroundMusicDay()));
+    PChar->pushPacket(new CChangeMusicPacket(1, PZone->GetBackgroundMusicNight()));
+    PChar->pushPacket(new CChangeMusicPacket(2, PZone->GetSoloBattleMusic()));
+    PChar->pushPacket(new CChangeMusicPacket(3, PZone->GetPartyBattleMusic()));
+
+    return 0;
+}
+
 //======================================================//
 
 inline int32 CLuaBaseEntity::warp(lua_State *L)
@@ -10501,6 +10516,19 @@ inline int32 CLuaBaseEntity::getAllegiance(lua_State* L)
     return 1;
 }
 
+inline int32 CLuaBaseEntity::setLevelRange(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 2) || !lua_isnumber(L, 2));
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    CMobEntity* pMob = (CMobEntity*)m_PBaseEntity;
+    pMob->m_minLevel = lua_tointeger(L, 1);
+    pMob->m_maxLevel = lua_tointeger(L, 2);
+
+
+    return 1;
+}
+
 inline int32 CLuaBaseEntity::setAllegiance(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
@@ -11726,7 +11754,7 @@ inline int32 CLuaBaseEntity::getHateTarget(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
     DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_MOB);
-    bool completelyRandom = lua_isnil(L, 1) ? false : lua_tointeger(L, 1);
+    bool completelyRandom = lua_isnil(L, 1) ? false : lua_toboolean(L, 1);
 
     CMobEntity* PMob = (CMobEntity*)m_PBaseEntity;
     EnmityList_t* enmityList = PMob->PEnmityContainer->GetEnmityList();
@@ -11781,6 +11809,22 @@ inline int32 CLuaBaseEntity::getJobLevel(lua_State *L) {
     CCharEntity* player = (CCharEntity*)m_PBaseEntity;
     int32 job = lua_tointeger(L,1);
     lua_pushinteger(L, player->jobs.job[job]);
+    return 1;
+}
+
+
+inline int32 CLuaBaseEntity::getDamageRatio(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isuserdata(L, 1));
+
+    CLuaBaseEntity* PEntity = Lunar<CLuaBaseEntity>::check(L, 1);
+    bool isCrit = lua_isnil(L, 2) ? false : lua_toboolean(L, 2);
+    uint16 attBoost = lua_isnil(L, 3) ? 0 : lua_tointeger(L, 3);
+    float cRatio = battleutils::GetDamageRatio((CBattleEntity*)m_PBaseEntity, (CBattleEntity*)PEntity->GetBaseEntity(), isCrit, attBoost);
+    lua_pushnumber(L, cRatio);
     return 1;
 }
 
@@ -12294,5 +12338,8 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getTargetsWithinArea),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getHateTarget),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getJobLevel),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,setLevelRange),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getDamageRatio),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,resetMusic),
     {nullptr,nullptr}
 };

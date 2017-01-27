@@ -34,7 +34,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, tp, primary, action, params);
     if (damage > 0) then
         local duration = fTP(tp, 60, 180, 360);
-        local potency = 1 + (player:getMod(MOD_CURE_POTENCY) / 100) + (player:getMod(MOD_LIGHTATT));
+        local potency = (1 + (player:getMod(MOD_CURE_POTENCY) / 100)) * (1 + player:getMod(MOD_LIGHTATT) / 100);
         local power = math.floor((1 + player:getMainLvl() / 3)  * potency);
         player:addStatusEffect(EFFECT_REGEN_II,power,0,duration);
     end

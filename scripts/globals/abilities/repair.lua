@@ -14,12 +14,26 @@ require("scripts/globals/pets");
 -- onAbilityCheck
 -----------------------------------
 
+local function getRepairItem(player)
+    local level = player:getMainLvl();
+    if (player:getMainJob() ~= JOBS.PUP) then level = player:getSubLvl(); end;
+    if (level >= 50 and player:hasItem(18733)) then
+        return 18733;
+    elseif (level >= 30 and player:hasItem(18732)) then
+        return 18732;
+    elseif (level >= 15 and player:hasItem(18731)) then
+        return 18731;
+    else
+        return 0;
+    end
+end
+
 function onAbilityCheck(player,target,ability)
     if (player:getPet() == nil) then
         return MSGBASIC_REQUIRES_A_PET,0;
     else
         local id = player:getEquipID(SLOT_AMMO);
-        if (id >= 18731 and id <= 18733 or id == 19185) then
+        if (getRepairItem(player) ~= 0) then
             return 0,0;
         else
             return MSGBASIC_UNABLE_TO_USE_JA,0;
@@ -34,7 +48,7 @@ end;
 function onUseAbility(player,target,ability)
 
     -- 1st need to get the pet food is equipped in the range slot.
-    local rangeObj = player:getEquipID(SLOT_AMMO);
+    local rangeObj = getRepairItem(player);
     local totalHealing = 0;
     local regenAmount = 0;
     local regenTime = 0;
@@ -125,7 +139,8 @@ function onUseAbility(player,target,ability)
 
     pet:delStatusEffect(EFFECT_REGEN);
     pet:addStatusEffect(EFFECT_REGEN,regenAmount,3,regenTime); -- 3 = tick, each 3 seconds.
-    player:removeAmmo();
+    player:delItem(rangeObj, 1);
+--    player:removeAmmo();
     
     return totalHealing;
 end;

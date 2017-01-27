@@ -35,6 +35,8 @@ function onSpellCast(caster,target,spell)
     ally:addMod(MOD_ENMITY, -25);
     ally:addMod(MOD_PARRY, 100);
 	ally:addMod(MOD_TACTICAL_PARRY, 250);
+	ally:addMod(MOD_MACC, 10 + caster:getMainLvl() / 1.5);
+	ally:setLocalVar("isAlly", 1);
 --	ally:addMod(MOD_STORETP, 200);
 --	ally:addMod(MOD_REGAIN, 200);
 --    ally:addMod(MOD_HPHEAL, caster:getMainLvl());

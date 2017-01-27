@@ -14,61 +14,41 @@ cmdprops =
 
 
 function onTrigger(player, amount)
---    testPick();
---    player:spawnPet(73);7
---print(player:checkDistance(player:getPet()));
---print(player:getRotPos());
---player:dispelAllStatusEffect();
+--        local target = player:getCursorTarget();
+--        player:SayToPlayer("CHA: " .. tostring(target:getStat(MOD_CHR)));
+--        player:SayToPlayer("DINT: " .. tostring(player:getStat(MOD_INT) - target:getStat(MOD_INT)));
+--        player:SayToPlayer("Earth: " .. tostring(target:getMod(MOD_EARTHDEF)) .. "/" .. tostring(target:getMod(MOD_EARTHRES)));
+--        player:SayToPlayer("Wind: " .. tostring(target:getMod(MOD_WINDDEF)) .. "/" .. tostring(target:getMod(MOD_WINDRES)));
 
-player:startEvent(0x7d00, 0, 0, 0, amount, 0, 0, 0, 0);
+--    local mob = GetMobByID(17195474) -- Goblin
+--    local mob = GetMobByID(17195012) -- Giant Pugil
+--    local mob = GetMobByID(17195477) -- Pixie
+local mobid = 17248606;
 
---    local target = player:getCursorTarget();
---    printf("Cool: %d\nDelay: %d\nStand: %d", target:getMobMod(MOBMOD_MAGIC_COOL), target:getMobMod(MOBMOD_MAGIC_DELAY), target:getMobMod(MOBMOD_STANDBACK_COOL));
---    printf("Fast: %d\nUFast: %d", target:getMod(MOD_FASTCAST), target:getMod(MOD_UFASTCAST));
---    if (target ~= nil) then
---        player:SayToPlayer("STR: " .. tostring(target:getStat(MOD_STR))
---            .. ", VIT: " .. tostring(target:getStat(MOD_VIT))
---                .. ", DEX: " .. tostring(target:getStat(MOD_DEX))
---                .. ", INT: " .. tostring(target:getStat(MOD_INT))
---                .. ", MND: " .. tostring(target:getStat(MOD_MND)))
---    end
+local mob = GetMobByID(mobid) -- Giant Pugil
+local level = player:getMainLvl();
+    mob:setSpawn(player:getXPos(), player:getYPos(), player:getZPos());
+    mob:setLevelRange(level + 2, level + 2);
+player:setLocalVar("notoSpawner", 1);
+player:ChangeMusic(0, 343);
+player:ChangeMusic(1, 343);
+player:ChangeMusic(2, 343);
+player:ChangeMusic(3, 343);
+SpawnMob(mobid); -- Giant Pugil
+--    SpawnMob(17195474);
+--SpawnMob(17195477);
+-- Boss: 342
+-- Fight: 343 (upbeat)
+-- Big Fight: 187
+-- Fast Paced Promathia Fight: 216
 
+-- Pixie Konschatat: 17220002
+    -- Goblin Digger: 17219997
+    -- Thunderhead: 17220007
 
---print("Skill: %d\n", player:getSkillLevel(SKILL_ARC));
---local item = player:getStorageItem(LOC_INVENTORY, 3);
---    printf("Augment: %d, Val: %d", item:getAugment(0));
---printf("Augment: %d, Val: %d", item:getAugment(1));
---printf("Augment: %d, Val: %d", item:getAugment(2));
---printf("Augment: %d, Val: %d", item:getAugment(3));
+    -- Tahrongi
+    -- Pixie: 17256901
+    -- Goblin Arch: 17256899
+    -- Allocam: 17256906
+
 end
-
---        if (target:hasStatusEffect(EFFECT_DEFENDER)) then
---            print("have");
---        end
-
---        target:addTP(1000);
-
---        player:SayToPlayer("Attack: " .. tostring(targ:getStat(MOD_ATT)) .. ", Defense: " .. tostring(targ:getStat(MOD_DEF)));
---        targ:useMobAbility(amount);
---        targ:setMobMod(MOBMOD_ADD_EFFECT,1);
---        targ:setModelId(amount);
---        player:SayToPlayer("Skill: " .. tostring(targ:getSkillLevel(SKILL_HEA)));
---);
---local area = player:getTargetsWithinArea(10.0, 16);
---for i,member in ipairs(area) do
---    print(member:getID());
---end
-
-
-
-
-
-
-
-
-----        targ:useJobAbility(amount, targ);
---        end
---    blastReward(player);
---    print(player:aetAugmentCount(1064));
---    print(player:getSkillLevel(SKILL_ELE));
---    print(player:getWeaponSkillType(SLOT_RANGED));

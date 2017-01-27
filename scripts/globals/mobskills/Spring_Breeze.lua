@@ -15,6 +15,7 @@ end;
 function onMobWeaponSkill(target, mob, skill)
     skill:setMsg(MobStatusEffectMove(mob, target, EFFECT_SLEEP_I, 1, 0, 20));
     target:setTP(target:getTP() * 0.5);
+    target:setMP(target:getMP() * 0.7);
 
     return EFFECT_SLEEP_I;
 end;

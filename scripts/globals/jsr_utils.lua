@@ -476,6 +476,36 @@ function tradeElite(player, npc, trade, tier, monsters)
 
 end
 
+function rewardNotorious(mob, player, isKiller)
+    player:resetMusic();
+    if (true) then return false; end;
+
+    if (player:getLocalVar("notoSpawner") == 1) then
+        player:setLocalVar("notoSpawner", 0);
+
+        -- reward basic item
+        local size = 0;
+        for i,v in pairs(augmentPool) do
+            size = size + 1;
+        end
+        -- TODO: autodetect augment pool
+        local id = augmentPool[math.random(1, size)];
+        local item = getItem(id);
+        local augments = pickAugments(item);
+        local reward = {
+            ["augment"] = {id, augments[1], augments[2], augments[3], augments[4], augments[5], augments[6], augments[7], augments[8]},
+        };
+        jsrReward(player, reward);
+    end
+
+    -- And drops exclusive to that particular NM and also drops that are normal for all of that level
+    if (isKiller) then
+
+    end
+
+end
+
+
 function rewardElite(player, npc, items)
     local tradedItem = npc:getLocalVar("traded");
     local killed = player:getVar("killedFoVNM");
@@ -525,6 +555,25 @@ function setTally(player, varName)
     return player:setVar(varName, getConquestTally());
 end
 
+function setSpecialMobStats(mob, hpbonus)
+    local hpbonus = mob:getMainLvl() * 90;
+    mob:addMod(MOD_HP, hpbonus);
+    mob:updateHealth();
+    mob:addHP(hpbonus);
+    local hard = mob:setMobMod(MOBMOD_HARD_MODE, 1);
+    mob:setMobMod(MOBMOD_NO_DROPS, 1);
+    mob:setMobMod(MOBMOD_NO_XP, 1);
+
+    mob:addMod(MOD_ATTP, 15);
+    mob:addMod(MOD_ACC, 20);
+    mob:addMod(MOD_MACC, 20);
+    mob:addMod(MOD_MATT, -15);
+    mob:addMod(MOD_STORETP, -25);
+--    mob:addMod(MOD_UDMGPHYS, -10);
+--    mob:addMod(MOD_UDMGMAGIC, -10);
+    mob:addMod(MOD_MEVA, 25);
+    mob:addMod(MOD_EVA, 25);
+end
 
 
 function rewardTemporaryItem(player)
@@ -1106,7 +1155,205 @@ end
     12959, -- Coeurl Ledelsens
     13775, -- Blue Cotehardie
     15466, -- Birdman Cape
+ }
+
+
+
+local notoGeneralRewards = {
+    {14671, 1, 99, 0},                                -- Allied Ring
+    {13283, 1, 25, 0},                               -- Saintly Ring +1
+    {13285, 1, 25, 0},                               -- Eremite's Ring +1
+    {13548, 1, 25, 0},                               -- Astral Ring
+    {16144, 1, 25, 0},                               -- Sol Cap
+    {14592, 1, 25, 0},                               -- Reflex Ring +1
+    {14593, 1, 25, 0},                               -- Courage Ring +1
+    {14594, 1, 25, 0},                               -- Knowledge Ring +1
+    {14595, 1, 25, 0},                               -- Balance Ring +1
+    {14596, 1, 25, 0},                               -- Tranquility Ring +1
+    {14597, 1, 25, 0},                               -- Stamina Ring +1
+    {14598, 1, 25, 0},                               -- Energy Ring +1
+    {14599, 1, 25, 0},                               -- Hope Ring +1
+    {13514, 25, 45, 0},                               -- Archer's Ring
+    {13643, 25, 45, 0},                               -- Sarcenet Cape
+    {14721, 25, 45, 0},                               -- Morion Earring +1
+    {11542, 45, 60, 0},                               -- Kinesis Mantle +1
 }
+
+local nearWindurst = {ZONE_HORUTOTO_INNER, ZONE_SARUTA_EAST, ZONE_SARUTA_WEST, ZONE_GIDDEUS, ZONE_TAHRONGI, ZONE_BUBURIMU};
+local nearBastok = {ZONE_GUSTABERG_NORTH, ZONE_GUSTABERG_SOUTH, ZONE_PALBOROUGH, ZONE_ZERUHN, ZONE_DANGRUF, ZONE_KONSCHTAT, ZONE_VALKURM};
+local nearSandoria = {ZONE_RONFAURE_EAST, ZONE_RONFAURE_WEST, ZONE_RANPERRE, ZONE_GHELSBA_FORT, ZONE_GHELSBA_OUTPOST, ZONE_LATHEINE, ZONE_YUGHOTT, ZONE_CARPENTERS};
+
+local notoZoneRewards = {
+    {17494, 1, 21, nearWindurst},                       -- Tropical Punches +1
+    {12536, 1, 30, nearWindurst},                       -- Erudite's Headband
+    {17159, 1, 21, nearWindurst},                       -- Freesword's Bow
+    {17130, 1, 21, nearWindurst},                       -- Freesword's Staff
+    {17028, 1, 21, nearWindurst},                       -- Freesword's Club
+    {14274, 1, 21, nearWindurst},                       -- Federation Slops
+    {17196, 22, 30, nearWindurst},                       -- Federation Bow
+    {17445, 22, 30, nearWindurst},                       -- Federation Club
+    {17538, 22, 30, nearWindurst},                       -- Federation Staff
+    {17536, 22, 30, nearWindurst},                       -- Federation Pole
+    {14044, 22, 30, nearWindurst},                       -- Federation Tekko
+    {14351, 22, 30, nearWindurst},                       -- Federation Gi
+    {16947, 22, 30, nearWindurst},                       -- Federation Sword
+    {17977, 22, 30, nearWindurst},                       -- Federation Knife
+    {14046, 28, 40, nearWindurst},                       -- Federation Gloves
+    {14154, 28, 40, nearWindurst},                       -- Federation Gaiters
+    {14272, 28, 40, nearWindurst},                       -- Federation Brais
+    {17979, 28, 40, nearWindurst},                       -- Federation Kukri
+    {18037, 28, 40, nearWindurst},                       -- Federation Scythe
+
+    {13890, 1, 21, nearBastok},                         -- Republic Cap
+    {14032, 1, 21, nearBastok},                         -- Republic Mittens
+    {14140, 1, 21, nearBastok},                         -- Republic Leggings
+    {14339, 1, 21, nearBastok},                         -- Republic Harness
+    {17500, 1, 21, nearBastok},                         -- Republic Knuckles
+    {17542, 1, 21, nearBastok},                         -- Republic Stuff
+    {17930, 1, 21, nearBastok},                         -- Republic Axe
+    {18039, 1, 21, nearBastok},                         -- Republic Scythe
+    {17453, 22, 30, nearBastok},                        -- Republic Hammer
+    {12373, 22, 30, nearBastok},                        -- Republic Targe
+    {14260, 22, 30, nearBastok},                        -- Republic Subligar
+    {17975, 22, 30, nearBastok},                        -- Republic Dagger
+    {13898, 28, 40, nearBastok},                        -- Republic Visor
+    {13900, 28, 40, nearBastok},                        -- Republic Circlet
+    {14148, 28, 40, nearBastok},                        -- Republic Greaves
+    {14268, 28, 40, nearBastok},                        -- Republic Cuisses
+    {16733, 28, 40, nearBastok},                        -- Republic Greataxe
+    {17673, 28, 40, nearBastok},                        -- Republic Sword
+    {19223, 1, 30, nearBastok},                         -- Attar of Roses
+    {13240, 1, 30, nearBastok},                         -- Warrior's Belt +1
+    {4524, 1, 30, nearBastok},                          -- Exactitude Mantle +1
+
+    {13632, 1, 30, nearSandoria},                       -- Nomad's Mantle +1
+    {14349, 1, 21, nearSandoria},                       -- Kingdom Tunic
+    {13896, 1, 21, nearSandoria},                       -- Kingdom Bandana
+    {14038, 1, 21, nearSandoria},                       -- Kingdom Gloves
+    {14146, 1, 21, nearSandoria},                       -- Kingdom Boots
+    {14345, 1, 21, nearSandoria},                       -- Kingdom Vest
+    {17198, 1, 21, nearSandoria},                       -- Kingdom Bow
+    {17496, 1, 21, nearSandoria},                       -- Kingdom Cesti
+    {17679, 1, 21, nearSandoria},                       -- Kingdom Sword
+    {18069, 22, 30, nearSandoria},                       -- Kingdom Spear
+    {14150, 22, 30, nearSandoria},                       -- Kingdom Clogs
+    {14266, 22, 30, nearSandoria},                       -- Kingdom Trousers
+    {17836, 22, 30, nearSandoria},                       -- Kingdom Horn
+    {13892, 28, 40, nearSandoria},                       -- Kingdom Helm
+    {14034, 28, 40, nearSandoria},                       -- Kingdom Mufflers
+    {14142, 28, 40, nearSandoria},                       -- Kingdom Sollerets
+    {17449, 28, 40, nearSandoria},                       -- Kingdom Mace
+    {17973, 28, 40, nearSandoria},                       -- Kingdom Dagger
+    {18071, 28, 40, nearSandoria},                       -- Kingdom Halberd
+};
+
+local zClassTorque = {ZONE_RANGUEMONT, ZONE_KORROLOKA, ZONE_BEADEAUX, ZONE_OZTROJA, ZONE_DAVOI, ZONE_DELKFUTT_HIGH, ZONE_LUFAISE, ZONE_MISAREAUX, ZONE_PHOMIUNA};
+local zClassShield = {ZONE_KONSCHTAT, ZONE_YUGHOTT, ZONE_VALKURM, ZONE_SHAKHRAMI, ZONE_BATALLIA, ZONE_QUFIM, ZONE_BEAUCEDINE};
+local zClassEarring = {ZONE_HORUTOTO_OUTER, ZONE_GIDDEUS, ZONE_JUGNER, ZONE_GUSGEN, ZONE_ROLANBERRY, ZONE_ZITAH};
+local zClassBelt = {ZONE_TAHRONGI, ZONE_GHELSBA_OUTPOST, ZONE_GHELSBA_FORT, ZONE_CARPENTERS, ZONE_DELKFUTT_MID, ZONE_SAUROMUGUE, ZONE_ALTEPA_EAST};
+local zClassBack = {ZONE_LATHEINE, ZONE_BUBURIMU, ZONE_MERIPHATAUD, ZONE_ORDELLE, ZONE_DELKFUTT_LOW, ZONE_YUHTUNGA, ZONE_BIBIKI};
+local zEnyos = {};
+local zNjords = {};
+local zHoshikazu = {};
+local zAnus = {};
+local zNemains = {};
+
+local notoClassRewards = {
+    {11988, 15, 55, zClassTorque},                     -- Fighter's Torque
+    {11989, 10, 55, zClassTorque},                     -- Temple Torque
+    {11990, 10, 55, zClassTorque},                     -- Healer Torque
+    {11991, 10, 55, zClassTorque},                     -- Wizard Torque
+    {11992, 10, 55, zClassTorque},                     -- Warlock Torque
+    {11993, 10, 55, zClassTorque},                     -- Rogue Torque
+    {11994, 10, 55, zClassTorque},                     -- Gallant Torque
+    {11995, 10, 55, zClassTorque},                     -- Chaos Torque
+    {11996, 10, 55, zClassTorque},                     -- Beast Torque
+    {11997, 10, 55, zClassTorque},                     -- Choral Torque
+    {11998, 10, 55, zClassTorque},                     -- Hunter Torque
+    {11999, 10, 55, zClassTorque},                     -- Myochin Shusa
+    {12000, 10, 55, zClassTorque},                     -- Ninja Shusa
+    {12001, 10, 55, zClassTorque},                     -- Drachen Torque
+    {12002, 10, 55, zClassTorque},                     -- Evoker Torque
+    {12003, 10, 55, zClassTorque},                     -- Magus Torque
+    {12004, 10, 55, zClassTorque},                     -- Corsair Torque
+    {12005, 10, 55, zClassTorque},                     -- Puppetry Torque
+    {12006, 10, 55, zClassTorque},                     -- Dancer Torque
+    {12007, 10, 55, zClassTorque},                     -- Scholar Torque
+
+    {12389, 10, 55, zClassShield},                     -- Mercenary Targe
+    {12390, 10, 55, zClassShield},                     -- Wrestler Aspis
+    {12391, 10, 55, zClassShield},                     -- Healer Shield
+    {12392, 10, 55, zClassShield},                     -- Wizard Shield
+    {12393, 10, 55, zClassShield},                     -- Warlock Shield
+    {12394, 10, 55, zClassShield},                     -- Pilferer Shield
+    {12395, 10, 55, zClassShield},                     -- Varlet Targe
+    {12396, 10, 55, zClassShield},                     -- Killer Targe
+    {12397, 10, 55, zClassShield},                     -- Trimmer Aspis
+    {12398, 10, 55, zClassShield},                     -- Singer Shield
+    {12399, 10, 55, zClassShield},                     -- Beater Shield
+    {12400, 10, 55, zClassShield},                     -- Ashigaru Targe
+    {12401, 10, 55, zClassShield},                     -- Genin Aspis
+    {12402, 10, 55, zClassShield},                     -- Wyvern Targe
+    {12403, 10, 55, zClassShield},                     -- Magician Shield
+
+    {13435, 10, 55, zClassEarring},                     -- Mercenary Earring
+    {13436, 10, 55, zClassEarring},                     -- Class Earring
+    {13437, 10, 55, zClassEarring},                     -- Class Earring
+    {13438, 10, 55, zClassEarring},                     -- Class Earring
+    {13439, 10, 55, zClassEarring},                     -- Class Earring
+    {14729, 10, 55, zClassEarring},                     -- Class Earring
+    {14730, 10, 55, zClassEarring},                     -- Class Earring
+    {14731, 10, 55, zClassEarring},                     -- Class Earring
+    {14732, 10, 55, zClassEarring},                     -- Class Earring
+    {14733, 10, 55, zClassEarring},                     -- Class Earring
+    {14734, 10, 55, zClassEarring},                     -- Class Earring
+    {14735, 10, 55, zClassEarring},                     -- Class Earring
+    {14736, 10, 55, zClassEarring},                     -- Class Earring
+    {14737, 10, 55, zClassEarring},                     -- Class Earring
+    {14738, 10, 55, zClassEarring},                     -- Class Earring
+
+    {13659, 10, 55, zClassBack},                     -- Class Back
+    {13660, 10, 55, zClassBack},                     -- Class Back
+    {13661, 10, 55, zClassBack},                     -- Class Back
+    {13662, 10, 55, zClassBack},                     -- Class Back
+    {13663, 10, 55, zClassBack},                     -- Class Back
+    {13664, 10, 55, zClassBack},                     -- Class Back
+    {13665, 10, 55, zClassBack},                     -- Class Back
+    {13666, 10, 55, zClassBack},                     -- Class Back
+    {13667, 10, 55, zClassBack},                     -- Class Back
+    {13668, 10, 55, zClassBack},                     -- Class Back
+    {13669, 10, 55, zClassBack},                     -- Class Back
+    {13670, 10, 55, zClassBack},                     -- Class Back
+    {13671, 10, 55, zClassBack},                     -- Class Back
+    {13672, 10, 55, zClassBack},                     -- Class Back
+    {13673, 10, 55, zClassBack},                     -- Class Back
+
+    {15271, 10, 55, zClassBelt},                     -- Class Belt
+    {15272, 10, 55, zClassBelt},                     -- Class Belt
+    {15273, 10, 55, zClassBelt},                     -- Class Belt
+    {15274, 10, 55, zClassBelt},                     -- Class Belt
+    {15275, 10, 55, zClassBelt},                     -- Class Belt
+    {15276, 10, 55, zClassBelt},                     -- Class Belt
+    {15277, 10, 55, zClassBelt},                     -- Class Belt
+    {15278, 10, 55, zClassBelt},                     -- Class Belt
+    {15279, 10, 55, zClassBelt},                     -- Class Belt
+    {15280, 10, 55, zClassBelt},                     -- Class Belt
+    {15281, 10, 55, zClassBelt},                     -- Class Belt
+    {15282, 10, 55, zClassBelt},                     -- Class Belt
+    {15283, 10, 55, zClassBelt},                     -- Class Belt
+    {15284, 10, 55, zClassBelt},                     -- Class Belt
+    {15285, 10, 55, zClassBelt},                     -- Class Belt
+
+};
+
+
+
+local endGameRewards = {
+    15840,              -- Kupofried's Ring (1)
+    15543,              -- Rajas Ring (30)
+    15544,              -- Sattva Ring (30)
+    15545,              -- Tamas Ring (30)
+};
 
 
 function levelRewards(player)

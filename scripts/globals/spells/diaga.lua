@@ -36,7 +36,7 @@ function onSpellCast(caster,target,spell)
     local final = finalMagicAdjustments(caster,target,spell,dmg);
 
     -- Calculate duration.
-    local duration = 60;
+    local duration = 90;
     local dotBonus = 0;
     
     if (caster:hasStatusEffect(EFFECT_SABOTEUR)) then
@@ -51,7 +51,7 @@ function onSpellCast(caster,target,spell)
 
     -- Do it!
     if (DIA_OVERWRITE == 0 or (DIA_OVERWRITE == 1 and bio == nil)) then
-        target:addStatusEffect(EFFECT_DIA,2+dotBonus,3,duration, 0, 7);
+        target:addStatusEffect(EFFECT_DIA,3+dotBonus,3,duration, 0, 7);
         spell:setMsg(2);
     else
         spell:setMsg(75);

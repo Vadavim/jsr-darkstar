@@ -104,9 +104,10 @@ float CEnmityContainer::CalculateEnmityBonus(CBattleEntity* PEntity){
             ((CCharEntity*)PEntity)->PMeritPoints->GetMeritValue(MERIT_ENMITY_DECREASE, (CCharEntity*)PEntity);
     }
 
-    float enmityMult = ((float)PEntity->CHR() - (float)m_EnmityHolder->CHR()) * 1.5f;
+//    float enmityMult = ((float)PEntity->CHR() - (float)m_EnmityHolder->CHR()) * 1.5f;
+//    enmityMult = enmityMult < 0 ? 1.0 : 1.0 + enmityMult / 100;
 
-    float bonus = (100.0f + dsp_cap((PEntity->getMod(MOD_ENMITY) + enmityBonus) * enmityMult, -50, 100)) / 100.0f;
+    float bonus = (100.0f + dsp_cap((PEntity->getMod(MOD_ENMITY) + enmityBonus), -50, 100)) / 100.0f;
 
     return bonus;
 }

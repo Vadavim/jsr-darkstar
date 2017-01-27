@@ -15,7 +15,7 @@ end;
 function onMobWeaponSkill(target, mob, skill)
 	local DISPEL = target:dispelStatusEffect();
 
-    MobStatusEffectMove(mob, target, EFFECT_STUN, 1, 0, 2);
+    MobStatusEffectMove(mob, target, EFFECT_STUN, 1, 0, 6);
 
     if (DISPEL == EFFECT_NONE) then
         skill:setMsg(MSG_NO_EFFECT); -- no effect

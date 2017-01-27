@@ -22,8 +22,8 @@ function onMobWeaponSkill(target, mob, skill)
 
     local numhits = 3;
     local accmod = 1;
-    local dmgmod = 2;
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_ACC_VARIES,1,2,3);
+    local dmgmod = 1;
+    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_ACC_VARIES,1.8,2.8,3.8);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_SLASH,info.hitslanded);
 
     -- Around 700 damage from AA HM

@@ -58,7 +58,7 @@ function onSpellCast(caster,target,spell)
 
     -- Do it!
     if (bio == nil or (DIA_OVERWRITE == 0 and bio:getPower() <= 3) or (DIA_OVERWRITE == 1 and bio:getPower() < 3)) then
-        target:addStatusEffect(EFFECT_DIA,3+dotBonus,3,duration,FLAG_ERASABLE, 15);
+        target:addStatusEffect(EFFECT_DIA,5+dotBonus,3,duration,FLAG_ERASABLE, 15);
         spell:setMsg(2);
     else
         spell:setMsg(75);

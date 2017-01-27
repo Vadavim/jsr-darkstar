@@ -279,7 +279,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taCh
         local boostEffect = attacker:getStatusEffect(EFFECT_BOOST);
         local bSubPower = boostEffect:getSubPower();
         bSubPower = (bSubPower * (1 + bSubPower / 500)) * (0.01 + 0.008 * attacker:getMainLvl());
-        finaldmg = finaldmg + bSubPower;
+        finaldmg = finaldmg + bSubPower + boostEffect:getPower() * 10;
         attacker:delStatusEffect(EFFECT_BOOST);
     end
 

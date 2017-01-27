@@ -17,6 +17,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     if (erase ~= EFFECT_NONE) then
         skill:setMsg(MSG_DISAPPEAR);
+        mob:addTP(500);
         return erase;
     else
         skill:setMsg(MobBuffMove(mob, EFFECT_REGAIN, 10, 3, 60));

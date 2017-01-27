@@ -136,7 +136,7 @@ function moogleTrade(player,npc,trade)
         return true;
     end
 
-    if (jsrUnleash(player, npc, trade) == true) then
+    if (tryUnleash(player, npc, trade) == true) then
         return true;
     end
 

@@ -67,7 +67,7 @@ function onUseAbility(player,target,ability)
 
     local stealMod = player:getMod(MOD_STEAL);
 
-    local stealChance = 50 + stealMod * 2 + thfLevel - target:getMainLvl();
+    local stealChance = 50 + stealMod * 4 + thfLevel - target:getMainLvl() + (player:getStat(MOD_DEX) - target:getStat(MOD_AGI)) / 4 ;
 
     stolen = target:getStealItem();
     if (target:isMob() and math.random(100) < stealChance and stolen ~= 0) then

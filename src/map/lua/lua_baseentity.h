@@ -647,6 +647,9 @@ public:
     int32 getTargetsWithinArea(lua_State* L);
     int32 getHateTarget(lua_State* L);
     int32 getJobLevel(lua_State* L);
+    int32 setLevelRange(lua_State* L);
+    int32 getDamageRatio(lua_State* L);
+    int32 resetMusic(lua_State* L);
 };
 
 #endif

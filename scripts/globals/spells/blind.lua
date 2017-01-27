@@ -21,8 +21,8 @@ function onSpellCast(caster,target,spell)
     -- Base power.  May need more research.
     local power = math.floor((dINT + 60) / 4);
 
-    if (power < 5) then
-        power = 5;
+    if (power < 10) then
+        power = 10;
     end
 
     if (power > 20) then

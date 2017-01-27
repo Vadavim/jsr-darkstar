@@ -64,7 +64,12 @@ function onSpellCast(caster,target,spell)
 
     dmg = finalMagicAdjustments(caster,target,spell,dmg);
 
-    caster:addHP(dmg);
+    if (caster:isMob() and caster:getMaster() == nil) then
+        caster:addHP(dmg * 3);
+    else
+        caster:addHP(dmg);
+    end
+
     return dmg;
 
 end;

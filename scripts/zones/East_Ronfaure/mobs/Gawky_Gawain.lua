@@ -4,18 +4,23 @@
 require("scripts/globals/fieldsofvalor");
 require("scripts/globals/status");
 require("scripts/globals/jsr_utils");
+require("scripts/globals/jsr_mob");
 
 -----------------------------------
 -- onMobDeath
 -----------------------------------
 function onMobSpawn(mob)
-    mob:setMobMod(MOBMOD_NO_XP, 1);
+    setSpecialMobStats(mob, 400);
     mob:setMod(MOD_SPELLINTERRUPT, 40);
     mob:setMod(MOD_LIGHTRES, 50);
     mob:setMod(MOD_LIGHTDEF, 65);
     mob:setMod(MOD_EARTHRES, -40);
     mob:setMod(MOD_EARTHDEF, -65);
-    mob:setMobMod(MOBMOD_NO_XP, 1);
+    mob:setMod(MOD_HP, -50);
+    mob:setMod(MOD_ATTP, -30);
+    mob:setMod(MOD_HASTE_ABILITY, -200);
+    mob:updateHealth();
+    mob:addMP(300);
 end
 
 
@@ -34,5 +39,5 @@ function onMobFight(mob, target)
 end
 
 function onMobDeath(mob, player, isKiller)
-    onEliteDeath(mob, player, 1);
+    rewardNotorious(mob, player, isKiller);
 end;

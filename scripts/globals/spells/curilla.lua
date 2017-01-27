@@ -33,15 +33,24 @@ end;
 function onSpellCast(caster,target,spell)
     caster:spawnAlly(79);
     local ally = caster:getRecentAlly();
-    ally:addMod(MOD_MATT, caster:getMainLvl() / 2);
-    ally:addMod(MOD_DEF, caster:getMainLvl() * 1.33);
+    local level = ally:getMainLvl();
+    ally:addMod(MOD_MAGIC_DAMAGE, level * 2);
+    ally:addMod(MOD_ATT, level / 1.5);
+--    ally:addMod(MOD_DEF, level * 1.33);
     ally:addMod(MOD_UDMGPHYS, -15);
     ally:addMod(MOD_UDMGMAGIC, -15);
-    ally:addMod(MOD_ENMITY, 35);
-    ally:addMod(MOD_ENMITY_LOSS_REDUCTION, 60);
+    ally:addMod(MOD_ENMITY, 20);
+    ally:addMod(MOD_ENMITY_LOSS_REDUCTION, 20);
+    ally:addMod(MOD_MACC, 10 + level / 1.5);
 
-        --    ally = caster:getRecentAlly();
-        --    ally:addMod(MOD_HPHEAL, caster:getMainLvl());
+    ally:setLocalVar("isAlly", 1);
+--    ally:addMod(MOD_STR, level / 3);
+--    ally:addMod(MOD_VIT, level / 2.5);
+--    ally:addMod(MOD_DEX, level / 3);
+--    ally:addMod(MOD_AGI, level / 4);
+--    ally:addMod(MOD_INT, level / 4);
+--    ally:addMod(MOD_MND, level / 3);
+--    ally:addMod(MOD_CHR, level / 3);
 
 
     return 0;

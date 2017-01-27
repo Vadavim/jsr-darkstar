@@ -21,6 +21,7 @@ function onMobWeaponSkill(target, mob, skill)
     enmityStatusCheck(target, mob, skill, 15 + hard * 5);
     if (hard > 0) then
         skill:setKnockback(5);
+        target:addStatusEffect(EFFECT_STUN, 1, 0, 6);
     end
 
 

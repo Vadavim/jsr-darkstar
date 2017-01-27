@@ -6,6 +6,7 @@
 require("scripts/globals/monstertpmoves");
 require("scripts/globals/settings");
 require("scripts/globals/status");
+require("scripts/globals/jsr_utils");
 ---------------------------------------------
 
 function onMobSkillCheck(target, mob, skill)
@@ -13,15 +14,10 @@ function onMobSkillCheck(target, mob, skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local potency = skill:getParam();
-
-    if (potency == 0) then
-        potency = 15;
-    end
-
-    potency = potency - math.random(0, potency / 4);
+    local power = (mob:getMainLvl() * (mob:getMainLvl() / 20) * 8) * (1 + skill:getTP() / 3000);
+    power = reduced_healing_factor(target) * power;
 
     skill:setMsg(MSG_SELF_HEAL);
+    return power;
 
-    return MobHealMove(mob, mob:getMaxHP() * potency / 100);
 end;

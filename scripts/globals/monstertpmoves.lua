@@ -108,7 +108,6 @@ local weakSystem = {
     [SYSTEM_LUMINION] = SYSTEM_LUMINION, [SYSTEM_LUMORIAN] = SYSTEM_LUMORIAN
 }
 
-
 function MobRangedMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mtp000,mtp150,mtp300,offcratiomod)
     -- this will eventually contian ranged attack code
     local returninfo = {};
@@ -124,6 +123,8 @@ function MobRangedMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mtp0
     if (dstr > 40) then
         dstr = 40;
     end
+
+    if (dstr < 0) then dstr = dstr / 2; end;
 
     local lvluser = mob:getMainLvl();
     local lvltarget = target:getMainLvl();
@@ -176,7 +177,7 @@ function MobRangedMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mtp0
 
 
     --apply WSC
-    local base = mob:getWeaponDmg() + dstr; --todo: change to include WSC
+    local base = mob:getWeaponDmg() + dstr * 1.5 + mob:getMainLvl() / 2; --todo: change to include WSC
     if (base < 1) then
         base = 1;
     end
@@ -204,8 +205,12 @@ function MobRangedMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mtp0
     --work out hit rate for mobs (bias towards them)
     local hitrate = (acc*accmod) - eva + (lvldiff*2) + 75 + hitMult;
 
-    -- printf("acc: %f, eva: %f, hitrate: %f", acc, eva, hitrate);
-    hitrate = utils.clamp(hitrate, 20, 95);
+    if (mob:isPet() and mob:getMaster():isPC()) then
+        hitrate = hitrate + 20;
+        base = base * 2.5;
+    end
+
+
 
     --work out the base damage for a single hit
     local hitdamage = base + lvldiff;
@@ -304,7 +309,7 @@ function MobRangedMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mtp0
         finaldmg = 1;
     end
 
-    if (critChance + target:getMod(MOD_ENEMYCRITRATE) < math.random(0, 100)) then
+    if (critChance + target:getMod(MOD_ENEMYCRITRATE) > math.random(0, 100)) then
         finaldmg = finaldmg * 1.75;
     end
 
@@ -351,6 +356,8 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
         dstr = 40;
     end
 
+    if (dstr < 0) then dstr = dstr / 2 end;
+
     local hitMult = 0;
     local damMult = 1;
     if (not target:isPC()) then
@@ -394,7 +401,7 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     end
 
     --apply WSC
-    local base = mob:getWeaponDmg() + dstr; --todo: change to include WSC
+    local base = mob:getWeaponDmg() + (dstr * 1.5) + mob:getMainLvl() / 2; --todo: change to include WSC
     if (base < 1) then
         base = 1;
     end
@@ -423,6 +430,17 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     
     --work out hit rate for mobs (bias towards them)
     local hitrate = (acc*accmod) - eva + (lvldiff*2) + 75 + hitMult;
+    local attackBonus = 0;
+    if (mob:isPet() and mob:getMaster():isPC()) then
+        hitrate = hitrate + 20;
+        attackBonus = attackBonus + 20;
+        base = base * 2.5;
+    end
+
+--    if (mob:getLocalVar("isAlly") == 1) then
+--        hitrate = hitrate + 20;
+--        attackBonus = attackBonus + 30;
+--    end
 
     -- printf("acc: %f, eva: %f, hitrate: %f", acc, eva, hitrate);
     hitrate = utils.clamp(hitrate, 20, 95);
@@ -435,6 +453,8 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
 
     hitdamage = hitdamage * dmgmod * damMult;
 
+    local damageMult = 0;
+
     if (tpeffect == TP_DMG_VARIES) then
         hitdamage = hitdamage * MobTPMod(skill:getTP() + mob:getMod(MOD_TP_BONUS));
     end
@@ -442,6 +462,12 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     local critChance = 0;
     if (tpeffect == TP_CRIT_VARIES) then
         critChance = 25 * fTP(skill:getTP() + mob:getMod(MOD_TP_BONUS), mtp000, mtp150, mtp300);
+    end
+
+    --apply ftp (assumes 1~3 scalar linear mod)
+    if (tpeffect==TP_DMG_BONUS) then
+        damageMult = fTP(skill:getTP() + mob:getMod(MOD_TP_BONUS), mtp000, mtp150, mtp300);
+        --        hitdamage = hitdamage * fTP(skill:getTP() + mob:getMod(MOD_TP_BONUS), mtp000, mtp150, mtp300);
     end
 
 
@@ -478,10 +504,6 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
         minRatio = ratio - 0.375;
     end
 
-    --apply ftp (assumes 1~3 scalar linear mod)
-    if (tpeffect==TP_DMG_BONUS) then
-        hitdamage = hitdamage * fTP(skill:getTP() + mob:getMod(MOD_TP_BONUS), mtp000, mtp150, mtp300);
-    end
 
     --Applying pDIF
     local pdif = 0;
@@ -500,16 +522,27 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
     firstHitChance = utils.clamp(firstHitChance, 35, 95);
 
     if ((chance*100) <= firstHitChance) then
-        pdif = math.random((minRatio*1000),(maxRatio*1000)) --generate random PDIF
-        pdif = pdif/1000; --multiplier set.
+        local crit = (critChance + target:getMod(MOD_ENEMYCRITRATE) > math.random(0, 100));
+        local pdif = mob:getDamageRatio(target, crit, attackBonus);
+--        pdif = math.random((minRatio*1000),(maxRatio*1000)) --generate random PDIF
+--        pdif = pdif/1000; --multiplier set.
+--        finaldmg = finaldmg + hitdamage * pdif;
         finaldmg = finaldmg + hitdamage * pdif;
+        local critresult = 0;
+        if (crit == true) then critresult = 1; end;
+--        printf("Crit: %d, min/max: %f/%f, pdif: %f", crit, minRatio, maxRatio, pdif);
+        print("Crit: " .. tostring(critresult) .. ", min/max: " .. tostring(minRatio) .. "/" .. tostring(maxRatio) .. " pdif: " .. tostring(pdif));
+
         hitslanded = hitslanded + 1;
     end
     while (hitsdone < numberofhits) do
         chance = math.random();
         if ((chance*100)<=hitrate) then --it hit
-            pdif = math.random((minRatio*1000),(maxRatio*1000)) --generate random PDIF
-            pdif = pdif/1000; --multiplier set.
+            local crit = (critChance + target:getMod(MOD_ENEMYCRITRATE) > math.random(0, 100));
+            local pdif = mob:getDamageRatio(target, crit, 0);
+            --        pdif = math.random((minRatio*1000),(maxRatio*1000)) --generate random PDIF
+            --        pdif = pdif/1000; --multiplier set.
+            --        finaldmg = finaldmg + hitdamage * pdif;
             finaldmg = finaldmg + hitdamage * pdif;
             hitslanded = hitslanded + 1;
         end
@@ -524,9 +557,14 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
         finaldmg = 1;
     end
 
-    if (critChance + target:getMod(MOD_ENEMYCRITRATE) < math.random(0, 100)) then
-        finaldmg = finaldmg * 1.75;
-    end
+--    if (critChance + target:getMod(MOD_ENEMYCRITRATE) < math.random(0, 100)) then
+--        if (mob:getMaster() ~= nil) then
+--            finaldmg = finaldmg * 1.75;
+--        else
+--            finaldmg = finaldmg * 1.4;
+--        end
+--
+--    end
 
     -- all hits missed
     if (hitslanded == 0 or finaldmg == 0) then
@@ -628,12 +666,12 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue,
     --get all the stuff we need
     local resist = 1
     local master = mob:getMaster();
-    if (not mob:isPet() and mob:isMob()) then
-        damage = damage * 1.33;
-        local damBonus = (mob:getStat(MOD_INT) - target:getStat(MOD_INT)) * (1 + mob:getMainLvl() / 40);
-        damage = damage + damBonus;
-
-    end
+--    if (not mob:isPet() and mob:isMob()) then
+--        damage = damage * 1.33;
+--        local damBonus = (mob:getStat(MOD_INT) - target:getStat(MOD_INT)) * (1 + mob:getMainLvl() / 40);
+--        damage = damage + damBonus;
+--
+--    end
 
 
     local hitMult = 0;
@@ -668,7 +706,7 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue,
         mab = 0.3;
     end
 
-    local dInt = mob:getStat(MOD_INT) - target:getStat(MOD_INT);
+    local dInt = (mob:getStat(MOD_INT) - target:getStat(MOD_INT)) * 1.5;
     if (master ~= nil) then
         mab = mab + master:getMod(MOD_CHR) / 400.0
         dInt = dInt + master:getMod(MOD_CHR);
@@ -700,19 +738,23 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue,
     end
 
     -- get resistence
-    local avatarAccBonus = 0;
+    local accBonus = 0;
     if (mob:isPet() and mob:getMaster() ~= nil) then
         local master = mob:getMaster();
         local petID = master:getPetID();
         if (petID ~= nil) then
             if (master:getPetID() >= 0 and master:getPetID() <= 20) then -- check to ensure pet is avatar
 --                avatarAccBonus = utils.clamp(master:getSkillLevel(SKILL_SUM) - master:getMaxSkillLevel(mob:getMainLvl(), JOBS.SMN, SUMMONING_SKILL), 0, 200);
-                avatarAccBonus = skill:getTP() / 50;
+                accBonus = skill:getTP() / 50;
             end
         end
     end
 
-    resist = applyPlayerResistance(mob,nil,target,dInt,avatarAccBonus,element);
+    if (mob:getLocalVar("isAlly") == 1) then
+        accBonus = accBonus + 20;
+    end
+
+    resist = applyPlayerResistance(mob,nil,target,dInt,accBonus,element);
 
     local magicDefense = getElementalDamageReduction(target, element);
 
@@ -1033,6 +1075,7 @@ function MobFinalAdjustments(dmg,mob,skill,target,skilltype,skillparam,shadowbeh
         target:updateEnmityFromDamage(mob,dmg);
         target:handleAfflatusMiseryDamage(dmg);
     end
+    if (dmg == nil) then dmg = 0; end;
 
     return dmg;
 end;

@@ -85,8 +85,13 @@ void CMobSkillState::SpendCost()
 {
     if (m_PSkill->isTpSkill())
     {
-        m_spentTP = m_PEntity->health.tp;
-        m_PEntity->health.tp = 0;
+        if (m_PEntity->GetLocalVar("freeMobSkill") > 0) {
+            m_spentTP = m_PEntity->GetLocalVar("freeMobSkill");
+            m_PEntity->SetLocalVar("freeMobSkill", 0);
+        } else {
+            m_spentTP = m_PEntity->health.tp;
+            m_PEntity->health.tp = 0;
+        }
     }
 }
 

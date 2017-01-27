@@ -217,9 +217,10 @@ bool CAutomatonController::combatHarlHarl(int mS) {
 
     // try to enfeeble
     int levelDiff = PTarget->GetMLevel() - PAutomaton->GetMLevel();
+    bool isNM = PTarget->objtype == TYPE_MOB ? ((CMobEntity*)PTarget)->m_Type & MOBTYPE_NOTORIOUS != 0 : 0;
 
 
-    if (isReady(m_enfeebleTick, PAutomaton->m_enfeebleDelay + manaMod) && PTarget != nullptr && levelDiff >= 2) {
+    if (isReady(m_enfeebleTick, PAutomaton->m_enfeebleDelay + manaMod) && PTarget != nullptr && (levelDiff >= 2 || isNM)) {
         bool b75 = (PTarget->GetHPP() >= 75);
         bool b50 = (PTarget->GetHPP() >= 50);
         bool b25 = (PTarget->GetHPP() >= 25);
@@ -399,17 +400,17 @@ bool CAutomatonController::combatStormStorm(int mS) {
 
     if (isReady(m_statusTick, PAutomaton->m_statusDelay + manaMod) && PTarget != nullptr) {
         // try dispelling
-        if (mList.dark >= 1 && PTarget->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_DISPELABLE) && canCast(sDispel)) {
+        if (PTarget->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_DISPELABLE) && canCast(sDispel)) {
             return choose(PTarget, sDispel, m_darkTick);
         }
 
 
         // try erasing
-        if (mList.light >= 1 && master->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_ERASABLE) && canCast(sErase)) {
+        if (master->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_ERASABLE) && canCast(sErase)) {
             return choose(master, sErase, m_statusTick);
         }
 
-        if (mList.light >= 1 && PAutomaton->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_ERASABLE) && canCast(sErase)) {
+        if (PAutomaton->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_ERASABLE) && canCast(sErase)) {
             return choose(PAutomaton, sErase, m_statusTick);
         }
 
@@ -429,26 +430,23 @@ bool CAutomatonController::combatStormStorm(int mS) {
         bool b50 = (PTarget->GetHPP() >= 50);
         bool b25 = (PTarget->GetHPP() >= 25);
 
-        if (((b50 && mList.wind >= 1 ) || (b25 && mList.wind >= 2)) && isCaster(PTarget)
+        if (isCaster(PTarget) && (b75 || (b50 && mList.wind >= 1 ) || (b25 && mList.wind >= 2))
                     && canCast(sSilence) && notHave(PTarget, EFFECT_SILENCE))
             return choose(target, sSilence, m_enfeebleTick);
 
-        if (b75 && canCast(sDia) && mList.light >= 1 && notHave(PTarget, EFFECT_DIA) && notHave(PTarget, EFFECT_BIO))
-            return choose(target, sDia, m_enfeebleTick);
-
-        if ((b75 || (b50 && mList.dark > 2)) && canCast(sBio) && notHave(PTarget, EFFECT_BIO) && notHave(PTarget, EFFECT_DIA))
+        if (mList.dark >= 2 && canCast(sBio) && notHave(PTarget, EFFECT_BIO) && notHave(PTarget, EFFECT_DIA))
             return choose(target, sBio, m_enfeebleTick);
 
-        if ((b75 || (b50 && mList.water > 2)) && canCast(sPoison) && notHave(PTarget, EFFECT_POISON))
+        if ((b50 || (b25 && mList.water >= 1)) && canCast(sPoison) && notHave(PTarget, EFFECT_POISON))
             return choose(target, sPoison, m_enfeebleTick);
 
-        if ((b75 || (b50 && mList.ice > 2)) && canCast(sParalyze) && notHave(PTarget, EFFECT_PARALYSIS))
+        if ((b50 || (b25 && mList.ice >= 2)) && canCast(sParalyze) && notHave(PTarget, EFFECT_PARALYSIS))
             return choose(target, sParalyze, m_enfeebleTick);
 
-        if ((b75 || (b50 && mList.earth > 2)) && canCast(sSlow) && notHave(PTarget, EFFECT_SLOW))
+        if ((b50 || (b50 && mList.earth >= 1)) && canCast(sSlow) && notHave(PTarget, EFFECT_SLOW))
             return choose(target, sSlow, m_enfeebleTick);
 
-        if ((b75 || (b50 && mList.dark > 2)) && canCast(sBlind) && notHave(PTarget, EFFECT_BLINDNESS))
+        if ((b50 || (b25 && mList.dark >= 2)) && canCast(sBlind) && notHave(PTarget, EFFECT_BLINDNESS))
             return choose(target, sBlind, m_enfeebleTick);
 
     }
@@ -669,13 +667,13 @@ bool CAutomatonController::combatStormSoul(int mS) {
         bool b50 = (PTarget->GetHPP() >= 50);
         bool b25 = (PTarget->GetHPP() >= 25);
 
-        if (b75 && canCast(sDia) && mList.light >= 1 && notHave(PTarget, EFFECT_DIA) && notHave(PTarget, EFFECT_BIO))
+        if (b25 && canCast(sDia) && notHave(PTarget, EFFECT_DIA) && notHave(PTarget, EFFECT_BIO))
             return choose(target, sDia, m_enfeebleTick);
 
-        if ((b75 || (b50 && mList.ice > 2)) && canCast(sParalyze) && notHave(PTarget, EFFECT_PARALYSIS))
+        if ((b50 || (b25 && mList.ice >= 2)) && canCast(sParalyze) && notHave(PTarget, EFFECT_PARALYSIS))
             return choose(target, sParalyze, m_enfeebleTick);
 
-        if ((b75 || (b50 && mList.earth > 2)) && canCast(sSlow) && notHave(PTarget, EFFECT_SLOW))
+        if ((b50 || (b25 && mList.earth >= 2) ) && canCast(sSlow) && notHave(PTarget, EFFECT_SLOW))
             return choose(target, sSlow, m_enfeebleTick);
 
     }

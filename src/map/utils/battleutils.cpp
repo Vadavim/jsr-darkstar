@@ -1373,7 +1373,7 @@ namespace battleutils
 
                     int healed = PAttacker->addHP(Samba);	// does not do any additional drain to targets HP, only a portion of it
                     Action->addEffectParam = healed;
-                    PDefender->addHP(-healed); //  JSR: drain samba also damages
+                    PDefender->addHP(-healed / 2); //  JSR: drain samba also damages
                     if (PChar != nullptr) {
                         PChar->updatemask |= UPDATE_HP;
                     }
@@ -1934,6 +1934,16 @@ namespace battleutils
             if (PMob->m_EcoSystem != SYSTEM_UNDEAD && PMob->m_EcoSystem != SYSTEM_BEASTMEN)
                 return 0;
         } else if (PDefender->objtype == TYPE_PET) {
+            CPetEntity* PPet = (CPetEntity*)PDefender;
+            if (PPet->getPetType() == PETTYPE_ALLY) {
+                switch (PPet->m_PetID) {
+                    case PETID_CURILLA:
+                        return 30;
+                    default:
+                        return 0;
+                }
+            }
+
             if (((CPetEntity*)PDefender)->getPetType() != PETTYPE_AUTOMATON)
                 return 0;
 
@@ -1994,24 +2004,35 @@ namespace battleutils
                 // {(Parry Skill x .125) + ([Player Agi - Enemy Dex] x .125)} x Diff
 
                 float skill = PDefender->GetSkill(SKILL_PAR) + PDefender->getMod(MOD_PARRY) + PWeapon->getILvlParry();
-                float diff = 1.0f + (((float)PDefender->GetMLevel() - PAttacker->GetMLevel()) / 15.0f);
+                float levelDiff = 1.0f + (((float)PDefender->GetMLevel() - PAttacker->GetMLevel()) / 15.0f);
 
                 if (PWeapon->isTwoHanded())
                 {
-                    // two handed weapons get a bonus
-                    diff += 0.1f;
+                     //two handed weapons get a bonus
+                    levelDiff += 0.1f;
                 }
+                //if (PAttacker->objtype == TYPE_MOB && ((CMobEntity*)PAttacker)->m_Type & MOBTYPE_NOTORIOUS)
+                    //levelDiff -= 0.1f;
 
-                if (diff < 0.4f) diff = 0.4f;
-                if (diff > 1.4f) diff = 1.4f;
+                if (levelDiff < 0.4f) levelDiff = 0.4f;
+                if (levelDiff > 1.4f) levelDiff = 1.4f;
 
-                float dex = PAttacker->DEX();
-                float agi = PDefender->AGI();
+                float skillDiff = skill - battleutils::GetMaxSkill(2, PAttacker->GetMLevel());
+                if (skillDiff < 0)
+                    skillDiff /= 2;
+                float statDiff = PDefender->AGI() - PAttacker->DEX();
+                if (statDiff < 0)
+                    statDiff /= 2;
+
+//                float dex = PAttacker->DEX();
+//                float agi = PDefender->AGI();
+//                int acc = PAttacker->ACC();
 
                 int cap = PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_BATTUTA) ? 56 : 35;
                 int bonus = PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_BATTUTA) ? 30 : 0;
 
-                uint8 parryRate = dsp_cap((skill * 0.125f + (agi - dex) * 0.25f + 10.0f) * diff + bonus, 5, cap);
+                uint8 parryRate = dsp_cap((10.0f + skillDiff / 2.5f + statDiff / 4  + bonus) * levelDiff, 5, cap);
+//                uint8 parryRate = dsp_cap((skill * 0.125f + (agi - dex) * 0.25f + 10.0f) * levelDiff + bonus, 5, cap);
 
                 // Issekigan grants parry rate bonus. From best available data, if you already capped out at 25% parry it grants another 25% bonus for ~50% parry rate
                 if (PDefender->objtype == TYPE_PC && PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_ISSEKIGAN)) {
@@ -2300,6 +2321,8 @@ namespace battleutils
                 }
 
                 float tpDiffBonus = 1.0f + dsp_cap(((float)PAttacker->INT() - (float)PDefender->MND()) * 0.75f, -30.0f, 30.0f) / 100.f;
+                if ((PAttacker->objtype == TYPE_PC || PAttacker->objtype == TYPE_PET) && tpDiffBonus < 1) tpDiffBonus = 1 - (1.0f - tpDiffBonus) / 2;
+                else if (PAttacker->objtype == TYPE_MOB && tpDiffBonus > 1) tpDiffBonus = 1 + (tpDiffBonus - 1.0f) / 2;
                 PAttacker->addTP(tpMultiplier * tpDiffBonus * (baseTp * (1.0f + 0.01f * (float)((PAttacker->getMod(MOD_STORETP) + getStoreTPbonusFromMerit(PAttacker))))));
             }
 
@@ -2308,6 +2331,9 @@ namespace battleutils
                 //account for attacker's subtle blow which reduces the baseTP gain for the defender
                 float sBlowMult = ((100.0f - dsp_cap((float)PAttacker->getMod(MOD_SUBTLE_BLOW), 0.0f, 50.0f)) / 100.0f);
                 float dAGI = 1.0f + dsp_cap(((float)PAttacker->AGI() - (float)PDefender->AGI()) * 0.75f, -30.0f, 30.0f) / 100;
+
+                if ((PAttacker->objtype == TYPE_PC || PAttacker->objtype == TYPE_PET) && dAGI < 1) dAGI = 1 - (1.0f - dAGI) / 2;
+                else if (PAttacker->objtype == TYPE_MOB && dAGI > 1) dAGI = 1 + (dAGI - 1.0f) / 2;
 
                 //mobs hit get basetp+30 whereas pcs hit get basetp/3
                 if (PDefender->objtype == TYPE_PC)
@@ -2696,6 +2722,10 @@ namespace battleutils
             int16 criticaldamage = PAttacker->getMod(MOD_CRIT_DMG_INCREASE);
             criticaldamage = dsp_cap(criticaldamage, 0, 200);
             int16 critBonus = dsp_cap(PAttacker->STR() - PDefender->VIT(), -40, 40);
+            if ((PAttacker->objtype == TYPE_PC || PAttacker->objtype == TYPE_PET) && critBonus < 0)
+                critBonus /= 2;
+            else if ((PAttacker->objtype == TYPE_MOB) && critBonus > 0)
+                critBonus /= 2;
             pDIF *= ((100 + criticaldamage + critBonus) / 100.0f);
             if (PAttacker->objtype == TYPE_MOB && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK))
                 pDIF *= 1.33;

@@ -19,6 +19,6 @@ end;
 -----------------------------------------
 
 function onItemUse(target)
-    target:addStatusEffect(EFFECT_PROWESS_CRYSTAL_YEILD, 1, 0, 900);
+    target:addStatusEffect(EFFECT_PROWESS_TH, 2, 0, 900);
 end;
 

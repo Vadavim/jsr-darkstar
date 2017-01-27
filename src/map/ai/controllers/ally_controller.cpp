@@ -58,8 +58,8 @@ void CAllyController::DoRoamTick(time_point tick) {
 
     restCounter += 1;
     if (restCounter >= 10) {
-        PAlly->addHP(PAlly->GetMaxHP() / 50);
-        PAlly->addMP(PAlly->GetMaxMP() / 70);
+        PAlly->addHP(1 + PAlly->GetMaxHP() / 50);
+        PAlly->addMP(1 + PAlly->GetMaxMP() / 70);
         restCounter = 0;
     }
 

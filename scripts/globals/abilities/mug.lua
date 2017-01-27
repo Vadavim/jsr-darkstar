@@ -39,8 +39,10 @@ function onUseAbility(player,target,ability)
     end
 
 
-    local tpSteal = target:getTP() * 0.25;
+    local tpSteal = target:getTP() * 0.50;
+    if (player:getMainJob() ~= JOBS.THF) then tpSteal = tpSteal / 1.5 end;
     player:addTP(tpSteal);
+    target:delTP(tpSteal);
 
 
     local mugChance = 90 + thfLevel - target:getMainLvl();

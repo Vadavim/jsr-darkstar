@@ -112,6 +112,9 @@ function mobAddStatus(mob, target, damage, effect, params)
 end
 
 
+local function canCast(mob, spellid)
+    return mob:getMP() > getSpell(spellid):getMPCost();
+end
 
 
 
@@ -124,7 +127,7 @@ function timedAbility(mob, target, ability, minDelay, maxDelay)
     local lastTime = mob:getLocalVar("ability_" .. tostring(ability));
     if (lastTime + minDelay < time) then
         mob:useJobAbility(ability, target);
-        mob:setLocalVar("ability_" .. tostring(ability), time + math.random(maxDelay - minDelay));
+        mob:setLocalVar("ability_" .. tostring(ability), time + math.random(minDelay, maxDelay));
         return true;
     end
 
@@ -157,9 +160,10 @@ end
 
 
 
-function timedMobAbility(mob, target, ability, minDelay, maxDelay)
+function timedMobAbility(mob, target, ability, minDelay, maxDelay, tpAmount)
     local time = mob:getBattleTime();
     if (maxDelay == nil) then maxDelay = minDelay; end;
+    if (tpAmount == nil) then tpAmount = 1000; end;
 
     local ability_name = ability;
 
@@ -176,33 +180,53 @@ function timedMobAbility(mob, target, ability, minDelay, maxDelay)
 
 
     local lastTime = mob:getLocalVar("mobskill_" .. tostring(ability_name));
-    printf("Last: %d\nCur: %d", lastTime, time);
+--    printf("Last: %d\nCur: %d", lastTime, time);
     if (lastTime + minDelay < time ) then
+        mob:setLocalVar("freeMobSkill", tpAmount);
         mob:useMobAbility(ability, target);
-        mob:setLocalVar("mobskill_" .. tostring(ability_name), time + math.random(maxDelay - minDelay));
+        mob:setLocalVar("mobskill_" .. tostring(ability_name), time + math.random(minDelay, maxDelay));
         return true;
     end
 
     return false;
 end
 
-function thresholdMobAbility(mob, target, ability, thresholdStep)
+function thresholdMobAbility(mob, target, ability, thresholdStep, tpAmount)
     if (thresholdStep == nil) then thresholdStep = 25; end;
-    local lastThresh = mob:getLocalVar("tmobskill_" .. tostring(ability));
+    if (tpAmount == nil) then tpAmount = 1000; end;
+
+    local ability_name = ability;
+
+    if (type(ability) == "table") then
+        ability_name = ability[1];
+        local size = 0;
+
+        for i,v in pairs(ability) do
+            size = size + 1;
+        end
+
+        ability = ability[math.random(1, size)];
+    end
+
+
+    local lastThresh = mob:getLocalVar("tmobskill_" .. tostring(ability_name));
     local missing = 100 - mob:getHPP();
 
     if (missing >= lastThresh + thresholdStep) then
-        mob:setLocalVar("tmobskill_" .. tostring(ability), lastThresh + thresholdStep);
+        mob:setLocalVar("freeMobSkill", tpAmount);
+        mob:setLocalVar("tmobskill_" .. tostring(ability_name), lastThresh + thresholdStep);
         mob:useMobAbility(ability, target);
         return true;
     end
     return false;
 end
 
-function limitedMobAbility(mob, target, ability, numTimes)
+function limitedMobAbility(mob, target, ability, numTimes, tpAmount)
     local times = mob:getLocalVar("lmobskill_" .. tostring(ability));
+    if (tpAmount == nil) then tpAmount = 1000; end;
 
-    if (numTimes < times) then
+    if (times < numTimes) then
+        mob:setLocalVar("freeMobSkill", tpAmount);
         mob:setLocalVar("lmobskill_" .. tostring(ability), times + 1);
         mob:useMobAbility(ability, target);
         return true;
@@ -217,6 +241,7 @@ function timedSpell(mob, target, spell, minDelay, maxDelay)
     local time = mob:getBattleTime();
     if (maxDelay == nil) then maxDelay = minDelay; end;
 
+    local lastTime = 0;
     local spell_name = spell;
 
     if (type(spell) == "table") then
@@ -224,18 +249,20 @@ function timedSpell(mob, target, spell, minDelay, maxDelay)
         local size = 0;
 
         for i,v in pairs(spell) do
+            local curTime = mob:getLocalVar("spell_" .. tostring(spell_name));
+            if (curTime > lastTime) then lastTime = curTime; end;
             size = size + 1;
         end
 
         spell = spell[math.random(1, size)];
+    else
+        lastTime = mob:getLocalVar("spell_" .. tostring(spell_name));
     end
 
-
-
-    local lastTime = mob:getLocalVar("spell_" .. tostring(spell_name));
     if (lastTime + minDelay < time) then
+        if (not canCast(mob, spell)) then return false; end;
         mob:castSpell(spell, target);
-        mob:setLocalVar("spell_" .. tostring(spell_name), time + math.random(maxDelay - minDelay));
+        mob:setLocalVar("spell_" .. tostring(spell_name), time + math.random(minDelay, maxDelay));
         return true;
     end
 
@@ -247,6 +274,8 @@ function thresholdSpell(mob, target, spell, thresholdStep)
     local lastThresh = mob:getLocalVar("tspell_" .. tostring(spell));
     local missing = 100 - mob:getHPP();
 
+    if (not canCast(mob, spell)) then return false; end;
+
     if (missing >= lastThresh + thresholdStep) then
         mob:setLocalVar("tspell_" .. tostring(spell), lastThresh + thresholdStep);
         mob:castSpell(spell, target);
@@ -257,8 +286,9 @@ end
 
 function limitedSpell(mob, target, spell, numTimes)
     local times = mob:getLocalVar("lspell_" .. tostring(spell));
+    if (not canCast(mob, spell)) then return false; end;
 
-    if (numTimes < times) then
+    if (times < numTimes) then
         mob:setLocalVar("lspell_" .. tostring(spell), times + 1);
         mob:castSpell(spell, target);
         return true;

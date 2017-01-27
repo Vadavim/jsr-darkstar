@@ -11,7 +11,7 @@
 function onEffectGain(target,effect)
     target:recalculateAbilitiesTable();
     local bonus = effect:getPower();
-    local regen = effect:getSubPower();
+--    local regen = effect:getSubPower();
     
     target:addMod(MOD_WHITE_MAGIC_COST, -bonus);
     target:addMod(MOD_WHITE_MAGIC_CAST, -bonus);
@@ -24,8 +24,8 @@ function onEffectGain(target,effect)
         target:addMod(MOD_BLACK_MAGIC_COST, 20);
         target:addMod(MOD_BLACK_MAGIC_CAST, 20);
         target:addMod(MOD_BLACK_MAGIC_RECAST, 20);
-        target:addMod(MOD_LIGHT_ARTS_REGEN, regen);
-        target:addMod(MOD_REGEN_DURATION, regen*2);
+--        target:addMod(MOD_LIGHT_ARTS_REGEN, regen);
+--        target:addMod(MOD_REGEN_DURATION, regen*2);
     end
     target:recalculateSkillsTable();
 end;

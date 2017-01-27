@@ -22,7 +22,8 @@ TRAIT CHANGES
 ABILITY CHANGES
 
 [Steal]
- - Steals a temporary item.
+ - Also steals a temporary item.
+ - Chance increased by having a higher DEX than the target's AGI
 
 
 [Mug]
@@ -45,7 +46,7 @@ ABILITY CHANGES
 
 
 [Larceny]
- - Gained at level 45 instead of 77.
+ - Gained at level 40 instead of 77.
 
 [Despoil]
  - Gained at level 50

@@ -20,7 +20,7 @@ function onMobWeaponSkill(target, mob, skill)
         power = power * 1.25;
     end
 
-    mob:addStatusEffect(EFFECT_STONESKIN, power, 0, 180);
+    mob:addStatusEffect(EFFECT_STONESKIN, power, 0, 600);
     skill:setMsg(MSG_BUFF);
 
 

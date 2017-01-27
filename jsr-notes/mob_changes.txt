@@ -815,7 +815,8 @@ FAMILY CHANGES
 [Zdei]
  - +35% XP
 
-
+[Goblin]
+ - Weak against Water (+25%)
 
 [Antica]
  - +15% XP

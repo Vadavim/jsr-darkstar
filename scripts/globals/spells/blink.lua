@@ -20,7 +20,8 @@ function onSpellCast(caster,target,spell)
     end
     local subPower = caster:getSkillLevel(ENHANCING_MAGIC_SKILL) / 15;
 
-    local shadows = 2;
+    local bonusShadows = caster:getLocalVar("bonusShadows");
+    local shadows = 2 + bonusShadows;
     shadows, duration = applyEmbolden(caster, shadows, duration);
 
     if (caster:hasStatusEffect(EFFECT_PERPETUANCE)) then

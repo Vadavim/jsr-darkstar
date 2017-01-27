@@ -22,6 +22,8 @@ function onTrade(player,npc,trade)
             local timesTraded = GetServerVariable("[POP]Yara-Ma-Yha-Who-Trades");
             if (timesTraded == 3) then -- Takes a minimum of 3 trades before NM can be spawned
                 if (math.random(0,2) == 2) then
+                    local mob = GetMobByID(17256900)
+                    mob:setSpawn(player:getXPos(), player:getYPos(), player:getZPos());
                     SpawnMob(17256900):updateClaim(player); -- Spawn Yara Ma Yha Who
                     player:messageSpecial(REPULSIVE_CREATURE_EMERGES);
                 else

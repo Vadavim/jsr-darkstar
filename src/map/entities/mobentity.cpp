@@ -573,6 +573,8 @@ void CMobEntity::Spawn()
     {
         level += dsprand::GetRandomNumber(0, m_maxLevel - m_minLevel);
     }
+    if (GetLocalVar("customLevel") != 0)
+        level = GetLocalVar("customLevel");
 
     SetMLevel(level);
     SetSLevel(level);//calculated in function
