@@ -23,7 +23,7 @@ function onMobSpawn(mob)
     mob:setMod(MOD_DEFP, -30);
     mob:setMod(MOD_EVASION, -30);
     mob:setMod(MOD_STR, -5);
-    mob:setMod(MOD_HP, -100);
+    mob:setMod(MOD_HP, 250);
     mob:updateHealth();
     mob:addMP(300);
 
@@ -39,6 +39,11 @@ end
 
 
 function onMobFight(mob, target)
+    if (mob:getHPP() <= 40 and mob:getLocalVar("tripleTime") == 0) then
+        mob:setLocalVar("tripleTime", 1);
+        mob:setMod(MOD_TRIPLE_ATTACK, 25);
+    end
+
 end
 
 function onMobDeath(mob, player, isKiller)

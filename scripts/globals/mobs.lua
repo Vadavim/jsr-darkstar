@@ -121,7 +121,7 @@ local zoneRewards = {
     {18600, 1, 99, ZONE_PALBOROUGH, 0, 0, 0}, -- Caver's Shovel
     {28651, 1, 99, ZONE_PALBOROUGH, 0, 0, 0}, -- Metal Slime Shield
 
-    {14737, 1, 99, ZONE_PALBOROUGH, 0, 0, 0}, -- Wyvern Earring (+5% Haste if DRG is subjob)
+    {18412, 1, 99, ZONE_PALBOROUGH, 0, 0, 0}, -- Gassan
     {13370, 1, 99, ZONE_PALBOROUGH, 0, 0, 0}, -- Silver Earring +1
     {18959, 1, 99, ZONE_PALBOROUGH, 0, 0, 0}, -- Serpette +1
     {13371, 1, 99, ZONE_PALBOROUGH, 0, 0, 0}, -- Mythril Earring +1
@@ -147,7 +147,7 @@ local zoneRewards = {
     {3715, 1, 99, ZONE_DANGRUF, 0, 0, 0}, -- Pot of Pink Clematis
     {28650, 1, 99, ZONE_DANGRUF, 0, 0, 0}, -- She-Slime Shield
 
-    {13599, 1, 99, ZONE_DANGRUF, 0, 0, 0}, -- Rabbit Mantle +1
+    {18412, 1, 99, ZONE_DANGRUF, 0, 0, 0}, -- Gassan
     {17177, 1, 99, ZONE_DANGRUF, 0, 0, 0}, -- Longbow +1
     {19224, 1, 99, ZONE_DANGRUF, 0, 0, 0}, -- Musketoon
     {19223, 1, 99, ZONE_DANGRUF, 0, 0, 0}, -- Attar of Roses
@@ -161,7 +161,7 @@ local zoneRewards = {
     {3675, 1, 99, ZONE_HORUTOTO_INNER, 0, 0, 0}, -- Flask Set
 
     {13825, 1, 99, ZONE_HORUTOTO_INNER, 0, 0, 0}, -- Bone Hairpin +1
-    {17122, 1, 99, ZONE_HORUTOTO_INNER, 0, 0, 0}, -- Ash Pole +1
+    {18610, 1, 99, ZONE_HORUTOTO_INNER, 0, 0, 0}, -- Spiro Staff
     {16007, 1, 99, ZONE_HORUTOTO_INNER, 0, 0, 0}, -- Protect Earring
     {13285, 1, 99, ZONE_HORUTOTO_INNER, 0, 0, 0}, -- Eremite's Ring +1
     {14694, 1, 99, ZONE_HORUTOTO_INNER, 0, 0, 0}, -- Energy Earring +1
@@ -178,6 +178,7 @@ local zoneRewards = {
     {12530, 1, 99, ZONE_HORUTOTO_OUTER, 0, 0, 0}, -- Sage's Circlet
     {14495, 1, 99, ZONE_HORUTOTO_OUTER, 0, 0, 0}, -- Healing Harness
     {15783, 1, 99, ZONE_HORUTOTO_OUTER, 0, 0, 0}, -- Armored Ring
+    {18610, 1, 99, ZONE_HORUTOTO_OUTER, 0, 0, 0}, -- Spiro Staff
 
     -- Tahrongi Canyon (10 - 20)
     {26, 1, 99, ZONE_TAHRONGI, 0, 0, 0}, -- Tarutaru Desk
@@ -261,10 +262,10 @@ local zoneRewards = {
     {26889, 1, 99, ZONE_GHELSBA_FORT, 0, 0, 0}, -- Heart Apron
 
     {16007, 1, 99, ZONE_GHELSBA_FORT, 0, 0, 0}, -- Protect Earring
-    {15835, 1, 99, ZONE_GHELSBA_FORT, 0, 0, 0}, -- Desperado Ring
+    {13051, 1, 99, ZONE_GHELSBA_FORT, 0, 0, 0}, -- Coarse Leggings
     {14695, 1, 99, ZONE_GHELSBA_FORT, 0, 0, 0}, -- Hope Earring +1
     {16667, 1, 99, ZONE_GHELSBA_FORT, 0, 0, 0}, -- Light Axe
-    {14737, 1, 99, ZONE_GHELSBA_FORT, 0, 0, 0}, -- Wyvern Earring (+5% Haste if DRG is subjob)
+    {17142, 1, 99, ZONE_GHELSBA_FORT, 0, 0, 0}, -- Wild Cudgel
 
     -- Buburimu Peninsula Items (15 - 25)
     {351, 1, 99, ZONE_BUBURIMU, 0, 0, 0}, -- Federal Mercenary's Hammock
@@ -1843,12 +1844,6 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
     local diff = mob:getMainLvl() - player:getMainLvl();
 
 
-    -- update noteriety
-    local noto = "noto_z" .. tostring(player:getZoneID());
-    local notoBonus = 1;
-    if diff >= 4 then notoBonus = notoBonus + 1 end;
-    if (mob:isNM() and isKiller == true and not mob:isMobType(0x20) ) then notoBonus = notoBonus + 40; end;
-    player:setVar(noto, player:getVar(noto) + notoBonus);
 
     -- check to see if temp items dropped
     local tempChance = 10 + diff * 3.5;
@@ -1884,15 +1879,26 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
         dropReward(mob, player);
     end
 
+    -- update noteriety
+    local noto = "noto_z" .. tostring(player:getZoneID());
+    local notoBonus = 1;
+    if diff >= 4 then notoBonus = notoBonus + 1 end;
+
     -- Non-event based mobs drop extra stuff
     if (not mob:isMobType(0x20)) then
         if (mob:isNM() and isKiller) then
             dropReward(mob, player);
-            if (diff >= 0) then dropReward(mob, player); end;
+            if (diff >= 0) then
+                dropReward(mob, player);
+                notoBonus = notoBonus + 40;
+            else
+                notoBonus = notoBonus + 20;
+            end;
         end
     end
 
 
+    player:setVar(noto, player:getVar(noto) + notoBonus);
 
 
 --    local zid = player:getZoneID()

@@ -112,6 +112,7 @@ local GearSets =  {
 
 
 
+
 }
 -- increment id by (number of mods in previous gearset - 1)
 

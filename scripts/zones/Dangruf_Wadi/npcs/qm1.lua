@@ -22,6 +22,7 @@ end;
 
 function onTrigger(player,npc)
     player:messageSpecial(SMALL_HOLE);
+    player:SayToPlayer("Chocoboleech is no longer spawned this way.");
 end;
 
 -----------------------------------

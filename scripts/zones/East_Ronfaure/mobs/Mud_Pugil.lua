@@ -18,7 +18,7 @@ function onMobSpawn(mob)
     mob:setMod(MOD_EARTHDEF, 60);
     mob:setMod(MOD_STR, -5);
     mob:setMod(MOD_HP, -100);
-    mob:addMod(MOD_REGEN, 12);
+    mob:addMod(MOD_REGEN, 8);
     mob:updateHealth();
     mob:addMP(300);
 end

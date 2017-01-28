@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `bonus_item_points` (
   PRIMARY KEY (`itemid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
--- Dumping data for table dspdb.bonus_item_points: 1,201 rows
+-- Dumping data for table dspdb.bonus_item_points: 1,202 rows
 /*!40000 ALTER TABLE `bonus_item_points` DISABLE KEYS */;
 REPLACE INTO `bonus_item_points` (`guild`, `itemid`, `name`, `points`) VALUES
 	('guild_woodworking', 688, 'arrowwood_log', 0),
@@ -1222,7 +1222,8 @@ REPLACE INTO `bonus_item_points` (`guild`, `itemid`, `name`, `points`) VALUES
 	('guild_alchemy', 5883, 'falling_star', 0),
 	('guild_alchemy', 5884, 'rengedama', 0),
 	('guild_alchemy', 5936, 'mog_missile', 0),
-	('guild_alchemy', 5937, 'bubble_breeze', 0);
+	('guild_alchemy', 5937, 'bubble_breeze', 0),
+	('guild_goldsmithing', 1666, 'chameleon_diamond', 0);
 /*!40000 ALTER TABLE `bonus_item_points` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

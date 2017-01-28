@@ -681,6 +681,9 @@ local clubAugment = {
 local axeAugment = {
     {AUGMENT_STAT_STR_AGI,      {0, 1},     1, 5, true, 0.04},
     {AUGMENT_SKILL_AXE,        {0, 1},      1, 4, false, 0.035},
+    {AUGMENT_EVA,               {2, 8},     1, 2, false, 0.0},
+    {AUGMENT_MEVA,              {4, 8},     1, 2, false, 0.0},
+    {AUGMENT_ENMITY,            {4, 6},     1, 3, false, 0.0},
     {augWeaponskillAxe,  {0, 2},     1, 6, false, 0.0},
 };
 
@@ -702,8 +705,9 @@ local greataxeAugment = {
     {AUGMENT_STAT_STR,          {1, 2},     1, 5, true, 0.04},
     {AUGMENT_DBLATK,            {0, 2},     70, 3, false, 0.0},
     {AUGMENT_ZANSHIN,           {0, 5},     30, 2, false, 0.0},
-    {AUGMENT_COUNTER,           {3, 5},     1, 3, false, 0.0},
+    {AUGMENT_COUNTER,           {5, 7},     1, 3, false, 0.0},
     {AUGMENT_SKILL_GREATAXE,    {0, 1},     1, 4, false, 0.045},
+    {AUGMENT_ENMITY,            {6, 10},     1, 3, false, 0.0},
     {augWeaponskillGreataxe,    {0, 2},     1, 6, false, 0.0},
 };
 
@@ -713,6 +717,7 @@ local polearmAugment = {
     {AUGMENT_DBLATK,            {0, 1},     70, 5, false, 0.0},
     {AUGMENT_THUNDERATT,        {12, 15},     1, 4, false, 0.10},
     {AUGMENT_SKILL_POLEARM,     {0, 1},     1, 4, false, 0.035},
+    {AUGMENT_ENMITYNEG,         {3, 5},     1, 3, false, 0.0},
     {augWeaponskillPolearm,    {0, 2},     1, 6, false, 0.0},
 };
 
@@ -729,11 +734,13 @@ local greatkatanaAugment = {
 local scytheAugment = {
     {AUGMENT_STAT_STR_INT,      {0, 1},     1, 5, true, 0.04},
     {AUGMENT_MAGICBURST_DMG,    {10, 15},    30, 3, false, 0.0},
-    {AUGMENT_MAGICDAM,          {4, 6},    40, 2, false, 0.15},
+    {AUGMENT_MAGICDAM,          {4, 6},    40, 2, true, 0.25},
     {AUGMENT_OCCULT_ACUMEN,    {8, 12},    30, 3, false, 0.0},
     {AUGMENT_MATK,             {5, 10},    50, 3, false, 0.0},
+    {AUGMENT_DRAINASPIR_POTENCY, {5, 10},    50, 3, false, 0.0},
     {AUGMENT_DARKATT,        {12, 15},     1, 4, false, 0.10},
     {AUGMENT_SKILL_SCYTHE,     {0, 1},     1, 4, false, 0.045},
+    {AUGMENT_ENMITYNEG,         {3, 5},     1, 3, false, 0.0},
     {augWeaponskillScythe,    {0, 2},     1, 6, false, 0.0},
 };
 
@@ -744,11 +751,12 @@ local h2hAugment = {
     {AUGMENT_MEVA,              {4, 8},     1, 3, false, 0.0},
     {AUGMENT_KICKATTACKS,       {0, 2},     35, 4, false, 0.10},
     {AUGMENT_SKILL_H2H,         {0, 1},     1, 4, false, 0.035},
+    {AUGMENT_ENMITY,            {6, 10},     1, 3, false, 0.0},
     {augWeaponskillH2H,    {0, 2},     1, 6, false, 0.0},
 };
 
 local katanaAugment = {
-    {AUGMENT_STAT_STR_DEX,      {0, 1},     1, 5, true, 0.03},
+    {AUGMENT_STAT_STR_INT,      {0, 1},     1, 5, true, 0.03},
     {AUGMENT_NINJATOOL_EXPERTISE,{4, 8},     1, 5, false, 0.0},
     {AUGMENT_MACCMATK,          {4, 6},     40, 8, false, 0.10},
     {AUGMENT_DBLATKCRIT,        {0, 0},     70, 3, false, 0.0},
@@ -863,9 +871,8 @@ local generalWeaponAugment = {
     {AUGMENT_CRITRATE,          {0, 1},     1, 3, false, 0.0},
     {AUGMENT_CRITDAMAGE,        {5, 10},     1, 3, false, 0.0},
     {AUGMENT_WSKILL_ACC,        {4, 8},    1, 3, false, 0.10},
-    {AUGMENT_WSKILL_DAM,        {4, 8},    1, 3, false, 0.10},
-    {AUGMENT_SKILLCHAIN_DAM,    {8, 15},    30, 3, false, 0.0},
-    {AUGMENT_MDEF,              {3, 7},     1, 4, false, 0.00},
+    {AUGMENT_SKILLCHAIN_DAM,    {10, 25},    30, 3, false, 0.0},
+    {AUGMENT_MDEF,              {2, 4},     1, 4, false, 0.00},
 };
 
 

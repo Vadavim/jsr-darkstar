@@ -17,9 +17,9 @@ function onMobSkillCheck(target,mob,skill)
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local typeEffect = EFFECT_BLINDNESS;
+    local typeEffect = EFFECT_FLASH;
 
-    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 20, 0, 120));
+    skill:setMsg(MobStatusEffectMove(mob, target, typeEffect, 80, 0, math.random(20, 30)));
 
     return typeEffect;
 end;

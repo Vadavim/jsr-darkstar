@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `char_exp` (
 -- Dumping data for table dspdb.char_exp: 1 rows
 /*!40000 ALTER TABLE `char_exp` DISABLE KEYS */;
 REPLACE INTO `char_exp` (`charid`, `mode`, `war`, `mnk`, `whm`, `blm`, `rdm`, `thf`, `pld`, `drk`, `bst`, `brd`, `rng`, `sam`, `nin`, `drg`, `smn`, `blu`, `cor`, `pup`, `dnc`, `sch`, `geo`, `run`, `merits`, `limits`) VALUES
-	(21828, 0, 1448, 43999, 41599, 4599, 4799, 43999, 4599, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 139, 43999, 43999, 43999, 577, 43999, 43999, 43999, 34, 4170);
+	(21828, 0, 1448, 1149, 41599, 5799, 4799, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 139, 43999, 43999, 55999, 577, 43999, 43999, 43999, 37, 1157);
 /*!40000 ALTER TABLE `char_exp` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

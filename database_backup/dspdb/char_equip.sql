@@ -19,11 +19,12 @@ CREATE TABLE IF NOT EXISTS `char_equip` (
   PRIMARY KEY (`charid`,`equipslotid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=41;
 
--- Dumping data for table dspdb.char_equip: 1 rows
+-- Dumping data for table dspdb.char_equip: 3 rows
 /*!40000 ALTER TABLE `char_equip` DISABLE KEYS */;
 REPLACE INTO `char_equip` (`charid`, `slotid`, `equipslotid`, `containerid`) VALUES
-	(21828, 25, 2, 8),
-	(21828, 20, 0, 0);
+	(21828, 17, 0, 0),
+	(21828, 4, 11, 0),
+	(21828, 37, 10, 0);
 /*!40000 ALTER TABLE `char_equip` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

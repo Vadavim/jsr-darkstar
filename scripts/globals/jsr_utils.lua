@@ -15,6 +15,42 @@ ALCH = "alchemy"
 COOK = "cooking"
 
 
+function doesNotHaveItem(player, itemid)
+    for i=0, 12 do
+        if (player:hasItem(2176, i)) then
+            return false;
+        end
+    end
+    return true;
+end
+
+
+local function addRewards(mob, player, curRewards, rewardsTable)
+    local zoneid = mob:getZoneID();
+    local level = mob:getMainLvl();
+
+    for i,v in pairs(rewardsTable) do
+        if (doesNotHaveItem(player, v[1]) and level >= v[2] and level <= v[3]) then
+            local containsId = v[4] == 0;
+            if (not containsId) then
+                for n,k in pairs(v[4]) do
+                    if (zoneid == k) then
+                        containsId = true;
+                        break;
+                    end
+                end
+            end
+
+            if (containsId) then
+                table.insert(curRewards, v[1]);
+            end
+        end
+
+    end
+
+    return curRewards;
+end
+
 
 
 function noDominantRune(target)
@@ -315,10 +351,22 @@ function applyBarDurationReduction(target, effect, barType)
 end;
 
 
+local function sayItem(player, curItemId, isTemp)
+    local item = getItem(curItemId);
+    local name = item:getName();
+    name = string.gsub(" "..name, "%W%l", string.upper):sub(2):gsub("_", " ");
+    if (isTemp ~= nil) then
+        player:SayToPlayer("Received Temporary: " .. name);
+    else
+        player:SayToPlayer("Received: " .. name);
+    end
+
+end
 
 
 function jsrReward(player, rewards)
     local zoneID = player:getZoneID();
+
 
     if (rewards["xp"] ~= nil) then
         player:addLimitPoints(rewards["xp"]);
@@ -349,21 +397,21 @@ function jsrReward(player, rewards)
 
     if (rewards["item"] ~= nil) then
         player:addItem(rewards["item"]);
---        player:messageSpecial(item_zone_ids[zoneID],rewards["item"]);
-        player:messageSpecial(ITEM_OBTAINED,rewards["item"]);
+        sayItem(player, rewards["item"]);
     end
 
     if (rewards["item2"] ~= nil) then
-        player:addItem(rewards["item2"]);
+        sayItem(player, rewards["item2"]);
 --        player:messageSpecial(item_zone_ids[zoneID],rewards["item2"]);
-        player:messageSpecial(ITEM_OBTAINED,rewards["item2"]);
+--        player:messageSpecial(ITEM_OBTAINED,rewards["item2"]);
     end
 
     if (rewards["augment"] ~= nil) then
         local arr = rewards["augment"];
+        sayItem(player, arr[1]);
         player:addItem(arr[1], 1, arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8], arr[9]);
 --        player:messageSpecial(item_zone_ids[zoneID],arr[1]);
-        player:messageSpecial(ITEM_OBTAINED,arr[1]);
+--        player:messageSpecial(ITEM_OBTAINED,arr[1]);
     end
 
     if (rewards["guild"] ~= nil) then
@@ -476,34 +524,7 @@ function tradeElite(player, npc, trade, tier, monsters)
 
 end
 
-function rewardNotorious(mob, player, isKiller)
-    player:resetMusic();
-    if (true) then return false; end;
 
-    if (player:getLocalVar("notoSpawner") == 1) then
-        player:setLocalVar("notoSpawner", 0);
-
-        -- reward basic item
-        local size = 0;
-        for i,v in pairs(augmentPool) do
-            size = size + 1;
-        end
-        -- TODO: autodetect augment pool
-        local id = augmentPool[math.random(1, size)];
-        local item = getItem(id);
-        local augments = pickAugments(item);
-        local reward = {
-            ["augment"] = {id, augments[1], augments[2], augments[3], augments[4], augments[5], augments[6], augments[7], augments[8]},
-        };
-        jsrReward(player, reward);
-    end
-
-    -- And drops exclusive to that particular NM and also drops that are normal for all of that level
-    if (isKiller) then
-
-    end
-
-end
 
 
 function rewardElite(player, npc, items)
@@ -641,7 +662,8 @@ function rewardTemporaryItem(player)
     local item = boostItems[math.random(1,boostSize)];
 
     player:addTempItem(item);
-    player:messageSpecial(item_zone_ids[player:getZoneID()], item);
+--    player:messageSpecial(item_zone_ids[player:getZoneID()], item);
+    sayItem(player, item, true);
 
 end
 
@@ -1160,19 +1182,34 @@ end
 
 
 local notoGeneralRewards = {
-    {14671, 1, 99, 0},                                -- Allied Ring
-    {13283, 1, 25, 0},                               -- Saintly Ring +1
-    {13285, 1, 25, 0},                               -- Eremite's Ring +1
     {13548, 1, 25, 0},                               -- Astral Ring
     {16144, 1, 25, 0},                               -- Sol Cap
-    {14592, 1, 25, 0},                               -- Reflex Ring +1
-    {14593, 1, 25, 0},                               -- Courage Ring +1
-    {14594, 1, 25, 0},                               -- Knowledge Ring +1
-    {14595, 1, 25, 0},                               -- Balance Ring +1
-    {14596, 1, 25, 0},                               -- Tranquility Ring +1
-    {14597, 1, 25, 0},                               -- Stamina Ring +1
     {14598, 1, 25, 0},                               -- Energy Ring +1
+    {13326, 1, 25, 0},                               -- Beetle Earring +1
     {14599, 1, 25, 0},                               -- Hope Ring +1
+    {14695, 1, 25, 0},                               -- Hope Earring +1
+    {15947, 1, 25, 0},                               -- Griot Belt +1
+    {14694, 1, 25, 0},                               -- Energy Earring +1
+    {14790, 1, 25, 0},                               -- Reraise Earring
+    {15147, 1, 25, 0},                               -- Garrison Sallet
+    {14851, 1, 25, 0},                               -- Garrison Gloves
+    {14314, 1, 25, 0},                               -- Garrison Hose
+    {14206, 1, 25, 0},                               -- Garrison Boots
+    {13818, 1, 25, 0},                               -- Garrison Tunic
+    {16687, 1, 25, 0},                               -- Platoon Axe
+    {16959, 1, 25, 0},                               -- Platoon Sword
+    {17202, 1, 25, 0},                               -- Platoon Bow
+    {17271, 1, 25, 0},                               -- Platoon Gun
+    {17462, 1, 25, 0},                               -- Platoon Mace
+    {17519, 1, 25, 0},                               -- Platoon Cesti
+    {17571, 1, 25, 0},                               -- Platoon Pole
+    {17692, 1, 25, 0},                               -- Platoon Spatha
+    {17993, 1, 25, 0},                               -- Platoon Dagger
+    {18045, 1, 25, 0},                               -- Platoon Zaghnal
+    {18085, 1, 25, 0},                               -- Platoon Lance
+    {18170, 1, 25, 0},                               -- Platoon Edge
+    {18171, 1, 25, 0},                               -- Platoon Disc
+    {18209, 1, 25, 0},                               -- Platoon Cutter
     {13514, 25, 45, 0},                               -- Archer's Ring
     {13643, 25, 45, 0},                               -- Sarcenet Cape
     {14721, 25, 45, 0},                               -- Morion Earring +1
@@ -1378,5 +1415,77 @@ function levelRewards(player)
     end
 
 
+
+end
+
+local function getAugmentPool(mob)
+    local level = mob:getMainLvl();
+
+    if (level >= 80) then return itemReward75;
+    elseif (level >= 70) then return itemReward65;
+    elseif (level >= 60) then return itemReward55;
+    elseif (level >= 50) then return itemReward45;
+    elseif (level >= 40) then return itemReward35;
+    elseif (level >= 30) then return itemReward25;
+    elseif (level >= 20) then return itemReward15;
+    else return itemReward10;
+    end
+
+end
+
+
+function rewardNotorious(mob, player, isKiller)
+    player:resetMusic();
+
+    if (player:getLocalVar("notoSpawner") == 1) then
+        player:setLocalVar("notoSpawner", 0);
+
+        -- reward basic item
+        local size = 0;
+        local augmentPool = getAugmentPool(mob);
+        for i,v in pairs(augmentPool) do
+            size = size + 1;
+        end
+
+        local id = augmentPool[math.random(1, size)];
+        local item = getItem(id);
+        local augments = pickAugments(item);
+        local reward = {
+            ["augment"] = {id, augments[1], augments[2], augments[3], augments[4], augments[5], augments[6], augments[7], augments[8]},
+        };
+        jsrReward(player, reward);
+    end
+
+    -- And drops exclusive to that particular NM and also drops that are normal for all of that level
+    if (isKiller == true) then
+        local rewards = {};
+        addRewards(mob, player, rewards, notoGeneralRewards);
+        addRewards(mob, player, rewards, notoZoneRewards);
+        addRewards(mob, player, rewards, notoClassRewards);
+
+        local size = 0;
+        for i,v in pairs(rewards) do
+            size = size + 1;
+        end
+
+        local first = rewards[math.random(1, size)];
+        player:addTreasure(first, mob);
+
+        if (mob:getMainLvl() >= player:getMainLvl() + 2) then
+            local second = rewards[math.random(1, size)];
+            if (second == first) then
+                second = rewards[math.random(1, size)];
+            end
+            player:addTreasure(second, mob);
+        end
+    end
+
+    -- Rewards XP and scylds
+    local xpBonus = mob:getMainLvl() * 50;
+    local xpReward = {
+        ["xp"] = xpBonus,
+        ["scyld"] = 10
+    };
+    jsrReward(player, xpReward);
 
 end

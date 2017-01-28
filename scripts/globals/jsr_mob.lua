@@ -42,6 +42,7 @@ local effectElements = {
     [EFFECT_DIA] = ELE_LIGHT, [EFFECT_LULLABY] = ELE_LIGHT,
 };
 
+
 function mobAddElement(mob, target, damage, element, params)
 
     if (params.chance ~= nil and math.random(0, 100) > params.chance) then
@@ -72,6 +73,58 @@ function mobAddElement(mob, target, damage, element, params)
     dmg = finalMagicNonSpellAdjustments(mob,target,element,dmg);
 
     return subeffect, MSGBASIC_ADD_EFFECT_DMG, dmg;
+end
+
+function mobAddDrain(mob, target, damage, drainType, params)
+
+    if (params.chance ~= nil and math.random(0, 100) > params.chance) then
+        return 0, 0, 0;
+    end
+
+    local dmg = 0;
+    if (params.damageScale ~= nil) then
+        dmg = damage * params.damageScale;
+    else
+        dmg = math.random(params.min, params.max);
+    end
+
+    if (params.includemab == nil) then params.includemab = false; end
+    if (params.bonusmab == nil) then params.bonusmab = 0; end
+    if (params.bonusAcc == nil) then params.bonusAcc = 0; end
+    if (params.diffStat == nil) then params.diffStat = MOD_INT; end
+    if (params.effectRes == nil) then params.effectRes = EFFECT_NONE; end
+
+    local subeffect = SUBEFFECT_HP_DRAIN;
+    local addeffect = MSGBASIC_ADD_EFFECT_HP_DRAIN;
+    if (drainType == DRAIN_MP) then
+        subeffect = SUBEFFECT_MP_DRAIN;
+        addeffect = MSGBASIC_ADD_EFFECT_MP_DRAIN;
+    elseif (drainType == DRAIN_TP) then
+        subeffect = SUBEFFECT_TP_DRAIN;
+        addeffect = MSGBASIC_ADD_EFFECT_TP_DRAIN;
+    end
+
+    dmg = addBonusesAbility(mob, ELE_DARK, target, dmg, params);
+    local diff = mob:getStat(params.diffStat) - target:getStat(params.diffStat);
+    local resist = applyPlayerResistance(mob, params.effectRes, target, diff, params.bonusAcc, element);
+
+    dmg = dmg * resist;
+    dmg = adjustForTarget(target,dmg,ELE_DARK);
+    dmg = finalMagicNonSpellAdjustments(mob,target,ELE_DARK,dmg);
+    if (drainType == DRAIN_HP) then
+        mob:addHP(dmg);
+    elseif (drainType == DRAIN_TP) then
+        if (target:getTP() < dmg) then dmg = target:getTP() end;
+        target:delTP(dmg);
+        mob:addTP(dmg);
+    elseif (drainType == DRAIN_MP) then
+        if (target:getMP() < dmg) then dmg = target:getMP() end;
+        target:delMP(dmg);
+        mob:addMP(dmg);
+    end
+
+
+    return subeffect, addeffect, dmg;
 end
 
 
@@ -113,7 +166,13 @@ end
 
 
 local function canCast(mob, spellid)
-    return mob:getMP() > getSpell(spellid):getMPCost();
+    local spell = getSpell(spellid);
+    local spellgroup = spell:getSpellGroup();
+    if (spellgroup == SPELLGROUP_NINJUTSU or spellgroup == SPELLGROUP_SONG) then
+        return true;
+    end
+
+    return mob:getMP() >= getSpell(spellid):getMPCost();
 end
 
 

@@ -20,8 +20,18 @@ local notoMonsters = {
     [ZONE_SARUTA_EAST] = {17252815, 17252900, 10, 15}, -- Bolster, Pyracmon
     [ZONE_RONFAURE_WEST] = {17187272, 17187282, 17187288, 10, 15}, -- Digger, Fighterchief, Gougetooth
     [ZONE_RONFAURE_EAST] = {17190915, 17191322, 10, 15}, -- Mud Pugil, Gawky Gawain
-    [ZONE_GUSTABERG_NORTH] = {17211857, 17211930,10, 15}, -- Lead Quadav, Pyracmon
-    [ZONE_GUSTABERG_SOUTH] = {17215954,10, 15}, -- Grylio
+    [ZONE_GUSTABERG_NORTH] = {17211857, 17211930 ,10, 15}, -- Lead Quadav, Pyracmon
+    [ZONE_GUSTABERG_SOUTH] = {17215954, 10, 15}, -- Grylio
+    [ZONE_GIDDEUS] = {17371140, 15, 20}, -- Puffer Pugil
+    [ZONE_DANGRUF] = {17559869, 15, 20}, -- Chocoboleech
+    [ZONE_GHELSBA_OUTPOST] = {17350667, 17350941, 15, 20}, -- Bloody Vrukwuk, Carrion Dragon
+    [ZONE_GHELSBA_FORT] = {17354828, 15, 20}, -- Hundredscar Hajwaj
+    [ZONE_RANPERRE] = {17555787, 20, 26}, -- Spartoi Sorcerer
+    [ZONE_YUGHOTT] = {17358949, 20, 26}, -- Orcish Cursemaker
+    [ZONE_HORUTOTO_INNER] = {17563807, 20, 26}, -- Boggart
+    [ZONE_HORUTOTO_OUTER] = {17571903, 17572204,  20, 26}, -- Au Puch, Custom Cardian
+    [ZONE_SHAKHRAMI] = {17588469, 17588589,  20, 26}, -- Gloombound Lurker, Lesath
+    [ZONE_CARPENTERS] = {16785655, 16785648,  20, 26}, -- Wendigo, Wight
 
 }
 local function spawnNotoMob(player)
@@ -67,7 +77,7 @@ local function spawnNotoMob(player)
     local spawnedMob = SpawnMob(mobid);
     local partySize = player:getPartySize(0);
     if (partySize > 4) then
-        spawnedMob:addMobMod(MOBMOD_HP_SCALE, 20 * (partySize - 4));
+        spawnedMob:addMobMod(MOBMOD_HP_SCALE, 15 * (partySize - 4));
     end
     spawnedMob:updateHealth();
     spawnedMob:addHP(99999);
@@ -94,6 +104,7 @@ end
 
 function onTrigger(player, command)
     local notoVar = "noto_z" .. tostring(player:getZoneID());
+    player:setVar(notoVar, 150);
     local notoVal = player:getVar(notoVar);
     if (command == nil) then
         player:SayToPlayer("Usage: @noto check/spawn");
@@ -101,7 +112,8 @@ function onTrigger(player, command)
     end
 
     if (command == "check") then
-        player:SayToPlayer("Current Zone Notoriety: " .. tostring(notoVal) .. "\n    You need 150 to spawn a notorious monster.");
+        local levelRange = getLevelRange(player);
+        player:SayToPlayer("Current Zone Notoriety: " .. tostring(notoVal) .. "\n    You need 150 to spawn a notorious monster.\n    The level range is: " .. tostring(levelRange[1]) .. " to " .. tostring(levelRange[2]));
         return;
     end
 
@@ -126,85 +138,5 @@ function onTrigger(player, command)
     player:SayToPlayer("Unknown command: " .. command);
 
 
-    --        local target = player:getCursorTarget();
-    --        player:SayToPlayer("CHA: " .. tostring(target:getStat(MOD_CHR)));
-    --        player:SayToPlayer("DINT: " .. tostring(player:getStat(MOD_INT) - target:getStat(MOD_INT)));
-    --        player:SayToPlayer("Earth: " .. tostring(target:getMod(MOD_EARTHDEF)) .. "/" .. tostring(target:getMod(MOD_EARTHRES)));
-    --        player:SayToPlayer("Wind: " .. tostring(target:getMod(MOD_WINDDEF)) .. "/" .. tostring(target:getMod(MOD_WINDRES)));
-
-    --    local mob = GetMobByID(17195474)
-    --local level = player:getMainLvl();
-    --    mob:setSpawn(player:getXPos(), player:getYPos(), player:getZPos());
-    --    mob:setLevelRange(level + 2, level + 2);
-    --    SpawnMob(17195474);
-
-
-
-    --    testPick();
-    --    player:spawnPet(73);7
-    --print(player:checkDistance(player:getPet()));
-    --print(player:getRotPos());
-    --player:dispelAllStatusEffect();
-
-    --player:startEvent(0x7d00, 0, 0, 0, amount, 0, 0, 0, 0);
-
-    local target = player:getCursorTarget();
-    --    printf("Cool: %d\nDelay: %d\nStand: %d", target:getMobMod(MOBMOD_MAGIC_COOL), target:getMobMod(MOBMOD_MAGIC_DELAY), target:getMobMod(MOBMOD_STANDBACK_COOL));
-    --    printf("Fast: %d\nUFast: %d", target:getMod(MOD_FASTCAST), target:getMod(MOD_UFASTCAST));
-    if (target ~= nil) then
-        player:SayToPlayer("STR: " .. tostring(target:getStat(MOD_STR))
-                .. ", VIT: " .. tostring(target:getStat(MOD_VIT))
-                .. ", DEX: " .. tostring(target:getStat(MOD_DEX))
-                .. ", AGI: " .. tostring(target:getStat(MOD_AGI))
-                .. ", INT: " .. tostring(target:getStat(MOD_INT))
-                .. ", MND: " .. tostring(target:getStat(MOD_MND))
-                .. "\nHP: " .. tostring(target:getHP())
-                .. ", MP: " .. tostring(target:getMP())
-                .. ", ATK: " .. tostring(target:getStat(MOD_ATT))
-                .. ", DEF: " .. tostring(target:getStat(MOD_DEF))
-                .. ", ACC: " .. tostring(target:getACC())
-                .. ", EVA: " .. tostring(target:getEVA())
-                .. ", DMG: " .. tostring(target:getWeaponDmg())
-        )
-    end
-
-
-    --print("Skill: %d\n", player:getSkillLevel(SKILL_ARC));
-    --local item = player:getStorageItem(LOC_INVENTORY, 3);
-    --    printf("Augment: %d, Val: %d", item:getAugment(0));
-    --printf("Augment: %d, Val: %d", item:getAugment(1));
-    --printf("Augment: %d, Val: %d", item:getAugment(2));
-    --printf("Augment: %d, Val: %d", item:getAugment(3));
 end
-
---        if (target:hasStatusEffect(EFFECT_DEFENDER)) then
---            print("have");
---        end
-
---        target:addTP(1000);
-
---        player:SayToPlayer("Attack: " .. tostring(targ:getStat(MOD_ATT)) .. ", Defense: " .. tostring(targ:getStat(MOD_DEF)));
---        targ:useMobAbility(amount);
---        targ:setMobMod(MOBMOD_ADD_EFFECT,1);
---        targ:setModelId(amount);
---        player:SayToPlayer("Skill: " .. tostring(targ:getSkillLevel(SKILL_HEA)));
---);
---local area = player:getTargetsWithinArea(10.0, 16);
---for i,member in ipairs(area) do
---    print(member:getID());
---end
-
-
-
-
-
-
-
-
-----        targ:useJobAbility(amount, targ);
---        end
---    blastReward(player);
---    print(player:aetAugmentCount(1064));
---    print(player:getSkillLevel(SKILL_ELE));
---    print(player:getWeaponSkillType(SLOT_RANGED));
 

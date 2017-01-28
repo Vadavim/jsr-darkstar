@@ -14,6 +14,7 @@ local noviceRecipes = {
     {13057, AUGMENT_HPMP, 10, AUGMENT_PET_MEVA, 10, 0, 0, 0, 0}, -- Buburimu Goret
     {13367, AUGMENT_HP, 5, AUGMENT_DEF, 2, AUGMENT_PET_ATK, 2, 0, 0}, -- Bull Earring
     {13086, AUGMENT_SKILL_DIVINE, 5, AUGMENT_LIGHTATT, 5, 0, 0, 0, 0}, -- Cerulean Pendant
+    {13051, AUGMENT_HP, 5, AUGMENT_SPELLINTERRUPT, -8, 0, 0, 0, 0}, -- Coarse Leggings
     {13623, AUGMENT_HP, 10, AUGMENT_VIT, 4, AUGMENT_PET_VIT, 8, 0, 0}, -- Earth Mantle
     {17936, AUGMENT_STAT_CHR, 5, AUGMENT_PET_ACC, 3, AUGMENT_PET_ATK, 6, 0, 0}, -- De Saintre's Axe
     {19044, AUGMENT_STAT_DEX, 1, AUGMENT_PET_DEX, 4, 0, 0, 0, 0}, -- Disciple Grip
@@ -49,14 +50,14 @@ local noviceRecipes = {
     {17794, AUGMENT_DBLATKCRIT, 2, AUGMENT_STAT_INT, 4, 0, 0, 0, 0}, -- Niokiyotsuna
     {17787, AUGMENT_STAT_STR_INT, 5, AUGMENT_SKILL_NINJITSU, 5, 0, 0, 0, 0}, -- Ohaguro
     {13227, AUGMENT_VIT, 1, AUGMENT_HP, 5, AUGMENT_PET_VIT, 2, 0, 0}, -- Plate Belt
-    {16687, AUGMENT_STORETP, 10, AUGMENT_WSKILL_DAM, 25, 0, 0, 0, 0}, -- Platoon Axe
-    {17519, AUGMENT_STORETP, 10, AUGMENT_WSKILL_DAM, 25, 0, 0, 0, 0}, -- Platoon Cesti
-    {18209, AUGMENT_STORETP, 10, AUGMENT_WSKILL_DAM, 25, 0, 0, 0, 0}, -- Platoon Cutter
-    {17571, AUGMENT_STORETP, 10, AUGMENT_WSKILL_DAM, 25, 0, 0, 0, 0}, -- Platoon Pole
-    {17202, AUGMENT_RACC, 5, AUGMENT_RAPIDSHOT, 15, 0, 0, 0, 0}, -- Platoon Bow
-    {17271, AUGMENT_RACC, 5, AUGMENT_RAPIDSHOT, 15, 0, 0, 0, 0}, -- Platoon Gun
-    {17692, AUGMENT_STORETP, 10, AUGMENT_WSKILL_DAM, 25, 0, 0, 0, 0}, -- Platoon Spatah
-    {16959, AUGMENT_STORETP, 10, AUGMENT_WSKILL_DAM, 25, 0, 0, 0, 0}, -- Platoon Sword
+    {16687, AUGMENT_STORETP, 10, AUGMENT_WSKILL_ACC, 25, 0, 0, 0, 0}, -- Platoon Axe
+    {17519, AUGMENT_STORETP, 10, AUGMENT_WSKILL_ACC, 25, 0, 0, 0, 0}, -- Platoon Cesti
+    {18209, AUGMENT_STORETP, 10, AUGMENT_WSKILL_ACC, 25, 0, 0, 0, 0}, -- Platoon Cutter
+    {17571, AUGMENT_STORETP, 10, AUGMENT_WSKILL_ACC, 25, 0, 0, 0, 0}, -- Platoon Pole
+    {17202, AUGMENT_RACC, 5, AUGMENT_RAPIDSHOT, 8, 0, 0, 0, 0}, -- Platoon Bow
+    {17271, AUGMENT_RACC, 5, AUGMENT_RAPIDSHOT, 8, 0, 0, 0, 0}, -- Platoon Gun
+    {17692, AUGMENT_STORETP, 10, AUGMENT_WSKILL_ACC, 25, 0, 0, 0, 0}, -- Platoon Spatha
+    {16959, AUGMENT_STORETP, 10, AUGMENT_WSKILL_ACC, 25, 0, 0, 0, 0}, -- Platoon Sword
     {18171, AUGMENT_RATK, 30, AUGMENT_SNAPSHOT, 10, 0, 0, 0, 0}, -- Platoon Disc
     {13675, AUGMENT_STAT_STR_VIT, 6, AUGMENT_HP, 15, AUGMENT_PET_STR, 6, AUGMENT_PET_VIT, 6}, -- Rarguard Mantle
     {15468, AUGMENT_HP, 25, AUGMENT_FIRERES, 15, AUGMENT_PET_VIT, 6, AUGMENT_PET_ENMITY, 4}, -- Resentment Cape
@@ -76,6 +77,7 @@ local noviceRecipes = {
     {19045, AUGMENT_STAT_INT, 1, AUGMENT_PET_INT, 4, 0, 0, 0, 0}, -- Succubus Grip
     {16672, AUGMENT_CRITRATE, 5, AUGMENT_CRITDAMAGE, 20, 0, 0, 0, 0}, -- Tigerhunter
     {19043, AUGMENT_STAT_STR, 1, AUGMENT_PET_STR, 4, 0, 0, 0, 0}, -- Tenax Strap
+    {14464, AUGMENT_HP, 10, AUGMENT_ATK, 4, 0, 0, 0, 0}, -- Trailer's Tunica
     {13625, AUGMENT_DEF, 2, AUGMENT_MP, 10, AUGMENT_PET_INT, 3, 0, 0}, -- Tundra Mantle
     {13360, AUGMENT_EVA, 1, AUGMENT_PET_EVA, 6, 0, 0, 0, 0}, -- Twinstone Earring
     {12341, AUGMENT_RESIST_POISON, 20, AUGMENT_MP, 8, 0, 0, 0, 0}, -- Tropical Shield
@@ -220,6 +222,13 @@ local noviceRecipes = {
 
     -- SPECIAL ARMOR
     {16097, AUGMENT_MP, 15, AUGMENT_STAT_CHR, 6, 0, 0, 0, 0}, -- Anu's Tiara
+
+
+    -- JOB Earring 2
+
+    -- JOB Earring 3
+
+    -- JOB Earring 4
 
 }
 

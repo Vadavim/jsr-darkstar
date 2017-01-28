@@ -23,8 +23,13 @@ function onTrigger(player, amount)
 --    local mob = GetMobByID(17195474) -- Goblin
 --    local mob = GetMobByID(17195012) -- Giant Pugil
 --    local mob = GetMobByID(17195477) -- Pixie
-local mobid = 17248606;
 
+--local rewards = {["item"] = 18610 }
+--jsrReward(player, rewards);
+
+
+local mobid = 17187288;
+--
 local mob = GetMobByID(mobid) -- Giant Pugil
 local level = player:getMainLvl();
     mob:setSpawn(player:getXPos(), player:getYPos(), player:getZPos());
@@ -35,6 +40,17 @@ player:ChangeMusic(1, 343);
 player:ChangeMusic(2, 343);
 player:ChangeMusic(3, 343);
 SpawnMob(mobid); -- Giant Pugil
+
+local party = player:getParty(true);
+if (party ~= nil) then
+    for i,member in ipairs(party) do
+        member:addHP(9999);
+        member:addMP(9999);
+    end
+end
+
+
+
 --    SpawnMob(17195474);
 --SpawnMob(17195477);
 -- Boss: 342

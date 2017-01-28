@@ -15,14 +15,13 @@ function onMobSpawn(mob)
     mob:addMod(MOD_ATTP, -50);
     mob:addMod(MOD_STR, -20);
     mob:addMod(MOD_HASTE_ABILITY, -1000);
-    print("hi");
     mob:addMod(MOD_DEFP, -45);
     mob:updateHealth();
 end
 
 
 function onMobFight(mob, target)
-    if (mob:getHPP() <= 35) then
+    if (mob:getHPP() <= 30) then
         limitedMobAbility(mob, mob, 1009, 1); -- Hundred Fists
     end
 
