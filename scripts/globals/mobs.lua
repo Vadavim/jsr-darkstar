@@ -1842,7 +1842,8 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
 
     if (not player:isPC()) then return; end;
 
-    local diff = mob:getMainLvl() - player:getMainLvl();
+    local level = player:getMainLvl();
+    local diff = mob:getMainLvl() - level;
     local isHot = isHotspot(player:getZoneID());
 
 
@@ -1891,7 +1892,14 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
     -- update noteriety
     local noto = "noto_z" .. tostring(player:getZoneID());
     local notoBonus = 1;
-    if diff >= 4 then notoBonus = notoBonus + 1 end;
+    local diffRequirement = 1;
+    if (level >= 60) then diffRequirement = 5
+    elseif (level >= 45) then diffRequirement = 4
+    elseif (level >= 30) then diffRequirement = 3
+    elseif (level >= 20) then diffRequirement = 2
+    end
+
+    if diff >= diffRequirement then notoBonus = notoBonus + 1 end;
     if (isHot and math.random(0,100) >= 50) then notoBonus = notoBonus * 2; end;
 
     -- Non-event based mobs drop extra stuff
