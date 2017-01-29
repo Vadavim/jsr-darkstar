@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS `char_effects` (
 -- Dumping data for table dspdb.char_effects: 1 rows
 /*!40000 ALTER TABLE `char_effects` DISABLE KEYS */;
 REPLACE INTO `char_effects` (`charid`, `effectid`, `icon`, `power`, `tick`, `duration`, `subid`, `subpower`, `tier`) VALUES
-	(21828, 40, 40, 15, 0, 166, 0, 0, 0);
+	(21828, 40, 40, 15, 0, 47, 0, 0, 0),
+	(21828, 41, 41, 9, 0, 373, 0, 0, 0);
 /*!40000 ALTER TABLE `char_effects` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

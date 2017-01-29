@@ -2267,7 +2267,9 @@ REPLACE INTO `mob_skill_lists` (`skill_list_name`, `skill_list_id`, `mob_skill_i
 	('Skirling_Liger', 774, 270),
 	('Skirling_Liger', 774, 273),
 	('Wake_Warder_Wanda', 775, 442),
-	('Wake_Warder_Wanda', 775, 445);
+	('Wake_Warder_Wanda', 775, 445),
+	('Ruszor', 211, 2440),
+	('Ruszor', 211, 2441);
 /*!40000 ALTER TABLE `mob_skill_lists` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

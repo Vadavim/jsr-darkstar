@@ -23,8 +23,6 @@ CREATE TABLE IF NOT EXISTS `accounts_parties` (
 
 -- Dumping data for table dspdb.accounts_parties: ~0 rows (approximately)
 /*!40000 ALTER TABLE `accounts_parties` DISABLE KEYS */;
-REPLACE INTO `accounts_parties` (`charid`, `partyid`, `partyflag`, `allianceid`, `timestamp`) VALUES
-	(21828, 21828, 4, 0, '2017-01-27 19:05:55');
 /*!40000 ALTER TABLE `accounts_parties` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

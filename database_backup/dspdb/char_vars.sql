@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `char_vars` (
   PRIMARY KEY (`charid`,`varname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.char_vars: 82 rows
+-- Dumping data for table dspdb.char_vars: 90 rows
 /*!40000 ALTER TABLE `char_vars` DISABLE KEYS */;
 REPLACE INTO `char_vars` (`charid`, `varname`, `value`) VALUES
 	(21828, 'HpTeleportMask1b', 32),
@@ -97,12 +97,23 @@ REPLACE INTO `char_vars` (`charid`, `varname`, `value`) VALUES
 	(21828, 'notoriety_108', 123),
 	(21828, 'noto_z108', 52),
 	(21828, 'PlayerMainJob', 2),
-	(21828, 'noto_z107', 287),
+	(21828, 'noto_z107', 289),
 	(21828, 'noto_z106', 2),
 	(21828, 'noto_z101', 89),
 	(21828, 'noto_z100', 15),
-	(21828, 'noto_z116', 130),
-	(21828, 'noto_z115', 5);
+	(21828, 'noto_z116', 131),
+	(21828, 'noto_z115', 5),
+	(21828, 'noto_z145', 2),
+	(21828, 'noto_z191', 10),
+	(21828, 'noto_z141', 8),
+	(21828, 'noto_z142', 1),
+	(21828, 'noto_z140', 10),
+	(21828, 'noto_z2', 10),
+	(21828, 'noto_z198', 5),
+	(21828, 'noto_z192', 8),
+	(21828, 'noto_z194', 20),
+	(21828, 'noto_z103', 62),
+	(21828, 'noto_z118', 9);
 /*!40000 ALTER TABLE `char_vars` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

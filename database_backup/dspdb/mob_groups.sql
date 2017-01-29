@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `mob_groups` (
   PRIMARY KEY (`groupid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=22;
 
--- Dumping data for table dspdb.mob_groups: 12,010 rows
+-- Dumping data for table dspdb.mob_groups: 12,012 rows
 /*!40000 ALTER TABLE `mob_groups` DISABLE KEYS */;
 REPLACE INTO `mob_groups` (`groupid`, `poolid`, `zoneid`, `respawntime`, `spawntype`, `dropid`, `HP`, `MP`, `minLevel`, `maxLevel`, `allegiance`) VALUES
 	(1, 69, 1, 0, 128, 40, 0, 0, 34, 36, 0),
@@ -6442,7 +6442,7 @@ REPLACE INTO `mob_groups` (`groupid`, `poolid`, `zoneid`, `respawntime`, `spawnt
 	(6436, 1517, 118, 330, 1, 1119, 0, 0, 20, 24, 0),
 	(6437, 1518, 118, 0, 0, 1122, 0, 0, 0, 0, 0),
 	(6438, 1635, 118, 330, 0, 1206, 0, 0, 17, 20, 0),
-	(6439, 1642, 118, 0, 0, 1234, 0, 0, 0, 0, 0),
+	(6439, 1642, 118, 0, 128, 1234, 0, 0, 1, 1, 0),
 	(6440, 1643, 118, 330, 0, 1240, 0, 0, 17, 20, 0),
 	(6441, 1648, 118, 330, 0, 1271, 0, 0, 19, 21, 0),
 	(6442, 1665, 118, 0, 128, 0, 0, 0, 30, 35, 0),
@@ -12031,8 +12031,8 @@ REPLACE INTO `mob_groups` (`groupid`, `poolid`, `zoneid`, `respawntime`, `spawnt
 	(14544, 5740, 105, 3600, 0, 4577, 3250, 0, 40, 40, 0),
 	(14545, 5741, 118, 3600, 0, 4578, 750, 0, 22, 23, 0),
 	(20000, 613, 107, 1, 128, 0, 0, 0, 1, 1, 0),
-	(30000, 5200, 107, 0, 128, 0, 0, 0, 1, 1, 0),
-	(30001, 305, 191, 0, 128, 0, 0, 0, 1, 1, 0),
+	(30000, 30009, 192, 0, 128, 0, 0, 0, 1, 1, 0),
+	(30001, 30000, 191, 0, 128, 0, 0, 0, 1, 1, 0),
 	(30002, 30001, 190, 0, 128, 0, 0, 0, 1, 1, 0),
 	(30003, 30002, 142, 0, 128, 0, 0, 0, 1, 1, 0),
 	(30004, 30003, 192, 0, 128, 0, 0, 0, 1, 1, 0),
@@ -12040,7 +12040,7 @@ REPLACE INTO `mob_groups` (`groupid`, `poolid`, `zoneid`, `respawntime`, `spawnt
 	(30006, 30005, 198, 1, 128, 0, 0, 0, 22, 26, 0),
 	(30007, 30006, 198, 1, 128, 0, 0, 0, 22, 26, 0),
 	(30008, 30007, 2, 1, 128, 0, 0, 0, 22, 26, 0),
-	(30009, 30008, 2, 1, 128, 0, 0, 0, 22, 26, 0);
+	(30009, 30008, 192, 1, 128, 0, 0, 0, 22, 26, 0);
 /*!40000 ALTER TABLE `mob_groups` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
