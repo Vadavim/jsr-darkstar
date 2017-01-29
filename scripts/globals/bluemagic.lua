@@ -233,7 +233,9 @@ function BluePhysicalSpell(caster, target, spell, params)
         hitsdone = hitsdone + 1;
     end
 
-    caster:PrintToPlayer(string.format("D: %d\nfSTR: %d\n WSC: %d\nfinalD: %d\nFinal Damage: %d\nHitRate: %f\ncratio: %f/%f/%f", beforeD, fStr, WSC, finalD, finaldmg, hitrate, ratio, cratio[1], cratio[2]));
+    if (caster:isPC()) then
+--    caster:PrintToPlayer(string.format("D: %d\nfSTR: %d\n WSC: %d\nfinalD: %d\nFinal Damage: %d\nHitRate: %f\ncratio: %f/%f/%f", beforeD, fStr, WSC, finalD, finaldmg, hitrate, ratio, cratio[1], cratio[2]));
+    end
     -- print("Hits landed "..hitslanded.."/"..hitsdone.." for total damage: "..finaldmg);
 
     if (finaldmg == 0) then
@@ -325,7 +327,9 @@ function BlueMagicalSpell(caster, target, spell, params, statMod)
 --    local multTargetReduction = 1.0; -- TODO: Make this dynamically change, temp static till implemented.
     local dmg = math.floor(D * applyResistance(caster,spell,target,dStat,BLUE_SKILL,accBonus));
 
-    caster:PrintToPlayer(string.format("D: %d\nST: %d\nBonus: %d\nFinal: %d\nAfter: %d\nResist: %d", beforeMult, ST, statBonus, D, afterBonus, dmg ));
+    if (caster:isPC()) then
+--        caster:PrintToPlayer(string.format("D: %d\nST: %d\nBonus: %d\nFinal: %d\nAfter: %d\nResist: %d", beforeMult, ST, statBonus, D, afterBonus, dmg ));
+    end
 
     dmg = math.floor(addBonuses(caster, spell, target, dmg));
 

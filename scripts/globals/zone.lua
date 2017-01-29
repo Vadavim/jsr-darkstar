@@ -151,3 +151,4 @@ function SetRespawnTime(id, minTime, maxTime)
         mob:setRespawnTime(math.random((minTime),(maxTime)));
     end
 end
+

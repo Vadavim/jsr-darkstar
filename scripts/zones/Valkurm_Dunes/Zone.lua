@@ -13,6 +13,7 @@ require("scripts/globals/icanheararainbow");
 require("scripts/globals/status");
 require("scripts/globals/weather");
 require("scripts/globals/conquest");
+require("scripts/globals/jsr_hotspots");
 require("scripts/globals/chocobo_digging");
 
 -----------------------------------
@@ -157,3 +158,8 @@ function onZoneWeatherChange(weather)
         qm1:setStatus(STATUS_DISAPPEAR);
     end
 end;
+
+function onGameHour()
+    doHotspotUpdate();
+end
+

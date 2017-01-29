@@ -1,100 +1,97 @@
-local ZONE_PHANAUET = 1;
-local ZONE_CARPENTERS = 2;
-local ZONE_MANACLIPPER = 3;
-local ZONE_BIBIKI = 4;
-local ZONE_ULEGUERAND = 5;
-local ZONE_ATTOHWA = 7;
-local ZONE_PSOXJA = 9;
-local ZONE_OLDTON = 11;
-local ZONE_NEWTON = 12;
-local ZONE_PROM_HOLLA = 17;
-local ZONE_PROM_DEM = 18;
-local ZONE_PROM_MEA = 20;
-local ZONE_PROM_VAHZL = 22;
-local ZONE_LUFAISE = 24;
-local ZONE_MISAREAUX = 25;
-local ZONE_PHOMIUNA = 27;
-local ZONE_SACRARIUM = 28;
-local ZONE_RIVERNE_B1 = 29;
-local ZONE_RIVERNE_A1 = 30;
-local ZONE_ALTAIEU = 33;
-local ZONE_HUXZOI = 34;
-local ZONE_RUHMET = 35;
-local ZONE_RONFAURE_WEST = 100;
-local ZONE_RONFAURE_EAST = 101;
-local ZONE_LATHEINE = 102;
-local ZONE_VALKURM = 103;
-local ZONE_JUGNER = 104;
-local ZONE_BATALLIA = 105;
-local ZONE_GUSTABERG_NORTH = 106;
-local ZONE_GUSTABERG_SOUTH = 107;
-local ZONE_KONSCHTAT = 108;
-local ZONE_PASHHOW = 109;
-local ZONE_ROLANBERRY = 110;
-local ZONE_BEAUCEDINE = 111;
-local ZONE_XARCABARD = 112;
-local ZONE_TERRIGAN = 113;
-local ZONE_ALTEPA_EAST = 114;
-local ZONE_SARUTA_WEST = 115;
-local ZONE_SARUTA_EAST = 116;
-local ZONE_TAHRONGI = 117;
-local ZONE_BUBURIMU = 118;
-local ZONE_MERIPHATAUD = 119;
-local ZONE_SAUROMUGUE = 120;
-local ZONE_ZITAH = 121;
-local ZONE_ROMAEVE = 122;
-local ZONE_YUHTUNGA = 123;
-local ZONE_YHOATOR = 124;
-local ZONE_ALTEPA_WEST = 125;
-local ZONE_QUFIM = 126;
-local ZONE_BEHEMOTHS = 127;
-local ZONE_SORROWS = 128;
-local ZONE_RUAUN = 128;
-local ZONE_GHELSBA_OUTPOST = 140;
-local ZONE_GHELSBA_FORT = 141;
-local ZONE_YUGHOTT = 142;
-local ZONE_PALBOROUGH = 143;
-local ZONE_GIDDEUS = 145;
-local ZONE_BEADEAUX = 147;
-local ZONE_QULUN = 148;
-local ZONE_DAVOI = 149;
-local ZONE_MON_CAVERN = 150;
-local ZONE_OZTROJA = 151;
-local ZONE_BOYAHDA = 153;
-local ZONE_AERY = 154;
-local ZONE_DELKFUTT_MID = 157;
-local ZONE_DELKFUTT_HIGH = 158;
-local ZONE_UGGALEPIH = 159;
-local ZONE_RANCOR = 160;
-local ZONE_ZVAHL_BAILEYS = 161;
-local ZONE_ZVAHL_KEEP = 162;
-local ZONE_RANGUEMONT = 166;
-local ZONE_BOSTAUNIEUX = 167;
-local ZONE_TORAIMARAI = 169;
-local ZONE_ZERUHN = 172;
-local ZONE_KORROLOKA = 173;
-local ZONE_KUFTAL = 174;
-local ZONE_SEASERPENT = 176;
-local ZONE_VELUGANNON = 177;
-local ZONE_RUAVITAU = 178;
-local ZONE_DELKFUTT_LOW = 184;
-local ZONE_RANPERRE = 190;
-local ZONE_DANGRUF = 191;
-local ZONE_HORUTOTO_INNER = 192;
-local ZONE_ORDELLE = 193;
-local ZONE_HORUTOTO_OUTER = 194;
-local ZONE_ELDIEME = 195;
-local ZONE_GUSGEN = 196;
-local ZONE_CRAWLERS = 197;
-local ZONE_SHAKHRAMI = 198;
-local ZONE_GARLAIGE = 200;
-local ZONE_GUSTAV = 202;
-local ZONE_FEIYIN = 204;
-local ZONE_CAULDRON = 205;
-local ZONE_QUICKSAND = 208;
-local ZONE_ONZOZO = 213;
+require("scripts/globals/status");
 
-
+local zoneMap = {
+    [ZONE_ALTAIEU] = "Al'Taieu",
+    [ZONE_ATTOHWA] = "Attohwa Chasm",
+    [ZONE_BATALLIA] = "Batallia Downs",
+    [ZONE_BEADEAUX] = "Beadeaux",
+    [ZONE_BEAUCEDINE] = "Beaucedine Glacier",
+    [ZONE_BEHEMOTHS] = "Behemoth's Dominion",
+    [ZONE_BIBIKI] = "Bibiki Bay",
+    [ZONE_BOSTAUNIEUX] = "Bostaunieux Oubliette",
+    [ZONE_BUBURIMU] = "Buburimu Peninsula",
+    [ZONE_TERRIGAN] = "Cape Terrigan",
+    [ZONE_CARPENTERS] = "Carpenter's Landing",
+    [ZONE_OZTROJA] = "Castle Oztroja",
+    [ZONE_ZVAHL_BAILEYS] = "Zvahl Baileys",
+    [ZONE_ZVAHL_KEEP] = "Zvahl Keep",
+    [ZONE_CRAWLERS] = "Crawler's Nest",
+    [ZONE_DANGRUF] = "Dangruf Wadi",
+    [ZONE_RIVERNE_A1] = "Riverne Site A01",
+    [ZONE_RIVERNE_B1] = "Riverne Site B01",
+    [ZONE_DAVOI] = "Davoi",
+    [ZONE_RANCOR] = "Den of Rancor",
+    [ZONE_AERY] = "Dragon's Aery",
+    [ZONE_ALTEPA_EAST] = "Eastern Atepa Desert",
+    [ZONE_RONFAURE_EAST] = "East Ronfaure",
+    [ZONE_SARUTA_EAST] = "East Sarutabaruta",
+    [ZONE_FEIYIN] = "Fei'Yin",
+    [ZONE_GHELSBA_FORT] = "Fort Ghelsba",
+    [ZONE_GARLAIGE] = "Garlaige Citadel",
+    [ZONE_GHELSBA_OUTPOST] = "Ghelsba Outpost",
+    [ZONE_GIDDEUS] = "Giddeus",
+    [ZONE_HUXZOI] = "Hu'Xzoi",
+    [ZONE_GUSGEN] = "Gusgen Mines",
+    [ZONE_GUSTAV] = "Gustav Tunnel",
+    [ZONE_CAULDRON] = "Ifrit's Cauldron",
+    [ZONE_HORUTOTO_INNER] = "Inner Horutoto Ruins",
+    [ZONE_JUGNER] = "Jugner Forest",
+    [ZONE_RANPERRE] = "Ranperre's Tomb",
+    [ZONE_KONSCHTAT] = "Konschtat Highlands",
+    [ZONE_KORROLOKA] = "Korroloka Tunnel",
+    [ZONE_KUFTAL] = "Kuftal Tunnel",
+    [ZONE_LATHEINE] = "La Theine Plateau",
+    [ZONE_DELKFUTT_LOW] = "Lower Delkfutt's Tower",
+    [ZONE_LUFAISE] = "Lufaise Meadows",
+    [ZONE_SHAKHRAMI] = "Maze of Shakhrami",
+    [ZONE_DELKFUTT_MID] = "Middle Delkfutt's Tower",
+    [ZONE_MISAREAUX] = "Misareaux Coast",
+    [ZONE_MON_CAVERN] = "Monastic Caverns",
+    [ZONE_NEWTON] = "Newton Movalpolos",
+    [ZONE_GUSTABERG_NORTH] = "North Gustaberg",
+    [ZONE_OLDTON] = "Oldton Movalpolos",
+    [ZONE_ORDELLE] = "Ordelle's Cave",
+    [ZONE_HORUTOTO_OUTER] = "Outer Horutoto Ruins",
+    [ZONE_PALBOROUGH] = "Palborough Mines",
+    [ZONE_PASHHOW] = "Pashhow Marshlands",
+    [ZONE_PHANAUET] = "Phanaeut Channel",
+    [ZONE_PHOMIUNA] = "Phomiuna Aqueducts",
+    [ZONE_PROM_DEM] = "Promyvion-Dem",
+    [ZONE_PROM_HOLLA] = "Promyvion-Holla",
+    [ZONE_PROM_MEA] = "Promyvion-Mea",
+    [ZONE_PROM_VAHZL] = "Promyvion-Vahzl",
+    [ZONE_PSOXJA] = "Pso'Xja",
+    [ZONE_QUFIM] = "Qufim Island",
+    [ZONE_QUICKSAND] = "Quicksand Caves",
+    [ZONE_RANGUEMONT] = "Ranguemont Pass",
+    [ZONE_ROLANBERRY] = "Rolanberry Fields",
+    [ZONE_ROMAEVE] = "Ro'Maeve",
+    [ZONE_RUAUN] = "Ru'Aun Gardens",
+    [ZONE_SACRARIUM] = "Sacrarium",
+    [ZONE_SAUROMUGUE] = "Sauromugue Champaign",
+    [ZONE_SEASERPENT] = "Seaserpent's Grotto",
+    [ZONE_TAHRONGI] = "Tahrongi Canyon",
+    [ZONE_UGGALEPIH] = "Temple of Uggalepih",
+    [ZONE_BOYAHDA] = "The Boyahda Tree",
+    [ZONE_ELDIEME] = "The Eldieme Necropolis",
+    [ZONE_RUHMET] = "The Garden of Ru'Hmet",
+    [ZONE_ZITAH] = "The Sanctuary of Zi'Tah",
+    [ZONE_RUAVITAU] = "The Shrine of Ru'Avitau",
+    [ZONE_TORAIMARAI] = "Toraimarai Canal",
+    [ZONE_ULEGUERAND] = "Uleguerand Range",
+    [ZONE_DELKFUTT_HIGH] = "Upper Delkfutt's",
+    [ZONE_VALKURM] = "Valkurm Dunes",
+    [ZONE_SORROWS] = "Valley of Sorrows",
+    [ZONE_VELUGANNON] = "Ve'Lugannon Palace",
+    [ZONE_ALTEPA_WEST] = "West Altepta Desert",
+    [ZONE_RONFAURE_WEST] = "West Ronfaure",
+    [ZONE_SARUTA_WEST] = "West Sarutabaruta",
+    [ZONE_XARCABARD] = "Xarcabard",
+    [ZONE_YHOATOR] = "Yhoator Jungle",
+    [ZONE_YUGHOTT] = "Yughott Grotto",
+    [ZONE_YUHTUNGA] = "Yuhtunga Jungle",
+    [ZONE_ZERUHN] = "Zeruhn Mines",
+}
 
 -- Starting Zones
 local zones1 = {
@@ -124,14 +121,58 @@ local zones4 = {
 
 local zones5 = {
     ZONE_TORAIMARAI, ZONE_FEIYIN, ZONE_PSOXJA, ZONE_BOSTAUNIEUX, ZONE_SACRARIUM, ZONE_UGGALEPIH, ZONE_ZVAHL_KEEP,
-    ZONE_ZVAHL_BAILEYS
+    ZONE_ZVAHL_BAILEYS, ZONE_CAULDRON, ZONE_RIVERNE_B1
 }
 
 local zones6 = {
-    ZONE_CAULDRON, ZONE_KUFTAL, ZONE_TERRIGAN, ZONE_BOYAHDA, ZONE_RIVERNE_B1, ZONE_SACRARIUM,
+    ZONE_KUFTAL, ZONE_TERRIGAN, ZONE_BOYAHDA, ZONE_SACRARIUM,
     ZONE_ONZOZO, ZONE_NEWTON, ZONE_RANCOR, ZONE_ULEGUERAND, ZONE_SORROWS,
     ZONE_ALTAIEU, ZONE_HUXZOI, ZONE_RUAVITAU, ZONE_VELUGANNON, ZONE_ROMAEVE, ZONE_RUAUN, ZONE_RUHMET, ZONE_AERY
 }
 
 local function getHotspots()
+end
+
+local function getRandomHotspotZone(zonelist)
+    local size = 0;
+    for i,v in pairs(zonelist) do
+        size = size + 1;
+    end
+
+    return zonelist[math.random(1, size)];
+end
+
+function doHotspotUpdate()
+    local lastMidnight = GetServerVariable("[HOT]Midnight");
+    if (lastMidnight < os.time()) then
+
+        SetServerVariable("[HOT]Midnight", getMidnight());
+        SetServerVariable("[HOT]1", getRandomHotspotZone(zones1));
+        SetServerVariable("[HOT]2", getRandomHotspotZone(zones2));
+        SetServerVariable("[HOT]3", getRandomHotspotZone(zones3));
+        SetServerVariable("[HOT]4", getRandomHotspotZone(zones4));
+        SetServerVariable("[HOT]5", getRandomHotspotZone(zones5));
+        SetServerVariable("[HOT]6", getRandomHotspotZone(zones6));
+    end
+end
+
+function isHotspot(zoneid)
+    if (GetServerVariable("[HOT]1") == zoneid) then return true;
+    elseif (GetServerVariable("[HOT]2") == zoneid) then return true;
+    elseif (GetServerVariable("[HOT]3") == zoneid) then return true;
+    elseif (GetServerVariable("[HOT]4") == zoneid) then return true;
+    elseif (GetServerVariable("[HOT]5") == zoneid) then return true;
+    elseif (GetServerVariable("[HOT]6") == zoneid) then return true;
+    end
+
+    return false;
+end
+
+function printHotspots(player)
+    player:SayToPlayer(zoneMap[GetServerVariable("[HOT]1")]);
+    player:SayToPlayer(zoneMap[GetServerVariable("[HOT]2")]);
+    player:SayToPlayer(zoneMap[GetServerVariable("[HOT]3")]);
+    player:SayToPlayer(zoneMap[GetServerVariable("[HOT]4")]);
+    player:SayToPlayer(zoneMap[GetServerVariable("[HOT]5")]);
+    player:SayToPlayer(zoneMap[GetServerVariable("[HOT]6")]);
 end

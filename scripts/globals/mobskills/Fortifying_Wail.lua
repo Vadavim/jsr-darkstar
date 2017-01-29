@@ -16,11 +16,15 @@ require("scripts/globals/monstertpmoves");
 ---------------------------------------------------
 
 function onMobSkillCheck(target,mob,skill)
+    if (mob:hasStatusEffect(EFFECT_PROTECT)) then
+        return 1;
+    end
+
     return 0;
 end;
 
 function onMobWeaponSkill(target, mob, skill)
-    local power = 60;
+    local power = 30 + mob:getMainLvl() * 1.5;
     local duration = 300;
     local typeEffect = EFFECT_PROTECT;
 

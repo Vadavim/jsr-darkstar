@@ -753,15 +753,15 @@ void SetupRoaming(CMobEntity* PMob)
 //    uint16 cool = 20;
 //    uint16 rate = 15;
 
-    uint16 distance = 30;
-    uint16 turns = 1;
+    uint16 distance = 60;
+    uint16 turns = 2;
     uint16 cool = 20;
     uint16 rate = 30;
 
     switch(PMob->m_EcoSystem)
     {
         case SYSTEM_BEASTMEN:
-            distance = 20;
+            distance = 30;
             turns = 5;
             cool = 45;
             break;

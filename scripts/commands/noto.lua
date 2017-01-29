@@ -29,9 +29,11 @@ local notoMonsters = {
     [ZONE_RANPERRE] = {17555787, 20, 26}, -- Spartoi Sorcerer
     [ZONE_YUGHOTT] = {17358949, 20, 26}, -- Orcish Cursemaker
     [ZONE_HORUTOTO_INNER] = {17563807, 20, 26}, -- Boggart
-    [ZONE_HORUTOTO_OUTER] = {17571903, 17572204,  20, 26}, -- Au Puch, Custom Cardian
+    [ZONE_HORUTOTO_OUTER] = {17571903, 17572204,  25, 31}, -- Au Puch, Custom Cardian
     [ZONE_SHAKHRAMI] = {17588469, 17588589,  20, 26}, -- Gloombound Lurker, Lesath
     [ZONE_CARPENTERS] = {16785655, 16785648,  20, 26}, -- Wendigo, Wight
+    [ZONE_BUBURIMU] = {17261085, 17261034, 17261047,  20, 26}, -- Goblin Bountyhunter, Goblin Guide, Ketos
+    [ZONE_VALKURM] = {17199611,  20, 26}, -- Blue Bascinet
 
 }
 local function spawnNotoMob(player)
@@ -104,7 +106,6 @@ end
 
 function onTrigger(player, command)
     local notoVar = "noto_z" .. tostring(player:getZoneID());
-    player:setVar(notoVar, 150);
     local notoVal = player:getVar(notoVar);
     if (command == nil) then
         player:SayToPlayer("Usage: @noto check/spawn");

@@ -18,6 +18,10 @@ end
 
 
 function onMobFight(mob, target)
+    timedMobAbility(mob, mob:getHateTarget(true), 33, 25, 40);
+    limitedAbility(mob, mob, 351, 1);
+    timedSpell(mob, mob, 840, 30, 60);
+
 end
 
 function onMobDeath(mob, player, isKiller)

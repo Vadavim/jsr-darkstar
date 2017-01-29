@@ -37,9 +37,10 @@ function onSpellCast(caster,target,spell)
     ally:addMod(MOD_ENMITY, -15);
     ally:addMod(MOD_MACC, 10 + level / 1.5);
     if (ally:getMainLvl() >= 25) then
-        ally:addMod(MOD_REFRESH, level / 25);
+        ally:addMod(MOD_REFRESH, level / 30);
     end
     ally:setLocalVar("isAlly", 1);
+    ally:SetAutoAttackEnabled(false);
 
 --    ally:addMod(MOD_STR, level / 5);
 --    ally:addMod(MOD_VIT, level / 5);

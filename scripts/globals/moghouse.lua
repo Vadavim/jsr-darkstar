@@ -116,6 +116,12 @@ end
 
 
 function moogleTrade(player,npc,trade)
+
+    if (tryUnleash(player, npc, trade) == true) then
+        return true;
+    end
+
+
     if (player:isInMogHouse()) then
         local numBronze = trade:getItemQty(2184);
         if (numBronze > 0) then
@@ -136,9 +142,6 @@ function moogleTrade(player,npc,trade)
         return true;
     end
 
-    if (tryUnleash(player, npc, trade) == true) then
-        return true;
-    end
 
 
     if (noSaleTrade(player, npc, trade) == true) then

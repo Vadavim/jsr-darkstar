@@ -718,7 +718,7 @@ end
     12968, -- Kyahan
     12992, -- Solea
     13204, -- Heko Obi
-    16184, -- Pelte
+    16185, -- Pelte
     12299, -- Aspis
 };
 
@@ -1436,6 +1436,7 @@ end
 
 function rewardNotorious(mob, player, isKiller)
     player:resetMusic();
+--    if (true) then return true end;
 
     if (player:getLocalVar("notoSpawner") == 1) then
         player:setLocalVar("notoSpawner", 0);

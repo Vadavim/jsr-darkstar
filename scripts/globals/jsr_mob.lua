@@ -209,7 +209,7 @@ end
 function limitedAbility(mob, target, ability, numTimes)
     local times = mob:getLocalVar("lability_" .. tostring(ability));
 
-    if (numTimes < times) then
+    if (times < numTimes) then
         mob:setLocalVar("lability_" .. tostring(ability), times + 1);
         mob:useJobAbility(ability, target);
         return true;

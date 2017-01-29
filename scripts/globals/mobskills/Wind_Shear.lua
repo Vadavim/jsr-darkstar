@@ -28,7 +28,7 @@ end;
 function onMobWeaponSkill(target, mob, skill)
     local numhits = math.random(2,3);
     local accmod = 1;
-    local dmgmod = .8;
+    local dmgmod = .5;
     local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_NO_EFFECT);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_SLASH,info.hitslanded);
     target:delHP(dmg);

@@ -32,6 +32,9 @@ NOTE: fix Waltz Recast modifier
  - Reduces TP cost of next waltz by 50% and increases potency by 50%
  - Healing Waltz becomes an AoE
 
+[Saber Dancer]
+ - Effect stacks with Double Attack trait.
+
 
 
 [No Foot Rise]

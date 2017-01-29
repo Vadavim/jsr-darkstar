@@ -27,7 +27,7 @@ function onSpellCast(caster,target,spell)
 
     power, duration = applyEmbolden(caster, power, duration);
 
-    if (target:addStatusEffect(EFFECT_FOIL,100,0,duration)) then
+    if (target:addStatusEffect(EFFECT_FOIL,power,0,duration)) then
         spell:setMsg(230);
     else
         spell:setMsg(75);

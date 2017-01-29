@@ -666,12 +666,11 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue,
     --get all the stuff we need
     local resist = 1
     local master = mob:getMaster();
---    if (not mob:isPet() and mob:isMob()) then
---        damage = damage * 1.33;
---        local damBonus = (mob:getStat(MOD_INT) - target:getStat(MOD_INT)) * (1 + mob:getMainLvl() / 40);
---        damage = damage + damBonus;
---
---    end
+    if (not mob:isPet() and mob:isMob()) then
+        local damBonus = (mob:getStat(MOD_INT) - target:getStat(MOD_INT)) / 100;
+        damage = damage * 1.25 * (1 + damBonus);
+
+    end
 
 
     local hitMult = 0;
@@ -960,6 +959,13 @@ function MobBreathMove(mob, target, percent, base, element, cap)
         -- cap max damage
         cap = math.floor(mob:getHP()/5);
     end
+    if (mob:isNM()) then
+        local otherCap = 7 * mob:getMainLvl();
+        if (otherCap < cap) then cap = otherCap; end;
+    end
+
+
+
 
     -- Deal bonus damage vs mob ecosystem
     local systemBonus = utils.getSystemStrengthBonus(mob, target);
@@ -1130,7 +1136,7 @@ function MobDrainMove(mob, target, drainType, drain)
             end
 
             target:delHP(drain);
-            mob:addHP(drain);
+            mob:addHP(drain * 3);
 
             return MSG_DRAIN_HP;
         end

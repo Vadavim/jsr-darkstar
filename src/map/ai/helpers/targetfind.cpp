@@ -296,6 +296,10 @@ void CTargetFind::addAllInParty(CBattleEntity* PTarget, bool withPet)
     PTarget->ForParty([this, withPet](CBattleEntity* PMember)
     {
         addEntity(PMember, withPet);
+        if (PMember->objtype == TYPE_PET && ((CPetEntity*)PMember)->PMaster != nullptr) {
+            PMember = ((CPetEntity*)PMember)->PMaster;
+        }
+
         if (!PMember->PAlly.empty()) {
             for (CBattleEntity* PAlly : PMember->PAlly) {
                 addEntity(PAlly, false);
@@ -327,6 +331,13 @@ void CTargetFind::addEntity(CBattleEntity* PTarget, bool withPet)
 {
     if (validEntity(PTarget)){
         m_targets.push_back(PTarget);
+    }
+
+    if (withPet && !PTarget->PAlly.empty()) {
+        for (CBattleEntity* PAlly : PTarget->PAlly) {
+            if (validEntity(PAlly))
+                addEntity(PAlly, false);
+        }
     }
 
     // add my pet too, if its allowed

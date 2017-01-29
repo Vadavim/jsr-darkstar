@@ -34,7 +34,7 @@ function onMobWeaponSkill(target, mob, skill)
     target:delHP(dmg);
 
     if (hard > 0 and dmg > 0) then
-        local success = MobStatusEffectMove(mob, target, EFFECT_PETRIFICATION, 4 + hard * 2);
+        local success = MobStatusEffectMove(mob, target, EFFECT_PETRIFICATION, 1, 0, 4 + hard * 2);
     end
 
     return dmg;

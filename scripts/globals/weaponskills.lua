@@ -37,7 +37,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taCh
     local enemyFoil = target:getStatusEffect(EFFECT_FOIL);
     if (enemyFoil ~= nil) then
         if (enemyFoil ~= nil) then
-            bonusacc = bonusacc - enemyFoil:getPower();
+            bonusacc = bonusacc - enemyFoil:getPower() * 1.5;
             target:addTP(enemyFoil:getPower() * 5);
             target:delStatusEffect(EFFECT_FOIL);
         end

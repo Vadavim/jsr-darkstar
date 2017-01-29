@@ -9001,7 +9001,10 @@ inline int32 CLuaBaseEntity::isPet(lua_State *L)
 inline int32 CLuaBaseEntity::hasTrait(lua_State *L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+    if(m_PBaseEntity->objtype != TYPE_PC) {
+        lua_pushboolean(L, false);
+        return 1;
+    }
 
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
 

@@ -8,6 +8,7 @@ require("scripts/globals/missions");
 require("scripts/globals/quests");
 require("scripts/globals/status");
 require("scripts/globals/jsr_utils");
+require("scripts/globals/jsr_hotspots");
 
 -----------------------------------
 -- onMobDeathEx
@@ -98,7 +99,7 @@ local zoneRewards = {
     {18846, 1, 99, ZONE_RONFAURE_EAST, 0, 0, 0}, -- Battledore
 
     {19157, 1, 99, ZONE_RONFAURE_EAST, 0, 0, 0}, -- Survivor
-    {14729, 1, 99, ZONE_RONFAURE_EAST, 0, 0, 0}, -- Esquire's Earring (+5 DEF if PLD sub)
+    {16184, 1, 99, ZONE_RONFAURE_EAST, 0, 0, 0}, -- Flat Shield
     {14670, 1, 99, ZONE_RONFAURE_EAST, 0, 0, 0}, -- Safeguard Ring (+2 DEF)
     {16039, 1, 99, ZONE_RONFAURE_EAST, 0, 0, 0}, -- Kingdom Earring (teleport to Sandy)
 
@@ -109,7 +110,7 @@ local zoneRewards = {
     {341, 1, 99, ZONE_RONFAURE_WEST, 0, 0, 0}, -- Carpenter's Sigboard
     {18846, 1, 99, ZONE_RONFAURE_WEST, 0, 0, 0}, -- Battledore
 
-    {14729, 1, 99, ZONE_RONFAURE_WEST, 0, 0, 0}, -- Esquire's Earring (+5 DEF if PLD sub)
+    {16184, 1, 99, ZONE_RONFAURE_WEST, 0, 0, 0}, -- Flat Shield
     {16039, 1, 99, ZONE_RONFAURE_WEST, 0, 0, 0}, -- Kingdom Earring (teleport to Sandy)
     {19221, 1, 99, ZONE_RONFAURE_WEST, 0, 0, 0}, -- Firefly
     {19157, 1, 99, ZONE_RONFAURE_WEST, 0, 0, 0}, -- Survivor
@@ -1842,6 +1843,7 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
     if (not player:isPC()) then return; end;
 
     local diff = mob:getMainLvl() - player:getMainLvl();
+    local isHot = isHotspot(player:getZoneID());
 
 
 
@@ -1851,6 +1853,10 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
     if (tempChance < 0) then tempChance = 1 end;
 --    diff = (diff * diff) / 2.5;
     if (tempChance <= 0) then tempChance = 1; end
+
+
+    if (isHot) then tempChance = tempChance * 1.33; end;
+
     if (math.random(0, 100) <= tempChance) then
         rewardTemporaryItem(player);
     end
@@ -1875,6 +1881,9 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
     if (diff > 0) then rewardChance = rewardChance + diff * 4 else rewardChance = rewardChance + diff end;
     if (rewardChance < 0) then rewardChance = 1 end;
     rewardChance = rewardChance * (1 + player:getMod(MOD_TREASURE_HUNTER) * 0.15);
+
+    if (isHot) then rewardChance = rewardChance * 1.33; end;
+
     if (math.random(0, 100) <= rewardChance) then
         dropReward(mob, player);
     end
@@ -1883,6 +1892,7 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
     local noto = "noto_z" .. tostring(player:getZoneID());
     local notoBonus = 1;
     if diff >= 4 then notoBonus = notoBonus + 1 end;
+    if (isHot and math.random(0,100) >= 50) then notoBonus = notoBonus * 2; end;
 
     -- Non-event based mobs drop extra stuff
     if (not mob:isMobType(0x20)) then

@@ -6,6 +6,7 @@
 --require("scripts/zones/Windurst_Walls/npcs/Koru-Moru");
 require("scripts/globals/status");
 require("scripts/globals/jsr_utils");
+require("scripts/globals/jsr_hotspots");
 cmdprops =
 {
     permission = 1,
@@ -14,21 +15,12 @@ cmdprops =
 
 
 function onTrigger(player, amount)
---        local target = player:getCursorTarget();
---        player:SayToPlayer("CHA: " .. tostring(target:getStat(MOD_CHR)));
---        player:SayToPlayer("DINT: " .. tostring(player:getStat(MOD_INT) - target:getStat(MOD_INT)));
---        player:SayToPlayer("Earth: " .. tostring(target:getMod(MOD_EARTHDEF)) .. "/" .. tostring(target:getMod(MOD_EARTHRES)));
---        player:SayToPlayer("Wind: " .. tostring(target:getMod(MOD_WINDDEF)) .. "/" .. tostring(target:getMod(MOD_WINDRES)));
 
---    local mob = GetMobByID(17195474) -- Goblin
---    local mob = GetMobByID(17195012) -- Giant Pugil
---    local mob = GetMobByID(17195477) -- Pixie
+--    doHotspotUpdate();
+--    printHotspots(player);
 
---local rewards = {["item"] = 18610 }
---jsrReward(player, rewards);
-
-
-local mobid = 17187288;
+--
+local mobid = 17261085;
 --
 local mob = GetMobByID(mobid) -- Giant Pugil
 local level = player:getMainLvl();

@@ -24,6 +24,14 @@ end
 
 
 function onMobFight(mob, target)
+    timedSpell(mob, mob:getHateTarget(), 144, 30, 60);
+    timedSpell(mob, mob:getHateTarget(), 144, 20, 40);
+    timedSpell(mob, mob:getHateTarget(true), 253, 30, 60); -- Randomly Sleep
+    timedSpell(mob, mob:getHateTarget(true), 257, 45, 80); -- Randomly Curse
+    if (mob:getHPP() <= 50) then
+        limitedSpell(mob, target, 366, 1); -- Graviga
+    end
+
 end
 
 function onMobDeath(mob, player, isKiller)

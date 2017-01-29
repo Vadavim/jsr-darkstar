@@ -12,7 +12,10 @@ require("scripts/globals/status");
 
 function onEffectGain(target,effect)
 target:addMod(MOD_CRITHITRATE,100)
-target:addMod(MOD_TP_BONUS,1000)
+if (target:isMob() and not target:isPet()) then
+    target:addMod(MOD_TP_BONUS,1000)
+end
+
 end;
 
 -----------------------------------
@@ -28,5 +31,8 @@ end;
 
 function onEffectLose(target,effect)
 target:addMod(MOD_CRITHITRATE,-100)
-target:delMod(MOD_TP_BONUS,1000)
+if (target:isMob() and not target:isPet()) then
+    target:delMod(MOD_TP_BONUS,1000)
+end
+
 end;

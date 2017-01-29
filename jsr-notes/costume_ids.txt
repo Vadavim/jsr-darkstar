@@ -1,5 +1,222 @@
+314		Watcher
+350		Cool Looking (Pugil)
+358		Big (Crab)
+369		Blue Arcane (Ghost)
+383		Giant Blue (Malboro)
+400		Mini-Adamantoise
+405		Shadow (Behemoth)
+407		Silve Gem (Adamantoise)
+410		Horn (Beetle)
+421		Red Shadow (Dragon)
+433		Red (Golem)
+449		Red (Fly)
+455		Katar Sword (Evil Weapon)
+467		Two Rapier (Evil Weapon)
+468		Battleaxe (Evil Weapon)
+
+779		Flying Amlaute (Boss)
+776		Amlaute Device (Boss)
+790		Shadow King (Boss)
+799		Flying Kamlanaute (Boss)
+1071		Absolute Virtue (Boss)
+1074		Bahamut (Boss)
+1075		Omega Weapon (Boss)
+1079		Omega Weapon (Boss)
+
+1250		Tonberry King (Boss)
+
+1320		Yellow Sahagin
+
+1352		Giant Lizard (Boss)
+1354		Giant Diremite (Boss)
+1360		Red Tauri (NM)
+1362		Giant Uragnite (NM)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2022		Slug
+2026		Tainted Ochu
+2029		Giant Worm
+2030		Blue White (Pixie)
+2031		Red White (Pixie)
+2032		Blue Black (Pixie)
+2057		Crystal (Kindred)
+2059		Gallu
+2060		Flan King
+2064		Evil (Pixie)
+2066		Rose Mantid
+2067		White Harpyia
+2068		Floating Tome
+2069		Crowned (Corpse Light)
+2070		Dvegr
+2071		Blue Apkallu
+2073		Orc Boss (Orc)
+2075		Iron Warrior (Orc)
+2089		Awesome Yagudo Samurai (Yagudo)
+2090		Awesome Yaguo Ninja (Yagudo)
+2091		Giant Rose Woman
+2092		Bismarck
+2094		White Kerberoi
+2095		Tan Mantid
+2096		Mummy Red Guy
+2097		Blu Poroggo
+2099		Blug Frog
+2100		Grim Reaper (Skeleton)
+2101		Pink (Mandragora)
+2102		Kerberos
+2104		Mantis / Mantid
+2105		Silver Asura
+2106		Pink Harpyos
+2107		Big (Scorpion)
+2109		Dark Ahriman Abyss (Ahriman)
+2110		Harpylos
+2111		Asura
+2112		Yagudo Dark Shaman (Yagudo)
+2113		Yagudo Shaman (Yagudo)
+2115		Yagudo Awesome (Yagudo)
+
+2130		Paladin (Quadav)
+2136		Chariot Golem Sword
+2137		Chariot Golem Club
+
+2139 - 2146	Special AoE
+2147		Earth Gargoyle
+
+2148		Earthdark
+2149		Firelight
+2150		Thunderwind
+2151		Belfrost
+
+2155		Armored (Quadav)
+2156		Atomos Boss
+2172		Iron Giant
+2174		Abyss Dragon
+2178		Lilsette
+2180		Armored Volker
+2181		Kid Elf
+2189		Lilith (Normal)
+2190		Lilith (Angel)
+2206		Scylla (Ruszor)
+2207		Red Abyss Coeurl
+2208		Eruca
+2210 		Black Kerberos
+2215		Corpselight
+2217		Red Greatsword (Kindred)
+2226		Ixion (Avatar)
+2227		Unicorn
 3085		Arciella White Hands
 3086		Zeid Unmasked
+2230		Scary Red (Malboro)
+2233		Wivre
+2235		Flan
+2240		Red (Poroggo)
+2248		Sabertooth (Tiger)
+2249		Weird (Funguar)
+2320		Special Effects Around Here
+2377		Dark (Mandragora)
+2379		Dark (Tonberry)
+2387		Ice (Wyvern)
+2391		Super Huge Dragon!
+2421		Portal
+2432 		Spriggan
+2436		Giant Horse (Sleipnir)
+2437		Marrolith
+2445		Mini Atomos
+2451 		Siren
+2454		Siren (Avatar)
+2461		Dark Cloud (egaboss)
+2466		Dark Angel Boss
+2500		Vespid
+2505		Rockfin
+2510		Yygreant
+2511		Dark Yygreant
+2515		Gabbrath
+2520		Velk
+2530		Leafkin
+2535		Butterflies
+2540		Giant Butterfly
+2550		Sanpweed
+2551		Red Snapweed
+2555		Craklaw
+2556		Black Craklaw
+2560		Matamatas
+2561		Umbril
+2562		Crimson Umbril
+2570		Acuexe
+2571		Purple Acuex
+2575		Heartwing
+2580		Waktza
+2581		Dark Waktza
+2585 		Cehuetzi
+2590		Giant Velkk
+2595		Tulfaire
+2596		Blue Tulfaire
+2600		Raaz
+2601		Black Raaz
+2610		Siren (Fightable)
+2615		Leafy Girl
+2620		Dark Caternea
+2625		Giant Salamander
+2630		Jester Dude
+2635		White Dragon
+2673		Bahamut Caternae
+2674		Winged Dude Boss
+2679		Darker Winged Dude Boss
+
+2735		Ice Lion
+2736		Cougar Thing
+
+
+
+2912		Giant Wormy
+
+2817		- Pets here
+
+2922		Red Yztarg
+2923		Violet (Malborl)
+2924		Skull (Diremite)
+2927		Weird Blue Aquan (Lizard)
+2929		Bismarck
+2930		Colorful (Fly)
+2931		White Plant Lady
+2936		Ice (Flan)
+2939		God Thing (Megaboss)
+2940		Purple Shadow (Dragon)
+2942		Dark Cloud (Megaboss)
+2944		Cute Spyro Dragon
+
+
+
+
+
+
+
+
+
+
+
+
 
 3087 		Halve
 3088 		Rongelouts

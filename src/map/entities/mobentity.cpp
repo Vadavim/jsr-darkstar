@@ -357,7 +357,7 @@ void CMobEntity::delRageMode()
 
 bool CMobEntity::IsFarFromHome()
 {
-    return distance(loc.p, m_SpawnPoint) > m_maxRoamDistance;
+    return distance(loc.p, m_SpawnPoint) > m_maxRoamDistance * 5;
 }
 
 bool CMobEntity::CanBeNeutral()

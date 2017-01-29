@@ -16,7 +16,7 @@ function onMobWeaponSkill(target, mob, skill)
     local accmod = 1;
     local dmgmod = 1.0;
 --    local info = MobMagicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_BONUS, 4.0, 10.25, 13.75);
-    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*1.8,ELE_LIGHT,dmgmod,TP_DMG_BONUS, 2, 3, 4);
+    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg(),ELE_LIGHT,dmgmod,TP_DMG_BONUS, 2.2, 3.4, 4.6);
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_SLASH,info.hitslanded);
     local tp = skill:getTP();
 

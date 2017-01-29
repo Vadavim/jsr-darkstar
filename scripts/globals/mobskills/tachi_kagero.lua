@@ -15,7 +15,7 @@ function onMobWeaponSkill(target, mob, skill)
     local numhits = 1;
     local accmod = 1;
     local dmgmod = 1.0;
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_BONUS,2,4,6);
+    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_BONUS,2.5,5,7);
     local params = {};
     local dmg = addBonusesAbility(mob, ELE_FIRE, target, info.dmg, params);
     dmg = MobFinalAdjustments(dmg,mob,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_SLASH,info.hitslanded);
