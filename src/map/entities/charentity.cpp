@@ -1199,6 +1199,8 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
     // JSR: bonus damage if target is at full HP
     if (PTarget->GetHPP() == 100)
         totalDamage += damage * 2.5;
+
+
 //    totalDamage += damage * (1.5f + ((double)this->GetMLevel()) / 40.0f);
 
     // loop for barrage hits, if a miss occurs, the loop will end
@@ -1458,8 +1460,9 @@ void CCharEntity::OnRangedAttackEx(CBattleEntity* PTarget, action_t& action)
             {
                 float pdif = battleutils::GetRangedPDIF(this, PTarget);
                 bool isCrit = false;
+                bool hasSneak = this->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK);
 
-                if (dsprand::GetRandomNumber(100) < battleutils::GetCritHitRate(this, PTarget, true))
+                if (hasSneak || dsprand::GetRandomNumber(100) < battleutils::GetCritHitRate(this, PTarget, true))
                 {
                     pdif *= 1.25; //uncapped
                     int16 criticaldamage = getMod(MOD_CRIT_DMG_INCREASE);
@@ -1468,6 +1471,8 @@ void CCharEntity::OnRangedAttackEx(CBattleEntity* PTarget, action_t& action)
                     actionTarget.speceffect = SPECEFFECT_CRITICAL_HIT;
                     actionTarget.messageID = 353;
                     isCrit = true;
+                    if (hasSneak)
+                        this->StatusEffectContainer->DelStatusEffect(EFFECT_SNEAK_ATTACK);
                 }
 
                 // at least 1 hit occured

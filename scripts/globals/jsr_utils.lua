@@ -353,6 +353,12 @@ end;
 
 local function sayItem(player, curItemId, isTemp)
     local item = getItem(curItemId);
+    if (item == nil or item == 0) then
+        print("[ERROR]!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        player:SayToPlayer("ERRORRRRR!!!!!!");
+        return false;
+    end
+
     local name = item:getName();
     name = string.gsub(" "..name, "%W%l", string.upper):sub(2):gsub("_", " ");
     if (isTemp ~= nil) then

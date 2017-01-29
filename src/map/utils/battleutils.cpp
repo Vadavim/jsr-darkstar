@@ -1661,6 +1661,8 @@ namespace battleutils
     {
         int acc = 0;
         int hitrate = 75;
+        if (PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK))
+            return 100;
 
         if (PAttacker->objtype == TYPE_PC)
         {
