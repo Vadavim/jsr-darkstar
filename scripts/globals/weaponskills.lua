@@ -98,6 +98,7 @@ function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taCh
     end
     attacker:delStatusEffectsByFlag(EFFECTFLAG_DETECTABLE);
     attacker:delStatusEffect(EFFECT_SNEAK_ATTACK);
+    attacker:delStatusEffect(EFFECT_TRICK_ATTACK);
     local isTrickValid = taChar ~= nil
 
     local isAssassinValid = isTrickValid;
@@ -355,7 +356,6 @@ function doMagicWeaponskill(attacker, target, wsID, tp, primary, action, params)
     dmg = dmg * ftp;
 
     if (wsID ~= 0 and isAoEWeaponskill(wsID)) then
-        print("HREE");
         if (target:getModelSize() >= 4) then dmg = dmg * 1.25; end;
         if (target:getFamily() == 47) then dmg = dmg * 1.33; end
     end
@@ -371,6 +371,9 @@ function doMagicWeaponskill(attacker, target, wsID, tp, primary, action, params)
     end
     dmg = dmg * WEAPON_SKILL_POWER
     dmg = takeWeaponskillDamage(target, attacker, params, primary, dmg, SLOT_MAIN, 1, bonusTP, nil)
+
+    attacker:delStatusEffect(EFFECT_SNEAK_ATTACK);
+    attacker:delStatusEffect(EFFECT_TRICK_ATTACK);
     return dmg, false, 1, 0;
 end
 

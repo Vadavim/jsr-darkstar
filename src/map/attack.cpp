@@ -391,7 +391,7 @@ bool CAttack::CheckCounter()
 void CAttack::ProcessDamage()
 {
     // Sneak attack.
-    if (m_attacker->GetMJob() == JOB_THF &&
+    if (m_attacker->GetMJob() == JOB_THF && m_attacker->objtype == TYPE_MOB &&
         m_isFirstSwing &&
         m_attacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK) &&
         ((abs(m_victim->loc.p.rotation - m_attacker->loc.p.rotation) < 23) ||
@@ -402,7 +402,7 @@ void CAttack::ProcessDamage()
 
     // Trick attack.
     if (m_attacker->GetMJob() == JOB_THF &&
-        m_isFirstSwing &&
+        m_isFirstSwing && m_attacker->objtype == TYPE_MOB &&
         m_attackRound->GetTAEntity() != nullptr)
     {
         m_trickAttackDamage += m_attacker->AGI() * (1 + m_attacker->getMod(MOD_TRICK_ATK_AGI) / 100);
@@ -469,10 +469,26 @@ void CAttack::ProcessDamage()
         m_damage += (m_damage * ((100 + (m_attacker->getMod(MOD_AUGMENTS_TA))) / 100));
     }
 
+    if (m_attacker->objtype == TYPE_PC) {
+        CCharEntity* PChar = (CCharEntity*)m_attacker;
+        CItemWeapon* PWeapon = (CItemWeapon*)PChar->getEquip(SLOT_MAIN);
+        if (m_attackRound->IsH2H()  || (PWeapon != nullptr && PWeapon->isTwoHanded()))
+            m_damage *= (1.0f + (float)PChar->getMod(MOD_SMITE) / 100.0f);
+
+    }
+
     // Try skill up.
     if (m_damage > 0)
     {
         charutils::TrySkillUP((CCharEntity*)m_attacker, (SKILLTYPE)m_attacker->m_Weapons[GetWeaponSlot()]->getSkillType(), m_victim->GetMLevel());
     }
     m_isBlocked = attackutils::IsBlocked(m_attacker, m_victim);
+    if (m_attacker->objtype == TYPE_MOB) {
+        if (m_attacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK))
+            m_attacker->StatusEffectContainer->DelStatusEffect(EFFECT_SNEAK_ATTACK);
+        if (m_attacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK))
+            m_attacker->StatusEffectContainer->DelStatusEffect(EFFECT_TRICK_ATTACK);
+    }
+
+
 }

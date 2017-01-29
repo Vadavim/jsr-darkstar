@@ -15,7 +15,8 @@ STAT CHANGES
 TRAIT CHANGES
  - Gains Resist Blind at levels 15, 25, 45, and 65
  - Has Dual-Wield I/II/III at levels 20 / 40 / 60
- - Triple Attack increases to 8% at level 70
+ - Gains Accuracy Bonus I and II at levels 40 and 65 respectively
+ - Triple Attack starts at 2% at Level 15 and increases by 1% per 10 levels, max of 8% at level 75
  - Crit Damage Bonus (+5%) at levels 20, 40, 60, and 75
 
 
@@ -33,9 +34,13 @@ ABILITY CHANGES
  - Duration is instead 90 seconds.
 	- When used, removes the following status effects: Weight, Slow, Bind, and Evasion Down.
 
+[Sneak / Trick]
+ - Sneak and Trick attack are not consumed with normal attacks. They only trigger with weaponskills and ranged attacks.
+
 [Hide]
  - Gained at level 10 instead of 45.
- - Grants 2 shadows when used.
+ - Grants 2 shadows when used (or 1 if subjob).
+ - Grants a powerful regen while in effect (effect increases with healhp equipment)
 
 [Collaborator / Accomplice]
  - Both of ally's CE and VE are converted into VE when tranferred to thief
@@ -47,6 +52,9 @@ ABILITY CHANGES
 
 [Larceny]
  - Gained at level 40 instead of 77.
+
+[Feint]
+ - Gained at level 45 instad of 75
 
 [Despoil]
  - Gained at level 50

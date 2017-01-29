@@ -643,6 +643,7 @@ enum MODIFIER
     MOD_CARDINAL_CHANT               = 846, // Chance to reduce Blood Pact MP cost
     MOD_ABSORB_MAGDMG_TO_MP      = 847, // Absorbs a percentage of physical damage taken to MP.
     MOD_RANGED_CRIT_DAMAGE       = 848, // Raises chance to crit
+	MOD_SMITE       = 849, // Raises auto-attack damage with two-handed and h2h weapons by % value
 
     // Weaponskill %damage modifiers
     // The following modifier should not ever be set, but %damage modifiers to weaponskills use the next 255 IDs (this modifier + the WSID)

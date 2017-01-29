@@ -1451,6 +1451,8 @@ MOD_CONSERVE_TP        = 842
 MOD_BLOOD_BOON      = 845
 MOD_CARDINAL_CHANT        = 846
 MOD_ABSORB_MAGDMG_TO_MP      = 847
+MOD_RANGED_CRIT_DAMAGE      = 848
+MOD_SMITE      = 849
 
 
 -- The entire mod list is in desperate need of kind of some organizing.

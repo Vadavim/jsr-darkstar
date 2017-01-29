@@ -212,11 +212,14 @@ bool CAllyController::combatIngrid(uint16 lvl) {
     int sDia = lvl < 3 ? 0 : lvl < 36 ? 23 : lvl < 70 ? 24 : 25;
     int sFlash = lvl < 45 ? 0 : 112;
 
-    if (PTarget != nullptr && canMagicBurst(PTarget, 7) && isReady(m_divine2, 30) && canCast(sHoly))
+    if (PTarget == nullptr)
+        return false;
+
+    if (canMagicBurst(PTarget, 7) && isReady(m_divine2, 30) && canCast(sHoly))
         return choose(PTarget, sHoly, m_divine2);
 
 
-    if (PTarget == nullptr || PTarget->GetHPP() == 100 || (PTarget->GetMLevel() - PAlly->GetMLevel()) < 2)
+    if (PTarget->GetHPP() == 100 || (PTarget->GetMLevel() - PAlly->GetMLevel()) < 2)
         return false;
 
     if (notHave(PTarget, EFFECT_DIA) && notHave(PTarget, EFFECT_BIO) && canCast(sDia) && isReady(m_enfeeble1, 10))
@@ -274,9 +277,11 @@ bool CAllyController::combatCherukiki(uint16 lvl) {
         if (statusRemoved)
             return true;
     }
+    if (PTarget == nullptr)
+        return false;
 
     // don't premptively cast magic or waste debuffs on low level enemies
-    if (PTarget == nullptr || PTarget->GetHPP() == 100 || (PTarget->GetMLevel() - PAlly->GetMLevel()) < 2)
+    if (PTarget->GetHPP() == 100 || (PTarget->GetMLevel() - PAlly->GetMLevel()) < 2)
         return false;
 
 

@@ -2679,9 +2679,9 @@ namespace charutils
 
             double random = dsprand::GetRandomNumber(1.);
 
-            if (SkillUpChance > 0.5)
+            if (SkillUpChance > 0.9)
             {
-                SkillUpChance = 0.5;
+                SkillUpChance = 0.9;
             }
 
             if (Diff > 0 && random < SkillUpChance)
@@ -2689,7 +2689,7 @@ namespace charutils
                 double chance = 0;
                 uint8  SkillAmount = 1;
                 uint8  tier = dsp_min(1 + (Diff / 5), 5);
-                int maxAttempts = CurSkill < 100 ? 12 : 6;
+                int maxAttempts = CurSkill < 100 ? 12 : CurSkill < 130 ? 10 : CurSkill < 150 ? 10 : CurSkill < 170 ? 8 : 6;
 
                 for (uint8 i = 0; i < maxAttempts; ++i) // 1 + 4 возможных дополнительных (максимум 5)
                 {
@@ -2704,7 +2704,7 @@ namespace charutils
                         case 1:  chance = 0.200; break;
                         default: chance = 0.000; break;
                     }
-                    if (SkillID == SKILL_SUM) chance *= 2;
+                    if (SkillID == SKILL_SUM || SkillID == SKILL_MRK || SkillID == SKILL_PAR || SkillID == SKILL_ARC || SkillID == SKILL_GRD || SkillID == SKILL_SHL || SkillID == SKILL_THR) chance *= 2;
 
                     if (chance < random || SkillAmount >= 8) break;
 
@@ -3226,46 +3226,60 @@ namespace charutils
                     uint32 sBonusXP = PMob->GetLocalVar("xpBonus");
                     sBonusXP = sBonusXP > exp / 2 ? exp / 2 : sBonusXP;
                     exp = exp + sBonusXP;
-                    if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) && (region >= 0 && region <= 22))
-                    {
-                        switch (pcinzone)
-                        {
-                            case 1: exp *= 1.00f; break;
-                            case 2:	exp *= 0.75f; break;
-                            case 3: exp *= 0.55f; break;
-                            case 4: exp *= 0.45f; break;
-                            case 5:	exp *= 0.39f; break;
-                            case 6: exp *= 0.35f; break;
-                            default: exp *= (1.8f / pcinzone); break;
-                        }
-                    }
-                    else if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SANCTION) && (region >= 28 && region <= 32))
-                    {
-                        switch (pcinzone)
-                        {
-                            case 1: exp *= 1.00f; break;
-                            case 2: exp *= 0.75f; break;
-                            case 3: exp *= 0.55f; break;
-                            case 4: exp *= 0.45f; break;
-                            case 5: exp *= 0.39f; break;
-                            case 6: exp *= 0.35f; break;
-                            default: exp *= (1.8f / pcinzone); break;
-                        }
 
-                    }
-                    else
+                    // additional bonus xp for fighting high level monsters
+
+                    switch (pcinzone)
                     {
-                        switch (pcinzone)
-                        {
-                            case 1:	exp *= 1.00f; break;
-                            case 2: exp *= 0.60f; break;
-                            case 3: exp *= 0.45f; break;
-                            case 4: exp *= 0.40f; break;
-                            case 5: exp *= 0.37f; break;
-                            case 6: exp *= 0.35f; break;
-                            default: exp *= (1.8f / pcinzone); break;
-                        }
+                        case 1:	exp *= 1.00f; break;
+                        case 2: exp *= 0.80f; break;
+                        case 3: exp *= 0.60f; break;
+                        case 4: exp *= 0.48f; break;
+                        case 5: exp *= 0.42f; break;
+                        case 6: exp *= 0.38f; break;
+                        default: exp *= (1.8f / pcinzone); break;
                     }
+
+//                    if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) && (region >= 0 && region <= 22))
+//                    {
+//                        switch (pcinzone)
+//                        {
+//                            case 1: exp *= 1.00f; break;
+//                            case 2:	exp *= 0.75f; break;
+//                            case 3: exp *= 0.55f; break;
+//                            case 4: exp *= 0.45f; break;
+//                            case 5:	exp *= 0.39f; break;
+//                            case 6: exp *= 0.35f; break;
+//                            default: exp *= (1.8f / pcinzone); break;
+//                        }
+//                    }
+//                    else if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SANCTION) && (region >= 28 && region <= 32))
+//                    {
+//                        switch (pcinzone)
+//                        {
+//                            case 1: exp *= 1.00f; break;
+//                            case 2: exp *= 0.75f; break;
+//                            case 3: exp *= 0.55f; break;
+//                            case 4: exp *= 0.45f; break;
+//                            case 5: exp *= 0.39f; break;
+//                            case 6: exp *= 0.35f; break;
+//                            default: exp *= (1.8f / pcinzone); break;
+//                        }
+//
+//                    }
+//                    else
+//                    {
+//                        switch (pcinzone)
+//                        {
+//                            case 1:	exp *= 1.00f; break;
+//                            case 2: exp *= 0.60f; break;
+//                            case 3: exp *= 0.45f; break;
+//                            case 4: exp *= 0.40f; break;
+//                            case 5: exp *= 0.37f; break;
+//                            case 6: exp *= 0.35f; break;
+//                            default: exp *= (1.8f / pcinzone); break;
+//                        }
+//                    }
 
                     if (PMob->getMobMod(MOBMOD_EXP_BONUS))
                     {
@@ -3464,8 +3478,9 @@ namespace charutils
                     }
 
                     // Hard monsters give bonus XP
-                    if (PMob->GetMLevel() > PMember->GetMLevel() + 3) {
-                        exp *= 1.0f + (float)(PMob->GetMLevel() - PMember->GetMLevel() - 3) * 0.125;
+                    if (PMob->GetMLevel() > PMember->GetMLevel()) {
+                        float diff = PMob->GetMLevel() - PMember->GetMLevel();
+                        exp *= (1.1f + (diff * (1 + diff / 2.0f) / 50.0f));
                     }
 
                     if (sBonus > 0) {

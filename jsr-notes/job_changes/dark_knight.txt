@@ -16,9 +16,9 @@ STATS
 
 TRAIT CHANGES
  - Gain Resist Curse at levels 5, 15, 30, 45, 60, 75
- - Auto-Refresh at levels 35 and 70
+ - Gains Smite at levels 15, 35, 55, and 75, raising auto-attack damage with H2H and Two-Handed weapons by 10%/15%/20%/25%
+ - Auto-Refresh at level 35
  - Occult Acumen Base TP: 50 (Lvl 30), 65 (Lvl 50), 80 (Lvl 70)
- - Magic Attack Bonus (+20 / +24) at level 45 / 65 
  - Has Magic BUrst Bonus (+15% at Level 15) and +5% every 15 levels thereafter
  - Dark Knights deal additional magic damage based on missing HP (scales better with higher damaging spells)
 

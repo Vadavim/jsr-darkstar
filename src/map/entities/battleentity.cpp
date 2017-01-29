@@ -1566,7 +1566,7 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                 if (this->StatusEffectContainer->HasStatusEffect(EFFECT_FEINT)) {
                     PTarget->StatusEffectContainer->DelStatusEffectSilent(EFFECT_EVASION_DOWN);
                     PTarget->StatusEffectContainer->AddStatusEffect(
-                            new CStatusEffect(EFFECT_EVASION_DOWN, EFFECT_EVASION_DOWN, 60, 1, 60)
+                            new CStatusEffect(EFFECT_EVASION_DOWN, EFFECT_EVASION_DOWN, 60, 1, 20)
                     );
                     this->StatusEffectContainer->DelStatusEffectSilent(EFFECT_FEINT);
 

@@ -12,8 +12,8 @@ STAT CHANGES
 
 TRAIT CHANGES
  - Fencer at levels: 45 (+200, +4%), 58 (+300, +6%), 71 (+400, +8%) 
+ - Double Attack increases by 2% at levels 40, 55, and 70, to a max of 16%
 
-Additional Defense Bonus at level 50
 
 ABILITY CHANGES
 

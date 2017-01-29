@@ -630,7 +630,7 @@ function rewardTemporaryItem(player)
         5827, -- Lucid Ether
         5445, -- Lucid Ether
         5828, -- Lucid Ether II
-        5945, -- Prize Powder
+--        5945, -- Prize Powder
         5829, -- Lucid Ether III
         4146, -- Revitalizer
         5445, -- Prismatic Elixir
