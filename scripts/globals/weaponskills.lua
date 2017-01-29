@@ -142,6 +142,10 @@ function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taCh
     local firsthit = math.random() - 0.3;
     local finaldmg = 0;
     local hitrate = getHitRate(attacker,target,true,bonusacc);
+    if (attacker:hasStatusEffect(EFFECT_SNEAK_ATTACK) or attacker:hasStatusEffect(EFFECT_TRICK_ATTACK)) then
+        hitrate = 100;
+    end
+
     if (params.acc100~=0) then
         -- ACCURACY VARIES WITH TP, APPLIED TO ALL HITS.
         -- print("Accuracy varies with TP.");
@@ -354,6 +358,16 @@ function doMagicWeaponskill(attacker, target, wsID, tp, primary, action, params)
     end
 
     dmg = dmg * ftp;
+    if (attacker:hasStatusEffect(EFFECT_SNEAK_ATTACK)) then
+        dmg = dmg + attacker:getStat(MOD_INT);
+        bonusacc = bonusacc + 50;
+    end
+
+    if (attacker:hasStatusEffect(EFFECT_TRICK_ATTACK)) then
+        dmg = dmg + attacker:getStat(MOD_INT);
+        bonusacc = bonusacc + 50;
+    end
+
 
     if (wsID ~= 0 and isAoEWeaponskill(wsID)) then
         if (target:getModelSize() >= 4) then dmg = dmg * 1.25; end;
@@ -472,8 +486,6 @@ end;
 function getRangedHitRate(attacker,target,capHitRate,bonus)
     local acc = attacker:getRACC();
     local eva = target:getEVA();
-    printf("acc: %d\n", acc);
-    printf("eva: %d\n", eva);
 
     if (bonus == nil) then
         bonus = 0;

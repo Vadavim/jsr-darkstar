@@ -55,6 +55,7 @@ ABILITY CHANGES
 
 [Feint]
  - Gained at level 45 instad of 75
+ - Inflictsa a powerful evasion down (-60) for 20 seconds.
 
 [Despoil]
  - Gained at level 50
@@ -73,3 +74,6 @@ ABILITY CHANGES
 [Conspirator]
  - Gained at level 70 instead of 87.
  - Grants +40 Subtle Blow, +15 Accuracy, +15 Ranged Accuracy, and +15 Magic Accuracy for duration.
+
+[Assassin's Charge]
+ - Instead grants +20% Triple Attack for 1 minute (+1% Quad Attack per merit point)

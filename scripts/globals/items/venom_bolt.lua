@@ -21,11 +21,22 @@ function onAdditionalEffect(player,target,damage)
         return 0,0,0;
     else
         target:delStatusEffect(EFFECT_POISON)
+        local duration = 60;
         if (not target:hasStatusEffect(EFFECT_POISON)) then
-            local power = 6 + math.floor(target:getStat(MOD_CHR) / 3);
+            local marks = player:getSkillLevel(SKILL_MRK);
+            local power = 2 + marks * 0.08;
+
             if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
-                power = math.floor(power * 1.33);
+                power = power + 2;
+                duration = duration + 30;
             end
+
+            if (player:hasStatusEffect(EFFECT_TRICK_ATTACK)) then
+                power = power + 3;
+                duration = duration + 45;
+                player:delStatusEffect(EFFECT_TRICK_ATTACK);
+            end
+
             target:addStatusEffect(EFFECT_POISON, power, 3, 60);
         end
         return SUBEFFECT_POISON, MSGBASIC_ADD_EFFECT_STATUS, EFFECT_POISON;

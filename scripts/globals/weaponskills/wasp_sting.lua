@@ -35,12 +35,14 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     player:addTP(tp * 0.35);
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
     local power = 1 + player:getStat(MOD_DEX) / 4;
-    if (hasSneak) then
-        power = power * 2;
-    end
 
     local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_WATER, SKILL_DAG);
-    local duration = 60 * tp / 1000;
+    local duration = 60 * (tp / 1000);
+
+    if (hasSneak) then
+        power = power * 1.5;
+        duration = duration * 1.5;
+    end
 
     if (damage > 0 and resist >= 0.25) then
         target:addStatusEffect(EFFECT_POISON_II, power, 3, duration * resist);

@@ -35,7 +35,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_THUNDER, SKILL_POL);
     if (damage > 0 and resist > 0.125 and not target:hasStatusEffect(EFFECT_RASP)) then
         local DOT = math.floor(player:getMainLvl()/3) + 1;
-        local duration = 30 * (tp / 1000) * (1 + (tp - 1000) / 2000);
+        local duration = 30 * (tp / 1000);
 
         local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
         DOT = addBonusesAbility(player, ELE_THUNDER, target, DOT, mParams, 1.0);

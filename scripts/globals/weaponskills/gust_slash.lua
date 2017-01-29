@@ -31,6 +31,8 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
         params.dex_wsc = 0.4; params.int_wsc = 0.8;
     end
 
+    local hasSneak = player:getStatusEffect(EFFECT_SNEAK_ATTACK);
+
     local damage, criticalHit, tpHits, extraHits = doMagicWeaponskill(player, target, wsID, tp, primary, action, params);
 
     local resist = applyResistanceWeaponskill(player, target, params, tp, ELE_WIND, SKILL_DAG);
@@ -41,7 +43,12 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
         local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
         DOT = addBonusesAbility(player, ELE_WIND, target, DOT, mParams, 1.0);
 
-        local duration = (30 * (tp / 1000) * (1 + (tp - 1000) / 2000));
+        local duration = 30 * (tp / 1000);
+        if (hasSneak) then
+            DOT = DOT * 1.5;
+            duration = duration * 1.5;
+        end
+
 
         -- Remove Rasp
         target:delStatusEffect(EFFECT_RASP);

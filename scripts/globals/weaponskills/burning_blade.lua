@@ -41,7 +41,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
         local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
         DOT = addBonusesAbility(player, ELE_FIRE, target, DOT, mParams, 1.0);
 
-        local duration = (30 * (tp / 1000) * (1 + (tp - 1000) / 2000));
+        local duration = 30 * (tp / 1000);
 
         -- Remove Frost
         if (target:getStatusEffect(EFFECT_FROST) ~= nil) then

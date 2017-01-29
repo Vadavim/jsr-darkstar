@@ -25,6 +25,13 @@ function onAdditionalEffect(player,target,damage)
         if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
             drain = math.floor(drain * 1.33);
         end
+
+        if (player:hasStatusEffect(EFFECT_TRICK_ATTACK)) then
+            drain = math.floor(drain * 2);
+            player:delStatusEffect(EFFECT_TRICK_ATTACK);
+        end
+
+
         local params = {};
         params.bonusmab = 0;
         params.includemab = false;

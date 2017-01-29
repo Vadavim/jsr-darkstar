@@ -15,13 +15,22 @@ function onAdditionalEffect(player,target,damage)
         chance = chance - 5 * (target:getMainLvl() - player:getMainLvl())
         chance = utils.clamp(chance, 5, 95);
     end
+    if (player:hasStatusEffect(EFFECT_TRICK_ATTACK)) then
+        chance = 100;
+    end
+
     if (math.random(0,99) >= chance) then
         return 0,0,0;
     else
         local duration = 25;
         if (player:hasStatusEffect(EFFECT_FLASHY_SHOT)) then
-            duration = 32;
+            duration = duration + 10;
         end
+        if (player:hasStatusEffect(EFFECT_TRICK_ATTACK))  then
+            duration = duration + 15;
+            player:delStatusEffect(EFFECT_TRICK_ATTACK);
+        end
+
         if (target:getMainLvl() > player:getMainLvl()) then
             duration = duration - (target:getMainLvl() - player:getMainLvl())
         end

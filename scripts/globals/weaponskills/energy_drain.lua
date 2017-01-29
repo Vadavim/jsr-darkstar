@@ -8,7 +8,7 @@ require("scripts/globals/magic");
 function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     local params = {};
     local power = player:getStat(MOD_INT) / 2 + player:getSkillLevel(SKILL_DAG) * 0.2;
-    power = power * (tp / 1000);
+    power = power * (tp / 1000) * (1 + player:getMod(MOD_ENH_DRAIN_ASPIR) / 100);
     local hasSneak = player:hasStatusEffect(EFFECT_SNEAK_ATTACK);
 
     if (hasSneak) then

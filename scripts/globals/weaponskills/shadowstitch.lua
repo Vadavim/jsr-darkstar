@@ -30,9 +30,8 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     if (USE_ADOULIN_WEAPON_SKILL_CHANGES == true) then
         params.chr_wsc = 2.0;
     end
-    player:addTP(tp * 0.35);
+    player:addTP(tp * 0.45);
 
-    local hasTrick = player:hasStatusEffect(EFFECT_TRICK_ATTACK);
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params);
 

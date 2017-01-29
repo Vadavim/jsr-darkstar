@@ -45,9 +45,9 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     end
 
     if (damage > 0) then
-        local duration = 30 * (tp / 1000) * (1 + (tp - 1000) / 2000);
+        local duration = 45 * (tp / 1000) * (1 + (tp - 1000) / 2000);
         local mParams = {}; mParams.bonusmab = 0; mParams.includemab = true;
-        local power = 1 + player:getMainLvl() / 5;
+        local power = 1 + player:getMainLvl() / 3;
         power = addBonusesAbility(player, ELE_THUNDER, target, power, mParams, 1.0);
         player:addStatusEffect(EFFECT_SHOCK_SPIKES,power,0,duration);
     end
