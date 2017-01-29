@@ -1,47 +1,49 @@
 [Wasp String]
  - Inflicts Poison II (stacks with normal poison).
- - DoT is 1 + DEX / 5. Duration is 60 * (TP / 1000) seconds.
- - Poison DoT increased by 50% with Sneak Attack
+ - DoT is 1 + DEX / 4. Duration is 60 * (TP / 1000) seconds.
+ - Poison DoT  and duration increased by 50% with Sneak Attack
  - Refunds 35% TP spent.
 
 [Viper Bite]
  - Consumes existing Poison, Poison II, and Bio on target to deal bonus damage.
-	- Bonus Damage: (remaining ticks * DoT) * (tp / 2-00).
+	- Bonus Damage: (remaining ticks * DoT) * (tp / 200).
 		- +33% damage with Sneak Attack.
 
  - If none of the above effects exist, inflicts Poison.
-	- DoT is (1 + Dex / 5) * (TP / 1000). 
+	- DoT is (1 + Dex / 4) * (TP / 1000). 
 	- Duration is 60 seconds.
-	- +50% DoT with Sneak Attack.
+	- +50% DoT and duration with Sneak Attack.
 
 [Shadow Stitch]
  - Modifiers: 200% CHR
  - In addition to Bind, inflicts Evasion Down II (-20 Evasion, stacks with Evasion Down).
  - Duration: 8 + (TP / 1000) seconds.
- - With Trick Attack, duration is increased by 50% and Evasion penalty increased to -30.
- - Refunds 35% TP when used
+ - Refunds 45% TP when used
 
 [Energy Steal]
  - Skillchain Element: Compression
  - Refunds 25% TP
  - Drain Power: (5 + (INT / 2) + Dagger * 0.02) * (TP / 1000)
- - Power influenced by Magic Attack / Defense, Dark Attack / Defense, Day, and Weather
+ - Power influenced by MATK, MDEF, Dark ATK, Dark DEF, Drain/Aspir Potency, Day, and Weather
  - Only work on creatures that have MP, and deals damage equal to MP drained.
  - Has a chance of inflicting Magic Attack Down (-15%) on target and Magic Attack Boost (+15%) on self.
 	Duration is 30 * (TP / 1000) seconds.
+ - Sneak Attack increases drain power, chance of inflicting MATK Down, and the duration of the status effects
 
 [Energy Drain]
  - Refunds 25% TP
  - Skillchain Element: Compression
  - Drain Power (5 + (INT / 2) + Dagger * 0.02) * (TP / 1000).
- - Power influenced by Magic Attack / Defense, Dark Attack / Defense, Day, and Weather
+ - Power influenced by MATK, MDEF, Dark ATK, Dark DEF, Drain/Aspir Potency, Day, and Weather
  - Only work on creatures that have MP, and deals damage equal to (MP drained) * 2.5.
  - MP drained is instead healed as HP (amount healed = drain * 5).
+ - Sneak Attack increases drain power.
 
 [Gust Slash]
  - Int Mod increased to 80% (was 40%).
  - fTP: 1.5 (1000), 2.5 (2000), 3.5 (3000)
  - On a hit, inflicts Choke.
+ - Sneak Attack: +50% DoT, stat reduction, and duration with Choke
 
 
 [Cyclone]

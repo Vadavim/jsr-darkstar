@@ -1,12 +1,21 @@
 [Blind Bolt]
 ACC Penalty: -10 -> -20
 Duration: 30 -> 60 seconds
+Flashy Shot: -5 ACC Penalty and +30 seconds
+Trick Attack: -8 ACC Penalty and +45 seconds
 
 [Poison Bolt]
-Poison DoT: 4 -> 6 + (CHA / 3).
+Poison DoT: 4 -> 2 + Marksmanship * 0.08
+Flashy Shot: +2 Power, +30 seconds
+Trick Attack: +3 Power, +45 seconds
 
 [Paralysis Arrows]
 Duration: 30 -> 60 seconds
+
+[Sleep Bolt]
+Duration: 25 seconds
+Flashy Shot: +10 seconds
+Trick Attack: +20 seconds
 
 [Water / Earth / Wind / Fire / Ice / Lightning Arrow]
  - Magic attack bonuses adds to damage

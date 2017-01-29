@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `mob_skills` (
   PRIMARY KEY (`mob_skill_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.mob_skills: 1,491 rows
+-- Dumping data for table dspdb.mob_skills: 1,493 rows
 /*!40000 ALTER TABLE `mob_skills` DISABLE KEYS */;
 REPLACE INTO `mob_skills` (`mob_skill_id`, `mob_anim_id`, `mob_skill_name`, `mob_skill_aoe`, `mob_skill_distance`, `mob_anim_time`, `mob_prepare_time`, `mob_valid_targets`, `mob_skill_flag`, `mob_skill_param`, `knockback`) VALUES
 	(241, 241, 'Netherspikes', 4, 10.0, 2000, 0, 4, 0, 0, 0),

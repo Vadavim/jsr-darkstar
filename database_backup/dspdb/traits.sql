@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `traits` (
   `required_expansion` varchar(7) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.traits: 704 rows
+-- Dumping data for table dspdb.traits: 714 rows
 /*!40000 ALTER TABLE `traits` DISABLE KEYS */;
 REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `value`, `required_expansion`) VALUES
 	(1, 'accuracy bonus', 11, 10, 1, 25, 10, NULL),
@@ -155,8 +155,8 @@ REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `v
 	(14, 'store tp', 12, 70, 4, 73, 25, NULL),
 	(14, 'store tp', 12, 90, 5, 73, 30, 'ABYSSEA'),
 	(15, 'double attack', 1, 25, 1, 288, 10, NULL),
-	(16, 'triple attack', 6, 55, 1, 302, 5, NULL),
-	(16, 'triple attack', 6, 70, 2, 302, 8, NULL),
+	(16, 'triple attack', 6, 15, 1, 302, 2, NULL),
+	(16, 'triple attack', 6, 25, 2, 302, 3, NULL),
 	(17, 'counter', 2, 10, 1, 291, 10, NULL),
 	(17, 'counter', 2, 30, 2, 291, 12, NULL),
 	(18, 'dual wield', 6, 20, 1, 259, 10, 'ABYSSEA'),
@@ -521,8 +521,8 @@ REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `v
 	(109, 'occult acumen', 8, 30, 1, 841, 50, NULL),
 	(109, 'occult acumen', 8, 50, 2, 841, 65, NULL),
 	(109, 'occult acumen', 8, 70, 3, 841, 80, NULL),
-	(5, 'magic atk. bonus', 8, 45, 1, 28, 20, 'WOTG'),
-	(5, 'magic atk. bonus', 8, 65, 1, 28, 24, 'WOTG'),
+	(127, 'smite', 8, 35, 2, 849, 15, 'WOTG'),
+	(127, 'smite', 8, 15, 1, 849, 10, 'WOTG'),
 	(100, 'tactical parry', 22, 35, 30, 486, 40, NULL),
 	(100, 'tactical parry', 17, 40, 20, 486, 30, NULL),
 	(100, 'tactical parry', 17, 60, 30, 486, 40, NULL),
@@ -554,6 +554,7 @@ REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `v
 	(99, 'crit defense', 7, 25, 1, 166, 1, NULL),
 	(99, 'crit defense', 7, 45, 2, 166, 2, NULL),
 	(99, 'crit defense', 7, 65, 3, 166, 3, NULL),
+	(16, 'triple attack', 6, 75, 3, 302, 8, NULL),
 	(9, 'auto regen', 3, 60, 3, 370, 3, 'ABYSSEA'),
 	(9, 'auto regen', 22, 30, 3, 370, 3, 'SOA'),
 	(9, 'auto regen', 22, 40, 4, 370, 4, 'SOA'),
@@ -669,6 +670,10 @@ REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `v
 	(49, 'resist poison', 13, 20, 1, 59, 10, NULL),
 	(49, 'resist poison', 13, 75, 4, 241, 20, NULL),
 	(49, 'resist poison', 13, 60, 3, 241, 16, NULL),
+	(16, 'triple attack', 6, 65, 3, 302, 7, NULL),
+	(16, 'triple attack', 6, 55, 3, 302, 6, NULL),
+	(16, 'triple attack', 6, 45, 3, 302, 5, NULL),
+	(16, 'triple attack', 6, 35, 3, 302, 4, NULL),
 	(51, 'resist blind', 6, 25, 2, 61, 20, NULL),
 	(51, 'resist blind', 6, 15, 1, 61, 10, NULL),
 	(51, 'resist blind', 6, 65, 4, 243, 20, NULL),
@@ -728,7 +733,12 @@ REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `v
 	(116, 'cardinal chant', 21, 25, 2, 846, 2, 'ABYSSEA'),
 	(116, 'cardinal chant', 21, 45, 3, 846, 3, 'ABYSSEA'),
 	(116, 'cardinal chant', 21, 65, 4, 846, 4, 'ABYSSEA'),
-	(24, 'clear mind', 21, 20, 1, 71, 3, 'SOA');
+	(24, 'clear mind', 21, 20, 1, 71, 3, 'SOA'),
+	(15, 'double attack', 1, 40, 2, 288, 12, NULL),
+	(15, 'double attack', 1, 55, 2, 288, 14, NULL),
+	(15, 'double attack', 1, 70, 2, 288, 16, NULL),
+	(127, 'smite', 8, 55, 3, 849, 20, 'WOTG'),
+	(127, 'smite', 8, 75, 4, 849, 25, 'WOTG');
 /*!40000 ALTER TABLE `traits` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

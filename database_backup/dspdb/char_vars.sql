@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `char_vars` (
   PRIMARY KEY (`charid`,`varname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.char_vars: 90 rows
+-- Dumping data for table dspdb.char_vars: 93 rows
 /*!40000 ALTER TABLE `char_vars` DISABLE KEYS */;
 REPLACE INTO `char_vars` (`charid`, `varname`, `value`) VALUES
 	(21828, 'HpTeleportMask1b', 32),
