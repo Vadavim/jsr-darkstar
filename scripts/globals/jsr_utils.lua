@@ -1506,6 +1506,10 @@ function rewardNotorious(mob, player, isKiller)
 
     -- Rewards XP and scylds
     local xpBonus = mob:getMainLvl() * 50;
+    if (not isKiller) then
+        xpBonus = xpBonus / 2;
+    end
+
     local xpReward = {
         ["xp"] = xpBonus,
         ["scyld"] = 10
