@@ -102,8 +102,9 @@ end;
 function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 100,
-        ["guild"] = {ALCH, 50},
+        ["xp"] = 300,
+        ["gil"] = 300,
+        ["guild"] = {ALCH, 100},
         ["augment"] = {12832, 1, 4, 177, 19}, -- Bronze Subligar: HP +5, Poison Res +19
     };
     jsrReward(player, reward);

@@ -102,8 +102,8 @@ end;
 function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 250,
-        ["guild"] = {ALCH, 100},
+        ["xp"] = 600,
+        ["guild"] = {ALCH, 200},
         ["augment"] = {16565, 516, 1, 9, 7}
     };
     jsrReward(player, reward);
@@ -112,8 +112,10 @@ end
 function questReward2(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 600,
-        ["gil"] = 1200,
+        ["xp"] = 1500,
+        ["gil"] = 2500,
+        ["item"] = 5059,
+        ["item"] = 4685,
     };
     jsrreward(player, reward);
 end
@@ -121,10 +123,10 @@ end
 function questReward3(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 900,
-        ["gil"] = 2500,
+        ["xp"] = 2500,
+        ["gil"] = 3800,
         ["spark"] = 100,
-        ["augment"] = {12306, 517, 3, 9, 9}, --Kite Shield: +4 Mnd and +10 MP
+        ["augment"] = {12306, 517, 4, 9, 19}, --Kite Shield: +5 Mnd and +30 MP
     };
     jsrreward(player, reward);
 end

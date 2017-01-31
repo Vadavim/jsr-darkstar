@@ -156,9 +156,9 @@ end;
 local function starReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 1200,
-        ["xp"] = 650,
-        ["guild"] = {GOLD, 150},
+        ["gil"] = 1500,
+        ["xp"] = 1200,
+        ["guild"] = {GOLD, 250},
     };
     jsrReward(player, reward);
 end
@@ -167,10 +167,10 @@ local function blastReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 6000,
-        ["xp"] = 1500,
-        ["guild"] = {BONE, 250},
+        ["xp"] = 2000,
+        ["guild"] = {BONE, 350},
         ["scyld"] = 50,
-        ["augment"] = {17030, 1, 7, 1064, 9, 25, 5}, -- Great Club +1: +8 HP, +50% Brainshaker Damage, +6 Attack
+        ["augment"] = {17030, 1, 29, 1064, 9, 25, 5}, -- Great Club +1: +8 HP, +50% Brainshaker Damage, +6 Attack
     };
     jsrReward(player, reward);
 end
@@ -178,10 +178,34 @@ end
 local function puppetMasterReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 8000,
-        ["xp"] = 5000,
+        ["gil"] = 3000,
+        ["xp"] = 12000,
         ["scyld"] = 100,
         ["augment"] = {17532, 96, 9, 97, 9, 100, 9}, -- Kukulcan Staff: Pet: +10 Attack, Acc, M. Acc
+    };
+    jsrReward(player, reward);
+end
+
+local function classReunionRewards(player)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["gil"] = 3000,
+        ["xp"] = 16000,
+        ["scyld"] = 100,
+        ["augment"] = {14228, AUGMENT_PET_ACC, 9, AUGMENT_MP, 49, 0, 0}, -- Evoker's Spats:
+    };
+    jsrReward(player, reward);
+end
+
+local function carbuncleDebacleRewards(player)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["gil"] = 3000,
+        ["xp"] = 20000,
+        ["scyld"] = 100,
+        ["augment"] = {12520, AUGMENT_BLOOD_BOON, 5, AUGMENT_PET_INT, 3, 0, 0}, -- Evoker's Horn
     };
     jsrReward(player, reward);
 end
@@ -238,8 +262,7 @@ function onEventFinish(player,csid,option)
         player:setVar("ClassReunionProgress",3);
     elseif (csid == 0x019a) then
         if (player:getFreeSlotsCount() ~= 0) then
-            player:addItem(14228);
-            player:messageSpecial(ITEM_OBTAINED,14228);
+            classReunionRewards(player);
             player:completeQuest(WINDURST,CLASS_REUNION);
             player:setVar("ClassReunionProgress",0);
             player:setVar("ClassReunion_TalkedToFurakku",0);
@@ -257,8 +280,7 @@ function onEventFinish(player,csid,option)
         player:messageSpecial(KEYITEM_OBTAINED,DAZEBREAKER_CHARM);
     elseif (csid == 0x01a3) then
         if (player:getFreeSlotsCount() ~= 0) then
-            player:addItem(12520); -- Evoker's Horn
-            player:messageSpecial(ITEM_OBTAINED,12520);
+            carbuncleDebacleRewards(player);
             player:addTitle(PARAGON_OF_SUMMONER_EXCELLENCE);
             player:completeQuest(WINDURST,CARBUNCLE_DEBACLE);
             player:addFame(WINDURST,AF3_FAME);

@@ -54,16 +54,16 @@ end;
 local function questReward(player, firstTime)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 200,
-        ["gil"] = 950,
-        ["guild"] = {BONE, 65},
+        ["xp"] = 450,
+        ["gil"] = 1500,
+        ["guild"] = {BONE, 100},
         ["item"] = 4262 -- Purple Drop
     };
     if (firstTime == true) then
         reward = {
-            ["xp"] = 400,
-            ["gil"] = 2600,
-            ["guild"] = {BONE, 300},
+            ["xp"] = 1200,
+            ["gil"] = 3500,
+            ["guild"] = {BONE, 400},
             ["item"] = 4262 -- Purple Drop
         };
     end

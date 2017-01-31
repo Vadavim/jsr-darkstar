@@ -126,6 +126,18 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function stylistReward(player)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["xp"] = 500,
+        ["gil"] = 800,
+        ["augment"] = {12720, AUGMENT_HP, 9, AUGMENT_DEF, 1, 0, 0},
+        ["guild"] = {WEAV, 150}
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -138,8 +150,7 @@ function onEventFinish(player,csid,option)
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,12720);
         else
             player:addTitle(BRYGIDAPPROVED);
-            player:addItem(12720);
-            player:messageSpecial(ITEM_OBTAINED,12720);
+            stylistReward(player);
             player:addFame(BASTOK,30);
             player:completeQuest(BASTOK,BRYGID_THE_STYLIST);
         end

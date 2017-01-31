@@ -79,7 +79,8 @@ local function questReward(player)
     local reward = {
         ["gil"] = 1600,
         ["xp"] = 500,
-        ["guild"] = {BONE, 100},
+        ["guild"] = {BONE, 200},
+        ["item"] = 5069,
     };
     jsrReward(player, reward);
 end

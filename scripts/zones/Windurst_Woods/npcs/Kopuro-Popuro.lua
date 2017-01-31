@@ -138,8 +138,9 @@ end;
 local function allNewReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 800,
-        ["xp"] = 500,
+        ["gil"] = 1200,
+        ["xp"] = 750,
+        ["item"] = 4961,
         ["guild"] = {ALCH, 100},
     };
     jsrReward(player, reward);

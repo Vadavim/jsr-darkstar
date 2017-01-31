@@ -163,19 +163,23 @@ end;
 local function foodThoughtReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 1000,
+        ["xp"] = 1250,
         ["gil"] = 2000,
-        ["guild"] = {COOK, 200},
+        ["item"] = 4295, -- Royal Sautee
+        ["item2"] = 4279, -- Tavnazian Salad
+        ["guild"] = {COOK, 300},
     };
     jsrReward(player, reward);
 end
 
 local function ribbonReward(player)
     require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
     local reward = {
         ["xp"] = 8000,
         ["gil"] = 15000,
         ["scyld"] = 150,
+        ["augment"] = {12521, AUGMENT_MP, 19, AUGMENT_DEF, 4, AUGMENT_STAT_INT_MND_CHR, 1},
     };
     jsrReward(player, reward);
 end

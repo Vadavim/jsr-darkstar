@@ -3233,7 +3233,7 @@ namespace charutils
                     {
                         case 1:	exp *= 1.00f; break;
                         case 2: exp *= 0.80f; break;
-                        case 3: exp *= 0.60f; break;
+                        case 3: exp *= 0.75f; break;
                         case 4: exp *= 0.48f; break;
                         case 5: exp *= 0.42f; break;
                         case 6: exp *= 0.38f; break;
@@ -3305,7 +3305,7 @@ namespace charutils
                     uint32 job = PMob->GetMJob();
                     if (job == JOB_BLM || job == JOB_RDM || job == JOB_BLU || job == JOB_SMN || job == JOB_SCH)
                         exp *= 1.2;
-                    else if (job == JOB_DRK || job == JOB_WHM || job == JOB_BST)
+                    else if (job == JOB_DRK || job == JOB_WHM || job == JOB_BST || job == JOB_NIN || job == JOB_BRD)
                         exp *= 1.1;
 
                     if (PMob->m_Type == MOBTYPE_NOTORIOUS){
@@ -3327,9 +3327,9 @@ namespace charutils
                             case 1: exp *= 1.2f; break;
                             case 2: exp *= 1.25f; break;
                             case 3: exp *= 1.3f; break;
-                            case 4: exp *= 1.4f; break;
-                            case 5: exp *= 1.5f; break;
-                            default: exp *= 1.55f; break;
+                            case 4: exp *= 1.35f; break;
+                            case 5: exp *= 1.4f; break;
+                            default: exp *= 1.4f; break;
                         }
                     }
                     else
@@ -3480,7 +3480,7 @@ namespace charutils
                     // Hard monsters give bonus XP
                     if (PMob->GetMLevel() > PMember->GetMLevel()) {
                         float diff = PMob->GetMLevel() - PMember->GetMLevel();
-                        exp *= (1.1f + (diff * (1 + diff / 2.0f) / 50.0f));
+                        exp *= (1.1f + (diff * (diff / 2.0f) / 50.0f));
                     }
 
                     if (sBonus > 0) {
@@ -3497,8 +3497,8 @@ namespace charutils
                         sprintf(bonusString, "Bonus XP: +%d", sBonusXP);
                         PMember->pushPacket(new CChatMessagePacket(MESSAGE_SAY, bonusString));
                     }
-                    if (PMob->GetLocalVar("linked") == 1)
-                        exp *= 1.25f;
+//                    if (PMob->GetLocalVar("linked") == 1)
+//                        exp *= 1.25f;
 
                     if (xpBonusAreas.find(PMob->getZone()) != xpBonusAreas.end())
                         exp *= 1.30f;

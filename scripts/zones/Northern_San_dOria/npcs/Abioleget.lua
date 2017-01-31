@@ -65,7 +65,8 @@ function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["xp"] = 350,
-        ["beast"] = 1,
+        ["gil"] = 450,
+        ["beast"] = 5,
         ["augment"] = {13493, 1, 7, 768, 14}, -- Brass Ring +1: +8 HP, +15 Fire Resistance
     };
     jsrReward(player, reward);

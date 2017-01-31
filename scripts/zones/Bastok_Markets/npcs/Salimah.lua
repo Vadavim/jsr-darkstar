@@ -80,6 +80,16 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function gourmetReward(player)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["xp"] = 80,
+        ["guild"] = {COOK, 50}
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -96,19 +106,20 @@ function onEventFinish(player,csid,option)
             player:completeQuest(BASTOK,GOURMET);
         end
 
-        local gil=350;
-        local fame=120;
+        local gil=250;
+        local fame=40;
         if (csid == 201) then
-            gil=200;
+            gil=150;
         elseif (csid == 203) then
             gil=100;
-            fame=60;
+            fame=20;
         end
+
+        gourmetReward(player);
 
         player:addGil(gil*GIL_RATE);
         player:messageSpecial(GIL_OBTAINED,gil*GIL_RATE);
         player:addFame(BASTOK,fame);
         player:addTitle(MOMMYS_HELPER);
-        player:needToZone(true);
     end
 end;

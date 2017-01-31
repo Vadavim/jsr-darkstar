@@ -15,7 +15,7 @@ STAT CHANGES
 TRAIT CHANGES
  - Gains Resist Blind at levels 15, 25, 45, and 65
  - Has Dual-Wield I/II/III at levels 20 / 40 / 60
- - Gains Accuracy Bonus I and II at levels 40 and 65 respectively
+ - Gains Stealth at level 5. Improves at levels 25, 40, and 60.
  - Triple Attack starts at 2% at Level 15 and increases by 1% per 10 levels, max of 8% at level 75
  - Crit Damage Bonus (+5%) at levels 20, 40, 60, and 75
 
@@ -41,6 +41,7 @@ ABILITY CHANGES
  - Gained at level 10 instead of 45.
  - Grants 2 shadows when used (or 1 if subjob).
  - Grants a powerful regen while in effect (effect increases with healhp equipment)
+ - Using a ranged attack while hidden deals critical damage
 
 [Collaborator / Accomplice]
  - Both of ally's CE and VE are converted into VE when tranferred to thief

@@ -2637,9 +2637,9 @@ namespace battleutils
         float cRatioMin = 0;
         float ratioCap = 2.0f;
 
-        if (PAttacker->objtype == TYPE_PC)
+        if (PAttacker->objtype == TYPE_PC || PAttacker->objtype == TYPE_PET)
         {
-            ratioCap = 3.85f + dsp_cap(0.150f * (PAttacker->GetMLevel() - PDefender->GetMLevel()), 0.f, 6.f);
+            ratioCap = 2.8f; //+ dsp_cap(0.150f * (PAttacker->GetMLevel() - PDefender->GetMLevel()), 0.f, 6.f);
         }
         if (PAttacker->objtype == TYPE_MOB)
         {
@@ -2648,13 +2648,14 @@ namespace battleutils
 
         ratio = dsp_cap(ratio, 0, ratioCap);
         float cRatio = ratio;
-        if (PAttacker->objtype == TYPE_PC)
+        if (PAttacker->objtype == TYPE_PC || PAttacker->objtype == TYPE_PET)
         {
             if (PAttacker->GetMLevel() < PDefender->GetMLevel()) {
-                cRatio -= 0.040f * (PDefender->GetMLevel() - PAttacker->GetMLevel());
-            } else if (PAttacker->GetMLevel() > PDefender->GetMLevel()) {
-                cRatio += (0.020f * (PAttacker->GetMLevel() - PDefender->GetMLevel())) * ratio;
+                cRatio -= 0.050f * (PDefender->GetMLevel() - PAttacker->GetMLevel());
             }
+//            } else if (PAttacker->GetMLevel() > PDefender->GetMLevel()) {
+//                cRatio += (0.020f * (PAttacker->GetMLevel() - PDefender->GetMLevel())) * ratio;
+//            }
         }
         else
         {

@@ -67,11 +67,10 @@ local function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 4000,
-        ["xp"] = 1250,
+        ["xp"] = 1800,
         ["item"] = 4769, -- Scroll of Stone II
         ["item2"] = 4769, -- Scroll of Stone II
         ["guild"] = {SMIT, 350},
-        ["augment"] = {13330, 17, 2, 181, 4, 180, 4}, -- Tourmaline Earring: +3 HP/MP, +5 Resist Petrify and Silence
     };
     jsrReward(player, reward);
 end

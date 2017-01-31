@@ -52,6 +52,18 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function stampReward(player)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["xp"] = 1000,
+        ["gil"] = 1000,
+        ["augment"] = {13081, AUGMENT_HP, 9, AUGMENT_DEF, 1, 0, 0},
+        ["guild"] = {WEAV, 150}
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -63,8 +75,7 @@ function onEventFinish(player,csid,option)
     elseif (csid == 0x00e2) then
         if (player:getFreeSlotsCount(0) >= 1) then
             player:addTitle(STAMPEDER);
-            player:addItem(13081);
-            player:messageSpecial(ITEM_OBTAINED,13081); -- Leather Gorget
+            stampReward(player);
             player:delKeyItem(STAMP_SHEET);
             player:setVar("StampHunt_Mask",0);
             player:addFame(BASTOK,50);

@@ -148,17 +148,17 @@ end;
 local function waterReward(player, firstTime)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 300,
+        ["xp"] = 500,
         ["gil"] = 1000,
-        ["guild"] = {BONE, 300},
+        ["guild"] = {ALCH, 100},
     };
     if (firstTime == true) then
         local reward = {
-            ["xp"] = 1000,
+            ["xp"] = 1500,
             ["item"] = 4778,
             ["item2"] = 4807,
             ["gil"] = 3500,
-            ["guild"] = {BONE, 1000},
+            ["guild"] = {ALCH, 300},
         };
     end
 

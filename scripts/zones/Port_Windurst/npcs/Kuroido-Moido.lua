@@ -94,9 +94,10 @@ end;
 local function amensReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 1500,
+        ["xp"] = 4000,
         ["gil"] = 9000,
-        ["beast"] = 4,
+        ["beast"] = 5,
+        ["item"] = 3974,
     };
     jsrReward(player, reward);
 end

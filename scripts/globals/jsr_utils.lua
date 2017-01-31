@@ -394,10 +394,27 @@ function jsrReward(player, rewards)
     if (rewards["beast"] ~= nil) then
         player:addItem(1126, rewards["beast"]);
         if (rewards["beast"] == 1) then
---            player:messageSpecial(item_zone_ids[zoneID],1126, rewards["beast"]);
             player:messageSpecial(ITEM_OBTAINED,1126, rewards["beast"]);
         else
             player:SayToPlayer("Received " .. tostring(rewards["beast"]) .. " beastman seals.");
+        end
+    end
+
+    if (rewards["kindred"] ~= nil) then
+        player:addItem(1127, rewards["kindred"]);
+        if (rewards["kindred"] == 1) then
+            player:messageSpecial(ITEM_OBTAINED,1127, rewards["kindred"]);
+        else
+            player:SayToPlayer("Received " .. tostring(rewards["kindred"]) .. " kindred's seals.");
+        end
+    end
+
+    if (rewards["crest"] ~= nil) then
+        player:addItem(2955, rewards["crest"]);
+        if (rewards["crest"] == 1) then
+            player:messageSpecial(ITEM_OBTAINED,2955, rewards["crest"]);
+        else
+            player:SayToPlayer("Received " .. tostring(rewards["crest"]) .. " kindred's crests.");
         end
     end
 

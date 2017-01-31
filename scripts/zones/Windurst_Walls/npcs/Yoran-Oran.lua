@@ -30,8 +30,8 @@ end
 function fourLeafReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 225,
-        ["xp"] = 100,
+        ["gil"] = 350,
+        ["xp"] = 200,
         ["guild"] = {WOOD, 40},
     };
     jsrReward(player, reward);
@@ -41,7 +41,7 @@ function sulfurReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 900,
-        ["xp"] = 350,
+        ["xp"] = 500,
         ["guild"] = {WOOD, 120},
     };
     jsrReward(player, reward);
@@ -50,9 +50,10 @@ end
 function threeLeafReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 3000,
-        ["xp"] = 650,
-        ["guild"] = {WOOD, 220},
+        ["gil"] = 3500,
+        ["xp"] = 900,
+        ["kindred"] = 10,
+        ["guild"] = {WOOD, 300},
     };
     jsrReward(player, reward);
 end
@@ -60,8 +61,9 @@ end
 function snobbyReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 9000,
-        ["xp"] = 1500,
+        ["gil"] = 7500,
+        ["xp"] = 2000,
+        ["crest"] = 10,
         ["guild"] = {WOOD, 650},
     };
     jsrReward(player, reward);

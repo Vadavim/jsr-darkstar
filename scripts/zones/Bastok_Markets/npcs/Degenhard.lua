@@ -62,6 +62,16 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+local function bareBonesReward(player)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["xp"] = 350,
+        ["gil"] = 800,
+        ["guild"] = {BONE, 150},
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -73,6 +83,7 @@ function onEventFinish(player,csid,option)
         player:addQuest(BASTOK,THE_BARE_BONES);
     elseif (csid == 0x0102) then
         player:addKeyItem(0x188);
+        bareBonesReward(player);
         player:messageSpecial(KEYITEM_OBTAINED,0x188);
         player:addFame(BASTOK,60);
     end

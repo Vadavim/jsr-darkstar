@@ -65,6 +65,25 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function flashReward(player, isFirst)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["xp"] = 100,
+        ["gil"] = 250,
+        ["guild"] = {SMIT, 50},
+    };
+    if (isFirst == true) then
+        reward = {
+            ["xp"] = 500,
+            ["gil"] = 800,
+            ["guild"] = {SMIT, 150},
+    };
+    end
+
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -78,15 +97,15 @@ function onEventFinish(player,csid,option)
         if (FlashInThePan == QUEST_ACCEPTED) then
             player:completeQuest(BASTOK, A_FLASH_IN_THE_PAN);
             player:addFame(BASTOK,75);
+            flashReward(player, true);
         else
             player:addFame(BASTOK,8);
+            flashReward(player, false);
         end
         
         player:tradeComplete();
         player:setVar("FlashInThePan",CompleteTime + 900);
-        player:addGil(GIL_RATE*100);
-        player:messageSpecial(GIL_OBTAINED,GIL_RATE*100);
-    end        
+    end
     
 end;
 

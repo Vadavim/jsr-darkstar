@@ -92,7 +92,7 @@ function questReward(player)
     local reward = {
         ["xp"] = 200,
         ["gil"] = 800,
-        ["augment"] = {16667, 48, 9}
+        ["augment"] = {16667, 48, 24}
     };
     jsrReward(player, reward);
 end

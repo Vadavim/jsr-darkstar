@@ -116,15 +116,15 @@ end;
 local function seamstressReward(player, firstTime)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 250,
-        ["guild"] = {LEAT, 50},
+        ["gil"] = 350,
+        ["guild"] = {LEAT, 80},
         ["augment"] = {12696, 1, 4, 771, 4, 769, 4}, -- Leather Gloves (+5 HP, +5 Earth and Ice Res)
     };
 
     if (firstTime == true) then
         reward = {
-            ["gil"] = 800,
-            ["guild"] = {LEAT, 200},
+            ["gil"] = 950,
+            ["guild"] = {LEAT, 300},
             ["augment"] = {12696, 1, 4, 771, 4, 769, 4}, -- Leather Gloves (+5 HP, +5 Earth and Ice Res)
         };
     end
@@ -134,17 +134,18 @@ end
 
 local function lizardReward(player, firstTime)
     require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
     local reward = {
-        ["gil"] = 350,
-        ["guild"] = {LEAT, 65},
-        ["augment"] = {12697, 1, 5, 771, 8, 769, 8}, -- Lizard Gloves (+6 HP, +15 Earth and Ice Res)
+        ["gil"] = 450,
+        ["guild"] = {LEAT, 80},
+        ["augment"] = {12697, 1, 5, 771, 8, 769, 8, AUGMENT_DEF, 1}, -- Lizard Gloves (+6 HP, +15 Earth and Ice Res)
     };
 
     if (firstTime == true) then
         reward = {
-            ["gil"] = 1200,
-            ["guild"] = {LEAT, 250},
-            ["augment"] = {12697, 1, 5, 771, 8, 769, 8}, -- Lizard Gloves (+6 HP, +15 Earth and Ice Res)
+            ["gil"] = 1500,
+            ["guild"] = {LEAT, 300},
+            ["augment"] = {12697, 1, 5, 771, 8, 769, 8, AUGMENT_DEF, 1}, -- Lizard Gloves (+6 HP, +15 Earth and Ice Res)
         };
     end
 
@@ -154,8 +155,8 @@ end
 function tigerReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 3500,
-        ["xp"] = 1200,
+        ["gil"] = 4500,
+        ["xp"] = 1500,
         ["guild"] = {LEAT, 850},
     };
     jsrReward(player, reward);

@@ -78,8 +78,8 @@ end;
 local function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 2000,
-        ["xp"] = 3000,
+        ["gil"] = 4000,
+        ["xp"] = 6000,
         ["guild"] = {WOOD, 400},
         ["augment"] = {17349, 23, 4, 31, 4}, -- Faerie Piccolo: +5 Accuracy and Evasion
     };

@@ -78,7 +78,7 @@ local function glyphReward(player)
     local reward = {
         ["gil"] = 1000,
         ["xp"] = 500,
-        ["beast"] = 2,
+        ["beast"] = 5,
     };
     jsrReward(player, reward);
 end
@@ -87,8 +87,10 @@ local function smudgeReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 10000,
-        ["xp"] = 2500,
-        ["beast"] = 2,
+        ["xp"] = 5000,
+        ["item"] = 3975, --Airlixir
+        ["item2"] = 4788, --Blizzaga II
+        ["kindred"] = 5,
     };
     jsrReward(player, reward);
 end

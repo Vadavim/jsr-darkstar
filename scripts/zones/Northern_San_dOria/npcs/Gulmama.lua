@@ -77,9 +77,9 @@ end;
 function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 3000,
-        ["scyld"] = 35,
-        ["spark"] = 10,
+        ["xp"] = 5000,
+        ["scyld"] = 20,
+        ["spark"] = 15,
     };
     jsrReward(player, reward);
 end

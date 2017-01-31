@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `traits` (
   `required_expansion` varchar(7) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.traits: 714 rows
+-- Dumping data for table dspdb.traits: 719 rows
 /*!40000 ALTER TABLE `traits` DISABLE KEYS */;
 REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `value`, `required_expansion`) VALUES
 	(1, 'accuracy bonus', 11, 10, 1, 25, 10, NULL),
@@ -738,7 +738,12 @@ REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `v
 	(15, 'double attack', 1, 55, 2, 288, 14, NULL),
 	(15, 'double attack', 1, 70, 2, 288, 16, NULL),
 	(127, 'smite', 8, 55, 3, 849, 20, 'WOTG'),
-	(127, 'smite', 8, 75, 4, 849, 25, 'WOTG');
+	(127, 'smite', 8, 75, 4, 849, 25, 'WOTG'),
+	(22, 'stealth', 13, 45, 2, 358, 5, NULL),
+	(22, 'stealth', 6, 5, 1, 358, 3, NULL),
+	(22, 'stealth', 6, 25, 2, 358, 5, NULL),
+	(22, 'stealth', 6, 40, 3, 358, 7, NULL),
+	(22, 'stealth', 6, 60, 4, 358, 9, NULL);
 /*!40000 ALTER TABLE `traits` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

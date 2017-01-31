@@ -1204,6 +1204,16 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
 //    totalDamage += damage * (1.5f + ((double)this->GetMLevel()) / 40.0f);
 
     // loop for barrage hits, if a miss occurs, the loop will end
+    bool hasSneak = this->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK);
+    if (hasSneak)
+        this->StatusEffectContainer->DelStatusEffect(EFFECT_SNEAK_ATTACK);
+
+    if (this->StatusEffectContainer->HasStatusEffect(EFFECT_HIDE)) {
+        hasSneak = true;
+        this->StatusEffectContainer->DelStatusEffect(EFFECT_HIDE);
+    }
+
+
     for (uint8 i = 1; i <= hitCount; ++i)
     {
         if (PTarget->StatusEffectContainer->HasStatusEffect(EFFECT_PERFECT_DODGE, 0))
@@ -1213,7 +1223,7 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
             actionTarget.speceffect = SPECEFFECT_NONE;
             hitCount = i; // end barrage, shot missed
         }
-        else if (dsprand::GetRandomNumber(100) < battleutils::GetRangedHitRate(this, PTarget, isBarrage)) // hit!
+        else if (hasSneak || dsprand::GetRandomNumber(100) < battleutils::GetRangedHitRate(this, PTarget, isBarrage)) // hit!
         {
             // absorbed by shadow
             if (battleutils::IsAbsorbByShadow(PTarget))
@@ -1225,7 +1235,8 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
                 float pdif = battleutils::GetRangedPDIF(this, PTarget);
                 bool isCrit = false;
 
-                if (dsprand::GetRandomNumber(100) < battleutils::GetCritHitRate(this, PTarget, true))
+
+                if (hasSneak || dsprand::GetRandomNumber(100) < battleutils::GetCritHitRate(this, PTarget, true))
                 {
                     pdif *= 1.25; //uncapped
                     int16 criticaldamage = getMod(MOD_CRIT_DMG_INCREASE);
@@ -1234,6 +1245,7 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
                     pdif *= ((100 + getMod(MOD_RANGED_CRIT_DAMAGE)) / 100.0f);
                     actionTarget.speceffect = SPECEFFECT_CRITICAL_HIT;
                     actionTarget.messageID = 353;
+                    hasSneak = false;
                     isCrit = true;
                 }
 
@@ -1439,6 +1451,9 @@ void CCharEntity::OnRangedAttackEx(CBattleEntity* PTarget, action_t& action)
             hitCount += 2;
     }
 
+    bool hasSneak = this->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK);
+    if (hasSneak)
+        this->StatusEffectContainer->DelStatusEffect(EFFECT_SNEAK_ATTACK);
     // loop for barrage hits, if a miss occurs, the loop will end
     for (uint8 i = 1; i <= hitCount; ++i)
     {
@@ -1449,7 +1464,7 @@ void CCharEntity::OnRangedAttackEx(CBattleEntity* PTarget, action_t& action)
             actionTarget.speceffect = SPECEFFECT_NONE;
             hitCount = i; // end barrage, shot missed
         }
-        else if (dsprand::GetRandomNumber(100) < battleutils::GetRangedHitRate(this, PTarget, false)) // hit!
+        else if (hasSneak || dsprand::GetRandomNumber(100) < battleutils::GetRangedHitRate(this, PTarget, false)) // hit!
         {
             // absorbed by shadow
             if (battleutils::IsAbsorbByShadow(PTarget))
@@ -1460,7 +1475,6 @@ void CCharEntity::OnRangedAttackEx(CBattleEntity* PTarget, action_t& action)
             {
                 float pdif = battleutils::GetRangedPDIF(this, PTarget);
                 bool isCrit = false;
-                bool hasSneak = this->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK);
 
                 if (hasSneak || dsprand::GetRandomNumber(100) < battleutils::GetCritHitRate(this, PTarget, true))
                 {
@@ -1471,8 +1485,7 @@ void CCharEntity::OnRangedAttackEx(CBattleEntity* PTarget, action_t& action)
                     actionTarget.speceffect = SPECEFFECT_CRITICAL_HIT;
                     actionTarget.messageID = 353;
                     isCrit = true;
-                    if (hasSneak)
-                        this->StatusEffectContainer->DelStatusEffect(EFFECT_SNEAK_ATTACK);
+                    hasSneak = false;
                 }
 
                 // at least 1 hit occured

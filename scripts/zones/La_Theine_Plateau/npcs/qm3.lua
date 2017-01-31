@@ -49,8 +49,9 @@ end;
 local function rainbowReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 3500,
-        ["gil"] = 2500,
+        ["xp"] = 4500,
+        ["gil"] = 3000,
+        ["guild"] = {ALCH, 650},
         ["augment"] = {17127, 12, 4, 8, 4, 9, 4}, -- Oak Staff +1: Pet: +5 Int, Str, and Dex
     };
     jsrReward(player, reward);

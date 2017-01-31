@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `accounts_sessions` (
   UNIQUE KEY `accid` (`accid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.accounts_sessions: ~1 rows (approximately)
+-- Dumping data for table dspdb.accounts_sessions: ~0 rows (approximately)
 /*!40000 ALTER TABLE `accounts_sessions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `accounts_sessions` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

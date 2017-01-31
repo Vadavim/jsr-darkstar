@@ -111,9 +111,9 @@ end;
 local function amendsReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 500,
+        ["xp"] = 1000,
         ["gil"] = 2000,
-        ["beast"] = 2,
+        ["beast"] = 5,
     };
     jsrReward(player, reward);
 end

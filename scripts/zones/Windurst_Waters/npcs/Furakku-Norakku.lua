@@ -79,8 +79,8 @@ local function earlyBirdReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 2000,
-        ["xp"] = 800,
-        ["beast"] = 2,
+        ["xp"] = 1250,
+        ["beast"] = 5,
     };
     jsrReward(player, reward);
 end
@@ -90,7 +90,7 @@ local function chasingReward(player)
     local reward = {
         ["gil"] = 4500,
         ["xp"] = 1250,
-        ["beast"] = 2,
+        ["beast"] = 5,
     };
     jsrReward(player, reward);
 end

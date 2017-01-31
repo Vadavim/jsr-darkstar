@@ -16,6 +16,38 @@ require("scripts/zones/Heavens_Tower/TextIDs");
 -- onTrade Action
 -----------------------------------
 
+local function threeMagiReward(player)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["xp"] = 8000,
+        ["gil"] = 2000,
+        ["augment"] = {17423, AUGMENT_SPELLINTERRUPT, 9, AUGMENT_CONSERVEMP, 9, AUGMENT_ENMITYNEG, 2},
+    };
+    jsrReward(player, reward);
+end
+
+local function recollectionsReward(player)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["xp"] = 12000,
+        ["gil"] = 4000,
+        ["augment"] = {14092, AUGMENT_STAT_INT, 1, AUGMENT_ACC, 15, AUGMENT_ATK, 19},
+    };
+    jsrReward(player, reward);
+end
+
+local function rootReward(player)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["xp"] = 20000,
+        ["gil"] = 8000,
+    };
+    jsrReward(player, reward);
+end
+
 function onTrade(player,npc,trade)
 
     if (player:getQuestStatus(WINDURST,THE_THREE_MAGI) == QUEST_ACCEPTED) then
@@ -109,8 +141,7 @@ function onEventFinish(player,csid,option)
             end
 
             player:tradeComplete();
-            player:addItem(17423);
-            player:messageSpecial(ITEM_OBTAINED, 17423); -- Casting Wand
+            threeMagiReward(player);
             player:needToZone(true);
             player:setVar("theThreeMagiSupport",0);
             player:addFame(WINDURST,AF1_FAME);
@@ -127,8 +158,7 @@ function onEventFinish(player,csid,option)
         else
             player:setVar("recollectionsQuest",0);
             player:delKeyItem(FOE_FINDER_MK_I);
-            player:addItem(14092);
-            player:messageSpecial(ITEM_OBTAINED,14092); -- wizards sabots
+            recollectionsReward(player);
             player:addFame(WINDURST,AF2_FAME);
             player:completeQuest(WINDURST,RECOLLECTIONS);
         end
@@ -144,6 +174,7 @@ function onEventFinish(player,csid,option)
         else
             player:completeQuest(WINDURST,THE_ROOT_OF_THE_PROBLEM);
             player:addItem(13856);
+            rootReward(player);
             player:messageSpecial(ITEM_OBTAINED,13856);
             player:addTitle(PARAGON_OF_BLACK_MAGE_EXCELLENCE);
             player:delKeyItem(SLUICE_SURVEYOR_MK_I);

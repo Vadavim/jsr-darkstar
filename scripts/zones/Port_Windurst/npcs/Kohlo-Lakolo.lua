@@ -209,8 +209,8 @@ end;
 local function truthJusticeReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 200,
-        ["gil"] = 500,
+        ["xp"] = 500,
+        ["gil"] = 800,
     };
     jsrReward(player, reward);
 end
@@ -218,7 +218,7 @@ end
 local function knowOnionsReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 800,
+        ["xp"] = 1250,
         ["gil"] = 2000,
     };
     jsrReward(player, reward);
@@ -227,8 +227,8 @@ end
 local function inspectorReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 1200,
-        ["gil"] = 3000,
+        ["xp"] = 1250,
+        ["gil"] = 2000,
         ["augment"] = {13204, 1, 9},
     };
     jsrReward(player, reward);
@@ -237,7 +237,7 @@ end
 local function onionRingsReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 2000,
+        ["xp"] = 3500,
         ["gil"] = 6000,
         ["augment"] = {17029, 1, 9, 1064, 9}, -- Augmented Bouncer Club
     };
@@ -246,9 +246,11 @@ end
 
 local function promiseReward(player)
     require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
     local reward = {
-        ["xp"] = 5000,
+        ["xp"] = 7500,
         ["gil"] = 12000,
+        ["augment"] = {13135, AUGMENT_LIGHTRES, 19, AUGMENT_REGEN, 1}, -- Augmented Promise Badge
     };
     jsrReward(player, reward);
 end

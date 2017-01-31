@@ -53,6 +53,17 @@ end;
 -----------------------------------
 -- onEventFinish
 -----------------------------------
+local function marksSpotReward(player)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["xp"] = 1000,
+        ["gil"] = 1000,
+        ["augment"] = {12601, AUGMENT_HP, 14, AUGMENT_DEF, 3, 0, 0},
+        ["guild"] = {WEAV, 150}
+    };
+    jsrReward(player, reward);
+end
 
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
@@ -71,8 +82,7 @@ function onEventFinish(player,csid,option)
             player:delKeyItem(PAINTING_OF_A_WINDMILL);
             player:addTitle(TREASURE_SCAVENGER);
             player:addFame(BASTOK,50);
-            player:addItem(12601);
-            player:messageSpecial(ITEM_OBTAINED,12601); -- Linen Robe
+            marksSpotReward(player);
         else
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,12601);
         end
