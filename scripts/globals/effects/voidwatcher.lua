@@ -97,7 +97,7 @@ function onEffectTick(target,effect)
     local nearbyMobs = target:getTargetsWithinArea(9.5, 16);
     for i,member in ipairs(nearbyMobs) do
         if (poison > 0) then
-            member:addStatusEffect(EFFECT_POISON_II, (1 + skill * 0.1) * mult * (1 + (poison - 1) / 100), 0, 6);
+            member:addStatusEffect(EFFECT_POISON_II, (3 + skill * 0.1) * mult * (1 + (poison - 1) / 100), 0, 6);
         end;
 
         if (paralysis > 0) then

@@ -2705,6 +2705,8 @@ namespace charutils
                         default: chance = 0.000; break;
                     }
                     if (SkillID == SKILL_SUM || SkillID == SKILL_GEO || SkillID == SKILL_MRK || SkillID == SKILL_PAR || SkillID == SKILL_ARC || SkillID == SKILL_GRD || SkillID == SKILL_SHL || SkillID == SKILL_THR) chance *= 2;
+                    if (SkillID == SKILL_GEO && chance > 0)
+                        SkillAmount = 9;
 
                     if (chance < random || SkillAmount >= 8) break;
 
