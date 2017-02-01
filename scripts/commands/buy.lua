@@ -938,6 +938,36 @@ local function white7(player, points)
     return stock;
 end
 
+local function geo(player, points)
+    local stock = {
+        6074,   250,   --Indi Poison
+        6088,   500,   --Indi Voidance
+        6087,   750,   --Indi Precision
+        6073,   1000,   --Indi Regen
+        6090,   1250,   --Indi Attunement
+        6089,   1500,   --Indi Focus
+        6084,   1750,   --Indi Barrier
+        6075,   2000,   --Indi Refresh
+        6082,   2250,   --Indi Chr
+        6081,   2500,   --Indi Mnd
+        6083,   2750,   --Indi Fury
+        6080,   3000,   --Indi Int
+        6079,   3000,   --Indi Agi
+        6086,   3250,   --Indi Fend
+        6078,   3250,   --Indi Vit
+        6077,   3250,   --Indi Dex
+        6085,   3500,   --Indi Acumen
+        6076,   3750,   --Indi Str
+        6099,   4000,   --Indi Slow
+        6096,   4250,   --Indi Torpor
+        6095,   4500,   --Indi Slip
+        6098,   4750,   --Indi Languor
+        6100,   5000,   --Indi Paralysis
+        6097,   5250,   --Indi Vex
+    };
+    return stock;
+end
+
 local function misc(player, points)
     local stock = {
         19010,  2500,   --Brass Grip +1

@@ -35,10 +35,15 @@ function onUseAbility(player,target,ability)
         end
 
         if (bSubPower >= 350) then
-            local effect = target:dispelStatusEffect();
-            if (effect ~= EFFECT_NONE) then
-                target:setPendingMessage(427, effect);
+            local dMND = (player:getStat(MOD_MND) - target:getStat(MOD_MND));
+            local resist = applyResistanceAbility(player,target,ELE_LIGHT,0, dMND);
+            if (resist >= 0.25) then
+                local effect = target:dispelStatusEffect();
+                if (effect ~= EFFECT_NONE) then
+                    target:setPendingMessage(427, effect);
+                end
             end
+
 
 
         end
@@ -51,7 +56,7 @@ function onUseAbility(player,target,ability)
 
     end
     
-    local dmg = math.floor(player:getStat(MOD_MND)*(2.5+(math.random()/2)))  + bonus;
+    local dmg = math.floor(player:getStat(MOD_MND)*(3.8+(math.random())))  + bonus;
     local mATK = 1 + player:getMod(MOD_MATT) / 100;
     local mDEF = 1 + target:getMod(MOD_MDEF) / 100;
     local tATK = 1 + player:getMod(MOD_LIGHTATT) / 100;

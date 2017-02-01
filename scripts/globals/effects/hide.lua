@@ -3,12 +3,14 @@
 --     EFFECT_NONE
 --     
 -----------------------------------
+require("scripts/globals/status");
 
 -----------------------------------
 -- onEffectGain Action
 -----------------------------------
 
 function onEffectGain(target,effect)
+    target:addMod(MOD_MOVE, 30);
 end;
 
 -----------------------------------
@@ -23,4 +25,5 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
+    target:delMod(MOD_MOVE, 30);
 end;
