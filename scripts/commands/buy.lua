@@ -3287,7 +3287,7 @@ local funcs = {
     ["accuracyFood"] = accuracyFood, ["accuracyFoodEx"] = accuracyFoodEx, ["attackFood"] = attackFood, ["attackFoodEx"] = attackFoodEx, ["magicFood"] = magicFood, ["magicFoodEx"] = magicFoodEx, ["miscFood"] = miscFood, ["miscFoodEx"] = miscFoodEx, ["hybridFood"] = hybridFood, ["hybridFoodEx"] = hybridFoodEx, ["defenseFood"] = defenseFood, ["defenseFoodEx"] = defenseFoodEx,
     ["dice1"] = dice1, ["dice2"] = dice2,
     ["sch1"] = sch1, ["sch2"] = sch2,
-    ["geo1"] = sch1, ["geo2"] = sch2,
+    ["geo1"] = geo, ["geo2"] = geo2,
     ["smn1"] = smn1,
     ["red1"] = red1, ["red2"] = red2, ["dark1"] = dark1,
     ["nin1"] = nin1, ["nin2"] = nin2, ["tools"] = tools,
