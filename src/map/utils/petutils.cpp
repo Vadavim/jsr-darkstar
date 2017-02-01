@@ -287,7 +287,8 @@ namespace petutils
     uint16 GetJugWeaponDamage(CPetEntity* PPet)
     {
         float MainLevel = PPet->GetMLevel();
-        return (uint16)(MainLevel * (MainLevel < 40 ? 1.4 - MainLevel / 100 : 1));
+        uint16 damage = (uint16)(MainLevel * (MainLevel < 40 ? 1.4 - MainLevel / 100 : 1));
+        return PPet->getPetType() == PETTYPE_ALLY ? uint16(damage * 0.7) : damage;
     }
     uint16 GetJugBase(CPetEntity * PMob, uint8 rank)
     {

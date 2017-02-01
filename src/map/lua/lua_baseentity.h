@@ -650,6 +650,7 @@ public:
     int32 setLevelRange(lua_State* L);
     int32 getDamageRatio(lua_State* L);
     int32 resetMusic(lua_State* L);
+    int32 hasHate(lua_State* L);
 };
 
 #endif

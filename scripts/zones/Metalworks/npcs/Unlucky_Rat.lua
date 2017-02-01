@@ -67,6 +67,17 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function meanReward(player)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["xp"] = 600,
+        ["gil"] = 1200,
+        ["guild"] = {ALCH, 150},
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -78,6 +89,7 @@ function onEventFinish(player,csid,option)
         player:addFame(BASTOK,120);
         player:tradeComplete();
         player:addItem(4869);
+        meanReward(player);
         player:messageSpecial(ITEM_OBTAINED,4869);
     end
 

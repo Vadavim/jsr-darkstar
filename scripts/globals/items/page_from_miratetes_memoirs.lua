@@ -13,11 +13,7 @@ require("scripts/globals/status");
 -----------------------------------------
 
 function onItemCheck(target)
-    local check = 56;
-    if (target:getMainLvl() >= 20) then
-        check = 0;
-    end
-    return check;
+    return 0;
 end;
 
 -----------------------------------------

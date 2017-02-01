@@ -18,6 +18,10 @@ function onMagicCastingCheck(caster,target,spell)
         return MSGBASIC_EFFECT_ALREADY_ACTIVE;
 	end
 
+	if (caster:hasHate()) then
+		return MSGBASIC_UNABLE_TO_CAST;
+	end
+
 	if (caster:hasStatusEffect(EFFECT_CONFRONTATION)) then
 		return MSGBASIC_UNABLE_TO_CAST;
 	end

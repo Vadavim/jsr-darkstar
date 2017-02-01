@@ -52,6 +52,17 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function foremanReward(player)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["xp"] = 600,
+        ["gil"] = 800,
+        ["guild"] = {SMIT, 150},
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -64,6 +75,7 @@ function onEventFinish(player,csid,option)
             player:messageSpecial(KEYITEM_OBTAINED,MAP_OF_THE_GUSGEN_MINES);
         end
         player:addFame(BASTOK,60);
+        foremanReward(player);
         player:completeQuest(BASTOK,A_FOREMAN_S_BEST_FRIEND);
     end
     

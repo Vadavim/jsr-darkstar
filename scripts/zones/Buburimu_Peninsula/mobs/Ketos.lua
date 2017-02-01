@@ -11,7 +11,7 @@ require("scripts/globals/jsr_mob");
 function onMobSpawn(mob)
     setSpecialMobStats(mob, 400);
     mob:setMod(MOD_MP, 500);
-    mob:setMod(MOD_HP, 1200);
+    mob:setMod(MOD_HP, 600);
     mob:updateHealth();
     mob:addMP(500);
 end

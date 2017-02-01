@@ -114,14 +114,14 @@ uint16 GetEvasion(CMobEntity* PMob)
         case JOB_BRD:
         case JOB_GEO:
         case JOB_COR:
-            evaRank = 4;
+            evaRank = 3;
         break;
         case JOB_WHM:
         case JOB_SCH:
         case JOB_RNG:
         case JOB_SMN:
         case JOB_BLM:
-            evaRank = 5;
+            evaRank = 4;
         break;
     }
 
@@ -141,11 +141,11 @@ uint16 GetBaseToRank(uint8 rank, uint16 lvl)
 	{
 		case 1: return (5+((lvl-1)*50)/100); // A
 		case 2: return (4+((lvl-1)*45)/100); // B
-		case 3: return (4+((lvl-1)*40)/100); // C
-		case 4: return (3+((lvl-1)*35)/100); // D
-		case 5: return (3+((lvl-1)*30)/100); // E
-		case 6: return (2+((lvl-1)*25)/100); // F
-		case 7: return (2+((lvl-1)*20)/100); // G
+		case 3: return (4+((lvl-1)*42)/100); // C
+		case 4: return (3+((lvl-1)*39)/100); // D
+		case 5: return (3+((lvl-1)*36)/100); // E
+		case 6: return (2+((lvl-1)*33)/100); // F
+		case 7: return (2+((lvl-1)*30)/100); // G
 	}
 	return 0;
 }
@@ -228,9 +228,9 @@ void CalculateStats(CMobEntity * PMob)
             hpScale = (float)PMob->getMobMod(MOBMOD_HP_SCALE) / 100.0f;
         }
 
-        float growth = 1.06;
+        float growth = 1.1;
         float petGrowth = 0.75;
-        float base = 18.0;
+        float base = 22.0;
 
         //give hp boost every 10 levels after 25
         //special boosts at 25 and 50
@@ -276,7 +276,7 @@ void CalculateStats(CMobEntity * PMob)
         }
         else if(mLvl > 25)
         {
-            growth = 1.1;
+            growth = 1.12;
             petGrowth = 0.82;
         }
 
@@ -292,9 +292,9 @@ void CalculateStats(CMobEntity * PMob)
         if(isNM)
         {
             PMob->health.maxhp *= 2.0;
-//            if(mLvl > 75){
-//                PMob->health.maxhp *= 2.5;
-//            }
+            if(mLvl > 78){
+                PMob->health.maxhp *= 2.5;
+            }
         }
 
     }
@@ -414,7 +414,7 @@ void CalculateStats(CMobEntity * PMob)
     uint16 sMND = GetBaseToRank(grade::GetJobGrade(PMob->GetSJob(),7), PMob->GetSLevel());
     uint16 sCHR = GetBaseToRank(grade::GetJobGrade(PMob->GetSJob(),8), PMob->GetSLevel());
 
-    if(PMob->GetSLevel() > 15)
+    if(PMob->GetSLevel() >= 10)
     {
         sSTR /= 2;
         sDEX /= 2;

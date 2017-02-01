@@ -1460,6 +1460,7 @@ end
 function rewardNotorious(mob, player, isKiller)
     player:resetMusic();
 --    if (true) then return true end;
+    if (player:getLocalVar("isTest") == 1) then return false; end;
 
     if (player:getLocalVar("notoSpawner") == 1) then
         player:setLocalVar("notoSpawner", 0);
@@ -1505,7 +1506,7 @@ function rewardNotorious(mob, player, isKiller)
     end
 
     -- Rewards XP and scylds
-    local xpBonus = mob:getMainLvl() * 50;
+    local xpBonus = mob:getMainLvl() * 30;
     if (not isKiller) then
         xpBonus = xpBonus / 2;
     end

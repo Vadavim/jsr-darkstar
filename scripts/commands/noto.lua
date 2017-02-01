@@ -32,7 +32,7 @@ local notoMonsters = {
     [ZONE_HORUTOTO_OUTER] = {17571903, 17572204,  25, 31}, -- Au Puch, Custom Cardian
     [ZONE_SHAKHRAMI] = {17588469, 17588589,  20, 26}, -- Gloombound Lurker, Lesath
     [ZONE_CARPENTERS] = {16785655, 16785648,  20, 26}, -- Wendigo, Wight
-    [ZONE_BUBURIMU] = {17261085, 17261034, 17261047,  20, 26}, -- Goblin Bountyhunter, Goblin Guide, Ketos
+    [ZONE_BUBURIMU] = {17261085, 17261047,  20, 26}, -- Goblin Bountyhunter, Goblin Guide, Ketos
     [ZONE_VALKURM] = {17199611,  20, 26}, -- Blue Bascinet
 
 }
@@ -64,9 +64,10 @@ local function spawnNotoMob(player)
     player:ChangeMusic(2, 343);
     player:ChangeMusic(3, 343);
 
-    local party = player:getParty(false);
+    local party = player:getParty(true);
     if (party ~= nil) then
         for i,member in ipairs(party) do
+            member:setTP(500);
             if (member:isPC()) then
                 member:ChangeMusic(0, 343);
                 member:ChangeMusic(1, 343);

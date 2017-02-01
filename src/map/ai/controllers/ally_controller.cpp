@@ -192,7 +192,7 @@ bool CAllyController::roamCherukiki(uint16 lvl) {
 bool CAllyController::roamCurilla(uint16 lvl){
     if (doProtectShell(lvl, false, true))
         return true;
-    if (doCureRegen(lvl, JOB_PLD, 50, false, false))
+    if (doCureRegen(lvl, JOB_PLD, 70, false, false))
         return true;
     return false;
 }
@@ -238,7 +238,7 @@ bool CAllyController::combatCurilla(uint16 lvl) {
     int sBanish = lvl < 30 ? 28 : lvl < 65 ? 29 :  30;
     int sFlash = lvl < 45 ? 0 : 112;
 
-    if (doCureRegen(lvl, JOB_PLD, 50, false, false))
+    if (doCureRegen(lvl, JOB_PLD, 75, false, false))
         return true;
 
     if (PAlly->StatusEffectContainer->HasStatusEffect(EFFECT_DIVINE_EMBLEM) && isReady(m_divine1, 60) && canCast(sBanish))
@@ -259,7 +259,7 @@ bool CAllyController::combatCherukiki(uint16 lvl) {
     int sFlash = lvl < 45 ? 0 : 112;
     int sHaste = lvl < 40 ? 0 : 57;
 
-    if (doCureRegen(lvl, JOB_WHM, 50, true, true)) {
+    if (doCureRegen(lvl, JOB_WHM, 62, true, true)) {
         if (lastTarget != nullptr && lastTarget->GetHPP() <= 35 && isReady(m_ability1, 300))
             useJobAbility(PAlly, ABILITY_DIVINE_SEAL, m_ability1);
         return true;
@@ -310,11 +310,11 @@ bool CAllyController::doCureRegen(uint16 lvl, JOBTYPE job, int threshold, bool h
     int sCure = 0;
     int sRegen = 0;
     if (job == JOB_RDM) {
-        cureDelay = 20;
+        cureDelay = 15;
         sCure = lvl < 3 ? 0 : lvl < 14 ? 1 : lvl < 26 ? 2 : lvl < 48 ? 3 : 4;
         sRegen = lvl < 21 ? 0 : 108;
     } else if (job == JOB_PLD) {
-        cureDelay = 30;
+        cureDelay = 15;
         sCure = lvl < 5 ? 0 : lvl < 17 ? 1 : lvl < 30 ? 2 : lvl < 55 ? 3 : 4;
     } else if (job == JOB_SCH) {
         cureDelay = 15;

@@ -3198,6 +3198,7 @@ namespace charutils
             }
         });
 
+
         PChar->ForAlliance([&PMob, &region, &minlevel, &maxlevel, &pcinzone](CBattleEntity* PPartyMember) {
             auto PMember = static_cast<CCharEntity*>(PPartyMember);
             uint32 baseexp = 0, exp = 0, dedication = 0;
@@ -3232,11 +3233,11 @@ namespace charutils
                     switch (pcinzone)
                     {
                         case 1:	exp *= 1.00f; break;
-                        case 2: exp *= 0.80f; break;
-                        case 3: exp *= 0.75f; break;
-                        case 4: exp *= 0.48f; break;
-                        case 5: exp *= 0.42f; break;
-                        case 6: exp *= 0.38f; break;
+                        case 2: exp *= 0.75f; break;
+                        case 3: exp *= 0.55f; break;
+                        case 4: exp *= 0.45f; break;
+                        case 5: exp *= 0.39f; break;
+                        case 6: exp *= 0.35f; break;
                         default: exp *= (1.8f / pcinzone); break;
                     }
 
@@ -3287,26 +3288,27 @@ namespace charutils
                         exp *= monsterbonus;
                     }
 
-                    permonstercap = ((PMember->PParty != nullptr && pcinzone > 1) ? 1.5f : 1.35f);
-
-                    if (PMember->GetMLevel() <= 50)
-                    {
-                        if (exp > (300 * permonstercap)) exp = 300 * permonstercap;
-                    }
-                    else if (PMember->GetMLevel() <= 60)
-                    {
-                        if (exp > (400 * permonstercap)) exp = 400 * permonstercap;
-                    }
-                    else if (exp > (500 * permonstercap))
-                    {
-                        exp = 500 * permonstercap;
-                    }
+//                    permonstercap = ((PMember->PParty != nullptr && pcinzone > 1) ? 1.5f : 1.35f);
+//
+//                    if (PMember->GetMLevel() <= 50)
+//                    {
+//                        if (exp > (300 * permonstercap)) exp = 300 * permonstercap;
+//                    }
+//                    else if (PMember->GetMLevel() <= 60)
+//                    {
+//                        if (exp > (400 * permonstercap)) exp = 400 * permonstercap;
+//                    }
+//                    else if (exp > (500 * permonstercap))
+//                    {
+//                        exp = 500 * permonstercap;
+//                    }
+                    float expFinalMult = 1.0f;
 
                     uint32 job = PMob->GetMJob();
                     if (job == JOB_BLM || job == JOB_RDM || job == JOB_BLU || job == JOB_SMN || job == JOB_SCH)
-                        exp *= 1.2;
+                        expFinalMult += 0.2;
                     else if (job == JOB_DRK || job == JOB_WHM || job == JOB_BST || job == JOB_NIN || job == JOB_BRD)
-                        exp *= 1.1;
+                        expFinalMult += 0.1;
 
                     if (PMob->m_Type == MOBTYPE_NOTORIOUS){
                         exp *= 5;
@@ -3323,23 +3325,23 @@ namespace charutils
                         chainactive = true;
                         switch (PMember->expChain.chainNumber)
                         {
-                            case 0: exp *= 1.0f; break;
-                            case 1: exp *= 1.2f; break;
-                            case 2: exp *= 1.25f; break;
-                            case 3: exp *= 1.3f; break;
-                            case 4: exp *= 1.35f; break;
-                            case 5: exp *= 1.4f; break;
-                            default: exp *= 1.4f; break;
+                            case 0: expFinalMult += 0; break;
+                            case 1: expFinalMult += 0.2f; break;
+                            case 2: expFinalMult += 0.25f; break;
+                            case 3: expFinalMult += 0.3f; break;
+                            case 4: expFinalMult += 0.35f; break;
+                            case 5: expFinalMult += 0.4f; break;
+                            default: expFinalMult += 0.45f; break;
                         }
                     }
                     else
                     {
-                        if (PMember->GetMLevel() <= 10) PMember->expChain.chainTime = gettick() + 50000;
-                        else if (PMember->GetMLevel() <= 20) PMember->expChain.chainTime = gettick() + 100000;
-                        else if (PMember->GetMLevel() <= 30) PMember->expChain.chainTime = gettick() + 150000;
-                        else if (PMember->GetMLevel() <= 40) PMember->expChain.chainTime = gettick() + 200000;
-                        else if (PMember->GetMLevel() <= 50) PMember->expChain.chainTime = gettick() + 250000;
-                        else if (PMember->GetMLevel() <= 60) PMember->expChain.chainTime = gettick() + 300000;
+                        if (PMember->GetMLevel() <= 10) PMember->expChain.chainTime = gettick() + 100000;
+                        else if (PMember->GetMLevel() <= 20) PMember->expChain.chainTime = gettick() + 200000;
+                        else if (PMember->GetMLevel() <= 30) PMember->expChain.chainTime = gettick() + 300000;
+                        else if (PMember->GetMLevel() <= 40) PMember->expChain.chainTime = gettick() + 400000;
+                        else if (PMember->GetMLevel() <= 50) PMember->expChain.chainTime = gettick() + 500000;
+                        else if (PMember->GetMLevel() <= 60) PMember->expChain.chainTime = gettick() + 600000;
                         else PMember->expChain.chainTime = gettick() + 360000;
                         chainactive = false;
                         PMember->expChain.chainNumber = 1;
@@ -3452,7 +3454,7 @@ namespace charutils
                     if (PMob->m_Type == MOBTYPE_NORMAL && ((Pzone > 0 && Pzone < 39) || (Pzone > 42 && Pzone < 134) || (Pzone > 135 && Pzone < 185) || (Pzone > 188 && Pzone < 255)))
                     {
                         int lDif = PMob->GetMLevel() - PMember->GetMLevel();
-                        int baseChance = lDif < 0 ? 20 : dsp_cap(20 + (lDif * lDif) / 2, 20, 80);
+                        int baseChance = lDif < 0 ? 20 : dsp_cap(20 + (lDif * lDif) / 2.5f, 20, 40);
                         if (PMember->StatusEffectContainer->HasStatusEffect(EFFECT_SIGNET) && PMob->m_Element > 0 && dsprand::GetRandomNumber(100) < baseChance &&
                             PMember->loc.zone == PMob->loc.zone) // Need to move to SIGNET_CHANCE constant
                         {
@@ -3480,11 +3482,11 @@ namespace charutils
                     // Hard monsters give bonus XP
                     if (PMob->GetMLevel() > PMember->GetMLevel()) {
                         float diff = PMob->GetMLevel() - PMember->GetMLevel();
-                        exp *= (1.1f + (diff * (diff / 2.0f) / 50.0f));
+                        expFinalMult += ((diff < 0 ? 0 : (diff * diff / 1.3f)) * 0.015);
                     }
 
                     if (sBonus > 0) {
-                        exp *= 1.0f + (float)sBonus / 100.0f;
+                        expFinalMult += (float)sBonus / 100.0f;
                         int8 bonusString[40];
                         if (sBonusXP > 0)
                             sprintf(bonusString, "System Bonus: +%d%%; Bonus XP: +%d", sBonus, sBonusXP);
@@ -3501,8 +3503,10 @@ namespace charutils
 //                        exp *= 1.25f;
 
                     if (xpBonusAreas.find(PMob->getZone()) != xpBonusAreas.end())
-                        exp *= 1.30f;
+                        expFinalMult += 0.30f;
 
+
+                    exp *= expFinalMult;
 
                     if (PMember->systemList.size() == 0)
                         PMember->systemList.push_back(PMob->m_EcoSystem);

@@ -542,8 +542,8 @@ uint16 CBattleEntity::ATT()
         ATT += (STR()) / 2;
     }
 
-    if (this->StatusEffectContainer->HasStatusEffect(EFFECT_ENDARK))
-        ATT += this->getMod(MOD_ENSPELL_DMG);
+//    if (this->StatusEffectContainer->HasStatusEffect(EFFECT_ENDARK))
+//        ATT += this->getMod(MOD_ENSPELL_DMG);
 
     if (this->objtype & TYPE_PC) {
         ATT += GetSkill(m_Weapons[SLOT_MAIN]->getSkillType()) + m_Weapons[SLOT_MAIN]->getILvlSkill();

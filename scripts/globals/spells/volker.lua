@@ -16,7 +16,11 @@ function onMagicCastingCheck(caster,target,spell)
     end
     if not (caster:isUniqueAlly(73)) then
         return MSGBASIC_EFFECT_ALREADY_ACTIVE;
-	end
+    end
+
+    if (caster:hasHate()) then
+        return MSGBASIC_UNABLE_TO_CAST;
+    end
 
 	if (caster:hasStatusEffect(EFFECT_CONFRONTATION)) then
 		return MSGBASIC_UNABLE_TO_CAST;

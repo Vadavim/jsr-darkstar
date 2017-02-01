@@ -23,9 +23,14 @@ function onMagicCastingCheck(caster,target,spell)
         return MSGBASIC_UNABLE_TO_CAST;
     end
 
+    if (caster:hasHate()) then
+        return MSGBASIC_UNABLE_TO_CAST;
+    end
+
     if (not doAllyCost(caster, 15 * caster:getMainLvl())) then
         return MSGBASIC_UNABLE_TO_CAST;
     end
+
 
     return 0;
 end;
@@ -39,8 +44,8 @@ function onSpellCast(caster,target,spell)
 --    ally:addMod(MOD_DEF, level * 1.33);
     ally:addMod(MOD_UDMGPHYS, -15);
     ally:addMod(MOD_UDMGMAGIC, -15);
-    ally:addMod(MOD_ENMITY, 20);
-    ally:addMod(MOD_ENMITY_LOSS_REDUCTION, 20);
+    ally:addMod(MOD_ENMITY, 15);
+    ally:addMod(MOD_ENMITY_LOSS_REDUCTION, 15);
     ally:addMod(MOD_MACC, 10 + level / 1.5);
 
     ally:setLocalVar("isAlly", 1);

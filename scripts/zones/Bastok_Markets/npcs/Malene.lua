@@ -52,6 +52,17 @@ end;
 -- onEventFinish
 -----------------------------------
 
+local function coldLightReward(player)
+    require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
+    local reward = {
+        ["xp"] = 400,
+        ["item"] = 4342,
+        ["guild"] = {COOK, 80},
+    };
+    jsrReward(player, reward);
+end
+
 function onEventFinish(player,csid,option)
     -- printf("CSID: %u",csid);
     -- printf("RESULT: %u",option);
@@ -72,6 +83,7 @@ function onEventFinish(player,csid,option)
         else
             player:addFame(BASTOK, 8);
         end
+        coldLightReward(player);
     elseif (csid == 0x014A) then  -- Quest: Wish Upon a Star
         player:setVar("WishUponAStar_Status", 2);
     end

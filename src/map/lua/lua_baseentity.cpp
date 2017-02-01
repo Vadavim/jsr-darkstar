@@ -6673,24 +6673,25 @@ inline int32 CLuaBaseEntity::updateEnmityFromCure(lua_State *L)
     CLuaBaseEntity* PEntity = Lunar<CLuaBaseEntity>::check(L, 1);
     uint32 amount = lua_tointeger(L, 2);
 
-    auto PCurer = [&]() -> CCharEntity*
-    {
-        if (m_PBaseEntity->objtype == TYPE_PC)
-        {
-            return static_cast<CCharEntity*>(m_PBaseEntity);
-        }
-        else if (m_PBaseEntity->objtype == TYPE_PET)
-        {
-            auto PMaster = static_cast<CPetEntity*>(m_PBaseEntity)->PMaster;
-            if (PMaster->objtype == TYPE_PC)
-            {
-                return static_cast<CCharEntity*>(PMaster);
-            }
-        }
-        return nullptr;
-    }();
+//    auto PCurer = [&]() -> CCharEntity*
+//    {
+//        if (m_PBaseEntity->objtype == TYPE_PC)
+//        {
+//            return static_cast<CCharEntity*>(m_PBaseEntity);
+//        }
+//        else if (m_PBaseEntity->objtype == TYPE_PET)
+//        {
+//            auto PMaster = static_cast<CPetEntity*>(m_PBaseEntity)->PMaster;
+//            if (PMaster->objtype == TYPE_PC)
+//            {
+//                return static_cast<CCharEntity*>(PMaster);
+//            }
+//        }
+//        return nullptr;
+//    }();
+    CBattleEntity* PCurer = (CBattleEntity*)m_PBaseEntity;
 
-    if (PEntity != nullptr && PCurer)
+    if (PEntity != nullptr && PCurer->objtype != TYPE_MOB)
     {
         battleutils::GenerateCureEnmity(PCurer, (CBattleEntity*)PEntity->GetBaseEntity(), amount);
     }
@@ -11125,12 +11126,19 @@ int32 CLuaBaseEntity::recalculateStats(lua_State* L)
 
     if (m_PBaseEntity->objtype == TYPE_PC)
     {
-        auto PChar {static_cast<CCharEntity*>(m_PBaseEntity)};
+        CCharEntity* PChar {static_cast<CCharEntity*>(m_PBaseEntity)};
         charutils::BuildingCharSkillsTable(PChar);
         charutils::CalculateStats(PChar);
         charutils::CheckValidEquipment(PChar);
         charutils::BuildingCharAbilityTable(PChar);
         charutils::BuildingCharTraitsTable(PChar);
+
+        if (!PChar->PAlly.empty()) {
+            for (CBattleEntity* PAlly : PChar->PAlly) {
+                petutils::ReloadAlly((CPetEntity*)PAlly);
+            }
+
+        }
 
         PChar->UpdateHealth();
 
@@ -11831,6 +11839,25 @@ inline int32 CLuaBaseEntity::getDamageRatio(lua_State *L)
     return 1;
 }
 
+
+inline int32 CLuaBaseEntity::hasHate(lua_State *L) {
+    CCharEntity* PSource = (CCharEntity*)m_PBaseEntity;
+    bool hasHate = false;
+
+    for (SpawnIDList_t::const_iterator it = PSource->SpawnMOBList.begin(); it != PSource->SpawnMOBList.end(); ++it) {
+        CMobEntity* PCurrentMob = (CMobEntity*) it->second;
+
+        if (PCurrentMob->m_HiPCLvl > 0 && PCurrentMob->PEnmityContainer->HasID(PSource->id) && PCurrentMob->PEnmityContainer->GetCE((CBattleEntity*)PSource) > 0) {
+            ShowDebug("Amount: %d", PCurrentMob->PEnmityContainer->GetCE((CBattleEntity*)PSource));
+            hasHate = true;
+            break;
+        }
+    }
+    lua_pushboolean(L, hasHate);
+    return 1;
+}
+
+
 //==========================================================//
 
 const int8 CLuaBaseEntity::className[] = "CBaseEntity";
@@ -12344,5 +12371,6 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setLevelRange),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getDamageRatio),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,resetMusic),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,hasHate),
     {nullptr,nullptr}
 };

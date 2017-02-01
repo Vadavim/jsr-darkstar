@@ -1879,7 +1879,7 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
 
     -- Give a special reward based on location and mob
     local rewardChance = 8;
-    if (diff > 0) then rewardChance = rewardChance + diff * 4 else rewardChance = rewardChance + diff end;
+    if (diff > 0) then rewardChance = rewardChance + diff * 3 else rewardChance = rewardChance + diff end;
     if (rewardChance < 0) then rewardChance = 1 end;
     rewardChance = rewardChance * (1 + player:getMod(MOD_TREASURE_HUNTER) * 0.15);
 

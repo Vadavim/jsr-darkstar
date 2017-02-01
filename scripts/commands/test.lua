@@ -28,6 +28,7 @@ local level = player:getMainLvl();
     mob:setLevelRange(level + 2, level + 2);
 player:setLocalVar("notoSpawner", 1);
 player:ChangeMusic(0, 343);
+player:setLocalVar("isTest", 1);
 player:ChangeMusic(1, 343);
 player:ChangeMusic(2, 343);
 player:ChangeMusic(3, 343);

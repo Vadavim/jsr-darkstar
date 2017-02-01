@@ -529,8 +529,14 @@ function calculateMagicHitRate(magicacc, magiceva, percentBonus, casterLvl, targ
     local p = 0;
     --add a scaling bonus or penalty based on difference of targets level from caster
     local levelDiff = utils.clamp(casterLvl - targetLvl, -10, 10);
+    local dAcc = magicacc - magiceva + levelDiff * 4;
+    if (dAcc < 0) then
+        p = 50 + dAcc / 2 + percentBonus;
+    else
+        p = 50 + dAcc + percentBonus;
+    end
 
-    p = 60 - 0.5 * (magiceva - magicacc) + levelDiff * 2 + percentBonus;
+
 
      printf("P: %f, macc: %f, meva: %f, bonus: %d%%, leveldiff: %d", p, magicacc, magiceva, percentBonus, levelDiff);
 
