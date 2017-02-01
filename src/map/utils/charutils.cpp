@@ -3482,7 +3482,7 @@ namespace charutils
                     // Hard monsters give bonus XP
                     if (PMob->GetMLevel() > PMember->GetMLevel()) {
                         float diff = PMob->GetMLevel() - PMember->GetMLevel();
-                        expFinalMult += ((diff < 0 ? 0 : (diff * diff / 1.3f)) * 0.015);
+                        expFinalMult += ((diff < 0 ? 0 : (diff * diff / 1.3f)) * 0.018);
                     }
 
                     if (sBonus > 0) {
