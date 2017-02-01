@@ -952,6 +952,12 @@ local function geo(player, points)
         6081,   2500,   --Indi Mnd
         6083,   2750,   --Indi Fury
         6080,   3000,   --Indi Int
+    };
+    return stock;
+end
+
+local function geo2(player, points)
+    local stock = {
         6079,   3000,   --Indi Agi
         6086,   3250,   --Indi Fend
         6078,   3250,   --Indi Vit
@@ -967,6 +973,8 @@ local function geo(player, points)
     };
     return stock;
 end
+
+
 
 local function misc(player, points)
     local stock = {
@@ -3279,6 +3287,7 @@ local funcs = {
     ["accuracyFood"] = accuracyFood, ["accuracyFoodEx"] = accuracyFoodEx, ["attackFood"] = attackFood, ["attackFoodEx"] = attackFoodEx, ["magicFood"] = magicFood, ["magicFoodEx"] = magicFoodEx, ["miscFood"] = miscFood, ["miscFoodEx"] = miscFoodEx, ["hybridFood"] = hybridFood, ["hybridFoodEx"] = hybridFoodEx, ["defenseFood"] = defenseFood, ["defenseFoodEx"] = defenseFoodEx,
     ["dice1"] = dice1, ["dice2"] = dice2,
     ["sch1"] = sch1, ["sch2"] = sch2,
+    ["geo1"] = sch1, ["geo2"] = sch2,
     ["smn1"] = smn1,
     ["red1"] = red1, ["red2"] = red2, ["dark1"] = dark1,
     ["nin1"] = nin1, ["nin2"] = nin2, ["tools"] = tools,
