@@ -3,7 +3,7 @@
 -- OnItemCheck
 -----------------------------------------
 
-local learnID = 6075;
+local learnID = 770;
 
 function onItemCheck(target)
     return target:canLearnSpell(learnID);
