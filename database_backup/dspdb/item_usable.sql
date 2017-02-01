@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `item_usable` (
   PRIMARY KEY (`itemid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=1 CHECKSUM=1;
 
--- Dumping data for table dspdb.item_usable: 2,046 rows
+-- Dumping data for table dspdb.item_usable: 2,076 rows
 /*!40000 ALTER TABLE `item_usable` DISABLE KEYS */;
 REPLACE INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `animation`, `animationTime`, `maxCharges`, `useDelay`, `reuseDelay`, `aoe`) VALUES
 	(4096, 'fire_crystal', 1, 0, 0, 0, 0, 0, 0, 0),
@@ -2073,7 +2073,37 @@ REPLACE INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `ani
 	(10850, 'leech_belt', 1, 1, 0, 0, 1, 15, 30, 0),
 	(26167, 'sneak_ring', 1, 1, 0, 0, 1, 5, 900, 0),
 	(26168, 'deodorize_ring', 1, 1, 0, 0, 1, 5, 900, 0),
-	(26166, 'invisible_ring', 1, 1, 0, 0, 1, 5, 900, 0);
+	(26166, 'invisible_ring', 1, 1, 0, 0, 1, 5, 900, 0),
+	(6073, 'plate_of_indi-regen', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6074, 'plate_of_indi-poison', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6075, 'plate_of_indi-refresh', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6076, 'plate_of_indi-str', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6077, 'plate_of_indi-dex', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6078, 'plate_of_indi-vit', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6079, 'plate_of_indi-agi', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6080, 'plate_of_indi-int', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6081, 'plate_of_indi-mnd', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6082, 'plate_of_indi-chr', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6083, 'plate_of_indi-fury', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6084, 'plate_of_indi-barrier', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6085, 'plate_of_indi-acumen', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6086, 'plate_of_indi-fend', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6087, 'plate_of_indi-precision', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6088, 'plate_of_indi-voidance', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6089, 'plate_of_indi-focus', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6090, 'plate_of_indi-attunement', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6091, 'plate_of_indi-wilt', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6092, 'plate_of_indi-frailty', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6093, 'plate_of_indi-fade', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6094, 'plate_of_indi-malaise', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6095, 'plate_of_indi-slip', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6096, 'plate_of_indi-torpor', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6097, 'plate_of_indi-vex', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6098, 'plate_of_indi-languor', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6099, 'plate_of_indi-slow', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6100, 'plate_of_indi-paralysis', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6101, 'plate_of_indi-gravity', 1, 1, 11, 0, 0, 0, 0, 0),
+	(6131, 'plate_of_indi-haste', 1, 1, 11, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `item_usable` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

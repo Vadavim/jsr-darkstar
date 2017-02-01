@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `char_recast` (
   PRIMARY KEY (`charid`,`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Dumping data for table dspdb.char_recast: 8 rows
+-- Dumping data for table dspdb.char_recast: 3 rows
 /*!40000 ALTER TABLE `char_recast` DISABLE KEYS */;
 REPLACE INTO `char_recast` (`charid`, `id`, `time`, `recast`) VALUES
 	(21828, 5, 1485913380, 0),

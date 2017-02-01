@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `char_inventory` (
   PRIMARY KEY (`charid`,`location`,`slot`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=28;
 
--- Dumping data for table dspdb.char_inventory: 114 rows
+-- Dumping data for table dspdb.char_inventory: 133 rows
 /*!40000 ALTER TABLE `char_inventory` DISABLE KEYS */;
 REPLACE INTO `char_inventory` (`charid`, `location`, `slot`, `itemId`, `quantity`, `bazaar`, `signature`, `extra`) VALUES
 	(21828, 0, 0, 65535, 211527, 0, '', NULL),
