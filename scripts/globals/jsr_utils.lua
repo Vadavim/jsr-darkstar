@@ -353,7 +353,7 @@ end;
 
 local function sayItem(player, curItemId, isTemp)
     local item = getItem(curItemId);
-    if (item == nil or item == 0) then
+    if (item == nil or curItemId == 0 or curItemId == nil) then
         print("[ERROR]!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         player:SayToPlayer("ERRORRRRR!!!!!!");
         return false;
