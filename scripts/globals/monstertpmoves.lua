@@ -1472,7 +1472,7 @@ function doAstralFlow(target, pet, skill, master, element)
     local favor = pet:getStatusEffect(type);
     if (favor ~= nil) then
         local favorPower = favor:getPower();
-        local party = master:getParty();
+        local party = master:getParty(true);
         if (party ~= nil) then
             for i,member in ipairs(party) do
                 member:addStatusEffect(type, favorPower, 0, 300);

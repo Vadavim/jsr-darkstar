@@ -56,7 +56,7 @@ function onTrigger(player,npc)
             player:startEvent(0x0121);
         elseif (player:getVar("KnowOnesOnions") == 1) then
             player:startEvent(0x0120,0,4387);
-        elseif (player:getQuestStatus(WINDURST,I_CAN_HEAR_A_RAINBOW) == QUEST_AVAILABLE and player:getMainLvl() >= 30 and player:hasItem(1125)) then
+        elseif (player:getQuestStatus(WINDURST,I_CAN_HEAR_A_RAINBOW) == QUEST_AVAILABLE and player:getMainLvl() >= 10 and player:hasItem(1125)) then
             player:startEvent(0x0180,1125,1125,1125,1125,1125,1125,1125,1125);
         elseif (player:getQuestStatus(WINDURST,I_CAN_HEAR_A_RAINBOW) == QUEST_ACCEPTED) then
             player:startEvent(0x0181,1125,1125,1125,1125,1125,1125,1125,1125);

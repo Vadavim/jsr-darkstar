@@ -853,7 +853,7 @@ void CMobEntity::DropItems()
                     uint8 bonus = (m_THLvl > 2 ? (m_THLvl - 2) * 0.05 : 0);
                     while (tries < maxTries)
                     {
-                        if (DropList->at(i).DropRate > 0 && dsprand::GetRandomNumber(1000) < DropList->at(i).DropRate * map_config.drop_rate_multiplier * (1.0f + dropBonus + bonus))
+                        if (DropList->at(i).DropRate > 0 && dsprand::GetRandomNumber(1000) < DropList->at(i).DropRate * map_config.drop_rate_multiplier * (1.0f))
                         {
                             PChar->PTreasurePool->AddItem(DropList->at(i).ItemID, this);
                             break;
