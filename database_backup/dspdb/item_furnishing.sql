@@ -22,8 +22,9 @@ CREATE TABLE IF NOT EXISTS `item_furnishing` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=25 PACK_KEYS=1 CHECKSUM=1;
 
 -- Dumping data for table dspdb.item_furnishing: 380 rows
+DELETE FROM `item_furnishing`;
 /*!40000 ALTER TABLE `item_furnishing` DISABLE KEYS */;
-REPLACE INTO `item_furnishing` (`itemid`, `name`, `storage`, `moghancement`, `element`, `aura`) VALUES
+INSERT INTO `item_furnishing` (`itemid`, `name`, `storage`, `moghancement`, `element`, `aura`) VALUES
 	(1, 'pile_of_chocobo_bedding', 1, 0, 7, 2),
 	(2, 'simple_bed', 1, 0, 5, 3),
 	(3, 'oak_bed', 1, 0, 2, 5),

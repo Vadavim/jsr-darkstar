@@ -25,8 +25,9 @@ CREATE TABLE IF NOT EXISTS `fishing_fish` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=23;
 
 -- Dumping data for table dspdb.fishing_fish: 133 rows
+DELETE FROM `fishing_fish`;
 /*!40000 ALTER TABLE `fishing_fish` DISABLE KEYS */;
-REPLACE INTO `fishing_fish` (`fishid`, `name`, `min`, `max`, `watertype`, `size`, `stamina`, `log`, `quest`) VALUES
+INSERT INTO `fishing_fish` (`fishid`, `name`, `min`, `max`, `watertype`, `size`, `stamina`, `log`, `quest`) VALUES
 	(5476, 'Abaia', 90, 100, 0, 1, 0, 255, 255),
 	(5455, 'Ahtapot', 0, 90, 0, 1, 0, 255, 255),
 	(5461, 'Alabaligi', 0, 0, 0, 0, 0, 255, 255),

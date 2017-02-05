@@ -36,8 +36,9 @@ CREATE TABLE IF NOT EXISTS `char_profile` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.char_profile: 1 rows
+DELETE FROM `char_profile`;
 /*!40000 ALTER TABLE `char_profile` DISABLE KEYS */;
-REPLACE INTO `char_profile` (`charid`, `rank_points`, `rank_sandoria`, `rank_bastok`, `rank_windurst`, `fame_sandoria`, `fame_bastok`, `fame_windurst`, `fame_norg`, `fame_jeuno`, `fame_aby_konschtat`, `fame_aby_tahrongi`, `fame_aby_latheine`, `fame_aby_misareaux`, `fame_aby_vunkerl`, `fame_aby_attohwa`, `fame_aby_altepa`, `fame_aby_grauberg`, `fame_aby_uleguerand`, `fame_adoulin`) VALUES
+INSERT INTO `char_profile` (`charid`, `rank_points`, `rank_sandoria`, `rank_bastok`, `rank_windurst`, `fame_sandoria`, `fame_bastok`, `fame_windurst`, `fame_norg`, `fame_jeuno`, `fame_aby_konschtat`, `fame_aby_tahrongi`, `fame_aby_latheine`, `fame_aby_misareaux`, `fame_aby_vunkerl`, `fame_aby_attohwa`, `fame_aby_altepa`, `fame_aby_grauberg`, `fame_aby_uleguerand`, `fame_adoulin`) VALUES
 	(21828, 0, 1, 1, 1, 65, 0, 960, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `char_profile` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -18,8 +18,9 @@ CREATE TABLE IF NOT EXISTS `exp_base` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=9;
 
 -- Dumping data for table dspdb.exp_base: 100 rows
+DELETE FROM `exp_base`;
 /*!40000 ALTER TABLE `exp_base` DISABLE KEYS */;
-REPLACE INTO `exp_base` (`level`, `exp`) VALUES
+INSERT INTO `exp_base` (`level`, `exp`) VALUES
 	(1, 0),
 	(2, 500),
 	(3, 750),

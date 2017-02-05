@@ -11,6 +11,7 @@ function onMobSkillCheck(target,mob,skill)
     if (mob:getMainJob() ~= JOBS.THF and math.random() < 0.2) then
         return 1;
     end
+    if (mob:getHPP() > 40) then return 1; end;
     return 0;
 end;
 

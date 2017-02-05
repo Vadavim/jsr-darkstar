@@ -23,8 +23,9 @@ CREATE TABLE IF NOT EXISTS `water_points` (
 ) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.water_points: 1 rows
+DELETE FROM `water_points`;
 /*!40000 ALTER TABLE `water_points` DISABLE KEYS */;
-REPLACE INTO `water_points` (`waterid`, `zoneid`, `type`, `pointid`, `pos_x`, `pos_y`, `pos_z`) VALUES
+INSERT INTO `water_points` (`waterid`, `zoneid`, `type`, `pointid`, `pos_x`, `pos_y`, `pos_z`) VALUES
 	(1, 100, 0, 0, 0.00, 0.00, 0.00);
 /*!40000 ALTER TABLE `water_points` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

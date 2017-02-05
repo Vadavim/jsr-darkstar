@@ -23,8 +23,9 @@ CREATE TABLE IF NOT EXISTS `blue_spell_list` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.blue_spell_list: 161 rows
+DELETE FROM `blue_spell_list`;
 /*!40000 ALTER TABLE `blue_spell_list` DISABLE KEYS */;
-REPLACE INTO `blue_spell_list` (`spellid`, `mob_skill_id`, `set_points`, `trait_category`, `trait_category_weight`, `primary_sc`, `secondary_sc`) VALUES
+INSERT INTO `blue_spell_list` (`spellid`, `mob_skill_id`, `set_points`, `trait_category`, `trait_category_weight`, `primary_sc`, `secondary_sc`) VALUES
 	(513, 1572, 3, 4, 1, 0, 0),
 	(515, 462, 5, 4, 1, 0, 0),
 	(517, 448, 1, 10, 1, 0, 0),

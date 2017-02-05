@@ -39,8 +39,9 @@ CREATE TABLE IF NOT EXISTS `spell_list` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=68;
 
 -- Dumping data for table dspdb.spell_list: 716 rows
+DELETE FROM `spell_list`;
 /*!40000 ALTER TABLE `spell_list` DISABLE KEYS */;
-REPLACE INTO `spell_list` (`spellid`, `name`, `jobs`, `group`, `element`, `zonemisc`, `validTargets`, `skill`, `mpCost`, `castTime`, `recastTime`, `message`, `magicBurstMessage`, `animation`, `animationTime`, `AOE`, `base`, `multiplier`, `CE`, `VE`, `requirements`, `spell_range`, `required_expansion`) VALUES
+INSERT INTO `spell_list` (`spellid`, `name`, `jobs`, `group`, `element`, `zonemisc`, `validTargets`, `skill`, `mpCost`, `castTime`, `recastTime`, `message`, `magicBurstMessage`, `animation`, `animationTime`, `AOE`, `base`, `multiplier`, `CE`, `VE`, `requirements`, `spell_range`, `required_expansion`) VALUES
 	(1, 'cure', _binary 0x00000100030005000000000000000000000000050000, 6, 7, 0, 95, 33, 8, 2000, 5000, 7, 7, 1, 2000, 4, 0, 1.00, 0, 0, 0, 204, NULL),
 	(2, 'cure_ii', _binary 0x00000B000E0011000000000000000000000000110000, 6, 7, 0, 95, 33, 24, 2250, 5500, 7, 7, 2, 2000, 4, 0, 1.00, 0, 0, 0, 204, NULL),
 	(3, 'cure_iii', _binary 0x000015001A001E0000000000000000000000001E0000, 6, 7, 0, 95, 33, 46, 2500, 6000, 7, 7, 3, 2000, 4, 0, 1.00, 0, 0, 0, 204, NULL),

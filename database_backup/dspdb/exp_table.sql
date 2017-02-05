@@ -37,8 +37,9 @@ CREATE TABLE IF NOT EXISTS `exp_table` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=65;
 
 -- Dumping data for table dspdb.exp_table: 50 rows
+DELETE FROM `exp_table`;
 /*!40000 ALTER TABLE `exp_table` DISABLE KEYS */;
-REPLACE INTO `exp_table` (`level`, `r1`, `r2`, `r3`, `r4`, `r5`, `r6`, `r7`, `r8`, `r9`, `r10`, `r11`, `r12`, `r13`, `r14`, `r15`, `r16`, `r17`, `r18`, `r19`, `r20`) VALUES
+INSERT INTO `exp_table` (`level`, `r1`, `r2`, `r3`, `r4`, `r5`, `r6`, `r7`, `r8`, `r9`, `r10`, `r11`, `r12`, `r13`, `r14`, `r15`, `r16`, `r17`, `r18`, `r19`, `r20`) VALUES
 	(15, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 800, 1200, 1050, 1000, 980, 880, 880, 840, 800, 800, 800),
 	(14, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 800, 1050, 980, 940, 920, 820, 800, 780, 640, 640, 640),
 	(13, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 990, 880, 840, 820, 790, 750, 700, 580, 580, 580),

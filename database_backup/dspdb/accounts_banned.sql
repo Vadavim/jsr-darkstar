@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `accounts_banned` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.accounts_banned: 0 rows
+DELETE FROM `accounts_banned`;
 /*!40000 ALTER TABLE `accounts_banned` DISABLE KEYS */;
 /*!40000 ALTER TABLE `accounts_banned` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

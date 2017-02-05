@@ -20,8 +20,9 @@ CREATE TABLE IF NOT EXISTS `item_puppet` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.item_puppet: 89 rows
+DELETE FROM `item_puppet`;
 /*!40000 ALTER TABLE `item_puppet` DISABLE KEYS */;
-REPLACE INTO `item_puppet` (`itemid`, `name`, `slot`, `element`) VALUES
+INSERT INTO `item_puppet` (`itemid`, `name`, `slot`, `element`) VALUES
 	(8193, 'harlequin_head', 1, 2236962),
 	(8194, 'valoredge_x-900_head', 1, 33698307),
 	(8195, 'sharpshot_z-500_head', 1, 35783427),

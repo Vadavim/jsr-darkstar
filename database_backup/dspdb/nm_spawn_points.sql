@@ -21,8 +21,9 @@ CREATE TABLE IF NOT EXISTS `nm_spawn_points` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.nm_spawn_points: 6,360 rows
+DELETE FROM `nm_spawn_points`;
 /*!40000 ALTER TABLE `nm_spawn_points` DISABLE KEYS */;
-REPLACE INTO `nm_spawn_points` (`mobid`, `pos`, `pos_x`, `pos_y`, `pos_z`) VALUES
+INSERT INTO `nm_spawn_points` (`mobid`, `pos`, `pos_x`, `pos_y`, `pos_z`) VALUES
 	(17215888, 0, -364.189, 30.000, -442.720),
 	(17215888, 1, -292.232, 21.428, -413.230),
 	(17215888, 2, -270.019, 20.612, -389.970),

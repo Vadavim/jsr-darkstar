@@ -26,8 +26,9 @@ CREATE TABLE IF NOT EXISTS `item_usable` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=1 CHECKSUM=1;
 
 -- Dumping data for table dspdb.item_usable: 2,076 rows
+DELETE FROM `item_usable`;
 /*!40000 ALTER TABLE `item_usable` DISABLE KEYS */;
-REPLACE INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `animation`, `animationTime`, `maxCharges`, `useDelay`, `reuseDelay`, `aoe`) VALUES
+INSERT INTO `item_usable` (`itemid`, `name`, `validTargets`, `activation`, `animation`, `animationTime`, `maxCharges`, `useDelay`, `reuseDelay`, `aoe`) VALUES
 	(4096, 'fire_crystal', 1, 0, 0, 0, 0, 0, 0, 0),
 	(4097, 'ice_crystal', 1, 0, 0, 0, 0, 0, 0, 0),
 	(4098, 'wind_crystal', 1, 0, 0, 0, 0, 0, 0, 0),

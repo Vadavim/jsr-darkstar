@@ -19,9 +19,10 @@ CREATE TABLE IF NOT EXISTS `useful_items` (
   `notes` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.useful_items: ~82 rows (approximately)
+-- Dumping data for table dspdb.useful_items: ~91 rows (approximately)
+DELETE FROM `useful_items`;
 /*!40000 ALTER TABLE `useful_items` DISABLE KEYS */;
-REPLACE INTO `useful_items` (`name`, `type`, `itemid`, `level`, `notes`) VALUES
+INSERT INTO `useful_items` (`name`, `type`, `itemid`, `level`, `notes`) VALUES
 	('beluga', 'scythe', 18953, 40, 'available'),
 	('mutilator', 'scythe', 18046, 40, 'horlais bcnm'),
 	('falcastra', 'scythe', 16771, 47, 'eldieme chest'),

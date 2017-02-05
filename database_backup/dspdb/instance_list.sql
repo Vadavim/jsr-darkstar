@@ -24,8 +24,9 @@ CREATE TABLE IF NOT EXISTS `instance_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.instance_list: ~1 rows (approximately)
+DELETE FROM `instance_list`;
 /*!40000 ALTER TABLE `instance_list` DISABLE KEYS */;
-REPLACE INTO `instance_list` (`instanceid`, `instance_name`, `entrance_zone`, `time_limit`, `start_x`, `start_y`, `start_z`, `start_rot`) VALUES
+INSERT INTO `instance_list` (`instanceid`, `instance_name`, `entrance_zone`, `time_limit`, `start_x`, `start_y`, `start_z`, `start_rot`) VALUES
 	(0, 'TEST', 0, 0, 0.000, 0.000, 0.000, 0);
 /*!40000 ALTER TABLE `instance_list` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

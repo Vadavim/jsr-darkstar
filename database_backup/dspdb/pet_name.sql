@@ -18,8 +18,9 @@ CREATE TABLE IF NOT EXISTS `pet_name` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.pet_name: 1,127 rows
+DELETE FROM `pet_name`;
 /*!40000 ALTER TABLE `pet_name` DISABLE KEYS */;
-REPLACE INTO `pet_name` (`id`, `name`) VALUES
+INSERT INTO `pet_name` (`id`, `name`) VALUES
 	(0, ''),
 	(1, 'Azure'),
 	(2, 'Cerulean'),

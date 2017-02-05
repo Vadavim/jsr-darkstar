@@ -23,8 +23,9 @@ CREATE TABLE IF NOT EXISTS `zonelines` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.zonelines: 842 rows
+DELETE FROM `zonelines`;
 /*!40000 ALTER TABLE `zonelines` DISABLE KEYS */;
-REPLACE INTO `zonelines` (`zoneline`, `fromzone`, `tozone`, `tox`, `toy`, `toz`, `rotation`) VALUES
+INSERT INTO `zonelines` (`zoneline`, `fromzone`, `tozone`, `tox`, `toy`, `toz`, `rotation`) VALUES
 	(808465018, 72, 79, 339.996, 2.500, -721.286, 200),
 	(808465274, 108, 106, -518.867, 35.538, 588.640, 50),
 	(808465530, 144, 143, 114.483, -42.000, -140.000, 96),

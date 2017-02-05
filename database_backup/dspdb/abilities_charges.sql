@@ -22,8 +22,9 @@ CREATE TABLE IF NOT EXISTS `abilities_charges` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=56;
 
 -- Dumping data for table dspdb.abilities_charges: 9 rows
+DELETE FROM `abilities_charges`;
 /*!40000 ALTER TABLE `abilities_charges` DISABLE KEYS */;
-REPLACE INTO `abilities_charges` (`recastId`, `job`, `level`, `maxCharges`, `chargeTime`, `meritModID`) VALUES
+INSERT INTO `abilities_charges` (`recastId`, `job`, `level`, `maxCharges`, `chargeTime`, `meritModID`) VALUES
 	(231, 20, 10, 1, 240, 0),
 	(231, 20, 30, 2, 120, 0),
 	(231, 20, 45, 3, 80, 0),

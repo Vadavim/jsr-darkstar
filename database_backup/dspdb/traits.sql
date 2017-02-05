@@ -23,8 +23,9 @@ CREATE TABLE IF NOT EXISTS `traits` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.traits: 719 rows
+DELETE FROM `traits`;
 /*!40000 ALTER TABLE `traits` DISABLE KEYS */;
-REPLACE INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `value`, `required_expansion`) VALUES
+INSERT INTO `traits` (`traitid`, `name`, `job`, `level`, `rank`, `modifier`, `value`, `required_expansion`) VALUES
 	(1, 'accuracy bonus', 11, 10, 1, 25, 10, NULL),
 	(1, 'accuracy bonus', 11, 10, 1, 26, 10, NULL),
 	(1, 'accuracy bonus', 11, 30, 2, 25, 22, NULL),

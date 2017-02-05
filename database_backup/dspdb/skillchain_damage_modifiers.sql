@@ -20,8 +20,9 @@ CREATE TABLE IF NOT EXISTS `skillchain_damage_modifiers` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.skillchain_damage_modifiers: 20 rows
+DELETE FROM `skillchain_damage_modifiers`;
 /*!40000 ALTER TABLE `skillchain_damage_modifiers` DISABLE KEYS */;
-REPLACE INTO `skillchain_damage_modifiers` (`chain_level`, `chain_count`, `initial_modifier`, `magic_burst_modifier`) VALUES
+INSERT INTO `skillchain_damage_modifiers` (`chain_level`, `chain_count`, `initial_modifier`, `magic_burst_modifier`) VALUES
 	('1', '1', 500, 1300),
 	('1', '2', 600, 1400),
 	('1', '3', 700, 1500),

@@ -20,8 +20,9 @@ CREATE TABLE IF NOT EXISTS `mob_spawn_mods` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=13 PACK_KEYS=1;
 
 -- Dumping data for table dspdb.mob_spawn_mods: 229 rows
+DELETE FROM `mob_spawn_mods`;
 /*!40000 ALTER TABLE `mob_spawn_mods` DISABLE KEYS */;
-REPLACE INTO `mob_spawn_mods` (`mobid`, `modid`, `value`, `is_mob_mod`) VALUES
+INSERT INTO `mob_spawn_mods` (`mobid`, `modid`, `value`, `is_mob_mod`) VALUES
 	(16806117, 288, 40, 0),
 	(17240232, 23, 50, 0),
 	(17240232, 288, 40, 0),

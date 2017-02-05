@@ -20,8 +20,9 @@ CREATE TABLE IF NOT EXISTS `fishing_rod` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=38;
 
 -- Dumping data for table dspdb.fishing_rod: 774 rows
+DELETE FROM `fishing_rod`;
 /*!40000 ALTER TABLE `fishing_rod` DISABLE KEYS */;
-REPLACE INTO `fishing_rod` (`rodid`, `name`, `fishid`, `flag`) VALUES
+INSERT INTO `fishing_rod` (`rodid`, `name`, `fishid`, `flag`) VALUES
 	(17011, 'Ebisu Fishing Rod', 90, 1),
 	(17011, 'Ebisu Fishing Rod', 624, 1),
 	(17011, 'Ebisu Fishing Rod', 688, 1),

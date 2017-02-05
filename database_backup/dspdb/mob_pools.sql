@@ -40,8 +40,9 @@ CREATE TABLE IF NOT EXISTS `mob_pools` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.mob_pools: 5,718 rows
+DELETE FROM `mob_pools`;
 /*!40000 ALTER TABLE `mob_pools` DISABLE KEYS */;
-REPLACE INTO `mob_pools` (`poolid`, `name`, `familyid`, `modelid`, `mJob`, `sJob`, `cmbSkill`, `cmbDelay`, `cmbDmgMult`, `behavior`, `aggro`, `true_detection`, `links`, `mobType`, `immunity`, `name_prefix`, `flag`, `flags`, `animationsub`, `hasSpellScript`, `spellList`, `namevis`, `roamflag`, `skill_list_id`) VALUES
+INSERT INTO `mob_pools` (`poolid`, `name`, `familyid`, `modelid`, `mJob`, `sJob`, `cmbSkill`, `cmbDelay`, `cmbDmgMult`, `behavior`, `aggro`, `true_detection`, `links`, `mobType`, `immunity`, `name_prefix`, `flag`, `flags`, `animationsub`, `hasSpellScript`, `spellList`, `namevis`, `roamflag`, `skill_list_id`) VALUES
 	(1, '1st_Gold_Musketeer', 149, _binary 0x01000D02DE104820483048404850B76000703B80, 5, 11, 3, 240, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 149),
 	(2, '1st_Iron_Musketeer', 149, _binary 0x010005019510A220A230A240A250BC60B7703A80, 5, 5, 3, 240, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 149),
 	(3, '1st_Legionnaire', 146, _binary 0x01000508061006200630064006500A6122703480, 11, 11, 3, 240, 100, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1, 0, 146),

@@ -26,8 +26,9 @@ CREATE TABLE IF NOT EXISTS `bcnm_info` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=56;
 
 -- Dumping data for table dspdb.bcnm_info: 256 rows
+DELETE FROM `bcnm_info`;
 /*!40000 ALTER TABLE `bcnm_info` DISABLE KEYS */;
-REPLACE INTO `bcnm_info` (`bcnmId`, `zoneId`, `name`, `fastestName`, `fastestTime`, `timeLimit`, `levelCap`, `partySize`, `lootDropId`, `rules`) VALUES
+INSERT INTO `bcnm_info` (`bcnmId`, `zoneId`, `name`, `fastestName`, `fastestTime`, `timeLimit`, `levelCap`, `partySize`, `lootDropId`, `rules`) VALUES
 	(0, 139, 'rank_2_mission', NULL, NULL, 1800, 25, 6, 0, 5),
 	(1, 139, 'tails_of_woe', NULL, NULL, 1800, 40, 6, 0, 15),
 	(2, 139, 'dismemberment_brigade', NULL, NULL, 1800, 60, 6, 0, 15),

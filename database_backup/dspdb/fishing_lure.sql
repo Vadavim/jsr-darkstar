@@ -20,8 +20,9 @@ CREATE TABLE IF NOT EXISTS `fishing_lure` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=28;
 
 -- Dumping data for table dspdb.fishing_lure: 920 rows
+DELETE FROM `fishing_lure`;
 /*!40000 ALTER TABLE `fishing_lure` DISABLE KEYS */;
-REPLACE INTO `fishing_lure` (`lureid`, `name`, `fishid`, `luck`) VALUES
+INSERT INTO `fishing_lure` (`lureid`, `name`, `fishid`, `luck`) VALUES
 	(16992, 'Slice of Bluetail', 4479, 300),
 	(16992, 'Slice of Bluetail', 4318, 150),
 	(16992, 'Slice of Bluetail', 5473, 150),

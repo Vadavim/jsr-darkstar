@@ -20,8 +20,9 @@ CREATE TABLE IF NOT EXISTS `char_skills` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=10;
 
 -- Dumping data for table dspdb.char_skills: 44 rows
+DELETE FROM `char_skills`;
 /*!40000 ALTER TABLE `char_skills` DISABLE KEYS */;
-REPLACE INTO `char_skills` (`charid`, `skillid`, `value`, `rank`) VALUES
+INSERT INTO `char_skills` (`charid`, `skillid`, `value`, `rank`) VALUES
 	(21828, 29, 5000, 0),
 	(21828, 38, 5000, 0),
 	(21828, 1, 5000, 0),

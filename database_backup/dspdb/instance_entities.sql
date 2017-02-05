@@ -18,8 +18,9 @@ CREATE TABLE IF NOT EXISTS `instance_entities` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.instance_entities: ~358 rows (approximately)
+DELETE FROM `instance_entities`;
 /*!40000 ALTER TABLE `instance_entities` DISABLE KEYS */;
-REPLACE INTO `instance_entities` (`instanceid`, `id`) VALUES
+INSERT INTO `instance_entities` (`instanceid`, `id`) VALUES
 	(1, 17059841),
 	(1, 17059842),
 	(1, 17059843),

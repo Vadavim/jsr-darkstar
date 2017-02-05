@@ -28,8 +28,9 @@ CREATE TABLE IF NOT EXISTS `zone_settings` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=20 PACK_KEYS=1 CHECKSUM=1 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table dspdb.zone_settings: 294 rows
+DELETE FROM `zone_settings`;
 /*!40000 ALTER TABLE `zone_settings` DISABLE KEYS */;
-REPLACE INTO `zone_settings` (`zoneid`, `zonetype`, `zoneip`, `zoneport`, `name`, `music_day`, `music_night`, `battlesolo`, `battlemulti`, `restriction`, `tax`, `misc`) VALUES
+INSERT INTO `zone_settings` (`zoneid`, `zonetype`, `zoneip`, `zoneport`, `name`, `music_day`, `music_night`, `battlesolo`, `battlemulti`, `restriction`, `tax`, `misc`) VALUES
 	(0, 1, '127.0.0.1', 54230, 'Residential_Area', 0, 0, 0, 0, 0, 0.00, 32),
 	(1, 2, '127.0.0.1', 54230, 'Phanauet_Channel', 229, 229, 101, 219, 0, 0.00, 152),
 	(2, 2, '127.0.0.1', 54230, 'Carpenters_Landing', 307, 307, 101, 219, 0, 0.00, 156),

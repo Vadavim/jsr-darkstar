@@ -23,8 +23,9 @@ CREATE TABLE IF NOT EXISTS `conquest_system` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- Dumping data for table dspdb.conquest_system: 19 rows
+DELETE FROM `conquest_system`;
 /*!40000 ALTER TABLE `conquest_system` DISABLE KEYS */;
-REPLACE INTO `conquest_system` (`region_id`, `region_control`, `region_control_prev`, `sandoria_influence`, `bastok_influence`, `windurst_influence`, `beastmen_influence`) VALUES
+INSERT INTO `conquest_system` (`region_id`, `region_control`, `region_control_prev`, `sandoria_influence`, `bastok_influence`, `windurst_influence`, `beastmen_influence`) VALUES
 	(0, 0, 1, 4991, 10, 10, -11),
 	(1, 3, 1, 1500, 1500, 0, 1000),
 	(2, 0, 1, 3000, 0, 0, 2000),

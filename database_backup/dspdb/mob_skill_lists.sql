@@ -19,8 +19,9 @@ CREATE TABLE IF NOT EXISTS `mob_skill_lists` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.mob_skill_lists: 2,249 rows
+DELETE FROM `mob_skill_lists`;
 /*!40000 ALTER TABLE `mob_skill_lists` DISABLE KEYS */;
-REPLACE INTO `mob_skill_lists` (`skill_list_name`, `skill_list_id`, `mob_skill_id`) VALUES
+INSERT INTO `mob_skill_lists` (`skill_list_name`, `skill_list_id`, `mob_skill_id`) VALUES
 	('Adamantoise', 2, 804),
 	('Adamantoise', 2, 805),
 	('Adamantoise', 2, 806),

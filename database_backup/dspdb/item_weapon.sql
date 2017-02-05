@@ -28,8 +28,9 @@ CREATE TABLE IF NOT EXISTS `item_weapon` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=54 PACK_KEYS=1 CHECKSUM=1;
 
 -- Dumping data for table dspdb.item_weapon: 4,448 rows
+DELETE FROM `item_weapon`;
 /*!40000 ALTER TABLE `item_weapon` DISABLE KEYS */;
-REPLACE INTO `item_weapon` (`itemId`, `name`, `skill`, `subskill`, `ilvl_skill`, `ilvl_parry`, `ilvl_macc`, `dmgType`, `hit`, `delay`, `dmg`, `unlock_points`) VALUES
+INSERT INTO `item_weapon` (`itemId`, `name`, `skill`, `subskill`, `ilvl_skill`, `ilvl_parry`, `ilvl_macc`, `dmgType`, `hit`, `delay`, `dmg`, `unlock_points`) VALUES
 	(16385, 'cesti', 1, 0, 0, 0, 0, 4, 1, 528, 4, 0),
 	(16386, 'lizard_cesti', 1, 0, 0, 0, 0, 4, 1, 528, 5, 0),
 	(16387, 'poison_cesti', 1, 0, 0, 0, 0, 4, 1, 528, 6, 0),

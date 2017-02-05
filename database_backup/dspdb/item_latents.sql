@@ -21,8 +21,9 @@ CREATE TABLE IF NOT EXISTS `item_latents` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=13 PACK_KEYS=1;
 
 -- Dumping data for table dspdb.item_latents: 1,268 rows
+DELETE FROM `item_latents`;
 /*!40000 ALTER TABLE `item_latents` DISABLE KEYS */;
-REPLACE INTO `item_latents` (`itemId`, `modId`, `value`, `latentId`, `latentParam`) VALUES
+INSERT INTO `item_latents` (`itemId`, `modId`, `value`, `latentId`, `latentParam`) VALUES
 	(10293, 25, 50, 50, 31),
 	(10293, 26, 50, 50, 31),
 	(10293, 30, 50, 50, 31),

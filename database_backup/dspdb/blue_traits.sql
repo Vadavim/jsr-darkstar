@@ -21,8 +21,9 @@ CREATE TABLE IF NOT EXISTS `blue_traits` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.blue_traits: 51 rows
+DELETE FROM `blue_traits`;
 /*!40000 ALTER TABLE `blue_traits` DISABLE KEYS */;
-REPLACE INTO `blue_traits` (`trait_category`, `trait_points_needed`, `traitid`, `modifier`, `value`) VALUES
+INSERT INTO `blue_traits` (`trait_category`, `trait_points_needed`, `traitid`, `modifier`, `value`) VALUES
 	(1, 2, 32, 230, 8),
 	(2, 2, 9, 370, 1),
 	(3, 2, 35, 227, 8),

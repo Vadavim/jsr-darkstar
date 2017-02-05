@@ -19,8 +19,9 @@ CREATE TABLE IF NOT EXISTS `fishing_zone` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=27;
 
 -- Dumping data for table dspdb.fishing_zone: 872 rows
+DELETE FROM `fishing_zone`;
 /*!40000 ALTER TABLE `fishing_zone` DISABLE KEYS */;
-REPLACE INTO `fishing_zone` (`zoneid`, `name`, `fishid`) VALUES
+INSERT INTO `fishing_zone` (`zoneid`, `name`, `fishid`) VALUES
 	(1, 'Phanauet Channel', 5125),
 	(1, 'Phanauet Channel', 4469),
 	(1, 'Phanauet Channel', 4315),

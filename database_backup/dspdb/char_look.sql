@@ -28,8 +28,9 @@ CREATE TABLE IF NOT EXISTS `char_look` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=24;
 
 -- Dumping data for table dspdb.char_look: 1 rows
+DELETE FROM `char_look`;
 /*!40000 ALTER TABLE `char_look` DISABLE KEYS */;
-REPLACE INTO `char_look` (`charid`, `face`, `race`, `size`, `head`, `body`, `hands`, `legs`, `feet`, `main`, `sub`, `ranged`) VALUES
+INSERT INTO `char_look` (`charid`, `face`, `race`, `size`, `head`, `body`, `hands`, `legs`, `feet`, `main`, `sub`, `ranged`) VALUES
 	(21828, 12, 1, 1, 109, 0, 0, 0, 0, 21, 0, 0);
 /*!40000 ALTER TABLE `char_look` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

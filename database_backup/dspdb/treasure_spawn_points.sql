@@ -22,8 +22,9 @@ CREATE TABLE IF NOT EXISTS `treasure_spawn_points` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.treasure_spawn_points: 462 rows
+DELETE FROM `treasure_spawn_points`;
 /*!40000 ALTER TABLE `treasure_spawn_points` DISABLE KEYS */;
-REPLACE INTO `treasure_spawn_points` (`npcid`, `pos`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`) VALUES
+INSERT INTO `treasure_spawn_points` (`npcid`, `pos`, `pos_rot`, `pos_x`, `pos_y`, `pos_z`) VALUES
 	(16814557, 0, 0, -393.000, 16.000, -208.000),
 	(16814557, 1, 0, -392.950, 16.000, -236.012),
 	(16814557, 2, 20, -349.409, 16.000, -232.783),

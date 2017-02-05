@@ -23,8 +23,9 @@ CREATE TABLE IF NOT EXISTS `elevators` (
 ) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=38;
 
 -- Dumping data for table dspdb.elevators: 23 rows
+DELETE FROM `elevators`;
 /*!40000 ALTER TABLE `elevators` DISABLE KEYS */;
-REPLACE INTO `elevators` (`id`, `name`, `elevator`, `upperDoor`, `lowerDoor`, `status`, `regime`) VALUES
+INSERT INTO `elevators` (`id`, `name`, `elevator`, `upperDoor`, `lowerDoor`, `status`, `regime`) VALUES
 	(1, 'Pso\'Xja_Elvtr_1', 16814442, 16814443, 16814444, 1, 1),
 	(2, 'Pso\'Xja_Elvtr_2', 16814461, 16814462, 16814463, 1, 1),
 	(3, 'Pso\'Xja_Elvtr_3', 16814464, 16814465, 16814466, 1, 1),

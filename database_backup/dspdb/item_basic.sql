@@ -25,8 +25,9 @@ CREATE TABLE IF NOT EXISTS `item_basic` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=34 PACK_KEYS=1 CHECKSUM=1;
 
 -- Dumping data for table dspdb.item_basic: 19,719 rows
+DELETE FROM `item_basic`;
 /*!40000 ALTER TABLE `item_basic` DISABLE KEYS */;
-REPLACE INTO `item_basic` (`itemid`, `subid`, `name`, `sortname`, `stackSize`, `flags`, `aH`, `NoSale`, `BaseSell`) VALUES
+INSERT INTO `item_basic` (`itemid`, `subid`, `name`, `sortname`, `stackSize`, `flags`, `aH`, `NoSale`, `BaseSell`) VALUES
 	(1, 0, 'pile_of_chocobo_bedding', 'chocobo_bedding', 1, 24660, 34, 0, 40),
 	(2, 0, 'simple_bed', 'simple_bed', 1, 36, 34, 0, 78),
 	(3, 0, 'oak_bed', 'oak_bed', 1, 36, 34, 0, 281),
@@ -13463,7 +13464,7 @@ REPLACE INTO `item_basic` (`itemid`, `subid`, `name`, `sortname`, `stackSize`, `
 	(17073, 0, 'mistilteinn', 'mistilteinn', 1, 2052, 11, 0, 528),
 	(17074, 0, 'chocobo_wand', 'chocobo_wand', 1, 30800, 99, 1, 0),
 	(17075, 0, 'star_rod', 'star_rod', 1, 2048, 11, 0, 566);
-REPLACE INTO `item_basic` (`itemid`, `subid`, `name`, `sortname`, `stackSize`, `flags`, `aH`, `NoSale`, `BaseSell`) VALUES
+INSERT INTO `item_basic` (`itemid`, `subid`, `name`, `sortname`, `stackSize`, `flags`, `aH`, `NoSale`, `BaseSell`) VALUES
 	(17076, 0, 'earth_wand', 'earth_wand', 1, 2052, 11, 0, 68),
 	(17077, 0, 'beneficus', 'beneficus', 1, 63572, 99, 1, 0),
 	(17078, 0, 'siriti', 'siriti', 1, 63572, 99, 1, 0),

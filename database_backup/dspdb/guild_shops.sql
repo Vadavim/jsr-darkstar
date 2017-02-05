@@ -23,8 +23,9 @@ CREATE TABLE IF NOT EXISTS `guild_shops` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.guild_shops: 1,056 rows
+DELETE FROM `guild_shops`;
 /*!40000 ALTER TABLE `guild_shops` DISABLE KEYS */;
-REPLACE INTO `guild_shops` (`guildid`, `itemid`, `min_price`, `max_price`, `max_quantity`, `daily_increase`, `initial_quantity`) VALUES
+INSERT INTO `guild_shops` (`guildid`, `itemid`, `min_price`, `max_price`, `max_quantity`, `daily_increase`, `initial_quantity`) VALUES
 	(513, 688, 15, 30, 255, 48, 100),
 	(513, 689, 27, 59, 255, 48, 100),
 	(513, 690, 1723, 10295, 255, 48, 100),

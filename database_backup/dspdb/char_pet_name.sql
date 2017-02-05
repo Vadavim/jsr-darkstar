@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `char_pet_name` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.char_pet_name: 0 rows
+DELETE FROM `char_pet_name`;
 /*!40000 ALTER TABLE `char_pet_name` DISABLE KEYS */;
 /*!40000 ALTER TABLE `char_pet_name` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

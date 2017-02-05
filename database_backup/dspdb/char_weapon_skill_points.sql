@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `char_weapon_skill_points` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- Dumping data for table dspdb.char_weapon_skill_points: 0 rows
+DELETE FROM `char_weapon_skill_points`;
 /*!40000 ALTER TABLE `char_weapon_skill_points` DISABLE KEYS */;
 /*!40000 ALTER TABLE `char_weapon_skill_points` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

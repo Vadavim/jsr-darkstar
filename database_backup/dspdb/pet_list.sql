@@ -23,8 +23,9 @@ CREATE TABLE IF NOT EXISTS `pet_list` (
 ) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.pet_list: 80 rows
+DELETE FROM `pet_list`;
 /*!40000 ALTER TABLE `pet_list` DISABLE KEYS */;
-REPLACE INTO `pet_list` (`petid`, `name`, `poolid`, `minLevel`, `maxLevel`, `time`, `element`) VALUES
+INSERT INTO `pet_list` (`petid`, `name`, `poolid`, `minLevel`, `maxLevel`, `time`, `element`) VALUES
 	(0, 'FireSpirit', 1341, 1, 99, 0, 1),
 	(1, 'IceSpirit', 2043, 1, 99, 0, 5),
 	(2, 'AirSpirit', 71, 1, 99, 0, 4),

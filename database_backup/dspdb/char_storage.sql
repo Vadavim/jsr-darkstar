@@ -27,8 +27,9 @@ CREATE TABLE IF NOT EXISTS `char_storage` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.char_storage: 1 rows
+DELETE FROM `char_storage`;
 /*!40000 ALTER TABLE `char_storage` DISABLE KEYS */;
-REPLACE INTO `char_storage` (`charid`, `inventory`, `safe`, `locker`, `satchel`, `sack`, `case`, `wardrobe`, `wardrobe2`, `wardrobe3`, `wardrobe4`) VALUES
+INSERT INTO `char_storage` (`charid`, `inventory`, `safe`, `locker`, `satchel`, `sack`, `case`, `wardrobe`, `wardrobe2`, `wardrobe3`, `wardrobe4`) VALUES
 	(21828, 80, 80, 80, 25, 80, 80, 80, 80, 80, 80);
 /*!40000 ALTER TABLE `char_storage` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -22,8 +22,9 @@ CREATE TABLE IF NOT EXISTS `spots_for_treasure` (
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 -- Dumping data for table dspdb.spots_for_treasure: 4 rows
+DELETE FROM `spots_for_treasure`;
 /*!40000 ALTER TABLE `spots_for_treasure` DISABLE KEYS */;
-REPLACE INTO `spots_for_treasure` (`id`, `pos_x`, `pos_y`, `pos_z`, `rot`, `zone`) VALUES
+INSERT INTO `spots_for_treasure` (`id`, `pos_x`, `pos_y`, `pos_z`, `rot`, `zone`) VALUES
 	(1, -424.362, -16.703, -180.199, 247, 100),
 	(2, -424.362, -16.703, -180.199, 247, 100),
 	(3, -424.362, -16.703, -180.199, 247, 100),

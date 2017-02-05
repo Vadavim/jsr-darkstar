@@ -20,8 +20,9 @@ CREATE TABLE IF NOT EXISTS `bcnm_loot` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=9;
 
 -- Dumping data for table dspdb.bcnm_loot: 1,535 rows
+DELETE FROM `bcnm_loot`;
 /*!40000 ALTER TABLE `bcnm_loot` DISABLE KEYS */;
-REPLACE INTO `bcnm_loot` (`LootDropId`, `itemId`, `rolls`, `lootGroupId`) VALUES
+INSERT INTO `bcnm_loot` (`LootDropId`, `itemId`, `rolls`, `lootGroupId`) VALUES
 	(100, 13292, 75, 0),
 	(100, 13287, 32, 0),
 	(100, 13300, 54, 0),

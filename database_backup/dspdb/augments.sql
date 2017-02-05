@@ -20,8 +20,9 @@ CREATE TABLE IF NOT EXISTS `augments` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.augments: 2,305 rows
+DELETE FROM `augments`;
 /*!40000 ALTER TABLE `augments` DISABLE KEYS */;
-REPLACE INTO `augments` (`augmentId`, `multiplier`, `modId`, `value`, `type`) VALUES
+INSERT INTO `augments` (`augmentId`, `multiplier`, `modId`, `value`, `type`) VALUES
 	(1, 0, 2, 1, 0),
 	(2, 0, 2, 33, 0),
 	(3, 0, 2, 65, 0),

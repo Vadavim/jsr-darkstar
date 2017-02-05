@@ -31,8 +31,9 @@ CREATE TABLE IF NOT EXISTS `skill_caps` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=32 PACK_KEYS=1 ROW_FORMAT=FIXED;
 
 -- Dumping data for table dspdb.skill_caps: 100 rows
+DELETE FROM `skill_caps`;
 /*!40000 ALTER TABLE `skill_caps` DISABLE KEYS */;
-REPLACE INTO `skill_caps` (`level`, `r0`, `r1`, `r2`, `r3`, `r4`, `r5`, `r6`, `r7`, `r8`, `r9`, `r10`, `r11`, `r12`, `r13`) VALUES
+INSERT INTO `skill_caps` (`level`, `r0`, `r1`, `r2`, `r3`, `r4`, `r5`, `r6`, `r7`, `r8`, `r9`, `r10`, `r11`, `r12`, `r13`) VALUES
 	(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(1, 0, 6, 6, 5, 5, 5, 5, 5, 5, 4, 4, 4, 3, 4),
 	(2, 0, 9, 9, 7, 7, 7, 7, 7, 7, 6, 6, 6, 5, 6),

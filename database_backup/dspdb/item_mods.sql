@@ -19,8 +19,9 @@ CREATE TABLE IF NOT EXISTS `item_mods` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=13 PACK_KEYS=1;
 
 -- Dumping data for table dspdb.item_mods: 36,932 rows
+DELETE FROM `item_mods`;
 /*!40000 ALTER TABLE `item_mods` DISABLE KEYS */;
-REPLACE INTO `item_mods` (`itemId`, `modId`, `value`) VALUES
+INSERT INTO `item_mods` (`itemId`, `modId`, `value`) VALUES
 	(10250, 1, 1),
 	(10251, 1, 1),
 	(10252, 1, 1),

@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `linkshells` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table dspdb.linkshells: 0 rows
+DELETE FROM `linkshells`;
 /*!40000 ALTER TABLE `linkshells` DISABLE KEYS */;
 /*!40000 ALTER TABLE `linkshells` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

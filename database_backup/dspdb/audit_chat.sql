@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS `audit_chat` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.audit_chat: 0 rows
+DELETE FROM `audit_chat`;
 /*!40000 ALTER TABLE `audit_chat` DISABLE KEYS */;
 /*!40000 ALTER TABLE `audit_chat` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

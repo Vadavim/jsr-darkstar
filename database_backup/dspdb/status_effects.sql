@@ -26,8 +26,9 @@ CREATE TABLE IF NOT EXISTS `status_effects` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.status_effects: 601 rows
+DELETE FROM `status_effects`;
 /*!40000 ALTER TABLE `status_effects` DISABLE KEYS */;
-REPLACE INTO `status_effects` (`id`, `name`, `flags`, `type`, `negative_id`, `overwrite`, `block_id`, `remove_id`, `element`, `min_duration`) VALUES
+INSERT INTO `status_effects` (`id`, `name`, `flags`, `type`, `negative_id`, `overwrite`, `block_id`, `remove_id`, `element`, `min_duration`) VALUES
 	(0, 'ko', 0, 0, 0, 0, 0, 0, 0, 0),
 	(1, 'weakness', 0, 0, 0, 3, 0, 0, 0, 1),
 	(2, 'sleep', 48, 2, 19, 2, 193, 0, 8, 1),

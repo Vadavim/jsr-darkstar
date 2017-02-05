@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `auction_house` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.auction_house: 0 rows
+DELETE FROM `auction_house`;
 /*!40000 ALTER TABLE `auction_house` DISABLE KEYS */;
 /*!40000 ALTER TABLE `auction_house` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

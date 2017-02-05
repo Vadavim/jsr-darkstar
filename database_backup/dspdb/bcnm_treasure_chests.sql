@@ -18,8 +18,9 @@ CREATE TABLE IF NOT EXISTS `bcnm_treasure_chests` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=56;
 
 -- Dumping data for table dspdb.bcnm_treasure_chests: 52 rows
+DELETE FROM `bcnm_treasure_chests`;
 /*!40000 ALTER TABLE `bcnm_treasure_chests` DISABLE KEYS */;
-REPLACE INTO `bcnm_treasure_chests` (`bcnmId`, `battlefieldNumber`, `npcId`) VALUES
+INSERT INTO `bcnm_treasure_chests` (`bcnmId`, `battlefieldNumber`, `npcId`) VALUES
 	(4, 1, 17346675),
 	(4, 2, 17346679),
 	(4, 3, 17346683),

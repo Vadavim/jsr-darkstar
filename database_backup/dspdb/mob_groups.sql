@@ -27,8 +27,9 @@ CREATE TABLE IF NOT EXISTS `mob_groups` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=22;
 
 -- Dumping data for table dspdb.mob_groups: 12,012 rows
+DELETE FROM `mob_groups`;
 /*!40000 ALTER TABLE `mob_groups` DISABLE KEYS */;
-REPLACE INTO `mob_groups` (`groupid`, `poolid`, `zoneid`, `respawntime`, `spawntype`, `dropid`, `HP`, `MP`, `minLevel`, `maxLevel`, `allegiance`) VALUES
+INSERT INTO `mob_groups` (`groupid`, `poolid`, `zoneid`, `respawntime`, `spawntype`, `dropid`, `HP`, `MP`, `minLevel`, `maxLevel`, `allegiance`) VALUES
 	(1, 69, 1, 0, 128, 40, 0, 0, 34, 36, 0),
 	(2, 417, 1, 0, 128, 299, 0, 0, 20, 24, 0),
 	(3, 1347, 1, 0, 128, 961, 0, 0, 25, 27, 0),

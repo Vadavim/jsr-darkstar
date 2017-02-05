@@ -20,8 +20,9 @@ CREATE TABLE IF NOT EXISTS `bonus_item_points` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 -- Dumping data for table dspdb.bonus_item_points: 1,204 rows
+DELETE FROM `bonus_item_points`;
 /*!40000 ALTER TABLE `bonus_item_points` DISABLE KEYS */;
-REPLACE INTO `bonus_item_points` (`guild`, `itemid`, `name`, `points`) VALUES
+INSERT INTO `bonus_item_points` (`guild`, `itemid`, `name`, `points`) VALUES
 	('guild_woodworking', 688, 'arrowwood_log', 0),
 	('guild_woodworking', 689, 'lauan_log', 0),
 	('guild_woodworking', 690, 'elm_log', 0),

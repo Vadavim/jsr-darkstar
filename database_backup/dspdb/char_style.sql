@@ -25,8 +25,9 @@ CREATE TABLE IF NOT EXISTS `char_style` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=20;
 
 -- Dumping data for table dspdb.char_style: 1 rows
+DELETE FROM `char_style`;
 /*!40000 ALTER TABLE `char_style` DISABLE KEYS */;
-REPLACE INTO `char_style` (`charid`, `head`, `body`, `hands`, `legs`, `feet`, `main`, `sub`, `ranged`) VALUES
+INSERT INTO `char_style` (`charid`, `head`, `body`, `hands`, `legs`, `feet`, `main`, `sub`, `ranged`) VALUES
 	(21828, 0, 0, 0, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `char_style` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

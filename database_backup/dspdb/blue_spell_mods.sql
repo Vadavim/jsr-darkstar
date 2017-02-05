@@ -19,8 +19,9 @@ CREATE TABLE IF NOT EXISTS `blue_spell_mods` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.blue_spell_mods: 295 rows
+DELETE FROM `blue_spell_mods`;
 /*!40000 ALTER TABLE `blue_spell_mods` DISABLE KEYS */;
-REPLACE INTO `blue_spell_mods` (`spellId`, `modid`, `value`) VALUES
+INSERT INTO `blue_spell_mods` (`spellId`, `modid`, `value`) VALUES
 	(513, 13, 2),
 	(515, 13, 2),
 	(517, 0, 0),

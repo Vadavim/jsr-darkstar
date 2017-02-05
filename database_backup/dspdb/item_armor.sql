@@ -26,8 +26,9 @@ CREATE TABLE IF NOT EXISTS `item_armor` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=37 PACK_KEYS=1 CHECKSUM=1;
 
 -- Dumping data for table dspdb.item_armor: 12,909 rows
+DELETE FROM `item_armor`;
 /*!40000 ALTER TABLE `item_armor` DISABLE KEYS */;
-REPLACE INTO `item_armor` (`itemId`, `name`, `level`, `ilevel`, `jobs`, `MId`, `shieldSize`, `scriptType`, `slot`, `rslot`) VALUES
+INSERT INTO `item_armor` (`itemId`, `name`, `level`, `ilevel`, `jobs`, `MId`, `shieldSize`, `scriptType`, `slot`, `rslot`) VALUES
 	(10240, 'hexed_haubert', 99, 0, 8641, 0, 0, 0, 32, 0),
 	(10241, 'hexed_domaru', 99, 0, 137218, 0, 0, 0, 32, 0),
 	(10242, 'hexed_jacket', 99, 0, 2462754, 0, 0, 0, 32, 0),

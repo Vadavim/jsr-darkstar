@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `account_ip_record` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.account_ip_record: ~0 rows (approximately)
+DELETE FROM `account_ip_record`;
 /*!40000 ALTER TABLE `account_ip_record` DISABLE KEYS */;
 /*!40000 ALTER TABLE `account_ip_record` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

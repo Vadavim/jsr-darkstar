@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `char_blacklist` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.char_blacklist: 0 rows
+DELETE FROM `char_blacklist`;
 /*!40000 ALTER TABLE `char_blacklist` DISABLE KEYS */;
 /*!40000 ALTER TABLE `char_blacklist` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

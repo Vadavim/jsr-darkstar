@@ -20,8 +20,9 @@ CREATE TABLE IF NOT EXISTS `job_points` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.job_points: 217 rows
+DELETE FROM `job_points`;
 /*!40000 ALTER TABLE `job_points` DISABLE KEYS */;
-REPLACE INTO `job_points` (`job_pointid`, `name`, `upgrade`, `jobs`) VALUES
+INSERT INTO `job_points` (`job_pointid`, `name`, `upgrade`, `jobs`) VALUES
 	(64, 'mighty_strikes_effect', 2, 1),
 	(66, 'berserk_effect', 4, 1),
 	(68, 'brazen_rush_effect', 2, 1),

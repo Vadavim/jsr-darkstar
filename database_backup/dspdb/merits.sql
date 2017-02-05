@@ -23,8 +23,9 @@ CREATE TABLE IF NOT EXISTS `merits` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.merits: 258 rows
+DELETE FROM `merits`;
 /*!40000 ALTER TABLE `merits` DISABLE KEYS */;
-REPLACE INTO `merits` (`meritid`, `name`, `upgrade`, `value`, `jobs`, `upgradeid`, `catagoryid`) VALUES
+INSERT INTO `merits` (`meritid`, `name`, `upgrade`, `value`, `jobs`, `upgradeid`, `catagoryid`) VALUES
 	(64, 'max_hp', 15, 10, 1048575, 0, 0),
 	(66, 'max_mp', 15, 10, 1048575, 0, 0),
 	(68, 'max_merits', 15, 1, 1048575, 9, 0),

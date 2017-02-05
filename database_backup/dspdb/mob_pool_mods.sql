@@ -20,8 +20,9 @@ CREATE TABLE IF NOT EXISTS `mob_pool_mods` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=13 PACK_KEYS=1;
 
 -- Dumping data for table dspdb.mob_pool_mods: 214 rows
+DELETE FROM `mob_pool_mods`;
 /*!40000 ALTER TABLE `mob_pool_mods` DISABLE KEYS */;
-REPLACE INTO `mob_pool_mods` (`poolid`, `modid`, `value`, `is_mob_mod`) VALUES
+INSERT INTO `mob_pool_mods` (`poolid`, `modid`, `value`, `is_mob_mod`) VALUES
 	(519, 160, -50, 0),
 	(532, 160, -50, 0),
 	(676, 160, -50, 0),
