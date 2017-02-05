@@ -19,15 +19,17 @@ require("scripts/globals/jsr_hotspots");
 -- item, min, max, zone, job, bonusamount, family
 local commonRewards = {
     {3974, 1, 39, 0, 0, 0, 0}, -- Airlixir
-    {3974, 1, 39, 0, 0, 0, 0}, -- Airlixir
     {3975, 40, 65, 0, 0, 0, 0}, -- Airlixir +1
-    {3975, 40, 65, 0, 0, 0, 0}, -- Airlixir +1
-    {3976, 366, 75, 0, 0, 0, 0}, -- Airlixir +2
     {3976, 366, 75, 0, 0, 0, 0}, -- Airlixir +2
     {656, 1, 15, 0, 0, 0, 0}, -- Beastcoin
+    {656, 1, 15, 0, 0, 0, 0}, -- Beastcoin
+    {750, 16, 30, 0, 0, 0, 0}, -- Silver Beastcoin
     {750, 16, 30, 0, 0, 0, 0}, -- Silver Beastcoin
     {749, 31, 45, 0, 0, 0, 0}, -- Mythril Beastcoin
+    {749, 31, 45, 0, 0, 0, 0}, -- Mythril Beastcoin
     {748, 46, 60, 0, 0, 0, 0}, -- Gold Beastcoin
+    {748, 46, 60, 0, 0, 0, 0}, -- Gold Beastcoin
+    {751, 61, 99, 0, 0, 0, 0}, -- Platinum Beastcoin
     {751, 61, 99, 0, 0, 0, 0}, -- Platinum Beastcoin
     {4123, 50, 99, 0, 0, 0, 0}, -- Icarus Wing
     {4198, 1, 99, 0, 0, 0, 0}, -- Dragon's Chronicles
@@ -1885,7 +1887,7 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
 
     if (isHot) then rewardChance = rewardChance * 1.33; end;
 
-    if (math.random(0, 100) <= rewardChance) then
+    if (math.random(0, 100) <= rewardChance and isKiller) then
         dropReward(mob, player);
     end
 
