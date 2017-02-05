@@ -821,7 +821,6 @@ void CMobEntity::DropItems()
         if (PPet != nullptr && PPet->PMaster != nullptr && PPet->PMaster->objtype == TYPE_PC)
             PChar = (CCharEntity*)PPet->PMaster;
     }
-    ShowDebug("Ran\n");
 
     if (PChar != nullptr && PChar->id == m_OwnerID.id)
     {
@@ -850,10 +849,11 @@ void CMobEntity::DropItems()
                     //THLvl is the number of 'extra chances' at an item. If the item is obtained, then break out.
                     uint8 tries = 0;
                     uint8 maxTries = 1 + (m_THLvl > 2 ? 2 : m_THLvl);
-                    uint8 bonus = (m_THLvl > 2 ? (m_THLvl - 2) * 0.05 : 0);
+                    uint8 bonus = (m_THLvl > 2 ? (m_THLvl - 2) * 0.1 : 0);
+//                    ShowDebug(CL_BG_CYAN"DropID: %u, droprate: %u, TH: %u, dropconf: %f", DropList->at(i).ItemID, DropList->at(i).DropRate, m_THLvl, map_config.drop_rate_multiplier );
                     while (tries < maxTries)
                     {
-                        if (DropList->at(i).DropRate > 0 && dsprand::GetRandomNumber(1000) < DropList->at(i).DropRate * map_config.drop_rate_multiplier * (1.0f))
+                        if (DropList->at(i).DropRate > 0 && dsprand::GetRandomNumber(1000) < DropList->at(i).DropRate * map_config.drop_rate_multiplier * (1.0f + dropBonus + bonus))
                         {
                             PChar->PTreasurePool->AddItem(DropList->at(i).ItemID, this);
                             break;

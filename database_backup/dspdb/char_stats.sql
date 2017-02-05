@@ -34,9 +34,10 @@ CREATE TABLE IF NOT EXISTS `char_stats` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.char_stats: 1 rows
+DELETE FROM `char_stats`;
 /*!40000 ALTER TABLE `char_stats` DISABLE KEYS */;
-REPLACE INTO `char_stats` (`charid`, `hp`, `mp`, `nameflags`, `mhflag`, `mjob`, `sjob`, `death`, `2h`, `title`, `bazaar_message`, `zoning`, `mlvl`, `slvl`, `pet_id`, `pet_type`, `pet_hp`, `pet_mp`) VALUES
-	(21828, 9999, 6750, 117440581, 0, 4, 1, 65811, 0, 41, NULL, 0, 19, 9, 0, 0, 0, 0);
+INSERT INTO `char_stats` (`charid`, `hp`, `mp`, `nameflags`, `mhflag`, `mjob`, `sjob`, `death`, `2h`, `title`, `bazaar_message`, `zoning`, `mlvl`, `slvl`, `pet_id`, `pet_type`, `pet_hp`, `pet_mp`) VALUES
+	(21828, 9999, 9999, 117440581, 0, 15, 1, 74246, 0, 41, NULL, 0, 75, 37, 16, 0, 0, 0);
 /*!40000 ALTER TABLE `char_stats` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

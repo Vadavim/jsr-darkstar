@@ -24,10 +24,10 @@ CARBUNCLE
 
 
 [POISON NAILS]
- - Recast: 25 seconds
- - Poison DoT: 1 + Level / 5 + (CHRMOD + SMNMOD) / 6
+ - Recast: 20 seconds
+ - Poison DoT: 1 + Level / 4
  - Poison is resisted by VIT; affected by Water Resistance / Attack / Defense
- - Duration: 30 + CHRMOD + SMNMOD, max of 90
+ - Duration: 30 + CHRMOD + SMNMOD * 2, max of 90
 
 [Healing Ruby]
  - Recast: 15 seconds
@@ -47,12 +47,12 @@ CARBUNCLE
 
 [Glittering Ruby]
  - Recast: 30 seconds
- - Duration: 300 + CHRMOD * 3 + SMNMOD * 6, max of 600 seconds
- - Power: 12 + tp / 200
+ - Duration: 300 + CHRMOD * 3 + SMNMOD * 6, max of 600 seconds. +1 second per 5 TP
+ - Power: 10 + tp / 200
  - Buffs two random stats (buff stacks with other stat buffs)
 
 [Shining Ruby]
- - Recast: 45 seconds
+ - Recast: 30 seconds
  - Boosts Defense and Magic Defense by +10% for duration
  - Duration: 300 + CHRMOD * 3 + SMNMOD * 6, max of 600 seconds
  - TP Bonus: +1 second per 5 TP (does not count against max)
@@ -86,8 +86,7 @@ SHIVA
  - TP Bonus: +1 second per 50 TP (does not count against maximum duration)
 
 [Double Slap]
- - Recast: 35 seconds
- - +15% accuracy
+ - Recast: 40 seconds
 
 [Blizzard IV]
  - Recast: 48 seconds
@@ -141,19 +140,23 @@ TITAN
 [Titan's Favor]
  - Grants 10 + Level DEF
 
+[Rock Throw]
+ - Recast: 20 seconds
+ - Affected by earth defense, day, and weather
+
 [Stone II]
  - Gained at Level 18
  - Recast: 25 seconds
 
 [Rock Buster]
  - Recast: 25 Seconds
- - +15% Accuracy
+ - Instead slows target (more potent than rock throw)
 
 [Megalith Throw]
- - Recast: 30 seconds
+ - Recast: 35 seconds
  - +15% accuracy
- - Instead lowers target's Defense by 10%; resisted by STR vs VIT
- - Duration: 30 + CHR + SMNMOD, max of 90
+ - Instead lowers target's Defense by 15%; resisted by STR vs VIT
+ - Duration: 30 + CHR + SMNMOD * 2, max of 90
 
 [Earthen Ward]
  - Duration: 900 seconds
@@ -175,7 +178,7 @@ GARUDA
  - Grants +20 EVA and +10% Ranged Attack
 
 [Claw]
- - Recast: 25 seconds
+ - Recast: 20 seconds
  - +15% accuracy
 
 [Aero II]
@@ -208,16 +211,16 @@ FENRIR
  - Grants +20 MEVA and +30 Subtle Blow
 
 [Moonlight Charge]
- - Recast: 25 seconds
- - +15% accuracy
+ - Recast: 20 seconds
+ - +25% accuracy
  - Power: -25 accuracy
- - Duration: 90 + (CHRMOD + SMNMOD) * 2; max of 180 seconds
+ - Duration: 60 + CHRMOD * 2+ SMNMOD * 4; max of 160 seconds
 
 [Crescent Fang]
- - Recast: 35 seconds
- - +15% accuracy
- - Power: 30
- - Duration: 30 + CHRMOD + SMNMOD; max of 90 seconds
+ - Recast: 20 seconds
+ - +25% accuracy
+ - Power: 33
+ - Duration: 30 + CHRMOD / 2 + SMNMOD; max of 60 seconds
 
 [Ecliptic Growl]
  - Recast: 35 seconds
@@ -263,15 +266,15 @@ LEVIATHAN
 [Tail Whip]
  - Recast: 35 seconds
  - +15% accuracy to hit
- - Duration: 30 + CHR + SMNMOD, max of 90
+ - Duration: 60 + CHR + SMNMOD * 2, max of 120
  - Weight Power: 60
  - Resisted by STR vs VIT
 
 [Slowga]
  - Recast: 30 seconds
- - Duration: 120 + (CHRMOD + SMNMOD) * 3, max of 360
+ - Duration: 120 + CHRMOD * 2 + SMNMOD * 4, max of 240
  - Resisted with MND
- - Power: 300 + tp / 50
+ - Power: 300 + tp / 25
 
 [Spring Water]
  - Recast: 50 seconds
@@ -339,13 +342,14 @@ DIABOLOS
 [Camisado]
  - Recast: 20 seconds
  - Is a Dark-based attack (affected by resistance, defense, MAB, etc.)
+ - Inflicts Magic Defense Down (-15% MDEF)
+ - Duration is 60 + CHRMOD + SMNMOD * 2, max of 120 seconds
  - +15% accuracy
 
 [Somnolence]
- - Recast: 45 seconds
+ - Recast: 35 seconds
  - Power: 80
- - Damage scales with level and TP
- - Duration: 20 + CHR / 2 + SMNMOD / 2, max of 40 seconds. +1 second per 100 TP.
+ - Duration: 30 + CHR / 2 + SMNMOD, max of 60 seconds. +1 second per 50 TP.
 
 [Ultimate Terror]
  - Attempts to drain each attribute by 8 + level / 10
@@ -364,9 +368,11 @@ DIABOLOS
  - TP Bonus: +1 second per 10 TP (does not count against maximum duration)
 
 [Nether Blast]
- - Damage is ~25% than IV spells (like Fire IV).
+ - Recast: 38 seconds
+ - Gained at level 55
+ - Damage is ~50% less than IV spells (like Fire IV).
 	- Inflicts a powerful Bio on target if target does not have Bio / Dia.	
-	- DoT: 5 + (level + CHRMOD + SMNMOD) / 3
+	- DoT: 4 + (level + CHRMOD + SMNMOD) / 6
 	- Attack Down: -15%
-	- Duration: 60 + tp / 50 seconds
+	- Duration: 60 + tp / 20 seconds
 	

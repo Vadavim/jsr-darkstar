@@ -19,9 +19,10 @@ CREATE TABLE IF NOT EXISTS `mob_droplist` (
   KEY `dropId` (`dropId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=9;
 
--- Dumping data for table dspdb.mob_droplist: 32,893 rows
+-- Dumping data for table dspdb.mob_droplist: 32,895 rows
+DELETE FROM `mob_droplist`;
 /*!40000 ALTER TABLE `mob_droplist` DISABLE KEYS */;
-REPLACE INTO `mob_droplist` (`dropId`, `type`, `itemId`, `rate`) VALUES
+INSERT INTO `mob_droplist` (`dropId`, `type`, `itemId`, `rate`) VALUES
 	(1, 2, 1455, 0),
 	(1, 0, 1455, 90),
 	(1, 0, 1456, 10),
@@ -32914,7 +32915,9 @@ REPLACE INTO `mob_droplist` (`dropId`, `type`, `itemId`, `rate`) VALUES
 	(16511, 0, 1843, 50),
 	(2834, 0, 16511, 70),
 	(4015, 0, 598, 60),
-	(2529, 0, 598, 75);
+	(2529, 0, 598, 75),
+	(2586, 0, 1018, 120),
+	(2648, 0, 1018, 60);
 /*!40000 ALTER TABLE `mob_droplist` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

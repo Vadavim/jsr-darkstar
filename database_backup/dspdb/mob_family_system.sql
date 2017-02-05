@@ -51,8 +51,9 @@ CREATE TABLE IF NOT EXISTS `mob_family_system` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=128;
 
 -- Dumping data for table dspdb.mob_family_system: 471 rows
+DELETE FROM `mob_family_system`;
 /*!40000 ALTER TABLE `mob_family_system` DISABLE KEYS */;
-REPLACE INTO `mob_family_system` (`familyid`, `family`, `systemid`, `system`, `mobsize`, `speed`, `HP`, `MP`, `STR`, `DEX`, `VIT`, `AGI`, `INT`, `MND`, `CHR`, `ATT`, `DEF`, `ACC`, `EVA`, `Slash`, `Pierce`, `H2H`, `Impact`, `Fire`, `Ice`, `Wind`, `Earth`, `Lightning`, `Water`, `Light`, `Dark`, `Element`, `detects`, `charmable`, `xpbonus`) VALUES
+INSERT INTO `mob_family_system` (`familyid`, `family`, `systemid`, `system`, `mobsize`, `speed`, `HP`, `MP`, `STR`, `DEX`, `VIT`, `AGI`, `INT`, `MND`, `CHR`, `ATT`, `DEF`, `ACC`, `EVA`, `Slash`, `Pierce`, `H2H`, `Impact`, `Fire`, `Ice`, `Wind`, `Earth`, `Lightning`, `Water`, `Light`, `Dark`, `Element`, `detects`, `charmable`, `xpbonus`) VALUES
 	(1, 'Acrolith', 3, 'Arcana', 1, 40, 90, 90, 1, 3, 4, 3, 6, 6, 5, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0),
 	(2, 'Adamantoise', 14, 'Lizard', 3, 30, 120, 90, 2, 5, 1, 6, 6, 4, 3, 3, 2, 3, 4, 1, 1, 1, 1, 1, 1.25, 1, 0.875, 1.125, 0.875, 1, 1, 4, 2, 0, 0),
 	(3, 'Aern', 15, 'Luminian', 0, 40, 120, 140, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 1, 0, 1, 0, 0),
@@ -434,7 +435,7 @@ REPLACE INTO `mob_family_system` (`familyid`, `family`, `systemid`, `system`, `m
 	(380, 'Pet-Diabolos', 5, 'Avatar', 0, 40, 100, 120, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.5, 0.5, 0, 0, 0, 0),
 	(381, 'Pet-Fenrir', 5, 'Avatar', 1, 40, 100, 120, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 0.875, 0.875, 0.875, 0.875, 0.875, 0.875, 1.5, 0.5, 0, 0, 0, 0),
 	(382, 'Pet-Garuda', 5, 'Avatar', 0, 40, 100, 120, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 0.875, 1.5, 0.5, 0.875, 0.875, 0.875, 0.875, 0.875, 0, 0, 0, 0),
-	(383, 'Pet-Ifrit', 5, 'Avatar', 0, 40, 100, 120, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 0.5, 0.875, 0.875, 0.875, 0.875, 1.5, 0.875, 0.875, 0, 0, 0, 0),
+	(383, 'Pet-Ifrit', 5, 'Avatar', 0, 40, 100, 120, 1, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 0.5, 0.875, 0.875, 0.875, 0.875, 1.5, 0.875, 0.875, 0, 0, 0, 0),
 	(384, 'Pet-Leviathan', 5, 'Avatar', 0, 40, 100, 120, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 0.875, 0.875, 0.875, 0.875, 1.5, 0.5, 0.875, 0.875, 0, 0, 0, 0),
 	(385, 'Pet-Odin', 5, 'Avatar', 2, 40, 100, 120, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.125, 1, 0, 0, 0, 0),
 	(386, 'Pet-Ramuh', 5, 'Avatar', 0, 40, 100, 120, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 0.875, 0.875, 0.875, 1.5, 0.5, 0.875, 0.875, 0.875, 0, 0, 0, 0),

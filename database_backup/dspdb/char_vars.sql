@@ -18,9 +18,10 @@ CREATE TABLE IF NOT EXISTS `char_vars` (
   PRIMARY KEY (`charid`,`varname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.char_vars: 94 rows
+-- Dumping data for table dspdb.char_vars: 95 rows
+DELETE FROM `char_vars`;
 /*!40000 ALTER TABLE `char_vars` DISABLE KEYS */;
-REPLACE INTO `char_vars` (`charid`, `varname`, `value`) VALUES
+INSERT INTO `char_vars` (`charid`, `varname`, `value`) VALUES
 	(21828, 'HpTeleportMask1b', 32),
 	(21828, 'characterLimbusKey', 22746),
 	(21828, 'LimbusID', 1292),
@@ -113,8 +114,9 @@ REPLACE INTO `char_vars` (`charid`, `varname`, `value`) VALUES
 	(21828, 'noto_z192', 8),
 	(21828, 'noto_z194', 20),
 	(21828, 'noto_z103', 64),
-	(21828, 'noto_z118', 70),
-	(21828, 'noto_z128', 4);
+	(21828, 'noto_z118', 103),
+	(21828, 'noto_z128', 5),
+	(21828, 'noto_z113', 30);
 /*!40000 ALTER TABLE `char_vars` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

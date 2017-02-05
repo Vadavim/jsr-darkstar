@@ -26,9 +26,10 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table dspdb.accounts: 1 rows
+DELETE FROM `accounts`;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-REPLACE INTO `accounts` (`id`, `login`, `password`, `email`, `email2`, `timecreate`, `timelastmodify`, `content_ids`, `status`, `priv`) VALUES
-	(1000, 'Destin', '*64404869DECC9F7FB730133B3C58AD4EA50CB5A3', '', '', '2016-05-22 17:44:05', '2017-01-31 20:09:19', 16, 1, 1);
+INSERT INTO `accounts` (`id`, `login`, `password`, `email`, `email2`, `timecreate`, `timelastmodify`, `content_ids`, `status`, `priv`) VALUES
+	(1000, 'Destin', '*64404869DECC9F7FB730133B3C58AD4EA50CB5A3', '', '', '2016-05-22 17:44:05', '2017-02-04 16:40:19', 16, 1, 1);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

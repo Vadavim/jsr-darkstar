@@ -21,10 +21,9 @@ CREATE TABLE IF NOT EXISTS `accounts_parties` (
   CONSTRAINT `accounts_parties_ibfk_1` FOREIGN KEY (`charid`) REFERENCES `accounts_sessions` (`charid`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table dspdb.accounts_parties: ~1 rows (approximately)
+-- Dumping data for table dspdb.accounts_parties: ~0 rows (approximately)
+DELETE FROM `accounts_parties`;
 /*!40000 ALTER TABLE `accounts_parties` DISABLE KEYS */;
-REPLACE INTO `accounts_parties` (`charid`, `partyid`, `partyflag`, `allianceid`, `timestamp`) VALUES
-	(21828, 21828, 4, 0, '2017-01-31 20:11:56');
 /*!40000 ALTER TABLE `accounts_parties` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

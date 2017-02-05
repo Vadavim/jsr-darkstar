@@ -42,9 +42,10 @@ CREATE TABLE IF NOT EXISTS `char_exp` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=85;
 
 -- Dumping data for table dspdb.char_exp: 1 rows
+DELETE FROM `char_exp`;
 /*!40000 ALTER TABLE `char_exp` DISABLE KEYS */;
-REPLACE INTO `char_exp` (`charid`, `mode`, `war`, `mnk`, `whm`, `blm`, `rdm`, `thf`, `pld`, `drk`, `bst`, `brd`, `rng`, `sam`, `nin`, `drg`, `smn`, `blu`, `cor`, `pup`, `dnc`, `sch`, `geo`, `run`, `merits`, `limits`) VALUES
-	(21828, 0, 43999, 227, 41599, 1743, 4799, 43999, 43999, 6299, 43999, 43999, 43999, 43999, 43999, 43999, 139, 43999, 43999, 55999, 7999, 43999, 43999, 43999, 38, 5377);
+INSERT INTO `char_exp` (`charid`, `mode`, `war`, `mnk`, `whm`, `blm`, `rdm`, `thf`, `pld`, `drk`, `bst`, `brd`, `rng`, `sam`, `nin`, `drg`, `smn`, `blu`, `cor`, `pup`, `dnc`, `sch`, `geo`, `run`, `merits`, `limits`) VALUES
+	(21828, 0, 11899, 227, 41599, 43999, 11899, 43999, 43999, 6299, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 43999, 55999, 7999, 43999, 43999, 43999, 38, 5545);
 /*!40000 ALTER TABLE `char_exp` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

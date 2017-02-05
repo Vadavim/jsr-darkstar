@@ -36,8 +36,9 @@ CREATE TABLE IF NOT EXISTS `abilities` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=56;
 
 -- Dumping data for table dspdb.abilities: 537 rows
+DELETE FROM `abilities`;
 /*!40000 ALTER TABLE `abilities` DISABLE KEYS */;
-REPLACE INTO `abilities` (`abilityId`, `name`, `job`, `level`, `validTarget`, `recastTime`, `recastId`, `message1`, `message2`, `animation`, `animationTime`, `castTime`, `actionType`, `range`, `isAOE`, `CE`, `VE`, `meritModID`, `addType`, `required_expansion`) VALUES
+INSERT INTO `abilities` (`abilityId`, `name`, `job`, `level`, `validTarget`, `recastTime`, `recastId`, `message1`, `message2`, `animation`, `animationTime`, `castTime`, `actionType`, `range`, `isAOE`, `CE`, `VE`, `meritModID`, `addType`, `required_expansion`) VALUES
 	(0, 'mighty_strikes', 1, 0, 1, 3600, 0, 0, 0, 33, 0, 0, 6, 20.0, 0, 1, 300, 0, 0, NULL),
 	(1, 'hundred_fists', 2, 0, 1, 3600, 0, 0, 0, 34, 0, 0, 6, 20.0, 0, 1, 300, 0, 0, NULL),
 	(2, 'benediction', 3, 0, 1, 3600, 0, 102, 0, 35, 0, 0, 6, 20.0, 1, 0, 0, 0, 0, NULL),
@@ -382,7 +383,7 @@ REPLACE INTO `abilities` (`abilityId`, `name`, `job`, `level`, `validTarget`, `r
 	(643, 'ultimate_terror', 15, 37, 4, 60, 174, 0, 0, 27, 0, 0, 6, 18.0, 0, 1, 60, 0, 0, NULL),
 	(644, 'noctoshield', 15, 49, 1, 60, 174, 0, 0, 92, 0, 0, 6, 18.0, 0, 1, 60, 0, 0, NULL),
 	(645, 'dream_shroud', 15, 56, 1, 60, 174, 0, 0, 121, 0, 0, 6, 18.0, 0, 1, 60, 0, 0, NULL),
-	(646, 'nether_blast', 15, 65, 4, 60, 173, 0, 0, 109, 0, 0, 6, 18.0, 0, 1, 60, 0, 0, NULL),
+	(646, 'nether_blast', 15, 55, 4, 60, 173, 0, 0, 109, 0, 0, 6, 18.0, 0, 1, 60, 0, 0, NULL),
 	(656, 'foot_kick', 9, 25, 257, 1, 102, 0, 0, 0, 0, 0, 6, 18.0, 0, 1, 60, 0, 0, NULL),
 	(657, 'dust_cloud', 9, 25, 257, 1, 102, 0, 0, 0, 0, 0, 6, 18.0, 0, 1, 60, 0, 0, NULL),
 	(658, 'whirl_claws', 9, 25, 257, 1, 102, 0, 0, 0, 0, 0, 6, 18.0, 0, 1, 60, 0, 0, NULL),

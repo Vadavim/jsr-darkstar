@@ -40,8 +40,9 @@ CREATE TABLE IF NOT EXISTS `skill_ranks` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=44 PACK_KEYS=1;
 
 -- Dumping data for table dspdb.skill_ranks: 32 rows
+DELETE FROM `skill_ranks`;
 /*!40000 ALTER TABLE `skill_ranks` DISABLE KEYS */;
-REPLACE INTO `skill_ranks` (`skillid`, `name`, `war`, `mnk`, `whm`, `blm`, `rdm`, `thf`, `pld`, `drk`, `bst`, `brd`, `rng`, `sam`, `nin`, `drg`, `smn`, `blu`, `cor`, `pup`, `dnc`, `sch`, `geo`, `run`) VALUES
+INSERT INTO `skill_ranks` (`skillid`, `name`, `war`, `mnk`, `whm`, `blm`, `rdm`, `thf`, `pld`, `drk`, `bst`, `brd`, `rng`, `sam`, `nin`, `drg`, `smn`, `blu`, `cor`, `pup`, `dnc`, `sch`, `geo`, `run`) VALUES
 	(1, 'hand2hand', 9, 1, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 1, 1, 0, 0, 0),
 	(2, 'dagger', 5, 0, 0, 9, 2, 1, 8, 7, 4, 2, 3, 10, 3, 10, 10, 0, 2, 8, 1, 9, 8, 0),
 	(3, 'sword', 2, 0, 0, 0, 2, 3, 1, 3, 10, 4, 9, 6, 3, 8, 0, 1, 3, 0, 9, 0, 0, 1),
@@ -53,7 +54,7 @@ REPLACE INTO `skill_ranks` (`skillid`, `name`, `war`, `mnk`, `whm`, `blm`, `rdm`
 	(9, 'katana', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(10, 'great katana', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(11, 'club', 5, 6, 2, 6, 2, 3, 1, 8, 9, 4, 10, 10, 10, 10, 6, 5, 0, 9, 0, 6, 2, 8),
-	(12, 'staff', 4, 1, 4, 5, 0, 0, 1, 0, 0, 4, 0, 0, 0, 5, 1, 0, 0, 0, 0, 6, 6, 0),
+	(12, 'staff', 4, 1, 4, 5, 0, 0, 1, 0, 0, 4, 0, 0, 0, 5, 1, 0, 0, 0, 0, 6, 4, 0),
 	(25, 'archery', 5, 0, 0, 0, 4, 4, 0, 0, 0, 0, 1, 2, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(26, 'marksmanship', 9, 0, 0, 0, 0, 3, 0, 5, 0, 0, 2, 0, 3, 0, 0, 0, 3, 0, 0, 0, 0, 0),
 	(27, 'throwing', 9, 10, 6, 9, 11, 3, 0, 0, 0, 10, 8, 6, 1, 0, 0, 1, 6, 6, 6, 9, 0, 0),
