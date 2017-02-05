@@ -83,20 +83,20 @@ local function questReward(player, type, firstTime)
         reward = {
             ["gil"] = 250,
             ["xp"] = 200,
-            ["guild"] = {ALCH, 50},
+            ["guild"] = {ALCH, 80},
         };
     else
         reward = {
             ["gil"] = 350,
             ["xp"] = 250,
-            ["guild"] = {BONE, 50},
+            ["guild"] = {BONE, 80},
         };
     end
 
     if (firstTime == true) then
         reward = {
-            ["gil"] = 1000,
-            ["xp"] = 800,
+            ["gil"] = 1250,
+            ["xp"] = 1000,
         };
     end
 

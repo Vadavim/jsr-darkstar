@@ -74,8 +74,8 @@ local function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 1500,
-        ["xp"] = 600,
-        ["guild"] = {GOLD, 200},
+        ["xp"] = 2500,
+        ["guild"] = {GOLD, 350},
         ["augment"] = {14688, 17, 2, 181, 4, 180, 4}, -- Reflex Earring +1: +3 HP/MP, +5 Resist Petrify and Silence
     };
     jsrReward(player, reward);

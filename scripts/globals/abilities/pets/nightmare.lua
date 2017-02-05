@@ -22,19 +22,18 @@ function onPetAbility(target, pet, skill, master)
     local resist = applyPlayerResistance(pet,EFFECT_SLEEP_I,target,
         pet:getStat(MOD_INT) - target:getStat(MOD_INT), 0, ELE_DARK);
 
+    local damageBonus = summoningDamageBonus(master, 30, 0.7, 100, 70);
+    local damage = avatarMagicalMove(target, pet, skill, ELE_DARK, damageBonus, 1.8, damageBonus / 2000);
+
     if (resist > 0.5) then
         target:addStatusEffect(EFFECT_SLEEP_I, 1, 0, duration * resist, 0, 2);
-        local sleep = target:getStatusEffect(EFFECT_SLEEP_I);
-        if (sleep ~= nil) then
-            local power = 1 + (level + chr + summoning) / 5;
-            target:addMod(MOD_REGEN_DOWN, power);
-            sleep:addMod(MOD_REGEN_DOWN, power);
-        end
+--        local sleep = target:getStatusEffect(EFFECT_SLEEP_I);
+--        if (sleep ~= nil) then
+--            local power = 1 + (level + chr + summoning) / 5;
+--            target:addMod(MOD_REGEN_DOWN, power);
+--            sleep:addMod(MOD_REGEN_DOWN, power);
+--        end
     end
 
-
-
-
-
-    return EFFECT_SLEEP_I;
+    if (resist > 0.5) then return EFFECT_SLEEP_I else return EFFECT_NONE end;
 end;

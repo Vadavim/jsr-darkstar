@@ -157,8 +157,8 @@ local function starReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 1500,
-        ["xp"] = 1200,
-        ["guild"] = {GOLD, 250},
+        ["xp"] = 1500,
+        ["guild"] = {GOLD, 350},
     };
     jsrReward(player, reward);
 end
@@ -166,9 +166,9 @@ end
 local function blastReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 6000,
-        ["xp"] = 2000,
-        ["guild"] = {BONE, 350},
+        ["gil"] = 3000,
+        ["xp"] = 4000,
+        ["guild"] = {BONE, 500},
         ["scyld"] = 50,
         ["augment"] = {17030, 1, 29, 1064, 9, 25, 5}, -- Great Club +1: +8 HP, +50% Brainshaker Damage, +6 Attack
     };

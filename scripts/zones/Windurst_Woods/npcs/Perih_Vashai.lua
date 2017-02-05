@@ -115,8 +115,8 @@ local function fangedReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 3500,
-        ["xp"] = 2000,
-        ["guild"] = {LEAT, 400},
+        ["xp"] = 5000,
+        ["guild"] = {LEAT, 500},
     };
     jsrReward(player, reward);
 end

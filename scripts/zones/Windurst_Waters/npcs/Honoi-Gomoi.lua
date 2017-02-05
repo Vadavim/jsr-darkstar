@@ -92,7 +92,7 @@ end;
 local function wildcardReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 7000,
+        ["xp"] = 12500,
         ["gil"] = 16000,
         ["item"] = 3976, -- Airlixir +2
     };
@@ -103,7 +103,7 @@ local function cryingOnionsReward(player)
     require("scripts/globals/jsr_utils");
     require("scripts/globals/jsr_augment");
     local reward = {
-        ["xp"] = 7500,
+        ["xp"] = 12500,
         ["gil"] = 9000,
         ["augment"] = {13136, AUGMENT_MP, 29, AUGMENT_MDEF, 4 , AUGMENT_DARKRES, 19}
     };

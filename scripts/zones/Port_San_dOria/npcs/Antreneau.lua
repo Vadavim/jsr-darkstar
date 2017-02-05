@@ -59,8 +59,9 @@ end;
 function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 800,
-        ["guild"] = {COOK, 200},
+        ["gil"] = 1000,
+        ["xp"] = 1000,
+        ["guild"] = {COOK, 300},
         ["item"] = 4349,
         ["item2"] = 4349
     };

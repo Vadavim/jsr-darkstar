@@ -17,16 +17,14 @@ function onAbilityCheck(player, target, ability)
 end;
 
 function onPetAbility(target, pet, skill, master)
-    local numhits = 1;
-    local accmod = 1.15;
-    local dmgmod = 5;
+    local numhits = 1; local accmod = 1.25; local strRatio = 2;
+    local dmgmod = summoningDamageBonus(master, 40, 1, 165);
     skill:setSkillchain(19); -- Gust Slash: detonation
     pet:addTP(400 + skill:getTP()); -- Add TP for using physical skill
 
     -- Deal Damage
-    local totaldamage = 0;
-    local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,0,TP_NO_EFFECT,1,2,3);
-    totaldamage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_BLUNT,numhits);
+    local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,0,strRatio);
+    local totaldamage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_BLUNT,numhits);
 
     target:delHP(totaldamage);
     target:updateEnmityFromDamage(pet,totaldamage);
@@ -34,7 +32,7 @@ function onPetAbility(target, pet, skill, master)
     -- Inflict Weight
     if(AvatarPhysicalHit(skill, totaldamage)) then
         local chr, summoning, level = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl();
-        local duration = utils.clamp(30 + chr + summoning, 30, 90);
+        local duration = utils.clamp(60 + chr + summoning * 2, 60, 120);
 
         local success = MobStatusEffectMove(pet, target, EFFECT_WEIGHT, 60, 0, duration, MOD_STR);
         if (success == 242) then

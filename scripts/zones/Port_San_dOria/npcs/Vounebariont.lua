@@ -61,9 +61,9 @@ local function questReward(player, firstTime)
     };
     if (firstTime == true) then
         reward = {
-            ["xp"] = 1200,
+            ["xp"] = 2500,
             ["gil"] = 3500,
-            ["guild"] = {BONE, 400},
+            ["guild"] = {BONE, 500},
             ["item"] = 4262 -- Purple Drop
         };
     end

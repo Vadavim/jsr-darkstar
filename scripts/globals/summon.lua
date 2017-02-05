@@ -10,73 +10,47 @@ MSG_DAMAGE = 185; -- player uses, target takes 10 damage. DEFAULT
 MSG_MISS = 188;
 MSG_RESIST = 85;
 
-function AvatarPhysicalMove(avatar,target,skill,numberofhits,accmod,dmgmod1,dmgmodsubsequent,tpeffect,mtp100,mtp200,mtp300)
+function AvatarPhysicalMove(avatar,target,skill,numberofhits,accmod,dmgmod1,dmgmodsubsequent, strRatio)
     returninfo = {};
 
-    --Damage = (D+fSTR) * dmgmod * PDIF
-    -- printf("str: %f, vit: %f", avatar:getStat(MOD_STR), target:getStat(MOD_VIT));
     local master = avatar:getMaster();
-    fstr = avatarFSTR((avatar:getStat(MOD_STR) + master:getMod(MOD_CHR) + master:getMod(MOD_SUMMONING)), target:getStat(MOD_VIT));
+    local dSTR = avatar:getStat(MOD_STR) + master:getMod(MOD_CHR) - target:getStat(MOD_VIT);
 
-    lvluser = avatar:getMainLvl();
-    lvltarget = target:getMainLvl();
-    --JSR: Charisma affects Avatar accuracy
-    local bonusacc = utils.clamp(master:getSkillLevel(SKILL_SUM) - master:getMaxSkillLevel(avatar:getMainLvl(), JOBS.SMN, SUMMONING_SKILL), 0, 200);
-    acc = avatar:getACC() + bonusacc + math.floor(master:getMod(MOD_CHR) / 2);
-    eva = target:getEVA();
+    local lvldiff = avatar:getMainLvl() - target:getMainLvl();
+    local accDiff = (avatar:getACC() + master:getMod(MOD_SUMMONING) - target:getEVA());
 
-    local base = avatar:getWeaponDmg() + fstr;
     local ratio = (avatar:getStat(MOD_ATT) + master:getMod(MOD_SUMMONING))/target:getStat(MOD_DEF);
 
-    lvldiff = lvluser - lvltarget;
-
     --work out hit rate for mobs (bias towards them)
-    hitrate = (acc*accmod) - eva;
-    if (lvluser > lvltarget) then
-        hitrate = hitrate + ((lvluser-lvltarget)*5);
-    end
-    if (lvltarget > lvluser) then
-        hitrate = hitrate + ((lvltarget-lvluser)*3);
-    end
-    if (hitrate > 95) then
-        hitrate = 95;
-    end
-    if (hitrate < 20) then
-        hitrate = 20;
-    end
+    local hitrate = utils.clamp((75 + accDiff / 2 + lvldiff * 2) * accmod, 20, 95)
 
-    if (base < 1) then
-        base = 1;
-    end
-    hitdamage = base * dmgmod1;
-    subsequenthitdamage = base * dmgmodsubsequent;
-    if (ratio<=1) then
-        maxRatio = 1;
-        minRatio = 1/3;
-    elseif (ratio<1.6) then
-        maxRatio = ((4/6) * ratio) + (2/6);
-        minRatio = ((7/9) * ratio) - (4/9);
-    elseif (ratio<=1.8) then
-        maxRatio = 1.8;
-        minRatio = 1;
-    elseif (ratio<3.6) then
-        maxRatio = (2.4 * ratio) - 2.52;
-        minRatio = ((5/3) * ratio) - 2;
-    else
-        maxRatio = 4.2;
-        minRatio = 4;
-    end
+    local hitdamage = avatar:getWeaponDmg() + dSTR * strRatio +  dmgmod1;
+    local subsequenthitdamage = avatar:getWeaponDmg() / 2 + dSTR * strRatio + dmgmodsubsequent;
+    printf("Hitrate: %f, damage: %f, ratio: %f", hitrate, hitdamage, ratio)
 
-    if (tpeffect==TP_DMG_BONUS) then
-        hitdamage = hitdamage * avatarFTP(skill:getTP(), mtp100, mtp200, mtp300);
-    end
+--    if (ratio<=1) then
+--        maxRatio = 1;
+--        minRatio = 1/3;
+--    elseif (ratio<1.6) then
+--        maxRatio = ((4/6) * ratio) + (2/6);
+--        minRatio = ((7/9) * ratio) - (4/9);
+--    elseif (ratio<=1.8) then
+--        maxRatio = 1.8;
+--        minRatio = 1;
+--    elseif (ratio<3.6) then
+--        maxRatio = (2.4 * ratio) - 2.52;
+--        minRatio = ((5/3) * ratio) - 2;
+--    else
+--        maxRatio = 4.2;
+--        minRatio = 4;
+--    end
+
     --Applying pDIF
     local pdif = 0;
 
     -- start the hits
-    local hitchance = math.random();
-    finaldmg = 0;
-    hitsdone = 1; hitslanded = 0;
+    local finaldmg = 0;
+    local hitsdone = 1; local hitslanded = 0;
 
     --add on native crit hit rate (guesstimated, it actually follows an exponential curve)
     nativecrit = (avatar:getStat(MOD_DEX) - target:getStat(MOD_AGI))*0.005; --assumes +0.5% crit rate per 1 dDEX
@@ -89,16 +63,14 @@ function AvatarPhysicalMove(avatar,target,skill,numberofhits,accmod,dmgmod1,dmgm
     end
 
     local critchance = math.random();
-    local hitchance = 0;
     local crit = false;
     if critchance <= nativecrit then
         crit = true;
-    else
-        hitchance = math.random();
     end
 
-    if crit == true or hitchance*100 <= 95 then
-        pdif = math.random((minRatio * 1000), (maxRatio * 1000));
+
+    if crit == true or math.random(0, 100) <= hitrate then
+        pdif = math.random((ratio * 900), (ratio * 1100));
         pdif = pdif/1000;
         if crit == true then
             pdif = pdif + 1;
@@ -110,9 +82,8 @@ function AvatarPhysicalMove(avatar,target,skill,numberofhits,accmod,dmgmod1,dmgm
         hitslanded = hitslanded + 1;
     end
     while (hitsdone < numberofhits) do
-        chance = math.random();
-        if ((chance*100)<=hitrate) then
-            pdif = math.random((minRatio * 1000), (maxRatio * 1000));
+        if (math.random(0, 100) <= hitrate) then
+            pdif = math.random((ratio * 900), (ratio * 1100));
             pdif = pdif/1000;
             finaldmg = finaldmg + subsequenthitdamage * pdif;
             hitslanded = hitslanded + 1;
@@ -474,8 +445,10 @@ function summonCheck(caster, target, spell)
     end
 end
 
-function summonCost(caster)
-    caster:delMP(10 + caster:getMainLvl() * 4);
+function summonCost(caster, pet)
+    local cost = 10 + caster:getMainLvl() * 4;
+    pet:setLocalVar("mpSpent", cost);
+    caster:delMP(cost);
 end
 
 function doAllyCost(player, amount, type)
@@ -486,5 +459,11 @@ function doAllyCost(player, amount, type)
         return false;
     end
 
+end
+
+function summoningDamageBonus(summoner, base, multiplier, cap, offset)
+    if (offset == nil) then offset = 0 end;
+    local skill = summoner:getSkillLevel(SKILL_SUM) + summoner:getMod(MOD_SUMMONING) - offset
+    return utils.clamp(base + skill * multiplier, 0, cap)
 end
 

@@ -22,13 +22,15 @@ local function questReward(player, firstTime)
         ["gil"] = 600,
         ["xp"] = 200,
         ["item"] = 4259, -- Clear Drop
+        ["guild"] = {WEAV, 80},
     };
 
     if (firstTime == true) then
         reward = {
             ["gil"] = 1500,
-            ["xp"] = 800,
+            ["xp"] = 1250,
             ["item"] = 4259, -- Clear Drop
+            ["guild"] = {WEAV, 300},
         };
     end
 

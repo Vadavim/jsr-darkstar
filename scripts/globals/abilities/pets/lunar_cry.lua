@@ -13,7 +13,7 @@ function onAbilityCheck(player, target, ability)
     return 0,0;
 end;
 
-function onPetAbility(target, pet, skill, owner)
+function onPetAbility(target, pet, skill, master)
     local chr, summoning, level, tp = master:getMod(MOD_CHR), master:getMod(MOD_SUMMONING), pet:getMainLvl(), skill:getTP() + pet:getMod(MOD_TP_BONUS);
     local moon = VanadielMoonPhase();
     local buffvalue = 0;
@@ -34,7 +34,7 @@ function onPetAbility(target, pet, skill, owner)
     end
 
     local duration = utils.clamp(80 + (chr + summoning) * 2, 80, 240);
-    local diff = owner:getMod(MOD_CHR) + owner:getMod(MOD_SUMMONING) / 2 + pet:getStat(MOD_INT) - target:getStat(MOD_INT);
+    local diff = master:getMod(MOD_CHR) + master:getMod(MOD_SUMMONING) / 2 + pet:getStat(MOD_INT) - target:getStat(MOD_INT);
 
     local resist = applyResistanceAbility(pet,target,ELE_DARK, 0, diff + tp / 25 );
 

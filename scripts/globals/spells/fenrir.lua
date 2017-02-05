@@ -17,10 +17,10 @@ end;
 
 function onSpellCast(caster,target,spell)
 	caster:spawnPet(PET_FENRIR);
-    summonCost(caster);
     local enspellPower = 1 + caster:getMainLvl() / 2;
     local pet = caster:getPet();
     if (pet ~= nil) then
+        summonCost(caster, pet);
         pet:addStatusEffect(EFFECT_FENRIR_S_FAVOR, 1, 15, 3000);
         pet:addStatusEffect(EFFECT_ENDARK,enspellPower,0,3000);
     end

@@ -139,9 +139,9 @@ local function allNewReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 1200,
-        ["xp"] = 750,
+        ["xp"] = 1000,
         ["item"] = 4961,
-        ["guild"] = {ALCH, 100},
+        ["guild"] = {LEAT, 300},
     };
     jsrReward(player, reward);
 end
@@ -150,9 +150,9 @@ local function planBReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 2500,
-        ["xp"] = 1000,
+        ["xp"] = 3000,
         ["item"] = 4792, -- Scroll of Aeroga
-        ["guild"] = {WEAV, 250},
+        ["guild"] = {WEAV, 400},
     };
     jsrReward(player, reward);
 end
@@ -168,8 +168,8 @@ local function allNew3000Reward(player, firstTime)
     if (firstTime == true) then
         reward = {
             ["gil"] = 3000,
-            ["xp"] = 1500,
-            ["guild"] = {BONE, 300},
+            ["xp"] = 3000,
+            ["guild"] = {BONE, 500},
         };
     end
     jsrReward(player, reward);

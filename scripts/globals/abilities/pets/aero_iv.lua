@@ -16,6 +16,7 @@ function onAbilityCheck(player, target, ability)
 end;
 
 function onPetAbility(target, pet, skill, summoner)
-    return avatarMagicalMove(target, pet, skill, ELE_WIND, 400, 3.0, 0.20);
+    local damage = summoningDamageBonus(summoner, 50, 1.2, 420);
+    return avatarMagicalMove(target, pet, skill, ELE_WIND, damage, 3, damage / 2000);
 end
 

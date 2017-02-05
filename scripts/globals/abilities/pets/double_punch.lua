@@ -10,21 +10,20 @@ require("scripts/globals/summon");
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
-    ability:setRecast(40);
+    ability:setRecast(35);
     return 0,0;
 end;
 
-function onPetAbility(target, pet, skill)
-	local numhits = 2;
-	local accmod = 1;
-	local dmgmod = 6;
-	local dmgmodsubsequent = 2;
-    skill:setSkillchain(84); -- Keen Edge = Compression
-    pet:addTP(400 + skill:getTP()); -- Add TP for using physical skill
+function onPetAbility(target, pet, skill, master)
+    local numhits = 2; local accmod = 1.25; local strRatio = 1.5;
+    local dmgmod = summoningDamageBonus(master, 45, 0.7, 140);
+    local dmgmodsubsequent = summoningDamageBonus(master, 22, 0.5, 75);
 
-    local totaldamage = 0;
-    local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,dmgmodsubsequent,TP_NO_EFFECT,1,2,3);
-    totaldamage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_BLUNT,numhits);
+    skill:setSkillchain(84); -- Keen Edge = Compression
+    pet:addTP(450 + skill:getTP()); -- Add TP for using physical skill
+
+    local damage = AvatarPhysicalMove(pet,target,skill,numhits,accmod,dmgmod,dmgmodsubsequent,strRatio);
+    local totaldamage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_PHYSICAL,MOBPARAM_BLUNT,numhits);
     target:delHP(totaldamage);
     target:updateEnmityFromDamage(pet,totaldamage);
 

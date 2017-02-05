@@ -86,12 +86,12 @@ local function questReward(player, firstTime)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 900,
-        ["xp"] = 300,
+        ["xp"] = 1250,
     };
     if (firstTime == true) then
         reward = {
             ["gil"] = 2500,
-            ["xp"] = 1200,
+            ["xp"] = 4000,
         };
     end
     jsrReward(player, reward);

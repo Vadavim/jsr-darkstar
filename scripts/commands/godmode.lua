@@ -27,6 +27,7 @@ function onTrigger(player)
         player:addStatusEffect(EFFECT_REGAIN,150,1,0);
         player:addStatusEffect(EFFECT_REFRESH,99,0,0);
         player:addStatusEffect(EFFECT_REGEN,99,0,0);
+        player:addStatusEffect(EFFECT_DEFENSE_BOOST,200,0,0);
 
         -- Add bonus mods to the player..
 --        player:addMod(MOD_RACC,2500);
@@ -59,6 +60,7 @@ function onTrigger(player)
         player:delStatusEffect(EFFECT_REGAIN);
         player:delStatusEffect(EFFECT_REFRESH);
         player:delStatusEffect(EFFECT_REGEN);
+        player:delStatusEffect(EFFECT_DEFENSE_BOOST,200,0,0);
 
         -- Remove bonus mods..
 --        player:delMod(MOD_RACC,2500);

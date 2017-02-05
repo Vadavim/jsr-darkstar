@@ -66,7 +66,7 @@ end;
 function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 800,
+        ["xp"] = 2000,
         ["gil"] = 2000,
         ["beast"] = 5,
     };

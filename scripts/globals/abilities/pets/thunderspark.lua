@@ -22,7 +22,7 @@ function onPetAbility(target, pet, skill, master)
     local duration = utils.clamp(30 + chr + summoning, 30, 90);
     duration = duration + tp / 100;
 
-    local success = MobStatusEffectMove(pet, target, EFFECT_PARALYSIS, 35, 0, duration);
+    local success = MobStatusEffectMove(pet, target, EFFECT_PARALYSIS, 25, 0, duration);
     if (success == 242) then
         target:setPendingMessage(277, EFFECT_PARALYSIS);
     end

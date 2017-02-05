@@ -76,7 +76,7 @@ function traderReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 500,
-        ["xp"] = 400,
+        ["xp"] = 1000,
         ["guild"] = {COOK, 250},
         ["beast"] = 1,
         ["augment"] = {12615, 9, 7}, -- Robe +1: MP +8
@@ -88,7 +88,7 @@ function medicineReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 4500,
-        ["xp"] = 1000,
+        ["xp"] = 4000,
         ["guild"] = {ALCH, 500},
         ["item"] = 4616,
     };

@@ -78,8 +78,8 @@ local function questReward(player)
         {14083, 177, 3, 1, 4, 33, 4}, -- Scorpion Leggings +1: Resist Poison +4, Defense +5, HP +5
     };
     local reward = {
-        ["gil"] = 4000,
-        ["xp"] = 2000,
+        ["gil"] = 2000,
+        ["xp"] = 4000,
         ["augment"] = hqScorpion[math.random(1,5)],
         ["guild"] = {BONE, 300},
     };

@@ -16,12 +16,12 @@ end;
 
 function onSpellCast(caster,target,spell)
     caster:spawnPet(PET_SHIVA);
-    summonCost(caster);
 
     local enspellPower = 1 + caster:getMainLvl() / 2;
 
     local pet = caster:getPet();
     if (pet ~= nil) then
+        summonCost(caster, pet);
         pet:addStatusEffect(EFFECT_SHIVA_S_FAVOR, 1, 15, 30000);
         pet:addStatusEffect(EFFECT_ENBLIZZARD,enspellPower,0,30000);
     end

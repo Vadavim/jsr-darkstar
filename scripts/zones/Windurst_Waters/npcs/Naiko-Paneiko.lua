@@ -92,7 +92,7 @@ end;
 local function headlinesReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 1500,
+        ["xp"] = 6000,
         ["gil"] = 2500,
         ["item"] = 4977, -- Scroll of Foe Requiem II
     };

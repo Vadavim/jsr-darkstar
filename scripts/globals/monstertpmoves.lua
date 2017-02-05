@@ -347,6 +347,11 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
 
     --get dstr (bias to monsters, so no fSTR)
     local dstr = mob:getStat(MOD_STR) - target:getStat(MOD_VIT);
+    local strMult = 1
+    if (master == nil) then
+        strMult = strMult + mob:getMainLvl() / 25;
+    end
+
     if (master ~= nil) then dstr = dstr + master:getMod(MOD_CHR)  end;
     if (dstr < -40) then
         dstr = -40;
@@ -425,7 +430,6 @@ function MobPhysicalMove(mob,target,skill,numberofhits,accmod,dmgmod,tpeffect,mt
             ratio = ratio + lvldiff * 0.05;
         end
     end
-    printf("Ratio is: %f", ratio);
     ratio = utils.clamp(ratio, 0, 4);
     
     --work out hit rate for mobs (bias towards them)
@@ -669,7 +673,6 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue,
     if (not mob:isPet() and mob:isMob()) then
         local damBonus = (mob:getStat(MOD_INT) - target:getStat(MOD_INT)) / 100;
         damage = damage * 1.25 * (1 + damBonus);
-
     end
 
 
@@ -705,7 +708,7 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue,
         mab = 0.3;
     end
 
-    local dInt = (mob:getStat(MOD_INT) - target:getStat(MOD_INT)) * 1.5;
+    local dInt = (mob:getStat(MOD_INT) - target:getStat(MOD_INT));
     if (master ~= nil) then
         mab = mab + master:getMod(MOD_CHR) / 400.0
         dInt = dInt + master:getMod(MOD_CHR);
@@ -723,9 +726,9 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue,
         damage = damage * MobTPMod(skill:getTP() + mob:getMod(MOD_TP_BONUS));
     end
 
-    -- printf("power: %f, bonus: %f", damage, mab);
     -- resistence is added last
-    local finaldmg = damage * mab * dmgmod * damMult;
+    local finaldmg = (damage + dInt) * mab * dmgmod * damMult;
+     printf("power: %f, bonus: %f", damage, mab);
 
     local lvldiff = mob:getMainLvl() - target:getMainLvl();
     if lvldiff < 0 then
@@ -755,9 +758,9 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue,
 
     resist = applyPlayerResistance(mob,nil,target,dInt,accBonus,element);
 
-    local magicDefense = getElementalDamageReduction(target, element);
+--    local magicDefense = getElementalDamageReduction(target, element);
 
-    finaldmg = finaldmg * resist * magicDefense;
+    finaldmg = finaldmg * resist
     finaldmg = mobAddBonuses(mob, skill, target, finaldmg, element);
 
     returninfo.dmg = finaldmg;
@@ -773,9 +776,6 @@ end
 function applyPlayerResistance(mob,effect,target,diff,bonus,element)
     local percentBonus = 0;
     local magicaccbonus = 0;
-
-
-
 
     if (diff > 10) then
         magicaccbonus = magicaccbonus + 10 + (diff - 10)/2;
@@ -799,7 +799,7 @@ function applyPlayerResistance(mob,effect,target,diff,bonus,element)
 
     if (mob:isPet() and mob:getMaster() ~= nil) then
         local master = mob:getMaster();
-        magicaccbonus = magicaccbonus + master:getMod(MOD_CHR);
+        magicaccbonus = magicaccbonus + master:getMod(MOD_CHR) / 2;
         if (master:getMainJob() == JOBS.SMN) then
             magicaccbonus = magicaccbonus + master:getMod(MOD_SUMMONING) / 2;
         end
@@ -1440,7 +1440,7 @@ function avatarMagicalMove(target, pet, skill, element, baseDamage, intMult, tpM
     local tp = skill:getTP()
     local damage = baseDamage + (tpMult * (tp + pet:getMod(MOD_TP_BONUS))) + (dINT * intMult) ;
 
-    damage = MobMagicalMove(pet,target,skill,damage,element,1,TP_NO_EFFECT,tp / 50 + dINT);
+    damage = MobMagicalMove(pet,target,skill,damage,element,1,TP_NO_EFFECT,0);
     damage = AvatarFinalAdjustments(damage.dmg,pet,skill,target,MOBSKILL_MAGICAL,MOBPARAM_NONE,1);
 
     target:delHP(damage);
@@ -1459,7 +1459,8 @@ function doAstralFlow(target, pet, skill, master, element)
         [16] = EFFECT_DIABOLOS_S_FAVOR, [20] = EFFECT_CAIT_SITH_S_FAVOR};
 
     local level = pet:getMainLvl();
-    local damage = 20 + (level * 10);
+    local summoning = master:getSkillLevel(SKILL_SUM) + master:getMod(MOD_SUMMONING)
+    local damage = 20 + (summoning * 2.5);
     damage = damage + (dINT * (1 + level * 0.05));
     damage = damage * (1 + skill:getTP() / 2000);
     damage = damage * (0.5 + (pet:getHPP() / 200 ));

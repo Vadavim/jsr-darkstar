@@ -143,7 +143,7 @@ local function cryReward(player, firstTime)
     if (firstTime == true) then
         reward = {
             ["gil"] = 9000,
-            ["xp"] = 3000,
+            ["xp"] = 5000,
             ["guild"] = {ALCH, 600},
         };
     end

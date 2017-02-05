@@ -70,7 +70,7 @@ end;
 function healingLandReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 2500,
+        ["xp"] = 10000,
         ["gil"] = 5000,
         ["item"] = 3975
     };
@@ -80,7 +80,7 @@ end
 function sorceryNorthReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 3500,
+        ["xp"] = 12500,
         ["gil"] = 9000,
         ["item"] = 3975
     };

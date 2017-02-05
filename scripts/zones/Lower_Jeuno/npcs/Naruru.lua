@@ -73,10 +73,10 @@ local function prideReward(player)
     require("scripts/globals/jsr_utils");
     require("scripts/globals/jsr_augment");
     local reward = {
-        ["xp"] = 2000,
+        ["xp"] = 4000,
         ["gil"] = 5000,
         ["augment"] = {13519, 1, 9, 768, 9, AUGMENT_DEF, 2},
-        ["guild"] = {GOLD, 300},
+        ["guild"] = {GOLD, 400},
     };
     jsrReward(player, reward);
 end

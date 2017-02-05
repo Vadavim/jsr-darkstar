@@ -826,6 +826,10 @@ namespace petutils
             }
 
             jobStat = jobStat * 1.5; //stats from subjob (assuming BLM/BLM for avatars)
+            if (StatIndex == 2 || StatIndex == 4) {
+                jobStat = jobStat * 1.5;
+                raceStat = raceStat * 1.5;
+            }
 
             // Вывод значения
             WBUFW(&PPet->stats, counter) = (uint16)(raceStat + jobStat);
@@ -1522,7 +1526,7 @@ namespace petutils
 
             PPet->m_SpellListContainer = mobSpellList::GetMobSpellList(PPetData->spellList);
             // catch all non-defaulted spell chances
-            PPet->defaultMobMod(MOBMOD_MAGIC_COOL, 2);
+            PPet->defaultMobMod(MOBMOD_MAGIC_COOL, 18);
             PPet->defaultMobMod(MOBMOD_GA_CHANCE, 35);
             PPet->defaultMobMod(MOBMOD_NA_CHANCE, 40);
             PPet->defaultMobMod(MOBMOD_BUFF_CHANCE, 35);
@@ -1537,34 +1541,34 @@ namespace petutils
             PPet->m_SpellListContainer = mobSpellList::GetMobSpellList(PPetData->spellList);
 
             PPet->setModifier(MOD_DMGPHYS, -50); //-50% PDT
-            if (PPet->GetMLevel() >= 70){
-                PPet->setModifier(MOD_MATT, 32);
-            }
-            else if (PPet->GetMLevel() >= 50){
-                PPet->setModifier(MOD_MATT, 28);
-            }
-            else if (PPet->GetMLevel() >= 30){
-                PPet->setModifier(MOD_MATT, 24);
-            }
-            else if (PPet->GetMLevel() >= 10){
-                PPet->setModifier(MOD_MATT, 20);
-            }
+//            if (PPet->GetMLevel() >= 70){
+//                PPet->setModifier(MOD_MATT, 32);
+//            }
+//            else if (PPet->GetMLevel() >= 50){
+//                PPet->setModifier(MOD_MATT, 28);
+//            }
+//            else if (PPet->GetMLevel() >= 30){
+//                PPet->setModifier(MOD_MATT, 24);
+//            }
+//            else if (PPet->GetMLevel() >= 10){
+//                PPet->setModifier(MOD_MATT, 20);
+//            }
             PPet->m_Weapons[SLOT_MAIN]->setDelay(floor(1000.0f*(320.0f / 60.0f)));
             if (PetID == PETID_FENRIR){
                 PPet->m_Weapons[SLOT_MAIN]->setDelay(floor(1000.0*(280.0f / 60.0f)));
             }
-            PPet->m_Weapons[SLOT_MAIN]->setDamage(floor(PPet->GetMLevel()*0.74f));
+            PPet->m_Weapons[SLOT_MAIN]->setDamage(floor(PPet->GetMLevel()*0.5f));
             if (PetID == PETID_CARBUNCLE){
-                PPet->m_Weapons[SLOT_MAIN]->setDamage(floor(PPet->GetMLevel()*0.67f));
+                PPet->m_Weapons[SLOT_MAIN]->setDamage(floor(PPet->GetMLevel()*0.5f));
             }
 
             //Set B+ weapon skill (assumed capped for level derp)
             //attack is madly high for avatars (roughly x2)
-            PPet->setModifier(MOD_ATT, 2 * battleutils::GetMaxSkill(SKILL_CLB, JOB_WHM, PPet->GetMLevel()));
-            PPet->setModifier(MOD_ACC, battleutils::GetMaxSkill(SKILL_CLB, JOB_WHM, PPet->GetMLevel()));
+            PPet->setModifier(MOD_ATT, (int)(1.3 * (float)battleutils::GetMaxSkill(SKILL_CLB, JOB_WHM, PPet->GetMLevel())));
+            PPet->setModifier(MOD_ACC, (int)(1.15 * battleutils::GetMaxSkill(SKILL_GAX, JOB_WAR, PPet->GetMLevel())));
             //Set E evasion and def
-            PPet->setModifier(MOD_EVA, battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PPet->GetMLevel()));
-            PPet->setModifier(MOD_DEF, battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PPet->GetMLevel()));
+            PPet->setModifier(MOD_EVA, (int)(1.15 * (float)battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PPet->GetMLevel())));
+            PPet->setModifier(MOD_DEF, (int)(1.3 * battleutils::GetMaxSkill(SKILL_THR, JOB_WHM, PPet->GetMLevel())));
             // cap all magic skills so they play nice with spell scripts
             for (int i = SKILL_DIV; i <= SKILL_BLU; i++) {
                 uint16 maxSkill = battleutils::GetMaxSkill((SKILLTYPE)i, PPet->GetMJob(), PPet->GetMLevel());

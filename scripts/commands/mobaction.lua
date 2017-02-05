@@ -10,6 +10,6 @@ cmdprops =
 };
 
 function onTrigger(player, actionMessage, actionAnimation )
-    player:injectActionPacket(11, actionAnimation, 0, 0, 185);
+    player:injectActionPacket(13, actionAnimation, 0, 0, 185);
     player:messageBasic(43, 0, actionMessage);
 end

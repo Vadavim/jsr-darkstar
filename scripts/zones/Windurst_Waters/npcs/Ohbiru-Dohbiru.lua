@@ -148,17 +148,17 @@ end;
 local function waterReward(player, firstTime)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 500,
+        ["xp"] = 800,
         ["gil"] = 1000,
         ["guild"] = {ALCH, 100},
     };
     if (firstTime == true) then
         local reward = {
-            ["xp"] = 1500,
+            ["xp"] = 4000,
             ["item"] = 4778,
             ["item2"] = 4807,
             ["gil"] = 3500,
-            ["guild"] = {ALCH, 300},
+            ["guild"] = {ALCH, 450},
         };
     end
 
@@ -173,7 +173,7 @@ local function turmoilReward(player, firstTime)
     };
     if (firstTime == true) then
         local reward = {
-            ["xp"] = 3000,
+            ["xp"] = 8000,
             ["gil"] = 9000,
         };
     end

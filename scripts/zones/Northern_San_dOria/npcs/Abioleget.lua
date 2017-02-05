@@ -64,10 +64,10 @@ end;
 function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 350,
+        ["xp"] = 1250,
         ["gil"] = 450,
         ["beast"] = 5,
-        ["augment"] = {13493, 1, 7, 768, 14}, -- Brass Ring +1: +8 HP, +15 Fire Resistance
+        ["augment"] = {13493, 1, 14, 768, 14}, -- Brass Ring +1: +8 HP, +15 Fire Resistance
     };
     jsrReward(player, reward);
 end

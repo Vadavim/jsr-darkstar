@@ -10,7 +10,7 @@ require("scripts/globals/utils");
 ---------------------------------------------------
 
 function onAbilityCheck(player, target, ability)
-    ability:setRecast(45);
+    ability:setRecast(30);
     return 0,0;
 end;
 

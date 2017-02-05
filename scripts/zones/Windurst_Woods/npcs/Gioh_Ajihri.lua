@@ -72,16 +72,16 @@ end;
 local function questReward(player, firstTime)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["gil"] = 1250,
+        ["gil"] = 800,
         ["xp"] = 400,
-        ["guild"] = {GOLD, 100},
+        ["guild"] = {GOLD, 125},
     };
     if (firstTime == true) then
         reward = {
             ["gil"] = 3500,
-            ["xp"] = 1500,
+            ["xp"] = 3000,
             ["augment"] = {17154, 29, 3, 777, 14, 770, 14}, -- Wrapped Bow: +4 RATK, -15 Ice Res, +15 Wind Res
-            ["guild"] = {GOLD, 300},
+            ["guild"] = {GOLD, 500},
         };
     end
 

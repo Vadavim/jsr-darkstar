@@ -86,7 +86,7 @@ end;
 function gardenReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 2500,
+        ["xp"] = 4000,
         ["gil"] = 5500,
         ["item"] = 3975,
         ["guild"] = {WOOD, 500},

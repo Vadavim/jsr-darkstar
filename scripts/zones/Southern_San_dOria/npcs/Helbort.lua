@@ -54,9 +54,9 @@ end;
 function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 950,
-        ["gil"] = 100,
-        ["beast"] = 3,
+        ["xp"] = 2500,
+        ["gil"] = 2000,
+        ["beast"] = 5,
         ["augment"] = {17090, 512, 4, 25, 4}, -- Elm Staff (+2 STR and Attack)
     };
     jsrReward(player, reward);

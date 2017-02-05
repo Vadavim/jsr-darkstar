@@ -65,7 +65,7 @@ function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 20000,
-        ["xp"] = 5000,
+        ["xp"] = 10000,
         ["guild"] = {ALCH, 500},
         ["scyld"] = 150
     };

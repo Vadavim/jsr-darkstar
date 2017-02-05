@@ -81,12 +81,14 @@ local function wardingVampiresReward(player, firstTime)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 1200,
+        ["xp"] = 400,
         ["guild"] = {COOK, 50},
         ["item"] = 4258 -- Red Drop
     };
     if (firstTime == true) then
         reward = {
             ["gil"] = 2500,
+            ["xp"] = 3500,
             ["guild"] = {COOK, 250},
             ["item"] = 4258 -- Red Drop
         };

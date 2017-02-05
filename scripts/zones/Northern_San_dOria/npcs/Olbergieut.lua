@@ -58,7 +58,7 @@ function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 800,
-        ["xp"] = 450,
+        ["xp"] = 2000,
         ["item"] = 4637,
         ["augment"] = {13601, 180, 14, 775, 14}, -- Cotton Cape +1: Resist Silence +15, Dark Res +15
     };

@@ -25,9 +25,9 @@ end;
 function questReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 1200,
-        ["gil"] = 5000,
-        ["guild"] = {ALCH, 250},
+        ["xp"] = 8000,
+        ["gil"] = 6500,
+        ["guild"] = {ALCH, 500},
         ["item"] = 4627, -- Scroll of Viruna
     };
     jsrReward(player, reward);

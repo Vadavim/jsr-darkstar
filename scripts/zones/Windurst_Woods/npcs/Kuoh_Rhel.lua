@@ -87,8 +87,8 @@ local function chocoReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 2500,
-        ["xp"] = 800,
-        ["guild"] = {COOK, 300},
+        ["xp"] = 2000,
+        ["guild"] = {COOK, 400},
     };
     jsrReward(player, reward);
 end
@@ -97,14 +97,14 @@ local function stewReward(player, firstTime)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 1000,
-        ["xp"] = 350,
+        ["xp"] = 650,
         ["guild"] = {COOK, 125},
     };
     if (firstTime == true) then
         reward = {
             ["gil"] = 3000,
-            ["xp"] = 1250,
-            ["guild"] = {COOK, 450},
+            ["xp"] = 4500,
+            ["guild"] = {COOK, 500},
         };
     end
 

@@ -28,8 +28,8 @@ function onPetAbility(target, pet, skill, master)
 	target:delStatusEffect(firstEffect);
     target:delStatusEffect(secondEffect);
 
-    local power = 12 + tp / 200;
-    local duration = 300 + chr * 3 + summoning * 6;
+    local power = 10 + tp / 200;
+    local duration = 300 + chr * 3 + summoning * 6 + tp / 5;
     if (duration > 600) then duration = 600 end;
 
 	target:addStatusEffect(firstEffect,power,0,duration);

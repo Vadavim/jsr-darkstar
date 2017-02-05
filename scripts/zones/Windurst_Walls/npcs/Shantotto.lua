@@ -131,7 +131,7 @@ function cursesReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 800,
-        ["xp"] = 500,
+        ["xp"] = 1000,
         ["item"] = 4768, -- Stone II
         ["guild"] = {BONE, 250},
         ["augment"] = {17081, 25, 5}, -- Brass Rod: Attack +6
@@ -141,12 +141,13 @@ end
 
 function cursesReward2(player)
     require("scripts/globals/jsr_utils");
+    require("scripts/globals/jsr_augment");
     local reward = {
         ["gil"] = 1500,
-        ["xp"] = 800,
+        ["xp"] = 2500,
         ["guild"] = {ALCH, 250},
         ["item"] = 4753, -- Fire II
-        ["augment"] = {17116, 25, 5}, -- Misery Staff: Attack +10
+        ["augment"] = {17116, AUGMENT_ATK, 9, AUGMENT_DEF, 4, AUGMENT_DARKRES, 24, AUGMENT_HP, 14}, -- Misery Staff: Attack +10
     };
     jsrReward(player, reward);
 end
@@ -155,7 +156,7 @@ function golemReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 5500,
-        ["xp"] = 2500,
+        ["xp"] = 8000,
         ["guild"] = {ALCH, 600},
         ["item"] = 4870, -- Warp II
         ["item2"] = 3975, -- Airlixir +1

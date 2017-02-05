@@ -77,7 +77,7 @@ local function glyphReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
         ["gil"] = 1000,
-        ["xp"] = 500,
+        ["xp"] = 1000,
         ["beast"] = 5,
     };
     jsrReward(player, reward);

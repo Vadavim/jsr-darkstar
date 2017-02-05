@@ -161,9 +161,9 @@ end;
 local function overnightReward(player)
     require("scripts/globals/jsr_utils");
     local reward = {
-        ["xp"] = 2000,
-        ["gil"] = 3000,
-        ["augment"] = {12590, 1, 9, 551, 2},
+        ["xp"] = 4000,
+        ["gil"] = 2000,
+        ["augment"] = {12590, 1, 9, 551, 1},
     };
     jsrReward(player, reward);
 end

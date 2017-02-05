@@ -96,9 +96,9 @@ function questReward(player)
     require("scripts/globals/jsr_utils");
     require("scripts/globals/jsr_augment");
     local reward = {
-        ["xp"] = 400,
+        ["xp"] = 1250,
         ["gil"] = 800,
-        ["guild"] = {WOOD, 100},
+        ["guild"] = {WOOD, 300},
         ["augment"] = {0x3001, AUGMENT_HPMP, 4, AUGMENT_DEF, 0}
     };
     jsrReward(player, reward);

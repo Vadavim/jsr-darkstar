@@ -16,6 +16,6 @@ end;
 
 function onPetAbility(target, pet, skill, master)
     local merits = master:getMerit(MERIT_GEOCRUSH);
-    return avatarMagicalMove(target, pet, skill, ELE_EARTH, 600 + merits * 5, 4.0, 0.30);
+    return avatarMagicalMove(target, pet, skill, ELE_EARTH, 600 + merits * 5, 4.0, 0.3);
 end
 
