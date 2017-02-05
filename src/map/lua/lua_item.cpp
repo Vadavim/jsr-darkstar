@@ -27,6 +27,7 @@ This file is part of DarkStar-server source code.
 #include "../items/item_armor.h"
 #include "../items/item_weapon.h"
 #include "../items/item_general.h"
+#include "../../common/showmsg.h"
 
 
 CLuaItem::CLuaItem(lua_State* L)
@@ -151,9 +152,14 @@ inline int32 CLuaItem::isSubType(lua_State* L)
 
 inline int32 CLuaItem::getName(lua_State* L)
 {
-    DSP_DEBUG_BREAK_IF(m_PLuaItem == nullptr);
+    if (m_PLuaItem == nullptr) {
+        lua_pushnil(L);
+        ShowDebug(CL_RED"ERROR!");
+    }
+    else
+        lua_pushstring(L, m_PLuaItem->getName());
+//    DSP_DEBUG_BREAK_IF(m_PLuaItem == nullptr);
 
-    lua_pushstring(L, m_PLuaItem->getName());
     return 1;
 }
 
