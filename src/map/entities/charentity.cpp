@@ -1260,6 +1260,8 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
                 }
 
                 damage = (this->GetRangedWeaponDmg() + battleutils::GetFSTR(this, PTarget, slot)) * pdif;
+                if (i == 1 && hasSneak)
+                    damage += (this->DEX() * 1.5) * pdif;
 
                 if (slot == SLOT_RANGED)
                 {

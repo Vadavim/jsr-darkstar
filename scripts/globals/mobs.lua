@@ -9,6 +9,7 @@ require("scripts/globals/quests");
 require("scripts/globals/status");
 require("scripts/globals/jsr_utils");
 require("scripts/globals/jsr_hotspots");
+require("scripts/globals/jsr_bounty");
 
 -----------------------------------
 -- onMobDeathEx
@@ -1847,6 +1848,7 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
     local level = player:getMainLvl();
     local diff = mob:getMainLvl() - level;
     local isHot = isHotspot(player:getZoneID());
+    addIfBountyMob(player, mob);
 
 
 

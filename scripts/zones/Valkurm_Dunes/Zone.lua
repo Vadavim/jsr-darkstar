@@ -14,6 +14,7 @@ require("scripts/globals/status");
 require("scripts/globals/weather");
 require("scripts/globals/conquest");
 require("scripts/globals/jsr_hotspots");
+require("scripts/globals/jsr_bounty");
 require("scripts/globals/chocobo_digging");
 
 -----------------------------------
@@ -161,5 +162,6 @@ end;
 
 function onGameHour()
     doHotspotUpdate();
+    doBountyUpdate();
 end
 

@@ -24,6 +24,14 @@ function doesNotHaveItem(player, itemid)
     return true;
 end
 
+function splitBitValue(value)
+    return {bit.rshift(value, 16), bit.band(value, 0xFFFF)};
+end
+
+function mergeBitValue(value1, value2)
+    return bit.lshift(value1, 16) + value2;
+end
+
 
 local function addRewards(mob, player, curRewards, rewardsTable)
     local zoneid = mob:getZoneID();

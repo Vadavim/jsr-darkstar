@@ -571,15 +571,15 @@ namespace battleutils
         {
             damage = PAttacker->getMod(MOD_ENSPELL_DMG);
 
-            if (damage > 1)
-                PAttacker->delModifier(MOD_ENSPELL_DMG, 1);
-            else
-            {
-                if (element == 7)
-                    PAttacker->StatusEffectContainer->DelStatusEffect(EFFECT_ENDARK);
-                else
-                    PAttacker->StatusEffectContainer->DelStatusEffect(EFFECT_ENLIGHT);
-            }
+//            if (damage > 999999)
+//                PAttacker->delModifier(MOD_ENSPELL_DMG, 1);
+//            else
+//            {
+//                if (element == 7)
+//                    PAttacker->StatusEffectContainer->DelStatusEffect(EFFECT_ENDARK);
+//                else
+//                    PAttacker->StatusEffectContainer->DelStatusEffect(EFFECT_ENLIGHT);
+//            }
 
             damage += PAttacker->getMod(MOD_ENSPELL_DMG_BONUS);
         }

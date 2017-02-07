@@ -1,4 +1,5 @@
 require("scripts/globals/status");
+require("scripts/globals/common");
 
 local zoneMap = {
     [ZONE_ALTAIEU] = "Al'Taieu",

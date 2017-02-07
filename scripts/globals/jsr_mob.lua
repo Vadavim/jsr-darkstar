@@ -42,7 +42,6 @@ local effectElements = {
     [EFFECT_DIA] = ELE_LIGHT, [EFFECT_LULLABY] = ELE_LIGHT,
 };
 
-
 function mobAddElement(mob, target, damage, element, params)
 
     if (params.chance ~= nil and math.random(0, 100) > params.chance) then

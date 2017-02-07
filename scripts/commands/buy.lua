@@ -1903,22 +1903,22 @@ end
 
 local function rings(player, points)
     local stock = {
-        13443,  2000,   --Opal Ring
-        13444,  2000,   --Sardonyx Ring
-        13468,  2000,   --Tourmaline Ring
-        13470,  2000,   --Clear Ring
-        13471,  2000,   --Amethyst Ring
-        13472,  2000,   --Lapis Ring
-        13473,  2000,   --Amber Ring
-        13474,  2000,   --Onyx Ring
+        13443,  1000,   --Opal Ring
+        13444,  1000,   --Sardonyx Ring
+        13468,  1000,   --Tourmaline Ring
+        13470,  1000,   --Clear Ring
+        13471,  1000,   --Amethyst Ring
+        13472,  1000,   --Lapis Ring
+        13473,  1000,   --Amber Ring
+        13474,  1000,   --Onyx Ring
         13554,  1000,   --Aegis Ring
-        14606,  3500,   --Aura Ring+1
-        13501,  3500,   --Beetle Ring +1 >Marksman's Ring
-        13550,  6000,    --Crossbow Ring
-        13514,  7000,    --Archer's Ring
-        13503,  10000,   --Carapace Ring +1
-        14676,  15000,   --Assailant's Ring
-        13516,  4500,   --Phalanx Ring
+        14606,  1500,   --Aura Ring+1
+        13501,  2000,   --Beetle Ring +1 >Marksman's Ring
+        13550,  4000,    --Crossbow Ring
+        13514,  9000,    --Archer's Ring
+        13503,  4000,   --Carapace Ring +1
+        14676,  7000,   --Assailant's Ring
+        13516,  3000,   --Phalanx Ring
     };
     return stock;
 end
@@ -1934,24 +1934,24 @@ local function rings2(player, points)
         13481,  4000,   --
         13482,  4000,   --
         13483,  4000,   --
-        13545,  15000,   -- Demon's Ring + 1
-        15789,  18000,   -- Marid Ring + 1
-        15855,  18000,   -- Krousis Ring + 1
-        15722,  24000,   -- Scintilant Ring + 1
+        13545,  4000,   -- Demon's Ring + 1
+        15789,  8000,   -- Marid Ring + 1
+        15855,  12000,   -- Krousis Ring + 1
+        15772,  8000,   -- Scintilant Ring + 1
     };
     return stock;
 end
 
 local function rings3(player, points)
     local stock = {
-        13448,  8000,   --Emerald Ring
-        13449,  8000,   --Emerald Ring
-        13450,  8000,   --Emerald Ring
-        13451,  8000,   --Emerald Ring
-        13452,  8000,   --Emerald Ring
-        13453,  8000,   --Emerald Ring
-        13454,  8000,   --Emerald Ring
-        13455,  8000,   --Emerald Ring
+        13448,  10000,   --Emerald Ring
+        13449,  10000,   --Emerald Ring
+        13450,  10000,   --Emerald Ring
+        13451,  10000,   --Emerald Ring
+        13452,  10000,   --Emerald Ring
+        13453,  10000,   --Emerald Ring
+        13454,  10000,   --Emerald Ring
+        13455,  10000,   --Emerald Ring
     };
     return stock;
 end
@@ -1998,14 +1998,14 @@ end
 
 local function rings3Ex(player, points)
     local stock = {
-        14617,  12000,{GOLD},     --Nimble Ring + 1
-        14618,  12000,{GOLD},     --Nimble Ring + 1
-        14619,  12000,{GOLD},     --Nimble Ring + 1
-        14620,  12000,{GOLD},     --Nimble Ring + 1
-        14621,  12000,{GOLD},     --Nimble Ring + 1
-        14622,  12000,{GOLD},     --Nimble Ring + 1
-        14623,  12000,{GOLD},     --Nimble Ring + 1
-        14624,  12000,{GOLD},     --Nimble Ring + 1
+        14617,  14000,{GOLD},     --Nimble Ring + 1
+        14618,  14000,{GOLD},     --Nimble Ring + 1
+        14619,  14000,{GOLD},     --Nimble Ring + 1
+        14620,  14000,{GOLD},     --Nimble Ring + 1
+        14621,  14000,{GOLD},     --Nimble Ring + 1
+        14622,  14000,{GOLD},     --Nimble Ring + 1
+        14623,  14000,{GOLD},     --Nimble Ring + 1
+        14624,  14000,{GOLD},     --Nimble Ring + 1
         15781,  38000,{GOLD},     --Cerberus Ring
     };
     return special_stock(stock, points);

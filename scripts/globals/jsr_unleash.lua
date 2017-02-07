@@ -6,6 +6,7 @@ local noviceRecipes = {
     {13164, AUGMENT_ACC, 0, AUGMENT_PET_ACC, 2, 0, 0, 0, 0}, -- Agile Gorget
     {13674, AUGMENT_HP, 4, AUGMENT_STAT_DEX, 3, 0, 0, 0, 0}, -- Agile Mantle
     {16296, AUGMENT_PET_STR, 2, AUGMENT_PET_VIT, 2, 0, 0, 0, 0}, -- Armiger's Lace
+    {13548, AUGMENT_HPNEG, 9, AUGMENT_MP, 9, AUGMENT_LIGHTRES, 7, AUGMENT_DARKRES, 7}, -- Astral Ring
     {17211, AUGMENT_RAPIDSHOT, 7, 0, 0, 0, 0, 0, 0}, -- Amogavar Bow
     {17708, AUGMENT_MP, 9, AUGMENT_STAT_INT_MND, 4, 0, 0, 0, 0}, -- Auriga Xiphos
     {16935, AUGMENT_STAT_VITNEG, 9, AUGMENT_STAT_STR, 9, 0, 0, 0, 0}, -- Barbarian's Sword
@@ -17,6 +18,7 @@ local noviceRecipes = {
     {13051, AUGMENT_HP, 4, AUGMENT_SPELLINTERRUPT, 7, 0, 0, 0, 0}, -- Coarse Leggings
     {13623, AUGMENT_HP, 9, AUGMENT_VIT, 3, AUGMENT_PET_VIT, 7, 0, 0}, -- Earth Mantle
     {17936, AUGMENT_STAT_CHR, 4, AUGMENT_PET_ACC, 2, AUGMENT_PET_ATK, 5, 0, 0}, -- De Saintre's Axe
+    {15835, AUGMENT_MP, 14, AUGMENT_DEF, 0, AUGMENT_FIRERES, 5, AUGMENT_DARKRES, 5}, -- Desperado Ring
     {19044, AUGMENT_STAT_DEX, 0, AUGMENT_PET_DEX, 3, 0, 0, 0, 0}, -- Disciple Grip
     {15183, AUGMENT_DEF, 5, AUGMENT_PET_AGI, 2, AUGMENT_PET_EVA, 4, 0, 0}, -- Dobson Bandana
     {13096, AUGMENT_DARKRES, 7, AUGMENT_PET_ATK, 4, 0, 0, 0, 0}, -- Dog Collar
@@ -59,6 +61,7 @@ local noviceRecipes = {
     {17692, AUGMENT_STORETP, 9, AUGMENT_WSKILL_ACC, 24, 0, 0, 0, 0}, -- Platoon Spatha
     {16959, AUGMENT_STORETP, 9, AUGMENT_WSKILL_ACC, 24, 0, 0, 0, 0}, -- Platoon Sword
     {18171, AUGMENT_RATK, 29, AUGMENT_SNAPSHOT, 9, 0, 0, 0, 0}, -- Platoon Disc
+    {18170, AUGMENT_RATK, 29, AUGMENT_SNAPSHOT, 9, 0, 0, 0, 0}, -- Platoon Cutter
     {13675, AUGMENT_STAT_STR_VIT, 5, AUGMENT_HP, 14, AUGMENT_PET_STR, 5, AUGMENT_PET_VIT, 5}, -- Rarguard Mantle
     {15468, AUGMENT_HP, 24, AUGMENT_FIRERES, 14, AUGMENT_PET_VIT, 5, AUGMENT_PET_ENMITY, 3}, -- Resentment Cape
     {13576, AUGMENT_SKILL_DARK, 2, AUGMENT_DARKRES, 9, 0, 0, 0, 0}, -- Night Cape

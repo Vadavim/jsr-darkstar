@@ -47,7 +47,7 @@ local function doStorage(player, storage, kind)
         return;
     end
 
-    local cost = ((size * size) / 2)  * mult + 500;
+    local cost = utils.clamp(((size * size) / 2)  * mult + 500, 100, 10000);
     if (kind == "check") then
         local message = "The cost to upgrade this storage is: " .. tostring(cost) .. " " .. type;
         player:SayToPlayer(message);
