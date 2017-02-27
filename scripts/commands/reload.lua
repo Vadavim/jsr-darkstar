@@ -24,6 +24,7 @@ function onTrigger(player, file)
     package.loaded["scripts/globals/weaponskills/armor_break"] = nil;
     package.loaded["scripts/commands/buy"] = nil;
     package.loaded["scripts/commands/test"] = nil;
+    package.loaded["scripts/commands/ally"] = nil;
     package.loaded["scripts/globals/jsr_bounty"] = nil;
     package.loaded["scripts/globals/monstertpmoves"] = nil;
     if (file ~= nil) then

@@ -44,10 +44,10 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability)
-    -- Only remove TP if the player doesn't have Trance, and only deduct once instead of for each target.
-    if (player:getID() == target:getID() and player:hasStatusEffect(EFFECT_TRANCE) == false) then
-        player:delTP(800);
-    end;
+--    -- Only remove TP if the player doesn't have Trance, and only deduct once instead of for each target.
+--    if (player:getID() == target:getID() and player:hasStatusEffect(EFFECT_TRANCE) == false) then
+--        player:delTP(800);
+--    end;
 
     -- Grabbing variables.
     local vit = target:getStat(MOD_VIT);
@@ -72,7 +72,10 @@ function onUseAbility(player,target,ability)
     if (player:hasStatusEffect(EFFECT_CONTRADANCE)) then
         cure = cure * 1.5;
         tpCost = tpCost / 2;
-        player:delStatusEffect(EFFECT_CONTRADANCE);
+        if (player:getID() == target:getID()) then
+            function removeContra(user) user:delStatusEffect(EFFECT_CONTRADANCE) end
+            player:queue(2000, removeContra);
+        end
     end
 
     if (not player:hasStatusEffect(EFFECT_TRANCE) and player:getID() == target:getID()) then

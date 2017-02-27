@@ -511,6 +511,9 @@ bool CAllyController::TrySpecialSkill() {
 
         if (lvl >= 35 && isReady(m_ability4, 120) && notHave(PAlly, EFFECT_WARCRY))
             return useJobAbility(PAlly, ABILITY_WARCRY, m_ability4);
+
+        if (lvl >= 55 && PAlly->GetLocalVar("rank") >= 11 && isReady(m_ability5, 300) && notHave(PAlly, EFFECT_BLOOD_RAGE))
+            return useJobAbility(PAlly, ABILITY_WARCRY, m_ability5);
     }
     else if (id == PETID_CURILLA) {
         if (lvl >= 10 && notHave(PAlly, EFFECT_DEFENDER))
@@ -559,7 +562,9 @@ bool CAllyController::TryTPMove() {
     else if (id == PETID_AYAME)
         weaponskills = {{149, 35}, {148, 30}, {147, 20}, {146, 15}, {144, 1}};
     else if (id == PETID_CURILLA)
-    weaponskills = { {37, 25}, {33, 1} };
+        weaponskills = { {37, 25}, {33, 1} };
+    else if (id == PETID_MORIMAR)
+        weaponskills = { {80, 1} };
 
     bool success =  tryWeaponskill(lvl, weaponskills, tpThreshold);
     return success;

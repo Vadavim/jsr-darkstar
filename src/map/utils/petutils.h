@@ -65,6 +65,8 @@ enum PETID
 	PETID_CHERUKIKI           = 77,
 	PETID_INGRID           = 78,
 	PETID_CURILLA           = 79,
+	PETID_MORIMAR           = 80,
+	PETID_AUGUST           = 81,
 	PETID_ADVENTURING_FELLOW = 230,
 	PETID_CHOCOBO            = 230
 };

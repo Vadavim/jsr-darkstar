@@ -46,6 +46,27 @@ function onUseAbility(player,target,ability)
 
     target:addStatusEffect(EFFECT_WARCRY,power,0,duration,0,tpBonus);
 
+    -- Volker's Warcry is enhanced
+    local level = player:getMainLvl();
+    if (player:getLocalVar("rank") >= 9 and player:getLocalVar("isAlly") == 73 and level >= 45) then
+        target:addTP(250);
+        if (player:getLocalVar("rank") >= 13 and level >= 65) then
+            local effect = target:getStatusEffect(EFFECT_WARCRY);
+            if (effect ~= nil) then
+                target:addMod(MOD_REGEN, level / 2);
+                effect:addMod(MOD_REGEN, level / 2);
+
+                if (player:getLocalVar("rank") >= 15 and level >= 75) then
+                    target:addMod(MOD_DOUBLE_ATTACK, 25);
+                    effect:addMod(MOD_DOUBLE_ATTACK, 25);
+                end
+
+            end
+
+        end
+    end
+
+
     if (player:hasStatusEffect(EFFECT_DEFENDER)) then
         local effect = target:getStatusEffect(EFFECT_WARCRY);
         if (effect ~= nil) then

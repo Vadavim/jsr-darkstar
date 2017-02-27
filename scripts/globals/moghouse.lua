@@ -5,6 +5,7 @@
 require("scripts/globals/status")
 require("scripts/globals/jsr_utils")
 require("scripts/globals/jsr_unleash")
+require("scripts/globals/jsr_augment")
 ------------------------------------
 -- Mog Locker constants
 ------------------------------------

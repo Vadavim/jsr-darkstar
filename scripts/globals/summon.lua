@@ -467,3 +467,19 @@ function summoningDamageBonus(summoner, base, multiplier, cap, offset)
     return utils.clamp(base + skill * multiplier, 0, cap)
 end
 
+function doAllyBuff(player, ally, rank)
+    if (rank > 0) then
+        local bonus = math.floor(rank / 2);
+        ally:addMod(MOD_DEF, bonus * 4);
+        ally:addMod(MOD_ATT, bonus * 4);
+        ally:addMod(MOD_EVA, bonus * 2);
+        ally:addMod(MOD_MEVA, bonus * 2);
+        ally:addMod(MOD_ACC, bonus * 2);
+        ally:addMod(MOD_MATT, bonus * 2);
+        ally:addMod(MOD_MACC, bonus * 2);
+        ally:addMod(MOD_HP, bonus * 10);
+        if (ally:getMaxMP() > 0) then
+            ally:addMod(MOD_MP, bonus * 5);
+        end
+    end
+end

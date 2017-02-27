@@ -752,7 +752,7 @@ function MobMagicalMove(mob,target,skill,damage,element,dmgmod,tpeffect,tpvalue,
         end
     end
 
-    if (mob:getLocalVar("isAlly") == 1) then
+    if (mob:getLocalVar("isAlly") >= 1) then
         accBonus = accBonus + 20;
     end
 

@@ -10,3 +10,8 @@ function doConserveTP(player, tp)
     end
     return tp;
 end
+
+function handleContradance(player)
+
+    return tp
+end

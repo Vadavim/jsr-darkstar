@@ -52,6 +52,7 @@ local zoneMap = {
     [ZONE_MON_CAVERN] = "Monastic Caverns",
     [ZONE_NEWTON] = "Newton Movalpolos",
     [ZONE_GUSTABERG_NORTH] = "North Gustaberg",
+    [ZONE_GUSTABERG_SOUTH] = "South Gustaberg",
     [ZONE_OLDTON] = "Oldton Movalpolos",
     [ZONE_ORDELLE] = "Ordelle's Cave",
     [ZONE_HORUTOTO_OUTER] = "Outer Horutoto Ruins",

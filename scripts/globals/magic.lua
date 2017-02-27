@@ -2435,9 +2435,11 @@ function weaponDrain(player, target, damage, chance, drainType, eleMin, eleMax)
 end
 
 function weaponStatus(player, target, chance, element, effect, power, duration, subPower)
+    print("HI");
     if (math.random(0,99) >= chance + player:getMod(MOD_CHR) * 1.5 or target:hasStatusEffect(effect)) then
         return 0,0,0;
     end
+    print("GOT");
 
     local effectRes = getEffectResistance(target, effect);
     local resist = applyResistanceItemEffect(player,target,element,-effectRes);
